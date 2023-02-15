@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "id": "frozenblock_template_mod",
+  "version": "${version}",
+
+  "name": "FrozenBlock Template Mod",
+  "description": "Template description",
+  "authors": [
+    "FrozenBlock"
+  ],
+  "contact": {
+    "homepage": "https://github.com/FrozenBlock/frozenblock-template-mod",
+    "sources": "https://github.com/FrozenBlock/frozenblock-template-mod",
+    "issues": "https://github.com/FrozenBlock/frozenblock-template-mod/issues"
+  },
+
+  "license": "LGPL-3.0",
+  "icon": "assets/frozenblock_template_mod/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.frozenblock.template.TemplateMod"
+    ],
+    "client": [
+      "net.frozenblock.template.TemplateModClient"
+    ],
+    "fabric-datagen": [
+      "net.frozenblock.template.datagen.TemplateModDataGenerator"
+    ]
+  },
+  "mixins": [
+    "frozenblock_template_mod.mixins.json"
+  ],
+  "accessWidener": "frozenblock_template_mod.accesswidener",
+
+  "depends": {
+    "frozenlib": ">=1.1.11-",
+    "fabricloader": ">=0.14.12",
+    "fabric-api": ">=0.73.0",
+    "minecraft": ">=${minecraft_version}",
+    "java": ">=17"
+  },
+  "breaks": {
+    "quilted_fabric_api": "4.0.0-beta.8"
+  },
+  "suggests": {
+    "cloth-config": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/EpkBWm844s"
+      },
+      "badges": [
+        "frozenblock"
+      ]
+    }
+  }
+}
