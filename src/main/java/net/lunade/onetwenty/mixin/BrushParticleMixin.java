@@ -35,6 +35,11 @@ public class BrushParticleMixin {
 
 	@Inject(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BrushItem;getUseDuration(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER))
 	public void luna120$onUseTick(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
+		this.luna120$halfBrush(level, livingEntity2, itemStack, i);
+	}
+
+	@Unique
+	public void luna120$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i) {
 		int j = BrushItem.class.cast(this).getUseDuration(itemStack) - i + 1;
 		if (j % 5 == 0 && j % 10 != 0 && this.luna120$blockHitResult != null && livingEntity2 instanceof Player player) {
 			BlockPos blockPos = luna120$blockHitResult.getBlockPos();
@@ -48,11 +53,23 @@ public class BrushParticleMixin {
 		int i = level.getRandom().nextInt(2, 6);
 		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
 		Direction direction = blockHitResult.getDirection().getOpposite();
-		BrushItem.DustParticlesDelta dustParticlesDelta = BrushItem.DustParticlesDelta.fromDirection(vec3, direction);
+		BrushItem.DustParticlesDelta dustParticlesDelta = luna120$fromOppositeDirection(vec3, direction);
 		Vec3 vec32 = blockHitResult.getLocation();
-
 		for(int j = 0; j < i; ++j) {
 			level.addParticle(blockParticleOption, vec32.x - (double)(direction == Direction.WEST ? 1.0E-6F : 0.0F), vec32.y, vec32.z - (double)(direction == Direction.NORTH ? 1.0E-6F : 0.0F), dustParticlesDelta.xd() * 3.0D * level.getRandom().nextDouble(), 0.0D, dustParticlesDelta.zd() * 3.0D * level.getRandom().nextDouble());
 		}
+	}
+
+	@Unique
+	private static BrushItem.DustParticlesDelta luna120$fromOppositeDirection(Vec3 vec3, Direction direction) {
+		return switch (direction) {
+			default -> throw new IncompatibleClassChangeError();
+			case DOWN -> new BrushItem.DustParticlesDelta(-vec3.x(), 0.0, -vec3.z());
+			case UP -> new BrushItem.DustParticlesDelta(-vec3.z(), 0.0, -vec3.x());
+			case NORTH -> new BrushItem.DustParticlesDelta(1.0, 0.0, 0.1);
+			case SOUTH -> new BrushItem.DustParticlesDelta(-1.0, 0.0, -0.1);
+			case WEST -> new BrushItem.DustParticlesDelta(0.1, 0.0, -1.0);
+			case EAST -> new BrushItem.DustParticlesDelta(-0.1, 0.0, 1.0);
+		};
 	}
 }

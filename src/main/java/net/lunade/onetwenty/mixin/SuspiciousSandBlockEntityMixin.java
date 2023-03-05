@@ -56,30 +56,24 @@ public class SuspiciousSandBlockEntityMixin implements SuspiciousSandBlockEntity
 
 	@Inject(method = "getUpdateTag", at = @At("RETURN"))
 	public void luna120$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
-		if (this.luna120$hitDirection != null) {
-			info.getReturnValue().putString("LunaHitDirection", this.luna120$hitDirection.getName());
-		}
-		this.luna120$saveItemLerps(info.getReturnValue());
+		this.luna120$saveLunaNBT(info.getReturnValue());
 	}
 
 	@Inject(method = "load", at = @At("TAIL"))
 	public void luna120$load(CompoundTag compoundTag, CallbackInfo info) {
-		if (compoundTag.contains("LunaHitDirection")) {
-			this.luna120$hitDirection = Direction.byName(compoundTag.getString("LunaHitDirection"));
-		}
-		this.luna120$readItemLerps(compoundTag);
+		this.luna120$readLunaNBT(compoundTag);
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
 	public void luna120$saveAdditional(CompoundTag compoundTag, CallbackInfo info) {
-		if (this.luna120$hitDirection != null) {
-			compoundTag.putString("LunaHitDirection", this.luna120$hitDirection.getName());
-		}
-		this.luna120$saveItemLerps(compoundTag);
+		this.luna120$saveLunaNBT(compoundTag);
 	}
 
 	@Unique
-	public void luna120$saveItemLerps(CompoundTag compoundTag) {
+	public void luna120$saveLunaNBT(CompoundTag compoundTag) {
+		if (this.luna120$hitDirection != null) {
+			compoundTag.putString("LunaHitDirection", this.luna120$hitDirection.getName());
+		}
 		compoundTag.putFloat("TargetXLerp", this.luna120$targetXLerp);
 		compoundTag.putFloat("TargetYLerp", this.luna120$targetYLerp);
 		compoundTag.putFloat("TargetZLerp", this.luna120$targetZLerp);
@@ -94,7 +88,10 @@ public class SuspiciousSandBlockEntityMixin implements SuspiciousSandBlockEntity
 	}
 
 	@Unique
-	public void luna120$readItemLerps(CompoundTag compoundTag) {
+	public void luna120$readLunaNBT(CompoundTag compoundTag) {
+		if (compoundTag.contains("LunaHitDirection")) {
+			this.luna120$hitDirection = Direction.byName(compoundTag.getString("LunaHitDirection"));
+		}
 		this.luna120$targetXLerp = compoundTag.getFloat("TargetXLerp");
 		this.luna120$targetYLerp = compoundTag.getFloat("TargetYLerp");
 		this.luna120$targetZLerp = compoundTag.getFloat("TargetZLerp");
@@ -179,7 +176,7 @@ public class SuspiciousSandBlockEntityMixin implements SuspiciousSandBlockEntity
 	@Unique
 	private static float[] luna120$translations(Direction direction, int i) {
 		float[] fs = new float[]{0.5f, 0.0f, 0.5f};
-		float f = (float)i / 10.0f;
+		float f = (float)i / 9.0f;
 		switch (direction) {
 			case EAST -> fs[0] = 0.73f + f;
 			case WEST -> fs[0] = 0.25f - f;

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.SuspiciousSandBlockEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,6 +30,11 @@ public class SuspiciousSandItemLerpMixin {
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
 	public void luna120$render(SuspiciousSandBlockEntity suspiciousSandBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
 		info.cancel();
+		this.luna120$smoothItemRender(suspiciousSandBlockEntity, partialTick, poseStack, multiBufferSource, i, j);
+	}
+
+	@Unique
+	public void luna120$smoothItemRender(SuspiciousSandBlockEntity suspiciousSandBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
 		if (suspiciousSandBlockEntity.getLevel() == null) {
 			return;
 		}
