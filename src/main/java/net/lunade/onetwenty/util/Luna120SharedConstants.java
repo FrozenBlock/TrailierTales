@@ -1,5 +1,7 @@
-package net.frozenblock.template.util;
+package net.lunade.onetwenty.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.core.BlockPos;
@@ -8,11 +10,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.HashMap;
-import java.util.Map;
 
-public class TemplateSharedConstants {
-	public static final String MOD_ID = "frozenblock_template_mod";
+public class Luna120SharedConstants {
+	public static final String MOD_ID = "lunaonetwenty";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static boolean DEV_LOGGING = false;
 	/**

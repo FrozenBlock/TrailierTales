@@ -26,34 +26,4 @@ pluginManagement {
     }
 }
 
-rootProject.setName("Template Mod")
-
-localRepository("FrozenLib", "frozenblock-template-mod")
-
-def localRepository(String mod, String projectFileName) {
-	boolean allowLocalModUse = true
-	boolean allowLocalModInConsoleMode = true
-
-	boolean isIDE = properties.containsKey("android.injected.invoked.from.ide"
-			|| (System.getenv("XPC_SERVICE_NAME") ?: "").contains("intellij")
-			|| (System.getenv("XPC_SERVICE_NAME") ?: "").contains(".idea")
-			|| System.getenv("IDEA_INITIAL_DIRECTORY") != null)
-
-	def path = "../" + mod
-	def file = new File(path)
-
-	def pathGitHub = "../" + projectFileName + "/" + mod
-	def fileGitHub = new File(pathGitHub)
-
-	def prefixedModName = ":" + mod
-
-	if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode) && file.exists()) {
-		include(prefixedModName)
-		project(prefixedModName).setProjectDir(file)
-		project(prefixedModName).setBuildFileName("./build.gradle")
-	} else if (allowLocalModUse && (isIDE || allowLocalModInConsoleMode) && fileGitHub.exists()) {
-		include(prefixedModName)
-		project(prefixedModName).setProjectDir(fileGitHub)
-		project(prefixedModName).setBuildFileName("./build.gradle")
-	}
-}
+rootProject.setName("Luna 1.20")

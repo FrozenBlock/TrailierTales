@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:wheat_seeds",
+    "minecraft:hanging_roots",
+    "minecraft:flint",
+    "minecraft:grass",
+    "minecraft:fern",
+    "minecraft:stick",
+    "minecraft:string",
+    "minecraft:torchflower_seeds"
+  ]
+}

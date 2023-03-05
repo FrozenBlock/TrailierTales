@@ -29,10 +29,10 @@ loom {
 	setRuntimeOnlyLog4j(true)
 
 	mixin {
-		setDefaultRefmapName("mixins.frozenblock_template_mod.refmap.json")
+		setDefaultRefmapName("mixins.lunaonetwenty.refmap.json")
 	}
 
-	setAccessWidenerPath(file("src/main/resources/frozenblock_template_mod.accesswidener"))
+	setAccessWidenerPath(file("src/main/resources/lunaonetwenty.accesswidener"))
 	interfaceInjection {
 		// When enabled, injected interfaces from dependecies will be applied.
 		setEnableDependencyInterfaceInjection(false)
@@ -57,7 +57,7 @@ loom {
 			vmArg("-Dfabric-api.datagen")
 			vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
 			//vmArg("-Dfabric-api.datagen.strict-validation")
-			vmArg("-Dfabric-api.datagen.modid=frozenblock_template_mod")
+			vmArg("-Dfabric-api.datagen.modid=lunaonetwenty")
 
 			setIdeConfigGenerated(true)
 			setRunDir("build/datagen")
@@ -149,8 +149,6 @@ dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft("com.mojang:minecraft:${minecraft_version}")
 	mappings(loom.layered {
-		it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2")
-		it.parchment("org.parchmentmc.data:parchment-1.19.2:${parchment_mappings}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
@@ -159,56 +157,6 @@ dependencies {
 
 	// Fabric API
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
-
-	// FrozenLib
-	println("Using local FrozenLib: ${project.local_frozenlib}")
-	if (findProject(":FrozenLib") != null) {
-		include(implementation(project(path: ":FrozenLib", configuration: "dev")))
-	} else {
-		include(modImplementation("maven.modrinth:frozenlib:${frozenlib_version}"))
-	}
-
-	// Lunade
-	modImplementation("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
-
-	// Mod Menu
-	modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
-
-	// Sodium
-	modCompileOnly("maven.modrinth:sodium:${sodium_version}")
-	modCompileOnly("org.joml:joml:1.10.4")
-	modCompileOnly("org.anarres:jcpp:1.4.14")
-
-	// only affects runClient, does not affect gradlew build.
-	// add -PuseThirdPartyMods=false to not use these
-	if (findProperty("useThirdPartyMods") != "false") {
-		modRuntimeOnly("maven.modrinth:ferrite-core:${ferritecore_version}")
-		modRuntimeOnly("maven.modrinth:lazydfu:${lazydfu_version}")
-		modRuntimeOnly("maven.modrinth:starlight:${starlight_version}")
-		modRuntimeOnly("maven.modrinth:lithium:${lithium_version}")
-		modRuntimeOnly("maven.modrinth:fastanim:${fastanim_version}")
-
-		modRuntimeOnly("maven.modrinth:entityculling:${entityculling_version}")
-		modRuntimeOnly("maven.modrinth:memoryleakfix:${memoryleakfix_version}")
-		modRuntimeOnly("maven.modrinth:no-unused-chunks:${no_unused_chunks_version}")
-	}
-
-	// only affects runClient, does not affect gradlew build.
-	// add -PuseExperimentalThirdParty=true to the gradle runClient
-	// command to use these
-	if (findProperty("useExperimentalThirdParty") == "true") {
-		modRuntimeOnly("maven.modrinth:terralith:${terralith_version}")
-		modRuntimeOnly("maven.modrinth:sodium:${sodium_version}")
-		modRuntimeOnly("org.joml:joml:1.10.4")
-		modRuntimeOnly("org.anarres:jcpp:1.4.14")
-		//modRuntimeOnly "maven.modrinth:iris:${iris_version}"
-		modRuntimeOnly("maven.modrinth:indium:${indium_version}")
-		modRuntimeOnly("me.flashyreese.mods:reeses-sodium-options:${reeses_sodium_options_version}") {
-			exclude(group: "net.coderbot.iris_mc1_19", module: "iris")
-		}
-		modRuntimeOnly("me.flashyreese.mods:sodium-extra-fabric:${sodium_extra_version}")
-		modRuntimeOnly("io.github.douira:glsl-transformer:0.27.0")
-	}
 }
 
 
@@ -216,6 +164,7 @@ processResources {
 	Map<String, Object> properties = new HashMap<>()
 	properties.put("version", project.version)
 	properties.put("minecraft_version", project.minecraft_version)
+	properties.put("minecraft_json_version", project.minecraft_json_version)
 
 	properties.forEach((a, b) -> inputs.property(a, b))
 
