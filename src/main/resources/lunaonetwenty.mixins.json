@@ -7,10 +7,12 @@
     "BrushParticleMixin",
     "SnifferLootMixin",
     "SuspiciousSandBlockEntityMixin",
-    "SuspiciousSandBlockMixin",
-    "SuspiciousSandItemLerpMixin"
+    "SuspiciousSandBlockMixin"
   ],
   "client": [
+    "client.DecoratedPotPatternsMixin",
+    "client.DecoratedPotRendererMixin",
+    "client.SuspiciousSandItemLerpMixin"
   ],
   "injectors": {
     "defaultRequire": 1

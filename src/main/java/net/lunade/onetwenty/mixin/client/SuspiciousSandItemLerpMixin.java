@@ -1,4 +1,4 @@
-package net.lunade.onetwenty.mixin;
+package net.lunade.onetwenty.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
