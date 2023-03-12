@@ -1,24 +1,33 @@
 {
   "schemaVersion": 1,
-  "id": "brushextender",
+  "id": "lunaonetwenty",
   "version": "${version}",
 
-  "name": "Brush Extender",
-  "description": "Allows modders to add more brushable blocks without needing to make their own mixins.",
+  "name": "Luna 1.20",
+  "description": "Tweaks and improves feature in 1.20.",
   "authors": [
     "Luna"
   ],
 
   "license": "LGPL-3.0",
-  "icon": "assets/brushextender/brushextender.png",
+  "icon": "assets/lunaonetwenty/icon.png",
 
   "environment": "*",
-
   "entrypoints": {
+    "main": [
+      "net.lunade.onetwenty.Luna120"
+    ],
+    "client": [
+      "net.lunade.onetwenty.Luna120Client"
+    ],
+    "fabric-datagen": [
+      "net.lunade.onetwenty.data.Luna120DataGenerator"
+    ]
   },
   "mixins": [
-    "brushextender.mixins.json"
+    "lunaonetwenty.mixins.json"
   ],
+  "accessWidener": "lunaonetwenty.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.14.12",
@@ -26,10 +35,10 @@
     "minecraft": ">=${minecraft_json_version}",
     "java": ">=17"
   },
-
-  "modmenu": {
-    "badges": [
-      "library"
-    ]
+  "breaks": {
+    "quilted_fabric_api": "4.0.0-beta.8"
+  },
+  "suggests": {
+    "cloth-config": "*"
   }
 }

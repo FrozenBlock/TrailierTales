@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "net.lunade.onetwenty.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BrushParticleMixin",
+    "SnifferLootMixin",
+    "SuspiciousSandBlockEntityMixin",
+    "SuspiciousSandBlockMixin"
+  ],
+  "client": [
+    "client.DecoratedPotPatternsMixin",
+    "client.DecoratedPotRendererMixin",
+    "client.SuspiciousSandItemLerpMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
