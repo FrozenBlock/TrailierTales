@@ -26,4 +26,4 @@ pluginManagement {
     }
 }
 
-rootProject.setName("Luna 1.20")
+rootProject.setName("Brush Extender")
