@@ -29,9 +29,10 @@ loom {
 	setRuntimeOnlyLog4j(true)
 
 	mixin {
-		setDefaultRefmapName("mixins.brushextender.refmap.json")
+		setDefaultRefmapName("mixins.lunaonetwenty.refmap.json")
 	}
 
+	setAccessWidenerPath(file("src/main/resources/lunaonetwenty.accesswidener"))
 	interfaceInjection {
 		// When enabled, injected interfaces from dependecies will be applied.
 		setEnableDependencyInterfaceInjection(false)
@@ -56,7 +57,7 @@ loom {
 			vmArg("-Dfabric-api.datagen")
 			vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
 			//vmArg("-Dfabric-api.datagen.strict-validation")
-			vmArg("-Dfabric-api.datagen.modid=brushextender")
+			vmArg("-Dfabric-api.datagen.modid=lunaonetwenty")
 
 			setIdeConfigGenerated(true)
 			setRunDir("build/datagen")
