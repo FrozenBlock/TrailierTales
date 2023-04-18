@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.DecoratedPotRenderer;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
@@ -26,10 +27,10 @@ import java.util.Objects;
 public class DecoratedPotRendererMixin {
 
 	@Unique
-	private boolean luna120$overrideBrick;
+	private boolean luna120$isMisMatched;
 
 	@Unique
-	private boolean luna120$isBrick;
+	public boolean luna120$shouldSwitchToNewPattern;
 
 	@Unique
 	private VertexConsumer luna120$blankVertexConsumer;
@@ -39,8 +40,16 @@ public class DecoratedPotRendererMixin {
 
 	@Inject(method = "render", at = @At("HEAD"))
 	public void luna120$render(DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
-		this.luna120$overrideBrick = false;
-		this.luna120$isBrick = true;
+		boolean hasBlank = false;
+		boolean hasDecorated = false;
+		for (Item item : decoratedPotBlockEntity.getShards()) {
+			if (Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(item))) {
+				hasBlank = true;
+			} else {
+				hasDecorated = true;
+			}
+		}
+		this.luna120$isMisMatched = hasBlank && hasDecorated;
 	}
 
 	@Inject(method = "renderSide", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/ModelPart;render(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;II)V", shift = At.Shift.BEFORE))
@@ -50,15 +59,13 @@ public class DecoratedPotRendererMixin {
 
 	@Unique
 	private void luna120$setupBrickValues(MultiBufferSource multiBufferSource, @Nullable Material material) {
-		boolean isBrick = material == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK));
-		this.luna120$overrideBrick = this.luna120$overrideBrick || !isBrick;
-		this.luna120$isBrick = isBrick;
+		this.luna120$shouldSwitchToNewPattern = material == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) && this.luna120$isMisMatched;
 		this.luna120$blankVertexConsumer = luna120$blankMaterial.buffer(multiBufferSource, RenderType::entitySolid);
 	}
 
 	@ModifyArgs(method = "renderSide", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/ModelPart;render(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;II)V"))
 	private void luna120$renderSideFix(Args args) {
-		if (this.luna120$overrideBrick && this.luna120$isBrick) {
+		if (this.luna120$shouldSwitchToNewPattern) {
 			args.set(1, this.luna120$blankVertexConsumer);
 		}
 	}
