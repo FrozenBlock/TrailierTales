@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BrushableBlockRenderer.class)
-public class BrushableBlockItemPositionMixin {
+public class BrushableBlockItemRenderMixin {
 
 	@Shadow
 	@Final
@@ -47,9 +47,18 @@ public class BrushableBlockItemPositionMixin {
 		if (itemStack.isEmpty()) {
 			return;
 		}
+
+		float itemX = brushableBlockEntityInterface.luna120$getXOffset(partialTick);
+		float itemY = brushableBlockEntityInterface.luna120$getYOffset(partialTick);
+		float itemZ = brushableBlockEntityInterface.luna120$getZOffset(partialTick);
+
+		if (Math.abs(itemX) < 0.55 && Math.abs(itemY) < 0.05 && Math.abs(itemZ) < 0.55) {
+			return;
+		}
+		
 		poseStack.pushPose();
 		poseStack.translate(0.0f, 0.5f, 0.0f);
-		poseStack.translate(brushableBlockEntityInterface.luna120$getXOffset(partialTick), brushableBlockEntityInterface.luna120$getYOffset(partialTick), brushableBlockEntityInterface.luna120$getZOffset(partialTick));
+		poseStack.translate(itemX, itemY, itemZ);
 		poseStack.mulPose(Axis.YP.rotationDegrees(75.0f));
 		poseStack.mulPose(Axis.YP.rotationDegrees(brushableBlockEntityInterface.luna120$getRotation(partialTick) + 15F));
 		poseStack.scale(0.5f, 0.5f, 0.5f);

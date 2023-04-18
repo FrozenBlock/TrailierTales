@@ -13,7 +13,7 @@
   "client": [
     "client.DecoratedPotPatternsMixin",
     "client.DecoratedPotRendererMixin",
-    "client.BrushableBlockItemPositionMixin"
+    "client.BrushableBlockItemRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
