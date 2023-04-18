@@ -95,11 +95,9 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	@Unique
 	private ItemStack luna120$itemStack = ItemStack.EMPTY;
 
-	@Inject(method = "onBrokenAfterFall", at = @At("TAIL"))
+	@Inject(method = "onBrokenAfterFall", at = @At("HEAD"))
 	public void luna120$onBrokenAfterFall(Level level, BlockPos blockPos, FallingBlockEntity fallingBlockEntity, CallbackInfo ci) {
-		if (!((FallingBlockEntityInterface)fallingBlockEntity).luna120$getItem().isEmpty()) {
-			fallingBlockEntity.spawnAtLocation(((FallingBlockEntityInterface)fallingBlockEntity).luna120$getItem());
-		}
+		fallingBlockEntity.spawnAtLocation(((FallingBlockEntityInterface)fallingBlockEntity).luna120$getItem());
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;", shift = At.Shift.BEFORE))
@@ -107,6 +105,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && (((BrushableBlockEntityInterface)brushableBlockEntity).luna120$hasCustomItem() || (brushableBlockEntity.getItem() == ItemStack.EMPTY && brushableBlockEntity.lootTable == null))) {
 			this.luna120$cancelledBreakUponFall = true;
 			this.luna120$itemStack = brushableBlockEntity.getItem();
+			((BrushableBlockEntityInterface)brushableBlockEntity).luna120$setItem(ItemStack.EMPTY);
 		}
 	}
 
