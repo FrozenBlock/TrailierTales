@@ -44,7 +44,7 @@ public class BrushParticleMixin {
 		if (j % 5 == 0 && j % 10 != 5 && this.luna120$blockHitResult != null && livingEntity2 instanceof Player player) {
 			BlockPos blockPos = luna120$blockHitResult.getBlockPos();
 			this.luna120$spawnOppositeDustParticles(level, this.luna120$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getMainHandItem().equals(itemStack));
-			level.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.4F, 0.9F);
+			level.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.3F, 0.85F);
 		}
 	}
 
