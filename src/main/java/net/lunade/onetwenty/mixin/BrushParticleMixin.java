@@ -50,7 +50,7 @@ public class BrushParticleMixin {
 
 	@Unique
 	public void luna120$spawnOppositeDustParticles(Level level, BlockHitResult blockHitResult, BlockState blockState, Vec3 vec3, boolean mainHand) {
-		int i = mainHand ? 1 : -1;
+		int i = mainHand ? -1 : 1;
 		int j = level.getRandom().nextInt(2, 7);
 		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
 		Direction direction = blockHitResult.getDirection();
