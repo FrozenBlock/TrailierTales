@@ -20,23 +20,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
 
 	@Unique
-	private float luna120$targetXLerp;
+	private float luna120$targetXLerp = 0.5F;
 	@Unique
-	private float luna120$xLerp;
+	private float luna120$xLerp = 0.5F;
 	@Unique
-	private float luna120$prevXLerp;
+	private float luna120$prevXLerp = 0.5F;
 	@Unique
-	private float luna120$targetYLerp;
+	private float luna120$targetYLerp = 0.5F;
 	@Unique
-	private float luna120$yLerp;
+	private float luna120$yLerp = 0.5F;
 	@Unique
-	private float luna120$prevYLerp;
+	private float luna120$prevYLerp = 0.5F;
 	@Unique
-	private float luna120$targetZLerp;
+	private float luna120$targetZLerp = 0.5F;
 	@Unique
-	private float luna120$zLerp;
+	private float luna120$zLerp = 0.5F;
 	@Unique
-	private float luna120$prevZLerp;
+	private float luna120$prevZLerp = 0.5F;
 
 	@Unique
 	private float luna120$rotation;
@@ -70,6 +70,33 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 	}
 
 	@Unique
+	@Override
+	public void luna120$tick() {
+		this.luna120$prevRotation = this.luna120$rotation;
+		if (this.hitDirection != null) {
+			this.luna120$hitDirection = this.hitDirection;
+		}
+		Direction direction = this.luna120$getHitDirection();
+		if (direction != null) {
+			int dusted = BrushableBlockEntity.class.cast(this).getBlockState().getValue(BlockStateProperties.DUSTED);
+			float[] translation = luna120$translations(direction, dusted);
+			this.luna120$targetXLerp =  translation[0];
+			this.luna120$targetYLerp = translation[1];
+			this.luna120$targetZLerp = translation[2];
+			if (direction.getAxis() == Direction.Axis.X) {
+				this.luna120$rotation = 90F;
+			}
+		}
+		this.luna120$prevXLerp = this.luna120$xLerp;
+		this.luna120$prevYLerp = this.luna120$yLerp;
+		this.luna120$prevZLerp = this.luna120$zLerp;
+
+		this.luna120$xLerp += (this.luna120$targetXLerp - this.luna120$xLerp) * 0.2F;
+		this.luna120$yLerp += (this.luna120$targetYLerp - this.luna120$yLerp) * 0.2F;
+		this.luna120$zLerp += (this.luna120$targetZLerp - this.luna120$zLerp) * 0.2F;
+	}
+
+	@Unique
 	public void luna120$saveLunaNBT(CompoundTag compoundTag) {
 		if (this.luna120$hitDirection != null) {
 			compoundTag.putString("LunaHitDirection", this.luna120$hitDirection.getName());
@@ -92,44 +119,35 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 		if (compoundTag.contains("LunaHitDirection")) {
 			this.luna120$hitDirection = Direction.byName(compoundTag.getString("LunaHitDirection"));
 		}
-		this.luna120$targetXLerp = compoundTag.getFloat("TargetXLerp");
-		this.luna120$targetYLerp = compoundTag.getFloat("TargetYLerp");
-		this.luna120$targetZLerp = compoundTag.getFloat("TargetZLerp");
-		this.luna120$xLerp = compoundTag.getFloat("XLerp");
-		this.luna120$yLerp = compoundTag.getFloat("YLerp");
-		this.luna120$zLerp = compoundTag.getFloat("ZLerp");
-		this.luna120$prevXLerp = compoundTag.getFloat("PrevXLerp");
-		this.luna120$prevYLerp = compoundTag.getFloat("PrevYLerp");
-		this.luna120$prevZLerp = compoundTag.getFloat("PrevZLerp");
+		if (compoundTag.contains("TargetXLerp")) {
+			this.luna120$targetXLerp = compoundTag.getFloat("TargetXLerp");
+		}
+		if (compoundTag.contains("TargetYLerp")) {
+			this.luna120$targetYLerp = compoundTag.getFloat("TargetYLerp");
+		}
+		if (compoundTag.contains("TargetZLerp")) {
+			this.luna120$targetZLerp = compoundTag.getFloat("TargetZLerp");
+		}
+		if (compoundTag.contains("XLerp")) {
+			this.luna120$xLerp = compoundTag.getFloat("XLerp");
+		}
+		if (compoundTag.contains("YLerp")) {
+			this.luna120$yLerp = compoundTag.getFloat("YLerp");
+		}
+		if (compoundTag.contains("ZLerp")) {
+			this.luna120$zLerp = compoundTag.getFloat("ZLerp");
+		}
+		if (compoundTag.contains("PrevXLerp")) {
+			this.luna120$prevXLerp = compoundTag.getFloat("PrevXLerp");
+		}
+		if (compoundTag.contains("PrevYLerp")) {
+			this.luna120$prevYLerp = compoundTag.getFloat("PrevYLerp");
+		}
+		if (compoundTag.contains("PrevZLerp")) {
+			this.luna120$prevZLerp = compoundTag.getFloat("PrevZLerp");
+		}
 		this.luna120$rotation = compoundTag.getFloat("Rotation");
 		this.luna120$prevRotation = compoundTag.getFloat("PrevRotation");
-	}
-
-	@Unique
-	@Override
-	public void luna120$tick() {
-		this.luna120$prevRotation = this.luna120$rotation;
-		if (this.hitDirection != null) {
-			this.luna120$hitDirection = this.hitDirection;
-		}
-		Direction direction = this.luna120$getHitDirection();
-		if (direction != null) {
-			int dusted = BrushableBlockEntity.class.cast(this).getBlockState().getValue(BlockStateProperties.DUSTED);
-			float[] translation = luna120$translations(direction, dusted);
-			this.luna120$targetXLerp =  translation[0];
-			this.luna120$targetYLerp = translation[1];
-			this.luna120$targetZLerp = translation[2];
-			if (direction.getAxis().equals(Direction.Axis.X)) {
-				this.luna120$rotation = 90F;
-			}
-		}
-		this.luna120$prevXLerp = this.luna120$xLerp;
-		this.luna120$prevYLerp = this.luna120$yLerp;
-		this.luna120$prevZLerp = this.luna120$zLerp;
-
-		this.luna120$xLerp += (this.luna120$targetXLerp - this.luna120$xLerp) * 0.2F;
-		this.luna120$yLerp += (this.luna120$targetYLerp - this.luna120$yLerp) * 0.2F;
-		this.luna120$zLerp += (this.luna120$targetZLerp - this.luna120$zLerp) * 0.2F;
 	}
 
 	@Unique

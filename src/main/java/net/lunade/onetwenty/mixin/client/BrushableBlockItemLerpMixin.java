@@ -34,27 +34,27 @@ public class BrushableBlockItemLerpMixin {
 	}
 
 	@Unique
-	public void luna120$smoothItemRender(BrushableBlockEntity suspiciousSandBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
-		if (suspiciousSandBlockEntity.getLevel() == null) {
+	public void luna120$smoothItemRender(BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
+		if (brushableBlockEntity.getLevel() == null) {
 			return;
 		}
-		BrushableBlockEntityInterface susInterface = (BrushableBlockEntityInterface)suspiciousSandBlockEntity;
-		Direction direction = susInterface.luna120$getHitDirection();
+		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface)brushableBlockEntity;
+		Direction direction = brushableBlockEntityInterface.luna120$getHitDirection();
 		if (direction == null) {
 			return;
 		}
-		ItemStack itemStack = suspiciousSandBlockEntity.getItem();
+		ItemStack itemStack = brushableBlockEntity.getItem();
 		if (itemStack.isEmpty()) {
 			return;
 		}
 		poseStack.pushPose();
 		poseStack.translate(0.0f, 0.5f, 0.0f);
-		poseStack.translate(susInterface.luna120$getXOffset(partialTick), susInterface.luna120$getYOffset(partialTick), susInterface.luna120$getZOffset(partialTick));
+		poseStack.translate(brushableBlockEntityInterface.luna120$getXOffset(partialTick), brushableBlockEntityInterface.luna120$getYOffset(partialTick), brushableBlockEntityInterface.luna120$getZOffset(partialTick));
 		poseStack.mulPose(Axis.YP.rotationDegrees(75.0f));
-		poseStack.mulPose(Axis.YP.rotationDegrees(susInterface.luna120$getRotation(partialTick) + 11));
+		poseStack.mulPose(Axis.YP.rotationDegrees(brushableBlockEntityInterface.luna120$getRotation(partialTick) + 11));
 		poseStack.scale(0.5f, 0.5f, 0.5f);
-		int l = LevelRenderer.getLightColor(suspiciousSandBlockEntity.getLevel(), suspiciousSandBlockEntity.getBlockState(), suspiciousSandBlockEntity.getBlockPos().relative(direction));
-		this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, l, OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, suspiciousSandBlockEntity.getLevel(), 0);
+		int l = LevelRenderer.getLightColor(brushableBlockEntity.getLevel(), brushableBlockEntity.getBlockState(), brushableBlockEntity.getBlockPos().relative(direction));
+		this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, l, OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, brushableBlockEntity.getLevel(), 0);
 		poseStack.popPose();
 	}
 

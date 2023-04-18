@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(BrushableBlock.class)
-public abstract class SuspiciousSandBlockMixin extends BaseEntityBlock {
+public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
-	protected SuspiciousSandBlockMixin(Properties properties) {
+	protected BrushableBlockMixin(Properties properties) {
 		super(properties);
 	}
 

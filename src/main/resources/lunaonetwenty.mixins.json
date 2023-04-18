@@ -7,7 +7,7 @@
     "BrushParticleMixin",
     "SnifferLootMixin",
     "BrushableBlockEntityMixin",
-    "SuspiciousSandBlockMixin"
+    "BrushableBlockMixin"
   ],
   "client": [
     "client.DecoratedPotPatternsMixin",
