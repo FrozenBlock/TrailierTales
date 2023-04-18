@@ -1,11 +1,14 @@
 package net.lunade.onetwenty.mixin;
 
+import net.lunade.onetwenty.Luna120;
 import net.lunade.onetwenty.interfaces.BrushableBlockEntityInterface;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BrushableBlockEntity.class)
-public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
+public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
 
 	@Unique
 	private float luna120$targetXLerp = 0.5F;
@@ -57,6 +60,10 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 	@Shadow
 	private ItemStack item;
 
+	@Shadow
+	@Nullable
+	public ResourceLocation lootTable;
+
 	@Inject(method = "getUpdateTag", at = @At("RETURN"))
 	public void luna120$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
 		this.luna120$saveLunaNBT(info.getReturnValue());
@@ -75,6 +82,18 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 	@Unique
 	@Override
 	public void luna120$tick() {
+		BrushableBlockEntity brushableBlockEntity = BrushableBlockEntity.class.cast(this);
+		if (brushableBlockEntity.getLevel() != null) {
+			BlockState blockState = brushableBlockEntity.getLevel().getBlockState(brushableBlockEntity.getBlockPos());
+			boolean canPlaceItemProperty = brushableBlockEntity.getLevel().getBlockState(brushableBlockEntity.getBlockPos()).getValue(Luna120.CAN_PLACE_ITEM);
+			boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
+			if (canPlaceItem) {
+				this.luna120$hasCustomItem = false;
+			}
+			if (canPlaceItemProperty != canPlaceItem) {
+				brushableBlockEntity.getLevel().setBlock(brushableBlockEntity.getBlockPos(), blockState.setValue(Luna120.CAN_PLACE_ITEM, canPlaceItem), 3);
+			}
+		}
 		this.luna120$prevRotation = this.luna120$rotation;
 		if (this.hitDirection != null) {
 			this.luna120$hitDirection = this.hitDirection;
@@ -219,9 +238,4 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 		return fs;
 	}
 
-	@Nullable
-	@Shadow
-	public Direction getHitDirection() {
-		throw new AssertionError("Mixin Injection Failed - Luna 1.20 BrushableBlockEntityMixin.");
-	}
 }

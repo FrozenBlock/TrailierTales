@@ -1,14 +1,7 @@
 package net.lunade.onetwenty.mixin;
 
-import net.lunade.onetwenty.Luna120;
-import net.lunade.onetwenty.data.Luna120ItemTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Sniffer.class)
 public class SnifferLootMixin {

@@ -51,7 +51,7 @@ public class BrushableBlockItemPositionMixin {
 		poseStack.translate(0.0f, 0.5f, 0.0f);
 		poseStack.translate(brushableBlockEntityInterface.luna120$getXOffset(partialTick), brushableBlockEntityInterface.luna120$getYOffset(partialTick), brushableBlockEntityInterface.luna120$getZOffset(partialTick));
 		poseStack.mulPose(Axis.YP.rotationDegrees(75.0f));
-		poseStack.mulPose(Axis.YP.rotationDegrees(brushableBlockEntityInterface.luna120$getRotation(partialTick) + 11.5F));
+		poseStack.mulPose(Axis.YP.rotationDegrees(brushableBlockEntityInterface.luna120$getRotation(partialTick) + 15F));
 		poseStack.scale(0.5f, 0.5f, 0.5f);
 		int l = LevelRenderer.getLightColor(brushableBlockEntity.getLevel(), brushableBlockEntity.getBlockState(), brushableBlockEntity.getBlockPos().relative(direction));
 		this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, l, OverlayTexture.NO_OVERLAY, poseStack, multiBufferSource, brushableBlockEntity.getLevel(), 0);
