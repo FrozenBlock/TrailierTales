@@ -32,10 +32,13 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
 		if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
 			if (brushableBlockEntity.getItem() == ItemStack.EMPTY && brushableBlockEntity.lootTable == null) {
-				ItemStack splitStack = player.getItemInHand(interactionHand).split(1);
-				if (splitStack.getCount() > 0 && splitStack != ItemStack.EMPTY && splitStack.getItem() != Items.AIR && !splitStack.is(Items.BRUSH)) {
-					((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(splitStack);
-					return InteractionResult.SUCCESS;
+				ItemStack playerStack = player.getItemInHand(interactionHand);
+				if (playerStack != ItemStack.EMPTY && playerStack.getItem() != Items.AIR && !playerStack.is(Items.BRUSH)) {
+					ItemStack splitStack = playerStack.split(1);
+					if (splitStack.getCount() > 0) {
+						((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(splitStack);
+						return InteractionResult.SUCCESS;
+					}
 				}
 			}
 		}
