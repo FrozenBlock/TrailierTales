@@ -40,6 +40,11 @@ public class DecoratedPotRendererMixin {
 
 	@Inject(method = "render", at = @At("HEAD"))
 	public void luna120$render(DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
+		this.luna120$setupMisMatched(decoratedPotBlockEntity);
+	}
+
+	@Unique
+	private void luna120$setupMisMatched(DecoratedPotBlockEntity decoratedPotBlockEntity) {
 		boolean hasBlank = false;
 		boolean hasDecorated = false;
 		for (Item item : decoratedPotBlockEntity.getShards()) {
