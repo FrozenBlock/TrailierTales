@@ -179,7 +179,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Unique
 	@Override
 	public boolean luna120$setItem(ItemStack itemStack) {
-		this.item = itemStack.split(1);
+		this.item = itemStack;
 		this.luna120$hasCustomItem = true;
 		return true;
 	}

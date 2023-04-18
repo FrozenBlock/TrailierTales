@@ -65,7 +65,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		boolean canPlaceIntoBlock = playerStack != ItemStack.EMPTY && playerStack.getItem() != Items.AIR && !playerStack.is(Items.BRUSH);
 		if (canPlaceIntoBlock) {
 			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
-				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(playerStack);
+				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(playerStack.split(1));
 				return InteractionResult.SUCCESS;
 			}
 		}
