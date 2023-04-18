@@ -115,26 +115,9 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		this.luna120$prevYLerp = this.luna120$yLerp;
 		this.luna120$prevZLerp = this.luna120$zLerp;
 
-		float xDifference = (this.luna120$targetXLerp - this.luna120$xLerp);
-		if (xDifference < 0.05) {
-			this.luna120$xLerp = 0;
-		} else {
-			this.luna120$xLerp += xDifference * 0.2F;
-		}
-		
-		float yDifference = (this.luna120$targetYLerp - this.luna120$yLerp);
-		if (yDifference < 0.05) {
-			this.luna120$yLerp = 0;
-		} else {
-			this.luna120$yLerp += xDifference * 0.2F;
-		}
-
-		float zDifference = (this.luna120$targetZLerp - this.luna120$zLerp);
-		if (zDifference < 0.05) {
-			this.luna120$zLerp = 0;
-		} else {
-			this.luna120$zLerp += zDifference * 0.2F;
-		}
+		this.luna120$xLerp += (this.luna120$targetXLerp - this.luna120$xLerp) * 0.2F;
+		this.luna120$yLerp += (this.luna120$targetYLerp - this.luna120$yLerp) * 0.2F;
+		this.luna120$zLerp += (this.luna120$targetZLerp - this.luna120$zLerp) * 0.2F;
 	}
 
 	@Unique
