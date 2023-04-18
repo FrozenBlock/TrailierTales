@@ -65,7 +65,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		boolean canPlaceIntoBlock = playerStack != ItemStack.EMPTY && playerStack.getItem() != Items.AIR && !playerStack.is(Items.BRUSH);
 		if (canPlaceIntoBlock) {
 			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
-				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(playerStack.split(1));
+				((BrushableBlockEntityInterface)brushableBlockEntity).luna120$setItem(playerStack.split(1));
 				return InteractionResult.SUCCESS;
 			}
 		}
@@ -94,11 +94,6 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Unique
 	private ItemStack luna120$itemStack = ItemStack.EMPTY;
-
-	@Inject(method = "onBrokenAfterFall", at = @At("HEAD"))
-	public void luna120$onBrokenAfterFall(Level level, BlockPos blockPos, FallingBlockEntity fallingBlockEntity, CallbackInfo ci) {
-		fallingBlockEntity.spawnAtLocation(((FallingBlockEntityInterface)fallingBlockEntity).luna120$getItem());
-	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;", shift = At.Shift.BEFORE))
 	public void luna120$setBreakCancellationValue(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info) {

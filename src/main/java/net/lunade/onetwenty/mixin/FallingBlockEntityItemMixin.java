@@ -36,6 +36,11 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 		return this.luna120$itemStack;
 	}
 
+	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"))
+	public void luna120$dropItem(CallbackInfo info) {
+		FallingBlockEntity.class.cast(this).spawnAtLocation(this.luna120$itemStack);
+	}
+
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V", shift = At.Shift.BEFORE))
 	public void luna120$tick(CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
