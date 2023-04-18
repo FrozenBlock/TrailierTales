@@ -7,12 +7,13 @@
     "BrushParticleMixin",
     "SnifferLootMixin",
     "BrushableBlockEntityMixin",
-    "BrushableBlockMixin"
+    "BrushableBlockMixin",
+    "FallingBlockEntityItemMixin"
   ],
   "client": [
     "client.DecoratedPotPatternsMixin",
     "client.DecoratedPotRendererMixin",
-    "client.BrushableBlockItemLerpMixin"
+    "client.BrushableBlockItemPositionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -26,11 +26,11 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 	@Unique
 	private float luna120$prevXLerp = 0.5F;
 	@Unique
-	private float luna120$targetYLerp = 0.5F;
+	private float luna120$targetYLerp = 0.0F;
 	@Unique
-	private float luna120$yLerp = 0.5F;
+	private float luna120$yLerp = 0.0F;
 	@Unique
-	private float luna120$prevYLerp = 0.5F;
+	private float luna120$prevYLerp = 0.0F;
 	@Unique
 	private float luna120$targetZLerp = 0.5F;
 	@Unique
@@ -42,6 +42,9 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 	private float luna120$rotation;
 	@Unique
 	private float luna120$prevRotation;
+
+	@Unique
+	private boolean luna120$hasCustomItem;
 
 	@Unique
 	@Nullable
@@ -114,6 +117,7 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 		compoundTag.putFloat("PrevZLerp", this.luna120$prevZLerp);
 		compoundTag.putFloat("Rotation", this.luna120$rotation);
 		compoundTag.putFloat("PrevRotation", this.luna120$prevRotation);
+		compoundTag.putBoolean("HasCustomItem", this.luna120$hasCustomItem);
 	}
 
 	@Unique
@@ -150,6 +154,7 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 		}
 		this.luna120$rotation = compoundTag.getFloat("Rotation");
 		this.luna120$prevRotation = compoundTag.getFloat("PrevRotation");
+		this.luna120$hasCustomItem = compoundTag.getBoolean("HasCustomItem");
 	}
 
 	@Unique
@@ -157,9 +162,15 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 	public boolean luna120$setItem(ItemStack itemStack) {
 		if (this.item == null || this.item.isEmpty()) {
 			this.item = itemStack.split(1);
+			this.luna120$hasCustomItem = true;
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean luna120$hasCustomItem() {
+		return this.luna120$hasCustomItem;
 	}
 
 	@Unique
