@@ -1,11 +1,11 @@
 package net.lunade.onetwenty.mixin;
 
-import net.lunade.onetwenty.interfaces.SuspiciousSandBlockEntityInterface;
+import net.lunade.onetwenty.interfaces.BrushableBlockEntityInterface;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.SuspiciousSandBlockEntity;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SuspiciousSandBlockEntity.class)
-public class SuspiciousSandBlockEntityMixin implements SuspiciousSandBlockEntityInterface {
+@Mixin(BrushableBlockEntity.class)
+public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
 
 	@Unique
 	private float luna120$targetXLerp;
@@ -114,7 +114,7 @@ public class SuspiciousSandBlockEntityMixin implements SuspiciousSandBlockEntity
 		}
 		Direction direction = this.luna120$getHitDirection();
 		if (direction != null) {
-			int dusted = SuspiciousSandBlockEntity.class.cast(this).getBlockState().getValue(BlockStateProperties.DUSTED);
+			int dusted = BrushableBlockEntity.class.cast(this).getBlockState().getValue(BlockStateProperties.DUSTED);
 			float[] translation = luna120$translations(direction, dusted);
 			this.luna120$targetXLerp =  translation[0];
 			this.luna120$targetYLerp = translation[1];
@@ -191,6 +191,6 @@ public class SuspiciousSandBlockEntityMixin implements SuspiciousSandBlockEntity
 	@Nullable
 	@Shadow
 	public Direction getHitDirection() {
-		throw new AssertionError("Mixin Injection Failed - Luna 1.20 SuspiciousSandBlockEntityMixin.");
+		throw new AssertionError("Mixin Injection Failed - Luna 1.20 BrushableBlockEntityMixin.");
 	}
 }

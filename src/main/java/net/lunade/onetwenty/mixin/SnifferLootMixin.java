@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(Sniffer.class)
 public class SnifferLootMixin {
 
+	/*
 	@ModifyVariable(method = "dropSeed", at = @At("STORE"), ordinal = 0)
 	private ItemStack luna120$dropSeed(ItemStack original) {
 		return luna120$getNewSnifferItem(Sniffer.class.cast(this).getRandom());
@@ -30,5 +31,5 @@ public class SnifferLootMixin {
 		}
 		return itemStack;
 	}
-
+	 */
 }

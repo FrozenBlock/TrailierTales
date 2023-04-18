@@ -28,6 +28,7 @@ public class Luna120 implements ModInitializer {
 	public void onInitialize() {
 		Luna120SharedConstants.startMeasuring(this);
 
+		/*
 		BiomeModifications.addFeature(BiomeSelectors.tag(Luna120BiomeTags.HAS_TORCHFLOWER),
 				GenerationStep.Decoration.VEGETAL_DECORATION, Luna120FeatureBootstrap.TORCHFLOWER_PLACED);
 
@@ -35,6 +36,7 @@ public class Luna120 implements ModInitializer {
 				MobCategory.CREATURE, EntityType.SNIFFER, 2, 1, 1);
 
 		SpawnPlacements.register(EntityType.SNIFFER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+		 */
 
 		Luna120SharedConstants.stopMeasuring(this);
 	}

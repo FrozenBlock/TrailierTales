@@ -3,7 +3,7 @@ package net.lunade.onetwenty.interfaces;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
-public interface SuspiciousSandBlockEntityInterface {
+public interface BrushableBlockEntityInterface {
 
 	void luna120$tick();
 

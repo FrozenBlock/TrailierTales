@@ -43,33 +43,22 @@ public class BrushParticleMixin {
 		int j = BrushItem.class.cast(this).getUseDuration(itemStack) - i + 1;
 		if (j % 5 == 0 && j % 10 != 0 && this.luna120$blockHitResult != null && livingEntity2 instanceof Player player) {
 			BlockPos blockPos = luna120$blockHitResult.getBlockPos();
-			this.luna120$spawnOppositeDustParticles(level, this.luna120$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f));
-			level.playSound(player, blockPos, SoundEvents.BRUSH_BRUSHING, SoundSource.PLAYERS, 0.4F, 0.9F);
+			this.luna120$spawnOppositeDustParticles(level, this.luna120$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getMainHandItem().equals(itemStack));
+			level.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.4F, 0.9F);
 		}
 	}
 
 	@Unique
-	public void luna120$spawnOppositeDustParticles(Level level, BlockHitResult blockHitResult, BlockState blockState, Vec3 vec3) {
-		int i = level.getRandom().nextInt(2, 6);
+	public void luna120$spawnOppositeDustParticles(Level level, BlockHitResult blockHitResult, BlockState blockState, Vec3 vec3, boolean mainHand) {
+		int i = mainHand ? 1 : -1;
+		int j = level.getRandom().nextInt(2, 7);
 		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
-		Direction direction = blockHitResult.getDirection().getOpposite();
-		BrushItem.DustParticlesDelta dustParticlesDelta = luna120$fromOppositeDirection(vec3, direction);
+		Direction direction = blockHitResult.getDirection();
+		BrushItem.DustParticlesDelta dustParticlesDelta = BrushItem.DustParticlesDelta.fromDirection(vec3, direction);
 		Vec3 vec32 = blockHitResult.getLocation();
-		for(int j = 0; j < i; ++j) {
-			level.addParticle(blockParticleOption, vec32.x - (double)(direction == Direction.WEST ? 1.0E-6F : 0.0F), vec32.y, vec32.z - (double)(direction == Direction.NORTH ? 1.0E-6F : 0.0F), dustParticlesDelta.xd() * 3.0D * level.getRandom().nextDouble(), 0.0D, dustParticlesDelta.zd() * 3.0D * level.getRandom().nextDouble());
+		for (int k = 0; k < j; ++k) {
+			level.addParticle(blockParticleOption, vec32.x - (double)(direction == Direction.WEST ? 1.0E-6f : 0.0f), vec32.y, vec32.z - (double)(direction == Direction.NORTH ? 1.0E-6f : 0.0f), dustParticlesDelta.xd() * (double)i * 3.0 * level.getRandom().nextDouble(), 0.0, dustParticlesDelta.zd() * (double)i * 3.0 * level.getRandom().nextDouble());
 		}
 	}
 
-	@Unique
-	private static BrushItem.DustParticlesDelta luna120$fromOppositeDirection(Vec3 vec3, Direction direction) {
-		return switch (direction) {
-			default -> throw new IncompatibleClassChangeError();
-			case DOWN -> new BrushItem.DustParticlesDelta(-vec3.x(), 0.0, -vec3.z());
-			case UP -> new BrushItem.DustParticlesDelta(-vec3.z(), 0.0, -vec3.x());
-			case NORTH -> new BrushItem.DustParticlesDelta(1.0, 0.0, 0.1);
-			case SOUTH -> new BrushItem.DustParticlesDelta(-1.0, 0.0, -0.1);
-			case WEST -> new BrushItem.DustParticlesDelta(0.1, 0.0, -1.0);
-			case EAST -> new BrushItem.DustParticlesDelta(-0.1, 0.0, 1.0);
-		};
-	}
 }

@@ -6,13 +6,13 @@
   "mixins": [
     "BrushParticleMixin",
     "SnifferLootMixin",
-    "SuspiciousSandBlockEntityMixin",
+    "BrushableBlockEntityMixin",
     "SuspiciousSandBlockMixin"
   ],
   "client": [
     "client.DecoratedPotPatternsMixin",
     "client.DecoratedPotRendererMixin",
-    "client.SuspiciousSandItemLerpMixin"
+    "client.BrushableBlockItemLerpMixin"
   ],
   "injectors": {
     "defaultRequire": 1
