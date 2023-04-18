@@ -84,7 +84,9 @@ public class BrushableBlockEntityMixin implements BrushableBlockEntityInterface 
 			this.luna120$targetYLerp = translation[1];
 			this.luna120$targetZLerp = translation[2];
 			if (direction.getAxis() == Direction.Axis.X) {
-				this.luna120$rotation = 90F;
+				this.luna120$rotation = 90.0f;
+			} else {
+				this.luna120$rotation = 0.0f;
 			}
 		}
 		this.luna120$prevXLerp = this.luna120$xLerp;
