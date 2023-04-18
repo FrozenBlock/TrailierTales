@@ -49,7 +49,7 @@ public class Luna120 implements ModInitializer {
 		Luna120SharedConstants.startMeasuring(this);
 
 		Registry.register(BuiltInRegistries.BLOCK, Luna120SharedConstants.id("suspicious_red_sand"), SUSPICIOUS_RED_SAND);
-
+		Registry.register(BuiltInRegistries.ITEM, Luna120SharedConstants.id("suspicious_red_sand"), SUSPICIOUS_RED_SAND_ITEM);
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries ->
 			entries.addAfter(Items.SUSPICIOUS_SAND,  List.of(new ItemStack(SUSPICIOUS_RED_SAND_ITEM)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
 
