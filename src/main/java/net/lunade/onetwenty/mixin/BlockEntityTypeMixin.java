@@ -20,6 +20,8 @@ public class BlockEntityTypeMixin {
 	private static <T extends BlockEntity> BlockEntityType.Builder<T> luna120$addSuspiciousSand(BlockEntityType.BlockEntitySupplier<? extends T> blockEntitySupplier, Block[] blocks) {
 		List<Block> brushableBlocks = new ArrayList<>(Arrays.stream(blocks).toList());
 		brushableBlocks.add(Luna120BlocksAndItems.SUSPICIOUS_RED_SAND);
+		brushableBlocks.add(Luna120BlocksAndItems.SUSPICIOUS_DIRT);
+		brushableBlocks.add(Luna120BlocksAndItems.SUSPICIOUS_CLAY);
 		return new BlockEntityType.Builder<>(blockEntitySupplier, Set.copyOf(brushableBlocks));
 	}
 
