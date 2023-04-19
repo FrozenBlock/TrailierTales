@@ -23,5 +23,4 @@ public class BlockEntityTypeMixin {
 		return new BlockEntityType.Builder<>(blockEntitySupplier, Set.copyOf(brushableBlocks));
 	}
 
-
 }
