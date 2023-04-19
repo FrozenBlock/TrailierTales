@@ -52,7 +52,7 @@ public class BrushableBlockItemRenderMixin {
 		float itemY = brushableBlockEntityInterface.luna120$getYOffset(partialTick);
 		float itemZ = brushableBlockEntityInterface.luna120$getZOffset(partialTick);
 
-		if (itemX < 0.55 && itemX > 0.45 && itemY < 0.05 && itemY > -0.05  && itemZ < 0.55 && itemZ > 0.45 ) {
+		if (itemX < 0.55F && itemX > 0.45F && itemY < 0.05F && itemY > -0.05F  && itemZ < 0.55F && itemZ > 0.45F) {
 			return;
 		}
 
