@@ -52,10 +52,6 @@ public class BrushableBlockItemRenderMixin {
 		float itemY = brushableBlockEntityInterface.luna120$getYOffset(partialTick);
 		float itemZ = brushableBlockEntityInterface.luna120$getZOffset(partialTick);
 
-		if (itemX < 0.55F && itemX > 0.45F && itemY < 0.05F && itemY > -0.05F  && itemZ < 0.55F && itemZ > 0.45F) {
-			return;
-		}
-
 		poseStack.pushPose();
 		poseStack.translate(0.0f, 0.5f, 0.0f);
 		poseStack.translate(itemX, itemY, itemZ);
