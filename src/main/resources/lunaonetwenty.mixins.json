@@ -4,16 +4,17 @@
   "package": "net.lunade.onetwenty.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BrushParticleMixin",
-    "SnifferLootMixin",
+    "BlockEntityTypeMixin",
     "BrushableBlockEntityMixin",
     "BrushableBlockMixin",
-    "FallingBlockEntityItemMixin"
+    "BrushParticleMixin",
+    "FallingBlockEntityItemMixin",
+    "SnifferLootMixin"
   ],
   "client": [
+    "client.BrushableBlockItemRenderMixin",
     "client.DecoratedPotPatternsMixin",
-    "client.DecoratedPotRendererMixin",
-    "client.BrushableBlockItemRenderMixin"
+    "client.DecoratedPotRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

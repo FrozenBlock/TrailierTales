@@ -27,10 +27,10 @@ public class BrushableBlockItemRenderMixin {
 	@Final
 	private ItemRenderer itemRenderer;
 
-	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
-	public void luna120$render(BrushableBlockEntity suspiciousSandBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
+	@Inject(method = "render*", at = @At("HEAD"), cancellable = true)
+	public void luna120$render(BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
 		info.cancel();
-		this.luna120$smoothItemRender(suspiciousSandBlockEntity, partialTick, poseStack, multiBufferSource, i, j);
+		this.luna120$smoothItemRender(brushableBlockEntity, partialTick, poseStack, multiBufferSource, i, j);
 	}
 
 	@Unique

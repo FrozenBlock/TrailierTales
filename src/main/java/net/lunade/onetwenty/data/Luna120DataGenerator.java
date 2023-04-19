@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.lunade.onetwenty.Luna120;
+import net.lunade.onetwenty.Luna120BlocksAndItems;
 import net.lunade.onetwenty.worldgen.Luna120FeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -60,7 +60,7 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		protected void addTags(HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
-				.add(Luna120.SUSPICIOUS_RED_SAND);
+				.add(Luna120BlocksAndItems.SUSPICIOUS_RED_SAND);
 		}
 	}
 
