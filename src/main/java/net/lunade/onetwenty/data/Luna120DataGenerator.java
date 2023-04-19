@@ -6,11 +6,13 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.lunade.onetwenty.Luna120;
 import net.lunade.onetwenty.worldgen.Luna120FeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
@@ -21,6 +23,7 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 		pack.addProvider(Luna120ItemTagProvider::new);
+		pack.addProvider(Luna120BlockTagProvider::new);
 		pack.addProvider(Luna120BiomeTagProvider::new);
 		pack.addProvider(Luna120WorldgenProvider::new);
 	}
@@ -45,6 +48,19 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public String getName() {
 			return "Luna 1.20 Dynamic Registries";
+		}
+	}
+
+	private static class Luna120BlockTagProvider extends FabricTagProvider.BlockTagProvider {
+
+		public Luna120BlockTagProvider(FabricDataOutput output, CompletableFuture registriesFuture) {
+			super(output, registriesFuture);
+		}
+
+		@Override
+		protected void addTags(HolderLookup.Provider arg) {
+			this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
+				.add(Luna120.SUSPICIOUS_RED_SAND);
 		}
 	}
 
@@ -91,6 +107,7 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 					.add(Items.BONE)
 					.add(Items.COAL)
 					.add(Items.FEATHER);
+
 		}
 	}
 
