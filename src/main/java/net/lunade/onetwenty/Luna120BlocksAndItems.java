@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -24,13 +25,13 @@ import java.util.List;
 
 public class Luna120BlocksAndItems {
 
-	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_ORANGE).strength(0.25f).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
+	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of(Material.DEPRECATED, MaterialColor.COLOR_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.25f).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
 	public static final BlockItem SUSPICIOUS_RED_SAND_ITEM = new BlockItem(SUSPICIOUS_RED_SAND, new Item.Properties());
 
 	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(Blocks.DIRT, BlockBehaviour.Properties.of(Material.DEPRECATED, MaterialColor.DIRT).strength(0.25f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED);
 	public static final BlockItem SUSPICIOUS_DIRT_ITEM = new BlockItem(SUSPICIOUS_DIRT, new Item.Properties());
 
-	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(Blocks.CLAY, BlockBehaviour.Properties.of(Material.DEPRECATED, MaterialColor.CLAY).strength(0.25f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED);
+	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(Blocks.CLAY, BlockBehaviour.Properties.of(Material.DEPRECATED, MaterialColor.CLAY).instrument(NoteBlockInstrument.FLUTE).strength(0.25f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED);
 	public static final BlockItem SUSPICIOUS_CLAY_ITEM = new BlockItem(SUSPICIOUS_CLAY, new Item.Properties());
 
 	public static void init() {

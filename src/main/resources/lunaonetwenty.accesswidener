@@ -5,3 +5,4 @@ accessible class net/minecraft/world/entity/SpawnPlacements$Data
 accessible method net/minecraft/world/item/BrushItem$DustParticlesDelta <init> (DDD)V
 accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceLocation;
 accessible method net/minecraft/world/level/block/entity/BlockEntityType$Builder <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
+accessible field net/minecraft/world/item/CreativeModeTabs FUNCTIONAL_BLOCKS Lnet/minecraft/resources/ResourceKey;

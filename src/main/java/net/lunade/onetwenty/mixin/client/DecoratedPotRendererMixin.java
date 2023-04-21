@@ -47,7 +47,7 @@ public class DecoratedPotRendererMixin {
 	private void luna120$setupMisMatched(DecoratedPotBlockEntity decoratedPotBlockEntity) {
 		boolean hasBlank = false;
 		boolean hasDecorated = false;
-		for (Item item : decoratedPotBlockEntity.getShards()) {
+		for (Item item : decoratedPotBlockEntity.getSherds()) {
 			if (Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(item))) {
 				hasBlank = true;
 			} else {

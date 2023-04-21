@@ -181,16 +181,6 @@ javadoc {
 	options.tags = ["reason"]
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	setClassifier("javadoc")
-	from(javadoc.destinationDir)
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-	setClassifier("sources")
-	from(sourceSets.main.allSource)
-}
-
 tasks.withType(JavaCompile).configureEach {
 	it.options.setEncoding("UTF-8")
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
@@ -217,11 +207,6 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
-}
-
-artifacts {
-	archives(sourcesJar)
-	archives(javadocJar)
 }
 
 String getVersion() {
