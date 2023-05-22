@@ -44,14 +44,14 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V", shift = At.Shift.BEFORE))
 	public void luna120$tick(CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-		if (!fallingBlockEntity.level.isClientSide) {
+		if (!fallingBlockEntity.level().isClientSide) {
 			BlockPos blockPos = fallingBlockEntity.blockPosition();
 
-				if (this.luna120$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
-					BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity(blockPos, this.blockState);
-					fallingBlockEntity.level.setBlockEntity(brushableBlockEntity);
-					((BrushableBlockEntityInterface)brushableBlockEntity).luna120$setItem(this.luna120$itemStack);
-				}
+			if (this.luna120$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
+				BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity(blockPos, this.blockState);
+				fallingBlockEntity.level().setBlockEntity(brushableBlockEntity);
+				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(this.luna120$itemStack);
+			}
 
 		}
 	}

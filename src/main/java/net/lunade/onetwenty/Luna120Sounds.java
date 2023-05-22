@@ -5,6 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class Luna120Sounds {
 
@@ -26,9 +27,9 @@ public class Luna120Sounds {
 	public static final SoundEvent BRUSH_CLAY = register("item.brush.brushing.clay");
 	public static final SoundEvent BRUSH_CLAY_COMPLETED = register("item.brush.brushing.clay.complete");
 
-	private static SoundEvent register(String string) {
+	@NotNull
+	private static SoundEvent register(@NotNull String string) {
 		ResourceLocation resourceLocation = Luna120SharedConstants.id(string);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation));
 	}
-
 }

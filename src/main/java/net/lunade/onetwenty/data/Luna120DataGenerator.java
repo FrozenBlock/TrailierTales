@@ -11,16 +11,16 @@ import net.lunade.onetwenty.worldgen.Luna120FeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.NotNull;
 
 public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
+	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 		pack.addProvider(Luna120ItemTagProvider::new);
 		pack.addProvider(Luna120BlockTagProvider::new);
@@ -29,7 +29,7 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, Luna120FeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, Luna120FeatureBootstrap::bootstrapPlaced);
 	}
@@ -72,42 +72,30 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void addTags(HolderLookup.Provider arg) {
-			this.getOrCreateTagBuilder(Luna120ItemTags.COMMON_SNIFFER_LOOT)
-					.add(Items.DANDELION)
-					.add(Items.POPPY)
-					.add(Items.BLUE_ORCHID)
-					.add(Items.ALLIUM)
-					.add(Items.AZURE_BLUET)
-					.add(Items.ORANGE_TULIP)
-					.add(Items.PINK_TULIP)
-					.add(Items.RED_TULIP)
-					.add(Items.WHITE_TULIP)
-					.add(Items.OXEYE_DAISY)
-					.add(Items.CORNFLOWER)
-					.add(Items.LILY_OF_THE_VALLEY)
-					.add(Items.LILAC)
-					.add(Items.ROSE_BUSH)
-					.add(Items.PEONY)
-					.add(Items.SUNFLOWER);
+			this.getOrCreateTagBuilder(Luna120ItemTags.COPYABLE_SHERDS)
+				.add(Items.ANGLER_POTTERY_SHERD)
+				.add(Items.SHEAF_POTTERY_SHERD)
+				.add(Items.SHELTER_POTTERY_SHERD)
+				.add(Items.ARMS_UP_POTTERY_SHERD)
+				.add(Items.ARCHER_POTTERY_SHERD)
+				.add(Items.SKULL_POTTERY_SHERD)
+				.add(Items.BLADE_POTTERY_SHERD)
+				.add(Items.BREWER_POTTERY_SHERD)
+				.add(Items.BURN_POTTERY_SHERD)
+				.add(Items.DANGER_POTTERY_SHERD)
+				.add(Items.SNORT_POTTERY_SHERD)
+				.add(Items.EXPLORER_POTTERY_SHERD)
+				.add(Items.PRIZE_POTTERY_SHERD)
+				.add(Items.PLENTY_POTTERY_SHERD)
+				.add(Items.MOURNER_POTTERY_SHERD)
+				.add(Items.MINER_POTTERY_SHERD)
+				.add(Items.HOWL_POTTERY_SHERD)
+				.add(Items.HEARTBREAK_POTTERY_SHERD)
+				.add(Items.HEART_POTTERY_SHERD)
+				.add(Items.FRIEND_POTTERY_SHERD);
 
-			this.getOrCreateTagBuilder(Luna120ItemTags.UNCOMMON_SNIFFER_LOOT)
-					.add(Items.WHEAT_SEEDS)
-					.add(Items.HANGING_ROOTS)
-					.add(Items.FLINT)
-					.add(Items.GRASS)
-					.add(Items.FERN)
-					.add(Items.STICK)
-					.add(Items.STRING)
-					.add(Items.TORCHFLOWER_SEEDS);
-
-			this.getOrCreateTagBuilder(Luna120ItemTags.RARE_SNIFFER_LOOT)
-					.add(Items.CARROT)
-					.add(Items.POTATO)
-					.add(Items.BEETROOT_SEEDS)
-					.add(Items.BONE)
-					.add(Items.COAL)
-					.add(Items.FEATHER);
-
+			this.getOrCreateTagBuilder(Luna120ItemTags.POT_BASES)
+				.add(Items.BRICK);
 		}
 	}
 
@@ -119,10 +107,6 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void addTags(HolderLookup.Provider arg) {
-			this.getOrCreateTagBuilder(Luna120BiomeTags.HAS_TORCHFLOWER)
-					.addOptionalTag(BiomeTags.IS_JUNGLE);
-			this.getOrCreateTagBuilder(Luna120BiomeTags.HAS_SNIFFER)
-					.addOptionalTag(BiomeTags.IS_JUNGLE);
 		}
 	}
 }

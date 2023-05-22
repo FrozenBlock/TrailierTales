@@ -10,15 +10,16 @@ import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class NonFallingBrushableBlock extends BrushableBlock {
 
-	public NonFallingBrushableBlock(Block block, Properties properties, SoundEvent soundEvent, SoundEvent soundEvent2) {
+	public NonFallingBrushableBlock(@NotNull Block block, @NotNull Properties properties, @NotNull SoundEvent soundEvent, @NotNull SoundEvent soundEvent2) {
 		super(block, properties, soundEvent, soundEvent2);
 	}
 
 	@Override
-	public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+	public void tick(BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, RandomSource randomSource) {
 		BlockEntity blockEntity = serverLevel.getBlockEntity(blockPos);
 		if (blockEntity instanceof BrushableBlockEntity brushableBlockEntity) {
 			brushableBlockEntity.checkReset();

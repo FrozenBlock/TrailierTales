@@ -8,8 +8,7 @@
     "BrushableBlockEntityMixin",
     "BrushableBlockMixin",
     "BrushParticleMixin",
-    "FallingBlockEntityItemMixin",
-    "SnifferLootMixin"
+    "FallingBlockEntityItemMixin"
   ],
   "client": [
     "client.BrushableBlockItemRenderMixin",

@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,27 +28,24 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 public class DecoratedPotRendererMixin {
 
 	@Unique
-	private boolean luna120$isMisMatched;
-
+	private static final Material luna120$blankMaterial = Objects.requireNonNull(Sheets.getDecoratedPotMaterial(Luna120Client.BLANK_DECORATED));
 	@Unique
 	public boolean luna120$shouldSwitchToNewPattern;
-
+	@Unique
+	private boolean luna120$isMisMatched;
 	@Unique
 	private VertexConsumer luna120$blankVertexConsumer;
 
-	@Unique
-	private static final Material luna120$blankMaterial = Objects.requireNonNull(Sheets.getDecoratedPotMaterial(Luna120Client.BLANK_DECORATED));
-
-	@Inject(method = "render", at = @At("HEAD"))
+	@Inject(method = "render*", at = @At("HEAD"))
 	public void luna120$render(DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
 		this.luna120$setupMisMatched(decoratedPotBlockEntity);
 	}
 
 	@Unique
-	private void luna120$setupMisMatched(DecoratedPotBlockEntity decoratedPotBlockEntity) {
+	private void luna120$setupMisMatched(@NotNull DecoratedPotBlockEntity decoratedPotBlockEntity) {
 		boolean hasBlank = false;
 		boolean hasDecorated = false;
-		for (Item item : decoratedPotBlockEntity.getSherds()) {
+		for (Item item : decoratedPotBlockEntity.getDecorations().sorted().toList()) {
 			if (Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(item))) {
 				hasBlank = true;
 			} else {

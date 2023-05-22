@@ -24,26 +24,27 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import org.jetbrains.annotations.NotNull;
 
 public class Luna120FeatureBootstrap {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Luna120SharedConstants.MOD_ID, "torchflower"));
 	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Luna120SharedConstants.MOD_ID, "torchflower_placed"));
 
-	public static void bootstrapConfigured(BootstapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void bootstrapConfigured(@NotNull BootstapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		register(entries, TORCHFLOWER, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER)))));
 	}
 
-	public static void bootstrapPlaced(BootstapContext<PlacedFeature> entries) {
+	public static void bootstrapPlaced(@NotNull BootstapContext<PlacedFeature> entries) {
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		register(entries, TORCHFLOWER_PLACED,
-				configuredFeatures.getOrThrow(TORCHFLOWER),
-				RarityFilter.onAverageOnceEvery(4),
-				InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
+			configuredFeatures.getOrThrow(TORCHFLOWER),
+			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
 		);
 	}
 

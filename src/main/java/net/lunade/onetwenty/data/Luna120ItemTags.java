@@ -4,14 +4,15 @@ import net.lunade.onetwenty.util.Luna120SharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 public class Luna120ItemTags {
 
-	public static final TagKey<Item> COMMON_SNIFFER_LOOT = bind("common_sniffer_loot");
-	public static final TagKey<Item> UNCOMMON_SNIFFER_LOOT = bind("uncommon_sniffer_loot");
-	public static final TagKey<Item> RARE_SNIFFER_LOOT = bind("rare_sniffer_loot");
+	public static final TagKey<Item> COPYABLE_SHERDS = bind("copyable_sherds");
+	public static final TagKey<Item> POT_BASES = bind("pot_bases");
 
-	private static TagKey<Item> bind(String path) {
+	@NotNull
+	private static TagKey<Item> bind(@NotNull String path) {
 		return TagKey.create(Registries.ITEM, Luna120SharedConstants.id(path));
 	}
 

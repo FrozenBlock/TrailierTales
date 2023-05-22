@@ -13,8 +13,7 @@ public class Luna120Client implements ClientModInitializer {
 	public static final String BLANK_DECORATED_NAME = "decorated_pot_blank_side";
 	public static final ResourceKey<String> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERNS, Luna120SharedConstants.id(BLANK_DECORATED_NAME));
 
-    @Override
-    public void onInitializeClient() {
-
-    }
+	@Override
+	public void onInitializeClient() {
+	}
 }

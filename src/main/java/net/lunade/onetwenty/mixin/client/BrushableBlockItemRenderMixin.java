@@ -12,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,11 +35,11 @@ public class BrushableBlockItemRenderMixin {
 	}
 
 	@Unique
-	public void luna120$smoothItemRender(BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
+	public void luna120$smoothItemRender(@NotNull BrushableBlockEntity brushableBlockEntity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, int j) {
 		if (brushableBlockEntity.getLevel() == null) {
 			return;
 		}
-		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface)brushableBlockEntity;
+		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
 		Direction direction = brushableBlockEntityInterface.luna120$getHitDirection();
 		if (direction == null) {
 			return;

@@ -14,6 +14,15 @@ import org.slf4j.LoggerFactory;
 public class Luna120SharedConstants {
 	public static final String MOD_ID = "lunaonetwenty";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
+	/**
+	 * Used for datafixers.
+	 * <p>
+	 * Is not necessary for a normal mod, but can be useful in some cases.
+	 */
+	public static final int DATA_VERSION = 0;
+	// MEASURING
+	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 	public static boolean DEV_LOGGING = false;
 	/**
 	 * Used for features that may be unstable and crash in public builds.
@@ -21,15 +30,7 @@ public class Luna120SharedConstants {
 	 * It's smart to use this for at least registries.
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
 	public static boolean areConfigsInit = false;
-
-	/**
-	 * Used for datafixers.
-	 * <p>
-	 * Is not necessary for a normal mod, but can be useful in some cases.
-	 */
-	public static final int DATA_VERSION = 0;
 
 	// LOGGING
 	public static void log(String string, boolean shouldLog) {
@@ -61,9 +62,6 @@ public class Luna120SharedConstants {
 			LOGGER.info(string + " " + MOD_ID);
 		}
 	}
-
-	// MEASURING
-	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
 
 	public static void startMeasuring(Object object) {
 		long started = System.nanoTime();

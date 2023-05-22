@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,6 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BrushableBlockEntity.class)
 public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
 
+	@Shadow
+	@Nullable
+	public ResourceLocation lootTable;
 	@Unique
 	private float luna120$targetXLerp = 0.5F;
 	@Unique
@@ -40,29 +44,35 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	private float luna120$zLerp = 0.5F;
 	@Unique
 	private float luna120$prevZLerp = 0.5F;
-
 	@Unique
 	private float luna120$rotation;
 	@Unique
 	private float luna120$prevRotation;
-
 	@Unique
 	private boolean luna120$hasCustomItem;
-
 	@Unique
 	@Nullable
 	private Direction luna120$hitDirection;
-
 	@Shadow
 	@Nullable
 	private Direction hitDirection;
-
 	@Shadow
 	private ItemStack item;
 
-	@Shadow
-	@Nullable
-	public ResourceLocation lootTable;
+	@Unique
+	private static float[] luna120$translations(@NotNull Direction direction, int i) {
+		float[] fs = new float[]{0.5f, 0.0f, 0.5f};
+		float f = (float) i / 9.0f;
+		switch (direction) {
+			case EAST -> fs[0] = 0.73f + f;
+			case WEST -> fs[0] = 0.25f - f;
+			case UP -> fs[1] = 0.25f + f;
+			case DOWN -> fs[1] = -0.23f - f;
+			case NORTH -> fs[2] = 0.25f - f;
+			case SOUTH -> fs[2] = 0.73f + f;
+		}
+		return fs;
+	}
 
 	@Inject(method = "getUpdateTag", at = @At("RETURN"))
 	public void luna120$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
@@ -102,7 +112,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		if (direction != null) {
 			int dusted = BrushableBlockEntity.class.cast(this).getBlockState().getValue(BlockStateProperties.DUSTED);
 			float[] translation = luna120$translations(direction, dusted);
-			this.luna120$targetXLerp =  translation[0];
+			this.luna120$targetXLerp = translation[0];
 			this.luna120$targetYLerp = translation[1];
 			this.luna120$targetZLerp = translation[2];
 			if (direction.getAxis() == Direction.Axis.X) {
@@ -140,7 +150,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Unique
-	public void luna120$readLunaNBT(CompoundTag compoundTag) {
+	public void luna120$readLunaNBT(@NotNull CompoundTag compoundTag) {
 		if (compoundTag.contains("LunaHitDirection")) {
 			this.luna120$hitDirection = Direction.byName(compoundTag.getString("LunaHitDirection"));
 		}
@@ -178,7 +188,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 
 	@Unique
 	@Override
-	public boolean luna120$setItem(ItemStack itemStack) {
+	public boolean luna120$setItem(@NotNull ItemStack itemStack) {
 		this.item = itemStack;
 		this.luna120$hasCustomItem = true;
 		return true;
@@ -218,21 +228,6 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Override
 	public Direction luna120$getHitDirection() {
 		return this.luna120$hitDirection;
-	}
-
-	@Unique
-	private static float[] luna120$translations(Direction direction, int i) {
-		float[] fs = new float[]{0.5f, 0.0f, 0.5f};
-		float f = (float)i / 9.0f;
-		switch (direction) {
-			case EAST -> fs[0] = 0.73f + f;
-			case WEST -> fs[0] = 0.25f - f;
-			case UP -> fs[1] = 0.25f + f;
-			case DOWN -> fs[1] = -0.23f - f;
-			case NORTH -> fs[2] = 0.25f - f;
-			case SOUTH -> fs[2] = 0.73f + f;
-		}
-		return fs;
 	}
 
 }
