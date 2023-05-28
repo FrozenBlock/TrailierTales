@@ -2,16 +2,13 @@
   "schemaVersion": 1,
   "id": "lunaonetwenty",
   "version": "${version}",
-
   "name": "Luna 1.20",
   "description": "Tweaks and improves feature in 1.20.",
   "authors": [
     "Luna"
   ],
-
   "license": "LGPL-3.0",
   "icon": "assets/lunaonetwenty/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -28,7 +25,6 @@
     "lunaonetwenty.mixins.json"
   ],
   "accessWidener": "lunaonetwenty.accesswidener",
-
   "depends": {
     "fabricloader": ">=0.14.12",
     "fabric-api": ">=0.80.1",
