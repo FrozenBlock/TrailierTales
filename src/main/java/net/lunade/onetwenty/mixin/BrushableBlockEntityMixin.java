@@ -2,11 +2,13 @@ package net.lunade.onetwenty.mixin;
 
 import net.lunade.onetwenty.Luna120;
 import net.lunade.onetwenty.interfaces.BrushableBlockEntityInterface;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -93,15 +95,19 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Override
 	public void luna120$tick() {
 		BrushableBlockEntity brushableBlockEntity = BrushableBlockEntity.class.cast(this);
-		if (brushableBlockEntity.getLevel() != null) {
-			BlockState blockState = brushableBlockEntity.getLevel().getBlockState(brushableBlockEntity.getBlockPos());
-			boolean canPlaceItemProperty = brushableBlockEntity.getLevel().getBlockState(brushableBlockEntity.getBlockPos()).getValue(Luna120.CAN_PLACE_ITEM);
-			boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
-			if (canPlaceItem) {
-				this.luna120$hasCustomItem = false;
-			}
-			if (canPlaceItemProperty != canPlaceItem) {
-				brushableBlockEntity.getLevel().setBlock(brushableBlockEntity.getBlockPos(), blockState.setValue(Luna120.CAN_PLACE_ITEM, canPlaceItem), 3);
+		Level level = brushableBlockEntity.getLevel();
+		if (level != null) {
+			BlockPos blockPos = brushableBlockEntity.getBlockPos();
+			BlockState blockState = level.getBlockState(blockPos);
+			if (blockState.hasProperty(Luna120.CAN_PLACE_ITEM)) {
+				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(Luna120.CAN_PLACE_ITEM);
+				boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
+				if (canPlaceItem) {
+					this.luna120$hasCustomItem = false;
+				}
+				if (canPlaceItemProperty != canPlaceItem) {
+					level.setBlock(blockPos, blockState.setValue(Luna120.CAN_PLACE_ITEM, canPlaceItem), 3);
+				}
 			}
 		}
 		this.luna120$prevRotation = this.luna120$rotation;
