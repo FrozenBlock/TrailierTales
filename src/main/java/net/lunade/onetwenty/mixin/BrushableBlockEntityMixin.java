@@ -96,7 +96,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	public void luna120$tick() {
 		BrushableBlockEntity brushableBlockEntity = BrushableBlockEntity.class.cast(this);
 		Level level = brushableBlockEntity.getLevel();
-		if (level != null) {
+		if (level != null && !level.isClientSide) {
 			BlockPos blockPos = brushableBlockEntity.getBlockPos();
 			BlockState blockState = level.getBlockState(blockPos);
 			if (blockState.hasProperty(Luna120.CAN_PLACE_ITEM)) {

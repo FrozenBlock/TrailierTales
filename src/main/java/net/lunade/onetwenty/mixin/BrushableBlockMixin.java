@@ -14,7 +14,6 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -52,23 +51,10 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		this.registerDefaultState(this.defaultBlockState().setValue(Luna120.CAN_PLACE_ITEM, false));
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-		BlockState blockState = super.getStateForPlacement(blockPlaceContext);
-		if (blockState != null && blockState.hasProperty(Luna120.CAN_PLACE_ITEM)) {
-			blockState = blockState.setValue(Luna120.CAN_PLACE_ITEM, true);
-		}
-		return blockState;
-	}
-
 	@Override
 	public InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
-		if (!blockState.getValue(Luna120.CAN_PLACE_ITEM)) {
-			return InteractionResult.PASS;
-		}
 		ItemStack playerStack = player.getItemInHand(interactionHand);
-		boolean canPlaceIntoBlock = playerStack != ItemStack.EMPTY && playerStack.getItem() != Items.AIR && !playerStack.is(Items.BRUSH);
+		boolean canPlaceIntoBlock = blockState.getValue(Luna120.CAN_PLACE_ITEM) && playerStack != ItemStack.EMPTY && playerStack.getItem() != Items.AIR && !playerStack.is(Items.BRUSH);
 		if (canPlaceIntoBlock) {
 			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
 				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(playerStack.split(1));
@@ -97,7 +83,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;", shift = At.Shift.BEFORE))
 	public void luna120$setBreakCancellationValue(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info) {
-		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && (((BrushableBlockEntityInterface) brushableBlockEntity).luna120$hasCustomItem() || (brushableBlockEntity.getItem().isEmpty() && brushableBlockEntity.lootTable == null))) {
+		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && (((BrushableBlockEntityInterface) brushableBlockEntity).luna120$hasCustomItem() || (blockState.hasProperty(Luna120.CAN_PLACE_ITEM) && blockState.getValue(Luna120.CAN_PLACE_ITEM)))) {
 			this.luna120$cancelledBreakUponFall = true;
 			this.luna120$itemStack = brushableBlockEntity.getItem().copy();
 			((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(ItemStack.EMPTY);

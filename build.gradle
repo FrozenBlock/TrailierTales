@@ -9,7 +9,6 @@ buildscript {
 
 plugins {
 	id("fabric-loom") version("+")
-	id("io.github.juuxel.loom-quiltflower") version("+")
 	id("org.ajoberstar.grgit") version("+")
 	id("com.modrinth.minotaur") version("+")
 	id("com.matthewprenger.cursegradle") version("+")
@@ -171,10 +170,6 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand(properties)
 	}
-}
-
-quiltflower {
-	quiltflowerVersion.set("1.9.0")
 }
 
 javadoc {

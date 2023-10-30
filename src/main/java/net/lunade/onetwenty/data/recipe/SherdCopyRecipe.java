@@ -3,7 +3,6 @@ package net.lunade.onetwenty.data.recipe;
 import net.lunade.onetwenty.Luna120;
 import net.lunade.onetwenty.data.Luna120ItemTags;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -14,8 +13,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class SherdCopyRecipe extends CustomRecipe {
-	public SherdCopyRecipe(ResourceLocation resourceLocation, CraftingBookCategory craftingBookCategory) {
-		super(resourceLocation, craftingBookCategory);
+
+	public SherdCopyRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 		return sherds == 1 && bricks == 1;
 	}
 
-	@Override
+	@Override @NotNull
 	public ItemStack assemble(@NotNull CraftingContainer craftingContainer, RegistryAccess registryAccess) {
 		for (ItemStack itemStack : craftingContainer.getItems()) {
 			if (itemStack.is(Luna120ItemTags.COPYABLE_SHERDS)) {
@@ -52,7 +52,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 		return i >= 2 && j >= 2;
 	}
 
-	@Override
+	@Override @NotNull
 	public RecipeSerializer<?> getSerializer() {
 		return Luna120.SHERD_COPY_RECIPE;
 	}
