@@ -8,7 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -31,13 +31,13 @@ public class Luna120FeatureBootstrap {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Luna120SharedConstants.MOD_ID, "torchflower"));
 	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Luna120SharedConstants.MOD_ID, "torchflower_placed"));
 
-	public static void bootstrapConfigured(@NotNull BootstapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		register(entries, TORCHFLOWER, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER)))));
 	}
 
-	public static void bootstrapPlaced(@NotNull BootstapContext<PlacedFeature> entries) {
+	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		register(entries, TORCHFLOWER_PLACED,
@@ -48,15 +48,15 @@ public class Luna120FeatureBootstrap {
 		);
 	}
 
-	public static void register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
+	public static void register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, PlacementModifier... modifiers) {
 		register(entries, resourceKey, configuredHolder, Arrays.asList(modifiers));
 	}
 
-	private static void register(BootstapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
+	private static void register(BootstrapContext<PlacedFeature> entries, ResourceKey<PlacedFeature> resourceKey, Holder<ConfiguredFeature<?, ?>> configuredHolder, List<PlacementModifier> modifiers) {
 		PlacementUtils.register(entries, resourceKey, configuredHolder, modifiers);
 	}
 
-	private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
+	private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
 		FeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
 	}
 

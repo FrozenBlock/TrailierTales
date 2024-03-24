@@ -58,13 +58,17 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void luna120$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		compoundTag.put("LunaOneTwentyItem", this.luna120$itemStack.save(new CompoundTag()));
+		if (this.luna120$itemStack != null && !this.luna120$itemStack.isEmpty()) {
+			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
+			compoundTag.put("LunaOneTwentyItem", this.luna120$itemStack.save(fallingBlockEntity.level().registryAccess(), new CompoundTag()));
+		}
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void luna120$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
 		if (compoundTag.contains("LunaOneTwentyItem")) {
-			this.luna120$itemStack = ItemStack.of(compoundTag.getCompound("LunaOneTwentyItem"));
+			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
+			this.luna120$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("LunaOneTwentyItem"));
 		}
 	}
 

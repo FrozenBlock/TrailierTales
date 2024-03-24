@@ -24,13 +24,42 @@ import net.minecraft.world.level.material.PushReaction;
 
 public class Luna120BlocksAndItems {
 
-	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(Blocks.RED_SAND, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.25f).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED);
+	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(
+		Blocks.RED_SAND,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_ORANGE)
+			.instrument(NoteBlockInstrument.SNARE)
+			.strength(0.25f).sound(SoundType.SUSPICIOUS_SAND)
+			.pushReaction(PushReaction.DESTROY)
+	);
 	public static final BlockItem SUSPICIOUS_RED_SAND_ITEM = new BlockItem(SUSPICIOUS_RED_SAND, new Item.Properties());
 
-	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(Blocks.DIRT, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.25f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED);
+	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
+		Blocks.DIRT,
+		SoundEvents.BRUSH_GRAVEL,
+		SoundEvents.BRUSH_GRAVEL_COMPLETED,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.DIRT)
+			.strength(0.25f)
+			.sound(SoundType.SUSPICIOUS_GRAVEL)
+			.pushReaction(PushReaction.DESTROY)
+	);
 	public static final BlockItem SUSPICIOUS_DIRT_ITEM = new BlockItem(SUSPICIOUS_DIRT, new Item.Properties());
 
-	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(Blocks.CLAY, BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).instrument(NoteBlockInstrument.FLUTE).strength(0.25f).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED);
+	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(
+		Blocks.CLAY,
+		SoundEvents.BRUSH_GRAVEL,
+		SoundEvents.BRUSH_GRAVEL_COMPLETED,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.CLAY)
+			.instrument(NoteBlockInstrument.FLUTE)
+			.strength(0.25f)
+			.sound(SoundType.SUSPICIOUS_GRAVEL)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
 	public static final BlockItem SUSPICIOUS_CLAY_ITEM = new BlockItem(SUSPICIOUS_CLAY, new Item.Properties());
 
 	public static void init() {

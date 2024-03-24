@@ -9,13 +9,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class NonFallingBrushableBlock extends BrushableBlock {
 
-	public NonFallingBrushableBlock(@NotNull Block block, @NotNull Properties properties, @NotNull SoundEvent soundEvent, @NotNull SoundEvent soundEvent2) {
-		super(block, properties, soundEvent, soundEvent2);
+	public NonFallingBrushableBlock(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties) {
+		super(block, soundEvent, soundEvent2, properties);
 	}
 
 	@Override

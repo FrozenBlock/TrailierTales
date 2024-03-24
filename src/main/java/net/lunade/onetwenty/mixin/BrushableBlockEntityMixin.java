@@ -4,6 +4,7 @@ import net.lunade.onetwenty.Luna120;
 import net.lunade.onetwenty.interfaces.BrushableBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -82,12 +83,12 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Inject(method = "load", at = @At("TAIL"))
-	public void luna120$load(CompoundTag compoundTag, CallbackInfo info) {
+	public void luna120$load(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.luna120$readLunaNBT(compoundTag);
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
-	public void luna120$saveAdditional(CompoundTag compoundTag, CallbackInfo info) {
+	public void luna120$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.luna120$saveLunaNBT(compoundTag);
 	}
 
