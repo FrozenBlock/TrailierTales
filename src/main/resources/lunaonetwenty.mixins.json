@@ -11,7 +11,7 @@
     "FallingBlockEntityItemMixin"
   ],
   "client": [
-    "client.BrushableBlockItemRenderMixin",
+    "client.BrushableBlockRenderMixin",
     "client.DecoratedPotPatternsMixin",
     "client.DecoratedPotRendererMixin"
   ],
