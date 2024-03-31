@@ -21,7 +21,11 @@ public class Luna120 implements ModInitializer {
 
 	public static final BooleanProperty CAN_PLACE_ITEM = BooleanProperty.create("can_place_item");
 
-	public static final RecipeSerializer<SherdCopyRecipe> SHERD_COPY_RECIPE = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Luna120SharedConstants.id("crafting_sherd_copy"), new SimpleCraftingRecipeSerializer<>(SherdCopyRecipe::new));
+	public static final RecipeSerializer<SherdCopyRecipe> SHERD_COPY_RECIPE = Registry.register(
+		BuiltInRegistries.RECIPE_SERIALIZER,
+		Luna120SharedConstants.id("crafting_sherd_copy"),
+		new SimpleCraftingRecipeSerializer<>(SherdCopyRecipe::new)
+	);
 
 	@SuppressWarnings("unchecked")
 	@Nullable

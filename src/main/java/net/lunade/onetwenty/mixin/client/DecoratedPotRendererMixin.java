@@ -7,8 +7,10 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import java.util.Objects;
 import net.lunade.onetwenty.Luna120Client;
+import net.lunade.onetwenty.interfaces.DecoratedPotBlockEntityInterface;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,8 +42,39 @@ public class DecoratedPotRendererMixin {
 		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
 		at = @At("HEAD")
 	)
-	public void luna120$render(DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info) {
+	public void luna120$render(
+		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info
+	) {
 		this.luna120$setupMisMatched(decoratedPotBlockEntity);
+	}
+
+	@Inject(
+		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity$WobbleStyle;duration:I",
+			ordinal = 0
+		)
+	)
+	public void luna120$prepareIsFlipped(
+		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info,
+		@Share("luna120$isFlipped") LocalBooleanRef isFlipped
+	) {
+		isFlipped.set(((DecoratedPotBlockEntityInterface)decoratedPotBlockEntity).luna120$isWobbleFlipped());
+	}
+
+	@WrapOperation(
+		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		at = @At(
+			value = "INVOKE",
+			target = "Lcom/mojang/math/Axis;rotation(F)Lorg/joml/Quaternionf;"
+		)
+	)
+	public Quaternionf luna120$flipWobble(
+		Axis instance, float v, Operation<Quaternionf> original,
+		@Share("luna120$isFlipped") LocalBooleanRef isFlipped
+	) {
+		return original.call(instance, v * (isFlipped.get() ? -1 : 1F));
 	}
 
 	@Unique

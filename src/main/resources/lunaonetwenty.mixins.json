@@ -8,6 +8,7 @@
     "BrushableBlockEntityMixin",
     "BrushableBlockMixin",
     "BrushParticleMixin",
+    "DecoratedPotBlockEntityMixin",
     "FallingBlockEntityItemMixin"
   ],
   "client": [
