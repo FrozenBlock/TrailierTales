@@ -7,6 +7,10 @@
   "authors": [
     "Luna"
   ],
+  "contributors": [
+    "voxelotl",
+    "zhen"
+  ],
   "license": "LGPL-3.0",
   "icon": "assets/lunaonetwenty/icon.png",
   "environment": "*",
