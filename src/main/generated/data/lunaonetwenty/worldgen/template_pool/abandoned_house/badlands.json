@@ -1,0 +1,32 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "lunaonetwenty:abandoned_house/badlands/badlands_house_0",
+        "processors": "lunaonetwenty:abandoned_badlands_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "lunaonetwenty:abandoned_house/badlands/badlands_house_1",
+        "processors": "lunaonetwenty:abandoned_badlands_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "lunaonetwenty:abandoned_house/badlands/badlands_house_2",
+        "processors": "lunaonetwenty:abandoned_badlands_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

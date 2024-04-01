@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Optional;
 import net.fabricmc.api.ModInitializer;
 import net.lunade.onetwenty.data.recipe.SherdCopyRecipe;
+import net.lunade.onetwenty.registry.RegisterBlocksAndItems;
+import net.lunade.onetwenty.registry.RegisterStructures;
 import net.lunade.onetwenty.util.Luna120SharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -56,7 +58,8 @@ public class Luna120 implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		Luna120SharedConstants.startMeasuring(this);
-		Luna120BlocksAndItems.init();
+		RegisterBlocksAndItems.init();
+		RegisterStructures.init();
 		Luna120SharedConstants.stopMeasuring(this);
 	}
 }

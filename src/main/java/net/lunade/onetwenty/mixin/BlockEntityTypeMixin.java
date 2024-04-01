@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import net.lunade.onetwenty.Luna120BlocksAndItems;
+import net.lunade.onetwenty.registry.RegisterBlocksAndItems;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,9 +35,9 @@ public class BlockEntityTypeMixin {
 		BlockEntityType.BlockEntitySupplier<? extends T> instance, Block[] blocks, Operation<BlockEntityType.Builder<T>> original
 	) {
 		List<Block> brushableBlocks = new ArrayList<>(Arrays.stream(blocks).toList());
-		brushableBlocks.add(Luna120BlocksAndItems.SUSPICIOUS_RED_SAND);
-		brushableBlocks.add(Luna120BlocksAndItems.SUSPICIOUS_DIRT);
-		brushableBlocks.add(Luna120BlocksAndItems.SUSPICIOUS_CLAY);
+		brushableBlocks.add(RegisterBlocksAndItems.SUSPICIOUS_RED_SAND);
+		brushableBlocks.add(RegisterBlocksAndItems.SUSPICIOUS_DIRT);
+		brushableBlocks.add(RegisterBlocksAndItems.SUSPICIOUS_CLAY);
 		return new BlockEntityType.Builder<>(instance, Set.copyOf(brushableBlocks));
 	}
 

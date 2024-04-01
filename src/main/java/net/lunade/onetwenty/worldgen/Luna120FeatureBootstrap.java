@@ -63,9 +63,29 @@ public class Luna120FeatureBootstrap {
 	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
 		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
 		final var placedFeatures = asLookup(entries.placedFeatures());
+		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
+		final var noises = asLookup(entries.getLookup(Registries.NOISE));
+		final var processorLists = asLookup(entries.getLookup(Registries.PROCESSOR_LIST));
+		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
+		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
+		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
 
+		Luna120SharedConstants.log("Adding finalized configured features to datagen", true);
 		entries.addAll(configuredFeatures);
+		Luna120SharedConstants.log("Adding finalized placed features to datagen", true);
 		entries.addAll(placedFeatures);
+		Luna120SharedConstants.log("Adding finalized biomes to datagen", true);
+		entries.addAll(biomes);
+		Luna120SharedConstants.log("Adding finalized noises to datagen", true);
+		entries.addAll(noises);
+		Luna120SharedConstants.log("Adding finalized processor lists to datagen", true);
+		entries.addAll(processorLists);
+		Luna120SharedConstants.log("Adding finalized template pools to datagen", true);
+		entries.addAll(templatePools);
+		Luna120SharedConstants.log("Adding finalized structures to datagen", true);
+		entries.addAll(structures);
+		Luna120SharedConstants.log("Adding finalized structure sets to datagen", true);
+		entries.addAll(structureSets);
 	}
 
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {

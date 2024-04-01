@@ -1,4 +1,4 @@
-package net.lunade.onetwenty;
+package net.lunade.onetwenty.registry;
 
 import java.util.List;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-public class Luna120BlocksAndItems {
+public class RegisterBlocksAndItems {
 
 	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(
 		Blocks.RED_SAND,

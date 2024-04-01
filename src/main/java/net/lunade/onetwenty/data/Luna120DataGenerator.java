@@ -6,7 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.lunade.onetwenty.Luna120BlocksAndItems;
+import net.lunade.onetwenty.registry.RegisterBlocksAndItems;
+import net.lunade.onetwenty.registry.RegisterStructures;
 import net.lunade.onetwenty.worldgen.Luna120FeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -32,6 +33,10 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, Luna120FeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, Luna120FeatureBootstrap::bootstrapPlaced);
+		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructures::bootstrapProcessor);
+		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
+		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
+		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 	}
 
 	private static class Luna120WorldgenProvider extends FabricDynamicRegistryProvider {
@@ -60,7 +65,7 @@ public class Luna120DataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		protected void addTags(HolderLookup.Provider arg) {
 			this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
-				.add(Luna120BlocksAndItems.SUSPICIOUS_RED_SAND);
+				.add(RegisterBlocksAndItems.SUSPICIOUS_RED_SAND);
 		}
 	}
 

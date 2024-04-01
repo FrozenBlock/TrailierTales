@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 25386232,
+    "separation": 5,
+    "spacing": 7
+  },
+  "structures": [
+    {
+      "structure": "lunaonetwenty:abandoned_house",
+      "weight": 1
+    }
+  ]
+}
