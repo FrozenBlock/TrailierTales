@@ -142,18 +142,18 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		if (this.luna120$hitDirection != null) {
 			compoundTag.putString("LunaHitDirection", this.luna120$hitDirection.getName());
 		}
-		compoundTag.putFloat("TargetXLerp", this.luna120$targetXLerp);
-		compoundTag.putFloat("TargetYLerp", this.luna120$targetYLerp);
-		compoundTag.putFloat("TargetZLerp", this.luna120$targetZLerp);
-		compoundTag.putFloat("XLerp", this.luna120$xLerp);
-		compoundTag.putFloat("YLerp", this.luna120$yLerp);
-		compoundTag.putFloat("ZLerp", this.luna120$zLerp);
-		compoundTag.putFloat("PrevXLerp", this.luna120$prevXLerp);
-		compoundTag.putFloat("PrevYLerp", this.luna120$prevYLerp);
-		compoundTag.putFloat("PrevZLerp", this.luna120$prevZLerp);
-		compoundTag.putFloat("Rotation", this.luna120$rotation);
-		compoundTag.putFloat("PrevRotation", this.luna120$prevRotation);
-		compoundTag.putBoolean("HasCustomItem", this.luna120$hasCustomItem);
+		if (this.luna120$targetXLerp != 0.5F) compoundTag.putFloat("TargetXLerp", this.luna120$targetXLerp);
+		if (this.luna120$targetYLerp != 0F) compoundTag.putFloat("TargetYLerp", this.luna120$targetYLerp);
+		if (this.luna120$targetZLerp != 0.5F) compoundTag.putFloat("TargetZLerp", this.luna120$targetZLerp);
+		if (this.luna120$xLerp != 0.5F) compoundTag.putFloat("XLerp", this.luna120$xLerp);
+		if (this.luna120$yLerp != 0F) compoundTag.putFloat("YLerp", this.luna120$yLerp);
+		if (this.luna120$zLerp != 0.5F) compoundTag.putFloat("ZLerp", this.luna120$zLerp);
+		if (this.luna120$prevXLerp != 0.5F) compoundTag.putFloat("PrevXLerp", this.luna120$prevXLerp);
+		if (this.luna120$prevYLerp != 0F) compoundTag.putFloat("PrevYLerp", this.luna120$prevYLerp);
+		if (this.luna120$prevZLerp != 0.5F) compoundTag.putFloat("PrevZLerp", this.luna120$prevZLerp);
+		if (this.luna120$rotation != 0F) compoundTag.putFloat("Rotation", this.luna120$rotation);
+		if (this.luna120$prevRotation != 0F) compoundTag.putFloat("PrevRotation", this.luna120$prevRotation);
+		if (this.luna120$hasCustomItem) compoundTag.putBoolean("HasCustomItem", this.luna120$hasCustomItem);
 	}
 
 	@Unique

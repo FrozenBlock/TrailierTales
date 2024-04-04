@@ -1,4 +1,4 @@
-package world.features.structure;
+package net.lunade.onetwenty.structure;
 
 import com.mojang.datafixers.util.Either;
 import java.util.function.Function;

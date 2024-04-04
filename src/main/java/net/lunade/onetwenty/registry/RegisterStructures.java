@@ -35,8 +35,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
-import world.features.structure.AbandonedHouseGenerator;
-import world.features.structure.RegisterStructureProcessors;
+import net.lunade.onetwenty.structure.AbandonedHouseGenerator;
+import net.lunade.onetwenty.structure.RegisterStructureProcessors;
 
 public final class RegisterStructures {
 	public static final ResourceKey<StructureSet> ABANDONED_HOUSES_KEY = ofSet("abandoned_house");
@@ -75,17 +75,30 @@ public final class RegisterStructures {
 		//todo: rebel's suspicious sand trick
 		register(
 			context,
-			RegisterStructureProcessors.ABANDONED_BADLANDS_HOUSE,
+			RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095,
 			List.of(
 				new RuleProcessor(
 					List.of(
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_SAND, 0.95F),
+							AlwaysTrueTest.INSTANCE, Blocks.SAND.defaultBlockState()
 						),
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.SOUL_LANTERN, 0.05F), AlwaysTrueTest.INSTANCE, Blocks.AIR.defaultBlockState())
+						new ProcessorRule(
+							new RandomBlockMatchTest(RegisterBlocksAndItems.SUSPICIOUS_RED_SAND, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_SAND.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(RegisterBlocksAndItems.SUSPICIOUS_CLAY, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							AlwaysTrueTest.INSTANCE, Blocks.CLAY.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(RegisterBlocksAndItems.SUSPICIOUS_DIRT, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()
+						)
 					)
 				),
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -103,9 +116,8 @@ public final class RegisterStructures {
 			new StructureTemplatePool(
 				holder2,
 				List.of(
-					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_0", processor.getOrThrow(RegisterStructureProcessors.ABANDONED_BADLANDS_HOUSE)), 1),
-					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_1", processor.getOrThrow(RegisterStructureProcessors.ABANDONED_BADLANDS_HOUSE)), 1),
-					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_2", processor.getOrThrow(RegisterStructureProcessors.ABANDONED_BADLANDS_HOUSE)), 1)
+					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095)), 1),
+					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095)), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -124,7 +136,7 @@ public final class RegisterStructures {
 					TerrainAdjustment.BEARD_THIN
 				),
 				templatePool.getOrThrow(AbandonedHouseGenerator.ABANDONED_BADLANDS_HOUSE),
-				2,
+				5,
 				ConstantHeight.ZERO,
 				false,
 				Heightmap.Types.WORLD_SURFACE_WG
