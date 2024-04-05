@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
-import net.frozenblock.trailiertales.structure.AbandonedHouseGenerator;
+import net.frozenblock.trailiertales.structure.BadlandsTowerGenerator;
 import net.frozenblock.trailiertales.structure.RegisterStructureProcessors;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -39,8 +39,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterStructures {
-	public static final ResourceKey<StructureSet> ABANDONED_HOUSES_KEY = ofSet("abandoned_house");
-	private static final ResourceKey<Structure> ABANDONED_HOUSE_KEY = createKey("abandoned_house");
+	public static final ResourceKey<StructureSet> BADLANDS_TOWERS_KEY = ofSet("badlands_tower");
+	private static final ResourceKey<Structure> BADLANDS_TOWER_KEY = createKey("badlands_tower");
 
 	private RegisterStructures() {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
@@ -53,7 +53,7 @@ public final class RegisterStructures {
 
 	public static void init() {
 		RegisterStructureProcessors.init();
-		AbandonedHouseGenerator.init();
+		BadlandsTowerGenerator.init();
 	}
 
 	@NotNull
@@ -72,15 +72,14 @@ public final class RegisterStructures {
 	}
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
-		//todo: rebel's suspicious sand trick
 		register(
 			context,
-			RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095,
+			RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085,
 			List.of(
 				new RuleProcessor(
 					List.of(
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
 						),
 						new ProcessorRule(
@@ -88,15 +87,15 @@ public final class RegisterStructures {
 							AlwaysTrueTest.INSTANCE, Blocks.SAND.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_RED_SAND, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_RED_SAND, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.RED_SAND.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_CLAY, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_CLAY, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.CLAY.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_DIRT, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_DIRT, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()
 						)
 					)
@@ -112,12 +111,12 @@ public final class RegisterStructures {
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
 
 		context.register(
-			AbandonedHouseGenerator.ABANDONED_BADLANDS_HOUSE,
+			BadlandsTowerGenerator.BADLANDS_TOWER,
 			new StructureTemplatePool(
 				holder2,
 				List.of(
-					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095)), 1),
-					Pair.of(AbandonedHouseGenerator.ofProcessedSingle("abandoned_house/badlands/badlands_house_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095)), 1)
+					Pair.of(BadlandsTowerGenerator.ofProcessedSingle("badlands_tower/tower_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
+					Pair.of(BadlandsTowerGenerator.ofProcessedSingle("badlands_tower/tower_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -128,14 +127,14 @@ public final class RegisterStructures {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
 		context.register(
-			ABANDONED_HOUSE_KEY,
+			BADLANDS_TOWER_KEY,
 			new JigsawStructure(
 				structure(
 					holderGetter.getOrThrow(ConventionalBiomeTags.BADLANDS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.BEARD_THIN
 				),
-				templatePool.getOrThrow(AbandonedHouseGenerator.ABANDONED_BADLANDS_HOUSE),
+				templatePool.getOrThrow(BadlandsTowerGenerator.BADLANDS_TOWER),
 				5,
 				ConstantHeight.ZERO,
 				false,
@@ -147,9 +146,9 @@ public final class RegisterStructures {
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
 		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
 		context.register(
-			ABANDONED_HOUSES_KEY,
+			BADLANDS_TOWERS_KEY,
 			new StructureSet(
-				structure.getOrThrow(ABANDONED_HOUSE_KEY),
+				structure.getOrThrow(BADLANDS_TOWER_KEY),
 				new RandomSpreadStructurePlacement(7, 5, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
 			)
 		);

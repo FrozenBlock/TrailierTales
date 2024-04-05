@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:archer_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:danger_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:feather"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flower_pot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "trailiertales:archaeology/badlands_tower"
+}

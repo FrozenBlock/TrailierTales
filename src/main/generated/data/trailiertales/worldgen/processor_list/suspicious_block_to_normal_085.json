@@ -7,7 +7,7 @@
           "input_predicate": {
             "block": "minecraft:suspicious_gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.95
+            "probability": 0.85
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -33,7 +33,7 @@
           "input_predicate": {
             "block": "trailiertales:suspicious_red_sand",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.95
+            "probability": 0.85
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -46,7 +46,7 @@
           "input_predicate": {
             "block": "trailiertales:suspicious_clay",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.95
+            "probability": 0.85
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -59,7 +59,7 @@
           "input_predicate": {
             "block": "trailiertales:suspicious_dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.95
+            "probability": 0.85
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
