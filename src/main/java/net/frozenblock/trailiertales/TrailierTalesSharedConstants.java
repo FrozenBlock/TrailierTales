@@ -1,13 +1,16 @@
-package net.frozenblock.trailiertales.util;
+package net.frozenblock.trailiertales;
 
-import java.util.HashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.nio.file.Path;
 import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +25,7 @@ public class TrailierTalesSharedConstants {
 	 */
 	public static final int DATA_VERSION = 0;
 	// MEASURING
-	public static final Map<Object, Long> INSTANT_MAP = new HashMap<>();
+	public static final Map<Object, Long> INSTANT_MAP = new Object2ObjectOpenHashMap<>();
 	public static boolean DEV_LOGGING = false;
 	/**
 	 * Used for features that may be unstable and crash in public builds.
@@ -86,7 +89,30 @@ public class TrailierTalesSharedConstants {
 		return new ResourceLocation(ResourceLocation.DEFAULT_NAMESPACE, path);
 	}
 
-	public static String string(String path) {
-		return id(path).toString();
+	@NotNull
+	public static String string(@NotNull String path) {
+		return TrailierTalesSharedConstants.id(path).toString();
+	}
+
+	public static String safeString(String path) {
+		return MOD_ID + "_" + path;
+	}
+
+	/**
+	 * @return A text component for use in a Config GUI
+	 */
+	public static Component text(String key) {
+		return Component.translatable("option." + MOD_ID + "." + key);
+	}
+
+	/**
+	 * @return A tooltip component for use in a Config GUI
+	 */
+	public static Component tooltip(String key) {
+		return Component.translatable("tooltip." + MOD_ID + "." + key);
+	}
+
+	public static Path configPath(String name, boolean json5) {
+		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
 }

@@ -22,7 +22,7 @@
       "net.frozenblock.trailiertales.TrailierTalesClient"
     ],
     "fabric-datagen": [
-      "net.frozenblock.trailiertales.data.TrailierDataGenerator"
+      "net.frozenblock.trailiertales.datagen.TTDataGenerator"
     ]
   },
   "mixins": [

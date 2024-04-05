@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import net.frozenblock.trailiertales.registry.RegisterBlocksAndItems;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,9 +35,9 @@ public class BlockEntityTypeMixin {
 		BlockEntityType.BlockEntitySupplier<? extends T> instance, Block[] blocks, Operation<BlockEntityType.Builder<T>> original
 	) {
 		List<Block> brushableBlocks = new ArrayList<>(Arrays.stream(blocks).toList());
-		brushableBlocks.add(RegisterBlocksAndItems.SUSPICIOUS_RED_SAND);
-		brushableBlocks.add(RegisterBlocksAndItems.SUSPICIOUS_DIRT);
-		brushableBlocks.add(RegisterBlocksAndItems.SUSPICIOUS_CLAY);
+		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_RED_SAND);
+		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_DIRT);
+		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_CLAY);
 		return new BlockEntityType.Builder<>(instance, Set.copyOf(brushableBlocks));
 	}
 

@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.structure;
 
-import net.frozenblock.trailiertales.util.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;

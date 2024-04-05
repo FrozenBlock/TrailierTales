@@ -1,13 +1,12 @@
 package net.frozenblock.trailiertales.mixin;
 
-import net.frozenblock.trailiertales.TrailierTales;
 import net.frozenblock.trailiertales.interfaces.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,7 +29,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 
 	@Shadow
 	@Nullable
-	private ResourceKey<LootTable> lootTable;
+	public ResourceKey<LootTable> lootTable;
 	@Unique
 	private float luna120$targetXLerp = 0.5F;
 	@Unique
@@ -102,14 +101,14 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		if (level != null && !level.isClientSide) {
 			BlockPos blockPos = brushableBlockEntity.getBlockPos();
 			BlockState blockState = level.getBlockState(blockPos);
-			if (blockState.hasProperty(TrailierTales.CAN_PLACE_ITEM)) {
-				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(TrailierTales.CAN_PLACE_ITEM);
+			if (blockState.hasProperty(RegisterProperties.CAN_PLACE_ITEM)) {
+				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(RegisterProperties.CAN_PLACE_ITEM);
 				boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
 				if (canPlaceItem) {
 					this.luna120$hasCustomItem = false;
 				}
 				if (canPlaceItemProperty != canPlaceItem) {
-					level.setBlock(blockPos, blockState.setValue(TrailierTales.CAN_PLACE_ITEM, canPlaceItem), 3);
+					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), 3);
 				}
 			}
 		}

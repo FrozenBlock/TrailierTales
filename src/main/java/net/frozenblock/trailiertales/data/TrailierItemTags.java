@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.data;
 
-import net.frozenblock.trailiertales.util.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

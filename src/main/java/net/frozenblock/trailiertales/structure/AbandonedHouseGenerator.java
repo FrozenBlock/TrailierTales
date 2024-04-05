@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.structure;
 
 import com.mojang.datafixers.util.Either;
 import java.util.function.Function;
-import net.frozenblock.trailiertales.util.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

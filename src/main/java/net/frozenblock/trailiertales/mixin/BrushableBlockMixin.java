@@ -1,8 +1,8 @@
 package net.frozenblock.trailiertales.mixin;
 
-import net.frozenblock.trailiertales.TrailierTales;
-import net.frozenblock.trailiertales.interfaces.FallingBlockEntityInterface;
 import net.frozenblock.trailiertales.interfaces.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.interfaces.FallingBlockEntityInterface;
+import net.frozenblock.trailiertales.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -49,13 +49,16 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/BrushableBlock;registerDefaultState(Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.AFTER))
 	public void lunade120$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
-		this.registerDefaultState(this.defaultBlockState().setValue(TrailierTales.CAN_PLACE_ITEM, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(RegisterProperties.CAN_PLACE_ITEM, false));
 	}
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
 		ItemStack playerStack = player.getItemInHand(interactionHand);
-		boolean canPlaceIntoBlock = blockState.getValue(TrailierTales.CAN_PLACE_ITEM) && playerStack != ItemStack.EMPTY && playerStack.getItem() != Items.AIR && !playerStack.is(Items.BRUSH);
+		boolean canPlaceIntoBlock = blockState.getValue(RegisterProperties.CAN_PLACE_ITEM) &&
+			playerStack != ItemStack.EMPTY &&
+			playerStack.getItem() != Items.AIR &&
+			!playerStack.is(Items.BRUSH);
 		if (canPlaceIntoBlock) {
 			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
 				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(playerStack.split(1));
@@ -84,7 +87,9 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;", shift = At.Shift.BEFORE))
 	public void luna120$setBreakCancellationValue(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info) {
-		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && (((BrushableBlockEntityInterface) brushableBlockEntity).luna120$hasCustomItem() || (blockState.hasProperty(TrailierTales.CAN_PLACE_ITEM) && blockState.getValue(TrailierTales.CAN_PLACE_ITEM)))) {
+		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity &&
+			(((BrushableBlockEntityInterface) brushableBlockEntity).luna120$hasCustomItem() ||
+				(blockState.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && blockState.getValue(RegisterProperties.CAN_PLACE_ITEM)))) {
 			this.luna120$cancelledBreakUponFall = true;
 			this.luna120$itemStack = brushableBlockEntity.getItem().copy();
 			((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(ItemStack.EMPTY);
@@ -101,7 +106,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	protected void luna120$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
-		builder.add(TrailierTales.CAN_PLACE_ITEM);
+		builder.add(RegisterProperties.CAN_PLACE_ITEM);
 	}
 
 }

@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_block": {
+    "has_gravel": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:gravel"
-            ]
+            "items": "minecraft:gravel"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:suspicious_gravel"
+        "recipe": "minecraft:suspicious_gravel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_block",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_gravel"
     ]
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:suspicious_gravel"
+      "minecraft:suspicious_gravel"
     ]
   }
 }

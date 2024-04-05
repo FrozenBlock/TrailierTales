@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_block": {
+    "has_dirt": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:red_sand"
-            ]
+            "items": "minecraft:dirt"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:suspicious_red_sand"
+        "recipe": "trailiertales:suspicious_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_block",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_dirt"
     ]
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:suspicious_red_sand"
+      "trailiertales:suspicious_dirt"
     ]
   }
 }

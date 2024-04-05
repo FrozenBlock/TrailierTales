@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "suspicious_block",
+  "category": "misc",
   "key": {
     "#": {
       "item": "minecraft:red_sand"
@@ -13,7 +12,7 @@
     " # "
   ],
   "result": {
-    "id": "trailiertales:suspicious_red_sand",
-    "count": 4
+    "count": 4,
+    "id": "trailiertales:suspicious_red_sand"
   }
 }

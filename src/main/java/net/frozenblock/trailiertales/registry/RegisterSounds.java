@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
-import net.frozenblock.trailiertales.util.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

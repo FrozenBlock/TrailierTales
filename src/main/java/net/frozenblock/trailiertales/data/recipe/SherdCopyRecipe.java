@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.data.recipe;
 
-import net.frozenblock.trailiertales.TrailierTales;
 import net.frozenblock.trailiertales.data.TrailierItemTags;
+import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -54,7 +54,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override @NotNull
 	public RecipeSerializer<?> getSerializer() {
-		return TrailierTales.SHERD_COPY_RECIPE;
+		return RegisterRecipies.SHERD_COPY_RECIPE;
 	}
 }
 

@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_block": {
+    "has_clay": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sand"
-            ]
+            "items": "minecraft:clay"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:suspicious_sand"
+        "recipe": "trailiertales:suspicious_clay"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_block",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_clay"
     ]
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:suspicious_sand"
+      "trailiertales:suspicious_clay"
     ]
   }
 }

@@ -4,9 +4,9 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.structure.AbandonedHouseGenerator;
 import net.frozenblock.trailiertales.structure.RegisterStructureProcessors;
-import net.frozenblock.trailiertales.util.TrailierTalesSharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -88,15 +88,15 @@ public final class RegisterStructures {
 							AlwaysTrueTest.INSTANCE, Blocks.SAND.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(RegisterBlocksAndItems.SUSPICIOUS_RED_SAND, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_RED_SAND, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.RED_SAND.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(RegisterBlocksAndItems.SUSPICIOUS_CLAY, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_CLAY, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.CLAY.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(RegisterBlocksAndItems.SUSPICIOUS_DIRT, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
+							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_DIRT, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_095_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()
 						)
 					)
