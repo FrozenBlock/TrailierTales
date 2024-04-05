@@ -149,7 +149,7 @@ public final class RegisterStructures {
 			BADLANDS_TOWERS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_TOWER_KEY),
-				new RandomSpreadStructurePlacement(11, 9, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(14, 9, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
 			)
 		);
 	}
