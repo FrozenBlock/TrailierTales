@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
-import net.frozenblock.trailiertales.structure.BadlandsTowerGenerator;
+import net.frozenblock.trailiertales.structure.BadlandsFortGenerator;
 import net.frozenblock.trailiertales.structure.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.minecraft.core.Holder;
@@ -39,8 +39,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterStructures {
-	public static final ResourceKey<StructureSet> BADLANDS_TOWERS_KEY = ofSet("badlands_tower");
-	private static final ResourceKey<Structure> BADLANDS_TOWER_KEY = createKey("badlands_tower");
+	public static final ResourceKey<StructureSet> BADLANDS_FORTS_KEY = ofSet("badlands_fort");
+	private static final ResourceKey<Structure> BADLANDS_FORT_KEY = createKey("badlands_fort");
 
 	private RegisterStructures() {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
@@ -53,7 +53,7 @@ public final class RegisterStructures {
 
 	public static void init() {
 		RegisterStructureProcessors.init();
-		BadlandsTowerGenerator.init();
+		BadlandsFortGenerator.init();
 	}
 
 	@NotNull
@@ -111,12 +111,14 @@ public final class RegisterStructures {
 		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
 
 		context.register(
-			BadlandsTowerGenerator.BADLANDS_TOWER,
+			BadlandsFortGenerator.BADLANDS_FORT,
 			new StructureTemplatePool(
 				holder2,
 				List.of(
-					Pair.of(BadlandsTowerGenerator.ofProcessedSingle("badlands_tower/tower_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
-					Pair.of(BadlandsTowerGenerator.ofProcessedSingle("badlands_tower/tower_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_3", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_4", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -127,15 +129,15 @@ public final class RegisterStructures {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
 		context.register(
-			BADLANDS_TOWER_KEY,
+			BADLANDS_FORT_KEY,
 			new JigsawStructure(
 				structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_TOWER),
+					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.BEARD_THIN
 				),
-				templatePool.getOrThrow(BadlandsTowerGenerator.BADLANDS_TOWER),
-				5,
+				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
+				1,
 				ConstantHeight.ZERO,
 				false,
 				Heightmap.Types.WORLD_SURFACE_WG
@@ -146,10 +148,10 @@ public final class RegisterStructures {
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
 		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
 		context.register(
-			BADLANDS_TOWERS_KEY,
+			BADLANDS_FORTS_KEY,
 			new StructureSet(
-				structure.getOrThrow(BADLANDS_TOWER_KEY),
-				new RandomSpreadStructurePlacement(14, 9, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
+				structure.getOrThrow(BADLANDS_FORT_KEY),
+				new RandomSpreadStructurePlacement(16, 13, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
 			)
 		);
 	}

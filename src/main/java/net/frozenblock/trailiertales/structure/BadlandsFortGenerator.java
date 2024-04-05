@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Contains the StructureTemplatePool for Abandoned Cabins
  */
-public class BadlandsTowerGenerator {
+public class BadlandsFortGenerator {
 
-	public static final ResourceKey<StructureTemplatePool> BADLANDS_TOWER = createKey("badlands_tower");
+	public static final ResourceKey<StructureTemplatePool> BADLANDS_FORT = createKey("badlands_fort");
 
 	/**
 	 * @param id                 The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
