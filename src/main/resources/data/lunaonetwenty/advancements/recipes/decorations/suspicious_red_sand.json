@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "lunaonetwenty:suspicious_red_sand"
+        "recipe": "trailiertales:suspicious_red_sand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "lunaonetwenty:suspicious_red_sand"
+      "trailiertales:suspicious_red_sand"
     ]
   }
 }

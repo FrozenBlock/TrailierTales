@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "lunaonetwenty:suspicious_gravel"
+        "recipe": "trailiertales:suspicious_gravel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "lunaonetwenty:suspicious_gravel"
+      "trailiertales:suspicious_gravel"
     ]
   }
 }

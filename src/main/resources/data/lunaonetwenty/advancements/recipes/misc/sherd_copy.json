@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "lunaonetwenty:sherd_copy"
+        "recipe": "trailiertales:sherd_copy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "lunaonetwenty:sherd_copy"
+      "trailiertales:sherd_copy"
     ]
   }
 }
