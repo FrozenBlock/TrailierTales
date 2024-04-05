@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.mixin;
 
-import net.frozenblock.trailiertales.interfaces.DecoratedPotBlockEntityInterface;
+import net.frozenblock.trailiertales.impl.DecoratedPotBlockEntityInterface;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

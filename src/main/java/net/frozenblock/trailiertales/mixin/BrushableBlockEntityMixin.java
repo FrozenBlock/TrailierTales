@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.mixin;
 
-import net.frozenblock.trailiertales.interfaces.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -3,10 +3,10 @@ package net.frozenblock.trailiertales.registry;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.structure.BadlandsTowerGenerator;
 import net.frozenblock.trailiertales.structure.RegisterStructureProcessors;
+import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -130,7 +130,7 @@ public final class RegisterStructures {
 			BADLANDS_TOWER_KEY,
 			new JigsawStructure(
 				structure(
-					holderGetter.getOrThrow(ConventionalBiomeTags.BADLANDS),
+					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_TOWER),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.BEARD_THIN
 				),
@@ -149,7 +149,7 @@ public final class RegisterStructures {
 			BADLANDS_TOWERS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_TOWER_KEY),
-				new RandomSpreadStructurePlacement(7, 5, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(11, 9, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
 			)
 		);
 	}

@@ -10,7 +10,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import java.util.Objects;
 import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.interfaces.DecoratedPotBlockEntityInterface;
+import net.frozenblock.trailiertales.impl.DecoratedPotBlockEntityInterface;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

@@ -1,6 +1,6 @@
-package net.frozenblock.trailiertales.data.recipe;
+package net.frozenblock.trailiertales.recipe;
 
-import net.frozenblock.trailiertales.data.TrailierItemTags;
+import net.frozenblock.trailiertales.tag.TrailierItemTags;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.inventory.CraftingContainer;

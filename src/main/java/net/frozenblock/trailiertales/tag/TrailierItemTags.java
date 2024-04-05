@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.data;
+package net.frozenblock.trailiertales.tag;
 
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.registries.Registries;

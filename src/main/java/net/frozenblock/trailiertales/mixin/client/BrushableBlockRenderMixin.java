@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.frozenblock.trailiertales.interfaces.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import org.joml.Quaternionf;

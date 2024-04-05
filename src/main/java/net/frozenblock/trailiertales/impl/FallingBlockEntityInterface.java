@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.interfaces;
+package net.frozenblock.trailiertales.impl;
 
 import net.minecraft.world.item.ItemStack;
 
