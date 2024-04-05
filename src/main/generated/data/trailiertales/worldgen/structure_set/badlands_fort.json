@@ -2,12 +2,12 @@
   "placement": {
     "type": "minecraft:random_spread",
     "salt": 25386232,
-    "separation": 9,
-    "spacing": 14
+    "separation": 13,
+    "spacing": 16
   },
   "structures": [
     {
-      "structure": "trailiertales:badlands_tower",
+      "structure": "trailiertales:badlands_fort",
       "weight": 1
     }
   ]
