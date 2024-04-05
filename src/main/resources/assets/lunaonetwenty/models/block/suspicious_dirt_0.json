@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lunaonetwenty:block/suspicious_dirt_0"
-  }
-}

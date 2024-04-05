@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "lunaonetwenty",
+  "id": "trailiertales",
   "version": "${version}",
-  "name": "Luna 1.20",
+  "name": "Trailier Tales",
   "description": "Tweaks and improves feature in 1.20.",
   "authors": [
     "Luna"
@@ -12,31 +12,28 @@
     "zhen"
   ],
   "license": "LGPL-3.0",
-  "icon": "assets/lunaonetwenty/icon.png",
+  "icon": "assets/trailiertales/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.lunade.onetwenty.Luna120"
+      "net.frozenblock.trailiertales.TrailierTales"
     ],
     "client": [
-      "net.lunade.onetwenty.Luna120Client"
+      "net.frozenblock.trailiertales.TrailierTalesClient"
     ],
     "fabric-datagen": [
-      "net.lunade.onetwenty.data.Luna120DataGenerator"
+      "net.frozenblock.trailiertales.data.TrailierDataGenerator"
     ]
   },
   "mixins": [
-    "lunaonetwenty.mixins.json"
+    "trailiertales.mixins.json"
   ],
-  "accessWidener": "lunaonetwenty.accesswidener",
+  "accessWidener": "trailiertales.accesswidener",
   "depends": {
-    "fabricloader": ">=0.14.12",
-    "fabric-api": ">=0.80.1",
-    "minecraft": ">=${minecraft_json_version}",
-    "java": ">=17"
-  },
-  "breaks": {
-    "quilted_fabric_api": "4.0.0-beta.8"
+    "fabricloader": ">=0.15.9",
+    "fabric-api": ">=0.96.14+1.20.5",
+    "minecraft": ">=1.20.5-alpha.24.14.a",
+    "java": ">=21"
   },
   "suggests": {
     "cloth-config": "*"
