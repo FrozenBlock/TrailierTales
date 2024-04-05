@@ -31,7 +31,7 @@
         },
         {
           "input_predicate": {
-            "block": "lunaonetwenty:suspicious_red_sand",
+            "block": "trailiertales:suspicious_red_sand",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.95
           },
@@ -44,7 +44,7 @@
         },
         {
           "input_predicate": {
-            "block": "lunaonetwenty:suspicious_clay",
+            "block": "trailiertales:suspicious_clay",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.95
           },
@@ -57,7 +57,7 @@
         },
         {
           "input_predicate": {
-            "block": "lunaonetwenty:suspicious_dirt",
+            "block": "trailiertales:suspicious_dirt",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.95
           },

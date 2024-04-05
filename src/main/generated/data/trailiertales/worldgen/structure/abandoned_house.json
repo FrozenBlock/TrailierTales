@@ -8,7 +8,7 @@
   "start_height": {
     "absolute": 0
   },
-  "start_pool": "lunaonetwenty:abandoned_house/badlands",
+  "start_pool": "trailiertales:abandoned_house/badlands",
   "step": "surface_structures",
   "terrain_adaptation": "beard_thin",
   "use_expansion_hack": false

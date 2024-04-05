@@ -3,8 +3,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "lunaonetwenty:abandoned_house/badlands/badlands_house_1",
-        "processors": "lunaonetwenty:suspicious_block_to_normal_095",
+        "location": "trailiertales:abandoned_house/badlands/badlands_house_1",
+        "processors": "trailiertales:suspicious_block_to_normal_095",
         "projection": "rigid"
       },
       "weight": 1
@@ -12,8 +12,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "lunaonetwenty:abandoned_house/badlands/badlands_house_2",
-        "processors": "lunaonetwenty:suspicious_block_to_normal_095",
+        "location": "trailiertales:abandoned_house/badlands/badlands_house_2",
+        "processors": "trailiertales:suspicious_block_to_normal_095",
         "projection": "rigid"
       },
       "weight": 1
