@@ -14,7 +14,8 @@
   "client": [
     "client.BrushableBlockRenderMixin",
     "client.DecoratedPotPatternsMixin",
-    "client.DecoratedPotRendererMixin"
+    "client.DecoratedPotRendererMixin",
+    "client.PlayerItemInHandLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
