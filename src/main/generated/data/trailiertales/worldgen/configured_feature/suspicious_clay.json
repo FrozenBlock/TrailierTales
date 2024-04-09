@@ -8,15 +8,15 @@
     "targets": [
       {
         "state": {
-          "Name": "trailiertales:suspicious_dirt",
+          "Name": "trailiertales:suspicious_clay",
           "Properties": {
             "can_place_item": "false",
             "dusted": "0"
           }
         },
         "target": {
-          "predicate_type": "minecraft:tag_match",
-          "tag": "minecraft:dirt"
+          "block": "minecraft:clay",
+          "predicate_type": "minecraft:block_match"
         }
       }
     ]

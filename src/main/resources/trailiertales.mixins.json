@@ -9,7 +9,8 @@
     "BrushableBlockMixin",
     "BrushParticleMixin",
     "DecoratedPotBlockEntityMixin",
-    "FallingBlockEntityItemMixin"
+    "FallingBlockEntityItemMixin",
+    "ServerLevelMixin"
   ],
   "client": [
     "client.BrushableBlockRenderMixin",

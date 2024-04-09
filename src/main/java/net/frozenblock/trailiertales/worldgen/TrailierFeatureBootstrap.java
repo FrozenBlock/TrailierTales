@@ -30,6 +30,7 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import org.jetbrains.annotations.NotNull;
@@ -52,6 +53,42 @@ public class TrailierFeatureBootstrap {
 	public static final ResourceKey<PlacedFeature> SUSPICIOUS_DIRT_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
 		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_dirt")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_SAND = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_sand")
+		);
+	public static final ResourceKey<PlacedFeature> SUSPICIOUS_SAND_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_sand")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_RED_SAND = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_red_sand")
+		);
+	public static final ResourceKey<PlacedFeature> SUSPICIOUS_RED_SAND_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_red_sand")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_GRAVEL = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_gravel")
+		);
+	public static final ResourceKey<PlacedFeature> SUSPICIOUS_GRAVEL_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_gravel")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_CLAY = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_clay")
+		);
+	public static final ResourceKey<PlacedFeature> SUSPICIOUS_CLAY_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_clay")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -77,10 +114,66 @@ public class TrailierFeatureBootstrap {
 			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
 			new SuspiciousBlockConfiguration(
 				isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState(),
-				12,
-				0.1F,
-				0.2F,
-				TrailierTalesSharedConstants.id("archaeology/badlands_hut")
+				16,
+				0F,
+				0.3F,
+				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
+			)
+		);
+
+		RuleTest isSandTest = new BlockMatchTest(Blocks.SAND);
+		register(
+			entries,
+			SUSPICIOUS_SAND,
+			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
+			new SuspiciousBlockConfiguration(
+				isSandTest, Blocks.SUSPICIOUS_SAND.defaultBlockState(),
+				16,
+				0F,
+				0.3F,
+				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
+			)
+		);
+
+		RuleTest isRedSandTest = new BlockMatchTest(Blocks.RED_SAND);
+		register(
+			entries,
+			SUSPICIOUS_RED_SAND,
+			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
+			new SuspiciousBlockConfiguration(
+				isRedSandTest, RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState(),
+				16,
+				0F,
+				0.3F,
+				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
+			)
+		);
+
+		RuleTest isGravelTest = new BlockMatchTest(Blocks.GRAVEL);
+		register(
+			entries,
+			SUSPICIOUS_GRAVEL,
+			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
+			new SuspiciousBlockConfiguration(
+				isGravelTest, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(),
+				16,
+				0F,
+				0.3F,
+				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
+			)
+		);
+
+		RuleTest isClayTest = new BlockMatchTest(Blocks.CLAY);
+		register(
+			entries,
+			SUSPICIOUS_CLAY,
+			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
+			new SuspiciousBlockConfiguration(
+				isClayTest, RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
+				16,
+				0F,
+				0.3F,
+				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
 			)
 		);
 	}
@@ -102,7 +195,46 @@ public class TrailierFeatureBootstrap {
 			entries,
 			SUSPICIOUS_DIRT_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_DIRT),
-			RarityFilter.onAverageOnceEvery(2),
+			CountPlacement.of(UniformInt.of(10, 30)),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			SUSPICIOUS_SAND_PLACED,
+			configuredFeatures.getOrThrow(SUSPICIOUS_SAND),
+			CountPlacement.of(UniformInt.of(10, 30)),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			SUSPICIOUS_RED_SAND_PLACED,
+			configuredFeatures.getOrThrow(SUSPICIOUS_RED_SAND),
+			CountPlacement.of(UniformInt.of(10, 30)),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			SUSPICIOUS_GRAVEL_PLACED,
+			configuredFeatures.getOrThrow(SUSPICIOUS_GRAVEL),
+			CountPlacement.of(UniformInt.of(10, 30)),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			SUSPICIOUS_CLAY_PLACED,
+			configuredFeatures.getOrThrow(SUSPICIOUS_CLAY),
 			CountPlacement.of(UniformInt.of(10, 30)),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE,

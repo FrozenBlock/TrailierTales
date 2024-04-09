@@ -3,14 +3,13 @@ package net.frozenblock.trailiertales.worldgen.impl;
 import com.mojang.serialization.Codec;
 import java.util.BitSet;
 import java.util.function.Function;
+import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousData;
+import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousDataInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -152,12 +151,8 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 														for(OreConfiguration.TargetBlockState targetBlockState : config.targetStates) {
 															if (canPlaceSuspicious(blockState, bulkSectionAccess::getBlockState, random, config, targetBlockState, mutableBlockPos)) {
 																levelChunkSection.setBlockState(ad, ae, af, targetBlockState.state, false);
-																if (level.getBlockEntity(new BlockPos(ad, ae, af)) instanceof BrushableBlockEntity brushableBlockEntity) {
-																	brushableBlockEntity.setLootTable(
-																		ResourceKey.create(Registries.LOOT_TABLE, config.lootTable),
-																		random.nextLong()
-																	);
-																}
+																	((SuspiciousDataInterface)level.getLevel()).trailierTales$getSuspiciousData()
+																		.suspiciousData.add(new SuspiciousData.Pair(mutableBlockPos.immutable(), config.lootTable));
 																++i;
 																break;
 															}

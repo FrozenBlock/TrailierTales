@@ -14,8 +14,12 @@ public final class TrailierBiomeModifications {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.foundInOverworld(),
 				(biomeSelectionContext, context) -> {
-				BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, TrailierFeatureBootstrap.SUSPICIOUS_DIRT_PLACED);
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TrailierFeatureBootstrap.SUSPICIOUS_DIRT_PLACED);
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TrailierFeatureBootstrap.SUSPICIOUS_CLAY_PLACED);
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TrailierFeatureBootstrap.SUSPICIOUS_GRAVEL_PLACED);
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TrailierFeatureBootstrap.SUSPICIOUS_SAND_PLACED);
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TrailierFeatureBootstrap.SUSPICIOUS_RED_SAND_PLACED);
 			});
 	}
 }
