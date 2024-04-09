@@ -32,7 +32,7 @@ import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.worldgen.Luna120FeatureBootstrap;
+import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;
@@ -60,8 +60,8 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
 		TrailierTalesSharedConstants.log("Registering Biomes for Trailier Tales", TrailierTalesSharedConstants.UNSTABLE_LOGGING);
 
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, Luna120FeatureBootstrap::bootstrapConfigured);
-		registryBuilder.add(Registries.PLACED_FEATURE, Luna120FeatureBootstrap::bootstrapPlaced);
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, TrailierFeatureBootstrap::bootstrapConfigured);
+		registryBuilder.add(Registries.PLACED_FEATURE, TrailierFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructures::bootstrapProcessor);
 		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
 		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);

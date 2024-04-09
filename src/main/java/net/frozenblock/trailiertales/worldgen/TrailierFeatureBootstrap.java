@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterFeatures;
+import net.frozenblock.trailiertales.worldgen.impl.SuspiciousBlockConfiguration;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -13,37 +16,98 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.ReplaceBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import org.jetbrains.annotations.NotNull;
 
-public class Luna120FeatureBootstrap {
+public class TrailierFeatureBootstrap {
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower"));
-	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower_placed"));
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower")
+	);
+	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_DIRT = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_dirt")
+		);
+	public static final ResourceKey<PlacedFeature> SUSPICIOUS_DIRT_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_dirt")
+	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		register(entries, TORCHFLOWER, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER)))));
+		register(
+			entries,
+			TORCHFLOWER,
+			Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				4,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER))
+				)
+			)
+		);
+
+		RuleTest isDirtTest = new TagMatchTest(BlockTags.DIRT);
+		register(
+			entries,
+			SUSPICIOUS_DIRT,
+			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
+			new SuspiciousBlockConfiguration(
+				isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState(),
+				12,
+				0.1F,
+				0.2F,
+				TrailierTalesSharedConstants.id("archaeology/badlands_hut")
+			)
+		);
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		register(entries, TORCHFLOWER_PLACED,
+		register(
+			entries,
+			TORCHFLOWER_PLACED,
 			configuredFeatures.getOrThrow(TORCHFLOWER),
 			RarityFilter.onAverageOnceEvery(4),
-			InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			SUSPICIOUS_DIRT_PLACED,
+			configuredFeatures.getOrThrow(SUSPICIOUS_DIRT),
+			RarityFilter.onAverageOnceEvery(2),
+			CountPlacement.of(UniformInt.of(10, 30)),
+			InSquarePlacement.spread(),
+			PlacementUtils.FULL_RANGE,
 			BiomeFilter.biome()
 		);
 	}

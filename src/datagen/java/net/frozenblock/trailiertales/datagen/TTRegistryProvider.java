@@ -21,7 +21,7 @@ package net.frozenblock.trailiertales.datagen;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.trailiertales.worldgen.Luna120FeatureBootstrap;
+import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +38,7 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 
 		entries.addAll(damageTypes);
 
-		Luna120FeatureBootstrap.bootstrap(entries);
+		TrailierFeatureBootstrap.bootstrap(entries);
 	}
 
 	@Override

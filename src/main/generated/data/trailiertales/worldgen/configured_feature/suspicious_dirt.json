@@ -1,0 +1,24 @@
+{
+  "type": "trailiertales:suspicious_block_feature",
+  "config": {
+    "discard_chance_on_air_exposure": 0.1,
+    "loot_table": "trailiertales:archaeology/badlands_hut",
+    "place_chance_per_block": 0.2,
+    "size": 12,
+    "targets": [
+      {
+        "state": {
+          "Name": "trailiertales:suspicious_dirt",
+          "Properties": {
+            "can_place_item": "false",
+            "dusted": "0"
+          }
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:dirt"
+        }
+      }
+    ]
+  }
+}
