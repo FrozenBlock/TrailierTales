@@ -5,20 +5,22 @@ import net.minecraft.world.item.ItemStack;
 
 public interface BrushableBlockEntityInterface {
 
-	void luna120$tick();
+	void trailierTales$tick();
 
-	boolean luna120$setItem(ItemStack itemStack);
+	boolean trailierTales$setItem(ItemStack itemStack);
 
-	boolean luna120$hasCustomItem();
+	boolean trailierTales$hasCustomItem();
 
-	float luna120$getXOffset(float partialTicks);
+	float trailierTales$getXOffset(float partialTicks);
 
-	float luna120$getYOffset(float partialTicks);
+	float trailierTales$getYOffset(float partialTicks);
 
-	float luna120$getZOffset(float partialTicks);
+	float trailierTales$getZOffset(float partialTicks);
 
-	float luna120$getRotation(float partialTicks);
+	float trailierTales$getRotation(float partialTicks);
 
-	Direction luna120$getHitDirection();
+	float trailierTales$getItemScale(float partialTicks);
+
+	Direction trailierTales$getHitDirection();
 
 }

@@ -33,19 +33,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DecoratedPotRenderer.class)
 public class DecoratedPotRendererMixin {
 	@Unique
-	private static final Material LUNA120$BLANK_MATERIAL = Objects.requireNonNull(Sheets.getDecoratedPotMaterial(TrailierTalesClient.BLANK_DECORATED));
+	private static final Material trailierTales$BLANK_MATERIAL = Objects.requireNonNull(Sheets.getDecoratedPotMaterial(TrailierTalesClient.BLANK_DECORATED));
 
 	@Unique
-	private boolean luna120$isMisMatched;
+	private boolean trailierTales$isMisMatched;
 
 	@Inject(
 		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
 		at = @At("HEAD")
 	)
-	public void luna120$render(
+	public void trailierTales$render(
 		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info
 	) {
-		this.luna120$setupMisMatched(decoratedPotBlockEntity);
+		this.trailierTales$setupMisMatched(decoratedPotBlockEntity);
 	}
 
 	@Inject(
@@ -56,11 +56,11 @@ public class DecoratedPotRendererMixin {
 			ordinal = 0
 		)
 	)
-	public void luna120$prepareIsFlipped(
+	public void trailierTales$prepareIsFlipped(
 		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info,
-		@Share("luna120$isFlipped") LocalBooleanRef isFlipped
+		@Share("trailierTales$isFlipped") LocalBooleanRef isFlipped
 	) {
-		isFlipped.set(((DecoratedPotBlockEntityInterface)decoratedPotBlockEntity).luna120$isWobbleFlipped());
+		isFlipped.set(((DecoratedPotBlockEntityInterface)decoratedPotBlockEntity).trailierTales$isWobbleFlipped());
 	}
 
 	@WrapOperation(
@@ -70,15 +70,15 @@ public class DecoratedPotRendererMixin {
 			target = "Lcom/mojang/math/Axis;rotation(F)Lorg/joml/Quaternionf;"
 		)
 	)
-	public Quaternionf luna120$flipWobble(
+	public Quaternionf trailierTales$flipWobble(
 		Axis instance, float v, Operation<Quaternionf> original,
-		@Share("luna120$isFlipped") LocalBooleanRef isFlipped
+		@Share("trailierTales$isFlipped") LocalBooleanRef isFlipped
 	) {
 		return original.call(instance, v * (isFlipped.get() ? -1 : 1F));
 	}
 
 	@Unique
-	private void luna120$setupMisMatched(@NotNull DecoratedPotBlockEntity decoratedPotBlockEntity) {
+	private void trailierTales$setupMisMatched(@NotNull DecoratedPotBlockEntity decoratedPotBlockEntity) {
 		boolean hasBlank = false;
 		boolean hasDecorated = false;
 		for (Item item : decoratedPotBlockEntity.getDecorations().ordered().stream().toList()) {
@@ -88,7 +88,7 @@ public class DecoratedPotRendererMixin {
 				hasDecorated = true;
 			}
 		}
-		this.luna120$isMisMatched = hasBlank && hasDecorated;
+		this.trailierTales$isMisMatched = hasBlank && hasDecorated;
 	}
 
 	@Inject(
@@ -99,13 +99,13 @@ public class DecoratedPotRendererMixin {
 			shift = At.Shift.BEFORE
 		)
 	)
-	private void luna120$renderSide(
+	private void trailierTales$renderSide(
 		ModelPart modelPart, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, @Nullable Material material, CallbackInfo info,
-		@Share("luna120$newPattern") LocalBooleanRef newPattern, @Share("luna120$blankVertexConsumer") LocalRef<VertexConsumer> blankVertexConsumer
+		@Share("trailierTales$newPattern") LocalBooleanRef newPattern, @Share("trailierTales$blankVertexConsumer") LocalRef<VertexConsumer> blankVertexConsumer
 	) {
-		if (material == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) && this.luna120$isMisMatched) {
+		if (material == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) && this.trailierTales$isMisMatched) {
 			newPattern.set(true);
-			blankVertexConsumer.set(LUNA120$BLANK_MATERIAL.buffer(multiBufferSource, RenderType::entitySolid));
+			blankVertexConsumer.set(trailierTales$BLANK_MATERIAL.buffer(multiBufferSource, RenderType::entitySolid));
 		}
 	}
 
@@ -116,9 +116,9 @@ public class DecoratedPotRendererMixin {
 			target = "Lnet/minecraft/client/model/geom/ModelPart;render(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;II)V"
 		)
 	)
-	private void luna120$renderSideFix(
+	private void trailierTales$renderSideFix(
 		ModelPart instance, PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, Operation<Void> original,
-		@Share("luna120$newPattern") LocalBooleanRef newPattern, @Share("luna120$blankVertexConsumer") LocalRef<VertexConsumer> blankVertexConsumer
+		@Share("trailierTales$newPattern") LocalBooleanRef newPattern, @Share("trailierTales$blankVertexConsumer") LocalRef<VertexConsumer> blankVertexConsumer
 	) {
 		original.call(
 			instance,

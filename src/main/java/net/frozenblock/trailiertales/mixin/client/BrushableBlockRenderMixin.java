@@ -3,15 +3,20 @@ package net.frozenblock.trailiertales.mixin.client;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BrushableBlockRenderer.class)
 public class BrushableBlockRenderMixin {
@@ -23,8 +28,26 @@ public class BrushableBlockRenderMixin {
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;"
 		)
 	)
-	public Comparable<Integer> luna120$removeBrushRequirement(Comparable<Integer> original) {
+	public Comparable<Integer> trailierTales$removeBrushRequirementAndSetItemScale(
+		Comparable<Integer> original
+	) {
 		return 1;
+	}
+
+	@Inject(
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		at = @At(value = "HEAD"),
+		cancellable = true
+	)
+	public void trailierTales$setItemScaleOrCancel(
+		BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo info,
+		@Share("trailierTales$itemScale") LocalFloatRef itemScale
+	) {
+		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+		itemScale.set(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
+		if (itemScale.get() <= 0.05F) {
+			info.cancel();
+		}
 	}
 
 	@WrapOperation(
@@ -40,13 +63,13 @@ public class BrushableBlockRenderMixin {
 			)
 		)
 	)
-	public void luna120$useSmoothTranslation(PoseStack instance, float f, float g, float h, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
+	public void trailierTales$useSmoothTranslation(PoseStack instance, float f, float g, float h, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
 		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
 		original.call(
 			instance,
-			brushableBlockEntityInterface.luna120$getXOffset(partialTick),
-			brushableBlockEntityInterface.luna120$getYOffset(partialTick),
-			brushableBlockEntityInterface.luna120$getZOffset(partialTick)
+			brushableBlockEntityInterface.trailierTales$getXOffset(partialTick),
+			brushableBlockEntityInterface.trailierTales$getYOffset(partialTick),
+			brushableBlockEntityInterface.trailierTales$getZOffset(partialTick)
 		);
 	}
 
@@ -64,11 +87,29 @@ public class BrushableBlockRenderMixin {
 			)
 		)
 	)
-	public void luna120$useSmoothXAxisRotation(PoseStack instance, Quaternionf quaternionf, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
+	public void trailierTales$useSmoothXAxisRotation(PoseStack instance, Quaternionf quaternionf, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
 		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
 		original.call(
 			instance,
-			Axis.YP.rotationDegrees(brushableBlockEntityInterface.luna120$getRotation(partialTick) + 15F)
+			Axis.YP.rotationDegrees(brushableBlockEntityInterface.trailierTales$getRotation(partialTick) + 15F)
+		);
+	}
+
+	@WrapOperation(
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		at = @At(
+			value = "INVOKE",
+			target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V"
+		)
+	)
+	public void trailierTales$useSmoothScale(PoseStack instance, float x, float y, float z, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
+		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+		float itemScale = brushableBlockEntityInterface.trailierTales$getItemScale(partialTick);
+		original.call(
+			instance,
+			x * itemScale,
+			y * itemScale,
+			z * itemScale
 		);
 	}
 

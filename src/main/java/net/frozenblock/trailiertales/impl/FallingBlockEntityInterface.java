@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.impl;
 import net.minecraft.world.item.ItemStack;
 
 public interface FallingBlockEntityInterface {
-	boolean luna120$setItem(ItemStack itemStack);
+	boolean trailierTales$setItem(ItemStack itemStack);
 
-	ItemStack luna120$getItem();
+	ItemStack trailierTales$getItem();
 
 }

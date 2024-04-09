@@ -31,7 +31,7 @@ public class BlockEntityTypeMixin {
 			)
 		)
 	)
-	private static <T extends BlockEntity> BlockEntityType.Builder<T> luna120$addSuspiciousSand(
+	private static <T extends BlockEntity> BlockEntityType.Builder<T> trailierTales$addSuspiciousSand(
 		BlockEntityType.BlockEntitySupplier<? extends T> instance, Block[] blocks, Operation<BlockEntityType.Builder<T>> original
 	) {
 		List<Block> brushableBlocks = new ArrayList<>(Arrays.stream(blocks).toList());

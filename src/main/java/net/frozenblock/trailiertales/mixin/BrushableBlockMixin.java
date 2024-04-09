@@ -39,9 +39,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Unique
-	private boolean luna120$cancelledBreakUponFall;
+	private boolean trailierTales$cancelledBreakUponFall;
 	@Unique
-	private ItemStack luna120$itemStack = ItemStack.EMPTY;
+	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
 
 	protected BrushableBlockMixin(Properties properties) {
 		super(properties);
@@ -61,7 +61,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 			!playerStack.is(Items.BRUSH);
 		if (canPlaceIntoBlock) {
 			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
-				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(playerStack.split(1));
+				((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(playerStack.split(1));
 				return ItemInteractionResult.SUCCESS;
 			}
 		}
@@ -73,7 +73,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		if (blockState.is(blockState2.getBlock())) {
 			return;
 		}
-		if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && ((BrushableBlockEntityInterface) brushableBlockEntity).luna120$hasCustomItem()) {
+		if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && ((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$hasCustomItem()) {
 			Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), brushableBlockEntity.getItem());
 		}
 		super.onRemove(blockState, level, blockPos, blockState2, bl);
@@ -82,30 +82,30 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
-		return BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.BRUSHABLE_BLOCK, (worldx, pos, statex, blockEntity) -> ((BrushableBlockEntityInterface) blockEntity).luna120$tick());
+		return BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.BRUSHABLE_BLOCK, (worldx, pos, statex, blockEntity) -> ((BrushableBlockEntityInterface) blockEntity).trailierTales$tick());
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;", shift = At.Shift.BEFORE))
-	public void luna120$setBreakCancellationValue(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info) {
+	public void trailierTales$setBreakCancellationValue(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info) {
 		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity &&
-			(((BrushableBlockEntityInterface) brushableBlockEntity).luna120$hasCustomItem() ||
+			(((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$hasCustomItem() ||
 				(blockState.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && blockState.getValue(RegisterProperties.CAN_PLACE_ITEM)))) {
-			this.luna120$cancelledBreakUponFall = true;
-			this.luna120$itemStack = brushableBlockEntity.getItem().copy();
-			((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(ItemStack.EMPTY);
+			this.trailierTales$cancelledBreakUponFall = true;
+			this.trailierTales$itemStack = brushableBlockEntity.getItem().copy();
+			((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
 		}
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;disableDrop()V", shift = At.Shift.BEFORE), cancellable = true, locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-	public void luna120$tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info, FallingBlockEntity fallingBlockEntity) {
-		if (this.luna120$cancelledBreakUponFall) {
-			((FallingBlockEntityInterface) fallingBlockEntity).luna120$setItem(this.luna120$itemStack);
+	public void trailierTales$tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info, FallingBlockEntity fallingBlockEntity) {
+		if (this.trailierTales$cancelledBreakUponFall) {
+			((FallingBlockEntityInterface) fallingBlockEntity).trailierTales$setItem(this.trailierTales$itemStack);
 			info.cancel();
 		}
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
-	protected void luna120$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
+	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
 		builder.add(RegisterProperties.CAN_PLACE_ITEM);
 	}
 

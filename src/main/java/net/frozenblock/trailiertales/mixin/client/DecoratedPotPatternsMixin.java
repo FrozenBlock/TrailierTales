@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class DecoratedPotPatternsMixin {
 
 	@Inject(method = "bootstrap", at = @At(value = "RETURN", shift = At.Shift.BEFORE))
-	private static void luna120$bootstrap(Registry<String> registry, CallbackInfoReturnable<String> info) {
+	private static void trailierTales$bootstrap(Registry<String> registry, CallbackInfoReturnable<String> info) {
 		Registry.register(registry, TrailierTalesClient.BLANK_DECORATED, TrailierTalesClient.BLANK_DECORATED_NAME);
 	}
 

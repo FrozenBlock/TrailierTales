@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class DecoratedPotBlockEntityMixin implements DecoratedPotBlockEntityInterface {
 
 	@Unique
-	private boolean luna120$flipWobble = false;
+	private boolean trailierTales$flipWobble = false;
 
 	@Inject(
 		method = "triggerEvent",
@@ -21,13 +21,13 @@ public class DecoratedPotBlockEntityMixin implements DecoratedPotBlockEntityInte
 			target = "Lnet/minecraft/world/level/Level;getGameTime()J"
 		)
 	)
-	public void luna120$flipWobble(int i, int j, CallbackInfoReturnable<Boolean> cir) {
-		this.luna120$flipWobble = !this.luna120$flipWobble;
+	public void trailierTales$flipWobble(int i, int j, CallbackInfoReturnable<Boolean> cir) {
+		this.trailierTales$flipWobble = !this.trailierTales$flipWobble;
 	}
 
 	@Unique
 	@Override
-	public boolean luna120$isWobbleFlipped() {
-		return this.luna120$flipWobble;
+	public boolean trailierTales$isWobbleFlipped() {
+		return this.trailierTales$flipWobble;
 	}
 }

@@ -28,31 +28,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BrushParticleMixin {
 
 	@Unique
-	BlockHitResult luna120$blockHitResult;
+	private BlockHitResult trailierTales$blockHitResult;
 
 	@ModifyVariable(method = "onUseTick", at = @At("STORE"), ordinal = 0)
-	public BlockHitResult luna120$captureBlockHitResult(BlockHitResult blockHitResult) {
-		this.luna120$blockHitResult = blockHitResult;
+	public BlockHitResult trailierTales$captureBlockHitResult(BlockHitResult blockHitResult) {
+		this.trailierTales$blockHitResult = blockHitResult;
 		return blockHitResult;
 	}
 
 	@Inject(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BrushItem;getUseDuration(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER))
-	public void luna120$onUseTick(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
-		this.luna120$halfBrush(level, livingEntity2, itemStack, i);
+	public void trailierTales$onUseTick(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
+		this.trailierTales$halfBrush(level, livingEntity2, itemStack, i);
 	}
 
 	@Unique
-	public void luna120$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i) {
+	public void trailierTales$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i) {
 		int j = BrushItem.class.cast(this).getUseDuration(itemStack) - i + 1;
-		if (j % 5 == 0 && j % 10 != 5 && this.luna120$blockHitResult != null && livingEntity2 instanceof Player player) {
-			BlockPos blockPos = luna120$blockHitResult.getBlockPos();
-			this.luna120$spawnOppositeDustParticles(level, this.luna120$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite());
+		if (j % 5 == 0 && j % 10 != 5 && this.trailierTales$blockHitResult != null && livingEntity2 instanceof Player player) {
+			BlockPos blockPos = trailierTales$blockHitResult.getBlockPos();
+			this.trailierTales$spawnOppositeDustParticles(level, this.trailierTales$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite());
 			level.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.3F, 0.85F);
 		}
 	}
 
 	@Unique
-	public void luna120$spawnOppositeDustParticles(@NotNull Level level, @NotNull BlockHitResult blockHitResult, @NotNull BlockState blockState, @NotNull Vec3 vec3, @NotNull HumanoidArm humanoidArm) {
+	public void trailierTales$spawnOppositeDustParticles(@NotNull Level level, @NotNull BlockHitResult blockHitResult, @NotNull BlockState blockState, @NotNull Vec3 vec3, @NotNull HumanoidArm humanoidArm) {
 		int i = humanoidArm == HumanoidArm.RIGHT ? -1 : 1;
 		int j = level.getRandom().nextInt(2, 6);
 		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);

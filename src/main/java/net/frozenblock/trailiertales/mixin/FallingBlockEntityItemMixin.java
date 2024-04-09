@@ -23,52 +23,52 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	private BlockState blockState;
 
 	@Unique
-	private ItemStack luna120$itemStack = ItemStack.EMPTY;
+	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
 
 	@Override
-	public boolean luna120$setItem(ItemStack itemStack) {
-		this.luna120$itemStack = itemStack;
+	public boolean trailierTales$setItem(ItemStack itemStack) {
+		this.trailierTales$itemStack = itemStack;
 		return true;
 	}
 
 	@Override
-	public ItemStack luna120$getItem() {
-		return this.luna120$itemStack;
+	public ItemStack trailierTales$getItem() {
+		return this.trailierTales$itemStack;
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"))
-	public void luna120$dropItem(CallbackInfo info) {
-		FallingBlockEntity.class.cast(this).spawnAtLocation(this.luna120$itemStack);
+	public void trailierTales$dropItem(CallbackInfo info) {
+		FallingBlockEntity.class.cast(this).spawnAtLocation(this.trailierTales$itemStack);
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V", shift = At.Shift.BEFORE))
-	public void luna120$tick(CallbackInfo info) {
+	public void trailierTales$tick(CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
 		if (!fallingBlockEntity.level().isClientSide) {
 			BlockPos blockPos = fallingBlockEntity.blockPosition();
 
-			if (this.luna120$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
+			if (this.trailierTales$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
 				BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity(blockPos, this.blockState);
 				fallingBlockEntity.level().setBlockEntity(brushableBlockEntity);
-				((BrushableBlockEntityInterface) brushableBlockEntity).luna120$setItem(this.luna120$itemStack);
+				((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(this.trailierTales$itemStack);
 			}
 
 		}
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void luna120$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		if (this.luna120$itemStack != null && !this.luna120$itemStack.isEmpty()) {
+	public void trailierTales$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) {
 			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			compoundTag.put("LunaOneTwentyItem", this.luna120$itemStack.save(fallingBlockEntity.level().registryAccess(), new CompoundTag()));
+			compoundTag.put("LunaOneTwentyItem", this.trailierTales$itemStack.save(fallingBlockEntity.level().registryAccess(), new CompoundTag()));
 		}
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void luna120$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+	public void trailierTales$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
 		if (compoundTag.contains("LunaOneTwentyItem")) {
 			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			this.luna120$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("LunaOneTwentyItem"));
+			this.trailierTales$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("LunaOneTwentyItem"));
 		}
 	}
 

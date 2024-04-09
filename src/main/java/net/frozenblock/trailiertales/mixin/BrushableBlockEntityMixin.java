@@ -31,71 +31,80 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Nullable
 	public ResourceKey<LootTable> lootTable;
 	@Unique
-	private float luna120$targetXLerp = 0.5F;
+	private float trailierTales$targetXLerp = 0.5F;
 	@Unique
-	private float luna120$xLerp = 0.5F;
+	private float trailierTales$xLerp = 0.5F;
 	@Unique
-	private float luna120$prevXLerp = 0.5F;
+	private float trailierTales$prevXLerp = 0.5F;
 	@Unique
-	private float luna120$targetYLerp = 0.0F;
+	private float trailierTales$targetYLerp = 0.0F;
 	@Unique
-	private float luna120$yLerp = 0.0F;
+	private float trailierTales$yLerp = 0.0F;
 	@Unique
-	private float luna120$prevYLerp = 0.0F;
+	private float trailierTales$prevYLerp = 0.0F;
 	@Unique
-	private float luna120$targetZLerp = 0.5F;
+	private float trailierTales$targetZLerp = 0.5F;
 	@Unique
-	private float luna120$zLerp = 0.5F;
+	private float trailierTales$zLerp = 0.5F;
 	@Unique
-	private float luna120$prevZLerp = 0.5F;
+	private float trailierTales$prevZLerp = 0.5F;
 	@Unique
-	private float luna120$rotation;
+	private float trailierTales$rotation;
 	@Unique
-	private float luna120$prevRotation;
+	private float trailierTales$prevRotation;
 	@Unique
-	private boolean luna120$hasCustomItem;
+	private boolean trailierTales$hasCustomItem;
+	@Unique
+	private float trailierTales$targetItemScale = 0F;
+	@Unique
+	private float trailierTales$itemScale = 0F;
+	@Unique
+	private float trailierTales$prevItemScale = 0F;
 	@Unique
 	@Nullable
-	private Direction luna120$hitDirection;
+	private Direction trailierTales$hitDirection;
 	@Shadow
 	@Nullable
 	private Direction hitDirection;
 	@Shadow
 	private ItemStack item;
 
+	@Shadow
+	private int brushCount;
+
 	@Unique
-	private static float[] luna120$translations(@NotNull Direction direction, int i) {
-		float[] fs = new float[]{0.5f, 0.0f, 0.5f};
-		float f = (float) i / 9.0f;
+	private static float[] trailierTales$translations(@NotNull Direction direction, int i) {
+		float[] fs = new float[]{0.5F, 0F, 0.5F};
+		float f = (float) i / 9F;
 		switch (direction) {
-			case EAST -> fs[0] = 0.73f + f;
-			case WEST -> fs[0] = 0.25f - f;
-			case UP -> fs[1] = 0.25f + f;
-			case DOWN -> fs[1] = -0.23f - f;
-			case NORTH -> fs[2] = 0.25f - f;
-			case SOUTH -> fs[2] = 0.73f + f;
+			case EAST -> fs[0] = 0.73F + f;
+			case WEST -> fs[0] = 0.25F - f;
+			case UP -> fs[1] = 0.25F + f;
+			case DOWN -> fs[1] = -0.23F - f;
+			case NORTH -> fs[2] = 0.25F - f;
+			case SOUTH -> fs[2] = 0.73F + f;
 		}
 		return fs;
 	}
 
 	@Inject(method = "getUpdateTag", at = @At("RETURN"))
-	public void luna120$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
-		this.luna120$saveLunaNBT(info.getReturnValue());
+	public void trailierTales$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
+		this.trailierTales$saveLunaNBT(info.getReturnValue());
 	}
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
-	public void luna120$load(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
-		this.luna120$readLunaNBT(compoundTag);
+	public void trailierTales$load(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
+		this.trailierTales$readLunaNBT(compoundTag);
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
-	public void luna120$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
-		this.luna120$saveLunaNBT(compoundTag);
+	public void trailierTales$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
+		this.trailierTales$saveLunaNBT(compoundTag);
 	}
 
 	@Unique
 	@Override
-	public void luna120$tick() {
+	public void trailierTales$tick() {
 		BrushableBlockEntity brushableBlockEntity = BrushableBlockEntity.class.cast(this);
 		Level level = brushableBlockEntity.getLevel();
 		if (level != null && !level.isClientSide) {
@@ -105,137 +114,140 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(RegisterProperties.CAN_PLACE_ITEM);
 				boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
 				if (canPlaceItem) {
-					this.luna120$hasCustomItem = false;
+					this.trailierTales$hasCustomItem = false;
 				}
 				if (canPlaceItemProperty != canPlaceItem) {
-					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), 3);
+					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_ALL);
 				}
 			}
 		}
-		this.luna120$prevRotation = this.luna120$rotation;
-		if (this.hitDirection != null) {
-			this.luna120$hitDirection = this.hitDirection;
-		}
-		Direction direction = this.luna120$getHitDirection();
-		if (direction != null) {
-			int dusted = BrushableBlockEntity.class.cast(this).getBlockState().getValue(BlockStateProperties.DUSTED);
-			float[] translation = luna120$translations(direction, dusted);
-			this.luna120$targetXLerp = translation[0];
-			this.luna120$targetYLerp = translation[1];
-			this.luna120$targetZLerp = translation[2];
-			if (direction.getAxis() == Direction.Axis.X) {
-				this.luna120$rotation = 90.0f;
-			} else {
-				this.luna120$rotation = 0.0f;
+			this.trailierTales$prevRotation = this.trailierTales$rotation;
+			if (this.hitDirection != null) {
+				this.trailierTales$hitDirection = this.hitDirection;
 			}
-		}
-		this.luna120$prevXLerp = this.luna120$xLerp;
-		this.luna120$prevYLerp = this.luna120$yLerp;
-		this.luna120$prevZLerp = this.luna120$zLerp;
+			Direction direction = this.trailierTales$getHitDirection();
+			if (direction != null) {
+				float[] translation = trailierTales$translations(direction, this.getCompletionState());
+				this.trailierTales$targetXLerp = translation[0];
+				this.trailierTales$targetYLerp = translation[1];
+				this.trailierTales$targetZLerp = translation[2];
+				if (direction.getAxis() == Direction.Axis.X) {
+					this.trailierTales$rotation = 90F;
+				} else {
+					this.trailierTales$rotation = 0F;
+				}
+			}
+			this.trailierTales$targetItemScale = Math.min(1F, this.brushCount * 0.5F);
+			this.trailierTales$prevItemScale = this.trailierTales$itemScale;
+			this.trailierTales$itemScale += (this.trailierTales$targetItemScale - this.trailierTales$itemScale) * 0.25F;
 
-		this.luna120$xLerp += (this.luna120$targetXLerp - this.luna120$xLerp) * 0.2F;
-		this.luna120$yLerp += (this.luna120$targetYLerp - this.luna120$yLerp) * 0.2F;
-		this.luna120$zLerp += (this.luna120$targetZLerp - this.luna120$zLerp) * 0.2F;
+			this.trailierTales$prevXLerp = this.trailierTales$xLerp;
+			this.trailierTales$prevYLerp = this.trailierTales$yLerp;
+			this.trailierTales$prevZLerp = this.trailierTales$zLerp;
+
+			this.trailierTales$xLerp += (this.trailierTales$targetXLerp - this.trailierTales$xLerp) * 0.2F;
+			this.trailierTales$yLerp += (this.trailierTales$targetYLerp - this.trailierTales$yLerp) * 0.2F;
+			this.trailierTales$zLerp += (this.trailierTales$targetZLerp - this.trailierTales$zLerp) * 0.2F;
 	}
 
 	@Unique
-	public void luna120$saveLunaNBT(CompoundTag compoundTag) {
-		if (this.luna120$hitDirection != null) {
-			compoundTag.putString("LunaHitDirection", this.luna120$hitDirection.getName());
+	public void trailierTales$saveLunaNBT(CompoundTag compoundTag) {
+		if (this.trailierTales$hitDirection != null) {
+			compoundTag.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
 		}
-		if (this.luna120$targetXLerp != 0.5F) compoundTag.putFloat("TargetXLerp", this.luna120$targetXLerp);
-		if (this.luna120$targetYLerp != 0F) compoundTag.putFloat("TargetYLerp", this.luna120$targetYLerp);
-		if (this.luna120$targetZLerp != 0.5F) compoundTag.putFloat("TargetZLerp", this.luna120$targetZLerp);
-		if (this.luna120$xLerp != 0.5F) compoundTag.putFloat("XLerp", this.luna120$xLerp);
-		if (this.luna120$yLerp != 0F) compoundTag.putFloat("YLerp", this.luna120$yLerp);
-		if (this.luna120$zLerp != 0.5F) compoundTag.putFloat("ZLerp", this.luna120$zLerp);
-		if (this.luna120$prevXLerp != 0.5F) compoundTag.putFloat("PrevXLerp", this.luna120$prevXLerp);
-		if (this.luna120$prevYLerp != 0F) compoundTag.putFloat("PrevYLerp", this.luna120$prevYLerp);
-		if (this.luna120$prevZLerp != 0.5F) compoundTag.putFloat("PrevZLerp", this.luna120$prevZLerp);
-		if (this.luna120$rotation != 0F) compoundTag.putFloat("Rotation", this.luna120$rotation);
-		if (this.luna120$prevRotation != 0F) compoundTag.putFloat("PrevRotation", this.luna120$prevRotation);
-		if (this.luna120$hasCustomItem) compoundTag.putBoolean("HasCustomItem", this.luna120$hasCustomItem);
+		compoundTag.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
+		compoundTag.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
+		compoundTag.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
+		compoundTag.putFloat("XLerp", this.trailierTales$xLerp);
+		compoundTag.putFloat("YLerp", this.trailierTales$yLerp);
+		compoundTag.putFloat("ZLerp", this.trailierTales$zLerp);
+		compoundTag.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
+		compoundTag.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
+		compoundTag.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
+		compoundTag.putFloat("Rotation", this.trailierTales$rotation);
+		compoundTag.putFloat("PrevRotation", this.trailierTales$prevRotation);
+		compoundTag.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
+		compoundTag.putFloat("ItemScale", this.trailierTales$itemScale);
+		compoundTag.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
+		compoundTag.putBoolean("HasCustomItem", true);
+		compoundTag.putInt("BrushCount", this.brushCount);
 	}
 
 	@Unique
-	public void luna120$readLunaNBT(@NotNull CompoundTag compoundTag) {
-		if (compoundTag.contains("LunaHitDirection")) {
-			this.luna120$hitDirection = Direction.byName(compoundTag.getString("LunaHitDirection"));
-		}
-		if (compoundTag.contains("TargetXLerp")) {
-			this.luna120$targetXLerp = compoundTag.getFloat("TargetXLerp");
-		}
-		if (compoundTag.contains("TargetYLerp")) {
-			this.luna120$targetYLerp = compoundTag.getFloat("TargetYLerp");
-		}
-		if (compoundTag.contains("TargetZLerp")) {
-			this.luna120$targetZLerp = compoundTag.getFloat("TargetZLerp");
-		}
-		if (compoundTag.contains("XLerp")) {
-			this.luna120$xLerp = compoundTag.getFloat("XLerp");
-		}
-		if (compoundTag.contains("YLerp")) {
-			this.luna120$yLerp = compoundTag.getFloat("YLerp");
-		}
-		if (compoundTag.contains("ZLerp")) {
-			this.luna120$zLerp = compoundTag.getFloat("ZLerp");
-		}
-		if (compoundTag.contains("PrevXLerp")) {
-			this.luna120$prevXLerp = compoundTag.getFloat("PrevXLerp");
-		}
-		if (compoundTag.contains("PrevYLerp")) {
-			this.luna120$prevYLerp = compoundTag.getFloat("PrevYLerp");
-		}
-		if (compoundTag.contains("PrevZLerp")) {
-			this.luna120$prevZLerp = compoundTag.getFloat("PrevZLerp");
-		}
-		this.luna120$rotation = compoundTag.getFloat("Rotation");
-		this.luna120$prevRotation = compoundTag.getFloat("PrevRotation");
-		this.luna120$hasCustomItem = compoundTag.getBoolean("HasCustomItem");
+	public void trailierTales$readLunaNBT(@NotNull CompoundTag compoundTag) {
+		if (compoundTag.contains("TTHitDirection")) this.trailierTales$hitDirection = Direction.byName(compoundTag.getString("TTHitDirection"));
+		if (compoundTag.contains("TargetXLerp")) this.trailierTales$targetXLerp = compoundTag.getFloat("TargetXLerp");
+		if (compoundTag.contains("TargetYLerp")) this.trailierTales$targetYLerp = compoundTag.getFloat("TargetYLerp");
+		if (compoundTag.contains("TargetZLerp")) this.trailierTales$targetZLerp = compoundTag.getFloat("TargetZLerp");
+		if (compoundTag.contains("XLerp")) this.trailierTales$xLerp = compoundTag.getFloat("XLerp");
+		if (compoundTag.contains("YLerp")) this.trailierTales$yLerp = compoundTag.getFloat("YLerp");
+		if (compoundTag.contains("ZLerp")) this.trailierTales$zLerp = compoundTag.getFloat("ZLerp");
+		if (compoundTag.contains("PrevXLerp")) this.trailierTales$prevXLerp = compoundTag.getFloat("PrevXLerp");
+		if (compoundTag.contains("PrevYLerp")) this.trailierTales$prevYLerp = compoundTag.getFloat("PrevYLerp");
+		if (compoundTag.contains("PrevZLerp")) this.trailierTales$prevZLerp = compoundTag.getFloat("PrevZLerp");
+		if (compoundTag.contains("TargetItemScale")) this.trailierTales$targetItemScale = compoundTag.getFloat("TargetItemScale");
+		if (compoundTag.contains("ItemScale")) this.trailierTales$itemScale = compoundTag.getFloat("ItemScale");
+		if (compoundTag.contains("PrevItemScale")) this.trailierTales$prevItemScale = compoundTag.getFloat("PrevItemScale");
+		this.trailierTales$rotation = compoundTag.getFloat("Rotation");
+		this.trailierTales$prevRotation = compoundTag.getFloat("PrevRotation");
+		this.trailierTales$hasCustomItem = compoundTag.getBoolean("HasCustomItem");
+		this.brushCount = compoundTag.getInt("BrushCount");
 	}
 
 	@Unique
 	@Override
-	public boolean luna120$setItem(@NotNull ItemStack itemStack) {
+	public boolean trailierTales$setItem(@NotNull ItemStack itemStack) {
 		this.item = itemStack;
-		this.luna120$hasCustomItem = true;
+		this.trailierTales$hasCustomItem = true;
 		return true;
 	}
 
 	@Override
-	public boolean luna120$hasCustomItem() {
-		return this.luna120$hasCustomItem;
+	public boolean trailierTales$hasCustomItem() {
+		return this.trailierTales$hasCustomItem;
 	}
 
 	@Unique
 	@Override
-	public float luna120$getXOffset(float partialTicks) {
-		return Mth.lerp(partialTicks, this.luna120$prevXLerp, this.luna120$xLerp);
+	public float trailierTales$getXOffset(float partialTicks) {
+		return Mth.lerp(partialTicks, this.trailierTales$prevXLerp, this.trailierTales$xLerp);
 	}
 
 	@Unique
 	@Override
-	public float luna120$getYOffset(float partialTicks) {
-		return Mth.lerp(partialTicks, this.luna120$prevYLerp, this.luna120$yLerp);
+	public float trailierTales$getYOffset(float partialTicks) {
+		return Mth.lerp(partialTicks, this.trailierTales$prevYLerp, this.trailierTales$yLerp);
 	}
 
 	@Unique
 	@Override
-	public float luna120$getZOffset(float partialTicks) {
-		return Mth.lerp(partialTicks, this.luna120$prevZLerp, this.luna120$zLerp);
+	public float trailierTales$getZOffset(float partialTicks) {
+		return Mth.lerp(partialTicks, this.trailierTales$prevZLerp, this.trailierTales$zLerp);
 	}
 
 	@Unique
 	@Override
-	public float luna120$getRotation(float partialTicks) {
-		return Mth.lerp(partialTicks, this.luna120$prevRotation, this.luna120$rotation);
+	public float trailierTales$getRotation(float partialTicks) {
+		return Mth.lerp(partialTicks, this.trailierTales$prevRotation, this.trailierTales$rotation);
 	}
+
+	@Unique
+	@Override
+	public float trailierTales$getItemScale(float partialTicks) {
+		return Mth.lerp(partialTicks, this.trailierTales$prevItemScale, this.trailierTales$itemScale);
+	}
+
 
 	@Unique
 	@Nullable
 	@Override
-	public Direction luna120$getHitDirection() {
-		return this.luna120$hitDirection;
+	public Direction trailierTales$getHitDirection() {
+		return this.trailierTales$hitDirection;
+	}
+
+	@Shadow
+	private int getCompletionState() {
+		throw new AssertionError("Mixin injection failed - Trailier Tales BrushableBlockEntityMixin.");
 	}
 
 }
