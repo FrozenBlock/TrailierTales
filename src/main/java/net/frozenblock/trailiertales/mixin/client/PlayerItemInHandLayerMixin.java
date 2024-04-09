@@ -47,32 +47,26 @@ public abstract class PlayerItemInHandLayerMixin<T extends Player, M extends Ent
 	) {
 		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0) {
 			info.cancel();
-			this.trailierTales$renderArmWithBrush(livingEntity, itemStack, arm, poseStack, buffer, packedLight);
+			this.trailierTales$renderArmWithBrush(livingEntity, itemStack, displayContext, arm, poseStack, buffer, packedLight);
 		}
 	}
 
 	@Unique
-	private void trailierTales$renderArmWithBrush(LivingEntity entity, ItemStack stack, HumanoidArm arm, @NotNull PoseStack poseStack, MultiBufferSource buffer, int combinedLight) {
+	private void trailierTales$renderArmWithBrush(@NotNull LivingEntity entity, ItemStack stack, ItemDisplayContext displayContext, HumanoidArm arm, @NotNull PoseStack poseStack, MultiBufferSource buffer, int combinedLight) {
 		poseStack.pushPose();
-		float remainingTicks = entity.getUseItemRemainingTicks() % 10F;
+		float remainingTicks = entity.getUseItemRemainingTicks() + 1F;
 		float partialTick = Minecraft.getInstance().getDeltaFrameTime();
-		float g = remainingTicks - partialTick + 1F;
-		float h = 1.0F - g / 10.0F;
-		float n = -15.0F + 75.0F * Mth.cos(h * 2.0F * (float) Math.PI);
+		float brushProgress = remainingTicks + partialTick;
+		float brushRoll = (float) Math.cos(
+			(brushProgress * Math.PI)
+			/ 5D
+		);
 		if (arm != HumanoidArm.RIGHT) {
-			poseStack.translate(0.1, 0.83, 0.35);
-			poseStack.mulPose(Axis.XP.rotationDegrees(-80.0F));
-			poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-			poseStack.mulPose(Axis.XP.rotationDegrees(n));
-			poseStack.translate(-0.3, 0.22, 0.35);
+			poseStack.mulPose(Axis.XN.rotation(brushRoll));
 		} else {
-			poseStack.translate(-0.25, 0.22, 0.35);
-			poseStack.mulPose(Axis.XP.rotationDegrees(-80.0F));
-			poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
-			poseStack.mulPose(Axis.ZP.rotationDegrees(0.0F));
-			poseStack.mulPose(Axis.XP.rotationDegrees(n));
+			poseStack.mulPose(Axis.XP.rotation(brushRoll));
 		}
-		this.itemInHandRenderer.renderItem(entity, stack, ItemDisplayContext.HEAD, false, poseStack, buffer, combinedLight);
+		this.itemInHandRenderer.renderItem(entity, stack, displayContext, false, poseStack, buffer, combinedLight);
 		poseStack.popPose();
 	}
 
