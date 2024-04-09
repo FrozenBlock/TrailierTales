@@ -1,6 +1,8 @@
 package net.frozenblock.trailiertales.worldgen.impl;
 
 import com.mojang.serialization.Codec;
+import java.util.BitSet;
+import java.util.function.Function;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
@@ -17,8 +19,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import org.jetbrains.annotations.NotNull;
-import java.util.BitSet;
-import java.util.function.Function;
 
 public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration> {
 
