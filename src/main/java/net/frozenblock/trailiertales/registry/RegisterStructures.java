@@ -20,6 +20,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -83,7 +84,7 @@ public final class RegisterStructures {
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.SUSPICIOUS_SAND, 0.95F),
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_SAND, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE),
 							AlwaysTrueTest.INSTANCE, Blocks.SAND.defaultBlockState()
 						),
 						new ProcessorRule(
@@ -133,12 +134,12 @@ public final class RegisterStructures {
 			new JigsawStructure(
 				structure(
 					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
-					GenerationStep.Decoration.SURFACE_STRUCTURES,
-					TerrainAdjustment.BEARD_THIN
+					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
+					TerrainAdjustment.BURY
 				),
 				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
 				1,
-				ConstantHeight.ZERO,
+				ConstantHeight.of(VerticalAnchor.absolute(-2)),
 				false,
 				Heightmap.Types.WORLD_SURFACE_WG
 			)
@@ -151,7 +152,7 @@ public final class RegisterStructures {
 			BADLANDS_FORTS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_FORT_KEY),
-				new RandomSpreadStructurePlacement(16, 13, RandomSpreadType.LINEAR, 25386232) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(20, 15, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
 			)
 		);
 	}

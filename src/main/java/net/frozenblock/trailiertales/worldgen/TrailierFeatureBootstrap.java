@@ -197,7 +197,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			SUSPICIOUS_DIRT_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_DIRT),
-			CountPlacement.of(UniformInt.of(10, 30)),
+			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
@@ -207,7 +207,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			SUSPICIOUS_SAND_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_SAND),
-			CountPlacement.of(UniformInt.of(10, 30)),
+			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
@@ -217,7 +217,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			SUSPICIOUS_RED_SAND_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_RED_SAND),
-			CountPlacement.of(UniformInt.of(10, 30)),
+			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
@@ -227,7 +227,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			SUSPICIOUS_GRAVEL_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_GRAVEL),
-			CountPlacement.of(UniformInt.of(10, 30)),
+			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
@@ -237,7 +237,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			SUSPICIOUS_CLAY_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_CLAY),
-			CountPlacement.of(UniformInt.of(10, 30)),
+			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()

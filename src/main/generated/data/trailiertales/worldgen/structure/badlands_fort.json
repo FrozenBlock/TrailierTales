@@ -6,10 +6,10 @@
   "size": 1,
   "spawn_overrides": {},
   "start_height": {
-    "absolute": 0
+    "absolute": -2
   },
   "start_pool": "trailiertales:badlands_fort",
-  "step": "surface_structures",
-  "terrain_adaptation": "beard_thin",
+  "step": "underground_structures",
+  "terrain_adaptation": "bury",
   "use_expansion_hack": false
 }
