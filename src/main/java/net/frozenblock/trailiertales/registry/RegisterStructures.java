@@ -135,7 +135,7 @@ public final class RegisterStructures {
 				structure(
 					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
 					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
-					TerrainAdjustment.BURY
+					TerrainAdjustment.NONE
 				),
 				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
 				1,
