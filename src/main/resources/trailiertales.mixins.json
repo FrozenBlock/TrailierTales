@@ -4,20 +4,22 @@
   "package": "net.frozenblock.trailiertales.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BeardifierMixin",
-    "BlockEntityTypeMixin",
-    "BrushableBlockEntityMixin",
-    "BrushableBlockMixin",
-    "BrushParticleMixin",
-    "DecoratedPotBlockEntityMixin",
-    "FallingBlockEntityItemMixin",
-    "ServerLevelMixin"
+    "common.brush.BrushParticleMixin",
+    "common.brushable_block.BlockEntityTypeMixin",
+    "common.brushable_block.BrushableBlockEntityMixin",
+    "common.brushable_block.BrushableBlockMixin",
+    "common.brushable_block.FallingBlockEntityItemMixin",
+    "common.brushable_block.ServerLevelMixin",
+    "common.decorated_pot.DecoratedPotBlockEntityMixin",
+    "common.terrain_adjustment.BeardifierMixin",
+    "common.terrain_adjustment.JigsawStructureMixin",
+    "common.terrain_adjustment.TerrainAdjustmentMixin"
   ],
   "client": [
-    "client.BrushableBlockRenderMixin",
-    "client.DecoratedPotPatternsMixin",
-    "client.DecoratedPotRendererMixin",
-    "client.ItemInHandLayerMixin"
+    "client.brush.ItemInHandLayerMixin",
+    "client.brushable_block.BrushableBlockRenderMixin",
+    "client.decorated_pot.DecoratedPotPatternsMixin",
+    "client.decorated_pot.DecoratedPotRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin;
+package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

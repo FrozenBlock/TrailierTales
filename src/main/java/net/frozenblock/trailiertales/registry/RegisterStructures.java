@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.registry;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
+import net.frozenblock.trailiertales.TrailierEnumValues;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.structure.BadlandsFortGenerator;
 import net.frozenblock.trailiertales.structure.RegisterStructureProcessors;
@@ -42,8 +43,6 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterStructures {
 	public static final ResourceKey<StructureSet> BADLANDS_FORTS_KEY = ofSet("badlands_fort");
 	private static final ResourceKey<Structure> BADLANDS_FORT_KEY = createKey("badlands_fort");
-	public static final ResourceKey<StructureSet> TERRAIN_BADLANDS_FORTS_KEY = ofSet("terrain_badlands_fort");
-	private static final ResourceKey<Structure> TERRAIN_BADLANDS_FORT_KEY = createKey("terrain_badlands_fort");
 
 	private RegisterStructures() {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
@@ -126,17 +125,6 @@ public final class RegisterStructures {
 				StructureTemplatePool.Projection.RIGID
 			)
 		);
-
-		context.register(
-			BadlandsFortGenerator.TERRAIN_BADLANDS_FORT,
-			new StructureTemplatePool(
-				holder2,
-				List.of(
-					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_alt_size", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
-				),
-				StructureTemplatePool.Projection.RIGID
-			)
-		);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
@@ -149,27 +137,11 @@ public final class RegisterStructures {
 				structure(
 					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
-					TerrainAdjustment.NONE
+					TrailierEnumValues.SMALL_PLATFORM
 				),
 				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
 				1,
 				ConstantHeight.of(VerticalAnchor.absolute(-2)),
-				false,
-				Heightmap.Types.WORLD_SURFACE_WG
-			)
-		);
-
-		context.register(
-			TERRAIN_BADLANDS_FORT_KEY,
-			new JigsawStructure(
-				structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
-					GenerationStep.Decoration.SURFACE_STRUCTURES,
-					TerrainAdjustment.BURY
-				),
-				templatePool.getOrThrow(BadlandsFortGenerator.TERRAIN_BADLANDS_FORT),
-				1,
-				ConstantHeight.of(VerticalAnchor.absolute(-3)),
 				false,
 				Heightmap.Types.WORLD_SURFACE_WG
 			)
@@ -183,14 +155,6 @@ public final class RegisterStructures {
 			BADLANDS_FORTS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_FORT_KEY),
-				new RandomSpreadStructurePlacement(20, 15, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
-			)
-		);
-
-		context.register(
-			TERRAIN_BADLANDS_FORTS_KEY,
-			new StructureSet(
-				structure.getOrThrow(TERRAIN_BADLANDS_FORT_KEY),
 				new RandomSpreadStructurePlacement(20, 15, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
 			)
 		);

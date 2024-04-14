@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin.client;
+package net.frozenblock.trailiertales.mixin.client.brushable_block;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

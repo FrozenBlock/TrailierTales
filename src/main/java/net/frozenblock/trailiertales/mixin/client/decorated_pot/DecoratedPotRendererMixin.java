@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin.client;
+package net.frozenblock.trailiertales.mixin.client.decorated_pot;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

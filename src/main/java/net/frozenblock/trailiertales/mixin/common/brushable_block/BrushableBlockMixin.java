@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin;
+package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;

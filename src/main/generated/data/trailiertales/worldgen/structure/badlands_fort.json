@@ -10,5 +10,6 @@
   },
   "start_pool": "trailiertales:badlands_fort",
   "step": "surface_structures",
+  "terrain_adaptation": "trailier_tales_small_platform",
   "use_expansion_hack": false
 }

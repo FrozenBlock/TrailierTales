@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin;
+package net.frozenblock.trailiertales.mixin.common.decorated_pot;
 
 import net.frozenblock.trailiertales.impl.DecoratedPotBlockEntityInterface;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;

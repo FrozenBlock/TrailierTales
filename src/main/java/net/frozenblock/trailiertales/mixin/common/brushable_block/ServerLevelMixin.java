@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin;
+package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousData;
 import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousDataInterface;

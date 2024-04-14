@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin.client;
+package net.frozenblock.trailiertales.mixin.client.decorated_pot;
 
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.minecraft.core.Registry;

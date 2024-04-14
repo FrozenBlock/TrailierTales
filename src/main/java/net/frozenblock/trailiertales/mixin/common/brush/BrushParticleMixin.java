@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.mixin;
+package net.frozenblock.trailiertales.mixin.common.brush;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
