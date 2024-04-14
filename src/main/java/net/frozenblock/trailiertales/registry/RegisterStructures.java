@@ -42,6 +42,8 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterStructures {
 	public static final ResourceKey<StructureSet> BADLANDS_FORTS_KEY = ofSet("badlands_fort");
 	private static final ResourceKey<Structure> BADLANDS_FORT_KEY = createKey("badlands_fort");
+	public static final ResourceKey<StructureSet> TERRAIN_BADLANDS_FORTS_KEY = ofSet("terrain_badlands_fort");
+	private static final ResourceKey<Structure> TERRAIN_BADLANDS_FORT_KEY = createKey("terrain_badlands_fort");
 
 	private RegisterStructures() {
 		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
@@ -124,18 +126,30 @@ public final class RegisterStructures {
 				StructureTemplatePool.Projection.RIGID
 			)
 		);
+
+		context.register(
+			BadlandsFortGenerator.TERRAIN_BADLANDS_FORT,
+			new StructureTemplatePool(
+				holder2,
+				List.of(
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_alt_size", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
+
 		context.register(
 			BADLANDS_FORT_KEY,
 			new JigsawStructure(
 				structure(
 					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
-					TerrainAdjustment.BURY
+					TerrainAdjustment.NONE
 				),
 				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
 				1,
@@ -144,14 +158,39 @@ public final class RegisterStructures {
 				Heightmap.Types.WORLD_SURFACE_WG
 			)
 		);
+
+		context.register(
+			TERRAIN_BADLANDS_FORT_KEY,
+			new JigsawStructure(
+				structure(
+					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
+					GenerationStep.Decoration.SURFACE_STRUCTURES,
+					TerrainAdjustment.BURY
+				),
+				templatePool.getOrThrow(BadlandsFortGenerator.TERRAIN_BADLANDS_FORT),
+				1,
+				ConstantHeight.of(VerticalAnchor.absolute(-3)),
+				false,
+				Heightmap.Types.WORLD_SURFACE_WG
+			)
+		);
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
 		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
+
 		context.register(
 			BADLANDS_FORTS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_FORT_KEY),
+				new RandomSpreadStructurePlacement(20, 15, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
+			)
+		);
+
+		context.register(
+			TERRAIN_BADLANDS_FORTS_KEY,
+			new StructureSet(
+				structure.getOrThrow(TERRAIN_BADLANDS_FORT_KEY),
 				new RandomSpreadStructurePlacement(20, 15, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
 			)
 		);

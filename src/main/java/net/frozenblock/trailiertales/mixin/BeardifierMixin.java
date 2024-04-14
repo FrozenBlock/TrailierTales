@@ -10,8 +10,8 @@ public class BeardifierMixin {
 
 	@Overwrite
 	private static double getBuryContribution(int x, int y, int z) {
-		double d = Mth.length(x, -25D, z);
-		return Mth.clampedMap(d, 0.0, 6.0, 1.0, 0.0);
+		double d = Mth.length(x * 5D, y * 3D, z * 5D);
+		return Mth.clampedMap(d, 0D, 6D, 1D, 0D);
 	}
 
 }

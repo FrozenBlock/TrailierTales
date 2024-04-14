@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class BadlandsFortGenerator {
 
 	public static final ResourceKey<StructureTemplatePool> BADLANDS_FORT = createKey("badlands_fort");
+	public static final ResourceKey<StructureTemplatePool> TERRAIN_BADLANDS_FORT = createKey("terrain_badlands_fort");
 
 	/**
 	 * @param id                 The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
