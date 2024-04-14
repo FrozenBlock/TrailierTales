@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
@@ -197,7 +199,7 @@ public class TrailierFeatureBootstrap {
 			configuredFeatures.getOrThrow(SUSPICIOUS_DIRT),
 			CountPlacement.of(UniformInt.of(10, 30)),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE,
+			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
 		);
 
@@ -207,7 +209,7 @@ public class TrailierFeatureBootstrap {
 			configuredFeatures.getOrThrow(SUSPICIOUS_SAND),
 			CountPlacement.of(UniformInt.of(10, 30)),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE,
+			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
 		);
 
@@ -217,7 +219,7 @@ public class TrailierFeatureBootstrap {
 			configuredFeatures.getOrThrow(SUSPICIOUS_RED_SAND),
 			CountPlacement.of(UniformInt.of(10, 30)),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE,
+			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
 		);
 
@@ -227,7 +229,7 @@ public class TrailierFeatureBootstrap {
 			configuredFeatures.getOrThrow(SUSPICIOUS_GRAVEL),
 			CountPlacement.of(UniformInt.of(10, 30)),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE,
+			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
 		);
 
@@ -237,7 +239,7 @@ public class TrailierFeatureBootstrap {
 			configuredFeatures.getOrThrow(SUSPICIOUS_CLAY),
 			CountPlacement.of(UniformInt.of(10, 30)),
 			InSquarePlacement.spread(),
-			PlacementUtils.FULL_RANGE,
+			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			BiomeFilter.biome()
 		);
 	}
