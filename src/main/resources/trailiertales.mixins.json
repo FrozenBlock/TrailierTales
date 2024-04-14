@@ -4,6 +4,7 @@
   "package": "net.frozenblock.trailiertales.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BeardifierMixin",
     "BlockEntityTypeMixin",
     "BrushableBlockEntityMixin",
     "BrushableBlockMixin",

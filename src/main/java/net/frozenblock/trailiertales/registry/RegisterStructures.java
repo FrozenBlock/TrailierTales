@@ -134,8 +134,8 @@ public final class RegisterStructures {
 			new JigsawStructure(
 				structure(
 					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
-					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
-					TerrainAdjustment.BEARD_THIN
+					GenerationStep.Decoration.SURFACE_STRUCTURES,
+					TerrainAdjustment.BURY
 				),
 				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
 				1,

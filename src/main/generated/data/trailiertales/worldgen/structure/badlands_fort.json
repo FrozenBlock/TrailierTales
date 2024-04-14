@@ -9,7 +9,7 @@
     "absolute": -2
   },
   "start_pool": "trailiertales:badlands_fort",
-  "step": "underground_structures",
-  "terrain_adaptation": "beard_thin",
+  "step": "surface_structures",
+  "terrain_adaptation": "bury",
   "use_expansion_hack": false
 }
