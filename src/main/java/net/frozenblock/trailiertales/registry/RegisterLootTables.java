@@ -5,7 +5,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 
-public class TrailierLootTableModifications {
+public class RegisterLootTables {
 
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE

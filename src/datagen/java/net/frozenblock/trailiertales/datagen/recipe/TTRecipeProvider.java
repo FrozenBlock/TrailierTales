@@ -75,6 +75,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern(" # ")
 			.unlockedBy(getHasName(Items.CLAY), has(Items.CLAY))
 			.save(exporter);
+
+		oneToOneConversionRecipe(exporter, Items.CYAN_DYE, RegisterBlocks.CYAN_ROSE, "cyan_dye");
 	}
 
 }
