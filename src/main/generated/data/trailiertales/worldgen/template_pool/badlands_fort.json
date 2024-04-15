@@ -21,7 +21,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:badlands_fort/fort_3",
+        "location": "trailiertales:badlands_fort/fort_tower_1",
         "processors": "trailiertales:suspicious_block_to_normal_085",
         "projection": "rigid"
       },
@@ -30,7 +30,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:badlands_fort/fort_4",
+        "location": "trailiertales:badlands_fort/fort_tower_2",
         "processors": "trailiertales:suspicious_block_to_normal_085",
         "projection": "rigid"
       },
