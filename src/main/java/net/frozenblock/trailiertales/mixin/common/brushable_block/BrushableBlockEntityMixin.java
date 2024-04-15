@@ -52,7 +52,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Unique
 	private float trailierTales$prevRotation;
 	@Unique
-	private boolean trailierTales$hasCustomItem;
+	private boolean trailierTales$hasCustomItem = false;
 	@Unique
 	private float trailierTales$targetItemScale = 0F;
 	@Unique
@@ -88,17 +88,17 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 
 	@Inject(method = "getUpdateTag", at = @At("RETURN"))
 	public void trailierTales$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
-		this.trailierTales$saveLunaNBT(info.getReturnValue());
+		this.trailierTales$saveNBT(info.getReturnValue());
 	}
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	public void trailierTales$load(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
-		this.trailierTales$readLunaNBT(compoundTag);
+		this.trailierTales$readNBT(compoundTag);
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
 	public void trailierTales$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
-		this.trailierTales$saveLunaNBT(compoundTag);
+		this.trailierTales$saveNBT(compoundTag);
 	}
 
 	@Unique
@@ -112,11 +112,8 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			if (blockState.hasProperty(RegisterProperties.CAN_PLACE_ITEM)) {
 				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(RegisterProperties.CAN_PLACE_ITEM);
 				boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
-				if (canPlaceItem) {
-					this.trailierTales$hasCustomItem = false;
-				}
 				if (canPlaceItemProperty != canPlaceItem) {
-					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_ALL);
+					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_CLIENTS);
 				}
 			}
 		}
@@ -150,7 +147,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Unique
-	public void trailierTales$saveLunaNBT(CompoundTag compoundTag) {
+	public void trailierTales$saveNBT(CompoundTag compoundTag) {
 		if (this.trailierTales$hitDirection != null) {
 			compoundTag.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
 		}
@@ -173,7 +170,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Unique
-	public void trailierTales$readLunaNBT(@NotNull CompoundTag compoundTag) {
+	public void trailierTales$readNBT(@NotNull CompoundTag compoundTag) {
 		if (compoundTag.contains("TTHitDirection")) this.trailierTales$hitDirection = Direction.byName(compoundTag.getString("TTHitDirection"));
 		if (compoundTag.contains("TargetXLerp")) this.trailierTales$targetXLerp = compoundTag.getFloat("TargetXLerp");
 		if (compoundTag.contains("TargetYLerp")) this.trailierTales$targetYLerp = compoundTag.getFloat("TargetYLerp");
@@ -235,7 +232,6 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	public float trailierTales$getItemScale(float partialTicks) {
 		return Mth.lerp(partialTicks, this.trailierTales$prevItemScale, this.trailierTales$itemScale);
 	}
-
 
 	@Unique
 	@Nullable

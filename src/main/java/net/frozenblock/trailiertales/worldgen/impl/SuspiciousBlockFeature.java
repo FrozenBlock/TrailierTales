@@ -5,8 +5,10 @@ import java.util.BitSet;
 import java.util.function.Function;
 import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousData;
 import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousDataInterface;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -74,6 +76,7 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 		int width,
 		int height
 	) {
+		ResourceLocation lootTable = Util.getRandom(config.lootTables, random);
 		int i = 0;
 		BitSet bitSet = new BitSet(width * height * width);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
@@ -152,7 +155,7 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 															if (canPlaceSuspicious(blockState, bulkSectionAccess::getBlockState, random, config, targetBlockState, mutableBlockPos)) {
 																levelChunkSection.setBlockState(ad, ae, af, targetBlockState.state, false);
 																	((SuspiciousDataInterface)level.getLevel()).trailierTales$getSuspiciousData()
-																		.suspiciousData.add(new SuspiciousData.Pair(mutableBlockPos.immutable(), config.lootTable));
+																		.suspiciousData.add(new SuspiciousData.Pair(mutableBlockPos.immutable(), lootTable));
 																++i;
 																break;
 															}

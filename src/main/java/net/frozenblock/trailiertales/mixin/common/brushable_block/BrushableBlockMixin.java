@@ -1,5 +1,8 @@
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
 import net.frozenblock.trailiertales.registry.RegisterProperties;
@@ -38,17 +41,19 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(BrushableBlock.class)
 public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
-	@Unique
-	private boolean trailierTales$cancelledBreakUponFall;
-	@Unique
-	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
-
 	protected BrushableBlockMixin(Properties properties) {
 		super(properties);
 	}
 
-	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/BrushableBlock;registerDefaultState(Lnet/minecraft/world/level/block/state/BlockState;)V", shift = At.Shift.AFTER))
-	public void lunade120$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
+	@Inject(
+		method = "<init>",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BrushableBlock;registerDefaultState(Lnet/minecraft/world/level/block/state/BlockState;)V",
+			shift = At.Shift.AFTER
+		)
+	)
+	public void trailierTales$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
 		this.registerDefaultState(this.defaultBlockState().setValue(RegisterProperties.CAN_PLACE_ITEM, false));
 	}
 
@@ -85,21 +90,44 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		return BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.BRUSHABLE_BLOCK, (worldx, pos, statex, blockEntity) -> ((BrushableBlockEntityInterface) blockEntity).trailierTales$tick());
 	}
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;", shift = At.Shift.BEFORE))
-	public void trailierTales$setBreakCancellationValue(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info) {
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;",
+			shift = At.Shift.BEFORE
+		)
+	)
+	public void trailierTales$setBreakCancellationValue(
+		BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info,
+		@Share("trailierTales$item") LocalRef<ItemStack> itemStack, @Share("trailierTales$cancelFallBreaking") LocalBooleanRef cancelFallBreaking
+		) {
 		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity &&
 			(((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$hasCustomItem() ||
 				(blockState.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && blockState.getValue(RegisterProperties.CAN_PLACE_ITEM)))) {
-			this.trailierTales$cancelledBreakUponFall = true;
-			this.trailierTales$itemStack = brushableBlockEntity.getItem().copy();
+			cancelFallBreaking.set(true);
+			itemStack.set(brushableBlockEntity.getItem().copy());
 			((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
 		}
 	}
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;disableDrop()V", shift = At.Shift.BEFORE), cancellable = true, locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-	public void trailierTales$tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info, FallingBlockEntity fallingBlockEntity) {
-		if (this.trailierTales$cancelledBreakUponFall) {
-			((FallingBlockEntityInterface) fallingBlockEntity).trailierTales$setItem(this.trailierTales$itemStack);
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;disableDrop()V",
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true,
+		locals = LocalCapture.CAPTURE_FAILEXCEPTION
+	)
+	public void trailierTales$tick(
+		BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, CallbackInfo info,
+		FallingBlockEntity fallingBlockEntity,
+		@Share("trailierTales$item") LocalRef<ItemStack> itemStack, @Share("trailierTales$cancelFallBreaking") LocalBooleanRef cancelFallBreaking
+	) {
+		if (cancelFallBreaking.get() && !itemStack.get().isEmpty()) {
+			((FallingBlockEntityInterface) fallingBlockEntity).trailierTales$setItem(itemStack.get());
 			info.cancel();
 		}
 	}

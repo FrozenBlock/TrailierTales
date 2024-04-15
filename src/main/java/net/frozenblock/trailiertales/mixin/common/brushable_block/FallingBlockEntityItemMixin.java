@@ -24,6 +24,8 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 
 	@Unique
 	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
+	@Unique
+	private boolean trailierTales$overrideBreak = false;
 
 	@Override
 	public boolean trailierTales$setItem(ItemStack itemStack) {
@@ -36,15 +38,33 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 		return this.trailierTales$itemStack;
 	}
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"))
+	@Override
+	public void trailierTales$overrideBreak() {
+		this.trailierTales$overrideBreak = true;
+	}
+
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
+		)
+	)
 	public void trailierTales$dropItem(CallbackInfo info) {
 		FallingBlockEntity.class.cast(this).spawnAtLocation(this.trailierTales$itemStack);
 	}
 
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V", shift = At.Shift.BEFORE))
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V",
+			shift = At.Shift.BEFORE
+		)
+	)
 	public void trailierTales$tick(CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-		if (!fallingBlockEntity.level().isClientSide) {
+		if (!fallingBlockEntity.level().isClientSide && this.trailierTales$overrideBreak) {
 			BlockPos blockPos = fallingBlockEntity.blockPosition();
 
 			if (this.trailierTales$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
@@ -60,15 +80,23 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	public void trailierTales$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
 		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) {
 			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			compoundTag.put("LunaOneTwentyItem", this.trailierTales$itemStack.save(fallingBlockEntity.level().registryAccess(), new CompoundTag()));
+			compoundTag.put("TrailierTalesItem", this.trailierTales$itemStack.save(fallingBlockEntity.level().registryAccess(), new CompoundTag()));
+		}
+
+		if (this.trailierTales$overrideBreak) {
+			compoundTag.putBoolean("TrailierTalesOverrideBreak", true);
 		}
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		if (compoundTag.contains("LunaOneTwentyItem")) {
+		if (compoundTag.contains("TrailierTalesItem")) {
 			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			this.trailierTales$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("LunaOneTwentyItem"));
+			this.trailierTales$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("TrailierTalesItem"));
+		}
+
+		if (compoundTag.contains("TrailierTalesOverrideBreak")) {
+			this.trailierTales$overrideBreak = compoundTag.getBoolean("TrailierTalesOverrideBreak");
 		}
 	}
 

@@ -7,4 +7,6 @@ public interface FallingBlockEntityInterface {
 
 	ItemStack trailierTales$getItem();
 
+	void trailierTales$overrideBreak();
+
 }

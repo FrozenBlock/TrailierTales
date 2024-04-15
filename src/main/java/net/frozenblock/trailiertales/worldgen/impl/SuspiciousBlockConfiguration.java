@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.worldgen.impl;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Arrays;
 import java.util.List;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +18,7 @@ public class SuspiciousBlockConfiguration implements FeatureConfiguration {
 				Codec.intRange(0, 64).fieldOf("size").forGetter(config -> config.size),
 				Codec.floatRange(0F, 1F).fieldOf("discard_chance_on_air_exposure").forGetter(config -> config.discardChanceOnAirExposure),
 				Codec.floatRange(0F, 1F).fieldOf("place_chance_per_block").forGetter(config -> config.placeChancePerBlock),
-				ResourceLocation.CODEC.fieldOf("loot_table").forGetter(config -> config.lootTable)
+				ResourceLocation.CODEC.listOf().fieldOf("loot_tables").forGetter(config -> config.lootTables)
 			)
 			.apply(instance, SuspiciousBlockConfiguration::new)
 	);
@@ -25,17 +26,21 @@ public class SuspiciousBlockConfiguration implements FeatureConfiguration {
 	public final int size;
 	public final float discardChanceOnAirExposure;
 	public final float placeChancePerBlock;
-	public final ResourceLocation lootTable;
+	public final List<ResourceLocation> lootTables;
 
-	public SuspiciousBlockConfiguration(List<OreConfiguration.TargetBlockState> targetStates, int size, float discardChanceOnAirExposure, float placeChancePerBlock, ResourceLocation lootTable) {
+	public SuspiciousBlockConfiguration(List<OreConfiguration.TargetBlockState> targetStates, int size, float discardChanceOnAirExposure, float placeChancePerBlock, List<ResourceLocation> lootTables) {
 		this.size = size;
 		this.targetStates = targetStates;
 		this.discardChanceOnAirExposure = discardChanceOnAirExposure;
 		this.placeChancePerBlock = placeChancePerBlock;
-		this.lootTable = lootTable;
+		this.lootTables = lootTables;
 	}
 
-	public SuspiciousBlockConfiguration(RuleTest target, BlockState state, int size, float discardChanceOnAirExposure, float placeChancePerBlock, ResourceLocation lootTable) {
-		this(ImmutableList.of(OreConfiguration.target(target, state)), size, discardChanceOnAirExposure, placeChancePerBlock, lootTable);
+	public SuspiciousBlockConfiguration(RuleTest target, BlockState state, int size, float discardChanceOnAirExposure, float placeChancePerBlock, ResourceLocation... lootTable) {
+		this(ImmutableList.of(OreConfiguration.target(target, state)), size, discardChanceOnAirExposure, placeChancePerBlock, Arrays.stream(lootTable).toList());
+	}
+
+	public SuspiciousBlockConfiguration(List<OreConfiguration.TargetBlockState> targetStates, int size, float discardChanceOnAirExposure, float placeChancePerBlock, ResourceLocation... lootTable) {
+		this(targetStates, size, discardChanceOnAirExposure, placeChancePerBlock, Arrays.stream(lootTable).toList());
 	}
 }

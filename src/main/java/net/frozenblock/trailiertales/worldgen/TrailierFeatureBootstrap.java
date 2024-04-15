@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.worldgen;
 
 import java.util.Arrays;
 import java.util.List;
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
@@ -48,49 +50,13 @@ public class TrailierFeatureBootstrap {
 		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower")
 	);
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_DIRT = ResourceKey.create
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_COMMON = ResourceKey.create
 		(Registries.CONFIGURED_FEATURE,
-			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_dirt")
+			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_blocks_common")
 		);
-	public static final ResourceKey<PlacedFeature> SUSPICIOUS_DIRT_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> SUSPICIOUS_COMMON_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_dirt")
-	);
-
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_SAND = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
-			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_sand")
-		);
-	public static final ResourceKey<PlacedFeature> SUSPICIOUS_SAND_PLACED = ResourceKey.create(
-		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_sand")
-	);
-
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_RED_SAND = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
-			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_red_sand")
-		);
-	public static final ResourceKey<PlacedFeature> SUSPICIOUS_RED_SAND_PLACED = ResourceKey.create(
-		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_red_sand")
-	);
-
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_GRAVEL = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
-			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_gravel")
-		);
-	public static final ResourceKey<PlacedFeature> SUSPICIOUS_GRAVEL_PLACED = ResourceKey.create(
-		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_gravel")
-	);
-
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_CLAY = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
-			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_clay")
-		);
-	public static final ResourceKey<PlacedFeature> SUSPICIOUS_CLAY_PLACED = ResourceKey.create(
-		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_clay")
+		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_blocks_common")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -110,72 +76,29 @@ public class TrailierFeatureBootstrap {
 		);
 
 		RuleTest isDirtTest = new TagMatchTest(BlockTags.DIRT);
-		register(
-			entries,
-			SUSPICIOUS_DIRT,
-			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
-			new SuspiciousBlockConfiguration(
-				isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState(),
-				16,
-				0F,
-				0.3F,
-				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
-			)
-		);
-
-		RuleTest isSandTest = new BlockMatchTest(Blocks.SAND);
-		register(
-			entries,
-			SUSPICIOUS_SAND,
-			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
-			new SuspiciousBlockConfiguration(
-				isSandTest, Blocks.SUSPICIOUS_SAND.defaultBlockState(),
-				16,
-				0F,
-				0.3F,
-				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
-			)
-		);
-
-		RuleTest isRedSandTest = new BlockMatchTest(Blocks.RED_SAND);
-		register(
-			entries,
-			SUSPICIOUS_RED_SAND,
-			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
-			new SuspiciousBlockConfiguration(
-				isRedSandTest, RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState(),
-				16,
-				0F,
-				0.3F,
-				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
-			)
-		);
-
 		RuleTest isGravelTest = new BlockMatchTest(Blocks.GRAVEL);
-		register(
-			entries,
-			SUSPICIOUS_GRAVEL,
-			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
-			new SuspiciousBlockConfiguration(
-				isGravelTest, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(),
-				16,
-				0F,
-				0.3F,
-				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
-			)
-		);
-
+		RuleTest isSandTest = new BlockMatchTest(Blocks.SAND);
+		RuleTest isRedSandTest = new BlockMatchTest(Blocks.RED_SAND);
 		RuleTest isClayTest = new BlockMatchTest(Blocks.CLAY);
+
 		register(
 			entries,
-			SUSPICIOUS_CLAY,
+			SUSPICIOUS_COMMON,
 			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
 			new SuspiciousBlockConfiguration(
-				isClayTest, RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
-				16,
+				ImmutableList.of(
+					OreConfiguration.target(isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState()),
+					OreConfiguration.target(isGravelTest, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState()),
+					OreConfiguration.target(isSandTest, Blocks.SUSPICIOUS_SAND.defaultBlockState()),
+					OreConfiguration.target(isRedSandTest, RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState()),
+					OreConfiguration.target(isClayTest, RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState())
+				),
+				18,
 				0F,
 				0.3F,
-				TrailierTalesSharedConstants.id("archaeology/suspicious_dirt_common")
+				TrailierTalesSharedConstants.id("archaeology/dead_entity_arrow"),
+				TrailierTalesSharedConstants.id("archaeology/dead_entity_loot"),
+				TrailierTalesSharedConstants.id("archaeology/dead_entity_sword")
 			)
 		);
 	}
@@ -195,48 +118,8 @@ public class TrailierFeatureBootstrap {
 
 		register(
 			entries,
-			SUSPICIOUS_DIRT_PLACED,
-			configuredFeatures.getOrThrow(SUSPICIOUS_DIRT),
-			CountPlacement.of(UniformInt.of(0, 5)),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
-			BiomeFilter.biome()
-		);
-
-		register(
-			entries,
-			SUSPICIOUS_SAND_PLACED,
-			configuredFeatures.getOrThrow(SUSPICIOUS_SAND),
-			CountPlacement.of(UniformInt.of(0, 5)),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
-			BiomeFilter.biome()
-		);
-
-		register(
-			entries,
-			SUSPICIOUS_RED_SAND_PLACED,
-			configuredFeatures.getOrThrow(SUSPICIOUS_RED_SAND),
-			CountPlacement.of(UniformInt.of(0, 5)),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
-			BiomeFilter.biome()
-		);
-
-		register(
-			entries,
-			SUSPICIOUS_GRAVEL_PLACED,
-			configuredFeatures.getOrThrow(SUSPICIOUS_GRAVEL),
-			CountPlacement.of(UniformInt.of(0, 5)),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
-			BiomeFilter.biome()
-		);
-
-		register(
-			entries,
-			SUSPICIOUS_CLAY_PLACED,
-			configuredFeatures.getOrThrow(SUSPICIOUS_CLAY),
+			SUSPICIOUS_COMMON_PLACED,
+			configuredFeatures.getOrThrow(SUSPICIOUS_COMMON),
 			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
