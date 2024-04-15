@@ -62,5 +62,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		this.getOrCreateTagBuilder(ItemTags.PARROT_FOOD)
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
+
+		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
+			.add(RegisterItems.CYAN_ROSE_SEEDS);
 	}
 }
