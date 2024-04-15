@@ -8,6 +8,7 @@ import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.worldgen.impl.SuspiciousBlockConfiguration;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -21,6 +22,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -80,6 +83,11 @@ public class TrailierFeatureBootstrap {
 		RuleTest isSandTest = new BlockMatchTest(Blocks.SAND);
 		RuleTest isRedSandTest = new BlockMatchTest(Blocks.RED_SAND);
 		RuleTest isClayTest = new BlockMatchTest(Blocks.CLAY);
+		OreConfiguration.TargetBlockState dirtToSuspicious = OreConfiguration.target(isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState());
+		OreConfiguration.TargetBlockState gravelToSuspicious = OreConfiguration.target(isGravelTest, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState());
+		OreConfiguration.TargetBlockState sandToSuspicious = OreConfiguration.target(isSandTest, Blocks.SUSPICIOUS_SAND.defaultBlockState());
+		OreConfiguration.TargetBlockState redSandToSuspicious = OreConfiguration.target(isRedSandTest, RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState());
+		OreConfiguration.TargetBlockState clayToSuspicious = OreConfiguration.target(isClayTest, RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState());
 
 		register(
 			entries,
@@ -87,11 +95,11 @@ public class TrailierFeatureBootstrap {
 			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
 			new SuspiciousBlockConfiguration(
 				ImmutableList.of(
-					OreConfiguration.target(isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState()),
-					OreConfiguration.target(isGravelTest, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState()),
-					OreConfiguration.target(isSandTest, Blocks.SUSPICIOUS_SAND.defaultBlockState()),
-					OreConfiguration.target(isRedSandTest, RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState()),
-					OreConfiguration.target(isClayTest, RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState())
+					dirtToSuspicious,
+					gravelToSuspicious,
+					sandToSuspicious,
+					redSandToSuspicious,
+					clayToSuspicious
 				),
 				18,
 				0F,
@@ -123,6 +131,15 @@ public class TrailierFeatureBootstrap {
 			CountPlacement.of(UniformInt.of(0, 5)),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.UP,
+				BlockPredicate.anyOf(
+					BlockPredicate.matchesTag(BlockTags.DIRT),
+					BlockPredicate.matchesBlocks(Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.CLAY)
+				),
+				BlockPredicate.alwaysTrue(),
+				12
+			),
 			BiomeFilter.biome()
 		);
 	}
