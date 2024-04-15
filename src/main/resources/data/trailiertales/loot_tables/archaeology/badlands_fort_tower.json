@@ -6,19 +6,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:burn_pottery_sherd"
+          "name": "minecraft:archer_pottery_sherd"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:howl_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:stick"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:coal"
+          "name": "minecraft:danger_pottery_sherd"
         },
         {
           "type": "minecraft:item",
@@ -26,23 +18,31 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot"
+          "name": "minecraft:stick"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_nugget"
+          "name": "minecraft:stick"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:emerald"
+          "name": "minecraft:feather"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:emerald"
+          "name": "minecraft:string"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flower_pot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gunpowder"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "trailiertales:archaeology/badlands_fort"
+  "random_sequence": "trailiertales:archaeology/badlands_fort_tower"
 }

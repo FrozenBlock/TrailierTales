@@ -119,8 +119,8 @@ public final class RegisterStructures {
 				List.of(
 					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
 					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
-					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_3", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
-					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_4", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_tower_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
+					Pair.of(BadlandsFortGenerator.ofProcessedSingle("badlands_fort/fort_tower_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
