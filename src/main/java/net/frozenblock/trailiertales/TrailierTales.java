@@ -7,6 +7,7 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.TrailierLootTableModifications;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
@@ -30,6 +31,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterStructures.init();
 		RegisterFeatures.init();
 		TrailierBiomeModifications.init();
+		TrailierLootTableModifications.init();
 
 		ServerWorldEvents.LOAD.register((server, level) -> {
 			DimensionDataStorage dimensionDataStorage = level.getDataStorage();

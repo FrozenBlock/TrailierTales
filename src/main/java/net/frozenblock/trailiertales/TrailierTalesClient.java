@@ -3,6 +3,9 @@ package net.frozenblock.trailiertales;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 
@@ -14,5 +17,10 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
+
+		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_CYAN_ROSE, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE_CROP, RenderType.cutout());
 	}
 }

@@ -66,7 +66,7 @@ public class RegisterBlocks {
 
 	public static final Block CYAN_ROSE = new FlowerBlock(
 		MobEffects.SATURATION,
-		5F,
+		0.5F,
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
