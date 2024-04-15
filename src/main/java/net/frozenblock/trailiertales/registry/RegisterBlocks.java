@@ -2,11 +2,13 @@ package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -15,6 +17,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -57,10 +60,32 @@ public class RegisterBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
+	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
+		BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final Block CYAN_ROSE = new FlowerBlock(
+		MobEffects.SATURATION,
+		5F,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final Block POTTED_CYAN_ROSE = Blocks.flowerPot(CYAN_ROSE);
+
 	public static void init() {
 		registerBlockAfter(Blocks.SUSPICIOUS_SAND, "suspicious_red_sand", SUSPICIOUS_RED_SAND, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(SUSPICIOUS_RED_SAND, "suspicious_dirt",SUSPICIOUS_DIRT, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(SUSPICIOUS_DIRT, "suspicious_clay", SUSPICIOUS_CLAY, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+
+		registerBlockAfter(Blocks.TORCHFLOWER, "cyan_rose", CYAN_ROSE, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
+		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
 	}
 
 	private static void registerBlock(String path, Block block) {

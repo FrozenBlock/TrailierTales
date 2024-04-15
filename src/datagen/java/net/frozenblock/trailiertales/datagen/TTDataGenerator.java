@@ -6,6 +6,7 @@ import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTBlockLootProvider;
+import net.frozenblock.trailiertales.datagen.model.TTModelProvider;
 import net.frozenblock.trailiertales.datagen.recipe.TTRecipeProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTBiomeTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTBlockTagProvider;
@@ -25,6 +26,12 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
+
+		// ASSETS
+
+		pack.addProvider(TTModelProvider::new);
+
+		// DATA
 
 		pack.addProvider(TTBlockLootProvider::new);
 		pack.addProvider(TTRegistryProvider::new);

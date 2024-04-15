@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "trailiertales:block/cyan_rose_crop_stage0"
+    },
+    "age=1": {
+      "model": "trailiertales:block/cyan_rose_crop_stage1"
+    }
+  }
+}

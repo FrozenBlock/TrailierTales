@@ -3,9 +3,11 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.tag.TrailierItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -51,5 +53,14 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		this.getOrCreateTagBuilder(TrailierItemTags.POT_BASES)
 			.add(Items.BRICK);
+
+		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
+			.add(RegisterItems.CYAN_ROSE_SEEDS);
+
+		this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD)
+			.add(RegisterItems.CYAN_ROSE_SEEDS);
+
+		this.getOrCreateTagBuilder(ItemTags.PARROT_FOOD)
+			.add(RegisterItems.CYAN_ROSE_SEEDS);
 	}
 }

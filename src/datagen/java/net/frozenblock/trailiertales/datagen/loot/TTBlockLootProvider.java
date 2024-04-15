@@ -21,7 +21,12 @@ package net.frozenblock.trailiertales.datagen.loot;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
@@ -32,7 +37,13 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
+		this.dropSelf(RegisterBlocks.CYAN_ROSE);
+		this.dropPottedContents(RegisterBlocks.POTTED_CYAN_ROSE);
 
+		this.add(
+			RegisterBlocks.CYAN_ROSE_CROP,
+			this.applyExplosionDecay(RegisterBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS))))
+		);
 	}
 
 }
