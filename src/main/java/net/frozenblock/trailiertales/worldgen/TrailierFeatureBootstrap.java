@@ -124,20 +124,24 @@ public class TrailierFeatureBootstrap {
 			BiomeFilter.biome()
 		);
 
+		BlockPredicate suspiciousReplaceable = BlockPredicate.anyOf(
+			BlockPredicate.matchesTag(BlockTags.DIRT),
+			BlockPredicate.matchesBlocks(Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.CLAY)
+		);
+		BlockPredicate notSuspiciousReplaceable = BlockPredicate.not(suspiciousReplaceable);
+
 		register(
 			entries,
 			SUSPICIOUS_COMMON_PLACED,
 			configuredFeatures.getOrThrow(SUSPICIOUS_COMMON),
 			CountPlacement.of(UniformInt.of(0, 5)),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
 			EnvironmentScanPlacement.scanningFor(
-				Direction.UP,
-				BlockPredicate.anyOf(
-					BlockPredicate.matchesTag(BlockTags.DIRT),
-					BlockPredicate.matchesBlocks(Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.CLAY)
-				),
-				BlockPredicate.alwaysTrue(),
+				Direction.DOWN,
+				suspiciousReplaceable,
+				notSuspiciousReplaceable,
 				12
 			),
 			BiomeFilter.biome()

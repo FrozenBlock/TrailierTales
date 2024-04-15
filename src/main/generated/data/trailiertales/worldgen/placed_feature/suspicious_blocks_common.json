@@ -10,6 +10,10 @@
       }
     },
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 2
+    },
+    {
       "type": "minecraft:in_square"
     },
     {
@@ -26,7 +30,28 @@
     },
     {
       "type": "minecraft:environment_scan",
-      "direction_of_search": "up",
+      "allowed_search_condition": {
+        "type": "minecraft:not",
+        "predicate": {
+          "type": "minecraft:any_of",
+          "predicates": [
+            {
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:dirt"
+            },
+            {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:sand",
+                "minecraft:red_sand",
+                "minecraft:gravel",
+                "minecraft:clay"
+              ]
+            }
+          ]
+        }
+      },
+      "direction_of_search": "down",
       "max_steps": 12,
       "target_condition": {
         "type": "minecraft:any_of",
