@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "trailiertales:block/cyan_rose"
-  }
-}
