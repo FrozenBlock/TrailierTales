@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -62,7 +63,7 @@ public class CyanRoseCropBlock extends CropBlock {
 
 	@Override
 	protected ItemLike getBaseSeedId() {
-		return Items.TORCHFLOWER_SEEDS;
+		return RegisterItems.CYAN_ROSE_SEEDS;
 	}
 
 	@Override
