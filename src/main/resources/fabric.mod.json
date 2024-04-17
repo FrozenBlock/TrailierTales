@@ -1,16 +1,22 @@
 {
   "schemaVersion": 1,
-  "id": "trailiertales",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "Trailier Tales",
-  "description": "Tweaks and improves feature in 1.20.",
+  "description": "Overhauls the Trails & Tales update, adding features and improving existing ones.",
   "authors": [
     "Luna"
   ],
   "contributors": [
     "voxelotl",
-    "zhen"
+    "zhen",
+    "SonicGamerEpisode55"
   ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/trailier-tales",
+    "sources": "https://github.com/FrozenBlock/TrailierTales",
+    "issues": "https://github.com/FrozenBlock/TrailierTales/issues"
+  },
   "license": "LGPL-3.0",
   "icon": "assets/trailiertales/icon.png",
   "environment": "*",
@@ -30,12 +36,28 @@
   ],
   "accessWidener": "trailiertales.accesswidener",
   "depends": {
-    "fabricloader": ">=0.15.9",
-    "fabric-api": ">=0.96.14+1.20.5",
-    "minecraft": ">=1.20.5-alpha.24.14.a",
+    "frozenlib": "${frozenlib_version}",
+    "fabric-api": "${fabric_api_version}",
+    "minecraft": "${minecraft_version}",
     "java": ">=21"
   },
   "suggests": {
     "cloth-config": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/frozenblock-modding-oasis-780746010614956112",
+        "modmenu.modrinth": "https://modrinth.com/organization/frozenblock",
+        "modmenu.twitter": "https://twitter.com/FB_Oasis",
+        "modmenu.youtube": "https://www.youtube.com/@frozenblockmoddingoasismod"
+      },
+      "badges": [
+        "frozenblock"
+      ]
+    },
+    "frozenlib_registry": {
+      "mod_protocol": $protocol_version
+    }
   }
 }
