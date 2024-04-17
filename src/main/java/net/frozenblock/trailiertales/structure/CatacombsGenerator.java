@@ -55,11 +55,31 @@ public class CatacombsGenerator {
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("corridor/corridor1"), catacombsDegradation), 50),
+					Pair.of(StructurePoolElement.single(string("corridor/turn/left_turn1"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("corridor/turn/right_turn1"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/intersection_left_right"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/intersection_left_right_front"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/intersection_right_front"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_start1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_top1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/dead_end/dead_end1"), catacombsDegradation), 2)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("corridor_no_intersection"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/corridor1"), catacombsDegradation), 50),
 					Pair.of(StructurePoolElement.single(string("corridor/turn/left_turn1"), catacombsDegradation), 25),
 					Pair.of(StructurePoolElement.single(string("corridor/turn/right_turn1"), catacombsDegradation), 25),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_start1"), catacombsDegradation), 25),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_top1"), catacombsDegradation), 25),
-					Pair.of(StructurePoolElement.single(string("corridor/dead_end/dead_end1"), catacombsDegradation), 10)
+					Pair.of(StructurePoolElement.single(string("corridor/dead_end/dead_end1"), catacombsDegradation), 2)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
