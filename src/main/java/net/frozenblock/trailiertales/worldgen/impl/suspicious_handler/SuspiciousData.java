@@ -1,9 +1,9 @@
 package net.frozenblock.trailiertales.worldgen.impl.suspicious_handler;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

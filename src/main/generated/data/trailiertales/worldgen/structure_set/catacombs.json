@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1488497114,
+    "separation": 30,
+    "spacing": 40
+  },
+  "structures": [
+    {
+      "structure": "trailiertales:catacombs",
+      "weight": 1
+    }
+  ]
+}

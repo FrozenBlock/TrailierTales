@@ -1,0 +1,59 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/corridor1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 50
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/turn/left_turn1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 25
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/turn/right_turn1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 25
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/staircase/staircase_start1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 25
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/staircase/staircase_top1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 25
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/dead_end/dead_end1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 10
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

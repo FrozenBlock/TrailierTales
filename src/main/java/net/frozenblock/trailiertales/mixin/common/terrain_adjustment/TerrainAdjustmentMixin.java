@@ -1,5 +1,7 @@
 package net.frozenblock.trailiertales.mixin.common.terrain_adjustment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import net.frozenblock.trailiertales.TrailierEnumValues;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import org.objectweb.asm.Opcodes;
@@ -11,8 +13,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Mixin(TerrainAdjustment.class)
 public class TerrainAdjustmentMixin {

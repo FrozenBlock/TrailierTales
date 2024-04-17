@@ -1,0 +1,149 @@
+package net.frozenblock.trailiertales.structure;
+
+import com.mojang.datafixers.util.Pair;
+import java.util.List;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
+import net.frozenblock.trailiertales.registry.RegisterStructures;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.Pools;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import org.jetbrains.annotations.NotNull;
+
+public class CatacombsGenerator {
+	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
+	private static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
+	public static final ResourceKey<StructureTemplatePool> START = createKey("dungeon");
+
+	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
+		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
+		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
+		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
+		Holder<StructureProcessorList> catacombsDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION);
+		pool.register(
+			START,
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("dungeon/dungeon1"), catacombsDegradation), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("corridor"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/corridor1"), catacombsDegradation), 50),
+					Pair.of(StructurePoolElement.single(string("corridor/turn/left_turn1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/turn/right_turn1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_start1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_top1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/dead_end/dead_end1"), catacombsDegradation), 10)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("room_to_corridor"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/room_connector/room_connector1"), catacombsDegradation), 50),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_start1"), catacombsDegradation), 15),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_top1"), catacombsDegradation), 8)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("staircase_up"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_continuation"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_top1"), catacombsDegradation), 15)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("staircase_down"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_continuation"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/staircase_start1"), catacombsDegradation), 15)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+	}
+
+	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
+		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
+		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
+
+		context.register(
+			CATACOMBS_KEY,
+			new JigsawStructure(
+				RegisterStructures.structure(
+					holderGetter.getOrThrow(BiomeTags.HAS_MINESHAFT),
+					GenerationStep.Decoration.UNDERGROUND_DECORATION,
+					TerrainAdjustment.BURY
+				),
+				templatePool.getOrThrow(START),
+				20,
+				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
+				false
+			)
+		);
+	}
+
+	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
+		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
+
+		context.register(
+			CATACOMBS_STRUCTURE_SET_KEY,
+			new StructureSet(
+				structure.getOrThrow(CATACOMBS_KEY),
+				new RandomSpreadStructurePlacement(40, 30, RandomSpreadType.LINEAR, 1488497114) // ancient city salt is 20083232
+			)
+		);
+	}
+
+	private static @NotNull ResourceKey<StructureTemplatePool> createKey(String name) {
+		return ResourceKey.create(Registries.TEMPLATE_POOL, TrailierTalesSharedConstants.id("catacombs/" + name));
+	}
+
+	private static @NotNull String string(String name) {
+		return TrailierTalesSharedConstants.string("catacombs/" + name);
+	}
+
+}

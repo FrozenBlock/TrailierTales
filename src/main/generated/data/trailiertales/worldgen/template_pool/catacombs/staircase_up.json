@@ -1,0 +1,23 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/staircase/staircase_continuation",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 25
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/staircase/staircase_top1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 15
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

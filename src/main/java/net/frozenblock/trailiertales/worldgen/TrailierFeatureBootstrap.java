@@ -1,8 +1,8 @@
 package net.frozenblock.trailiertales.worldgen;
 
+import com.google.common.collect.ImmutableList;
 import java.util.Arrays;
 import java.util.List;
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
