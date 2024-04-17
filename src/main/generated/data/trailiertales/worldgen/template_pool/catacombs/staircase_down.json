@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/staircase/staircase_continuation",
+        "location": "trailiertales:catacombs/corridor/staircase/staircase",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -12,11 +12,11 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/staircase/staircase_start1",
+        "location": "trailiertales:catacombs/corridor/staircase/staircase_bottom1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 15
+      "weight": 17
     }
   ],
   "fallback": "minecraft:empty"

@@ -25,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
 public class RegisterStructureProcessors {
 	public static final float SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE = 0.85F;
 	public static final ResourceKey<StructureProcessorList> SUSPICIOUS_BLOCK_TO_NORMAL_085 = createKey("suspicious_block_to_normal_085");
-	public static final float SKULL_SMALL_ROTATE_CHANCE = 0.2F;
-	public static final float SKULL_LARGE_ROTATE_CHANCE = 0.05F;
+	public static final float SKULL_SMALL_ROTATE_CHANCE = 0.3F;
+	public static final float SKULL_LARGE_ROTATE_CHANCE = 0.075F;
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION = createKey("catacombs_degradation");
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {

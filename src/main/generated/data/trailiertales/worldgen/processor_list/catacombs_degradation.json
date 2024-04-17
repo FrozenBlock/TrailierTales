@@ -72,7 +72,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -96,7 +96,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -120,7 +120,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -144,7 +144,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -168,7 +168,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -192,7 +192,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -216,7 +216,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -240,7 +240,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -264,7 +264,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -288,7 +288,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -312,7 +312,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -336,7 +336,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -360,7 +360,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -384,7 +384,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
@@ -408,7 +408,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.3
           },
           "location_predicate": {
             "block_state": {
@@ -432,7 +432,7 @@
           "input_predicate": {
             "block": "minecraft:skeleton_skull",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "block_state": {
