@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
@@ -174,9 +175,13 @@ public class CatacombsGenerator {
 					TerrainAdjustment.BURY
 				),
 				templatePool.getOrThrow(START),
+				Optional.empty(),
 				20,
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
-				false
+				false,
+				Optional.empty(),
+				116,
+				ALIAS_BINDINGS
 			)
 		);
 	}
