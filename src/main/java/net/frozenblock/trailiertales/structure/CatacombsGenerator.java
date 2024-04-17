@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
@@ -12,6 +13,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -23,6 +25,8 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStruct
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBindings;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +35,35 @@ public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
 	private static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
 	public static final ResourceKey<StructureTemplatePool> START = createKey("dungeon");
+	public static final List<PoolAliasBinding> ALIAS_BINDINGS = ImmutableList.<PoolAliasBinding>builder()
+		.add(
+			PoolAliasBinding.random(
+				string("dungeon/spawner"),
+				SimpleWeightedRandomList.<String>builder()
+					.add(dungeonSpawner("chain/skeleton"))
+					.add(dungeonSpawner("chain/zombie"))
+
+					.add(dungeonSpawner("chain_hanging/skeleton"))
+					.add(dungeonSpawner("chain_hanging/zombie"))
+
+					.add(dungeonSpawner("pillar/skeleton"))
+					.add(dungeonSpawner("pillar/zombie"))
+
+					.add(dungeonSpawner("wall/skeleton"))
+					.add(dungeonSpawner("wall/zombie"))
+
+					.add(dungeonSpawner("wall_chain/skeleton"))
+					.add(dungeonSpawner("wall_chain/zombie"))
+
+					.add(dungeonSpawner("wall_chain_hanging/skeleton"))
+					.add(dungeonSpawner("wall_chain_hanging/zombie"))
+
+					.add(dungeonSpawner("wall_hanging/skeleton"))
+					.add(dungeonSpawner("wall_hanging/zombie"))
+					.build()
+			)
+		)
+		.build();
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -124,6 +157,8 @@ public class CatacombsGenerator {
 				StructureTemplatePool.Projection.RIGID
 			)
 		);
+
+		PoolAliasBindings.registerTargetsAsPools(pool, empty, ALIAS_BINDINGS);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
@@ -164,6 +199,10 @@ public class CatacombsGenerator {
 
 	private static @NotNull String string(String name) {
 		return TrailierTalesSharedConstants.string("catacombs/" + name);
+	}
+
+	public static String dungeonSpawner(String string) {
+		return string("dungeon/spawner/" + string);
 	}
 
 }
