@@ -159,6 +159,176 @@ public class CatacombsGenerator {
 			)
 		);
 
+		// DUNGEON SPAWNERS
+
+		Pools.register(
+			pool,
+			dungeonSpawner("chain/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("chain/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("chain/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("chain/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("chain_hanging/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("chain_hanging/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("chain_hanging/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("chain_hanging/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("pillar/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("pillar/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("pillar/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("pillar/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall_chain/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall_chain/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall_chain/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall_chain/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall_chain_hanging/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall_chain_hanging/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall_chain_hanging/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall_chain_hanging/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall_hanging/skeleton"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall_hanging/skeleton"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			dungeonSpawner("wall_hanging/zombie"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(dungeonSpawner("wall_hanging/zombie"), catacombsDegradation), 5)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
 		PoolAliasBindings.registerTargetsAsPools(pool, empty, ALIAS_BINDINGS);
 	}
 
