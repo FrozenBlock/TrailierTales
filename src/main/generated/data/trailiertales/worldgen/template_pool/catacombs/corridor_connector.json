@@ -1,0 +1,14 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/connector1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 50
+    }
+  ],
+  "fallback": "minecraft:empty"
+}
