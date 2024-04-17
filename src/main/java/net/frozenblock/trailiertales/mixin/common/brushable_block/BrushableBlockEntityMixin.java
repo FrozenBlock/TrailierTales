@@ -165,7 +165,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		compoundTag.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
 		compoundTag.putFloat("ItemScale", this.trailierTales$itemScale);
 		compoundTag.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
-		compoundTag.putBoolean("HasCustomItem", true);
+		compoundTag.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
 		compoundTag.putInt("BrushCount", this.brushCount);
 	}
 
