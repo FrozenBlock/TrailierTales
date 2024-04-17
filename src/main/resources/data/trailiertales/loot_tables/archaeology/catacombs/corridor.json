@@ -14,7 +14,15 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:bone"
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:coal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
         },
         {
           "type": "minecraft:item",
@@ -22,15 +30,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_nugget"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:stick"
+          "name": "minecraft:prize_pottery_sherd"
         }
       ],
       "rolls": 1.0
