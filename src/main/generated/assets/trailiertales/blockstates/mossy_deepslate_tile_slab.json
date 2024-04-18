@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/mossy_deepslate_tile_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/mossy_deepslate_tiles"
+    },
+    "type=top": {
+      "model": "trailiertales:block/mossy_deepslate_tile_slab_top"
+    }
+  }
+}

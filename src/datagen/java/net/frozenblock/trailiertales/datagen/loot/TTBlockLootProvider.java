@@ -44,6 +44,20 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			RegisterBlocks.CYAN_ROSE_CROP,
 			this.applyExplosionDecay(RegisterBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS))))
 		);
+
+		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS);
+		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_TILES);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL);
+
+		this.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);
+		this.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, this::createSlabItemTable);
+		this.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, this::createSlabItemTable);
 	}
 
 }

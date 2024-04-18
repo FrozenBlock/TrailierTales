@@ -18,6 +18,20 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILES)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.add(RegisterBlocks.SUSPICIOUS_RED_SAND)
 			.add(RegisterBlocks.SUSPICIOUS_DIRT)
@@ -41,6 +55,57 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND)
 			.add(RegisterBlocks.CYAN_ROSE_CROP)
 			.add(RegisterBlocks.CYAN_ROSE);
+
+		this.getOrCreateTagBuilder(BlockTags.STAIRS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
+
+		this.getOrCreateTagBuilder(BlockTags.SLABS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB);
+
+		this.getOrCreateTagBuilder(BlockTags.WALLS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+
+		this.getOrCreateTagBuilder(BlockTags.ANCIENT_CITY_REPLACEABLE)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILES)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+
+		this.getOrCreateTagBuilder(BlockTags.SCULK_REPLACEABLE_WORLD_GEN)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILES);
+
+		// WILDER WILD
+
+		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_slab_replaceable_worldgen"))
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB);
+
+		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_stair_replaceable_worldgen"))
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
+
+		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_wall_replaceable_worldgen"))
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
 	}
 
 	@NotNull

@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.tag.TrailierItemTags;
 import net.minecraft.core.HolderLookup;
@@ -69,5 +70,20 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
+
+		this.getOrCreateTagBuilder(ItemTags.STAIRS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.SLABS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.asItem())
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.WALLS)
+			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem());
 	}
 }
