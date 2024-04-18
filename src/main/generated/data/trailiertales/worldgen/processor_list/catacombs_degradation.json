@@ -72,7 +72,7 @@
           "input_predicate": {
             "block": "minecraft:suspicious_gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.85
+            "probability": 0.95
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"

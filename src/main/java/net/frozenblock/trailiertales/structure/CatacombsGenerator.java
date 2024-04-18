@@ -101,7 +101,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("corridor/connector1"), catacombsDegradation), 20),
+					Pair.of(StructurePoolElement.single(string("corridor/connector1"), catacombsDegradation), 10),
 					Pair.of(StructurePoolElement.single(string("corridor/intersection/all1"), catacombsDegradation), 20),
 					Pair.of(StructurePoolElement.single(string("corridor/intersection/left1"), catacombsDegradation), 10),
 					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front1"), catacombsDegradation), 15),

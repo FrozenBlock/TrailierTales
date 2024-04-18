@@ -76,7 +76,7 @@ public class RegisterStructureProcessors {
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE),
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.95F),
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
 						)
 					)
