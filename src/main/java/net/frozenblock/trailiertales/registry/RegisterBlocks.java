@@ -6,6 +6,8 @@ import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
@@ -18,7 +20,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -36,7 +41,6 @@ public class RegisterBlocks {
 			.strength(0.25f).sound(SoundType.SUSPICIOUS_SAND)
 			.pushReaction(PushReaction.DESTROY)
 	);
-
 	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
 		Blocks.DIRT,
 		SoundEvents.BRUSH_GRAVEL,
@@ -47,7 +51,6 @@ public class RegisterBlocks {
 			.sound(SoundType.SUSPICIOUS_GRAVEL)
 			.pushReaction(PushReaction.DESTROY)
 	);
-
 	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(
 		Blocks.CLAY,
 		SoundEvents.BRUSH_GRAVEL,
@@ -63,7 +66,6 @@ public class RegisterBlocks {
 	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
 	);
-
 	public static final Block CYAN_ROSE = new FlowerBlock(
 		MobEffects.SATURATION,
 		0.5F,
@@ -75,8 +77,46 @@ public class RegisterBlocks {
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.pushReaction(PushReaction.DESTROY)
 	);
-
 	public static final Block POTTED_CYAN_ROSE = Blocks.flowerPot(CYAN_ROSE);
+
+	public static final Block MOSSY_COBBLED_DEEPSLATE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE));
+	public static final Block MOSSY_COBBLED_DEEPSLATE_STAIRS = new StairBlock(
+		MOSSY_COBBLED_DEEPSLATE.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE_STAIRS)
+	);
+	public static final Block MOSSY_COBBLED_DEEPSLATE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE_SLAB));
+	public static final Block MOSSY_COBBLED_DEEPSLATE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE_WALL));
+	public static final BlockFamily FAMILY_MOSSY_COBBLED_DEEPSLATE = BlockFamilies.familyBuilder(MOSSY_COBBLED_DEEPSLATE)
+		.stairs(MOSSY_COBBLED_DEEPSLATE_STAIRS)
+		.slab(MOSSY_COBBLED_DEEPSLATE_SLAB)
+		.wall(MOSSY_COBBLED_DEEPSLATE_WALL)
+		.getFamily();
+
+	public static final Block MOSSY_DEEPSLATE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS));
+	public static final Block MOSSY_DEEPSLATE_BRICK_STAIRS = new StairBlock(
+		MOSSY_DEEPSLATE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICK_STAIRS)
+	);
+	public static final Block MOSSY_DEEPSLATE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICK_SLAB));
+	public static final Block MOSSY_DEEPSLATE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICK_WALL));
+	public static final BlockFamily FAMILY_MOSSY_DEEPSLATE_BRICKS = BlockFamilies.familyBuilder(MOSSY_DEEPSLATE_BRICKS)
+		.stairs(MOSSY_DEEPSLATE_BRICK_STAIRS)
+		.slab(MOSSY_DEEPSLATE_BRICK_SLAB)
+		.wall(MOSSY_DEEPSLATE_BRICK_WALL)
+		.getFamily();
+
+	public static final Block MOSSY_DEEPSLATE_TILES = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES));
+	public static final Block MOSSY_DEEPSLATE_TILE_STAIRS = new StairBlock(
+		MOSSY_DEEPSLATE_TILES.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILE_STAIRS)
+	);
+	public static final Block MOSSY_DEEPSLATE_TILE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILE_SLAB));
+	public static final Block MOSSY_DEEPSLATE_TILE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILE_WALL));
+	public static final BlockFamily FAMILY_MOSSY_DEEPSLATE_TILES = BlockFamilies.familyBuilder(MOSSY_DEEPSLATE_TILES)
+		.stairs(MOSSY_DEEPSLATE_TILE_STAIRS)
+		.slab(MOSSY_DEEPSLATE_TILE_SLAB)
+		.wall(MOSSY_DEEPSLATE_TILE_WALL)
+		.getFamily();
 
 	public static void init() {
 		registerBlockAfter(Blocks.SUSPICIOUS_SAND, "suspicious_red_sand", SUSPICIOUS_RED_SAND, CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -86,6 +126,21 @@ public class RegisterBlocks {
 		registerBlockAfter(Blocks.TORCHFLOWER, "cyan_rose", CYAN_ROSE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
 		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
+
+		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE_STAIRS, "mossy_cobbled_deepslate_slab", MOSSY_COBBLED_DEEPSLATE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE_SLAB, "mossy_cobbled_deepslate_wall", MOSSY_COBBLED_DEEPSLATE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.DEEPSLATE_BRICK_WALL, "mossy_deepslate_bricks", MOSSY_DEEPSLATE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_BRICKS, "mossy_deepslate_brick_stairs", MOSSY_DEEPSLATE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_BRICK_STAIRS, "mossy_deepslate_brick_slab", MOSSY_DEEPSLATE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_BRICK_SLAB, "mossy_deepslate_brick_wall", MOSSY_DEEPSLATE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.DEEPSLATE_TILE_WALL, "mossy_deepslate_tiles", MOSSY_DEEPSLATE_TILES, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_cdeepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 	}
 
 	private static void registerBlock(String path, Block block) {

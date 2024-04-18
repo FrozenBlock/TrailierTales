@@ -26,6 +26,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -35,14 +36,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(RecipeOutput exporter) {
+	public void buildRecipes(RecipeOutput recipeOutput) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
 			.define('#', Items.GRAVEL)
 			.pattern(" # ")
 			.pattern("# #")
 			.pattern(" # ")
 			.unlockedBy(getHasName(Items.GRAVEL), has(Items.GRAVEL))
-			.save(exporter);
+			.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_SAND, 4)
 			.define('#', Items.SAND)
@@ -50,7 +51,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("# #")
 			.pattern(" # ")
 			.unlockedBy(getHasName(Items.SAND), has(Items.SAND))
-			.save(exporter);
+			.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.SUSPICIOUS_RED_SAND, 4)
 			.define('#', Items.RED_SAND)
@@ -58,7 +59,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("# #")
 			.pattern(" # ")
 			.unlockedBy(getHasName(Items.RED_SAND), has(Items.RED_SAND))
-			.save(exporter);
+			.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.SUSPICIOUS_DIRT, 4)
 			.define('#', Items.DIRT)
@@ -66,7 +67,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("# #")
 			.pattern(" # ")
 			.unlockedBy(getHasName(Items.DIRT), has(Items.DIRT))
-			.save(exporter);
+			.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterBlocks.SUSPICIOUS_CLAY, 4)
 			.define('#', Items.CLAY)
@@ -74,9 +75,84 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("# #")
 			.pattern(" # ")
 			.unlockedBy(getHasName(Items.CLAY), has(Items.CLAY))
-			.save(exporter);
+			.save(recipeOutput);
 
-		oneToOneConversionRecipe(exporter, Items.CYAN_DYE, RegisterBlocks.CYAN_ROSE, "cyan_dye");
+		oneToOneConversionRecipe(recipeOutput, Items.CYAN_DYE, RegisterBlocks.CYAN_ROSE, "cyan_dye");
+
+		// MOSSY COBBLED DEEPSLATE
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
+			.requires(Blocks.COBBLED_DEEPSLATE)
+			.requires(Blocks.VINE)
+			.group("mossy_cobbled_deepslate")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
+			.requires(Blocks.COBBLED_DEEPSLATE)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_cobbled_deepslate")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+
+		// MOSSY DEEPSLATE BRICKS
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
+			.requires(Blocks.DEEPSLATE_BRICKS)
+			.requires(Blocks.VINE)
+			.group("mossy_deepslate_bricks")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
+			.requires(Blocks.DEEPSLATE_BRICKS)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_deepslate_bricks")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+
+		// MOSSY DEEPSLATE TILE
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILES)
+			.requires(Blocks.DEEPSLATE_TILES)
+			.requires(Blocks.VINE)
+			.group("mossy_deepslate_tiles")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_DEEPSLATE_TILES, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILES)
+			.requires(Blocks.DEEPSLATE_TILES)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_deepslate_tiles")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_DEEPSLATE_TILES, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILES, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILES, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, RegisterBlocks.MOSSY_DEEPSLATE_TILES, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_TILES);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL, RegisterBlocks.MOSSY_DEEPSLATE_TILES);
 	}
 
 }

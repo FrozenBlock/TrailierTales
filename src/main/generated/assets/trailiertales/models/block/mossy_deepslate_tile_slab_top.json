@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "trailiertales:block/mossy_deepslate_tiles",
+    "side": "trailiertales:block/mossy_deepslate_tiles",
+    "top": "trailiertales:block/mossy_deepslate_tiles"
+  }
+}
