@@ -71,7 +71,7 @@ public class RegisterStructureProcessors {
 			ImmutableList.of(
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.SKELETON_SKULL, 0.45F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.SKELETON_SKULL, 0.55F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
 
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
@@ -113,7 +113,11 @@ public class RegisterStructureProcessors {
 						),
 
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.95F),
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.425F),
+							AlwaysTrueTest.INSTANCE, Blocks.TUFF.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.9225F),
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
 						)
 					)
