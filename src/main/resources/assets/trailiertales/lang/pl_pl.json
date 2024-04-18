@@ -8,5 +8,20 @@
   "block.trailiertales.potted_cyan_rose": "Błękitna róża w doniczce",
   "block.trailiertales.cyan_rose": "Błękitna róża",
   "block.trailiertales.cyan_rose_crop": "Plon błękitnej róży",
-  "item.trailiertales.cyan_rose_seeds": "Nasiona błękitnej róży"
+  "item.trailiertales.cyan_rose_seeds": "Nasiona błękitnej róży",
+
+  "block.trailiertales.mossy_cobbled_deepslate": "Zamszony łupkowy bruk",
+  "block.trailiertales.mossy_cobbled_deepslate_stairs": "Zamszone łupkowe brukowe schody",
+  "block.trailiertales.mossy_cobbled_deepslate_slab": "Zamszona łupkowa brukowa płyta",
+  "block.trailiertales.mossy_cobbled_deepslate_wall": "Zamszony łupkowy brukowy murek",
+
+  "block.trailiertales.mossy_deepslate_bricks": "Zamszone łupkowe cegły",
+  "block.trailiertales.mossy_deepslate_brick_stairs": "Zamszone łupkowe ceglane schody",
+  "block.trailiertales.mossy_deepslate_brick_slab": "Zamszona łupkowa ceglana płyta",
+  "block.trailiertales.mossy_deepslate_brick_wall": "Zamszony łupkowy ceglany murek",
+
+  "block.trailiertales.mossy_deepslate_tiles": "Zamszone łupkowe kafelki",
+  "block.trailiertales.mossy_deepslate_tile_stairs": "Zamszone łupkowe kafelkowe schody",
+  "block.trailiertales.mossy_deepslate_tile_slab": "Zamszona łupkowa kafelkowa płyta",
+  "block.trailiertales.mossy_deepslate_tile_wall": "Zamszony łupkowy kafelkowy murek"
 }
