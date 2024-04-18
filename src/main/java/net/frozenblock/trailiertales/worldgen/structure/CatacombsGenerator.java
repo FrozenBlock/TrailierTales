@@ -345,7 +345,7 @@ public class CatacombsGenerator {
 				RegisterStructures.structure(
 					holderGetter.getOrThrow(BiomeTags.HAS_MINESHAFT),
 					GenerationStep.Decoration.UNDERGROUND_DECORATION,
-					TerrainAdjustment.BURY
+					TerrainAdjustment.ENCAPSULATE
 				),
 				templatePool.getOrThrow(START),
 				Optional.empty(),

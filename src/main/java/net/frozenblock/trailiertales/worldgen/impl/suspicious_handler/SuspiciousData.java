@@ -52,8 +52,8 @@ public class SuspiciousData {
 						ResourceKey.create(Registries.LOOT_TABLE, sus.lootTable),
 						level.random.nextLong()
 					);
-					toRemove.add(sus);
 				}
+				toRemove.add(sus);
 			}
 		}
 
