@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.registry;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -11,12 +12,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
@@ -70,11 +71,47 @@ public class RegisterStructureProcessors {
 			ImmutableList.of(
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.SKELETON_SKULL, 0.375F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.SKELETON_SKULL, 0.45F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
+
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.defaultBlockState()),
+
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILES.defaultBlockState()),
+
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.defaultBlockState()),
+
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_WALL.defaultBlockState(), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState(), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST)
+						),
+
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.95F),
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
