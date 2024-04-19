@@ -79,6 +79,6 @@
   },
   "start_pool": "trailiertales:catacombs/dungeon",
   "step": "underground_decoration",
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "encapsulate",
   "use_expansion_hack": false
 }

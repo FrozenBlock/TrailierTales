@@ -2,8 +2,8 @@ package net.frozenblock.trailiertales.registry;
 
 import java.util.Map;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
-import net.frozenblock.trailiertales.structure.BadlandsFortGenerator;
-import net.frozenblock.trailiertales.structure.CatacombsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.BadlandsFortGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

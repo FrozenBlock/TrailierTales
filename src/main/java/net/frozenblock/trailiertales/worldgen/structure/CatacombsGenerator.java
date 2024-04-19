@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.structure;
+package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
@@ -122,11 +122,12 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/decoration/soul_lantern"), catacombsDegradation), 2),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull"), catacombsDegradation), 50),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull1"), catacombsDegradation), 18),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull2"), catacombsDegradation), 18),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull3"), catacombsDegradation), 5),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4"), catacombsDegradation), 5)
+					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull3"), catacombsDegradation), 6),
+					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4"), catacombsDegradation), 6)
 
 				),
 				StructureTemplatePool.Projection.RIGID
@@ -344,7 +345,7 @@ public class CatacombsGenerator {
 				RegisterStructures.structure(
 					holderGetter.getOrThrow(BiomeTags.HAS_MINESHAFT),
 					GenerationStep.Decoration.UNDERGROUND_DECORATION,
-					TerrainAdjustment.BURY
+					TerrainAdjustment.ENCAPSULATE
 				),
 				templatePool.getOrThrow(START),
 				Optional.empty(),

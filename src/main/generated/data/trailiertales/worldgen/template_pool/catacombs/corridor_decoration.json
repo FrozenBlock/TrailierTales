@@ -3,6 +3,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/decoration/soul_lantern",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
@@ -34,7 +43,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 6
     },
     {
       "element": {
@@ -43,7 +52,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 6
     }
   ],
   "fallback": "minecraft:empty"

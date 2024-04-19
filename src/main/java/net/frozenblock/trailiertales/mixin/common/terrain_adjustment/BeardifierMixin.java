@@ -69,11 +69,11 @@ public class BeardifierMixin {
 		method = "compute",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/levelgen/Beardifier;getBuryContribution(III)D"
+			target = "Lnet/minecraft/world/level/levelgen/Beardifier;getBuryContribution(DDD)D"
 		)
 	)
 	public double trailierTales$smallPlatformLogicInBury(
-		int x, int y, int z, Operation<Double> operation,
+		double x, double y, double z, Operation<Double> operation,
 		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
 	) {
 		if (terrainAdjustment.get() == TrailierEnumValues.SMALL_PLATFORM) {
@@ -83,7 +83,7 @@ public class BeardifierMixin {
 	}
 
 	@Unique
-	private static double trailierTales$getSmallPlatformContribution(int x, int y, int z) {
+	private static double trailierTales$getSmallPlatformContribution(double x, double y, double z) {
 		double d = Mth.length(x * 5D, y * 3D, z * 5D);
 		return Mth.clampedMap(d, 0D, 6D, 1D, 0D);
 	}

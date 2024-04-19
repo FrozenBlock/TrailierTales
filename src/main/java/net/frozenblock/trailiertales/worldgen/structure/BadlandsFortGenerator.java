@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.structure;
+package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
