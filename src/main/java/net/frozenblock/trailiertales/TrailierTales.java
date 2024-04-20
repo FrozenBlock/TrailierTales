@@ -7,6 +7,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
+import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.registry.RegisterItems;
@@ -31,6 +32,7 @@ public class TrailierTales extends FrozenModInitializer {
 		TrailierTalesSharedConstants.startMeasuring(this);
 
 		RegisterBlocks.init();
+		RegisterBlockEntities.register();
 		RegisterItems.init();
 		RegisterRecipies.init();
 		RegisterFeatures.init();
@@ -43,12 +45,8 @@ public class TrailierTales extends FrozenModInitializer {
 			dimensionDataStorage.computeIfAbsent(suspiciousData.createData(), SuspiciousDataStorage.SUSPICIOUS_FILE_ID);
 		});
 
-		ServerTickEvents.START_WORLD_TICK.register(level -> {
-			SuspiciousData.getSuspiciousData(level).tick(level);
-		});
-
 		ServerTickEvents.END_WORLD_TICK.register(level -> {
-			SuspiciousData.getSuspiciousData(level).swapLists();
+			SuspiciousData.getSuspiciousData(level).tick();
 		});
 
 		AdvancementEvents.INIT.register((holder, registries) -> {

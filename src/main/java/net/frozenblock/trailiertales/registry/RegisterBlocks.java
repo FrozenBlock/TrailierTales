@@ -2,8 +2,10 @@ package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
+import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
@@ -118,6 +120,18 @@ public class RegisterBlocks {
 		.wall(MOSSY_DEEPSLATE_TILE_WALL)
 		.getFamily();
 
+	public static final CoffinBlock COFFIN = new CoffinBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.DEEPSLATE)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.noOcclusion()
+			.lightLevel(state -> state.getValue(TrailierBlockStateProperties.COFFIN_STATE).getLightLevel())
+			.requiresCorrectToolForDrops()
+			.sound(SoundType.VAULT)
+			.strength(50F)
+			.isViewBlocking(Blocks::never)
+	);
+
 	public static void init() {
 		registerBlockAfter(Blocks.SUSPICIOUS_SAND, "suspicious_red_sand", SUSPICIOUS_RED_SAND, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(SUSPICIOUS_RED_SAND, "suspicious_dirt",SUSPICIOUS_DIRT, CreativeModeTabs.FUNCTIONAL_BLOCKS);
@@ -141,6 +155,8 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_cdeepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
 	private static void registerBlock(String path, Block block) {

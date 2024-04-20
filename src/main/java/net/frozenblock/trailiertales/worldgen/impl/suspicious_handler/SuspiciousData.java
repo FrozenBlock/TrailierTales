@@ -38,19 +38,17 @@ public class SuspiciousData {
 		);
 	}
 
-	public void swapLists() {
+	public void tick() {
 		this.oldData.addAll(this.suspiciousData);
 		this.suspiciousData = new ArrayList<>();
-	}
 
-	public void tick(@NotNull ServerLevel level) {
 		List<Pair> toRemove = new ArrayList<>();
 		for (Pair sus : this.oldData) {
-			if (level.isLoaded(sus.pos)) {
-				if (level.getBlockEntity(sus.pos) instanceof BrushableBlockEntity brushableBlockEntity) {
+			if (this.level.isLoaded(sus.pos)) {
+				if (this.level.getBlockEntity(sus.pos) instanceof BrushableBlockEntity brushableBlockEntity) {
 					brushableBlockEntity.setLootTable(
 						ResourceKey.create(Registries.LOOT_TABLE, sus.lootTable),
-						level.random.nextLong()
+						this.level.random.nextLong()
 					);
 				}
 				toRemove.add(sus);
