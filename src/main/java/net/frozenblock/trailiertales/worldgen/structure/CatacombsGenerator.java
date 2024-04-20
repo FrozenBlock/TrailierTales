@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
-	private static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
+	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
 	public static final ResourceKey<StructureTemplatePool> START = createKey("dungeon");
 	public static final List<PoolAliasBinding> ALIAS_BINDINGS = ImmutableList.<PoolAliasBinding>builder()
 		.add(
