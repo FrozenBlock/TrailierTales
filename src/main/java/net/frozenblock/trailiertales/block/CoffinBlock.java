@@ -177,13 +177,13 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			? createTickerHelper(
 			blockEntityType,
 			RegisterBlockEntities.COFFIN,
-			(unusedWorld, pos, statex, trialSpawner) -> trialSpawner.getCoffinSpawner()
+			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
 				.tickServer(serverLevel, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false))
 		)
 			: createTickerHelper(
 			blockEntityType,
 			RegisterBlockEntities.COFFIN,
-			(world, pos, statex, trialSpawner) -> trialSpawner.getCoffinSpawner()
+			(world, pos, statex, coffin) -> coffin.getCoffinSpawner()
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false))
 		);
 	}

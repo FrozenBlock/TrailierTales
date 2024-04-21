@@ -36,11 +36,7 @@ public class SuspiciousBlockConfiguration implements FeatureConfiguration {
 		this.lootTables = lootTables;
 	}
 
-	public SuspiciousBlockConfiguration(RuleTest target, BlockState state, int size, float discardChanceOnAirExposure, float placeChancePerBlock, ResourceLocation... lootTable) {
-		this(ImmutableList.of(OreConfiguration.target(target, state)), size, discardChanceOnAirExposure, placeChancePerBlock, Arrays.stream(lootTable).toList());
-	}
-
-	public SuspiciousBlockConfiguration(List<OreConfiguration.TargetBlockState> targetStates, int size, float discardChanceOnAirExposure, float placeChancePerBlock, ResourceLocation... lootTable) {
-		this(targetStates, size, discardChanceOnAirExposure, placeChancePerBlock, Arrays.stream(lootTable).toList());
+	public SuspiciousBlockConfiguration(RuleTest target, BlockState state, int size, float discardChanceOnAirExposure, float placeChancePerBlock, List<ResourceLocation> lootTables) {
+		this(ImmutableList.of(OreConfiguration.target(target, state)), size, discardChanceOnAirExposure, placeChancePerBlock, lootTables);
 	}
 }

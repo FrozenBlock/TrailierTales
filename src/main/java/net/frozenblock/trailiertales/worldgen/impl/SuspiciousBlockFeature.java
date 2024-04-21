@@ -34,13 +34,12 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 		WorldGenLevel worldGenLevel = context.level();
 		SuspiciousBlockConfiguration oreConfiguration = context.config();
 		float f = randomSource.nextFloat() * (float) Math.PI;
-		float g = (float)oreConfiguration.size / 8.0F;
+		float g = (float)oreConfiguration.size / 8F;
 		int i = Mth.ceil(((float)oreConfiguration.size / 16F * 2F + 1F) / 2F);
 		double d = (double)blockPos.getX() + Math.sin(f) * (double)g;
 		double e = (double)blockPos.getX() - Math.sin(f) * (double)g;
 		double h = (double)blockPos.getZ() + Math.cos(f) * (double)g;
 		double j = (double)blockPos.getZ() - Math.cos(f) * (double)g;
-		int k = 2;
 		double l = blockPos.getY() + randomSource.nextInt(3) - 2;
 		double m = blockPos.getY() + randomSource.nextInt(3) - 2;
 		int n = blockPos.getX() - Mth.ceil(g) - i;
@@ -76,7 +75,10 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 		int width,
 		int height
 	) {
-		ResourceLocation lootTable = Util.getRandom(config.lootTables, random);
+		ResourceLocation lootTable = new ResourceLocation("empty");
+		if (!config.lootTables.isEmpty()) {
+			lootTable = Util.getRandom(config.lootTables, random);
+		}
 		int i = 0;
 		BitSet bitSet = new BitSet(width * height * width);
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();

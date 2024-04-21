@@ -104,9 +104,11 @@ public class TrailierFeatureBootstrap {
 				18,
 				0F,
 				0.3F,
-				TrailierTalesSharedConstants.id("archaeology/dead_entity_arrow"),
-				TrailierTalesSharedConstants.id("archaeology/dead_entity_loot"),
-				TrailierTalesSharedConstants.id("archaeology/dead_entity_sword")
+				ImmutableList.of(
+					TrailierTalesSharedConstants.id("archaeology/dead_entity_arrow"),
+					TrailierTalesSharedConstants.id("archaeology/dead_entity_loot"),
+					TrailierTalesSharedConstants.id("archaeology/dead_entity_sword")
+				)
 			)
 		);
 	}
@@ -142,7 +144,7 @@ public class TrailierFeatureBootstrap {
 				Direction.DOWN,
 				suspiciousReplaceable,
 				notSuspiciousReplaceable,
-				12
+				6
 			),
 			BiomeFilter.biome()
 		);
