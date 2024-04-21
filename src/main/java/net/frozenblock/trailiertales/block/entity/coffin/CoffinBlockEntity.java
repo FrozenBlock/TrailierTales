@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -29,6 +30,10 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		PlayerDetector playerDetector = CoffinSpawner.IN_CATACOMBS_NO_CREATIVE_PLAYERS;
 		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
 		this.coffinSpawner = new CoffinSpawner(this, playerDetector, entitySelector);
+	}
+
+	public float getOpenProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.coffinSpawner.getPreviousOpenProgress(), this.coffinSpawner.getOpenProgress());
 	}
 
 	@Override
@@ -62,7 +67,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 
 	@Override
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
-		return this.coffinSpawner.getData().getUpdateTag(this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_STATE));
+		return this.coffinSpawner.getUpdateTag(this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_STATE));
 	}
 
 	@Override
@@ -99,5 +104,10 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		if (this.level != null) {
 			this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
 		}
+	}
+
+	@Override
+	public void markDirty() {
+		this.setChanged();
 	}
 }

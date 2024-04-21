@@ -3,20 +3,22 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -64,9 +66,11 @@ public final class CoffinSpawner {
 	private PlayerDetector playerDetector;
 	private final PlayerDetector.EntitySelector entitySelector;
 	private boolean overridePeacefulAndMobSpawnRule;
-	private boolean withinCatacombs;
 	private boolean firstTickRun;
 	private final UUID uuid;
+	private float previousOpenProgress;
+	private float openProgress;
+	private boolean attemptingToSpawnMob;
 
 	public Codec<CoffinSpawner> codec() {
 		return RecordCodecBuilder.create(
@@ -77,17 +81,27 @@ public final class CoffinSpawner {
 					CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
 					Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 18000).forGetter(CoffinSpawner::getPowerCooldownLength),
 					Codec.intRange(1, MAX_MOB_TRACKING_DISTANCE).optionalFieldOf("required_player_range", MAX_MOB_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
-					Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(CoffinSpawner::isWithinCatacombs),
 					Codec.BOOL.optionalFieldOf("first_tick_run", false).forGetter(CoffinSpawner::firstTickRun),
-					Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID)
+					Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID),
+					Codec.BOOL.optionalFieldOf("attempting_to_spawn_mob", false).forGetter(CoffinSpawner::isAttemptingToSpawnMob)
 				)
 				.apply(
 					instance,
-					(config, config2, config3, data, powerCooldownLength, integer, bool, firstTickRun, uuid) -> new CoffinSpawner(
-						config, config2, config3, data, powerCooldownLength, integer, bool, firstTickRun, uuid, this.stateAccessor, this.playerDetector, this.entitySelector
+					(config, config2, config3, data, powerCooldownLength, integer, firstTickRun, uuid, attemptingSpawn) -> new CoffinSpawner(
+						config, config2, config3, data, powerCooldownLength, integer, firstTickRun, uuid, attemptingSpawn, this.stateAccessor, this.playerDetector, this.entitySelector
 					)
 				)
 		);
+	}
+
+	public @NotNull CompoundTag getUpdateTag(CoffinSpawnerState coffinSpawnerState) {
+		CompoundTag compoundTag = new CompoundTag();
+		if (coffinSpawnerState != CoffinSpawnerState.INACTIVE) {
+			compoundTag.putLong("next_mob_spawns_at", this.data.nextMobSpawnsAt);
+		}
+
+		compoundTag.putBoolean("attempting_to_spawn_mob", this.attemptingToSpawnMob);
+		return compoundTag;
 	}
 
 	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector playerDetector, PlayerDetector.EntitySelector playerDetectionSelector) {
@@ -99,8 +113,8 @@ public final class CoffinSpawner {
 			18000,
 			MAX_MOB_TRACKING_DISTANCE,
 			false,
-			false,
 			UUID.randomUUID().toString(),
+			false,
 			coffin,
 			playerDetector,
 			playerDetectionSelector
@@ -114,9 +128,9 @@ public final class CoffinSpawner {
 		CoffinSpawnerData data,
 		int powerCooldownLength,
 		int requiredPlayerRange,
-		boolean withinCatacombs,
 		boolean firstTickRun,
 		String uuid,
+		boolean attemptingToSpawnMob,
 		CoffinSpawner.StateAccessor coffin,
 		PlayerDetector playerDetector,
 		PlayerDetector.EntitySelector playerDetectionSelector
@@ -127,9 +141,9 @@ public final class CoffinSpawner {
 		this.data = data;
 		this.powerCooldownLength = powerCooldownLength;
 		this.requiredPlayerRange = requiredPlayerRange;
-		this.withinCatacombs = withinCatacombs;
 		this.firstTickRun = firstTickRun;
 		this.uuid = UUID.fromString(uuid);
+		this.attemptingToSpawnMob = attemptingToSpawnMob;
 		this.stateAccessor = coffin;
 		this.playerDetector = playerDetector;
 		this.entitySelector = playerDetectionSelector;
@@ -170,14 +184,6 @@ public final class CoffinSpawner {
 		return this.requiredPlayerRange;
 	}
 
-	public boolean isWithinCatacombs() {
-		return this.withinCatacombs;
-	}
-
-	public void setWithinCatacombs(boolean withinCatacombs) {
-		this.withinCatacombs = withinCatacombs;
-	}
-
 	public boolean firstTickRun() {
 		return this.firstTickRun;
 	}
@@ -192,6 +198,18 @@ public final class CoffinSpawner {
 
 	public String getStringUUID() {
 		return this.uuid.toString();
+	}
+
+	public float getPreviousOpenProgress() {
+		return this.previousOpenProgress;
+	}
+
+	public float getOpenProgress() {
+		return this.openProgress;
+	}
+
+	public boolean isAttemptingToSpawnMob() {
+		return attemptingToSpawnMob;
 	}
 
 	public void addPower(int i, @NotNull Level level) {
@@ -209,6 +227,10 @@ public final class CoffinSpawner {
 
 	public void markUpdated() {
 		this.stateAccessor.markUpdated();
+	}
+
+	public void markBlockEntityDirty() {
+		this.stateAccessor.markDirty();
 	}
 
 	public PlayerDetector getPlayerDetector() {
@@ -313,26 +335,54 @@ public final class CoffinSpawner {
 		}
 	}
 
+	public void updateAttemptingToSpawn(@NotNull ServerLevel level) {
+		boolean isAttempting = this.isAttemptingToSpawnMob(level);
+		if (isAttempting != this.attemptingToSpawnMob) {
+			this.attemptingToSpawnMob = isAttempting;
+			this.markBlockEntityDirty();
+		}
+	}
+
+	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level) {
+		int additionalPlayers = this.data.countAdditionalPlayers();
+		double differenceInTime = Math.max(-1D, this.data.nextMobSpawnsAt - level.getGameTime());
+		boolean shouldAttemptToSpawn = differenceInTime <= 40 && differenceInTime > 0D;
+		boolean canSpawnMob = this.data.isReadyToSpawnNextMob(level, this.getConfig(), additionalPlayers);
+		boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
+		boolean canSpawnInLevel = this.canSpawnInLevel(level) && this.getState().isCapableOfSpawning();
+		return (shouldAttemptToSpawn || canSpawnMob) && canSpawnInLevel && !finishedSpawningMobs;
+	}
+
 	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
 		if (part == CoffinPart.HEAD) {
 			return;
 		}
-		if (!this.canSpawnInLevel(world)) {
-			//this.data.oSpin = this.data.spin;
-		} else {
-			CoffinSpawnerState trialSpawnerState = this.getState();
-			//trialSpawnerState.emitParticles(world, pos, ominous);
-			//if (trialSpawnerState.hasSpinningMob()) {
-			//	double d = (double)Math.max(0L, this.data.nextMobSpawnsAt - world.getGameTime());
-			//}
 
-			if (trialSpawnerState.isCapableOfSpawning()) {
+		if (this.canSpawnInLevel(world)) {
+			CoffinSpawnerState coffinSpawnerState = this.getState();
+			//coffinSpawnerState.emitParticles(world, pos, ominous);
+
+			if (coffinSpawnerState.isCapableOfSpawning()) {
 				RandomSource randomSource = world.getRandom();
 				if (randomSource.nextFloat() <= 0.02F) {
 					SoundEvent soundEvent = ominous ? SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS : SoundEvents.TRIAL_SPAWNER_AMBIENT;
 					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.75F, randomSource.nextFloat() + 0.5F, false);
 				}
 			}
+		}
+
+		this.previousOpenProgress = this.openProgress;
+		if (this.attemptingToSpawnMob) {
+			this.openProgress = Math.min(1F, this.openProgress + 0.0155F);
+		} else {
+			this.openProgress = Math.max(0F, this.openProgress - 0.03F);
+		}
+
+		Direction facing = CoffinBlock.getCoffinOrientation(world, pos);
+		if (facing != null && world.getBlockEntity(pos.relative(facing)) instanceof CoffinBlockEntity coffinBlockEntity) {
+			CoffinSpawner coffinSpawner = coffinBlockEntity.getCoffinSpawner();
+			coffinSpawner.previousOpenProgress = this.previousOpenProgress;
+			coffinSpawner.openProgress = this.openProgress;
 		}
 	}
 
@@ -341,6 +391,7 @@ public final class CoffinSpawner {
 			return;
 		}
 		CoffinSpawnerState currentState = this.getState();
+		this.updateAttemptingToSpawn(world);
 		if (!this.canSpawnInLevel(world)) {
 			if (currentState.isCapableOfSpawning()) {
 				this.data.reset();
@@ -348,11 +399,11 @@ public final class CoffinSpawner {
 			}
 		} else {
 			if (!this.firstTickRun) {
-				this.withinCatacombs = isInCatacombsBounds(pos, world.structureManager());
+				this.data.withinCatacombs = isInCatacombsBounds(pos, world.structureManager());
 				this.firstTickRun = true;
 			}
 			this.setPlayerDetector(
-				this.withinCatacombs ? IN_CATACOMBS_NO_CREATIVE_PLAYERS : PlayerDetector.NO_CREATIVE_PLAYERS
+				this.data.withinCatacombs ? IN_CATACOMBS_NO_CREATIVE_PLAYERS : PlayerDetector.NO_CREATIVE_PLAYERS
 			);
 			this.data.currentMobs.removeIf(uiid -> shouldMobBeUntracked(world, pos, uiid));
 
@@ -373,7 +424,7 @@ public final class CoffinSpawner {
 
 	private static boolean inLineOfSight(@NotNull Level level, Vec3 spawnerPos, Vec3 mobPos) {
 		BlockHitResult blockHitResult = level.clip(new ClipContext(mobPos, spawnerPos, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, CollisionContext.empty()));
-		return blockHitResult.getBlockPos().equals(BlockPos.containing(spawnerPos)) || blockHitResult.getType() == HitResult.Type.MISS;
+		return !(blockHitResult.getBlockPos().equals(BlockPos.containing(spawnerPos)) || blockHitResult.getType() == HitResult.Type.MISS);
 	}
 
 	public static void addSpawnParticles(Level world, BlockPos pos, RandomSource random, SimpleParticleType simpleParticleType) {
@@ -418,5 +469,7 @@ public final class CoffinSpawner {
 		CoffinSpawnerState getState();
 
 		void markUpdated();
+
+		void markDirty();
 	}
 }

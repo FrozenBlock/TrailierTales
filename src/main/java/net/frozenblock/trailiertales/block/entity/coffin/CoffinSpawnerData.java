@@ -14,8 +14,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -23,7 +21,6 @@ import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +33,8 @@ public class CoffinSpawnerData {
 				Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("power", 0).forGetter(data -> data.power),
-				SpawnData.CODEC.lenientOptionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData)
+				SpawnData.CODEC.lenientOptionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
+				Codec.BOOL.lenientOptionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs)
 			)
 			.apply(instance, CoffinSpawnerData::new)
 	);
@@ -48,9 +46,10 @@ public class CoffinSpawnerData {
 	protected int totalMobsSpawned;
 	protected int power;
 	protected Optional<SpawnData> nextSpawnData;
+	protected boolean withinCatacombs;
 
 	public CoffinSpawnerData() {
-		this(Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty());
+		this(Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false);
 	}
 
 	public CoffinSpawnerData(
@@ -60,7 +59,8 @@ public class CoffinSpawnerData {
 		long nextMobSpawnsAt,
 		int totalMobsSpawned,
 		int power,
-		Optional<SpawnData> nextSpawnData
+		Optional<SpawnData> nextSpawnData,
+		boolean withinCatacombs
 	) {
 		this.detectedPlayers.addAll(detectedPlayers);
 		this.currentMobs.addAll(currentMobs);
@@ -69,6 +69,7 @@ public class CoffinSpawnerData {
 		this.totalMobsSpawned = totalMobsSpawned;
 		this.power = power;
 		this.nextSpawnData = nextSpawnData;
+		this.withinCatacombs = withinCatacombs;
 	}
 
 	public void reset() {
@@ -125,13 +126,13 @@ public class CoffinSpawnerData {
 			boolean noPlayers = trialSpawner.getData().detectedPlayers.isEmpty();
 			List<UUID> list2 = noPlayers
 				? list
-				: trialSpawner.getPlayerDetector().detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), false);
+				: trialSpawner.getPlayerDetector().detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 			if (this.detectedPlayers.addAll(list2)) {
 				this.nextMobSpawnsAt = Math.max(world.getGameTime() + 80L, this.nextMobSpawnsAt);
 				int i = 3013;
+				this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));
 				world.levelEvent(i, pos, this.detectedPlayers.size());
 			}
-			this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));
 		}
 	}
 
@@ -151,21 +152,6 @@ public class CoffinSpawnerData {
 			spawner.markUpdated();
 		}
 		return this.nextSpawnData.get();
-	}
-
-	public CompoundTag getUpdateTag(CoffinSpawnerState coffinSpawnerState) {
-		CompoundTag compoundTag = new CompoundTag();
-		if (coffinSpawnerState != CoffinSpawnerState.INACTIVE) {
-			compoundTag.putLong("next_mob_spawns_at", this.nextMobSpawnsAt);
-		}
-
-		this.nextSpawnData
-			.ifPresent(
-				spawnData -> compoundTag.put(
-					"spawn_data", SpawnData.CODEC.encodeStart(NbtOps.INSTANCE, spawnData).result().orElseThrow(() -> new IllegalStateException("Invalid SpawnData"))
-				)
-			);
-		return compoundTag;
 	}
 
 	private static long lowResolutionPosition(@NotNull ServerLevel world, @NotNull BlockPos pos) {

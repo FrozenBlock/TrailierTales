@@ -91,7 +91,7 @@ public record CoffinSpawnerConfig(
 				Codec.floatRange(0F, Float.MAX_VALUE)
 					.lenientOptionalFieldOf("simultaneous_mobs_added_per_player", DEFAULT.simultaneousMobsAddedPerPlayer)
 					.forGetter(CoffinSpawnerConfig::simultaneousMobsAddedPerPlayer),
-				Codec.intRange(0, Integer.MAX_VALUE)
+				Codec.intRange(80, Integer.MAX_VALUE)
 					.lenientOptionalFieldOf("ticks_between_spawn", DEFAULT.ticksBetweenSpawn)
 					.forGetter(CoffinSpawnerConfig::ticksBetweenSpawn),
 				Codec.intRange(0, Integer.MAX_VALUE)
