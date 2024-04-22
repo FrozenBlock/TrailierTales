@@ -1,10 +1,10 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false),

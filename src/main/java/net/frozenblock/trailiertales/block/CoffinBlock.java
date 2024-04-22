@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
@@ -42,7 +43,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.util.List;
 
 public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlock {
 	public static final MapCodec<CoffinBlock> CODEC = RecordCodecBuilder.mapCodec(
@@ -178,14 +178,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			blockEntityType,
 			RegisterBlockEntities.COFFIN,
 			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
-				.tickServer(serverLevel, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false))
-		)
+				.tickServer(serverLevel, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: createTickerHelper(
 			blockEntityType,
 			RegisterBlockEntities.COFFIN,
-			(world, pos, statex, coffin) -> coffin.getCoffinSpawner()
-				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false))
-		);
+			(world, pos, statex, coffin) -> coffin
+				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}
 
 	@Override

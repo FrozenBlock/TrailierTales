@@ -5,24 +5,18 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import java.util.UUID;
-import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -68,8 +62,6 @@ public final class CoffinSpawner {
 	private boolean overridePeacefulAndMobSpawnRule;
 	private boolean firstTickRun;
 	private final UUID uuid;
-	private float previousOpenProgress;
-	private float openProgress;
 	private boolean attemptingToSpawnMob;
 
 	public Codec<CoffinSpawner> codec() {
@@ -94,12 +86,8 @@ public final class CoffinSpawner {
 		);
 	}
 
-	public @NotNull CompoundTag getUpdateTag(CoffinSpawnerState coffinSpawnerState) {
+	public @NotNull CompoundTag getUpdateTag() {
 		CompoundTag compoundTag = new CompoundTag();
-		if (coffinSpawnerState != CoffinSpawnerState.INACTIVE) {
-			compoundTag.putLong("next_mob_spawns_at", this.data.nextMobSpawnsAt);
-		}
-
 		compoundTag.putBoolean("attempting_to_spawn_mob", this.attemptingToSpawnMob);
 		return compoundTag;
 	}
@@ -200,16 +188,8 @@ public final class CoffinSpawner {
 		return this.uuid.toString();
 	}
 
-	public float getPreviousOpenProgress() {
-		return this.previousOpenProgress;
-	}
-
-	public float getOpenProgress() {
-		return this.openProgress;
-	}
-
 	public boolean isAttemptingToSpawnMob() {
-		return attemptingToSpawnMob;
+		return this.attemptingToSpawnMob;
 	}
 
 	public void addPower(int i, @NotNull Level level) {
@@ -227,10 +207,6 @@ public final class CoffinSpawner {
 
 	public void markUpdated() {
 		this.stateAccessor.markUpdated();
-	}
-
-	public void markBlockEntityDirty() {
-		this.stateAccessor.markDirty();
 	}
 
 	public PlayerDetector getPlayerDetector() {
@@ -339,59 +315,24 @@ public final class CoffinSpawner {
 		boolean isAttempting = this.isAttemptingToSpawnMob(level);
 		if (isAttempting != this.attemptingToSpawnMob) {
 			this.attemptingToSpawnMob = isAttempting;
-			this.markBlockEntityDirty();
+			this.markUpdated();
 		}
 	}
 
 	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level) {
 		int additionalPlayers = this.data.countAdditionalPlayers();
-		double differenceInTime = Math.max(-1D, this.data.nextMobSpawnsAt - level.getGameTime());
-		boolean shouldAttemptToSpawn = differenceInTime <= 40 && differenceInTime > 0D;
-		boolean canSpawnMob = this.data.isReadyToSpawnNextMob(level, this.getConfig(), additionalPlayers);
+		boolean isPreparing = this.data.isPreparingToSpawnNextMob(level, this.getConfig(), additionalPlayers, 45);
 		boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
 		boolean canSpawnInLevel = this.canSpawnInLevel(level) && this.getState().isCapableOfSpawning();
-		return (shouldAttemptToSpawn || canSpawnMob) && canSpawnInLevel && !finishedSpawningMobs;
-	}
-
-	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD) {
-			return;
-		}
-
-		if (this.canSpawnInLevel(world)) {
-			CoffinSpawnerState coffinSpawnerState = this.getState();
-			//coffinSpawnerState.emitParticles(world, pos, ominous);
-
-			if (coffinSpawnerState.isCapableOfSpawning()) {
-				RandomSource randomSource = world.getRandom();
-				if (randomSource.nextFloat() <= 0.02F) {
-					SoundEvent soundEvent = ominous ? SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS : SoundEvents.TRIAL_SPAWNER_AMBIENT;
-					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.75F, randomSource.nextFloat() + 0.5F, false);
-				}
-			}
-		}
-
-		this.previousOpenProgress = this.openProgress;
-		if (this.attemptingToSpawnMob) {
-			this.openProgress = Math.min(1F, this.openProgress + 0.0155F);
-		} else {
-			this.openProgress = Math.max(0F, this.openProgress - 0.03F);
-		}
-
-		Direction facing = CoffinBlock.getCoffinOrientation(world, pos);
-		if (facing != null && world.getBlockEntity(pos.relative(facing)) instanceof CoffinBlockEntity coffinBlockEntity) {
-			CoffinSpawner coffinSpawner = coffinBlockEntity.getCoffinSpawner();
-			coffinSpawner.previousOpenProgress = this.previousOpenProgress;
-			coffinSpawner.openProgress = this.openProgress;
-		}
+		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
 	}
 
 	public void tickServer(ServerLevel world, BlockPos pos, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD) {
+		if (part == CoffinPart.HEAD || world.isClientSide) {
 			return;
 		}
+
 		CoffinSpawnerState currentState = this.getState();
-		this.updateAttemptingToSpawn(world);
 		if (!this.canSpawnInLevel(world)) {
 			if (currentState.isCapableOfSpawning()) {
 				this.data.reset();
@@ -412,6 +353,8 @@ public final class CoffinSpawner {
 				this.setState(world, nextState);
 			}
 		}
+		this.updateAttemptingToSpawn(world);
+		System.out.println(this.isAttemptingToSpawnMob());
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos,UUID uuid) {
@@ -469,7 +412,5 @@ public final class CoffinSpawner {
 		CoffinSpawnerState getState();
 
 		void markUpdated();
-
-		void markDirty();
 	}
 }
