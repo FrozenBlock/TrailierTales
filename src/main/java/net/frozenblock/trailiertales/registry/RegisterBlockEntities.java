@@ -2,12 +2,9 @@ package net.frozenblock.trailiertales.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
-import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;

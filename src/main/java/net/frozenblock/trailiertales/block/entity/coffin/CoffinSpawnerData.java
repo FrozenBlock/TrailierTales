@@ -102,7 +102,11 @@ public class CoffinSpawnerData {
 	}
 
 	public boolean isReadyToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players) {
-		return level.getGameTime() >= this.nextMobSpawnsAt && this.detectedAnyPlayers() && this.currentMobs.size() < config.calculateTargetSimultaneousMobs(players);
+		return this.isPreparingToSpawnNextMob(level, config, players, 0);
+	}
+
+	public boolean isPreparingToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players, int timeAhead) {
+		return level.getGameTime() + timeAhead >= this.nextMobSpawnsAt && this.detectedAnyPlayers() && this.currentMobs.size() < config.calculateTargetSimultaneousMobs(players);
 	}
 
 	public int countAdditionalPlayers() {
@@ -121,18 +125,14 @@ public class CoffinSpawnerData {
 		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
 		if (isSecondForPos) {
 			List<UUID> list = trialSpawner.getPlayerDetector()
-				.detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), true);
+				.detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 
-			boolean noPlayers = trialSpawner.getData().detectedPlayers.isEmpty();
-			List<UUID> list2 = noPlayers
-				? list
-				: trialSpawner.getPlayerDetector().detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), this.withinCatacombs);
-			if (this.detectedPlayers.addAll(list2)) {
-				this.nextMobSpawnsAt = Math.max(world.getGameTime() + 80L, this.nextMobSpawnsAt);
+			if (this.detectedPlayers.addAll(list)) {
 				int i = 3013;
-				this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));
 				world.levelEvent(i, pos, this.detectedPlayers.size());
 			}
+
+			this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));
 		}
 	}
 

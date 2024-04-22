@@ -2,13 +2,13 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Optional;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.SpawnData;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public record CoffinSpawnerConfig(
 	int spawnRange,

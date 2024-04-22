@@ -1,14 +1,19 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import com.mojang.logging.LogUtils;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +30,9 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	private static final Logger LOGGER = LogUtils.getLogger();
 	private CoffinSpawner coffinSpawner;
 
+	private float previousOpenProgress;
+	private float openProgress;
+
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
 		super(RegisterBlockEntities.COFFIN, pos, state);
 		PlayerDetector playerDetector = CoffinSpawner.IN_CATACOMBS_NO_CREATIVE_PLAYERS;
@@ -33,7 +41,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	}
 
 	public float getOpenProgress(float partialTick) {
-		return Mth.lerp(partialTick, this.coffinSpawner.getPreviousOpenProgress(), this.coffinSpawner.getOpenProgress());
+		return Mth.lerp(partialTick, this.previousOpenProgress, this.openProgress);
 	}
 
 	@Override
@@ -61,13 +69,43 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		}
 	}
 
+	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
+		if (part == CoffinPart.HEAD || !world.isClientSide) {
+			return;
+		}
+
+		if (this.getCoffinSpawner().canSpawnInLevel(world)) {
+			CoffinSpawnerState coffinSpawnerState = this.getState();
+			//coffinSpawnerState.emitParticles(world, pos, ominous);
+
+			if (coffinSpawnerState.isCapableOfSpawning()) {
+				RandomSource randomSource = world.getRandom();
+				if (randomSource.nextFloat() <= 0.02F) {
+					SoundEvent soundEvent = ominous ? SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS : SoundEvents.TRIAL_SPAWNER_AMBIENT;
+					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.75F, randomSource.nextFloat() + 0.5F, false);
+				}
+			}
+		}
+
+		this.previousOpenProgress = this.openProgress;
+		float lidIncrement = this.coffinSpawner.isAttemptingToSpawnMob() ? 0.0155F : -0.03F;
+		this.openProgress = Mth.clamp(this.openProgress + lidIncrement, 0F, 1F);
+
+		Direction facing = CoffinBlock.getCoffinOrientation(world, pos);
+		if (facing != null && world.getBlockEntity(pos.relative(facing)) instanceof CoffinBlockEntity coffinBlockEntity) {
+			coffinBlockEntity.previousOpenProgress = this.previousOpenProgress;
+			coffinBlockEntity.openProgress = this.openProgress;
+		}
+	}
+
+	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
-		return this.coffinSpawner.getUpdateTag(this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_STATE));
+		return this.coffinSpawner.getUpdateTag();
 	}
 
 	@Override
@@ -104,10 +142,5 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		if (this.level != null) {
 			this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
 		}
-	}
-
-	@Override
-	public void markDirty() {
-		this.setChanged();
 	}
 }
