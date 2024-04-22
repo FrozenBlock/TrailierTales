@@ -25,6 +25,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
@@ -277,7 +279,6 @@ public final class CoffinSpawner {
 									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.TRIAL_SPAWNER, null);
 								}
 
-								mob.setPersistenceRequired();
 								spawnData.getEquipment().ifPresent(mob::equip);
 							}
 
@@ -297,6 +298,8 @@ public final class CoffinSpawner {
 										if (entity instanceof Mob mob) {
 											mob.setTarget(player);
 											mob.getNavigation().moveTo(player, 1D);
+											mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
+												.addPermanentModifier(new AttributeModifier("trailiertales_coffin_follow_range", 128D, AttributeModifier.Operation.ADD_VALUE));
 										}
 									}
 									if (entity instanceof EntityCoffinInterface entityInterface) {
