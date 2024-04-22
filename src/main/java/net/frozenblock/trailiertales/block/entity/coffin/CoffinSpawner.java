@@ -354,7 +354,6 @@ public final class CoffinSpawner {
 			}
 		}
 		this.updateAttemptingToSpawn(world);
-		System.out.println(this.isAttemptingToSpawnMob());
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos,UUID uuid) {
