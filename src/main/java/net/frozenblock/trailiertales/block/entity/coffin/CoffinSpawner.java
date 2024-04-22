@@ -286,6 +286,9 @@ public final class CoffinSpawner {
 							} else {
 								//level.levelEvent(3011, pos, flameParticle.encode());
 								//level.levelEvent(3012, blockPos, flameParticle.encode());
+								if (entity instanceof Mob mob) {
+									mob.spawnAnim();
+								}
 								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
 								if (this.data.detectedAnyPlayers()) {
 									UUID randomPlayerUUID = this.data.randomPlayerUUID(randomSource);
