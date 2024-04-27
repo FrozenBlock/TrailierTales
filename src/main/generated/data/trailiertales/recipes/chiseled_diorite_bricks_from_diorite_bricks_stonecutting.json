@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "trailiertales:diorite_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "trailiertales:chiseled_diorite_bricks"
+  }
+}

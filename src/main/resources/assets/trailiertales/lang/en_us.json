@@ -10,6 +10,24 @@
   "block.trailiertales.cyan_rose_crop": "Cyan Rose Crop",
   "item.trailiertales.cyan_rose_seeds": "Cyan Rose Seeds",
 
+  "block.trailiertales.granite_bricks": "Granite Bricks",
+  "block.trailiertales.granite_brick_stairs": "Granite Brick Stairs",
+  "block.trailiertales.granite_brick_slab": "Granite Brick Slab",
+  "block.trailiertales.granite_brick_wall": "Granite Brick Wall",
+  "block.trailiertales.chiseled_granite_bricks": "Chiseled Granite Bricks",
+
+  "block.trailiertales.diorite_bricks": "Diorite Bricks",
+  "block.trailiertales.diorite_brick_stairs": "Diorite Brick Stairs",
+  "block.trailiertales.diorite_brick_slab": "Diorite Brick Slab",
+  "block.trailiertales.diorite_brick_wall": "Diorite Brick Wall",
+  "block.trailiertales.chiseled_diorite_bricks": "Chiseled Diorite Bricks",
+
+  "block.trailiertales.andesite_bricks": "Andesite Bricks",
+  "block.trailiertales.andesite_brick_stairs": "Andesite Brick Stairs",
+  "block.trailiertales.andesite_brick_slab": "Andesite Brick Slab",
+  "block.trailiertales.andesite_brick_wall": "Andesite Brick Wall",
+  "block.trailiertales.chiseled_andesite_bricks": "Chiseled Andesite Bricks",
+
   "block.trailiertales.mossy_cobbled_deepslate": "Mossy Cobbled Deepslate",
   "block.trailiertales.mossy_cobbled_deepslate_stairs": "Mossy Cobbled Deepslate Stairs",
   "block.trailiertales.mossy_cobbled_deepslate_slab": "Mossy Cobbled Deepslate Slab",

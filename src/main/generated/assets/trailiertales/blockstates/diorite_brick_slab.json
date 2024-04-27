@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/diorite_brick_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/diorite_bricks"
+    },
+    "type=top": {
+      "model": "trailiertales:block/diorite_brick_slab_top"
+    }
+  }
+}
