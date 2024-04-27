@@ -222,7 +222,7 @@ public class RegisterBlocks {
 		registerBlockAfter(Blocks.DEEPSLATE_TILE_WALL, "mossy_deepslate_tiles", MOSSY_DEEPSLATE_TILES, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_cdeepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_deepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_mossy_deepslate_bricks": {
+    "has_mossy_deepslate_tiles": {
       "conditions": {
         "items": [
           {
-            "items": "trailiertales:mossy_deepslate_bricks"
+            "items": "trailiertales:mossy_deepslate_tiles"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:mossy_cdeepslate_tile_wall_from_mossy_deepslate_bricks_stonecutting"
+        "recipe": "minecraft:mossy_deepslate_tile_wall_from_mossy_deepslate_tiles_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_mossy_deepslate_bricks"
+      "has_mossy_deepslate_tiles"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:mossy_cdeepslate_tile_wall_from_mossy_deepslate_bricks_stonecutting"
+      "minecraft:mossy_deepslate_tile_wall_from_mossy_deepslate_tiles_stonecutting"
     ]
   }
 }
