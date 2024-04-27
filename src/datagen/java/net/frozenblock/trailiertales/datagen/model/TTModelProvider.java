@@ -39,5 +39,6 @@ public final class TTModelProvider extends FabricModelProvider {
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
 		generator.generateFlatItem(RegisterItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.BULLSEYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 	}
 }

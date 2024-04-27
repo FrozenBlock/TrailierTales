@@ -19,10 +19,12 @@ public class RegisterItems {
 
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(RegisterBlocks.CYAN_ROSE_CROP, new Item.Properties());
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties());
 
 	public static void init() {
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(BULLSEYE_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 	}
 
 	@SafeVarargs

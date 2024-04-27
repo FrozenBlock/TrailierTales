@@ -27,6 +27,7 @@ public class DecoratedPotPatternsMixin {
 		Object2ObjectLinkedOpenHashMap<Item, ResourceKey<String>> newMap = new Object2ObjectLinkedOpenHashMap<>();
 		newMap.putAll(original);
 		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
 		return Map.copyOf(newMap);
 	}
 
@@ -34,6 +35,7 @@ public class DecoratedPotPatternsMixin {
 	private static void trailierTales$bootstrap(Registry<String> registry, CallbackInfoReturnable<String> info) {
 		Registry.register(registry, TrailierTalesClient.BLANK_DECORATED, TrailierTalesClient.BLANK_DECORATED_NAME);
 		Registry.register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
+		Registry.register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
 	}
 
 }
