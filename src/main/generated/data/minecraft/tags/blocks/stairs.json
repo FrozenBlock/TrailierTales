@@ -1,5 +1,8 @@
 {
   "values": [
+    "trailiertales:granite_brick_stairs",
+    "trailiertales:diorite_brick_stairs",
+    "trailiertales:andesite_brick_stairs",
     "trailiertales:mossy_cobbled_deepslate_stairs",
     "trailiertales:mossy_deepslate_brick_stairs",
     "trailiertales:mossy_deepslate_tile_stairs"
