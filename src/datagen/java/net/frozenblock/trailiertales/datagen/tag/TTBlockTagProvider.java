@@ -19,6 +19,21 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+			.add(RegisterBlocks.GRANITE_BRICKS)
+			.add(RegisterBlocks.GRANITE_BRICK_STAIRS)
+			.add(RegisterBlocks.GRANITE_BRICK_SLAB)
+			.add(RegisterBlocks.GRANITE_BRICK_WALL)
+			.add(RegisterBlocks.CHISELED_GRANITE_BRICKS)
+			.add(RegisterBlocks.DIORITE_BRICKS)
+			.add(RegisterBlocks.DIORITE_BRICK_STAIRS)
+			.add(RegisterBlocks.DIORITE_BRICK_SLAB)
+			.add(RegisterBlocks.DIORITE_BRICK_WALL)
+			.add(RegisterBlocks.CHISELED_DIORITE_BRICKS)
+			.add(RegisterBlocks.ANDESITE_BRICKS)
+			.add(RegisterBlocks.ANDESITE_BRICK_STAIRS)
+			.add(RegisterBlocks.ANDESITE_BRICK_SLAB)
+			.add(RegisterBlocks.ANDESITE_BRICK_WALL)
+			.add(RegisterBlocks.CHISELED_ANDESITE_BRICKS)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
@@ -57,16 +72,25 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.CYAN_ROSE);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
+			.add(RegisterBlocks.GRANITE_BRICK_STAIRS)
+			.add(RegisterBlocks.DIORITE_BRICK_STAIRS)
+			.add(RegisterBlocks.ANDESITE_BRICK_STAIRS)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
 
 		this.getOrCreateTagBuilder(BlockTags.SLABS)
+			.add(RegisterBlocks.GRANITE_BRICK_SLAB)
+			.add(RegisterBlocks.DIORITE_BRICK_SLAB)
+			.add(RegisterBlocks.ANDESITE_BRICK_SLAB)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB);
 
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
+			.add(RegisterBlocks.GRANITE_BRICK_WALL)
+			.add(RegisterBlocks.DIORITE_BRICK_WALL)
+			.add(RegisterBlocks.ANDESITE_BRICK_WALL)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);

@@ -45,6 +45,21 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			this.applyExplosionDecay(RegisterBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS))))
 		);
 
+		this.dropSelf(RegisterBlocks.GRANITE_BRICKS);
+		this.dropSelf(RegisterBlocks.GRANITE_BRICK_STAIRS);
+		this.dropSelf(RegisterBlocks.GRANITE_BRICK_WALL);
+		this.dropSelf(RegisterBlocks.CHISELED_GRANITE_BRICKS);
+
+		this.dropSelf(RegisterBlocks.DIORITE_BRICKS);
+		this.dropSelf(RegisterBlocks.DIORITE_BRICK_STAIRS);
+		this.dropSelf(RegisterBlocks.DIORITE_BRICK_WALL);
+		this.dropSelf(RegisterBlocks.CHISELED_DIORITE_BRICKS);
+
+		this.dropSelf(RegisterBlocks.ANDESITE_BRICKS);
+		this.dropSelf(RegisterBlocks.ANDESITE_BRICK_STAIRS);
+		this.dropSelf(RegisterBlocks.ANDESITE_BRICK_WALL);
+		this.dropSelf(RegisterBlocks.CHISELED_ANDESITE_BRICKS);
+
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS);
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL);
@@ -58,6 +73,8 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);
 		this.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, this::createSlabItemTable);
 		this.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, this::createSlabItemTable);
+		this.add(RegisterBlocks.GRANITE_BRICK_SLAB, this::createSlabItemTable);
+		this.add(RegisterBlocks.DIORITE_BRICK_SLAB, this::createSlabItemTable);
 	}
 
 }
