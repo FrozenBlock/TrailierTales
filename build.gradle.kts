@@ -67,6 +67,7 @@ version = getModVersion()
 group = maven_group
 
 val local_frozenlib = findProject(":FrozenLib") != null
+val local_wilderwild = findProject(":WilderWild") != null
 val release = findProperty("releaseType") == "stable"
 
 val datagen by sourceSets.registering {
@@ -194,6 +195,10 @@ dependencies {
         api(project(":FrozenLib", configuration = "namedElements"))?.let { include(it) }
     else
         modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
+
+    // Wilder Wild
+    if (local_wilderwild)
+    api(project(":WilderWild", configuration = "namedElements"))?.let { include(it) }
 
     // Mod Menu
     modImplementation("com.terraformersmc:modmenu:$modmenu_version")
