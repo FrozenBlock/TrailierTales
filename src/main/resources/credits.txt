@@ -1,0 +1,21 @@
+Luna/Lunade/AViewFromTheTop - Lead dev & producer
+
+Voxelotl - Texture Artist:
+    - Suspicious Clay
+    - Mossy Cobbled Deepslate
+    - Mossy Deepslate Bricks
+    - Mossy Deepslate Tiles
+    - Bullseye Pottery Sherd
+    - Wither Pottery Sherd (TO BE NAMED)
+
+Zhen - Texture Artist:
+    - Suspicious Dirt
+    - Cyan Rose
+    - Incidence Pottery Sherd
+    - Andesite Bricks & Chiseled Andesite
+    - Diorite Bricks & Chiseled Diorite
+    - Granite Bricks & Chiseled Granite
+
+Stella/Osmiooo - Assistant Dev (idk if you want the second name on there or not)
+    - Implemented the new Andesite, Diorite, and Granite blocks
+    - Implemented Wither Pottery Sherd (TO BE NAMED)
