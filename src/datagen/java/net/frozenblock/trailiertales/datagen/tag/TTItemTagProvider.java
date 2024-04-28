@@ -61,6 +61,18 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
 			.add(RegisterItems.WITHER_POTTERY_SHERD);
 
+		this.getOrCreateTagBuilder(TrailierItemTags.ANDESITE_BRICKS)
+			.add(RegisterBlocks.ANDESITE_BRICKS.asItem())
+			.add(RegisterBlocks.CHISELED_ANDESITE_BRICKS.asItem());
+
+		this.getOrCreateTagBuilder(TrailierItemTags.DIORITE_BRICKS)
+			.add(RegisterBlocks.DIORITE_BRICKS.asItem())
+			.add(RegisterBlocks.CHISELED_DIORITE_BRICKS.asItem());
+
+		this.getOrCreateTagBuilder(TrailierItemTags.GRANITE_BRICKS)
+			.add(RegisterBlocks.GRANITE_BRICKS.asItem())
+			.add(RegisterBlocks.CHISELED_GRANITE_BRICKS.asItem());
+
 		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
 
