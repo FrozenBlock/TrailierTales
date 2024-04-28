@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "1  ",
+        "11 ",
+        "111"
+    ],
+    "key": {
+        "1": {
+            "item": "trailiertales:diorite_bricks"
+        }
+    },
+    "result": {
+        "id": "trailiertales:diorite_brick_stairs",
+        "count": 4
+    }
+}

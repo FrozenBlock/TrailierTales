@@ -1,0 +1,48 @@
+{
+  "block.trailiertales.suspicious_red_sand": "Sable rouge suspect",
+  "block.trailiertales.suspicious_dirt": "Terre suspecte",
+  "block.trailiertales.suspicious_clay": "Argile suspecte",
+
+  "item.trailiertales.bullseye_pottery_sherd": "Tesson de poterie de cible",
+  "item.trailiertales.wither_pottery_sherd": "Tesson de poterie de Wither",
+
+  "block.trailiertales.coffin": "Cercueil",
+
+  "block.trailiertales.potted_cyan_rose": "Rose cyan en pot",
+  "block.trailiertales.cyan_rose": "Rose cyan",
+  "block.trailiertales.cyan_rose_crop": "Pousse de rose cyan",
+  "item.trailiertales.cyan_rose_seeds": "Graines de rose cyan",
+
+  "block.trailiertales.granite_bricks": "Granite taillé",
+  "block.trailiertales.granite_brick_stairs": "Escalier en granite taillé",
+  "block.trailiertales.granite_brick_slab": "Dalle de granite taillé",
+  "block.trailiertales.granite_brick_wall": "Muret de granite taillé",
+  "block.trailiertales.chiseled_granite_bricks": "Granite sculpté",
+
+  "block.trailiertales.diorite_bricks": "Diorite taillée",
+  "block.trailiertales.diorite_brick_stairs": "Escalier en diorite taillée",
+  "block.trailiertales.diorite_brick_slab": "Dalle de diorite taillée",
+  "block.trailiertales.diorite_brick_wall": "Muret de diorite taillée",
+  "block.trailiertales.chiseled_diorite_bricks": "Diorite sculptée",
+
+  "block.trailiertales.andesite_bricks": "Andésite taillée",
+  "block.trailiertales.andesite_brick_stairs": "Escalier en andésite taillée",
+  "block.trailiertales.andesite_brick_slab": "Dalle d'andésite taillée",
+  "block.trailiertales.andesite_brick_wall": "Muret d'andésite taillée",
+  "block.trailiertales.chiseled_andesite_bricks": "Andésite sculptée",
+
+  "block.trailiertales.mossy_cobbled_deepslate": "Pierres des abîmes moussue",
+  "block.trailiertales.mossy_cobbled_deepslate_stairs": "Escalier en pierres des abîmes moussue",
+  "block.trailiertales.mossy_cobbled_deepslate_slab": "Dalle de pierres des abîmes moussue",
+  "block.trailiertales.mossy_cobbled_deepslate_wall": "Muret de pierres des abîmes moussue",
+
+  "block.trailiertales.mossy_deepslate_bricks": "Ardoise des abîmes taillée moussue",
+  "block.trailiertales.mossy_deepslate_brick_stairs": "Escalier en ardoise des abîmes taillée moussue",
+  "block.trailiertales.mossy_deepslate_brick_slab": "Dalle d'ardoise des abîmes taillée moussue",
+  "block.trailiertales.mossy_deepslate_brick_wall": "Muret d'ardoise des abîmes taillée moussue",
+
+  "block.trailiertales.mossy_deepslate_tiles": "Ardoise des abîmes carrelée moussue",
+  "block.trailiertales.mossy_deepslate_tile_stairs": "Escalier en ardoise des abîmes carrelée moussue",
+  "block.trailiertales.mossy_deepslate_tile_slab": "Dalle d'ardoise des abîmes carrelée moussue",
+  "block.trailiertales.mossy_deepslate_tile_wall": "Muret d'ardoise des abîmes carrelée moussue"
+}

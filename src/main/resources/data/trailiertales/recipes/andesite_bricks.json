@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "11",
+        "11"
+    ],
+    "key": {
+        "1": {
+            "item": "minecraft:polished_andesite"
+        }
+    },
+    "result": {
+        "id": "trailiertales:andesite_bricks",
+        "count": 4
+    }
+}

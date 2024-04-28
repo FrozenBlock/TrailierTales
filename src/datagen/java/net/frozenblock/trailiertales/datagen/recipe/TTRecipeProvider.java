@@ -79,6 +79,39 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		oneToOneConversionRecipe(recipeOutput, Items.CYAN_DYE, RegisterBlocks.CYAN_ROSE, "cyan_dye");
 
+		// GRANITE BRICKS
+
+		//ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, 4)
+			//.define('#', Blocks.POLISHED_GRANITE)
+			//.pattern("##")
+			//.pattern("##")
+			//.save(recipeOutput, getConversionRecipeName(RegisterBlocks.GRANITE_BRICKS, Blocks.POLISHED_GRANITE));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, Blocks.POLISHED_GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_SLAB, RegisterBlocks.GRANITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_STAIRS, RegisterBlocks.GRANITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_WALL, RegisterBlocks.GRANITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Blocks.GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, RegisterBlocks.GRANITE_BRICKS);
+
+		// DIORITE BRICKS
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, Blocks.POLISHED_DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_SLAB, RegisterBlocks.DIORITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_STAIRS, RegisterBlocks.DIORITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_WALL, RegisterBlocks.DIORITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Blocks.DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, RegisterBlocks.DIORITE_BRICKS);
+
+		// ANDESITE BRICKS
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, Blocks.POLISHED_ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_SLAB, RegisterBlocks.ANDESITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_STAIRS, RegisterBlocks.ANDESITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_WALL, RegisterBlocks.ANDESITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Blocks.ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, RegisterBlocks.ANDESITE_BRICKS);
+
 		// MOSSY COBBLED DEEPSLATE
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
