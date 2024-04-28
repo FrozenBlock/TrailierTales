@@ -158,6 +158,7 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 																levelChunkSection.setBlockState(ad, ae, af, targetBlockState.state, false);
 																	((SuspiciousDataInterface)level.getLevel()).trailierTales$getSuspiciousData()
 																		.suspiciousData.add(new SuspiciousData.Pair(mutableBlockPos.immutable(), lootTable));
+																	level.scheduleTick(mutableBlockPos.immutable(), targetBlockState.state.getBlock(), 1);
 																++i;
 																break;
 															}

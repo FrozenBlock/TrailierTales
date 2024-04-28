@@ -15,13 +15,10 @@ import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 
 public class SuspiciousData {
-	public List<Pair> oldData = new ArrayList<>();
 	public List<Pair> suspiciousData = new ArrayList<>();
-	private final ServerLevel level;
 
 	@SuppressWarnings("unchecked")
-	public SuspiciousData(@NotNull ServerLevel level) {
-		this.level = level;
+	public SuspiciousData() {
 	}
 
 	@NotNull
@@ -38,24 +35,24 @@ public class SuspiciousData {
 		);
 	}
 
-	public void tick() {
-		this.oldData.addAll(this.suspiciousData);
-		this.suspiciousData = new ArrayList<>();
-
-		List<Pair> toRemove = new ArrayList<>();
-		for (Pair sus : this.oldData) {
-			if (this.level.isLoaded(sus.pos)) {
-				if (this.level.getBlockEntity(sus.pos) instanceof BrushableBlockEntity brushableBlockEntity) {
+	public static void addLootTableToBrushableBlock(@NotNull ServerLevel level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlockEntity) {
+			SuspiciousData suspiciousData = SuspiciousData.getSuspiciousData(level);
+			SuspiciousData.Pair toRemove = null;
+			for (SuspiciousData.Pair data : suspiciousData.suspiciousData) {
+				if (data.pos.equals(pos)) {
+					toRemove = data;
 					brushableBlockEntity.setLootTable(
-						ResourceKey.create(Registries.LOOT_TABLE, sus.lootTable),
-						this.level.random.nextLong()
+						ResourceKey.create(Registries.LOOT_TABLE, data.lootTable),
+						pos.asLong()
 					);
 				}
-				toRemove.add(sus);
+			}
+
+			if (toRemove != null) {
+				suspiciousData.suspiciousData.remove(toRemove);
 			}
 		}
-
-		this.oldData.removeAll(toRemove);
 	}
 
 	public static class Pair {

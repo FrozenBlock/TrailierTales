@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Unique;
 public class ServerLevelMixin implements SuspiciousDataInterface {
 
 	@Unique
-	private final SuspiciousData trailierTales$suspiciousData = new SuspiciousData(ServerLevel.class.cast(this));
+	private final SuspiciousData trailierTales$suspiciousData = new SuspiciousData();
 
 	@Unique
 	@Override

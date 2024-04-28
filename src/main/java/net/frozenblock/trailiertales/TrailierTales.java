@@ -1,11 +1,11 @@
 package net.frozenblock.trailiertales;
 
 import java.util.List;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
+import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -19,6 +19,7 @@ import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.Suspicious
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 
 public class TrailierTales extends FrozenModInitializer {
@@ -45,9 +46,25 @@ public class TrailierTales extends FrozenModInitializer {
 			dimensionDataStorage.computeIfAbsent(suspiciousData.createData(), SuspiciousDataStorage.SUSPICIOUS_FILE_ID);
 		});
 
-		ServerTickEvents.END_WORLD_TICK.register(level -> {
-			SuspiciousData.getSuspiciousData(level).tick();
-		});
+		BlockScheduledTicks.TICKS.put(
+			Blocks.SUSPICIOUS_GRAVEL, (state, world, pos, random) -> SuspiciousData.addLootTableToBrushableBlock(world, pos)
+		);
+
+		BlockScheduledTicks.TICKS.put(
+			Blocks.SUSPICIOUS_SAND, (state, world, pos, random) -> SuspiciousData.addLootTableToBrushableBlock(world, pos)
+		);
+
+		BlockScheduledTicks.TICKS.put(
+			RegisterBlocks.SUSPICIOUS_CLAY, (state, world, pos, random) -> SuspiciousData.addLootTableToBrushableBlock(world, pos)
+		);
+
+		BlockScheduledTicks.TICKS.put(
+			RegisterBlocks.SUSPICIOUS_DIRT, (state, world, pos, random) -> SuspiciousData.addLootTableToBrushableBlock(world, pos)
+		);
+
+		BlockScheduledTicks.TICKS.put(
+			RegisterBlocks.SUSPICIOUS_RED_SAND, (state, world, pos, random) -> SuspiciousData.addLootTableToBrushableBlock(world, pos)
+		);
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();

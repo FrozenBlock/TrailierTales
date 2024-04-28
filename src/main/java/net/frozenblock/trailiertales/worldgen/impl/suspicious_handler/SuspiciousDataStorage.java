@@ -21,9 +21,6 @@ public class SuspiciousDataStorage extends SavedData {
 		SuspiciousData.Pair.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.suspiciousLocations.suspiciousData)
 			.resultOrPartial().ifPresent(nbt -> compoundTag.put("SuspiciousData", nbt));
 
-		SuspiciousData.Pair.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.suspiciousLocations.oldData)
-			.resultOrPartial().ifPresent(nbt -> compoundTag.put("OldSuspiciousData", nbt));
-
 		return compoundTag;
 	}
 
@@ -35,13 +32,6 @@ public class SuspiciousDataStorage extends SavedData {
 				.parse(new Dynamic<>(NbtOps.INSTANCE, compoundTag.getCompound("SuspiciousData")))
 				.resultOrPartial()
 				.ifPresent(data -> suspiciousLocations.suspiciousData = data);
-		}
-
-		if (compoundTag.contains("OldSuspiciousData", 10)) {
-			SuspiciousData.Pair.CODEC.listOf()
-				.parse(new Dynamic<>(NbtOps.INSTANCE, compoundTag.getCompound("OldSuspiciousData")))
-				.resultOrPartial()
-				.ifPresent(data -> suspiciousLocations.oldData = data);
 		}
 
 		return suspiciousLocationStorage;
