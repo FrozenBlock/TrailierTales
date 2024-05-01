@@ -28,6 +28,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
@@ -81,101 +82,188 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		oneToOneConversionRecipe(recipeOutput, Items.CYAN_DYE, RegisterBlocks.CYAN_ROSE, "cyan_dye");
 
-		// GRANITE BRICKS
+		// GRANITE
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, 4)
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.POLISHED_GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_POLISHED_GRANITE_BRICKS.asItem(), 0.1F, 200)
+			.unlockedBy("has_polished_granite_bricks", has(RegisterBlocks.POLISHED_GRANITE_BRICKS))
+			.save(recipeOutput);
+
+		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_GRANITE, Ingredient.of(Blocks.POLISHED_GRANITE_SLAB))
+			.unlockedBy("has_polished_granite", has(Blocks.POLISHED_GRANITE))
+			.unlockedBy("has_chiseled_polished_granite", has(RegisterBlocks.CHISELED_POLISHED_GRANITE))
+			.unlockedBy("has_polished_granite_slab", has(Blocks.POLISHED_GRANITE_SLAB))
+			.save(recipeOutput);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICKS, 4)
 			.define('#', Blocks.POLISHED_GRANITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_polished_granite", has(Blocks.POLISHED_GRANITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.GRANITE_BRICKS))
-			.unlockedBy("has_granite_bricks", has(TrailierItemTags.GRANITE_BRICKS))
+		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.POLISHED_GRANITE_BRICKS))
+			.unlockedBy("has_granite_bricks", has(RegisterBlocks.POLISHED_GRANITE_BRICKS))
 			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.GRANITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.GRANITE_BRICKS)).unlockedBy("has_granite_bricks", has(TrailierItemTags.GRANITE_BRICKS)).save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.GRANITE_BRICK_WALL, RegisterBlocks.GRANITE_BRICKS);
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Ingredient.of(RegisterBlocks.GRANITE_BRICK_SLAB))
-			.unlockedBy("has_tag", has(TrailierItemTags.GRANITE_BRICKS))
+		stairBuilder(RegisterBlocks.POLISHED_GRANITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.POLISHED_GRANITE_BRICKS))
+			.unlockedBy("has_granite_bricks", has(RegisterBlocks.POLISHED_GRANITE_BRICKS))
+			.save(recipeOutput);
+		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.POLISHED_GRANITE_BRICK_WALL, RegisterBlocks.POLISHED_GRANITE_BRICKS);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_GRANITE, Blocks.POLISHED_GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_GRANITE, Blocks.GRANITE);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICKS, Blocks.GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICKS, Blocks.POLISHED_GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_SLAB, RegisterBlocks.POLISHED_GRANITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_SLAB, Blocks.POLISHED_GRANITE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_SLAB, Blocks.GRANITE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_STAIRS, RegisterBlocks.POLISHED_GRANITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_STAIRS, Blocks.POLISHED_GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_STAIRS, Blocks.GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_WALL, RegisterBlocks.POLISHED_GRANITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_WALL, Blocks.POLISHED_GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_BRICK_WALL, Blocks.GRANITE);
+
+		// MOSSY GRANITE
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS)
+			.requires(RegisterBlocks.POLISHED_GRANITE_BRICKS)
+			.requires(Blocks.VINE)
+			.group("mossy_polished_granite_bricks")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS)
+			.requires(RegisterBlocks.POLISHED_GRANITE_BRICKS)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_polished_granite_bricks")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICK_SLAB, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICK_STAIRS, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICK_WALL, RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS);
+
+		// DIORITE
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.POLISHED_DIORITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_POLISHED_DIORITE_BRICKS.asItem(), 0.1F, 200)
+			.unlockedBy("has_polished_diorite_bricks", has(RegisterBlocks.POLISHED_DIORITE_BRICKS))
 			.save(recipeOutput);
 
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, Blocks.GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, Blocks.POLISHED_GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_SLAB, RegisterBlocks.GRANITE_BRICKS, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_SLAB, Blocks.POLISHED_GRANITE, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_SLAB, Blocks.GRANITE, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_STAIRS, RegisterBlocks.GRANITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_STAIRS, Blocks.POLISHED_GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_STAIRS, Blocks.GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_WALL, RegisterBlocks.GRANITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_WALL, Blocks.POLISHED_GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_WALL, Blocks.GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, RegisterBlocks.GRANITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Blocks.POLISHED_GRANITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Blocks.GRANITE);
+		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_DIORITE, Ingredient.of(Blocks.POLISHED_DIORITE_SLAB))
+			.unlockedBy("has_polished_diorite", has(Blocks.POLISHED_DIORITE))
+			.unlockedBy("has_chiseled_polished_diorite", has(RegisterBlocks.CHISELED_POLISHED_DIORITE))
+			.unlockedBy("has_polished_diorite_slab", has(Blocks.POLISHED_DIORITE_SLAB))
+			.save(recipeOutput);
 
-		// DIORITE BRICKS
-
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICKS, 4)
 			.define('#', Blocks.POLISHED_DIORITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_polished_diorite", has(Blocks.POLISHED_DIORITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.DIORITE_BRICKS))
-			.unlockedBy("has_diorite_bricks", has(TrailierItemTags.DIORITE_BRICKS))
+		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.POLISHED_DIORITE_BRICKS))
+			.unlockedBy("has_diorite_bricks", has(RegisterBlocks.POLISHED_DIORITE_BRICKS))
 			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.DIORITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.DIORITE_BRICKS)).unlockedBy("has_diorite_bricks", has(TrailierItemTags.DIORITE_BRICKS)).save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.DIORITE_BRICK_WALL, RegisterBlocks.DIORITE_BRICKS);
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Ingredient.of(RegisterBlocks.DIORITE_BRICK_SLAB))
-			.unlockedBy("has_tag", has(TrailierItemTags.DIORITE_BRICKS))
+		stairBuilder(RegisterBlocks.POLISHED_DIORITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.POLISHED_DIORITE_BRICKS))
+			.unlockedBy("has_diorite_bricks", has(RegisterBlocks.POLISHED_DIORITE_BRICKS))
+			.save(recipeOutput);
+		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.POLISHED_DIORITE_BRICK_WALL, RegisterBlocks.POLISHED_DIORITE_BRICKS);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_DIORITE, Blocks.POLISHED_DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_DIORITE, Blocks.DIORITE);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICKS, Blocks.DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICKS, Blocks.POLISHED_DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_SLAB, RegisterBlocks.POLISHED_DIORITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_SLAB, Blocks.POLISHED_DIORITE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_SLAB, Blocks.DIORITE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_STAIRS, RegisterBlocks.POLISHED_DIORITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_STAIRS, Blocks.POLISHED_DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_STAIRS, Blocks.DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_WALL, RegisterBlocks.POLISHED_DIORITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_WALL, Blocks.POLISHED_DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_BRICK_WALL, Blocks.DIORITE);
+
+		// MOSSY DIORITE
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS)
+			.requires(RegisterBlocks.POLISHED_DIORITE_BRICKS)
+			.requires(Blocks.VINE)
+			.group("mossy_polished_diorite_bricks")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS)
+			.requires(RegisterBlocks.POLISHED_DIORITE_BRICKS)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_polished_diorite_bricks")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICK_SLAB, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICK_STAIRS, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICK_WALL, RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS);
+
+		// ANDESITE
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.POLISHED_ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_POLISHED_ANDESITE_BRICKS.asItem(), 0.1F, 200)
+			.unlockedBy("has_polished_andesite_bricks", has(RegisterBlocks.POLISHED_ANDESITE_BRICKS))
 			.save(recipeOutput);
 
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, Blocks.DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, Blocks.POLISHED_DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_SLAB, RegisterBlocks.DIORITE_BRICKS, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_SLAB, Blocks.POLISHED_DIORITE, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_SLAB, Blocks.DIORITE, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_STAIRS, RegisterBlocks.DIORITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_STAIRS, Blocks.POLISHED_DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_STAIRS, Blocks.DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_WALL, RegisterBlocks.DIORITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_WALL, Blocks.POLISHED_DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_WALL, Blocks.DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, RegisterBlocks.DIORITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Blocks.POLISHED_DIORITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Blocks.DIORITE);
+		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_ANDESITE, Ingredient.of(Blocks.POLISHED_ANDESITE_SLAB))
+			.unlockedBy("has_polished_andesite", has(Blocks.POLISHED_ANDESITE))
+			.unlockedBy("has_chiseled_polished_andesite", has(RegisterBlocks.CHISELED_POLISHED_ANDESITE))
+			.unlockedBy("has_polished_andesite_slab", has(Blocks.POLISHED_ANDESITE_SLAB))
+			.save(recipeOutput);
 
-		// ANDESITE BRICKS
-
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICKS, 4)
 			.define('#', Blocks.POLISHED_ANDESITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_polished_andesite", has(Blocks.POLISHED_ANDESITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.ANDESITE_BRICKS))
-			.unlockedBy("has_andesite_bricks", has(TrailierItemTags.ANDESITE_BRICKS))
+		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.POLISHED_ANDESITE_BRICKS))
+			.unlockedBy("has_andesite_bricks", has(RegisterBlocks.POLISHED_ANDESITE_BRICKS))
 			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.ANDESITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.ANDESITE_BRICKS)).unlockedBy("has_andesite_bricks", has(TrailierItemTags.ANDESITE_BRICKS)).save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.ANDESITE_BRICK_WALL, RegisterBlocks.ANDESITE_BRICKS);
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Ingredient.of(RegisterBlocks.ANDESITE_BRICK_SLAB))
-			.unlockedBy("has_tag", has(TrailierItemTags.ANDESITE_BRICKS))
+		stairBuilder(RegisterBlocks.POLISHED_ANDESITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.POLISHED_ANDESITE_BRICKS))
+			.unlockedBy("has_andesite_bricks", has(RegisterBlocks.POLISHED_ANDESITE_BRICKS))
 			.save(recipeOutput);
+		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.POLISHED_ANDESITE_BRICK_WALL, RegisterBlocks.POLISHED_ANDESITE_BRICKS);
 
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, Blocks.ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, Blocks.POLISHED_ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_SLAB, RegisterBlocks.ANDESITE_BRICKS, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_SLAB, Blocks.POLISHED_ANDESITE, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_SLAB, Blocks.ANDESITE, 2);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_STAIRS, RegisterBlocks.ANDESITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_STAIRS, Blocks.POLISHED_ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_STAIRS, Blocks.ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_WALL, RegisterBlocks.ANDESITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_WALL, Blocks.POLISHED_ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_WALL, Blocks.ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, RegisterBlocks.ANDESITE_BRICKS);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Blocks.POLISHED_ANDESITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Blocks.ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_POLISHED_ANDESITE, Blocks.ANDESITE);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICKS, Blocks.ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICKS, Blocks.POLISHED_ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_SLAB, RegisterBlocks.POLISHED_ANDESITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_SLAB, Blocks.POLISHED_ANDESITE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_SLAB, Blocks.ANDESITE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_STAIRS, RegisterBlocks.POLISHED_ANDESITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_STAIRS, Blocks.POLISHED_ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_STAIRS, Blocks.ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_WALL, RegisterBlocks.POLISHED_ANDESITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_WALL, Blocks.POLISHED_ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_BRICK_WALL, Blocks.ANDESITE);
+
+		// MOSSY ANDESITE
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS)
+			.requires(RegisterBlocks.POLISHED_ANDESITE_BRICKS)
+			.requires(Blocks.VINE)
+			.group("mossy_polished_andesite_bricks")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS)
+			.requires(RegisterBlocks.POLISHED_ANDESITE_BRICKS)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_polished_andesite_bricks")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICK_SLAB, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICK_STAIRS, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICK_WALL, RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS);
 
 		// MOSSY COBBLED DEEPSLATE
 
@@ -221,7 +309,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
-		//RecipeProvider.generateForEnabledBlockFamilies();
 
 		// MOSSY DEEPSLATE TILE
 

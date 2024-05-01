@@ -20,14 +20,20 @@ public final class TTModelProvider extends FabricModelProvider {
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
 		generator.createPlant(RegisterBlocks.CYAN_ROSE, RegisterBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
 
-		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_GRANITE_BRICKS, TexturedModel.CUBE);
+		generator.family(RegisterBlocks.POLISHED_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_POLISHED_GRANITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_POLISHED_GRANITE_BRICK);
+		generator.createTrivialBlock(RegisterBlocks.CRACKED_POLISHED_GRANITE_BRICKS, TexturedModel.CUBE);
+		generator.createTrivialBlock(RegisterBlocks.CHISELED_POLISHED_GRANITE, TexturedModel.CUBE);
 
-		generator.family(RegisterBlocks.DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_DIORITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_DIORITE_BRICKS, TexturedModel.CUBE);
+		generator.family(RegisterBlocks.POLISHED_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_POLISHED_DIORITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_POLISHED_DIORITE_BRICK);
+		generator.createTrivialBlock(RegisterBlocks.CRACKED_POLISHED_DIORITE_BRICKS, TexturedModel.CUBE);
+		generator.createTrivialBlock(RegisterBlocks.CHISELED_POLISHED_DIORITE, TexturedModel.CUBE);
 
-		generator.family(RegisterBlocks.ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_ANDESITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_ANDESITE_BRICKS, TexturedModel.CUBE);
+		generator.family(RegisterBlocks.POLISHED_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_POLISHED_ANDESITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_POLISHED_ANDESITE_BRICK);
+		generator.createTrivialBlock(RegisterBlocks.CRACKED_POLISHED_ANDESITE_BRICKS, TexturedModel.CUBE);
+		generator.createTrivialBlock(RegisterBlocks.CHISELED_POLISHED_ANDESITE, TexturedModel.CUBE);
 
 		generator.family(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(RegisterBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);

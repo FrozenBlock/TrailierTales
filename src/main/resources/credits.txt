@@ -12,9 +12,7 @@ Zhen - Texture Artist:
     - Suspicious Dirt
     - Cyan Rose
     - Incidence Pottery Sherd
-    - Andesite Bricks & Chiseled Andesite
-    - Diorite Bricks & Chiseled Diorite
-    - Granite Bricks & Chiseled Granite
+    - All New Andesite, Diorite, and Granite Variants
 
 Stella/Osmiooo - Assistant Dev (idk if you want the second name on there or not)
     - Implemented the new Andesite, Diorite, and Granite blocks

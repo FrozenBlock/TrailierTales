@@ -81,53 +81,101 @@ public class RegisterBlocks {
 	);
 	public static final Block POTTED_CYAN_ROSE = Blocks.flowerPot(CYAN_ROSE);
 
-	// GRANITE BRICKS
+	// GRANITE
 
-	public static final Block GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS));
-	public static final Block GRANITE_BRICK_STAIRS = new StairBlock(
-		GRANITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS)
+	public static final Block CHISELED_POLISHED_GRANITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE));
+
+	public static final Block POLISHED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE));
+	public static final Block POLISHED_GRANITE_BRICK_STAIRS = new StairBlock(
+		POLISHED_GRANITE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(POLISHED_GRANITE_BRICKS)
 	);
-	public static final Block GRANITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB));
-	public static final Block GRANITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL));
-	public static final BlockFamily FAMILY_GRANITE_BRICK = BlockFamilies.familyBuilder(GRANITE_BRICKS)
-		.stairs(GRANITE_BRICK_STAIRS)
-		.slab(GRANITE_BRICK_SLAB)
-		.wall(GRANITE_BRICK_WALL)
+	public static final Block POLISHED_GRANITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_GRANITE_BRICKS));
+	public static final Block POLISHED_GRANITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_GRANITE_BRICKS));
+	public static final BlockFamily FAMILY_POLISHED_GRANITE_BRICK = BlockFamilies.familyBuilder(POLISHED_GRANITE_BRICKS)
+		.stairs(POLISHED_GRANITE_BRICK_STAIRS)
+		.slab(POLISHED_GRANITE_BRICK_SLAB)
+		.wall(POLISHED_GRANITE_BRICK_WALL)
 		.getFamily();
-	public static final Block CHISELED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CHISELED_STONE_BRICKS));
 
-	// DIORITE BRICKS
+	public static final Block CRACKED_POLISHED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE));
 
-	public static final Block DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS));
-	public static final Block DIORITE_BRICK_STAIRS = new StairBlock(
-		DIORITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS)
+	public static final Block MOSSY_POLISHED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE));
+	public static final Block MOSSY_POLISHED_GRANITE_BRICK_STAIRS = new StairBlock(
+		MOSSY_POLISHED_GRANITE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_GRANITE_BRICKS)
 	);
-	public static final Block DIORITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB));
-	public static final Block DIORITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL));
-	public static final BlockFamily FAMILY_DIORITE_BRICK = BlockFamilies.familyBuilder(DIORITE_BRICKS)
-		.stairs(DIORITE_BRICK_STAIRS)
-		.slab(DIORITE_BRICK_SLAB)
-		.wall(DIORITE_BRICK_WALL)
+	public static final Block MOSSY_POLISHED_GRANITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_GRANITE_BRICKS));
+	public static final Block MOSSY_POLISHED_GRANITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_GRANITE_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_POLISHED_GRANITE_BRICK = BlockFamilies.familyBuilder(MOSSY_POLISHED_GRANITE_BRICKS)
+		.stairs(MOSSY_POLISHED_GRANITE_BRICK_STAIRS)
+		.slab(MOSSY_POLISHED_GRANITE_BRICK_SLAB)
+		.wall(MOSSY_POLISHED_GRANITE_BRICK_WALL)
 		.getFamily();
-	public static final Block CHISELED_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CHISELED_STONE_BRICKS));
 
-	// ANDESITE BRICKS
+	// DIORITE
 
-	public static final Block ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS));
-	public static final Block ANDESITE_BRICK_STAIRS = new StairBlock(
-		ANDESITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS)
+	public static final Block CHISELED_POLISHED_DIORITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE));
+
+	public static final Block POLISHED_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE));
+	public static final Block POLISHED_DIORITE_BRICK_STAIRS = new StairBlock(
+		POLISHED_DIORITE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(POLISHED_DIORITE_BRICKS)
 	);
-	public static final Block ANDESITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB));
-	public static final Block ANDESITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL));
-	public static final BlockFamily FAMILY_ANDESITE_BRICK = BlockFamilies.familyBuilder(ANDESITE_BRICKS)
-		.stairs(ANDESITE_BRICK_STAIRS)
-		.slab(ANDESITE_BRICK_SLAB)
-		.wall(ANDESITE_BRICK_WALL)
+	public static final Block POLISHED_DIORITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_DIORITE_BRICKS));
+	public static final Block POLISHED_DIORITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_DIORITE_BRICKS));
+	public static final BlockFamily FAMILY_POLISHED_DIORITE_BRICK = BlockFamilies.familyBuilder(POLISHED_DIORITE_BRICKS)
+		.stairs(POLISHED_DIORITE_BRICK_STAIRS)
+		.slab(POLISHED_DIORITE_BRICK_SLAB)
+		.wall(POLISHED_DIORITE_BRICK_WALL)
 		.getFamily();
-	public static final Block CHISELED_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CHISELED_STONE_BRICKS));
+
+	public static final Block CRACKED_POLISHED_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE));
+
+	public static final Block MOSSY_POLISHED_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE));
+	public static final Block MOSSY_POLISHED_DIORITE_BRICK_STAIRS = new StairBlock(
+		MOSSY_POLISHED_DIORITE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_DIORITE_BRICKS)
+	);
+	public static final Block MOSSY_POLISHED_DIORITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_DIORITE_BRICKS));
+	public static final Block MOSSY_POLISHED_DIORITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_DIORITE_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_POLISHED_DIORITE_BRICK = BlockFamilies.familyBuilder(MOSSY_POLISHED_DIORITE_BRICKS)
+		.stairs(MOSSY_POLISHED_DIORITE_BRICK_STAIRS)
+		.slab(MOSSY_POLISHED_DIORITE_BRICK_SLAB)
+		.wall(MOSSY_POLISHED_DIORITE_BRICK_WALL)
+		.getFamily();
+
+	// ANDESITE
+
+	public static final Block CHISELED_POLISHED_ANDESITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE));
+
+	public static final Block POLISHED_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE));
+	public static final Block POLISHED_ANDESITE_BRICK_STAIRS = new StairBlock(
+		POLISHED_ANDESITE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(POLISHED_ANDESITE_BRICKS)
+	);
+	public static final Block POLISHED_ANDESITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_ANDESITE_BRICKS));
+	public static final Block POLISHED_ANDESITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_ANDESITE_BRICKS));
+	public static final BlockFamily FAMILY_POLISHED_ANDESITE_BRICK = BlockFamilies.familyBuilder(POLISHED_ANDESITE_BRICKS)
+		.stairs(POLISHED_ANDESITE_BRICK_STAIRS)
+		.slab(POLISHED_ANDESITE_BRICK_SLAB)
+		.wall(POLISHED_ANDESITE_BRICK_WALL)
+		.getFamily();
+
+	public static final Block CRACKED_POLISHED_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE));
+
+	public static final Block MOSSY_POLISHED_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE));
+	public static final Block MOSSY_POLISHED_ANDESITE_BRICK_STAIRS = new StairBlock(
+		MOSSY_POLISHED_ANDESITE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_ANDESITE_BRICKS)
+	);
+	public static final Block MOSSY_POLISHED_ANDESITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_ANDESITE_BRICKS));
+	public static final Block MOSSY_POLISHED_ANDESITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_POLISHED_ANDESITE_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_POLISHED_ANDESITE_BRICK = BlockFamilies.familyBuilder(MOSSY_POLISHED_ANDESITE_BRICKS)
+		.stairs(MOSSY_POLISHED_ANDESITE_BRICK_STAIRS)
+		.slab(MOSSY_POLISHED_ANDESITE_BRICK_SLAB)
+		.wall(MOSSY_POLISHED_ANDESITE_BRICK_WALL)
+		.getFamily();
 
 	// MOSSY DEEPSLATE
 
@@ -191,23 +239,38 @@ public class RegisterBlocks {
 		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
 		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
 
-		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICKS, "granite_brick_stairs", GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_STAIRS, "granite_brick_slab", GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_SLAB, "granite_brick_wall", GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_WALL, "chiseled_granite_bricks", CHISELED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(Blocks.POLISHED_GRANITE, "chiseled_polished_granite", CHISELED_POLISHED_GRANITE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_bricks", POLISHED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GRANITE_BRICKS, "cracked_polished_granite_bricks", CRACKED_POLISHED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CRACKED_POLISHED_GRANITE_BRICKS, "polished_granite_brick_stairs", POLISHED_GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GRANITE_BRICK_STAIRS, "polished_granite_brick_slab", POLISHED_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GRANITE_BRICK_SLAB, "polished_granite_brick_wall", POLISHED_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_GRANITE_BRICK_WALL, "mossy_polished_granite_bricks", MOSSY_POLISHED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICKS, "mossy_polished_granite_brick_stairs", MOSSY_POLISHED_GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICK_SLAB, "mossy_polished_granite_brick_slab", MOSSY_POLISHED_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICK_WALL, "mossy_polished_granite_brick_wall", MOSSY_POLISHED_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
-		registerBlockAfter(Blocks.POLISHED_DIORITE_SLAB, "diorite_bricks", DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICKS, "diorite_brick_stairs", DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_STAIRS, "diorite_brick_slab", DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_SLAB, "diorite_brick_wall", DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_WALL, "chiseled_diorite_bricks", CHISELED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(Blocks.POLISHED_DIORITE, "chiseled_polished_diorite", CHISELED_POLISHED_DIORITE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.POLISHED_DIORITE_SLAB, "polished_diorite_bricks", POLISHED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_DIORITE_BRICKS, "cracked_polished_diorite_bricks", CRACKED_POLISHED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CRACKED_POLISHED_DIORITE_BRICKS, "polished_diorite_brick_stairs", POLISHED_DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_DIORITE_BRICK_STAIRS, "polished_diorite_brick_slab", POLISHED_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_DIORITE_BRICK_SLAB, "polished_diorite_brick_wall", POLISHED_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_DIORITE_BRICK_WALL, "mossy_polished_diorite_bricks", MOSSY_POLISHED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICKS, "mossy_polished_diorite_brick_stairs", MOSSY_POLISHED_DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICK_SLAB, "mossy_polished_diorite_brick_slab", MOSSY_POLISHED_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICK_WALL, "mossy_polished_diorite_brick_wall", MOSSY_POLISHED_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
-		registerBlockAfter(Blocks.POLISHED_ANDESITE_SLAB, "andesite_bricks", ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICKS, "andesite_brick_stairs", ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_STAIRS, "andesite_brick_slab", ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_SLAB, "andesite_brick_wall", ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_WALL, "chiseled_andesite_bricks", CHISELED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(Blocks.POLISHED_ANDESITE, "chiseled_polished_andesite", CHISELED_POLISHED_ANDESITE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.POLISHED_ANDESITE_SLAB, "polished_andesite_bricks", POLISHED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_ANDESITE_BRICKS, "cracked_polished_andesite_bricks", CRACKED_POLISHED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CRACKED_POLISHED_ANDESITE_BRICKS, "polished_andesite_brick_stairs", POLISHED_ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_ANDESITE_BRICK_STAIRS, "polished_andesite_brick_slab", POLISHED_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_ANDESITE_BRICK_SLAB, "polished_andesite_brick_wall", POLISHED_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(POLISHED_ANDESITE_BRICK_WALL, "mossy_polished_andesite_bricks", MOSSY_POLISHED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICKS, "mossy_polished_andesite_brick_stairs", MOSSY_POLISHED_ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICK_SLAB, "mossy_polished_andesite_brick_slab", MOSSY_POLISHED_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICK_WALL, "mossy_polished_andesite_brick_wall", MOSSY_POLISHED_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);

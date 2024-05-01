@@ -61,18 +61,6 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
 			.add(RegisterItems.WITHER_POTTERY_SHERD);
 
-		this.getOrCreateTagBuilder(TrailierItemTags.ANDESITE_BRICKS)
-			.add(RegisterBlocks.ANDESITE_BRICKS.asItem())
-			.add(RegisterBlocks.CHISELED_ANDESITE_BRICKS.asItem());
-
-		this.getOrCreateTagBuilder(TrailierItemTags.DIORITE_BRICKS)
-			.add(RegisterBlocks.DIORITE_BRICKS.asItem())
-			.add(RegisterBlocks.CHISELED_DIORITE_BRICKS.asItem());
-
-		this.getOrCreateTagBuilder(TrailierItemTags.GRANITE_BRICKS)
-			.add(RegisterBlocks.GRANITE_BRICKS.asItem())
-			.add(RegisterBlocks.CHISELED_GRANITE_BRICKS.asItem());
-
 		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
 
@@ -86,25 +74,34 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
-			.add(RegisterBlocks.GRANITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.DIORITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.ANDESITE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.POLISHED_GRANITE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.POLISHED_DIORITE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.POLISHED_ANDESITE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICK_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
-			.add(RegisterBlocks.GRANITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.DIORITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.ANDESITE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.POLISHED_GRANITE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.POLISHED_DIORITE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.POLISHED_ANDESITE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICK_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
-			.add(RegisterBlocks.GRANITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.DIORITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.ANDESITE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.POLISHED_GRANITE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.POLISHED_DIORITE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.POLISHED_ANDESITE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICK_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem());

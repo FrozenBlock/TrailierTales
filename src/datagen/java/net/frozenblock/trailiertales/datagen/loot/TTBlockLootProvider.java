@@ -45,36 +45,41 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			this.applyExplosionDecay(RegisterBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS))))
 		);
 
-		this.dropSelf(RegisterBlocks.GRANITE_BRICKS);
-		this.dropSelf(RegisterBlocks.GRANITE_BRICK_STAIRS);
-		this.dropSelf(RegisterBlocks.GRANITE_BRICK_WALL);
-		this.dropSelf(RegisterBlocks.CHISELED_GRANITE_BRICKS);
+		this.dropSelf(RegisterBlocks.CHISELED_POLISHED_GRANITE);
+		this.dropSelf(RegisterBlocks.POLISHED_GRANITE_BRICKS);
+		this.dropSelf(RegisterBlocks.CRACKED_POLISHED_GRANITE_BRICKS);
+		this.dropSelf(RegisterBlocks.POLISHED_GRANITE_BRICK_STAIRS);
+		this.add(RegisterBlocks.POLISHED_GRANITE_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.POLISHED_GRANITE_BRICK_WALL);
 
-		this.dropSelf(RegisterBlocks.DIORITE_BRICKS);
-		this.dropSelf(RegisterBlocks.DIORITE_BRICK_STAIRS);
-		this.dropSelf(RegisterBlocks.DIORITE_BRICK_WALL);
-		this.dropSelf(RegisterBlocks.CHISELED_DIORITE_BRICKS);
+		this.dropSelf(RegisterBlocks.CHISELED_POLISHED_DIORITE);
+		this.dropSelf(RegisterBlocks.POLISHED_DIORITE_BRICKS);
+		this.dropSelf(RegisterBlocks.CRACKED_POLISHED_DIORITE_BRICKS);
+		this.dropSelf(RegisterBlocks.POLISHED_DIORITE_BRICK_STAIRS);
+		this.add(RegisterBlocks.POLISHED_DIORITE_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.POLISHED_DIORITE_BRICK_WALL);
 
-		this.dropSelf(RegisterBlocks.ANDESITE_BRICKS);
-		this.dropSelf(RegisterBlocks.ANDESITE_BRICK_STAIRS);
-		this.dropSelf(RegisterBlocks.ANDESITE_BRICK_WALL);
-		this.dropSelf(RegisterBlocks.CHISELED_ANDESITE_BRICKS);
+		this.dropSelf(RegisterBlocks.CHISELED_POLISHED_ANDESITE);
+		this.dropSelf(RegisterBlocks.POLISHED_ANDESITE_BRICKS);
+		this.dropSelf(RegisterBlocks.CRACKED_POLISHED_ANDESITE_BRICKS);
+		this.dropSelf(RegisterBlocks.POLISHED_ANDESITE_BRICK_STAIRS);
+		this.add(RegisterBlocks.POLISHED_ANDESITE_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.POLISHED_ANDESITE_BRICK_WALL);
 
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS);
+		this.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL);
+
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_TILES);
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
+		this.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, this::createSlabItemTable);
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS);
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS);
-		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL);
-
-		this.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);
-		this.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, this::createSlabItemTable);
 		this.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, this::createSlabItemTable);
-		this.add(RegisterBlocks.GRANITE_BRICK_SLAB, this::createSlabItemTable);
-		this.add(RegisterBlocks.DIORITE_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL);
 	}
 
 }
