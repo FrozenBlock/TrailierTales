@@ -13,7 +13,7 @@ public class RegisterSounds {
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");
-	public static final SoundEvent COFFIN_HIT = register("block.coffin.it");
+	public static final SoundEvent COFFIN_HIT = register("block.coffin.hit");
 	public static final SoundEvent COFFIN_FALL = register("block.coffin.fall");
 	public static final SoundEvent COFFIN_SPAWN_MOB = register("block.coffin.spawn_mob");
 	public static final SoundType COFFIN = new SoundType(
