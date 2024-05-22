@@ -3,10 +3,9 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
 import java.util.Optional;
 import java.util.UUID;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.longs.LongArrayList;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
@@ -283,11 +282,9 @@ public final class CoffinSpawner {
 							if (!level.tryAddFreshEntityWithPassengers(entity)) {
 								return Optional.empty();
 							} else {
-								//level.levelEvent(3011, pos, flameParticle.encode());
-								//level.levelEvent(3012, blockPos, flameParticle.encode());
 								level.playSound(
 									null,
-									pos,
+									entity,
 									RegisterSounds.COFFIN_SPAWN_MOB,
 									SoundSource.BLOCKS,
 									1F,
@@ -352,12 +349,12 @@ public final class CoffinSpawner {
 				if (spawnTime == currentTime) {
 					double stepX = direction.getStepX() == 0D ? 0.5D : direction.getStepX();
 					double stepZ = direction.getStepZ() == 0D ? 0.5D : direction.getStepZ();
-					double xOffset = 0.2D + (stepX * 0.5D);
-					double zOffset = 0.2D + (stepZ * 0.5D);
+					double xOffset = stepX * 0.35D;
+					double zOffset = stepZ * 0.35D;
 					world.sendParticles(
 						RegisterParticles.COFFIN_SOUL_ENTER,
 						pos.getX() + stepX,
-						pos.getY() + 0.75D,
+						pos.getY() + 1D,
 						pos.getZ() + stepZ,
 						4,
 						xOffset,
