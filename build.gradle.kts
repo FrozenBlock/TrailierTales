@@ -45,7 +45,6 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val fabric_api_version: String by project
-val mixin_extras_version: String by project
 val frozenlib_version: String by project
 
 val modmenu_version: String by project
@@ -208,10 +207,6 @@ dependencies {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
-
-    // MixinExtras
-    // keep until Fabric applies the annotation processor by default
-    modApi("io.github.llamalad7:mixinextras-fabric:$mixin_extras_version")?.let { annotationProcessor(it) }
 
     // Embeddium
     if (shouldRunEmbeddium)

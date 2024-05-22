@@ -1,0 +1,59 @@
+{
+  "block.coffin.break": {
+    "sounds": [
+      "trailiertales:block/coffin/place1",
+      "trailiertales:block/coffin/place2",
+      "trailiertales:block/coffin/place3",
+      "trailiertales:block/coffin/place4",
+      "trailiertales:block/coffin/place5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.coffin.fall": {
+    "sounds": [
+      "trailiertales:block/coffin/step1",
+      "trailiertales:block/coffin/step2",
+      "trailiertales:block/coffin/step3",
+      "trailiertales:block/coffin/step4",
+      "trailiertales:block/coffin/step5"
+    ]
+  },
+  "block.coffin.hit": {
+    "sounds": [
+      "trailiertales:block/coffin/step1",
+      "trailiertales:block/coffin/step2",
+      "trailiertales:block/coffin/step3",
+      "trailiertales:block/coffin/step4",
+      "trailiertales:block/coffin/step5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.coffin.place": {
+    "sounds": [
+      "trailiertales:block/coffin/place1",
+      "trailiertales:block/coffin/place2",
+      "trailiertales:block/coffin/place3",
+      "trailiertales:block/coffin/place4",
+      "trailiertales:block/coffin/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.coffin.step": {
+    "sounds": [
+      "trailiertales:block/coffin/step1",
+      "trailiertales:block/coffin/step2",
+      "trailiertales:block/coffin/step3",
+      "trailiertales:block/coffin/step4",
+      "trailiertales:block/coffin/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.coffin.spawn_mob": {
+    "sounds": [
+      "trailiertales:block/coffin/spawn1",
+      "trailiertales:block/coffin/spawn2",
+      "trailiertales:block/coffin/spawn3"
+    ],
+    "subtitle": "subtitles.block.coffin.spawn_mob"
+  }
+}

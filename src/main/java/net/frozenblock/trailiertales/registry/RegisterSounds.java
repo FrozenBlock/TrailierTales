@@ -5,9 +5,26 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.SoundType;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterSounds {
+
+	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
+	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
+	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");
+	public static final SoundEvent COFFIN_HIT = register("block.coffin.hit");
+	public static final SoundEvent COFFIN_FALL = register("block.coffin.fall");
+	public static final SoundEvent COFFIN_SPAWN_MOB = register("block.coffin.spawn_mob");
+	public static final SoundType COFFIN = new SoundType(
+		1F,
+		1F,
+		COFFIN_BREAK,
+		COFFIN_STEP,
+		COFFIN_PLACE,
+		COFFIN_HIT,
+		COFFIN_FALL
+	);
 
 	public static final SoundEvent SUSPICIOUS_DIRT_BREAK = register("block.suspicious_dirt.break");
 	public static final SoundEvent SUSPICIOUS_DIRT_STEP = register("block.suspicious_dirt.step");
@@ -32,4 +49,6 @@ public class RegisterSounds {
 		ResourceLocation resourceLocation = TrailierTalesSharedConstants.id(string);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation));
 	}
+
+	public static void init() {}
 }
