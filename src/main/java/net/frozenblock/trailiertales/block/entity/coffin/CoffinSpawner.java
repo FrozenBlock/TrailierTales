@@ -8,6 +8,7 @@ import java.util.UUID;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -17,6 +18,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -287,6 +289,14 @@ public final class CoffinSpawner {
 							} else {
 								//level.levelEvent(3011, pos, flameParticle.encode());
 								//level.levelEvent(3012, blockPos, flameParticle.encode());
+								level.playSound(
+									null,
+									pos,
+									RegisterSounds.COFFIN_SPAWN_MOB,
+									SoundSource.BLOCKS,
+									1F,
+									(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F
+								);
 								if (entity instanceof Mob mob) {
 									mob.spawnAnim();
 								}

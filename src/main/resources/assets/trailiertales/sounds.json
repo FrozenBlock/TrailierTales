@@ -1,0 +1,10 @@
+{
+  "block.coffin.spawn_mob": {
+    "sounds": [
+      "trailiertales:block/coffin/spawn1",
+      "trailiertales:block/coffin/spawn2",
+      "trailiertales:block/coffin/spawn3"
+    ],
+    "subtitle": "subtitles.block.coffin.spawn_mob"
+  }
+}

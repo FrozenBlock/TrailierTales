@@ -9,6 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class RegisterSounds {
 
+	public static final SoundEvent COFFIN_SPAWN_MOB = register("block.coffin.spawn_mob");
+
 	public static final SoundEvent SUSPICIOUS_DIRT_BREAK = register("block.suspicious_dirt.break");
 	public static final SoundEvent SUSPICIOUS_DIRT_STEP = register("block.suspicious_dirt.step");
 	public static final SoundEvent SUSPICIOUS_DIRT_PLACE = register("block.suspicious_dirt.place");
@@ -32,4 +34,6 @@ public class RegisterSounds {
 		ResourceLocation resourceLocation = TrailierTalesSharedConstants.id(string);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation));
 	}
+
+	public static void init() {}
 }
