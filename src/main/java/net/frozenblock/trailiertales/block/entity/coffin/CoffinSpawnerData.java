@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
@@ -27,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
+				Codec.LONG.listOf().lenientOptionalFieldOf("souls_to_spawn", new LongArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
 				Codec.LONG.lenientOptionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
@@ -39,6 +42,7 @@ public class CoffinSpawnerData {
 			.apply(instance, CoffinSpawnerData::new)
 	);
 
+	protected final LongArrayList soulsToSpawn = new LongArrayList();
 	protected final Set<UUID> detectedPlayers = new HashSet<>();
 	protected final Set<UUID> currentMobs = new HashSet<>();
 	protected long powerCooldownEndsAt;
@@ -49,10 +53,11 @@ public class CoffinSpawnerData {
 	protected boolean withinCatacombs;
 
 	public CoffinSpawnerData() {
-		this(Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false);
+		this(new LongArrayList(), Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false);
 	}
 
 	public CoffinSpawnerData(
+		List<Long> soulsToSpawn,
 		Set<UUID> detectedPlayers,
 		Set<UUID> currentMobs,
 		long powerCooldownEndsAt,
@@ -62,6 +67,7 @@ public class CoffinSpawnerData {
 		Optional<SpawnData> nextSpawnData,
 		boolean withinCatacombs
 	) {
+		this.soulsToSpawn.addAll(soulsToSpawn);
 		this.detectedPlayers.addAll(detectedPlayers);
 		this.currentMobs.addAll(currentMobs);
 		this.powerCooldownEndsAt = powerCooldownEndsAt;
