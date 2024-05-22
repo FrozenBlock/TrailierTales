@@ -225,7 +225,7 @@ public class RegisterBlocks {
 			.noOcclusion()
 			.lightLevel(state -> state.getValue(TrailierBlockStateProperties.COFFIN_STATE).getLightLevel())
 			.requiresCorrectToolForDrops()
-			.sound(SoundType.VAULT)
+			.sound(RegisterSounds.COFFIN)
 			.strength(50F)
 			.isViewBlocking(Blocks::never)
 	);
