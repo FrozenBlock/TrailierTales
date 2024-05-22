@@ -354,7 +354,7 @@ public final class CoffinSpawner {
 					world.sendParticles(
 						RegisterParticles.COFFIN_SOUL_ENTER,
 						pos.getX() + stepX,
-						pos.getY() + 0.85D,
+						pos.getY() + 0.9D,
 						pos.getZ() + stepZ,
 						4,
 						xOffset,
