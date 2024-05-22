@@ -13,6 +13,9 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
@@ -113,12 +116,38 @@ public class RegisterStructureProcessors {
 						),
 
 						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+
+						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.425F),
 							AlwaysTrueTest.INSTANCE, Blocks.TUFF.defaultBlockState()
 						),
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.9225F),
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.COBWEB, 0.5F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
 						)
 					)
 				),
