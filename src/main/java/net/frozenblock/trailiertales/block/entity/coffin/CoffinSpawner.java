@@ -349,12 +349,12 @@ public final class CoffinSpawner {
 				if (spawnTime == currentTime) {
 					double stepX = direction.getStepX() == 0D ? 0.5D : direction.getStepX();
 					double stepZ = direction.getStepZ() == 0D ? 0.5D : direction.getStepZ();
-					double xOffset = stepX * 0.35D;
-					double zOffset = stepZ * 0.35D;
+					double xOffset = stepX * 0.25D;
+					double zOffset = stepZ * 0.25D;
 					world.sendParticles(
 						RegisterParticles.COFFIN_SOUL_ENTER,
 						pos.getX() + stepX,
-						pos.getY() + 1D,
+						pos.getY() + 0.85D,
 						pos.getZ() + stepZ,
 						4,
 						xOffset,
