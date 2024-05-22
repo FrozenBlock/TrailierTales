@@ -341,7 +341,7 @@ public final class CoffinSpawner {
 			return;
 		}
 
-		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
+		Direction direction = CoffinBlock.getConnectedDirection(world.getBlockState(pos));
 		long currentTime = world.getGameTime();
 		LongArrayList soulsToSpawn = this.data.soulsToSpawn;
 		if (direction != null) {
