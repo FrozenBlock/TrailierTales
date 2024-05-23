@@ -6,6 +6,7 @@ import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
@@ -145,8 +147,44 @@ public class RegisterStructureProcessors {
 						),
 
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.COBWEB, 0.5F),
+							new RandomBlockMatchTest(Blocks.COBWEB, 0.65F),
 							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.CANDLE, 0.8F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.5F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 2)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.7F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1)
+						),
+
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3).setValue(BlockStateProperties.LIT, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.5F),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 2).setValue(BlockStateProperties.LIT, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.7F),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1).setValue(BlockStateProperties.LIT, true)
 						)
 					)
 				),
