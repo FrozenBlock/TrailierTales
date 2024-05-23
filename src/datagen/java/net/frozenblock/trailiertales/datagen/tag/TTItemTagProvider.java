@@ -108,5 +108,6 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
 			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())
+			.add(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())
 	}
 }
