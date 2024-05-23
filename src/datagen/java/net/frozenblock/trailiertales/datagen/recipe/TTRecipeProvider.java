@@ -344,8 +344,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.INGREDIENTS, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
 			.define('#', Items.DIAMOND)
-			.define('S', Blocks.STONE_BRICKS)
-			.define('U', RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.define('C', Blocks.STONE_BRICKS)
+			.define('S', RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.pattern("#U#")
 			.pattern("#S#")
 			.pattern("###")
