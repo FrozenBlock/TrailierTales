@@ -159,7 +159,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 80),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 55),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 15),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull"), catacombsDegradation), 25),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1"), catacombsDegradation), 12),
