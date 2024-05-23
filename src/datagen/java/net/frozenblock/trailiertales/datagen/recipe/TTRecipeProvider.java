@@ -346,10 +346,22 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.define('#', Items.DIAMOND)
 			.define('C', Blocks.STONE_BRICKS)
 			.define('S', RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.pattern("#U#")
 			.pattern("#S#")
+			.pattern("#C#")
 			.pattern("###")
-			.unlockedBy("has_polished_andesite", has(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.unlockedBy("has_desolation_armor_trim_smithing_template", has(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// UNDEAD SMITHING TEMPLATE
+
+			ShapedRecipeBuilder.shaped(RecipeCategory.INGREDIENTS, RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
+			.define('S', RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_undead_armor_trim_smithing_template", has(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE))
 			.save(recipeOutput);
 	}
 }
