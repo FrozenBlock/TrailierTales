@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "trailiertales:item/desolation_armor_trim_smithing_template"
+  }
+}
