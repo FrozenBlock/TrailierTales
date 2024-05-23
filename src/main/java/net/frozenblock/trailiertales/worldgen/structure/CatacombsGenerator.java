@@ -128,7 +128,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap1"), catacombsDegradation), 3), // Total 4
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap_cobwebs"), catacombsDegradation), 1),
 
-					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 14)
+					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 14),
+					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 7)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -147,6 +148,42 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull3"), catacombsDegradation), 6),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4"), catacombsDegradation), 6)
 
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("tomb_decoration"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 150),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 10),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull"), catacombsDegradation), 50),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull2"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull3"), catacombsDegradation), 15),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull4"), catacombsDegradation), 15)
+
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("decoration/chain"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("decoration/chain_blank"), catacombsDegradation), 150),
+					Pair.of(StructurePoolElement.single(string("decoration/chain_1"), catacombsDegradation), 7),
+					Pair.of(StructurePoolElement.single(string("decoration/chain_2"), catacombsDegradation), 7),
+					Pair.of(StructurePoolElement.single(string("decoration/chain_3"), catacombsDegradation), 7),
+					Pair.of(StructurePoolElement.single(string("decoration/chain_4"), catacombsDegradation), 7),
+					Pair.of(StructurePoolElement.single(string("decoration/chain_5"), catacombsDegradation), 7)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)

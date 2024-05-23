@@ -161,6 +161,15 @@
         "projection": "rigid"
       },
       "weight": 14
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/caged_chest",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 7
     }
   ],
   "fallback": "minecraft:empty"
