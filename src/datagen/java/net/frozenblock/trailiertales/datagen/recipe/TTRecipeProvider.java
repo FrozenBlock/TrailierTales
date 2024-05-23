@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -338,6 +339,17 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB, RegisterBlocks.MOSSY_DEEPSLATE_TILES, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_TILES);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL, RegisterBlocks.MOSSY_DEEPSLATE_TILES);
-	}
 
+		// DESOLATION SMITHING TEMPLATE
+
+			ShapedRecipeBuilder.shaped(RecipeCategory.INGREDIENTS, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('S', Blocks.STONE_BRICKS)
+			.define('U', RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#U#")
+			.pattern("#S#")
+			.pattern("###")
+			.unlockedBy("has_polished_andesite", has(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+	}
 }
