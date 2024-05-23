@@ -354,8 +354,8 @@ public final class CoffinSpawner {
 					double stepZ = direction.getStepZ();
 					double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
 					double relativeZ = isOppositeZ ? 0D :  stepZ == 0D ? 0.5D : stepZ;
-					double xOffset = Math.abs(stepX * 0.4D);
-					double zOffset = Math.abs(stepZ * 0.4D);
+					double xOffset = Math.abs(stepX * 0.35D);
+					double zOffset = Math.abs(stepZ * 0.35D);
 					world.sendParticles(
 						RegisterParticles.COFFIN_SOUL_ENTER,
 						pos.getX() + relativeX,
