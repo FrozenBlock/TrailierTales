@@ -7,7 +7,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 80
+      "weight": 60
     },
     {
       "element": {
