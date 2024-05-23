@@ -341,21 +341,26 @@ public final class CoffinSpawner {
 			return;
 		}
 
-		Direction direction = CoffinBlock.getConnectedDirection(world.getBlockState(pos));
+		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
 		long currentTime = world.getGameTime();
 		LongArrayList soulsToSpawn = this.data.soulsToSpawn;
 		if (direction != null) {
+			boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+			Direction particleDirection = isNegativeDirection ? direction.getOpposite() : direction;
+			BlockPos particlePos = isNegativeDirection ? pos.relative(direction) : pos;
 			soulsToSpawn.forEach(spawnTime -> {
 				if (spawnTime == currentTime) {
-					double stepX = direction.getStepX() == 0D ? 0.5D : direction.getStepX();
-					double stepZ = direction.getStepZ() == 0D ? 0.5D : direction.getStepZ();
-					double xOffset = stepX * 0.25D;
-					double zOffset = stepZ * 0.25D;
+					double stepX = particleDirection.getStepX();
+					double stepZ = particleDirection.getStepZ();
+					double relativeX = stepX == 0D ? 0.5D : particleDirection.getStepX();
+					double relativeZ = stepZ == 0D ? 0.5D : stepZ;
+					double xOffset = Math.abs(stepX * 0.5D);
+					double zOffset = Math.abs(stepZ * 0.5D);
 					world.sendParticles(
 						RegisterParticles.COFFIN_SOUL_ENTER,
-						pos.getX() + stepX,
-						pos.getY() + 0.9D,
-						pos.getZ() + stepZ,
+						particlePos.getX() + relativeX,
+						particlePos.getY() + 0.95D,
+						particlePos.getZ() + relativeZ,
 						4,
 						xOffset,
 						0D,
