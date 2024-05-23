@@ -3,25 +3,16 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain_blank",
+        "location": "trailiertales:catacombs/decoration/chain/chain_blank",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 90
+      "weight": 150
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain_1",
-        "processors": "trailiertales:catacombs_degradation",
-        "projection": "rigid"
-      },
-      "weight": 7
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain_2",
+        "location": "trailiertales:catacombs/decoration/chain/chain_1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -30,7 +21,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain_3",
+        "location": "trailiertales:catacombs/decoration/chain/chain_2",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -39,7 +30,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain_4",
+        "location": "trailiertales:catacombs/decoration/chain/chain_3",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -48,7 +39,16 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain_5",
+        "location": "trailiertales:catacombs/decoration/chain/chain_4",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 7
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/decoration/chain/chain_5",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
