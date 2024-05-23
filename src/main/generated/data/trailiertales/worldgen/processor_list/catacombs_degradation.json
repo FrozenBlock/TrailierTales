@@ -416,6 +416,19 @@
         },
         {
           "input_predicate": {
+            "block": "minecraft:candle",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.9
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:cave_air"
+          }
+        },
+        {
+          "input_predicate": {
             "block_state": {
               "Name": "minecraft:candle",
               "Properties": {
@@ -565,11 +578,6 @@
           }
         }
       ]
-    },
-    {
-      "integrity": 0.1,
-      "processor_type": "minecraft:block_rot",
-      "rottable_blocks": "minecraft:candle"
     },
     {
       "processor_type": "minecraft:protected_blocks",

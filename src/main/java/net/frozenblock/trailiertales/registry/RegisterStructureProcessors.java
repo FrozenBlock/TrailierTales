@@ -152,6 +152,10 @@ public class RegisterStructureProcessors {
 						),
 
 						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.CANDLE, 0.9F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+						new ProcessorRule(
 							new RandomBlockStateMatchTest(
 								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.15F),
 							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3)
@@ -183,12 +187,6 @@ public class RegisterStructureProcessors {
 							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1).setValue(BlockStateProperties.LIT, true)
 						)
 					)
-				),
-				new BlockRotProcessor(
-					HolderSet.direct(
-						blockHolderGetter.getOrThrow(Blocks.CANDLE.builtInRegistryHolder().key())
-					),
-					0.1F
 				),
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
