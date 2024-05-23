@@ -161,11 +161,11 @@ public class CatacombsGenerator {
 				List.of(
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 150),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 15),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull"), catacombsDegradation), 50),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1"), catacombsDegradation), 25),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull2"), catacombsDegradation), 25),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull3"), catacombsDegradation), 15),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull4"), catacombsDegradation), 15)
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull"), catacombsDegradation), 25),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull2"), catacombsDegradation), 12),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull3"), catacombsDegradation), 5),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull4"), catacombsDegradation), 5)
 
 				),
 				StructureTemplatePool.Projection.RIGID
@@ -178,7 +178,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("decoration/chain_blank"), catacombsDegradation), 100),
+					Pair.of(StructurePoolElement.single(string("decoration/chain_blank"), catacombsDegradation), 80),
 					Pair.of(StructurePoolElement.single(string("decoration/chain_1"), catacombsDegradation), 7),
 					Pair.of(StructurePoolElement.single(string("decoration/chain_2"), catacombsDegradation), 7),
 					Pair.of(StructurePoolElement.single(string("decoration/chain_3"), catacombsDegradation), 7),

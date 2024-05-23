@@ -152,7 +152,7 @@ public class RegisterStructureProcessors {
 						),
 
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.CANDLE, 0.9F),
+							new RandomBlockMatchTest(Blocks.CANDLE, 0.8F),
 							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
 						),
 						new ProcessorRule(
