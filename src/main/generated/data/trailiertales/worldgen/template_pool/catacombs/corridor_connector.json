@@ -160,12 +160,21 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 14
+      "weight": 7
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/caged_chest",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 7
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/two_chest_doors",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },

@@ -128,8 +128,9 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap1"), catacombsDegradation), 3), // Total 4
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap_cobwebs"), catacombsDegradation), 1),
 
-					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 14),
-					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 7)
+					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 7),
+					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 7),
+					Pair.of(StructurePoolElement.single(string("tomb/two_chest_doors"), catacombsDegradation), 7)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
