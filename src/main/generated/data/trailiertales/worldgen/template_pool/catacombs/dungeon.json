@@ -3,20 +3,11 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/skull_left_chest",
+        "location": "trailiertales:catacombs/dungeon/dungeon1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 9
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/skull_right_chest",
-        "processors": "trailiertales:catacombs_degradation",
-        "projection": "rigid"
-      },
-      "weight": 9
+      "weight": 1
     }
   ],
   "fallback": "minecraft:empty"
