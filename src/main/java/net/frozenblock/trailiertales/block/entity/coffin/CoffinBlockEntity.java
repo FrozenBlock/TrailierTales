@@ -35,9 +35,8 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
 		super(RegisterBlockEntities.COFFIN, pos, state);
-		PlayerDetector playerDetector = CoffinSpawner.IN_CATACOMBS_NO_CREATIVE_PLAYERS;
 		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
-		this.coffinSpawner = new CoffinSpawner(this, playerDetector, entitySelector);
+		this.coffinSpawner = new CoffinSpawner(this, entitySelector);
 	}
 
 	public float getOpenProgress(float partialTick) {

@@ -23,6 +23,7 @@ import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.SpawnData;
+import net.minecraft.world.level.block.LevelEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class CoffinSpawnerData {
@@ -85,9 +86,9 @@ public class CoffinSpawnerData {
 		this.currentMobs.clear();
 	}
 
-	public boolean hasMobToSpawnAndSeesPlayer(CoffinSpawner spawnerLogic, RandomSource random) {
+	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random) {
 		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
-		return (hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty()) && this.detectedAnyPlayers();
+		return hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
 	}
 
 	public boolean hasFinishedSpawningAllMobs(@NotNull CoffinSpawnerConfig config, int players) {
@@ -133,8 +134,7 @@ public class CoffinSpawnerData {
 				.detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 
 			if (this.detectedPlayers.addAll(list)) {
-				int i = 3013;
-				world.levelEvent(i, pos, this.detectedPlayers.size());
+				world.levelEvent(LevelEvent.PARTICLES_TRIAL_SPAWNER_DETECT_PLAYER, pos, this.detectedPlayers.size());
 			}
 
 			this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));

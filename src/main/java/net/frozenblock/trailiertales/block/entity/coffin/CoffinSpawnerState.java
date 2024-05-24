@@ -26,12 +26,12 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		CoffinSpawnerState nextState;
-		switch(this) {
+		switch (this) {
 			case INACTIVE:
-				nextState = coffinSpawnerData.hasMobToSpawnAndSeesPlayer(spawner, level.random) ? ACTIVE : INACTIVE;
+				nextState = coffinSpawnerData.hasMobToSpawn(spawner, level.random) ? ACTIVE : INACTIVE;
 				break;
 			case ACTIVE:
-				if (!coffinSpawnerData.hasMobToSpawnAndSeesPlayer(spawner, level.random)) {
+				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
 					nextState = INACTIVE;
 				} else {
 					int i = coffinSpawnerData.countAdditionalPlayers();
@@ -66,7 +66,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				}
 				break;
 			case IRRITATED:
-				if (!coffinSpawnerData.hasMobToSpawnAndSeesPlayer(spawner, level.random)) {
+				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
 					nextState = INACTIVE;
 				} else {
 					int i = coffinSpawnerData.countAdditionalPlayers();
@@ -101,7 +101,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				}
 				break;
 			case AGGRESSIVE:
-				if (!coffinSpawnerData.hasMobToSpawnAndSeesPlayer(spawner, level.random)) {
+				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
 					nextState = INACTIVE;
 				} else {
 					int i = coffinSpawnerData.countAdditionalPlayers();

@@ -77,7 +77,8 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("dungeon/dungeon1"), catacombsDegradation), 1)
+					Pair.of(StructurePoolElement.single(string("tomb/skull_left_chest"), catacombsDegradation), 9),
+					Pair.of(StructurePoolElement.single(string("tomb/skull_right_chest"), catacombsDegradation), 9)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -131,9 +132,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 6),
 					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 8),
 					Pair.of(StructurePoolElement.single(string("tomb/two_chest_doors"), catacombsDegradation), 8),
-					Pair.of(StructurePoolElement.single(string("tomb/small_fancy_tomb"), catacombsDegradation), 8),
-					Pair.of(StructurePoolElement.single(string("tomb/skull_left_chest"), catacombsDegradation), 4),
-					Pair.of(StructurePoolElement.single(string("tomb/skull_right_chest"), catacombsDegradation), 4)
+					Pair.of(StructurePoolElement.single(string("tomb/small_fancy_tomb"), catacombsDegradation), 8)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -163,8 +162,8 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 35),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 15),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 27),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 8),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull"), catacombsDegradation), 25),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1"), catacombsDegradation), 12),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull2"), catacombsDegradation), 12),
