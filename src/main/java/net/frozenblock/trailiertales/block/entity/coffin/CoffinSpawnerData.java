@@ -85,9 +85,9 @@ public class CoffinSpawnerData {
 		this.currentMobs.clear();
 	}
 
-	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random) {
-		boolean bl = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
-		return bl || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
+	public boolean hasMobToSpawnAndSeesPlayer(CoffinSpawner spawnerLogic, RandomSource random) {
+		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
+		return (hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty()) && this.detectedAnyPlayers();
 	}
 
 	public boolean hasFinishedSpawningAllMobs(@NotNull CoffinSpawnerConfig config, int players) {
