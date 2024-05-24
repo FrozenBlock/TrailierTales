@@ -134,6 +134,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/small_fancy_tomb"), catacombsDegradation), 4),
 					Pair.of(StructurePoolElement.single(string("tomb/skull_left_chest"), catacombsDegradation), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/skull_right_chest"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/buried1"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/buried2"), catacombsDegradation), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle1"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle2"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle3"), catacombsDegradation), 1),
