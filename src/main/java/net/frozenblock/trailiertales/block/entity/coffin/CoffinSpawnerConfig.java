@@ -22,8 +22,8 @@ public record CoffinSpawnerConfig(
 ) {
 	public static final CoffinSpawnerConfig DEFAULT = new CoffinSpawnerConfig(
 		4,
-		6F,
-		6F,
+		4F,
+		2F,
 		2F,
 		2F,
 		400,
@@ -35,31 +35,31 @@ public record CoffinSpawnerConfig(
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		4,
-		8F,
+		5F,
 		2F,
 		2F,
 		2F,
 		240,
 		8,
 		SimpleWeightedRandomList.<SpawnData>builder()
-			.add(new SpawnData(getSpawnCompound(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 1)
+			.add(new SpawnData(getSpawnCompound(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 2)
 			.add(new SpawnData(getSpawnCompound(EntityType.SKELETON), Optional.empty(), Optional.empty()), 5)
-			.add(new SpawnData(getSpawnCompoundBaby(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 3)
+			.add(new SpawnData(getSpawnCompoundBaby(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 2)
 			.add(new SpawnData(getSpawnCompound(EntityType.STRAY), Optional.empty(), Optional.empty()), 1)
 			.build()
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		4,
-		8F,
-		8F,
+		6F,
+		3F,
 		3F,
 		2F,
 		120,
 		8,
 		SimpleWeightedRandomList.<SpawnData>builder()
 			.add(new SpawnData(getSpawnCompound(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 3)
-			.add(new SpawnData(getSpawnCompound(EntityType.SKELETON), Optional.empty(), Optional.empty()), 10)
-			.add(new SpawnData(getSpawnCompoundBaby(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 10)
+			.add(new SpawnData(getSpawnCompound(EntityType.SKELETON), Optional.empty(), Optional.empty()), 9)
+			.add(new SpawnData(getSpawnCompoundBaby(EntityType.ZOMBIE), Optional.empty(), Optional.empty()), 3)
 			.add(new SpawnData(getSpawnCompound(EntityType.STRAY), Optional.empty(), Optional.empty()), 6)
 			.add(new SpawnData(getSpawnCompound(EntityType.BOGGED), Optional.empty(), Optional.empty()), 4)
 			.add(new SpawnData(getSpawnCompound(EntityType.HUSK), Optional.empty(), Optional.empty()), 4)

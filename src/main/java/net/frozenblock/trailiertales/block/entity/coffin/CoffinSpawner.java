@@ -55,7 +55,7 @@ public final class CoffinSpawner {
 			world, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
 		)
 		.stream()
-		.filter(player -> !bl || isInCatacombsBounds(pos, world.structureManager()))
+		.filter(player -> !bl || isInCatacombsBounds(player.blockPosition(), world.structureManager()))
 		.map(Entity::getUUID)
 		.toList();
 	private final CoffinSpawnerConfig normalConfig;
@@ -65,7 +65,6 @@ public final class CoffinSpawner {
 	private final int requiredPlayerRange;
 	private final int powerCooldownLength;
 	private final CoffinSpawner.StateAccessor stateAccessor;
-	private PlayerDetector playerDetector;
 	private final PlayerDetector.EntitySelector entitySelector;
 	private boolean overridePeacefulAndMobSpawnRule;
 	private final UUID uuid;
@@ -86,7 +85,7 @@ public final class CoffinSpawner {
 				.apply(
 					instance,
 					(config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn) -> new CoffinSpawner(
-						config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor, this.playerDetector, this.entitySelector
+						config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor, this.entitySelector
 					)
 				)
 		);
@@ -98,7 +97,7 @@ public final class CoffinSpawner {
 		return compoundTag;
 	}
 
-	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector playerDetector, PlayerDetector.EntitySelector playerDetectionSelector) {
+	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector.EntitySelector playerDetectionSelector) {
 		this(
 			CoffinSpawnerConfig.DEFAULT,
 			CoffinSpawnerConfig.IRRITATED,
@@ -109,7 +108,6 @@ public final class CoffinSpawner {
 			UUID.randomUUID().toString(),
 			false,
 			coffin,
-			playerDetector,
 			playerDetectionSelector
 		);
 	}
@@ -124,7 +122,6 @@ public final class CoffinSpawner {
 		String uuid,
 		boolean attemptingToSpawnMob,
 		CoffinSpawner.StateAccessor coffin,
-		PlayerDetector playerDetector,
 		PlayerDetector.EntitySelector playerDetectionSelector
 	) {
 		this.normalConfig = normalConfig;
@@ -136,7 +133,6 @@ public final class CoffinSpawner {
 		this.uuid = UUID.fromString(uuid);
 		this.attemptingToSpawnMob = attemptingToSpawnMob;
 		this.stateAccessor = coffin;
-		this.playerDetector = playerDetector;
 		this.entitySelector = playerDetectionSelector;
 	}
 
@@ -209,7 +205,7 @@ public final class CoffinSpawner {
 	}
 
 	public PlayerDetector getPlayerDetector() {
-		return this.playerDetector;
+		return this.data.withinCatacombs ? IN_CATACOMBS_NO_CREATIVE_PLAYERS : PlayerDetector.NO_CREATIVE_PLAYERS;
 	}
 
 	public PlayerDetector.EntitySelector getEntitySelector() {
@@ -380,9 +376,6 @@ public final class CoffinSpawner {
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			this.setPlayerDetector(
-				this.data.withinCatacombs ? IN_CATACOMBS_NO_CREATIVE_PLAYERS : PlayerDetector.NO_CREATIVE_PLAYERS
-			);
 			this.data.currentMobs.removeIf(uiid -> shouldMobBeUntracked(world, pos, uiid));
 
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world);
@@ -430,11 +423,6 @@ public final class CoffinSpawner {
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
 		Structure structure = structureManager.registryAccess().registryOrThrow(Registries.STRUCTURE).get(CatacombsGenerator.CATACOMBS_KEY);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
-	}
-
-	@VisibleForTesting
-	public void setPlayerDetector(PlayerDetector playerDetector) {
-		this.playerDetector = playerDetector;
 	}
 
 	@VisibleForTesting

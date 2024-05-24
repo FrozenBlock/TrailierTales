@@ -128,9 +128,18 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap1"), catacombsDegradation), 3), // Total 4
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap_cobwebs"), catacombsDegradation), 1),
 
-					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 7),
-					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 7),
-					Pair.of(StructurePoolElement.single(string("tomb/two_chest_doors"), catacombsDegradation), 7)
+					Pair.of(StructurePoolElement.single(string("tomb/two_coffins1"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("tomb/two_chest_doors"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("tomb/small_fancy_tomb"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("tomb/skull_left_chest"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/skull_right_chest"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/buried1"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/buried2"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle1"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle2"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle3"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle4"), catacombsDegradation), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -160,8 +169,8 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 35),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 15),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/blank"), catacombsDegradation), 20),
+					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern"), catacombsDegradation), 6),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull"), catacombsDegradation), 25),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1"), catacombsDegradation), 12),
 					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull2"), catacombsDegradation), 12),
