@@ -3,56 +3,47 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/skull",
+        "location": "trailiertales:catacombs/decoration/chain/chain_blank",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 50
+      "weight": 150
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/skull1",
+        "location": "trailiertales:catacombs/decoration/chain/chain_1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 18
+      "weight": 2
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/skull2",
+        "location": "trailiertales:catacombs/decoration/chain/chain_2",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 18
+      "weight": 2
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/skull3",
+        "location": "trailiertales:catacombs/decoration/chain/chain_3",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 6
+      "weight": 3
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/skull4",
+        "location": "trailiertales:catacombs/decoration/chain/chain_4",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 6
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/blank",
-        "processors": "trailiertales:catacombs_degradation",
-        "projection": "rigid"
-      },
-      "weight": 123
+      "weight": 3
     }
   ],
   "fallback": "minecraft:empty"
