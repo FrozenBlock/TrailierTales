@@ -156,15 +156,6 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/two_coffins1",
-        "processors": "trailiertales:catacombs_degradation",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/caged_chest",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
@@ -192,7 +183,16 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/small_fancy_tomb1",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb2",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_split_sides",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
