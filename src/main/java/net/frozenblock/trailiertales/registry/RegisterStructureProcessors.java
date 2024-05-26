@@ -6,6 +6,7 @@ import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -13,7 +14,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
@@ -71,8 +75,6 @@ public class RegisterStructureProcessors {
 			ImmutableList.of(
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.SKELETON_SKULL, 0.55F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
-
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
 
@@ -113,12 +115,74 @@ public class RegisterStructureProcessors {
 						),
 
 						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+
+						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.425F),
 							AlwaysTrueTest.INSTANCE, Blocks.TUFF.defaultBlockState()
 						),
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.9225F),
 							AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.COBWEB, 0.65F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.CANDLE, 0.8F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.5F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 2)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.7F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1)
+						),
+
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3).setValue(BlockStateProperties.LIT, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.5F),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 2).setValue(BlockStateProperties.LIT, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.7F),
+							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1).setValue(BlockStateProperties.LIT, true)
 						)
 					)
 				),

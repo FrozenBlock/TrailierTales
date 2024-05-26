@@ -3,14 +3,18 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -51,7 +55,7 @@ public final class CoffinSpawner {
 			world, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
 		)
 		.stream()
-		.filter(player -> !bl || isInCatacombsBounds(pos, world.structureManager()))
+		.filter(player -> !bl || isInCatacombsBounds(player.blockPosition(), world.structureManager()))
 		.map(Entity::getUUID)
 		.toList();
 	private final CoffinSpawnerConfig normalConfig;
@@ -61,10 +65,8 @@ public final class CoffinSpawner {
 	private final int requiredPlayerRange;
 	private final int powerCooldownLength;
 	private final CoffinSpawner.StateAccessor stateAccessor;
-	private PlayerDetector playerDetector;
 	private final PlayerDetector.EntitySelector entitySelector;
 	private boolean overridePeacefulAndMobSpawnRule;
-	private boolean firstTickRun;
 	private final UUID uuid;
 	private boolean attemptingToSpawnMob;
 
@@ -77,14 +79,13 @@ public final class CoffinSpawner {
 					CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
 					Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 18000).forGetter(CoffinSpawner::getPowerCooldownLength),
 					Codec.intRange(1, MAX_MOB_TRACKING_DISTANCE).optionalFieldOf("required_player_range", MAX_MOB_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
-					Codec.BOOL.optionalFieldOf("first_tick_run", false).forGetter(CoffinSpawner::firstTickRun),
 					Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID),
 					Codec.BOOL.optionalFieldOf("attempting_to_spawn_mob", false).forGetter(CoffinSpawner::isAttemptingToSpawnMob)
 				)
 				.apply(
 					instance,
-					(config, config2, config3, data, powerCooldownLength, integer, firstTickRun, uuid, attemptingSpawn) -> new CoffinSpawner(
-						config, config2, config3, data, powerCooldownLength, integer, firstTickRun, uuid, attemptingSpawn, this.stateAccessor, this.playerDetector, this.entitySelector
+					(config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn) -> new CoffinSpawner(
+						config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor, this.entitySelector
 					)
 				)
 		);
@@ -96,7 +97,7 @@ public final class CoffinSpawner {
 		return compoundTag;
 	}
 
-	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector playerDetector, PlayerDetector.EntitySelector playerDetectionSelector) {
+	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector.EntitySelector playerDetectionSelector) {
 		this(
 			CoffinSpawnerConfig.DEFAULT,
 			CoffinSpawnerConfig.IRRITATED,
@@ -104,11 +105,9 @@ public final class CoffinSpawner {
 			new CoffinSpawnerData(),
 			18000,
 			MAX_MOB_TRACKING_DISTANCE,
-			false,
 			UUID.randomUUID().toString(),
 			false,
 			coffin,
-			playerDetector,
 			playerDetectionSelector
 		);
 	}
@@ -120,11 +119,9 @@ public final class CoffinSpawner {
 		CoffinSpawnerData data,
 		int powerCooldownLength,
 		int requiredPlayerRange,
-		boolean firstTickRun,
 		String uuid,
 		boolean attemptingToSpawnMob,
 		CoffinSpawner.StateAccessor coffin,
-		PlayerDetector playerDetector,
 		PlayerDetector.EntitySelector playerDetectionSelector
 	) {
 		this.normalConfig = normalConfig;
@@ -133,11 +130,9 @@ public final class CoffinSpawner {
 		this.data = data;
 		this.powerCooldownLength = powerCooldownLength;
 		this.requiredPlayerRange = requiredPlayerRange;
-		this.firstTickRun = firstTickRun;
 		this.uuid = UUID.fromString(uuid);
 		this.attemptingToSpawnMob = attemptingToSpawnMob;
 		this.stateAccessor = coffin;
-		this.playerDetector = playerDetector;
 		this.entitySelector = playerDetectionSelector;
 	}
 
@@ -176,14 +171,6 @@ public final class CoffinSpawner {
 		return this.requiredPlayerRange;
 	}
 
-	public boolean firstTickRun() {
-		return this.firstTickRun;
-	}
-
-	public void setFirstTickRun(boolean firstTickRun) {
-		this.firstTickRun = firstTickRun;
-	}
-
 	public UUID getUUID() {
 		return this.uuid;
 	}
@@ -201,6 +188,10 @@ public final class CoffinSpawner {
 		this.data.powerCooldownEndsAt = level.getGameTime() + this.powerCooldownLength;
 	}
 
+	public void addSoulParticle(long delayUntilSpawn, @NotNull Level level) {
+		this.data.soulsToSpawn.add(level.getGameTime() + delayUntilSpawn);
+	}
+
 	public CoffinSpawnerState getState() {
 		return this.stateAccessor.getState();
 	}
@@ -214,7 +205,7 @@ public final class CoffinSpawner {
 	}
 
 	public PlayerDetector getPlayerDetector() {
-		return this.playerDetector;
+		return this.data.withinCatacombs ? IN_CATACOMBS_NO_CREATIVE_PLAYERS : PlayerDetector.NO_CREATIVE_PLAYERS;
 	}
 
 	public PlayerDetector.EntitySelector getEntitySelector() {
@@ -287,11 +278,9 @@ public final class CoffinSpawner {
 							if (!level.tryAddFreshEntityWithPassengers(entity)) {
 								return Optional.empty();
 							} else {
-								//level.levelEvent(3011, pos, flameParticle.encode());
-								//level.levelEvent(3012, blockPos, flameParticle.encode());
 								level.playSound(
 									null,
-									pos,
+									entity,
 									RegisterSounds.COFFIN_SPAWN_MOB,
 									SoundSource.BLOCKS,
 									1F,
@@ -348,6 +337,38 @@ public final class CoffinSpawner {
 			return;
 		}
 
+		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
+		long currentTime = world.getGameTime();
+		LongArrayList soulsToSpawn = this.data.soulsToSpawn;
+		if (direction != null && !soulsToSpawn.isEmpty()) {
+			boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+			boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
+			boolean isOppositeZ = isNegativeDirection && direction.getAxis() == Direction.Axis.Z;
+			soulsToSpawn.forEach(spawnTime -> {
+				if (spawnTime == currentTime) {
+					double stepX = direction.getStepX();
+					double stepZ = direction.getStepZ();
+					double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+					double relativeZ = isOppositeZ ? 0D :  stepZ == 0D ? 0.5D : stepZ;
+					double xOffset = Math.abs(stepX * 0.35D);
+					double zOffset = Math.abs(stepZ * 0.35D);
+					world.sendParticles(
+						RegisterParticles.COFFIN_SOUL_ENTER,
+						pos.getX() + relativeX,
+						pos.getY() + 0.95D,
+						pos.getZ() + relativeZ,
+						4,
+						xOffset,
+						0D,
+						zOffset,
+						0D
+					);
+					this.addPower(1, world);
+				}
+			});
+		}
+		soulsToSpawn.removeIf(spawnTime -> spawnTime == currentTime);
+
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
 			if (currentState.isCapableOfSpawning()) {
@@ -355,13 +376,6 @@ public final class CoffinSpawner {
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			if (!this.firstTickRun) {
-				this.data.withinCatacombs = isInCatacombsBounds(pos, world.structureManager());
-				this.firstTickRun = true;
-			}
-			this.setPlayerDetector(
-				this.data.withinCatacombs ? IN_CATACOMBS_NO_CREATIVE_PLAYERS : PlayerDetector.NO_CREATIVE_PLAYERS
-			);
 			this.data.currentMobs.removeIf(uiid -> shouldMobBeUntracked(world, pos, uiid));
 
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world);
@@ -409,11 +423,6 @@ public final class CoffinSpawner {
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
 		Structure structure = structureManager.registryAccess().registryOrThrow(Registries.STRUCTURE).get(CatacombsGenerator.CATACOMBS_KEY);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
-	}
-
-	@VisibleForTesting
-	public void setPlayerDetector(PlayerDetector playerDetector) {
-		this.playerDetector = playerDetector;
 	}
 
 	@VisibleForTesting

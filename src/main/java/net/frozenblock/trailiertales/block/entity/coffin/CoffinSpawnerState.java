@@ -26,7 +26,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		CoffinSpawnerState nextState;
-		switch(this) {
+		switch (this) {
 			case INACTIVE:
 				nextState = coffinSpawnerData.hasMobToSpawn(spawner, level.random) ? ACTIVE : INACTIVE;
 				break;

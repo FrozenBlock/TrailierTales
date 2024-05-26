@@ -1,16 +1,25 @@
 package net.frozenblock.trailiertales.datagen.model;
 
+import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTModelProvider extends FabricModelProvider {
+	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -38,6 +47,11 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(RegisterBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
+
+		generator.blockEntityModels(TrailierTalesSharedConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
+			.createWithoutBlockItem(
+				RegisterBlocks.COFFIN
+			);
 	}
 
 	@Override
@@ -45,5 +59,11 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.BULLSEYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		COFFIN_INVENTORY.create(ModelLocationUtils.getModelLocation(RegisterBlocks.COFFIN.asItem()), TextureMapping.particle(Blocks.DEEPSLATE_BRICKS), generator.output);
+	}
+
+	@Contract("_, _ -> new")
+	private static @NotNull ModelTemplate createItem(String itemModelLocation, TextureSlot... requiredSlots) {
+		return new ModelTemplate(Optional.of(TrailierTalesSharedConstants.id("item/" + itemModelLocation)), Optional.empty(), requiredSlots);
 	}
 }

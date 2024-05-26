@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -22,11 +23,13 @@ import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.SpawnData;
+import net.minecraft.world.level.block.LevelEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
+				Codec.LONG.listOf().lenientOptionalFieldOf("souls_to_spawn", new LongArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
 				Codec.LONG.lenientOptionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
@@ -39,6 +42,7 @@ public class CoffinSpawnerData {
 			.apply(instance, CoffinSpawnerData::new)
 	);
 
+	protected final LongArrayList soulsToSpawn = new LongArrayList();
 	protected final Set<UUID> detectedPlayers = new HashSet<>();
 	protected final Set<UUID> currentMobs = new HashSet<>();
 	protected long powerCooldownEndsAt;
@@ -49,10 +53,11 @@ public class CoffinSpawnerData {
 	protected boolean withinCatacombs;
 
 	public CoffinSpawnerData() {
-		this(Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false);
+		this(new LongArrayList(), Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false);
 	}
 
 	public CoffinSpawnerData(
+		List<Long> soulsToSpawn,
 		Set<UUID> detectedPlayers,
 		Set<UUID> currentMobs,
 		long powerCooldownEndsAt,
@@ -62,6 +67,7 @@ public class CoffinSpawnerData {
 		Optional<SpawnData> nextSpawnData,
 		boolean withinCatacombs
 	) {
+		this.soulsToSpawn.addAll(soulsToSpawn);
 		this.detectedPlayers.addAll(detectedPlayers);
 		this.currentMobs.addAll(currentMobs);
 		this.powerCooldownEndsAt = powerCooldownEndsAt;
@@ -81,8 +87,8 @@ public class CoffinSpawnerData {
 	}
 
 	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random) {
-		boolean bl = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
-		return bl || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
+		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
+		return hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
 	}
 
 	public boolean hasFinishedSpawningAllMobs(@NotNull CoffinSpawnerConfig config, int players) {
@@ -128,8 +134,7 @@ public class CoffinSpawnerData {
 				.detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 
 			if (this.detectedPlayers.addAll(list)) {
-				int i = 3013;
-				world.levelEvent(i, pos, this.detectedPlayers.size());
+				world.levelEvent(LevelEvent.PARTICLES_TRIAL_SPAWNER_DETECT_PLAYER, pos, this.detectedPlayers.size());
 			}
 
 			this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));
