@@ -183,7 +183,16 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/small_fancy_tomb",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb1",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
