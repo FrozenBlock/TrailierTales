@@ -152,6 +152,114 @@
               "Name": "minecraft:deepslate_tile_stairs",
               "Properties": {
                 "facing": "north",
+                "half": "top",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_tile_stairs",
+            "Properties": {
+              "facing": "north",
+              "half": "top",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_tile_stairs",
+              "Properties": {
+                "facing": "east",
+                "half": "top",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_tile_stairs",
+            "Properties": {
+              "facing": "east",
+              "half": "top",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_tile_stairs",
+              "Properties": {
+                "facing": "south",
+                "half": "top",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_tile_stairs",
+            "Properties": {
+              "facing": "south",
+              "half": "top",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_tile_stairs",
+              "Properties": {
+                "facing": "west",
+                "half": "top",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_tile_stairs",
+            "Properties": {
+              "facing": "west",
+              "half": "top",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_tile_stairs",
+              "Properties": {
+                "facing": "north",
                 "half": "bottom",
                 "shape": "straight",
                 "waterlogged": "false"
@@ -357,6 +465,114 @@
             "Properties": {
               "facing": "west",
               "half": "top",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_brick_stairs",
+              "Properties": {
+                "facing": "north",
+                "half": "bottom",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_brick_stairs",
+            "Properties": {
+              "facing": "north",
+              "half": "bottom",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_brick_stairs",
+              "Properties": {
+                "facing": "east",
+                "half": "bottom",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_brick_stairs",
+            "Properties": {
+              "facing": "east",
+              "half": "bottom",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_brick_stairs",
+              "Properties": {
+                "facing": "south",
+                "half": "bottom",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_brick_stairs",
+            "Properties": {
+              "facing": "south",
+              "half": "bottom",
+              "shape": "straight",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:deepslate_brick_stairs",
+              "Properties": {
+                "facing": "west",
+                "half": "bottom",
+                "shape": "straight",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:mossy_deepslate_brick_stairs",
+            "Properties": {
+              "facing": "west",
+              "half": "bottom",
               "shape": "straight",
               "waterlogged": "false"
             }
