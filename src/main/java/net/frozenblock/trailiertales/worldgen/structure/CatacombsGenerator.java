@@ -89,7 +89,29 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("corridor/corridor1"), catacombsDegradation), 20)
+					Pair.of(StructurePoolElement.single(string("corridor/corridor1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor3"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor4"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor5"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_arch1"), catacombsDegradation), 6),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_arch2"), catacombsDegradation), 6),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_buried1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_buried2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_buried3"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_buried4"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_door1"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_door2"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_pillar1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_pillar2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_pillar3"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_pillar4"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_buried1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_thin1"), catacombsDegradation), 6),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_thin2"), catacombsDegradation), 6),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_room1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_room2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_room3"), catacombsDegradation), 3)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
