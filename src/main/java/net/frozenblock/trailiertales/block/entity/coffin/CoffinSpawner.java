@@ -338,36 +338,40 @@ public final class CoffinSpawner {
 		}
 
 		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
+		boolean coffinBlocked = false;
 		long currentTime = world.getGameTime();
 		LongArrayList soulsToSpawn = this.data.soulsToSpawn;
-		if (direction != null && !soulsToSpawn.isEmpty()) {
-			boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
-			boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
-			boolean isOppositeZ = isNegativeDirection && direction.getAxis() == Direction.Axis.Z;
-			soulsToSpawn.forEach(spawnTime -> {
-				if (spawnTime == currentTime) {
-					double stepX = direction.getStepX();
-					double stepZ = direction.getStepZ();
-					double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
-					double relativeZ = isOppositeZ ? 0D :  stepZ == 0D ? 0.5D : stepZ;
-					double xOffset = Math.abs(stepX * 0.35D);
-					double zOffset = Math.abs(stepZ * 0.35D);
-					world.sendParticles(
-						RegisterParticles.COFFIN_SOUL_ENTER,
-						pos.getX() + relativeX,
-						pos.getY() + 0.95D,
-						pos.getZ() + relativeZ,
+		if (direction != null) {
+			coffinBlocked = CoffinBlock.isCoffinBlockedAt(direction, world, pos);
+			if (!soulsToSpawn.isEmpty()) {
+				boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+				boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
+				boolean isOppositeZ = isNegativeDirection && direction.getAxis() == Direction.Axis.Z;
+				soulsToSpawn.forEach(spawnTime -> {
+					if (spawnTime >= currentTime) {
+						double stepX = direction.getStepX();
+						double stepZ = direction.getStepZ();
+						double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+						double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+						double xOffset = Math.abs(stepX * 0.35D);
+						double zOffset = Math.abs(stepZ * 0.35D);
+						world.sendParticles(
+							RegisterParticles.COFFIN_SOUL_ENTER,
+							pos.getX() + relativeX,
+							pos.getY() + 0.95D,
+							pos.getZ() + relativeZ,
 						4,
-						xOffset,
-						0D,
-						zOffset,
-						0D
-					);
-					this.addPower(1, world);
-				}
-			});
+							xOffset,
+							0D,
+							zOffset,
+							0D
+						);
+						this.addPower(1, world);
+					}
+				});
+			}
 		}
-		soulsToSpawn.removeIf(spawnTime -> spawnTime == currentTime);
+		soulsToSpawn.removeIf(spawnTime -> spawnTime >= currentTime);
 
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
@@ -378,7 +382,7 @@ public final class CoffinSpawner {
 		} else {
 			this.data.currentMobs.removeIf(uiid -> shouldMobBeUntracked(world, pos, uiid));
 
-			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world);
+			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world, coffinBlocked);
 			if (nextState != currentState) {
 				this.setState(world, nextState);
 			}

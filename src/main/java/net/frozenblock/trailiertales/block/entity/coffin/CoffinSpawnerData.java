@@ -86,7 +86,10 @@ public class CoffinSpawnerData {
 		this.currentMobs.clear();
 	}
 
-	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random) {
+	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random, boolean blocked) {
+		if (blocked) {
+			return false;
+		}
 		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
 		return hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
 	}

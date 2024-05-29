@@ -42,16 +42,16 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		return TrailierTalesSharedConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName +".png");
 	}
 
-	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level) {
+	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		CoffinSpawnerState nextState;
 		switch (this) {
 			case INACTIVE:
-				nextState = coffinSpawnerData.hasMobToSpawn(spawner, level.random) ? ACTIVE : INACTIVE;
+				nextState = coffinSpawnerData.hasMobToSpawn(spawner, level.random, blocked) ? ACTIVE : INACTIVE;
 				break;
 			case ACTIVE:
-				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
+				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random, blocked)) {
 					nextState = INACTIVE;
 				} else {
 					int i = coffinSpawnerData.countAdditionalPlayers();
@@ -86,7 +86,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				}
 				break;
 			case IRRITATED:
-				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
+				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random, blocked)) {
 					nextState = INACTIVE;
 				} else {
 					int i = coffinSpawnerData.countAdditionalPlayers();
@@ -121,7 +121,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				}
 				break;
 			case AGGRESSIVE:
-				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
+				if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random, blocked)) {
 					nextState = INACTIVE;
 				} else {
 					int i = coffinSpawnerData.countAdditionalPlayers();
