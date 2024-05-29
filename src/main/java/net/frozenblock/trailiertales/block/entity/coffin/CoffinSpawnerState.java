@@ -1,9 +1,12 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.Optional;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public enum CoffinSpawnerState implements StringRepresentable {
@@ -15,11 +18,28 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;
+	private final ResourceLocation headTexture;
+	private final ResourceLocation footTexture;
 
 	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning) {
 		this.name = name;
 		this.lightLevel = lightLevel;
 		this.isCapableOfSpawning = isCapableOfSpawning;
+		this.headTexture = getTexture(name, false);
+		this.footTexture = getTexture(name, true);
+	}
+
+	public ResourceLocation getHeadTexture() {
+		return this.headTexture;
+	}
+
+	public ResourceLocation getFootTexture() {
+		return this.footTexture;
+	}
+
+	@Contract("_, _ -> new")
+	private static @NotNull ResourceLocation getTexture(String stateName, boolean foot) {
+		return TrailierTalesSharedConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName +".png");
 	}
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level) {
