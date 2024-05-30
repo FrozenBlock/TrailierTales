@@ -2,7 +2,6 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.List;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
@@ -10,19 +9,15 @@ import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -186,11 +181,24 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}
 
+	public static boolean isCoffinBlockedAt(Direction direction, @NotNull BlockGetter level, BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		direction = state.getValue(PART) == CoffinPart.HEAD ? direction.getOpposite() : direction;
+		return isCoffinHalfBlockedAt(level, pos) || isCoffinHalfBlockedAt(level, pos.relative(direction));
+	}
+
+	private static boolean isCoffinHalfBlockedAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
+		BlockPos blockPos = pos.above();
+		return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
+	}
+
+	/*
 	@Override
 	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag options) {
 		super.appendHoverText(stack, tooltipContext, tooltip, options);
 		Spawner.appendHoverText(stack, tooltip, "spawn_data");
 	}
+	 */
 
 	@Nullable
 	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(

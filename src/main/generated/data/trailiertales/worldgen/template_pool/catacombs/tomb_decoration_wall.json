@@ -44,6 +44,15 @@
         "projection": "rigid"
       },
       "weight": 6
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/decoration/blank",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 123
     }
   ],
   "fallback": "minecraft:empty"
