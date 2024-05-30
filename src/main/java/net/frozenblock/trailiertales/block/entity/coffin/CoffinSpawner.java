@@ -47,6 +47,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class CoffinSpawner {
 	private static final int MAX_MOB_TRACKING_DISTANCE = 76;
@@ -316,20 +317,24 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public void updateAttemptingToSpawn(@NotNull ServerLevel level) {
-		boolean isAttempting = this.isAttemptingToSpawnMob(level);
+	public void updateAttemptingToSpawn(@NotNull ServerLevel level, BlockPos pos, @Nullable Direction direction) {
+		boolean isAttempting = this.isAttemptingToSpawnMob(level, pos, direction);
 		if (isAttempting != this.attemptingToSpawnMob) {
 			this.attemptingToSpawnMob = isAttempting;
 			this.markUpdated();
 		}
 	}
 
-	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level) {
+	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level, BlockPos pos, @Nullable Direction direction) {
 		int additionalPlayers = this.data.countAdditionalPlayers();
 		boolean isPreparing = this.data.isPreparingToSpawnNextMob(level, this.getConfig(), additionalPlayers, 45);
 		boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
 		boolean canSpawnInLevel = this.canSpawnInLevel(level) && this.getState().isCapableOfSpawning();
-		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
+		boolean blocked = false;
+		if (direction != null) {
+			blocked = CoffinBlock.isCoffinBlockedAt(direction, level, pos);
+		}
+		return isPreparing && !finishedSpawningMobs && canSpawnInLevel && !blocked;
 	}
 
 	public void tickServer(ServerLevel world, BlockPos pos, CoffinPart part, boolean ominous) {
@@ -387,7 +392,7 @@ public final class CoffinSpawner {
 				this.setState(world, nextState);
 			}
 		}
-		this.updateAttemptingToSpawn(world);
+		this.updateAttemptingToSpawn(world, pos, direction);
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos,UUID uuid) {
