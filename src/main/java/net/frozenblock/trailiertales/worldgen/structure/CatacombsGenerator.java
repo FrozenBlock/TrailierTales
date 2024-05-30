@@ -152,30 +152,73 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/connector_room2"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/connector_room3"), catacombsDegradation), 3),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all1"), catacombsDegradation), 36), // Total 40
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all_cobwebs"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all1"), catacombsDegradation), 4), // Total 36
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all2"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all3"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all4"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all5"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all_door1"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all_door2"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_all"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_all"), catacombsDegradation), 4),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left1"), catacombsDegradation), 18), // Total 20
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_cobwebs"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left1"), catacombsDegradation), 2), // Total 18
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left2"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left3"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left4"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left5"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_door1"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_door2"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left"), catacombsDegradation), 2),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front1"), catacombsDegradation), 28), // Total 30
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front_cobwebs"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front1"), catacombsDegradation), 3), // Total 27
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front3"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front4"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front5"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front_door1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front_door2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_front"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_front"), catacombsDegradation), 3),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right1"), catacombsDegradation), 28), // Total 30
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right_cobwebs"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right1"), catacombsDegradation), 3), // Total 27
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right3"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right4"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right5"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right_door1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right_door2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_right"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_right"), catacombsDegradation), 3),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right1"), catacombsDegradation), 18), // Total 20
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right1"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right1"), catacombsDegradation), 2), // Total 18
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right2"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right3"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right4"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right5"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_door1"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_door2"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right"), catacombsDegradation), 2),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front1"), catacombsDegradation), 28), // Total 30
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front1"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front1"), catacombsDegradation), 3), // Total 27
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front3"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front4"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front5"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front_door1"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front_door2"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right_front"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right_front"), catacombsDegradation), 3),
 
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), catacombsDegradation), 22),
 
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), catacombsDegradation), 22),
 
-					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap1"), catacombsDegradation), 3), // Total 4
-					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap_cobwebs"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap1"), catacombsDegradation), 3), // Total 9
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_cap"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_cap"), catacombsDegradation), 3),
 
 					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), catacombsDegradation), 4),
 					Pair.of(StructurePoolElement.single(string("tomb/two_chest_doors"), catacombsDegradation), 4),
@@ -195,6 +238,42 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars2"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars3"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars4"), catacombsDegradation), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("corridor/ladder_bottom"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_all"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_front"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_right"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right_front"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_cap"), catacombsDegradation), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		Pools.register(
+			pool,
+			string("corridor/ladder_top"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_all"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_front"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_right"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right_front"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_cap"), catacombsDegradation), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
