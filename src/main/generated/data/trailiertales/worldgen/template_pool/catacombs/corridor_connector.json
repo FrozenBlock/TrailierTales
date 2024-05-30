@@ -250,7 +250,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 5
     },
     {
       "element": {
@@ -259,7 +259,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 5
     },
     {
       "element": {
@@ -268,7 +268,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 5
     },
     {
       "element": {
@@ -277,7 +277,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 5
     },
     {
       "element": {
@@ -286,7 +286,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 5
     },
     {
       "element": {
@@ -295,7 +295,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 1
     },
     {
       "element": {
@@ -304,7 +304,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 1
     },
     {
       "element": {
@@ -376,7 +376,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 1
     },
     {
       "element": {
@@ -385,7 +385,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 1
     },
     {
       "element": {
@@ -394,7 +394,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 3
     },
     {
       "element": {
@@ -403,7 +403,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 3
     },
     {
       "element": {
@@ -421,7 +421,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -430,7 +430,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -439,7 +439,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -448,7 +448,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -457,7 +457,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 1
     },
     {
       "element": {
@@ -466,7 +466,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 1
     },
     {
       "element": {
@@ -502,7 +502,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -511,7 +511,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -520,7 +520,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -529,7 +529,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -538,7 +538,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 1
     },
     {
       "element": {
@@ -547,7 +547,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 1
     },
     {
       "element": {
@@ -619,7 +619,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 1
     },
     {
       "element": {
@@ -628,7 +628,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 1
     },
     {
       "element": {
@@ -637,7 +637,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 3
     },
     {
       "element": {
@@ -646,7 +646,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 3
     },
     {
       "element": {
@@ -664,7 +664,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -673,7 +673,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -682,7 +682,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -691,7 +691,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -700,7 +700,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 1
     },
     {
       "element": {
@@ -709,7 +709,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 1
     },
     {
       "element": {
@@ -818,6 +818,24 @@
         "projection": "rigid"
       },
       "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb4",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 8
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb5",
+        "processors": "trailiertales:catacombs_degradation",
+        "projection": "rigid"
+      },
+      "weight": 8
     },
     {
       "element": {
