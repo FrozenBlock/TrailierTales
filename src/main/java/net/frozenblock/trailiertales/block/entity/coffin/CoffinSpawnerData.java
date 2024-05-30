@@ -86,10 +86,7 @@ public class CoffinSpawnerData {
 		this.currentMobs.clear();
 	}
 
-	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random, boolean blocked) {
-		if (blocked) {
-			return false;
-		}
+	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random) {
 		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
 		return hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
 	}
@@ -110,8 +107,8 @@ public class CoffinSpawnerData {
 		return this.power;
 	}
 
-	public boolean isReadyToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players) {
-		return this.isPreparingToSpawnNextMob(level, config, players, 0);
+	public boolean isReadyToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players, boolean blocked) {
+		return this.isPreparingToSpawnNextMob(level, config, players, 0) && !blocked;
 	}
 
 	public boolean isPreparingToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players, int timeAhead) {

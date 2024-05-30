@@ -181,7 +181,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}
 
-	public static boolean isCoffinBlockedAt(Direction direction, BlockGetter level, BlockPos pos) {
+	public static boolean isCoffinBlockedAt(Direction direction, @NotNull BlockGetter level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		direction = state.getValue(PART) == CoffinPart.HEAD ? direction.getOpposite() : direction;
 		return isCoffinHalfBlockedAt(level, pos) || isCoffinHalfBlockedAt(level, pos.relative(direction));
