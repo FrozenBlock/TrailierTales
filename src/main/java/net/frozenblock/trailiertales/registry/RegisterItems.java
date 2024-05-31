@@ -4,6 +4,7 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,14 +22,24 @@ public class RegisterItems {
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(RegisterBlocks.CYAN_ROSE_CROP, new Item.Properties());
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties());
-	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = new Item(new Item.Properties());
-	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = new Item(new Item.Properties());
+	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		ResourceKey.create(
+			Registries.TRIM_PATTERN,
+			TrailierTalesSharedConstants.id("desolation")
+		)
+	);
+	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		ResourceKey.create(
+			Registries.TRIM_PATTERN,
+			TrailierTalesSharedConstants.id("undead")
+		)
+	);
 
 	public static void init() {
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(BULLSEYE_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 	}

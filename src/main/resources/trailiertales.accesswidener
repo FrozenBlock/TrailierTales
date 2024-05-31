@@ -8,3 +8,4 @@ accessible method net/minecraft/world/level/block/entity/BlockEntityType$Builder
 accessible field net/minecraft/world/item/CreativeModeTabs FUNCTIONAL_BLOCKS Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;)V
 accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment <init> (Ljava/lang/String;ILjava/lang/String;)V
+accessible method net/minecraft/world/entity/projectile/ProjectileUtil getHitResult (Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/Level;FLnet/minecraft/world/level/ClipContext$Block;)Lnet/minecraft/world/phys/HitResult;

@@ -8,11 +8,13 @@
   "item.trailiertales.desolation_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.undead_armor_trim_smithing_template": "Smithing Template",
 
-  "trim_pattern.trailiertales.desolation": "Desolation Armor Trim"
-  "trim_pattern.trailiertales.undead": "Undead Armor Trim"
+  "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
+  "trim_pattern.trailiertales.undead": "Undead Armor Trim",
 
   "block.trailiertales.coffin": "Coffin",
   "subtitles.block.coffin.spawn_mob": "Coffin spawns a mob",
+
+  "block.trailiertales.surveyor": "Surveyor",
 
   "block.trailiertales.potted_cyan_rose": "Potted Cyan Rose",
   "block.trailiertales.cyan_rose": "Cyan Rose",

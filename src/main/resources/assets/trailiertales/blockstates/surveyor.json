@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "trailiertales:block/surveyor",
+      "x": 90
+    },
+    "facing=down,powered=true": {
+      "model": "trailiertales:block/surveyor_on",
+      "x": 90
+    },
+    "facing=east,powered=false": {
+      "model": "trailiertales:block/surveyor",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "trailiertales:block/surveyor_on",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "trailiertales:block/surveyor"
+    },
+    "facing=north,powered=true": {
+      "model": "trailiertales:block/surveyor_on"
+    },
+    "facing=south,powered=false": {
+      "model": "trailiertales:block/surveyor",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "trailiertales:block/surveyor_on",
+      "y": 180
+    },
+    "facing=up,powered=false": {
+      "model": "trailiertales:block/surveyor",
+      "x": 270
+    },
+    "facing=up,powered=true": {
+      "model": "trailiertales:block/surveyor_on",
+      "x": 270
+    },
+    "facing=west,powered=false": {
+      "model": "trailiertales:block/surveyor",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "trailiertales:block/surveyor_on",
+      "y": 270
+    }
+  }
+}

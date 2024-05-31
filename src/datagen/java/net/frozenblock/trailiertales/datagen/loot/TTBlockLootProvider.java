@@ -82,6 +82,7 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL);
 
 		this.add(RegisterBlocks.COFFIN, noDrop());
+		this.dropSelf(RegisterBlocks.SURVEYOR);
 	}
 
 }
