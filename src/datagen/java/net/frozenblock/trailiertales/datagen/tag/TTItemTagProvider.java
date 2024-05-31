@@ -105,5 +105,9 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem());
+		
+		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
+			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())
+			.add(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())
 	}
 }
