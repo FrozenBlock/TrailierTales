@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.frozenblock.trailiertales.TrailierEnumValues;
+import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.Beardifier;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
@@ -45,7 +45,7 @@ public class BeardifierMixin {
 		int original,
 		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
 	) {
-		if (terrainAdjustment.get() == TrailierEnumValues.SMALL_PLATFORM) {
+		if (terrainAdjustment.get() == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return original - 1;
 		}
 		return original;
@@ -59,7 +59,7 @@ public class BeardifierMixin {
 		)
 	)
 	public TerrainAdjustment trailierTales$smallPlatformToBury(TerrainAdjustment original) {
-		if (original == TrailierEnumValues.SMALL_PLATFORM) {
+		if (original == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return TerrainAdjustment.BURY;
 		}
 		return original;
@@ -76,7 +76,7 @@ public class BeardifierMixin {
 		double x, double y, double z, Operation<Double> operation,
 		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
 	) {
-		if (terrainAdjustment.get() == TrailierEnumValues.SMALL_PLATFORM) {
+		if (terrainAdjustment.get() == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return trailierTales$getSmallPlatformContribution(x, y, z);
 		}
 		return operation.call(x, y, z);

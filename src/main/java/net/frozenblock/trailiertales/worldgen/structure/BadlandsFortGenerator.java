@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Function;
-import net.frozenblock.trailiertales.TrailierEnumValues;
+import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
@@ -79,7 +79,7 @@ public class BadlandsFortGenerator {
 				RegisterStructures.structure(
 					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_FORT),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
-					TrailierEnumValues.SMALL_PLATFORM
+					TrailierTerrainAdjustment.SMALL_PLATFORM
 				),
 				templatePool.getOrThrow(BadlandsFortGenerator.BADLANDS_FORT),
 				1,

@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.mixin.common.terrain_adjustment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import net.frozenblock.trailiertales.TrailierEnumValues;
+import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -42,7 +42,7 @@ public class TerrainAdjustmentMixin {
 		var last = types.get(types.size() - 1);
 
 		var smallPlatform = trailierTales$newType("TRAILIER_TALES_SMALL_PLATFORM", last.ordinal() + 1, "trailier_tales_small_platform");
-		TrailierEnumValues.SMALL_PLATFORM = smallPlatform;
+		TrailierTerrainAdjustment.SMALL_PLATFORM = smallPlatform;
 		types.add(smallPlatform);
 
 		$VALUES = types.toArray(new TerrainAdjustment[0]);
