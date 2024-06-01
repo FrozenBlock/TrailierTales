@@ -1,0 +1,6 @@
+{
+  "parent": "trailiertales:block/surveyor",
+  "textures": {
+    "bottom": "trailiertales:block/surveyor_back_on"
+  }
+}

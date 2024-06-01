@@ -6,7 +6,6 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
@@ -33,8 +32,6 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
-	public static final ResourceLocation COFFIN_HEAD = TrailierTalesSharedConstants.id("textures/entity/coffin/coffin_head.png");
-	public static final ResourceLocation COFFIN_FOOT = TrailierTalesSharedConstants.id("textures/entity/coffin/coffin_foot.png");
 	private static final String BASE = "base";
 	private static final String LID = "lid";
 	private final ModelPart headRoot;
@@ -54,7 +51,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 		this.footLid = footRoot.getChild(LID);
 	}
 
-	public static LayerDefinition createHeadLayer() {
+	public static @NotNull LayerDefinition createHeadLayer() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 		modelPartData.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 18).addBox(0F, 0F, 0F, 16F, 12F, 16F), PartPose.ZERO);
@@ -62,7 +59,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	public static LayerDefinition createFootLayer() {
+	public static @NotNull LayerDefinition createFootLayer() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 		modelPartData.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 18).addBox(0F, 0F, 0F, 16F, 12F, 16F), PartPose.ZERO);
@@ -72,14 +69,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 
 	@NotNull
 	public static ResourceLocation getCoffinTexture(@NotNull CoffinPart part, CoffinSpawnerState state, boolean ominous) {
-		if (part == CoffinPart.HEAD) {
-			return switch (state) {
-				case null, default -> COFFIN_HEAD;
-			};
-		}
-		return switch (state) {
-			case null, default -> COFFIN_FOOT;
-		};
+		return part == CoffinPart.HEAD ? state.getHeadTexture() : state.getFootTexture();
 	}
 
 
@@ -107,9 +97,9 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 			CoffinPart part = blockState.getValue(CoffinBlock.PART);
 			CoffinSpawnerState coffinSpawnerState = blockState.getValue(CoffinBlock.STATE);
 			float f = blockState.getValue(CoffinBlock.FACING).toYRot();
-			poseStack.translate(0.5, 0.5, 0.5);
+			poseStack.translate(0.5D, 0.5D, 0.5D);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-f));
-			poseStack.translate(-0.5, -0.5, -0.5);
+			poseStack.translate(-0.5D, -0.5D, -0.5D);
 			this.renderPiece(
 				poseStack,
 				buffer,
@@ -124,11 +114,11 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 			);
 		} else {
 			float f = Direction.SOUTH.toYRot();
-			poseStack.translate(0.5, 0.5, 0.5);
+			poseStack.translate(0.5D, 0.5D, 0.5D);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-f));
-			poseStack.translate(-0.5, -0.5, -0.5);
-			this.renderPiece(poseStack, buffer, this.headRoot, this.headLid, COFFIN_HEAD, null, 0F, packedLight, packedOverlay, false);
-			this.renderPiece(poseStack, buffer, this.footRoot, this.footLid, COFFIN_FOOT, null, 0F, packedLight, packedOverlay, true);
+			poseStack.translate(-0.5D, -0.5D, -0.5D);
+			this.renderPiece(poseStack, buffer, this.headRoot, this.headLid, CoffinSpawnerState.ACTIVE.getHeadTexture(), null, 0F, packedLight, packedOverlay, false);
+			this.renderPiece(poseStack, buffer, this.footRoot, this.footLid, CoffinSpawnerState.ACTIVE.getFootTexture(), null, 0F, packedLight, packedOverlay, true);
 		}
 		poseStack.popPose();
 	}

@@ -63,7 +63,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILES)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL)
+
+			.add(RegisterBlocks.SURVEYOR);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.add(RegisterBlocks.SUSPICIOUS_RED_SAND)

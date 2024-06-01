@@ -107,8 +107,8 @@ public class CoffinSpawnerData {
 		return this.power;
 	}
 
-	public boolean isReadyToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players) {
-		return this.isPreparingToSpawnNextMob(level, config, players, 0);
+	public boolean isReadyToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players, boolean blocked) {
+		return this.isPreparingToSpawnNextMob(level, config, players, 0) && !blocked;
 	}
 
 	public boolean isPreparingToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players, int timeAhead) {

@@ -52,7 +52,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		}
 
 		if (this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.coffinSpawner.codec().parse(NbtOps.INSTANCE, nbt).resultOrPartial(LOGGER::error).ifPresent(trialSpawner -> this.coffinSpawner = trialSpawner);
+			this.coffinSpawner.codec().parse(NbtOps.INSTANCE, nbt).resultOrPartial(LOGGER::error).ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
 		}
 	}
 

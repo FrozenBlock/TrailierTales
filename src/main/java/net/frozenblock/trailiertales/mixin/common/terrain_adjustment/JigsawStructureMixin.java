@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.mixin.common.terrain_adjustment;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.trailiertales.TrailierEnumValues;
+import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +20,7 @@ public class JigsawStructureMixin {
 	private static TerrainAdjustment trailierTales$smallPlatformToBury(
 		TerrainAdjustment original
 	) {
-		if (original == TrailierEnumValues.SMALL_PLATFORM) {
+		if (original == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return TerrainAdjustment.BURY;
 		}
 		return original;
