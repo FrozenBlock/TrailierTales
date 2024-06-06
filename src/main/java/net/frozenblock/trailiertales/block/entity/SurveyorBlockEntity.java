@@ -73,59 +73,67 @@ public class SurveyorBlockEntity extends BlockEntity {
 	public void tickServer(ServerLevel serverLevel, BlockPos pos, BlockState state) {
 		if (this.detectionCooldown <= 0) {
 			this.detectionCooldown = 2;
-			Vec3 surveyorCenterPos = Vec3.atCenterOf(pos);
-			Vec3 startClipPos = getEyePosition(pos, state);
-			Vec3 endClipPos = getViewEndPosition(pos, state);
-			BlockPos startBlockPos = BlockPos.containing(startClipPos);
-			BlockPos endBlockPos = BlockPos.containing(endClipPos);
-
-			AABB detectionBox = AABB.encapsulatingFullBlocks(startBlockPos, endBlockPos);
-			List<Player> players = serverLevel.getEntities(
-				EntityTypeTest.forClass(Player.class),
-				detectionBox,
-				EntitySelector.NO_SPECTATORS
-			);
 
 			int closestDetection = 16;
-			for (Player player : players) {
-				Vec3 closestPoint = closestPointTo(player.getBoundingBox(), startClipPos);
-				Optional<Vec3> headPoint = Optional.empty();
-				Optional<Vec3> footPoint = Optional.empty();
-				if (player.isInvisible()) {
-					if (player.getInventory().armor.get(1).isEmpty() && player.getInventory().armor.get(2).isEmpty()) {
-						if (!player.getInventory().armor.get(0).isEmpty() && detectionBox.contains(player.position())) {
-							footPoint = Optional.of(player.position());
-						}
-						if (!player.getInventory().armor.get(3).isEmpty() && detectionBox.contains(player.getEyePosition())) {
-							headPoint = Optional.of(player.getEyePosition());
-						}
 
-						if (headPoint.isPresent() && footPoint.isPresent()) {
-							closestPoint = chooseClosestPos(closestPoint, headPoint.get(), footPoint.get());
-						} else if (headPoint.isPresent()) {
-							closestPoint = headPoint.get();
-						} else if (footPoint.isPresent()) {
-							closestPoint = footPoint.get();
-						} else {
-							continue;
+			BlockPos inFrontPos = pos.relative(state.getValue(SurveyorBlock.FACING));
+			BlockState inFrontState = serverLevel.getBlockState(pos.relative(state.getValue(SurveyorBlock.FACING)));
+			boolean isBlocked = inFrontState.isCollisionShapeFullBlock(level, inFrontPos);
+
+			if (!isBlocked) {
+				Vec3 surveyorCenterPos = Vec3.atCenterOf(pos);
+				Vec3 startClipPos = getEyePosition(pos, state);
+				Vec3 endClipPos = getViewEndPosition(pos, state);
+				BlockPos startBlockPos = BlockPos.containing(startClipPos);
+				BlockPos endBlockPos = BlockPos.containing(endClipPos);
+
+				AABB detectionBox = AABB.encapsulatingFullBlocks(startBlockPos, endBlockPos);
+				List<Player> players = serverLevel.getEntities(
+					EntityTypeTest.forClass(Player.class),
+					detectionBox,
+					EntitySelector.NO_SPECTATORS
+				);
+
+				for (Player player : players) {
+					Vec3 closestPoint = closestPointTo(player.getBoundingBox(), startClipPos);
+					Optional<Vec3> headPoint = Optional.empty();
+					Optional<Vec3> footPoint = Optional.empty();
+					if (player.isInvisible()) {
+						if (player.getInventory().armor.get(1).isEmpty() && player.getInventory().armor.get(2).isEmpty()) {
+							if (!player.getInventory().armor.get(0).isEmpty() && detectionBox.contains(player.position())) {
+								footPoint = Optional.of(player.position());
+							}
+							if (!player.getInventory().armor.get(3).isEmpty() && detectionBox.contains(player.getEyePosition())) {
+								headPoint = Optional.of(player.getEyePosition());
+							}
+
+							if (headPoint.isPresent() && footPoint.isPresent()) {
+								closestPoint = chooseClosestPos(closestPoint, headPoint.get(), footPoint.get());
+							} else if (headPoint.isPresent()) {
+								closestPoint = headPoint.get();
+							} else if (footPoint.isPresent()) {
+								closestPoint = footPoint.get();
+							} else {
+								continue;
+							}
 						}
 					}
-				}
-				int distance = (int) closestPoint.distanceTo(startClipPos);
-				if (distance < closestDetection) {
-					HitResult hitResult = ProjectileUtil.getHitResult(
-						closestPoint,
-						player,
-						EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible()),
-						surveyorCenterPos.subtract(closestPoint),
-						serverLevel,
-						0F,
-						ClipContext.Block.COLLIDER
-					);
-					if (hitResult.getType() == HitResult.Type.BLOCK) {
-						BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-						if (blockHitResult.getBlockPos().equals(pos)) {
-							closestDetection = distance;
+					int distance = (int) closestPoint.distanceTo(startClipPos);
+					if (distance < closestDetection) {
+						HitResult hitResult = ProjectileUtil.getHitResult(
+							closestPoint,
+							player,
+							EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible()),
+							surveyorCenterPos.subtract(closestPoint),
+							serverLevel,
+							0F,
+							ClipContext.Block.COLLIDER
+						);
+						if (hitResult.getType() == HitResult.Type.BLOCK) {
+							BlockHitResult blockHitResult = (BlockHitResult) hitResult;
+							if (blockHitResult.getBlockPos().equals(pos)) {
+								closestDetection = distance;
+							}
 						}
 					}
 				}
