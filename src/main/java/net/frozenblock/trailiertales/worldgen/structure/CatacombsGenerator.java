@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
 	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
-	public static final ResourceKey<StructureTemplatePool> START = createKey(TrailierTalesSharedConstants.string("catacombs/dungeon"));
+	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierTalesSharedConstants.string("catacombs/dungeon"));
 	public static final List<PoolAliasBinding> ALIAS_BINDINGS = ImmutableList.<PoolAliasBinding>builder()
 		.add(
 			PoolAliasBinding.random(
@@ -672,19 +672,15 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull ResourceKey<StructureTemplatePool> createKey(String name) {
-		return ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.parse(name));
-	}
-
 	private static @NotNull String string(String name) {
 		return TrailierTalesSharedConstants.id("catacombs/" + name).toString();
 	}
 
-	public static String dungeonSpawner(String string) {
+	public static @NotNull String dungeonSpawner(String string) {
 		return string("dungeon/spawner/" + string);
 	}
 
-	private static void register(BootstrapContext<StructureTemplatePool> pool, String path, StructureTemplatePool templatePool) {
-		pool.register(createKey(path), templatePool);
+	private static void register(@NotNull BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
+		pool.register(Pools.parseKey(location), templatePool);
 	}
 }
