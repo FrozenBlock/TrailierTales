@@ -55,18 +55,11 @@ public class SuspiciousData {
 		}
 	}
 
-	public static class Pair {
-		public static final Codec<Pair> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			BlockPos.CODEC.fieldOf("Pos").forGetter(sus -> sus.pos),
-			ResourceLocation.CODEC.fieldOf("LootTable").forGetter(sus -> sus.lootTable)
-		).apply(instance, Pair::new));
+	public record Pair(BlockPos pos, ResourceLocation lootTable) {
+			public static final Codec<Pair> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+				BlockPos.CODEC.fieldOf("Pos").forGetter(sus -> sus.pos),
+				ResourceLocation.CODEC.fieldOf("LootTable").forGetter(sus -> sus.lootTable)
+			).apply(instance, Pair::new));
 
-		public final BlockPos pos;
-		public final ResourceLocation lootTable;
-
-		public Pair(BlockPos pos, ResourceLocation lootTable) {
-			this.pos = pos;
-			this.lootTable = lootTable;
-		}
 	}
 }
