@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 public class SuspiciousData {
 	public List<Pair> suspiciousData = new ArrayList<>();
 
-	@SuppressWarnings("unchecked")
 	public SuspiciousData() {
 	}
 
