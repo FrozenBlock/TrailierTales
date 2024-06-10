@@ -125,6 +125,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 		}
 	}
 
+	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel
