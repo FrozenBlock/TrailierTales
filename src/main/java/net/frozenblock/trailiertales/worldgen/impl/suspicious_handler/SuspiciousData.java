@@ -14,12 +14,13 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A class representing Xfrtrex data
+ * <p>
+ * Other than that I have 0 clue
+ */
 public class SuspiciousData {
 	public List<Pair> suspiciousData = new ArrayList<>();
-
-	@SuppressWarnings("unchecked")
-	public SuspiciousData() {
-	}
 
 	@NotNull
 	public static SuspiciousData getSuspiciousData(@NotNull ServerLevel level) {
@@ -55,18 +56,11 @@ public class SuspiciousData {
 		}
 	}
 
-	public static class Pair {
-		public static final Codec<Pair> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			BlockPos.CODEC.fieldOf("Pos").forGetter(sus -> sus.pos),
-			ResourceLocation.CODEC.fieldOf("LootTable").forGetter(sus -> sus.lootTable)
-		).apply(instance, Pair::new));
+	public record Pair(BlockPos pos, ResourceLocation lootTable) {
+			public static final Codec<Pair> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+				BlockPos.CODEC.fieldOf("Pos").forGetter(sus -> sus.pos),
+				ResourceLocation.CODEC.fieldOf("LootTable").forGetter(sus -> sus.lootTable)
+			).apply(instance, Pair::new));
 
-		public final BlockPos pos;
-		public final ResourceLocation lootTable;
-
-		public Pair(BlockPos pos, ResourceLocation lootTable) {
-			this.pos = pos;
-			this.lootTable = lootTable;
-		}
 	}
 }
