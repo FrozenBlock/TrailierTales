@@ -673,11 +673,11 @@ public class CatacombsGenerator {
 	}
 
 	private static @NotNull String string(String name) {
-		return TrailierTalesSharedConstants.id("catacombs/" + name).toString();
+		return TrailierTalesSharedConstants.string("catacombs/" + name);
 	}
 
-	public static @NotNull String dungeonSpawner(String string) {
-		return string("dungeon/spawner/" + string);
+	public static @NotNull String dungeonSpawner(String name) {
+		return string("dungeon/spawner/" + name);
 	}
 
 	private static void register(@NotNull BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {

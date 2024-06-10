@@ -50,12 +50,21 @@ public final class RegisterStructures {
 	}
 
 	@NotNull
-	public static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull Map<MobCategory, StructureSpawnOverride> spawns, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
+	public static Structure.StructureSettings structure(
+		@NotNull HolderSet<Biome> holderSet,
+		@NotNull Map<MobCategory, StructureSpawnOverride> spawns,
+		@NotNull GenerationStep.Decoration featureStep,
+		@NotNull TerrainAdjustment terrainAdaptation
+	) {
 		return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
 	}
 
 	@NotNull
-	public static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
+	public static Structure.StructureSettings structure(
+		@NotNull HolderSet<Biome> holderSet,
+		@NotNull GenerationStep.Decoration featureStep,
+		@NotNull TerrainAdjustment terrainAdaptation
+	) {
 		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
 	}
 
