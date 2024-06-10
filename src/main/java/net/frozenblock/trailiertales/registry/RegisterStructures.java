@@ -7,6 +7,7 @@ import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -66,6 +67,10 @@ public final class RegisterStructures {
 		@NotNull TerrainAdjustment terrainAdaptation
 	) {
 		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
+	}
+
+	public static void register(@NotNull BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
+		pool.register(Pools.parseKey(location), templatePool);
 	}
 
 }

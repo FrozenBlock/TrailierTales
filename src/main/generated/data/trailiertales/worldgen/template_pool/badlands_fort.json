@@ -3,8 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:badlands_fort/fort_1",
-        "override_liquid_settings": "apply_waterlogging",
+        "location": "trailiertales:badlands_fort/fort1",
         "processors": "trailiertales:suspicious_block_to_normal_085",
         "projection": "rigid"
       },
@@ -13,8 +12,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:badlands_fort/fort_2",
-        "override_liquid_settings": "apply_waterlogging",
+        "location": "trailiertales:badlands_fort/fort2",
         "processors": "trailiertales:suspicious_block_to_normal_085",
         "projection": "rigid"
       },
@@ -23,8 +21,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:badlands_fort/fort_tower_1",
-        "override_liquid_settings": "apply_waterlogging",
+        "location": "trailiertales:badlands_fort/fort_tower1",
         "processors": "trailiertales:suspicious_block_to_normal_085",
         "projection": "rigid"
       },
@@ -33,8 +30,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:badlands_fort/fort_tower_2",
-        "override_liquid_settings": "apply_waterlogging",
+        "location": "trailiertales:badlands_fort/fort_tower2",
         "processors": "trailiertales:suspicious_block_to_normal_085",
         "projection": "rigid"
       },

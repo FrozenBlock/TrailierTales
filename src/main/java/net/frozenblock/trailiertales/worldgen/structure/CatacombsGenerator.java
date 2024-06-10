@@ -13,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.biome.Biome;
@@ -84,7 +83,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("corridor"),
 			new StructureTemplatePool(
@@ -118,7 +117,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("corridor_connector"),
 			new StructureTemplatePool(
@@ -245,7 +244,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("corridor/ladder_bottom"),
 			new StructureTemplatePool(
@@ -263,7 +262,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("corridor/ladder_top"),
 			new StructureTemplatePool(
@@ -281,7 +280,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("small_room"),
 			new StructureTemplatePool(
@@ -303,7 +302,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("corridor_decoration"),
 			new StructureTemplatePool(
@@ -321,7 +320,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("tomb_decoration"),
 			new StructureTemplatePool(
@@ -340,7 +339,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("decoration/chain"),
 			new StructureTemplatePool(
@@ -357,7 +356,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("decoration/chain_4"),
 			new StructureTemplatePool(
@@ -373,7 +372,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("decoration/chain_3"),
 			new StructureTemplatePool(
@@ -388,7 +387,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("decoration/chain_2"),
 			new StructureTemplatePool(
@@ -402,7 +401,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("decoration/chain_1"),
 			new StructureTemplatePool(
@@ -415,7 +414,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("tomb_decoration_wall"),
 			new StructureTemplatePool(
@@ -433,7 +432,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("staircase_up"),
 			new StructureTemplatePool(
@@ -447,7 +446,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			string("staircase_down"),
 			new StructureTemplatePool(
@@ -463,7 +462,7 @@ public class CatacombsGenerator {
 
 		// DUNGEON SPAWNERS
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("chain/skeleton"),
 			new StructureTemplatePool(
@@ -475,7 +474,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("chain/zombie"),
 			new StructureTemplatePool(
@@ -487,7 +486,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("chain_hanging/skeleton"),
 			new StructureTemplatePool(
@@ -499,7 +498,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("chain_hanging/zombie"),
 			new StructureTemplatePool(
@@ -511,7 +510,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("pillar/skeleton"),
 			new StructureTemplatePool(
@@ -523,7 +522,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("pillar/zombie"),
 			new StructureTemplatePool(
@@ -535,7 +534,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall/skeleton"),
 			new StructureTemplatePool(
@@ -547,7 +546,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall/zombie"),
 			new StructureTemplatePool(
@@ -559,7 +558,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall_chain/skeleton"),
 			new StructureTemplatePool(
@@ -571,7 +570,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall_chain/zombie"),
 			new StructureTemplatePool(
@@ -583,7 +582,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall_chain_hanging/skeleton"),
 			new StructureTemplatePool(
@@ -595,7 +594,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall_chain_hanging/zombie"),
 			new StructureTemplatePool(
@@ -607,7 +606,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall_hanging/skeleton"),
 			new StructureTemplatePool(
@@ -619,7 +618,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		register(
+		RegisterStructures.register(
 			pool,
 			dungeonSpawner("wall_hanging/zombie"),
 			new StructureTemplatePool(
@@ -678,9 +677,5 @@ public class CatacombsGenerator {
 
 	public static @NotNull String dungeonSpawner(String name) {
 		return string("dungeon/spawner/" + name);
-	}
-
-	private static void register(@NotNull BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
-		pool.register(Pools.parseKey(location), templatePool);
 	}
 }

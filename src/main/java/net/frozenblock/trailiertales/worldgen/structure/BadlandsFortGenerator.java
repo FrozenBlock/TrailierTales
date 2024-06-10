@@ -1,10 +1,7 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
-import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
@@ -16,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -26,10 +22,9 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
-import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,39 +34,25 @@ import org.jetbrains.annotations.NotNull;
 public class BadlandsFortGenerator {
 	public static final ResourceKey<StructureSet> BADLANDS_FORTS_KEY =  RegisterStructures.ofSet("badlands_fort");
 	private static final ResourceKey<Structure> BADLANDS_FORT_KEY = RegisterStructures.createKey("badlands_fort");
-	public static final ResourceKey<StructureTemplatePool> BADLANDS_FORT = createKey("badlands_fort");
+	public static final ResourceKey<StructureTemplatePool> BADLANDS_FORT = Pools.parseKey(TrailierTalesSharedConstants.string("badlands_fort"));
 
-	/**
-	 * @param id The id for the {@link SinglePoolElement}'s {@link ResourceLocation}
-	 * @param processorListEntry The processor list for the {@link SinglePoolElement}
-	 * @return A {@link SinglePoolElement} of the parameters given.
-	 */
-	@NotNull
-	public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry) {
-		return projection -> new SinglePoolElement(
-			Either.left(TrailierTalesSharedConstants.id(id)),
-			processorListEntry,
-			projection,
-			Optional.of(LiquidSettings.APPLY_WATERLOGGING)
-		);
-	}
+	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
+		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
+		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
+		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
+		Holder<StructureProcessorList> badlandsFortDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085);
 
-	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
-		HolderGetter<StructureProcessorList> processor = context.lookup(Registries.PROCESSOR_LIST);
-		HolderGetter<StructureTemplatePool> holderGetter2 = context.lookup(Registries.TEMPLATE_POOL);
-		Holder<StructureTemplatePool> holder2 = holderGetter2.getOrThrow(Pools.EMPTY);
-
-		context.register(
+		pool.register(
 			BADLANDS_FORT,
 			new StructureTemplatePool(
-				holder2,
+				empty,
 				List.of(
-					Pair.of(ofProcessedSingle("badlands_fort/fort_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
-					Pair.of(ofProcessedSingle("badlands_fort/fort_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
-					Pair.of(ofProcessedSingle("badlands_fort/fort_tower_1", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1),
-					Pair.of(ofProcessedSingle("badlands_fort/fort_tower_2", processor.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085)), 1)
+					Pair.of(StructurePoolElement.single(string("fort1"), badlandsFortDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("fort2"), badlandsFortDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("fort_tower1"), badlandsFortDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("fort_tower2"), badlandsFortDegradation), 1)
 				),
-				StructureTemplatePool.Projection.RIGID
+			StructureTemplatePool.Projection.RIGID
 			)
 		);
 	}
@@ -109,8 +90,7 @@ public class BadlandsFortGenerator {
 		);
 	}
 
-	@NotNull
-	public static ResourceKey<StructureTemplatePool> createKey(@NotNull String string) {
-		return ResourceKey.create(Registries.TEMPLATE_POOL, TrailierTalesSharedConstants.id(string));
+	private static @NotNull String string(String name) {
+		return TrailierTalesSharedConstants.string("badlands_fort/" + name);
 	}
 }
