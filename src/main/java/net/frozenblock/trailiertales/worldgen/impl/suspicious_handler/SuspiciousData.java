@@ -17,9 +17,6 @@ import org.jetbrains.annotations.NotNull;
 public class SuspiciousData {
 	public List<Pair> suspiciousData = new ArrayList<>();
 
-	public SuspiciousData() {
-	}
-
 	@NotNull
 	public static SuspiciousData getSuspiciousData(@NotNull ServerLevel level) {
 		return ((SuspiciousDataInterface)level).trailierTales$getSuspiciousData();
