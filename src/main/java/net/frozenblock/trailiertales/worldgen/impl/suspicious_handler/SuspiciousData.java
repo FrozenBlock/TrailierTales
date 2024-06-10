@@ -14,6 +14,11 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A class representing Xfrtrex data
+ * <p>
+ * Other than that I have 0 clue
+ */
 public class SuspiciousData {
 	public List<Pair> suspiciousData = new ArrayList<>();
 
