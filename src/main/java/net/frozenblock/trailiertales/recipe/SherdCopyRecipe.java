@@ -3,10 +3,10 @@ package net.frozenblock.trailiertales.recipe;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.tag.TrailierItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -19,13 +19,13 @@ public class SherdCopyRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer craftingContainer, Level level) {
-		if (!this.canCraftInDimensions(craftingContainer.getWidth(), craftingContainer.getHeight())) {
+	public boolean matches(@NotNull CraftingInput input, Level world) {
+		if (!this.canCraftInDimensions(input.width(), input.height())) {
 			return false;
 		}
 		int sherds = 0;
 		int bricks = 0;
-		for (ItemStack itemStack : craftingContainer.getItems()) {
+		for (ItemStack itemStack : input.items()) {
 			if (itemStack.is(TrailierItemTags.COPYABLE_SHERDS)) {
 				sherds += 1;
 			} else if (itemStack.is(TrailierItemTags.POT_BASES)) {
@@ -38,8 +38,8 @@ public class SherdCopyRecipe extends CustomRecipe {
 	}
 
 	@Override @NotNull
-	public ItemStack assemble(@NotNull CraftingContainer craftingContainer, HolderLookup.Provider provider) {
-		for (ItemStack itemStack : craftingContainer.getItems()) {
+	public ItemStack assemble(@NotNull CraftingInput input, HolderLookup.Provider provider) {
+		for (ItemStack itemStack : input.items()) {
 			if (itemStack.is(TrailierItemTags.COPYABLE_SHERDS)) {
 				return new ItemStack(itemStack.getItem(), 2);
 			}

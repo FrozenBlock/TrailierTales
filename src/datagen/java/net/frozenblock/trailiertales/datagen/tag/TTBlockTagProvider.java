@@ -163,7 +163,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	@NotNull
 	private TagKey<Block> getTag(String id) {
-		return TagKey.create(this.registryKey, new ResourceLocation(id));
+		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
 	}
 
 }

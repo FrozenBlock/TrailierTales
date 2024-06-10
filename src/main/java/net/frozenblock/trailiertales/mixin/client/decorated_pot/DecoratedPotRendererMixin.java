@@ -82,7 +82,10 @@ public class DecoratedPotRendererMixin {
 		boolean hasBlank = false;
 		boolean hasDecorated = false;
 		for (Item item : decoratedPotBlockEntity.getDecorations().ordered().stream().toList()) {
-			if (Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(item))) {
+			if (
+				Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getPatternFromItem(Items.BRICK)) ==
+					Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getPatternFromItem(item))
+			) {
 				hasBlank = true;
 			} else {
 				hasDecorated = true;
@@ -103,7 +106,7 @@ public class DecoratedPotRendererMixin {
 		ModelPart modelPart, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, @Nullable Material material, CallbackInfo info,
 		@Share("trailierTales$newPattern") LocalBooleanRef newPattern, @Share("trailierTales$blankVertexConsumer") LocalRef<VertexConsumer> blankVertexConsumer
 	) {
-		if (material == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK)) && this.trailierTales$isMisMatched) {
+		if (material == Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getPatternFromItem(Items.BRICK)) && this.trailierTales$isMisMatched) {
 			newPattern.set(true);
 			blankVertexConsumer.set(trailierTales$BLANK_MATERIAL.buffer(multiBufferSource, RenderType::entitySolid));
 		}

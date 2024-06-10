@@ -17,7 +17,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -46,20 +45,20 @@ public class TrailierFeatureBootstrap {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create
 		(Registries.CONFIGURED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower")
+			TrailierTalesSharedConstants.id("torchflower")
 	);
 	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "torchflower")
+		TrailierTalesSharedConstants.id("torchflower")
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_COMMON = ResourceKey.create
 		(Registries.CONFIGURED_FEATURE,
-			new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_blocks_common")
+			TrailierTalesSharedConstants.id("suspicious_blocks_common")
 		);
 	public static final ResourceKey<PlacedFeature> SUSPICIOUS_COMMON_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		new ResourceLocation(TrailierTalesSharedConstants.MOD_ID, "suspicious_blocks_common")
+		TrailierTalesSharedConstants.id("suspicious_blocks_common")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {

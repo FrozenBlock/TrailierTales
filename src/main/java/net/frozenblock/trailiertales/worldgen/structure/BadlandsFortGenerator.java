@@ -3,12 +3,13 @@ package net.frozenblock.trailiertales.worldgen.structure;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
-import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,7 +48,12 @@ public class BadlandsFortGenerator {
 	 */
 	@NotNull
 	public static Function<StructureTemplatePool.Projection, SinglePoolElement> ofProcessedSingle(@NotNull String id, @NotNull Holder<StructureProcessorList> processorListEntry) {
-		return projection -> new SinglePoolElement(Either.left(TrailierTalesSharedConstants.id(id)), processorListEntry, projection);
+		return projection -> new SinglePoolElement(
+			Either.left(TrailierTalesSharedConstants.id(id)),
+			processorListEntry,
+			projection,
+			Optional.of(LiquidSettings.APPLY_WATERLOGGING)
+		);
 	}
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {

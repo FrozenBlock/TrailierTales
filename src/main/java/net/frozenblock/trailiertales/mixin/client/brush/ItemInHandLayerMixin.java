@@ -35,7 +35,7 @@ public class ItemInHandLayerMixin{
 	) {
 		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0) {
 			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;
-			float partialTick = Minecraft.getInstance().getDeltaFrameTime() - Minecraft.getInstance().getFrameTime();
+			float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaTicks() - Minecraft.getInstance().getTimer().getRealtimeDeltaTicks();
 			float brushProgress = remainingTicks + partialTick;
 			float brushRoll = Mth.cos(
 				(brushProgress * Mth.PI)

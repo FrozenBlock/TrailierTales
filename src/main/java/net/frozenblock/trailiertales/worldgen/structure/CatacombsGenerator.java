@@ -13,6 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.biome.Biome;
@@ -35,32 +36,32 @@ import org.jetbrains.annotations.NotNull;
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
 	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
-	public static final ResourceKey<StructureTemplatePool> START = createKey("dungeon");
+	public static final ResourceKey<StructureTemplatePool> START = createKey(TrailierTalesSharedConstants.string("catacombs/dungeon"));
 	public static final List<PoolAliasBinding> ALIAS_BINDINGS = ImmutableList.<PoolAliasBinding>builder()
 		.add(
 			PoolAliasBinding.random(
-				string("dungeon/spawner"),
-				SimpleWeightedRandomList.<String>builder()
-					.add(dungeonSpawner("chain/skeleton"))
-					.add(dungeonSpawner("chain/zombie"))
+				Pools.parseKey(string("dungeon/spawner")),
+				SimpleWeightedRandomList.<ResourceKey<StructureTemplatePool>>builder()
+					.add(Pools.parseKey(dungeonSpawner("chain/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("chain/zombie")))
 
-					.add(dungeonSpawner("chain_hanging/skeleton"))
-					.add(dungeonSpawner("chain_hanging/zombie"))
+					.add(Pools.parseKey(dungeonSpawner("chain_hanging/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("chain_hanging/zombie")))
 
-					.add(dungeonSpawner("pillar/skeleton"))
-					.add(dungeonSpawner("pillar/zombie"))
+					.add(Pools.parseKey(dungeonSpawner("pillar/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("pillar/zombie")))
 
-					.add(dungeonSpawner("wall/skeleton"))
-					.add(dungeonSpawner("wall/zombie"))
+					.add(Pools.parseKey(dungeonSpawner("wall/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("wall/zombie")))
 
-					.add(dungeonSpawner("wall_chain/skeleton"))
-					.add(dungeonSpawner("wall_chain/zombie"))
+					.add(Pools.parseKey(dungeonSpawner("wall_chain/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("wall_chain/zombie")))
 
-					.add(dungeonSpawner("wall_chain_hanging/skeleton"))
-					.add(dungeonSpawner("wall_chain_hanging/zombie"))
+					.add(Pools.parseKey(dungeonSpawner("wall_chain_hanging/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("wall_chain_hanging/zombie")))
 
-					.add(dungeonSpawner("wall_hanging/skeleton"))
-					.add(dungeonSpawner("wall_hanging/zombie"))
+					.add(Pools.parseKey(dungeonSpawner("wall_hanging/skeleton")))
+					.add(Pools.parseKey(dungeonSpawner("wall_hanging/zombie")))
 					.build()
 			)
 		)
@@ -83,7 +84,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("corridor"),
 			new StructureTemplatePool(
@@ -117,7 +118,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("corridor_connector"),
 			new StructureTemplatePool(
@@ -244,7 +245,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("corridor/ladder_bottom"),
 			new StructureTemplatePool(
@@ -262,7 +263,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("corridor/ladder_top"),
 			new StructureTemplatePool(
@@ -280,7 +281,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("small_room"),
 			new StructureTemplatePool(
@@ -302,7 +303,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("corridor_decoration"),
 			new StructureTemplatePool(
@@ -320,7 +321,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("tomb_decoration"),
 			new StructureTemplatePool(
@@ -339,7 +340,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("decoration/chain"),
 			new StructureTemplatePool(
@@ -356,7 +357,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("decoration/chain_4"),
 			new StructureTemplatePool(
@@ -372,7 +373,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("decoration/chain_3"),
 			new StructureTemplatePool(
@@ -387,7 +388,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("decoration/chain_2"),
 			new StructureTemplatePool(
@@ -401,7 +402,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("decoration/chain_1"),
 			new StructureTemplatePool(
@@ -414,7 +415,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("tomb_decoration_wall"),
 			new StructureTemplatePool(
@@ -432,7 +433,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("staircase_up"),
 			new StructureTemplatePool(
@@ -446,7 +447,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			string("staircase_down"),
 			new StructureTemplatePool(
@@ -462,7 +463,7 @@ public class CatacombsGenerator {
 
 		// DUNGEON SPAWNERS
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("chain/skeleton"),
 			new StructureTemplatePool(
@@ -474,7 +475,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("chain/zombie"),
 			new StructureTemplatePool(
@@ -486,7 +487,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("chain_hanging/skeleton"),
 			new StructureTemplatePool(
@@ -498,7 +499,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("chain_hanging/zombie"),
 			new StructureTemplatePool(
@@ -510,7 +511,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("pillar/skeleton"),
 			new StructureTemplatePool(
@@ -522,7 +523,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("pillar/zombie"),
 			new StructureTemplatePool(
@@ -534,7 +535,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall/skeleton"),
 			new StructureTemplatePool(
@@ -546,7 +547,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall/zombie"),
 			new StructureTemplatePool(
@@ -558,7 +559,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall_chain/skeleton"),
 			new StructureTemplatePool(
@@ -570,7 +571,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall_chain/zombie"),
 			new StructureTemplatePool(
@@ -582,7 +583,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall_chain_hanging/skeleton"),
 			new StructureTemplatePool(
@@ -594,7 +595,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall_chain_hanging/zombie"),
 			new StructureTemplatePool(
@@ -606,7 +607,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall_hanging/skeleton"),
 			new StructureTemplatePool(
@@ -618,7 +619,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		Pools.register(
+		register(
 			pool,
 			dungeonSpawner("wall_hanging/zombie"),
 			new StructureTemplatePool(
@@ -652,7 +653,9 @@ public class CatacombsGenerator {
 				false,
 				Optional.empty(),
 				116,
-				ALIAS_BINDINGS
+				ALIAS_BINDINGS,
+				JigsawStructure.DEFAULT_DIMENSION_PADDING,
+				JigsawStructure.DEFAULT_LIQUID_SETTINGS
 			)
 		);
 	}
@@ -670,15 +673,18 @@ public class CatacombsGenerator {
 	}
 
 	private static @NotNull ResourceKey<StructureTemplatePool> createKey(String name) {
-		return ResourceKey.create(Registries.TEMPLATE_POOL, TrailierTalesSharedConstants.id("catacombs/" + name));
+		return ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.parse(name));
 	}
 
 	private static @NotNull String string(String name) {
-		return TrailierTalesSharedConstants.string("catacombs/" + name);
+		return TrailierTalesSharedConstants.id("catacombs/" + name).toString();
 	}
 
 	public static String dungeonSpawner(String string) {
 		return string("dungeon/spawner/" + string);
 	}
 
+	private static void register(BootstrapContext<StructureTemplatePool> pool, String path, StructureTemplatePool templatePool) {
+		pool.register(createKey(path), templatePool);
+	}
 }
