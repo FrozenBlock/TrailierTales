@@ -38,7 +38,7 @@ public class CoffinSpawnerData {
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("power", 0).forGetter(data -> data.power),
 				SpawnData.CODEC.lenientOptionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
 				Codec.BOOL.lenientOptionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
-				Codec.intRange(0, 15).lenientOptionalFieldOf("max_active_light_level", 7).forGetter(data -> data.maxActiveLightLevel)
+				Codec.intRange(0, 15).lenientOptionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
 			)
 			.apply(instance, CoffinSpawnerData::new)
 	);
