@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.Optional;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -11,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false),
-	ACTIVE("active", 4, true),
-	IRRITATED("irritated", 6, true),
-	AGGRESSIVE("aggressive", 8, true);
+	ACTIVE("active", 3, true),
+	IRRITATED("irritated", 5, true),
+	AGGRESSIVE("aggressive", 7, true);
 
 	private final String name;
 	private final int lightLevel;
@@ -32,7 +33,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		return switch (this) {
-			case INACTIVE -> coffinSpawnerData.hasMobToSpawn(spawner, level.random) ? ACTIVE : INACTIVE;
+			case INACTIVE -> coffinSpawnerData.hasMobToSpawn(spawner, level.random)
+				&& CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) <= coffinSpawnerData.maxActiveLightLevel ? ACTIVE : INACTIVE;
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
@@ -49,7 +51,10 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
-		if (!coffinSpawnerData.hasMobToSpawn(spawner, level.random)) {
+		if (
+			!coffinSpawnerData.hasMobToSpawn(spawner, level.random)
+				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
+		) {
 			return INACTIVE;
 		} else {
 			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);

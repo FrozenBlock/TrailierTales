@@ -20,6 +20,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -193,6 +194,22 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	private static boolean isCoffinHalfBlockedAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
 		BlockPos blockPos = pos.above();
 		return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
+	}
+
+	public static int getLightLevelSurroundingCoffin(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
+		return Math.max(getLightLevel(level, pos), getLightLevel(level, pos.relative(getConnectedDirection(state))));
+	}
+
+	private static int getLightLevel(@NotNull Level level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		int finalLight = 0;
+		for (Direction direction : Direction.values()) {
+			mutableBlockPos.move(direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			finalLight = Math.max(finalLight, newLight);
+			mutableBlockPos.move(direction, -1);
+		}
+		return finalLight;
 	}
 
 	/*

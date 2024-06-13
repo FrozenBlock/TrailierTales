@@ -246,7 +246,7 @@ public final class CoffinSpawner {
 					return Optional.empty();
 				} else {
 					BlockPos blockPos = BlockPos.containing(vec3);
-					if (!SpawnPlacements.checkSpawnRules(optional.get(), level, MobSpawnType.TRIAL_SPAWNER, blockPos, level.getRandom())) {
+					if (!SpawnPlacements.checkSpawnRules(optional.get(), level, MobSpawnType.SPAWNER, blockPos, level.getRandom())) {
 						return Optional.empty();
 					} else {
 						if (spawnData.getCustomSpawnRules().isPresent()) {
@@ -270,7 +270,7 @@ public final class CoffinSpawner {
 
 								boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id", 8);
 								if (bl) {
-									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.TRIAL_SPAWNER, null);
+									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null);
 								}
 
 								spawnData.getEquipment().ifPresent(mob::equip);
