@@ -41,7 +41,7 @@
   "depends": {
     "frozenlib": "${frozenlib_version}",
     "fabric-api": "${fabric_api_version}",
-    "minecraft": "*",
+    "minecraft": "${minecraft_version}",
     "java": ">=21"
   },
   "suggests": {
