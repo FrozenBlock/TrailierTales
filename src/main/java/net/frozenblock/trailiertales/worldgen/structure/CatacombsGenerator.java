@@ -238,7 +238,10 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars1"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars2"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars3"), catacombsDegradation), 1),
-					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars4"), catacombsDegradation), 1)
+					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars4"), catacombsDegradation), 1),
+
+					Pair.of(StructurePoolElement.single(string("corridor/connector_dripstone_trap"), catacombsDegradation), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/connector_lava_trap"), catacombsDegradation), 4)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
