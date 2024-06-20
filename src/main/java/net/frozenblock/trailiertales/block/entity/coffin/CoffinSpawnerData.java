@@ -22,13 +22,16 @@ import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.LevelEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
+				SpawnData.LIST_CODEC.lenientOptionalFieldOf("spawn_potentials", SimpleWeightedRandomList.empty()).forGetter(data -> data.spawnPotentials),
 				Codec.LONG.listOf().lenientOptionalFieldOf("souls_to_spawn", new LongArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
@@ -53,12 +56,26 @@ public class CoffinSpawnerData {
 	protected Optional<SpawnData> nextSpawnData;
 	protected boolean withinCatacombs;
 	protected int maxActiveLightLevel;
+	private SimpleWeightedRandomList<SpawnData> spawnPotentials;
 
 	public CoffinSpawnerData() {
-		this(new LongArrayList(), Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false, 7);
+		this(
+			SimpleWeightedRandomList.empty(),
+			new LongArrayList(),
+			Collections.emptySet(),
+			Collections.emptySet(),
+			0L,
+			0L,
+			0,
+			0,
+			Optional.empty(),
+			false,
+			7
+		);
 	}
 
 	public CoffinSpawnerData(
+		SimpleWeightedRandomList<SpawnData> spawnPotentials,
 		List<Long> soulsToSpawn,
 		Set<UUID> detectedPlayers,
 		Set<UUID> currentMobs,
@@ -70,6 +87,7 @@ public class CoffinSpawnerData {
 		boolean withinCatacombs,
 		int maxActiveLightLevel
 	) {
+		this.spawnPotentials = spawnPotentials;
 		this.soulsToSpawn.addAll(soulsToSpawn);
 		this.detectedPlayers.addAll(detectedPlayers);
 		this.currentMobs.addAll(currentMobs);
@@ -90,9 +108,9 @@ public class CoffinSpawnerData {
 		this.currentMobs.clear();
 	}
 
-	public boolean hasMobToSpawn(CoffinSpawner spawnerLogic, RandomSource random) {
-		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(spawnerLogic, random).getEntityToSpawn().contains("id", 8);
-		return hasNextSpawnData || !spawnerLogic.getConfig().spawnPotentials().isEmpty();
+	public boolean hasMobToSpawn(Level level, RandomSource random, BlockPos pos) {
+		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(level, random, pos).getEntityToSpawn().contains("id", 8);
+		return hasNextSpawnData || !this.spawnPotentials().isEmpty();
 	}
 
 	public boolean hasFinishedSpawningAllMobs(@NotNull CoffinSpawnerConfig config, int players) {
@@ -149,18 +167,23 @@ public class CoffinSpawnerData {
 		return level.getGameTime() >= this.powerCooldownEndsAt;
 	}
 
-	public void setEntityId(CoffinSpawner spawner, RandomSource random, EntityType<?> entityType) {
-		this.getOrCreateNextSpawnData(spawner, random).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString());
+	public void setEntityId(EntityType<?> type, @Nullable Level world, RandomSource random, BlockPos pos) {
+		this.getOrCreateNextSpawnData(world, random, pos).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
 	}
 
-	protected SpawnData getOrCreateNextSpawnData(CoffinSpawner spawner, RandomSource random) {
+	public SimpleWeightedRandomList<SpawnData> spawnPotentials() {
+		return this.spawnPotentials;
+	}
+
+	@NotNull SpawnData getOrCreateNextSpawnData(@Nullable Level world, RandomSource random, BlockPos pos) {
 		if (this.nextSpawnData.isEmpty()) {
-			SimpleWeightedRandomList<SpawnData> simpleWeightedRandomList = spawner.getConfig().spawnPotentials();
-			Optional<SpawnData> optional = simpleWeightedRandomList.isEmpty() ? this.nextSpawnData : simpleWeightedRandomList.getRandom(random).map(Wrapper::data);
-			this.nextSpawnData = Optional.of(optional.orElseGet(SpawnData::new));
-			spawner.markUpdated();
+			this.setNextSpawnData(world, pos, this.spawnPotentials.getRandom(random).map(Wrapper::data).orElseGet(SpawnData::new));
 		}
 		return this.nextSpawnData.get();
+	}
+
+	protected void setNextSpawnData(@Nullable Level world, BlockPos pos, SpawnData spawnEntry) {
+		this.nextSpawnData = Optional.ofNullable(spawnEntry);
 	}
 
 	private static long lowResolutionPosition(@NotNull ServerLevel world, @NotNull BlockPos pos) {

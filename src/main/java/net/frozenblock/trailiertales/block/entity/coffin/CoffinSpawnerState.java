@@ -33,7 +33,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		return switch (this) {
-			case INACTIVE -> coffinSpawnerData.hasMobToSpawn(spawner, level.random)
+			case INACTIVE -> coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
 				&& CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) <= coffinSpawnerData.maxActiveLightLevel ? ACTIVE : INACTIVE;
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
@@ -52,7 +52,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		if (
-			!coffinSpawnerData.hasMobToSpawn(spawner, level.random)
+			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
 				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
 		) {
 			return INACTIVE;
@@ -77,7 +77,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 					coffinSpawnerData.currentMobs.add(uuid);
 					++coffinSpawnerData.totalMobsSpawned;
 					coffinSpawnerData.nextMobSpawnsAt = level.getGameTime() + (long)coffinSpawnerConfig.ticksBetweenSpawn();
-					coffinSpawnerConfig.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
+					coffinSpawnerData.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
 						coffinSpawnerData.nextSpawnData = Optional.of(spawnData.data());
 						spawner.markUpdated();
 					});

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(BlockEntityType.class)
+@Mixin(value = BlockEntityType.class, priority = 1100)
 public class BlockEntityTypeMixin {
 
 	@WrapOperation(
