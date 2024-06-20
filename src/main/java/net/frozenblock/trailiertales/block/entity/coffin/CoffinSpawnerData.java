@@ -37,7 +37,8 @@ public class CoffinSpawnerData {
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("power", 0).forGetter(data -> data.power),
 				SpawnData.CODEC.lenientOptionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
-				Codec.BOOL.lenientOptionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs)
+				Codec.BOOL.lenientOptionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
+				Codec.intRange(0, 15).lenientOptionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
 			)
 			.apply(instance, CoffinSpawnerData::new)
 	);
@@ -51,9 +52,10 @@ public class CoffinSpawnerData {
 	protected int power;
 	protected Optional<SpawnData> nextSpawnData;
 	protected boolean withinCatacombs;
+	protected int maxActiveLightLevel;
 
 	public CoffinSpawnerData() {
-		this(new LongArrayList(), Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false);
+		this(new LongArrayList(), Collections.emptySet(), Collections.emptySet(), 0L, 0L, 0, 0, Optional.empty(), false, 7);
 	}
 
 	public CoffinSpawnerData(
@@ -65,7 +67,8 @@ public class CoffinSpawnerData {
 		int totalMobsSpawned,
 		int power,
 		Optional<SpawnData> nextSpawnData,
-		boolean withinCatacombs
+		boolean withinCatacombs,
+		int maxActiveLightLevel
 	) {
 		this.soulsToSpawn.addAll(soulsToSpawn);
 		this.detectedPlayers.addAll(detectedPlayers);
@@ -76,6 +79,7 @@ public class CoffinSpawnerData {
 		this.power = power;
 		this.nextSpawnData = nextSpawnData;
 		this.withinCatacombs = withinCatacombs;
+		this.maxActiveLightLevel = maxActiveLightLevel;
 	}
 
 	public void reset() {
@@ -127,11 +131,11 @@ public class CoffinSpawnerData {
 		return Util.getRandom(this.detectedPlayers.stream().toList(), random);
 	}
 
-	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, CoffinSpawner trialSpawner) {
+	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, CoffinSpawner coffinSpawner) {
 		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
 		if (isSecondForPos) {
-			List<UUID> list = trialSpawner.getPlayerDetector()
-				.detect(world, trialSpawner.getEntitySelector(), pos, trialSpawner.getRequiredPlayerRange(), this.withinCatacombs);
+			List<UUID> list = coffinSpawner.getPlayerDetector()
+				.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 
 			if (this.detectedPlayers.addAll(list)) {
 				world.levelEvent(LevelEvent.PARTICLES_TRIAL_SPAWNER_DETECT_PLAYER, pos, this.detectedPlayers.size());

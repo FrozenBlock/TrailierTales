@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
@@ -9,6 +10,7 @@ import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,6 +20,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -46,6 +49,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public static final EnumProperty<CoffinPart> PART = TrailierBlockStateProperties.COFFIN_PART;
 	public static final EnumProperty<CoffinSpawnerState> STATE = TrailierBlockStateProperties.COFFIN_STATE;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
+	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TrailierTalesSharedConstants.id("coffin_follow_range");
 
 	@Override
 	public @NotNull MapCodec<CoffinBlock> codec() {
@@ -190,6 +194,22 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	private static boolean isCoffinHalfBlockedAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
 		BlockPos blockPos = pos.above();
 		return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
+	}
+
+	public static int getLightLevelSurroundingCoffin(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
+		return Math.max(getLightLevel(level, pos), getLightLevel(level, pos.relative(getConnectedDirection(state))));
+	}
+
+	private static int getLightLevel(@NotNull Level level, @NotNull BlockPos pos) {
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		int finalLight = 0;
+		for (Direction direction : Direction.values()) {
+			mutableBlockPos.move(direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			finalLight = Math.max(finalLight, newLight);
+			mutableBlockPos.move(direction, -1);
+		}
+		return finalLight;
 	}
 
 	/*

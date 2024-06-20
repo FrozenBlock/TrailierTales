@@ -4,12 +4,16 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import net.frozenblock.trailiertales.TrailierTalesClient;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
+import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -23,8 +27,8 @@ public class DecoratedPotPatternsMixin {
 			target = "Ljava/util/Map;ofEntries([Ljava/util/Map$Entry;)Ljava/util/Map;"
 		)
 	)
-	private static Map<Item, ResourceKey<String>> trailierTales$addNewSherds(Map<Item, ResourceKey<String>> original) {
-		Object2ObjectLinkedOpenHashMap<Item, ResourceKey<String>> newMap = new Object2ObjectLinkedOpenHashMap<>();
+	private static Map<Item, ResourceKey<DecoratedPotPattern>> trailierTales$addNewSherds(Map<Item, ResourceKey<DecoratedPotPattern>> original) {
+		Object2ObjectLinkedOpenHashMap<Item, ResourceKey<DecoratedPotPattern>> newMap = new Object2ObjectLinkedOpenHashMap<>();
 		newMap.putAll(original);
 		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
@@ -32,10 +36,16 @@ public class DecoratedPotPatternsMixin {
 	}
 
 	@Inject(method = "bootstrap", at = @At(value = "RETURN", shift = At.Shift.BEFORE))
-	private static void trailierTales$bootstrap(Registry<String> registry, CallbackInfoReturnable<String> info) {
-		Registry.register(registry, TrailierTalesClient.BLANK_DECORATED, TrailierTalesClient.BLANK_DECORATED_NAME);
-		Registry.register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
-		Registry.register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
+	private static void trailierTales$bootstrap(Registry<DecoratedPotPattern> registry, CallbackInfoReturnable<DecoratedPotPattern> info) {
+		trailierTales$register(registry, TrailierTalesClient.BLANK_DECORATED, TrailierTalesClient.BLANK_DECORATED_NAME);
+		trailierTales$register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
+	}
+
+	@Contract("_, _, _ -> new")
+	@Unique
+	private static void trailierTales$register(Registry<DecoratedPotPattern> registry, ResourceKey<DecoratedPotPattern> registryKey, String path) {
+		Registry.register(registry, registryKey, new DecoratedPotPattern(TrailierTalesSharedConstants.id(path)));
 	}
 
 }

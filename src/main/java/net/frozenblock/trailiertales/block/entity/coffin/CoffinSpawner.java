@@ -299,7 +299,7 @@ public final class CoffinSpawner {
 											mob.setTarget(player);
 											mob.getNavigation().moveTo(player, 1D);
 											mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
-												.addPermanentModifier(new AttributeModifier("trailiertales_coffin_follow_range", 128D, AttributeModifier.Operation.ADD_VALUE));
+												.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 128D, AttributeModifier.Operation.ADD_VALUE));
 										}
 									}
 									if (entity instanceof EntityCoffinInterface entityInterface) {

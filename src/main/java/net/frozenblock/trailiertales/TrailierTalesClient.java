@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 
 @Environment(EnvType.CLIENT)
 public class TrailierTalesClient implements ClientModInitializer {
@@ -24,9 +25,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String BULLSEYE_POTTERY_PATTERN_NAME = "bullseye_pottery_pattern";
 	public static final String WITHER_POTTERY_PATTERN_NAME = "wither_pottery_pattern";
 
-	public static final ResourceKey<String> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERNS, TrailierTalesSharedConstants.id(BLANK_DECORATED_NAME));
-	public static final ResourceKey<String> BULLSEYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERNS, TrailierTalesSharedConstants.id(BULLSEYE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<String> WITHER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERNS, TrailierTalesSharedConstants.id(WITHER_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierTalesSharedConstants.id(BLANK_DECORATED_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BULLSEYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierTalesSharedConstants.id(BULLSEYE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> WITHER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierTalesSharedConstants.id(WITHER_POTTERY_PATTERN_NAME));
 
 	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TrailierTalesSharedConstants.id("coffin_head"), "main");
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TrailierTalesSharedConstants.id("coffin_foot"), "main");

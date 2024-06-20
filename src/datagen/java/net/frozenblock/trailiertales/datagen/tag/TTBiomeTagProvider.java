@@ -25,7 +25,7 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@NotNull
 	private TagKey<Biome> getTag(String id) {
-		return TagKey.create(this.registryKey, new ResourceLocation(id));
+		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
 	}
 
 }

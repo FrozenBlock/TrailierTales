@@ -122,9 +122,13 @@ public class SurveyorBlock extends BaseEntityBlock {
 		boolean shouldPower = lastDetectionPower > 0;
 		if (shouldPower != state.getValue(POWERED)) {
 			level.setBlockAndUpdate(pos, state.setValue(POWERED, shouldPower));
+			if (state.getBlock() instanceof SurveyorBlock surveyorBlock) {
+				surveyorBlock.updateNeighborsInFront(level, pos, state);
+			}
 		}
 	}
 
+	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel

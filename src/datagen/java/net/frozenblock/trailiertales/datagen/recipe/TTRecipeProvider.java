@@ -342,7 +342,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// DESOLATION SMITHING TEMPLATE
 
-			ShapedRecipeBuilder.shaped(RecipeCategory.INGREDIENTS, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
 			.define('#', Items.DIAMOND)
 			.define('C', Blocks.STONE_BRICKS)
 			.define('S', RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
@@ -354,7 +354,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// UNDEAD SMITHING TEMPLATE
 
-			ShapedRecipeBuilder.shaped(RecipeCategory.INGREDIENTS, RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
 			.define('#', Items.DIAMOND)
 			.define('C', RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
 			.define('S', RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)

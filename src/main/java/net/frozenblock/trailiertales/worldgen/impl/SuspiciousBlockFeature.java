@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.worldgen.impl;
 import com.mojang.serialization.Codec;
 import java.util.BitSet;
 import java.util.function.Function;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousData;
 import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousDataInterface;
 import net.minecraft.Util;
@@ -75,7 +76,7 @@ public class SuspiciousBlockFeature extends Feature<SuspiciousBlockConfiguration
 		int width,
 		int height
 	) {
-		ResourceLocation lootTable = new ResourceLocation("empty");
+		ResourceLocation lootTable = TrailierTalesSharedConstants.vanillaId("empty");
 		if (!config.lootTables.isEmpty()) {
 			lootTable = Util.getRandom(config.lootTables, random);
 		}

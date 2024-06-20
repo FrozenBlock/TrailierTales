@@ -36,14 +36,21 @@ public class BrushParticleMixin {
 		return blockHitResult;
 	}
 
-	@Inject(method = "onUseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BrushItem;getUseDuration(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER))
+	@Inject(
+		method = "onUseTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/item/BrushItem;getUseDuration(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)I",
+			shift = At.Shift.AFTER
+		)
+	)
 	public void trailierTales$onUseTick(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
 		this.trailierTales$halfBrush(level, livingEntity2, itemStack, i);
 	}
 
 	@Unique
 	public void trailierTales$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i) {
-		int j = BrushItem.class.cast(this).getUseDuration(itemStack) - i + 1;
+		int j = BrushItem.class.cast(this).getUseDuration(itemStack, livingEntity2) - i + 1;
 		if (j % 5 == 0 && j % 10 != 5 && this.trailierTales$blockHitResult != null && livingEntity2 instanceof Player player) {
 			BlockPos blockPos = trailierTales$blockHitResult.getBlockPos();
 			this.trailierTales$spawnOppositeDustParticles(level, this.trailierTales$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite());

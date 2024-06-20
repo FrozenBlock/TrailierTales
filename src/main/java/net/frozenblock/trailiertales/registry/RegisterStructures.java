@@ -7,6 +7,7 @@ import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -50,13 +51,26 @@ public final class RegisterStructures {
 	}
 
 	@NotNull
-	public static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull Map<MobCategory, StructureSpawnOverride> spawns, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
+	public static Structure.StructureSettings structure(
+		@NotNull HolderSet<Biome> holderSet,
+		@NotNull Map<MobCategory, StructureSpawnOverride> spawns,
+		@NotNull GenerationStep.Decoration featureStep,
+		@NotNull TerrainAdjustment terrainAdaptation
+	) {
 		return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
 	}
 
 	@NotNull
-	public static Structure.StructureSettings structure(@NotNull HolderSet<Biome> holderSet, @NotNull GenerationStep.Decoration featureStep, @NotNull TerrainAdjustment terrainAdaptation) {
+	public static Structure.StructureSettings structure(
+		@NotNull HolderSet<Biome> holderSet,
+		@NotNull GenerationStep.Decoration featureStep,
+		@NotNull TerrainAdjustment terrainAdaptation
+	) {
 		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
+	}
+
+	public static void register(@NotNull BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
+		pool.register(Pools.parseKey(location), templatePool);
 	}
 
 }

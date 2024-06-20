@@ -82,11 +82,11 @@ public class TrailierTalesSharedConstants {
 	}
 
 	public static ResourceLocation id(String path) {
-		return new ResourceLocation(MOD_ID, path);
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	public static ResourceLocation vanillaId(String path) {
-		return new ResourceLocation(ResourceLocation.DEFAULT_NAMESPACE, path);
+		return ResourceLocation.fromNamespaceAndPath(ResourceLocation.DEFAULT_NAMESPACE, path);
 	}
 
 	@NotNull

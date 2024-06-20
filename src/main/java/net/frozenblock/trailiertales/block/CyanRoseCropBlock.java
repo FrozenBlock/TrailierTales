@@ -31,6 +31,7 @@ public class CyanRoseCropBlock extends CropBlock {
 	private static final int BONEMEAL_INCREASE = 1;
 
 	@Override
+	@NotNull
 	public MapCodec<CyanRoseCropBlock> codec() {
 		return CODEC;
 	}
@@ -45,11 +46,13 @@ public class CyanRoseCropBlock extends CropBlock {
 	}
 
 	@Override
+	@NotNull
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE_BY_AGE[this.getAge(state)];
 	}
 
 	@Override
+	@NotNull
 	protected IntegerProperty getAgeProperty() {
 		return AGE;
 	}
@@ -60,11 +63,13 @@ public class CyanRoseCropBlock extends CropBlock {
 	}
 
 	@Override
+	@NotNull
 	protected ItemLike getBaseSeedId() {
 		return RegisterItems.CYAN_ROSE_SEEDS;
 	}
 
 	@Override
+	@NotNull
 	public BlockState getStateForAge(int age) {
 		return age == MAX_AGE ? RegisterBlocks.CYAN_ROSE.defaultBlockState() : super.getStateForAge(age);
 	}
