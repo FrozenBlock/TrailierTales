@@ -380,6 +380,15 @@ public final class CoffinSpawner {
 			}
 		}
 
+		this.data.currentMobs.removeIf(uiid -> {
+			Entity entity = world.getEntity(uiid);
+			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
+			if (shouldUntrack) {
+				CoffinBlock.removeCoffinDataAndTrackingBoost(entity);
+			}
+			return shouldUntrack;
+		});
+
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
 			if (currentState.isCapableOfSpawning()) {
@@ -387,8 +396,6 @@ public final class CoffinSpawner {
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			this.data.currentMobs.removeIf(uiid -> shouldMobBeUntracked(world, pos, uiid));
-
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world, coffinBlocked);
 			if (nextState != currentState) {
 				this.setState(world, nextState);
@@ -397,8 +404,15 @@ public final class CoffinSpawner {
 		this.updateAttemptingToSpawn(world, pos, direction);
 	}
 
-	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos,UUID uuid) {
+	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, UUID uuid) {
 		Entity entity = level.getEntity(uuid);
+		return entity == null
+			|| !entity.level().dimension().equals(level.dimension())
+			|| entity.blockPosition().distSqr(pos) > (double)MAX_MOB_TRACKING_DISTANCE_SQR
+			|| entity.isRemoved();
+	}
+
+	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, Entity entity) {
 		return entity == null
 			|| !entity.level().dimension().equals(level.dimension())
 			|| entity.blockPosition().distSqr(pos) > (double)MAX_MOB_TRACKING_DISTANCE_SQR

@@ -6,6 +6,7 @@ import java.util.List;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
@@ -15,7 +16,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -221,6 +225,18 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag options) {
 		super.appendHoverText(stack, tooltipContext, tooltip, options);
 		Spawner.appendHoverText(stack, tooltip, "SpawnData");
+	}
+
+	public static void removeCoffinDataAndTrackingBoost(Entity entity) {
+		if (entity instanceof LivingEntity livingEntity) {
+			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
+			if (followRange != null) {
+				followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
+			}
+			if (livingEntity instanceof EntityCoffinInterface entityInterface) {
+				entityInterface.trailierTales$setCoffinData(null);
+			}
+		}
 	}
 
 	@Nullable
