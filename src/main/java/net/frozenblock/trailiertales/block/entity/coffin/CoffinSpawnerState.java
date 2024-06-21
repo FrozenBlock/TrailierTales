@@ -31,10 +31,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	}
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
-		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		return switch (this) {
-			case INACTIVE -> coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
-				&& CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) <= coffinSpawnerData.maxActiveLightLevel ? ACTIVE : INACTIVE;
+			case INACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
