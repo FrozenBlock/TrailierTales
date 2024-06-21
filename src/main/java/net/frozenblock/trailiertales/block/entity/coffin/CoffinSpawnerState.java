@@ -32,7 +32,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
 		return switch (this) {
-			case INACTIVE -> getActiveState(this, pos, spawner, level);
+			case INACTIVE -> getInactiveState(pos, spawner, level);
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
@@ -40,25 +40,24 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		};
 	}
 
-	private static CoffinSpawnerState getActiveState(
-		CoffinSpawnerState coffinSpawnerState,
+	private static CoffinSpawnerState getInactiveState(
 		BlockPos pos,
 		@NotNull CoffinSpawner spawner,
 		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		if (
 			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
 				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
 		) {
 			return INACTIVE;
 		} else {
-			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
-			if (!coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
-				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
-				coffinSpawnerData.power = 0;
-				return coffinSpawnerState.getNextPowerState();
+			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
+				if (spawner.getAggressiveConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+					return AGGRESSIVE;
+				} else if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+					return IRRITATED;
+				}
 			}
 		}
 		return ACTIVE;
@@ -84,7 +83,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 			if (!coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
-				coffinSpawnerData.power = 0;
+				coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getAggressiveConfig().powerForNextLevel() : coffinSpawnerData.power;
 				return coffinSpawnerState.getNextPowerState();
 			}
 

@@ -28,7 +28,7 @@ public record CoffinSpawnerConfig(
 		2F,
 		2F,
 		240,
-		8
+		12
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		4,
@@ -37,7 +37,7 @@ public record CoffinSpawnerConfig(
 		3F,
 		2F,
 		120,
-		8
+		20
 	);
 
 	public static final Codec<CoffinSpawnerConfig> CODEC = RecordCodecBuilder.create(
