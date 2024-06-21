@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
@@ -22,9 +23,11 @@ import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -147,6 +150,25 @@ public class CoffinSpawnerData {
 
 	public UUID randomPlayerUUID(RandomSource random) {
 		return Util.getRandom(this.detectedPlayers.stream().toList(), random);
+	}
+
+	public Optional<Player> getClosestDetectedPlayer(Level level, Vec3 origin) {
+		if (this.detectedAnyPlayers()) {
+			AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
+			AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
+			this.detectedPlayers.forEach(uuid -> {
+				Player player = level.getPlayerByUUID(uuid);
+				if (player != null) {
+					double distanceTo = player.distanceToSqr(origin);
+					if (distanceTo < closestDistance.get()) {
+						closestDistance.set(distanceTo);
+						closestPlayer.set(Optional.of(player));
+					}
+				}
+			});
+			return closestPlayer.get();
+		}
+		return Optional.empty();
 	}
 
 	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, CoffinSpawner coffinSpawner) {

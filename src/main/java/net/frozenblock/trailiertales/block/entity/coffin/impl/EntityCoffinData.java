@@ -1,20 +1,26 @@
 package net.frozenblock.trailiertales.block.entity.coffin.impl;
 
+import java.util.Optional;
 import java.util.UUID;
+import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EntityCoffinData {
-	private BlockPos pos;
-	private UUID coffinUUID;
-	private UUID targetUUID;
+	private final BlockPos pos;
+	private final UUID coffinUUID;
 
-	public EntityCoffinData(BlockPos pos, UUID coffinUUID, UUID targetUUID) {
+	public EntityCoffinData(BlockPos pos, UUID coffinUUID) {
 		this.pos = pos;
 		this.coffinUUID = coffinUUID;
-		this.targetUUID = targetUUID;
 	}
 
 	public BlockPos getPos() {
@@ -25,8 +31,31 @@ public class EntityCoffinData {
 		return this.coffinUUID;
 	}
 
-	public UUID getTargetUUID() {
-		return this.targetUUID;
+	public void tick(LivingEntity entity, @NotNull Level level) {
+		if (level.isClientSide()) {
+			return;
+		}
+		Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
+		if (optionalCoffinSpawner.isPresent()) {
+			CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+			if (entity instanceof Mob mob) {
+				Optional<Player> closestDetectedPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
+				closestDetectedPlayer.ifPresent(mob::setTarget);
+			}
+		} else {
+			CoffinBlock.onCoffinUntrack(entity);
+		}
+	}
+
+	public Optional<CoffinSpawner> getSpawner(@NotNull Level level) {
+		if (level.isLoaded(this.getPos())) {
+			if (level.getBlockEntity(this.getPos()) instanceof CoffinBlockEntity coffinBlockEntity) {
+				if (coffinBlockEntity.getCoffinSpawner().getUUID().equals(this.getCoffinUUID())) {
+					return Optional.of(coffinBlockEntity.getCoffinSpawner());
+				}
+			}
+		}
+		return Optional.empty();
 	}
 
 	public void saveCompoundTag(@NotNull CompoundTag tag) {
@@ -35,7 +64,6 @@ public class EntityCoffinData {
 		coffinDataTag.putInt("Y", this.pos.getY());
 		coffinDataTag.putInt("Z", this.pos.getZ());
 		coffinDataTag.putUUID("CoffinUUID", this.coffinUUID);
-		coffinDataTag.putUUID("TargetUUID", this.targetUUID);
 		tag.put("TrailierTales_CoffinData", coffinDataTag);
 	}
 
@@ -48,8 +76,7 @@ public class EntityCoffinData {
 				coffinDataTag.getInt("Z")
 			);
 			UUID coffinUUID = coffinDataTag.getUUID("CoffinUUID");
-			UUID targetUUID = coffinDataTag.getUUID("TargetUUID");
-			return new EntityCoffinData(pos, coffinUUID, targetUUID);
+			return new EntityCoffinData(pos, coffinUUID);
 		}
 		return null;
 	}

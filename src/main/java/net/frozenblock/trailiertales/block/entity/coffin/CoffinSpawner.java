@@ -33,7 +33,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -292,19 +291,13 @@ public final class CoffinSpawner {
 								}
 								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
 								if (this.data.detectedAnyPlayers()) {
-									UUID randomPlayerUUID = this.data.randomPlayerUUID(randomSource);
-									Player player = level.getPlayerByUUID(randomPlayerUUID);
-									if (player != null) {
-										if (entity instanceof Mob mob) {
-											mob.setTarget(player);
-											mob.getNavigation().moveTo(player, 1D);
-											mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
-												.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 128D, AttributeModifier.Operation.ADD_VALUE));
-										}
+									if (entity instanceof Mob mob) {
+										mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
+											.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 128D, AttributeModifier.Operation.ADD_VALUE));
 									}
 									if (entity instanceof EntityCoffinInterface entityInterface) {
 										entityInterface.trailierTales$setCoffinData(
-											new EntityCoffinData(pos, this.uuid, randomPlayerUUID)
+											new EntityCoffinData(pos, this.uuid)
 										);
 									}
 								}
