@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -34,6 +35,8 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.COFFIN, RegisterBlockEntities.COFFIN);
+
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
 		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_CYAN_ROSE, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE, RenderType.cutout());

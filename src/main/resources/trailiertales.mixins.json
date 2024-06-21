@@ -19,7 +19,6 @@
   "client": [
     "client.brush.ItemInHandLayerMixin",
     "client.brushable_block.BrushableBlockRenderMixin",
-    "client.coffin.BlockEntityWithoutLevelRendererMixin",
     "client.decorated_pot.DecoratedPotPatternsMixin",
     "client.decorated_pot.DecoratedPotRendererMixin"
   ],
