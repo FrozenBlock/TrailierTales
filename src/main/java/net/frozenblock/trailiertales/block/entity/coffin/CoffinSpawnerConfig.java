@@ -14,7 +14,7 @@ public record CoffinSpawnerConfig(
 ) {
 	public static final CoffinSpawnerConfig DEFAULT = new CoffinSpawnerConfig(
 		4,
-		4F,
+		6F,
 		2F,
 		2F,
 		2F,
@@ -23,7 +23,7 @@ public record CoffinSpawnerConfig(
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		4,
-		5F,
+		12F,
 		2F,
 		2F,
 		2F,
@@ -32,7 +32,7 @@ public record CoffinSpawnerConfig(
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		4,
-		6F,
+		20F,
 		3F,
 		3F,
 		2F,
