@@ -384,7 +384,7 @@ public final class CoffinSpawner {
 			Entity entity = world.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
-				CoffinBlock.removeCoffinDataAndTrackingBoost(entity);
+				CoffinBlock.onCoffinUntrack(entity);
 			}
 			return shouldUntrack;
 		});
