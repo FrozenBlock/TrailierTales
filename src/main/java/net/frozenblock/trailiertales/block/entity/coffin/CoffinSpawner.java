@@ -385,7 +385,6 @@ public final class CoffinSpawner {
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
 			if (currentState.isCapableOfSpawning()) {
-				this.data.reset();
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
