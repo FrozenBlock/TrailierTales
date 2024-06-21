@@ -32,12 +32,36 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
 		return switch (this) {
-			case INACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
+			case INACTIVE -> getActiveState(this, pos, spawner, level);
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			default -> throw new MatchException(null, null);
 		};
+	}
+
+	private static CoffinSpawnerState getActiveState(
+		CoffinSpawnerState coffinSpawnerState,
+		BlockPos pos,
+		@NotNull CoffinSpawner spawner,
+		@NotNull ServerLevel level
+	) {
+		CoffinSpawnerData coffinSpawnerData = spawner.getData();
+		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
+		if (
+			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
+				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
+		) {
+			return INACTIVE;
+		} else {
+			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
+			if (!coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
+				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
+				coffinSpawnerData.power = 0;
+				return coffinSpawnerState.getNextPowerState();
+			}
+		}
+		return coffinSpawnerState;
 	}
 
 	private static CoffinSpawnerState activeTickAndGetNext(
