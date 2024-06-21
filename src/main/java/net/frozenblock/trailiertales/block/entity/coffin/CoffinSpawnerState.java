@@ -61,7 +61,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				return coffinSpawnerState.getNextPowerState();
 			}
 		}
-		return coffinSpawnerState;
+		return ACTIVE;
 	}
 
 	private static CoffinSpawnerState activeTickAndGetNext(
