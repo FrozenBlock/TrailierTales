@@ -56,7 +56,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 								serverLevel.sendParticles(RegisterParticles.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
 								serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
 								double distance = livingEntity.distanceToSqr(pos);
-								coffinBlockEntity.getCoffinSpawner().addSoulParticle((long) (40D + (distance * 1.25D)), serverLevel);
+								coffinBlockEntity.getCoffinSpawner().addSoulParticle(40 + (int)(distance * 1.25D));
 							}
 						}
 					}

@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.longs.LongArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +32,7 @@ public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 				SpawnData.LIST_CODEC.lenientOptionalFieldOf("spawn_potentials", SimpleWeightedRandomList.empty()).forGetter(data -> data.spawnPotentials),
-				Codec.LONG.listOf().lenientOptionalFieldOf("souls_to_spawn", new LongArrayList()).forGetter(data -> data.soulsToSpawn),
+				Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
 				Codec.LONG.lenientOptionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
@@ -46,7 +46,7 @@ public class CoffinSpawnerData {
 			.apply(instance, CoffinSpawnerData::new)
 	);
 
-	protected final LongArrayList soulsToSpawn = new LongArrayList();
+	protected final IntArrayList soulsToSpawn = new IntArrayList();
 	protected final Set<UUID> detectedPlayers = new HashSet<>();
 	protected final Set<UUID> currentMobs = new HashSet<>();
 	protected long powerCooldownEndsAt;
@@ -61,7 +61,7 @@ public class CoffinSpawnerData {
 	public CoffinSpawnerData() {
 		this(
 			SimpleWeightedRandomList.empty(),
-			new LongArrayList(),
+			new IntArrayList(),
 			Collections.emptySet(),
 			Collections.emptySet(),
 			0L,
@@ -76,7 +76,7 @@ public class CoffinSpawnerData {
 
 	public CoffinSpawnerData(
 		SimpleWeightedRandomList<SpawnData> spawnPotentials,
-		List<Long> soulsToSpawn,
+		List<Integer> soulsToSpawn,
 		Set<UUID> detectedPlayers,
 		Set<UUID> currentMobs,
 		long powerCooldownEndsAt,

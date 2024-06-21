@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.longs.LongArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import java.util.Optional;
 import java.util.UUID;
 import net.frozenblock.trailiertales.block.CoffinBlock;
@@ -189,8 +189,8 @@ public final class CoffinSpawner {
 		this.data.powerCooldownEndsAt = level.getGameTime() + this.powerCooldownLength;
 	}
 
-	public void addSoulParticle(long delayUntilSpawn, @NotNull Level level) {
-		this.data.soulsToSpawn.add(level.getGameTime() + delayUntilSpawn);
+	public void addSoulParticle(int delayUntilSpawn) {
+		this.data.soulsToSpawn.add(delayUntilSpawn);
 	}
 
 	public CoffinSpawnerState getState() {
@@ -344,16 +344,15 @@ public final class CoffinSpawner {
 
 		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
 		boolean coffinBlocked = false;
-		long currentTime = world.getGameTime();
-		LongArrayList soulsToSpawn = this.data.soulsToSpawn;
 		if (direction != null) {
 			coffinBlocked = CoffinBlock.isCoffinBlockedAt(direction, world, pos);
-			if (!soulsToSpawn.isEmpty()) {
+			if (!this.data.soulsToSpawn.isEmpty()) {
 				boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
 				boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
 				boolean isOppositeZ = isNegativeDirection && direction.getAxis() == Direction.Axis.Z;
-				soulsToSpawn.forEach(spawnTime -> {
-					if (spawnTime >= currentTime) {
+				IntArrayList newList = new IntArrayList();
+				this.data.soulsToSpawn.forEach(spawnTime -> {
+					if (spawnTime <= 0) {
 						double stepX = direction.getStepX();
 						double stepZ = direction.getStepZ();
 						double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
@@ -372,11 +371,14 @@ public final class CoffinSpawner {
 							0D
 						);
 						this.addPower(1, world);
+					} else {
+						newList.add(spawnTime - 1);
 					}
 				});
+				this.data.soulsToSpawn.clear();
+				this.data.soulsToSpawn.addAll(newList);
 			}
 		}
-		soulsToSpawn.removeIf(spawnTime -> spawnTime >= currentTime);
 
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
