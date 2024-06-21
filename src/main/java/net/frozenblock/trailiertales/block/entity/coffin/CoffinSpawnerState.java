@@ -53,9 +53,9 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			return INACTIVE;
 		} else {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
-				if (spawner.getAggressiveConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+				if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
 					return AGGRESSIVE;
-				} else if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+				} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
 					return IRRITATED;
 				}
 			}
