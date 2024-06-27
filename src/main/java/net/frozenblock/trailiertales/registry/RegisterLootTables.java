@@ -12,6 +12,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 public class RegisterLootTables {
 
 	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
+	public static final ResourceKey<LootTable> CATACOMBS_TOMB = register("chests/catacombs/tomb");
+	public static final ResourceKey<LootTable> CATACOMBS_TOMB_REWARD = register("chests/catacombs/tomb_reward");
 
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE

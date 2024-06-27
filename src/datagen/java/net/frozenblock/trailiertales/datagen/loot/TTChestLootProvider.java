@@ -49,6 +49,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.setRolls(UniformGenerator.between(2F, 4F))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
 						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.BONE).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 7))))
 				)
 		);
 	}
