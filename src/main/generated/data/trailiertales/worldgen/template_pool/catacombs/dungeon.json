@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/dungeon/dungeon1",
+        "location": "trailiertales:catacombs/catacombs_center",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },

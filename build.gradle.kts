@@ -214,6 +214,9 @@ dependencies {
     else
         modCompileOnly("maven.modrinth:embeddium:${embeddium_version}")
 
+    // WorldEdit
+    modImplementation("maven.modrinth:worldedit:7.3.4-beta-01")
+
     "datagenImplementation"(sourceSets.main.get().output)
 }
 

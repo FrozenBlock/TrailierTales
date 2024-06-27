@@ -219,6 +219,20 @@ public class RegisterStructureProcessors {
 							new RandomBlockStateMatchTest(
 								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.7F),
 							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1).setValue(BlockStateProperties.LIT, true)
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.POTTED_DEAD_BUSH, 0.1F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.POTTED_DEAD_BUSH, 0.6F),
+							AlwaysTrueTest.INSTANCE, Blocks.FLOWER_POT.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.175F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
 						)
 					)
 				),
