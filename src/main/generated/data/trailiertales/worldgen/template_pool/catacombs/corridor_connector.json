@@ -781,7 +781,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -790,7 +790,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -799,7 +799,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -808,7 +808,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -817,7 +817,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -826,7 +826,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -835,7 +835,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 8
+      "weight": 3
     },
     {
       "element": {
@@ -844,7 +844,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 8
+      "weight": 3
     },
     {
       "element": {
@@ -853,7 +853,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -921,7 +921,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/door_puzzle4",
+        "location": "trailiertales:catacombs/tomb/door_puzzle3",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -957,7 +957,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/tall_pillars4",
+        "location": "trailiertales:catacombs/tomb/tall_pillars3",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -970,7 +970,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -979,7 +979,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -988,7 +988,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -997,7 +997,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -1015,7 +1015,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -1024,7 +1024,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -1033,7 +1033,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -1042,7 +1042,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -1051,7 +1051,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
@@ -1060,7 +1060,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 3
     },
     {
       "element": {
