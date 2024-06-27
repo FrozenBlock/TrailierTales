@@ -132,7 +132,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel
-			?  null //createTickerHelper(blockEntityType, RegisterBlockEntities.SURVEYOR, (unusedWorld, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
+			? createTickerHelper(blockEntityType, RegisterBlockEntities.SURVEYOR, (unusedWorld, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
 			: null;
 	}
 
