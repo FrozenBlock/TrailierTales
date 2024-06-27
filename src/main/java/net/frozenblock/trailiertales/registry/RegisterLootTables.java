@@ -1,11 +1,17 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 
 public class RegisterLootTables {
+
+	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
 
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE
@@ -18,4 +24,7 @@ public class RegisterLootTables {
 		});
 	}
 
+	private static ResourceKey<LootTable> register(String path) {
+		return ResourceKey.create(Registries.LOOT_TABLE, TrailierTalesSharedConstants.id(path));
+	}
 }
