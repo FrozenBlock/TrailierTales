@@ -151,22 +151,39 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		if (this.trailierTales$hitDirection != null) {
 			compoundTag.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
 		}
-		compoundTag.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
-		compoundTag.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
-		compoundTag.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
-		compoundTag.putFloat("XLerp", this.trailierTales$xLerp);
-		compoundTag.putFloat("YLerp", this.trailierTales$yLerp);
-		compoundTag.putFloat("ZLerp", this.trailierTales$zLerp);
-		compoundTag.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
-		compoundTag.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
-		compoundTag.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
-		compoundTag.putFloat("Rotation", this.trailierTales$rotation);
-		compoundTag.putFloat("PrevRotation", this.trailierTales$prevRotation);
-		compoundTag.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
-		compoundTag.putFloat("ItemScale", this.trailierTales$itemScale);
-		compoundTag.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
-		compoundTag.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
-		compoundTag.putInt("BrushCount", this.brushCount);
+		if (this.trailierTales$targetXLerp != 0.5F)
+			compoundTag.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
+		if (this.trailierTales$targetYLerp != 0F)
+			compoundTag.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
+		if (this.trailierTales$targetZLerp != 0.5F)
+			compoundTag.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
+		if (this.trailierTales$xLerp != 0.5F)
+			compoundTag.putFloat("XLerp", this.trailierTales$xLerp);
+		if (this.trailierTales$yLerp != 0F)
+			compoundTag.putFloat("YLerp", this.trailierTales$yLerp);
+		if (this.trailierTales$zLerp != 0.5F)
+			compoundTag.putFloat("ZLerp", this.trailierTales$zLerp);
+		if (this.trailierTales$prevXLerp != 0.5F)
+			compoundTag.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
+		if (this.trailierTales$prevYLerp != 0F)
+			compoundTag.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
+		if (this.trailierTales$prevZLerp != 0.5F)
+			compoundTag.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
+
+		if (this.trailierTales$rotation != 0F)
+			compoundTag.putFloat("Rotation", this.trailierTales$rotation);
+		if (this.trailierTales$prevRotation != 0F)
+			compoundTag.putFloat("PrevRotation", this.trailierTales$prevRotation);
+		if (this.trailierTales$targetItemScale != 0F)
+			compoundTag.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
+		if (this.trailierTales$itemScale != 0F)
+			compoundTag.putFloat("ItemScale", this.trailierTales$itemScale);
+		if (this.trailierTales$prevItemScale != 0F)
+			compoundTag.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
+		if (this.trailierTales$hasCustomItem)
+			compoundTag.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
+		if (this.brushCount != 0)
+			compoundTag.putInt("BrushCount", this.brushCount);
 	}
 
 	@Unique

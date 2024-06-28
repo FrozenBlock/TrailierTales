@@ -1,7 +1,6 @@
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
@@ -112,18 +111,39 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset()V"
 		)
 	)
-	public void trailierTales$setBreakCancellationValue(
+	public void trailierTales$setHasCustomItemForFalling(
 		BrushableBlockEntity brushableBlockEntity, Operation<Void> original,
 		BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random,
 		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
-		@Share("trailierTales$cancelFallBreaking") LocalBooleanRef cancelFallBreaking
+		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem
 	) {
 		original.call(brushableBlockEntity);
 		blockEntityRef.set(brushableBlockEntity);
 		if ((((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$hasCustomItem() ||
 				(state.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && state.getValue(RegisterProperties.CAN_PLACE_ITEM)))
 		) {
-			cancelFallBreaking.set(true);
+			hasCustomItem.set(true);
+		}
+	}
+
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;",
+			shift = At.Shift.BEFORE
+		)
+	)
+	public void trailierTales$getFallingBlockItem(
+		BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo info,
+		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
+		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
+		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
+	) {
+		BrushableBlockEntity brushableBlockEntity = blockEntityRef.get();
+		if (brushableBlockEntity != null && hasCustomItem.get()) {
+			itemStack.set(brushableBlockEntity.getItem().copy());
+			((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
 		}
 	}
 
@@ -136,32 +156,13 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	)
 	public FallingBlockEntity trailierTales$setFallingBlockItem(
 		FallingBlockEntity original,
-		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
-		@Share("trailierTales$cancelFallBreaking") LocalBooleanRef cancelFallBreaking
+		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
+		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
 	) {
-		BrushableBlockEntity brushableBlockEntity = blockEntityRef.get();
-		if (brushableBlockEntity != null && cancelFallBreaking.get()) {
-			ItemStack stack = brushableBlockEntity.getItem().copy();
-			((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
-			if (!stack.isEmpty()) {
-				((FallingBlockEntityInterface) original).trailierTales$setItem(stack);
-			}
+		if (hasCustomItem.get()) {
+			((FallingBlockEntityInterface) original).trailierTales$setItem(itemStack.get());
 		}
 		return original;
-	}
-
-	@WrapWithCondition(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;disableDrop()V"
-		)
-	)
-	public boolean trailierTales$preventBreaking(
-		FallingBlockEntity instance,
-		@Share("trailierTales$cancelFallBreaking") LocalBooleanRef cancelFallBreaking
-	) {
-		return !cancelFallBreaking.get();
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
