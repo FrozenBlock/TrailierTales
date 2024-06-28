@@ -30,6 +30,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
@@ -473,7 +474,7 @@ public class CatacombsGenerator {
 				116,
 				List.of(),
 				JigsawStructure.DEFAULT_DIMENSION_PADDING,
-				JigsawStructure.DEFAULT_LIQUID_SETTINGS
+				LiquidSettings.IGNORE_WATERLOGGING
 			)
 		);
 	}
