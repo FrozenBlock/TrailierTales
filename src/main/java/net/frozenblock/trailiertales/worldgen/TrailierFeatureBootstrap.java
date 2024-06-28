@@ -1,14 +1,9 @@
 package net.frozenblock.trailiertales.worldgen;
 
-import com.google.common.collect.ImmutableList;
 import java.util.Arrays;
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterFeatures;
-import net.frozenblock.trailiertales.worldgen.impl.SuspiciousBlockConfiguration;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -17,28 +12,17 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierFeatureBootstrap {
@@ -50,15 +34,6 @@ public class TrailierFeatureBootstrap {
 	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
 		TrailierTalesSharedConstants.id("torchflower")
-	);
-
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_COMMON = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
-			TrailierTalesSharedConstants.id("suspicious_blocks_common")
-		);
-	public static final ResourceKey<PlacedFeature> SUSPICIOUS_COMMON_PLACED = ResourceKey.create(
-		Registries.PLACED_FEATURE,
-		TrailierTalesSharedConstants.id("suspicious_blocks_common")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -76,40 +51,6 @@ public class TrailierFeatureBootstrap {
 				)
 			)
 		);
-
-		RuleTest isDirtTest = new TagMatchTest(BlockTags.DIRT);
-		RuleTest isGravelTest = new BlockMatchTest(Blocks.GRAVEL);
-		RuleTest isSandTest = new BlockMatchTest(Blocks.SAND);
-		RuleTest isRedSandTest = new BlockMatchTest(Blocks.RED_SAND);
-		RuleTest isClayTest = new BlockMatchTest(Blocks.CLAY);
-		OreConfiguration.TargetBlockState dirtToSuspicious = OreConfiguration.target(isDirtTest, RegisterBlocks.SUSPICIOUS_DIRT.defaultBlockState());
-		OreConfiguration.TargetBlockState gravelToSuspicious = OreConfiguration.target(isGravelTest, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState());
-		OreConfiguration.TargetBlockState sandToSuspicious = OreConfiguration.target(isSandTest, Blocks.SUSPICIOUS_SAND.defaultBlockState());
-		OreConfiguration.TargetBlockState redSandToSuspicious = OreConfiguration.target(isRedSandTest, RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState());
-		OreConfiguration.TargetBlockState clayToSuspicious = OreConfiguration.target(isClayTest, RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState());
-
-		register(
-			entries,
-			SUSPICIOUS_COMMON,
-			RegisterFeatures.SUSPICIOUS_BLOCK_FEATURE,
-			new SuspiciousBlockConfiguration(
-				ImmutableList.of(
-					dirtToSuspicious,
-					gravelToSuspicious,
-					sandToSuspicious,
-					redSandToSuspicious,
-					clayToSuspicious
-				),
-				18,
-				0F,
-				0.3F,
-				ImmutableList.of(
-					TrailierTalesSharedConstants.id("archaeology/dead_entity_arrow"),
-					TrailierTalesSharedConstants.id("archaeology/dead_entity_loot"),
-					TrailierTalesSharedConstants.id("archaeology/dead_entity_sword")
-				)
-			)
-		);
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
@@ -122,29 +63,6 @@ public class TrailierFeatureBootstrap {
 			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
-			BiomeFilter.biome()
-		);
-
-		BlockPredicate suspiciousReplaceable = BlockPredicate.anyOf(
-			BlockPredicate.matchesTag(BlockTags.DIRT),
-			BlockPredicate.matchesBlocks(Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.CLAY)
-		);
-		BlockPredicate notSuspiciousReplaceable = BlockPredicate.not(suspiciousReplaceable);
-
-		register(
-			entries,
-			SUSPICIOUS_COMMON_PLACED,
-			configuredFeatures.getOrThrow(SUSPICIOUS_COMMON),
-			CountPlacement.of(UniformInt.of(0, 5)),
-			RarityFilter.onAverageOnceEvery(2),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(128)),
-			EnvironmentScanPlacement.scanningFor(
-				Direction.DOWN,
-				suspiciousReplaceable,
-				notSuspiciousReplaceable,
-				6
-			),
 			BiomeFilter.biome()
 		);
 	}

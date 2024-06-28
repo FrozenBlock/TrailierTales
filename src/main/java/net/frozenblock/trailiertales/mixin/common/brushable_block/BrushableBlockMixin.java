@@ -9,7 +9,6 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
 import net.frozenblock.trailiertales.registry.RegisterProperties;
-import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -57,18 +56,6 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	)
 	public void trailierTales$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
 		this.registerDefaultState(this.defaultBlockState().setValue(RegisterProperties.CAN_PLACE_ITEM, false));
-	}
-
-	@Inject(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset()V",
-			shift = At.Shift.BEFORE
-		)
-	)
-	public void trailierTales$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		SuspiciousData.addLootTableToBrushableBlock(level, pos);
 	}
 
 	@Override

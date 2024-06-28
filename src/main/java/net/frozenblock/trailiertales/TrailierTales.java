@@ -1,7 +1,6 @@
 package net.frozenblock.trailiertales;
 
 import java.util.List;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
@@ -15,12 +14,9 @@ import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
-import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousData;
-import net.frozenblock.trailiertales.worldgen.impl.suspicious_handler.SuspiciousDataStorage;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
-import net.minecraft.world.level.storage.DimensionDataStorage;
 
 public class TrailierTales extends FrozenModInitializer {
 
@@ -41,12 +37,6 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterLootTables.init();
 		RegisterSounds.init();
 		RegisterParticles.init();
-
-		ServerWorldEvents.LOAD.register((server, level) -> {
-			DimensionDataStorage dimensionDataStorage = level.getDataStorage();
-			SuspiciousData suspiciousData = SuspiciousData.getSuspiciousData(level);
-			dimensionDataStorage.computeIfAbsent(suspiciousData.createData(), SuspiciousDataStorage.SUSPICIOUS_FILE_ID);
-		});
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
