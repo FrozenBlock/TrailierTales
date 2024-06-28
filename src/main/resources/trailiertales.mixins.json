@@ -9,7 +9,6 @@
     "common.brushable_block.BrushableBlockEntityMixin",
     "common.brushable_block.BrushableBlockMixin",
     "common.brushable_block.FallingBlockEntityItemMixin",
-    "common.brushable_block.ServerLevelMixin",
     "common.coffin.EntityMixin",
     "common.coffin.LivingEntityMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",

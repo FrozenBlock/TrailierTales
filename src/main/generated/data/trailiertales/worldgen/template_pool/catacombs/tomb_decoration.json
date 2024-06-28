@@ -25,7 +25,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 25
+      "weight": 12
     },
     {
       "element": {
@@ -52,7 +52,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 12
     },
     {
       "element": {
@@ -61,7 +61,7 @@
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 12
     }
   ],
   "fallback": "minecraft:empty"
