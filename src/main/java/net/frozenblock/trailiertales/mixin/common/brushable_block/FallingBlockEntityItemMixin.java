@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FallingBlockEntity.class)
@@ -21,6 +23,8 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 
 	@Shadow
 	private BlockState blockState;
+	@Shadow
+	public CompoundTag blockData;
 
 	@Unique
 	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
@@ -59,20 +63,32 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V",
+			ordinal = 0,
 			shift = At.Shift.BEFORE
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+			)
 		)
 	)
-	public void trailierTales$tick(CallbackInfo info) {
+	public void trailierTales$setItemAfterPlacing(CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-		if (!fallingBlockEntity.level().isClientSide && this.trailierTales$overrideBreak) {
+		if (this.blockData == null && !fallingBlockEntity.level().isClientSide && this.trailierTales$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
 			BlockPos blockPos = fallingBlockEntity.blockPosition();
+			BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity(blockPos, this.blockState);
+			fallingBlockEntity.level().setBlockEntity(brushableBlockEntity);
+			((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(this.trailierTales$itemStack);
+		}
+	}
 
-			if (this.trailierTales$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
-				BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity(blockPos, this.blockState);
-				fallingBlockEntity.level().setBlockEntity(brushableBlockEntity);
-				((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(this.trailierTales$itemStack);
-			}
-
+	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
+	public void trailierTales$spawnCustomItemAfterBroken(Block block, BlockPos pos, CallbackInfo info) {
+		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
+		if (!fallingBlockEntity.level().isClientSide && this.trailierTales$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
+			fallingBlockEntity.spawnAtLocation(this.trailierTales$itemStack.copy());
+			this.trailierTales$itemStack = ItemStack.EMPTY;
 		}
 	}
 
