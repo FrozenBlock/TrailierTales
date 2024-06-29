@@ -7,17 +7,11 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:golden_apple",
-          "weight": 20
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:enchanted_golden_apple",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:name_tag",
-          "weight": 30
+          "name": "minecraft:enchanted_golden_apple"
         },
         {
           "type": "minecraft:item",
@@ -31,24 +25,30 @@
           "weight": 10
         },
         {
+          "type": "minecraft:empty",
+          "weight": 5
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
           "type": "minecraft:item",
           "functions": [
             {
               "add": false,
-              "damage": {
+              "count": {
                 "type": "minecraft:uniform",
-                "max": 0.8,
-                "min": 0.15
+                "max": 2.0,
+                "min": 1.0
               },
-              "function": "minecraft:set_damage"
-            },
-            {
-              "function": "minecraft:enchant_randomly",
-              "options": "#minecraft:on_random_loot"
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:iron_pickaxe",
-          "weight": 5
+          "name": "minecraft:gold_ingot",
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -64,11 +64,17 @@
             }
           ],
           "name": "minecraft:iron_ingot",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond"
+          "name": "minecraft:name_tag",
+          "weight": 15
         },
         {
           "type": "minecraft:empty",
@@ -79,6 +85,153 @@
         "type": "minecraft:uniform",
         "max": 3.0,
         "min": 1.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:skull_pottery_sherd",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:heart_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:wither_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:bullseye_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blade_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 7
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 0.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:wheat",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:bread",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:carrot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:potato",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:stick",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:arrow",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 0.0
       }
     },
     {
@@ -168,106 +321,6 @@
           "type": "minecraft:item",
           "name": "minecraft:book",
           "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:skull_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:heart_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "trailiertales:bullseye_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:blade_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:wheat",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:bread",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:carrot",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:potato",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:stick",
-          "weight": 2
         }
       ],
       "functions": [
@@ -283,8 +336,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 12.0,
-        "min": 5.0
+        "max": 9.0,
+        "min": 4.0
       }
     }
   ]
