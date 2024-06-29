@@ -17,7 +17,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:name_tag",
-          "weight": 20
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -48,7 +48,211 @@
             }
           ],
           "name": "minecraft:iron_pickaxe",
-          "weight": 5
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:iron_chestplate",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:iron_leggings",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:iron_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:iron_boots",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_chestplate"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_leggings"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "conditions": [
+                {
+                  "chance": 0.6,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_boots"
         },
         {
           "type": "minecraft:item",
@@ -100,13 +304,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:desolation_armor_trim_smithing_template",
-          "weight": 3
+          "name": "trailiertales:desolation_armor_trim_smithing_template"
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:undead_armor_trim_smithing_template",
-          "weight": 3
+          "name": "trailiertales:undead_armor_trim_smithing_template"
         },
         {
           "type": "minecraft:empty",
@@ -115,7 +317,7 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 8.0,
+        "max": 9.0,
         "min": 4.0
       }
     },
@@ -136,12 +338,12 @@
             }
           ],
           "name": "minecraft:coal",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:book",
-          "weight": 4
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -184,8 +386,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:wheat",
-          "weight": 3
+          "name": "minecraft:wheat"
         },
         {
           "type": "minecraft:item",
@@ -200,8 +401,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:bread",
-          "weight": 5
+          "name": "minecraft:bread"
         },
         {
           "type": "minecraft:item",
@@ -216,8 +416,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:carrot",
-          "weight": 5
+          "name": "minecraft:carrot"
         },
         {
           "type": "minecraft:item",
@@ -232,8 +431,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:potato",
-          "weight": 5
+          "name": "minecraft:potato"
         },
         {
           "type": "minecraft:item",
@@ -248,8 +446,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:stick",
-          "weight": 3
+          "name": "minecraft:stick"
         }
       ],
       "functions": [
@@ -265,8 +462,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 18.0,
-        "min": 10.0
+        "max": 13.0,
+        "min": 7.0
       }
     }
   ]
