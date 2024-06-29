@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
+import net.frozenblock.trailiertales.datagen.loot.TTArchaeologyLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTBlockLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTChestLootProvider;
 import net.frozenblock.trailiertales.datagen.model.TTModelProvider;
@@ -37,6 +38,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 		pack.addProvider(TTBlockLootProvider::new);
 		pack.addProvider(TTChestLootProvider::new);
+		pack.addProvider(TTArchaeologyLootProvider::new);
 		pack.addProvider(TTRegistryProvider::new);
 		pack.addProvider(TTBiomeTagProvider::new);
 		pack.addProvider(TTBlockTagProvider::new);

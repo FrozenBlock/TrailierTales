@@ -211,5 +211,49 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4)))
 				)
 		);
+
+		registry.accept(
+			RegisterLootTables.CATACOMBS_DECORATED_POT,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(5))
+						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(1))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(EmptyLootItem.emptyItem().setWeight(5))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(1F, 3F))
+						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(9).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
+						.add(LootItem.lootTableItem(Items.NAME_TAG).setWeight(15))
+						.add(EmptyLootItem.emptyItem().setWeight(5))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(0F, 2F))
+						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.BREAD).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.CARROT).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.POTATO).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.ARROW).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))))
+						.add(EmptyLootItem.emptyItem().setWeight(2))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(4F, 9F))
+						.add(LootItem.lootTableItem(Items.CANDLE).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.BONE).setWeight(20).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 7))))
+						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(18).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 5))))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4)))
+				)
+		);
 	}
 }
