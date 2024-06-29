@@ -10,10 +10,13 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 
 public class RegisterLootTables {
-
 	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
 	public static final ResourceKey<LootTable> CATACOMBS_TOMB = register("chests/catacombs/tomb");
 	public static final ResourceKey<LootTable> CATACOMBS_TOMB_REWARD = register("chests/catacombs/tomb_reward");
+	public static final ResourceKey<LootTable> CATACOMBS_DECORATED_POT = register("chests/catacombs/decorated_pot");
+	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR = register("archaeology/catacombs/corridor");
+	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE = register("archaeology/catacombs/corridor_rare");
+	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_TOMB = register("archaeology/catacombs/tomb");
 
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE

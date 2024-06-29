@@ -1,10 +1,9 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.mojang.datafixers.util.Pair;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
@@ -15,9 +14,9 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
@@ -457,10 +456,8 @@ public class CatacombsGenerator {
 			new JigsawStructure(
 				RegisterStructures.structure(
 					holderGetter.getOrThrow(BiomeTags.HAS_MINESHAFT),
-					Arrays.stream(MobCategory.values()).collect(
-						Collectors.toMap(
-							mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, WeightedRandomList.create())
-						)
+					Map.of(
+						MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, MobSpawnSettings.EMPTY_MOB_LIST)
 					),
 					GenerationStep.Decoration.UNDERGROUND_DECORATION,
 					TerrainAdjustment.ENCAPSULATE

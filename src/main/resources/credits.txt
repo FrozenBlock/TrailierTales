@@ -1,10 +1,10 @@
 Luna/Lunade/AViewFromTheTop - Lead dev & producer
 
 wigglewoggle - Builder
-    - Came up with many special rooms in the Catacombs
+    - Main builder of Catacombs structure pieces after prototyping
 
 Soro335
- - Came up with Badlands Fort designs
+    - Came up with Badlands Fort designs
 
 Voxelotl - Texture Artist:
     - Suspicious Clay
@@ -20,10 +20,13 @@ Zhen - Texture Artist:
     - Cyan Rose
     - Incidence Pottery Sherd
     - All New Andesite, Diorite, and Granite Variants
- - Came up with Cobweb & Dark Oak intersection pieces of Catacombs
+
+Rebel459
+    - Implemented and made textures for the Desolation and Undead Armor Trims
 
 Stella/Osmiooo - Assistant Dev (idk if you want the second name on there or not)
     - Implemented the new Andesite, Diorite, and Granite blocks
     - Implemented Wither Pottery Sherd (TO BE NAMED)
 
-Eggmanplant - Polish translation and a few early bug fixes
+Eggmanplant
+    - Polish translation and a few early bug fixes
