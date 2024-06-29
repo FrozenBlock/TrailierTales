@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.datagen.loot;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -12,9 +13,11 @@ import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
@@ -28,7 +31,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	@Override
-	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> registry) {
+	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> registry) {
 		HolderLookup.Provider registries = registryLookup.join();
 
 		registry.accept(
@@ -36,20 +39,104 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(UniformGenerator.between(1F, 2F))
 						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE))
+						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
 						.add(LootItem.lootTableItem(Items.NAME_TAG).setWeight(30))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
-						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(5))
+						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(5).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))))
+						.add(LootItem.lootTableItem(Items.SADDLE).setWeight(5))
 						.add(EmptyLootItem.emptyItem().setWeight(5))
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(2F, 4F))
-						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 7))))
+						.setRolls(UniformGenerator.between(6F, 20F))
+						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
+						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.BONE).setWeight(20).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 7))))
+						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(18).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 5))))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(1))
+				)
+		);
+
+		registry.accept(
+			RegisterLootTables.CATACOMBS_TOMB,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(2F, 5F))
+						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
+						.add(LootItem.lootTableItem(Items.NAME_TAG).setWeight(30))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(5)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(1))
+						.add(EmptyLootItem.emptyItem().setWeight(5))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(6F, 20F))
+						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
+						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.BONE).setWeight(20).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 7))))
+						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(18).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 5))))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4)))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(RegisterItems.BULLSEYE_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.BREAD).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.CARROT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.POTATO).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 6))))
+				)
+		);
+
+		registry.accept(
+			RegisterLootTables.CATACOMBS_TOMB_REWARD,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(4F, 8F))
+						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
+						.add(LootItem.lootTableItem(Items.NAME_TAG).setWeight(20))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(5)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(3))
+						.add(LootItem.lootTableItem(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(3))
+						.add(EmptyLootItem.emptyItem().setWeight(5))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(10F, 18F))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4)))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(RegisterItems.BULLSEYE_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.ARMS_UP_POTTERY_SHERD).setWeight(1))
+						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.BREAD).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.CARROT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.POTATO).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 6))))
 				)
 		);
 	}
