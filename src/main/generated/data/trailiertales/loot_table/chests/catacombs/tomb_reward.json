@@ -406,22 +406,6 @@
             }
           ],
           "name": "minecraft:wheat",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:bread",
           "weight": 2
         },
         {
@@ -437,8 +421,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:carrot",
-          "weight": 2
+          "name": "minecraft:bread"
         },
         {
           "type": "minecraft:item",
@@ -453,8 +436,22 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:potato",
-          "weight": 2
+          "name": "minecraft:carrot"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:potato"
         },
         {
           "type": "minecraft:item",
@@ -486,7 +483,22 @@
             }
           ],
           "name": "minecraft:arrow",
-          "weight": 3
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:experience_bottle"
         },
         {
           "type": "minecraft:empty",
@@ -509,8 +521,24 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:candle",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
                 "max": 4.0,
-                "min": 2.0
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }

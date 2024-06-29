@@ -56,8 +56,8 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
+                "max": 3.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
@@ -147,7 +147,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:experience_bottle"
+          "name": "minecraft:candle",
+          "weight": 5
         }
       ],
       "functions": [
