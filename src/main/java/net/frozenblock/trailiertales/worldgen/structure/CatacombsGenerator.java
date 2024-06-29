@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.worldgen.structure;
 import com.mojang.datafixers.util.Pair;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
@@ -457,10 +458,8 @@ public class CatacombsGenerator {
 			new JigsawStructure(
 				RegisterStructures.structure(
 					holderGetter.getOrThrow(BiomeTags.HAS_MINESHAFT),
-					Arrays.stream(MobCategory.values()).collect(
-						Collectors.toMap(
-							mobCategory -> mobCategory, mobCategory -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, WeightedRandomList.create())
-						)
+					Map.of(
+						MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, WeightedRandomList.create())
 					),
 					GenerationStep.Decoration.UNDERGROUND_DECORATION,
 					TerrainAdjustment.ENCAPSULATE
