@@ -4,7 +4,7 @@ wigglewoggle - Builder
     - Main builder of Catacombs structure pieces after prototyping
 
 Soro335
- - Came up with Badlands Fort designs
+    - Came up with Badlands Fort designs
 
 Voxelotl - Texture Artist:
     - Suspicious Clay
@@ -28,4 +28,5 @@ Stella/Osmiooo - Assistant Dev (idk if you want the second name on there or not)
     - Implemented the new Andesite, Diorite, and Granite blocks
     - Implemented Wither Pottery Sherd (TO BE NAMED)
 
-Eggmanplant - Polish translation and a few early bug fixes
+Eggmanplant
+    - Polish translation and a few early bug fixes
