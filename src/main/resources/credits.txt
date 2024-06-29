@@ -20,7 +20,9 @@ Zhen - Texture Artist:
     - Cyan Rose
     - Incidence Pottery Sherd
     - All New Andesite, Diorite, and Granite Variants
- - Came up with Cobweb & Dark Oak intersection pieces of Catacombs
+
+Rebel459
+    - Implemented and made textures for the Desolation and Undead Armor Trims
 
 Stella/Osmiooo - Assistant Dev (idk if you want the second name on there or not)
     - Implemented the new Andesite, Diorite, and Granite blocks
