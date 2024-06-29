@@ -47,8 +47,7 @@
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:book",
-          "weight": 2
+          "name": "minecraft:book"
         },
         {
           "type": "minecraft:item",
@@ -62,22 +61,22 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 8
+          "weight": 15
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:rotten_flesh",
-          "weight": 8
+          "weight": 12
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:coal",
-          "weight": 7
+          "weight": 10
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:book",
-          "weight": 5
+          "weight": 8
         },
         {
           "type": "minecraft:item",
