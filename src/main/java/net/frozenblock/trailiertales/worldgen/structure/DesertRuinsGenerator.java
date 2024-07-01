@@ -144,6 +144,17 @@ public class DesertRuinsGenerator {
 			)
 		);
 
+		RegisterStructures.register(
+			pool,
+			string("monastery"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("monastery_bottom"), desertRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
 
 		RegisterStructures.register(
 			pool,
@@ -211,7 +222,7 @@ public class DesertRuinsGenerator {
 			DESERT_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(DESERT_RUIN_KEY),
-				new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, 9432401)
+				new RandomSpreadStructurePlacement(18, 10, RandomSpreadType.LINEAR, 9432401)
 			)
 		);
 	}

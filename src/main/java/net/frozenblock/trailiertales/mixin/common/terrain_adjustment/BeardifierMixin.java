@@ -12,6 +12,9 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(Beardifier.class)
 public class BeardifierMixin {
@@ -46,7 +49,44 @@ public class BeardifierMixin {
 		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
 	) {
 		if (terrainAdjustment.get() == TrailierTerrainAdjustment.SMALL_PLATFORM) {
-			return original - 2;
+			return original - 4;
+		}
+		return original;
+	}
+
+
+	@ModifyExpressionValue(
+		method = "compute",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/lang/Math;max(II)I",
+			ordinal = 0
+		)
+	)
+	public int trailierTales$shrinkZ(
+		int original,
+		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
+	) {
+		if (terrainAdjustment.get() == TrailierTerrainAdjustment.SMALL_PLATFORM) {
+			return (int) (original * 0.5D);
+		}
+		return original;
+	}
+
+	@ModifyExpressionValue(
+		method = "compute",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/lang/Math;max(II)I",
+			ordinal = 2
+		)
+	)
+	public int trailierTales$shrinkX(
+		int original,
+		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
+	) {
+		if (terrainAdjustment.get() == TrailierTerrainAdjustment.SMALL_PLATFORM) {
+			return (int) (original * 0.5D);
 		}
 		return original;
 	}
@@ -84,7 +124,7 @@ public class BeardifierMixin {
 
 	@Unique
 	private static double trailierTales$getSmallPlatformContribution(double x, double y, double z) {
-		double d = Mth.length(x * 6D, y * 3D, z * 6D);
+		double d = Mth.length(x * 4D, y * 3D, z * 4D);
 		return Mth.clampedMap(d, 0D, 6D, 1D, 0D);
 	}
 
