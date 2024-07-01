@@ -46,7 +46,7 @@ public class BeardifierMixin {
 		@Share("trailierTales$terrainAdjustment") LocalRef<TerrainAdjustment> terrainAdjustment
 	) {
 		if (terrainAdjustment.get() == TrailierTerrainAdjustment.SMALL_PLATFORM) {
-			return original - 1;
+			return original - 2;
 		}
 		return original;
 	}
@@ -84,7 +84,7 @@ public class BeardifierMixin {
 
 	@Unique
 	private static double trailierTales$getSmallPlatformContribution(double x, double y, double z) {
-		double d = Mth.length(x * 5D, y * 3D, z * 5D);
+		double d = Mth.length(x * 6D, y * 3D, z * 6D);
 		return Mth.clampedMap(d, 0D, 6D, 1D, 0D);
 	}
 

@@ -4,6 +4,7 @@ import java.util.Map;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.worldgen.structure.BadlandsFortGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.DesertRuinsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -33,16 +34,19 @@ public final class RegisterStructures {
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
 		BadlandsFortGenerator.bootstrapTemplatePool(context);
 		CatacombsGenerator.bootstrapTemplatePool(context);
+		DesertRuinsGenerator.bootstrapTemplatePool(context);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		BadlandsFortGenerator.bootstrap(context);
 		CatacombsGenerator.bootstrap(context);
+		DesertRuinsGenerator.bootstrap(context);
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
 		BadlandsFortGenerator.bootstrapStructureSet(context);
 		CatacombsGenerator.bootstrapStructureSet(context);
+		DesertRuinsGenerator.bootstrapStructureSet(context);
 	}
 
 	@NotNull

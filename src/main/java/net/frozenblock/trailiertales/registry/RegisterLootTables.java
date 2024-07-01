@@ -17,6 +17,8 @@ public class RegisterLootTables {
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR = register("archaeology/catacombs/corridor");
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE = register("archaeology/catacombs/corridor_rare");
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_TOMB = register("archaeology/catacombs/tomb");
+	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY = register("archaeology/desert_ruins");
+	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY_RARE = register("archaeology/desert_ruins");
 
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE
