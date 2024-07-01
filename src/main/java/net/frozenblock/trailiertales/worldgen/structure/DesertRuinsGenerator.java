@@ -60,6 +60,7 @@ public class DesertRuinsGenerator {
 					Pair.of(StructurePoolElement.single(string("house2"), desertRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("house3"), desertRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("house4"), desertRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("monastery"), desertRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("pillar1"), desertRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("pillar2"), desertRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("pillar3"), desertRuinsProcessor), 1),

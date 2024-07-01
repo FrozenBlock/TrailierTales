@@ -102,6 +102,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/desert/monastery",
+        "processors": "trailiertales:desert_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/pillar1",
         "processors": "trailiertales:desert_ruins_archaeology",
         "projection": "rigid"
