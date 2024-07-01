@@ -149,6 +149,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(FACING, PART, STATE);
 	}
 

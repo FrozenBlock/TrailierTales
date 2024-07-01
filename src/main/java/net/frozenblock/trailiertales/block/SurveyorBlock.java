@@ -45,6 +45,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(FACING, POWERED);
 	}
 

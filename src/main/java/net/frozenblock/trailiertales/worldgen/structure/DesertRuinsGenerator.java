@@ -30,9 +30,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
-/**
- * Contains the StructureTemplatePool for Abandoned Cabins
- */
 public class DesertRuinsGenerator {
 	public static final ResourceKey<StructureSet> DESERT_RUINS_KEY =  RegisterStructures.ofSet("desert_ruins");
 	private static final ResourceKey<Structure> DESERT_RUIN_KEY = RegisterStructures.createKey("desert_ruins");
