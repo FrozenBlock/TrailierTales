@@ -82,8 +82,6 @@ public class RegisterStructureProcessors {
 			context,
 			CATACOMBS_DEGRADATION,
 			ImmutableList.of(
-				stateToStateProcessor(Blocks.DEEPSLATE_BRICK_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS, 0.15F),
-				stateToStateProcessor(Blocks.DEEPSLATE_TILE_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS, 0.15F),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
@@ -102,6 +100,88 @@ public class RegisterStructureProcessors {
 							new RandomBlockStateMatchTest(
 								Blocks.DEEPSLATE_BRICK_WALL.defaultBlockState(), 0.15F),
 							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.TOP)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST).setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BlockStateProperties.HALF, Half.BOTTOM)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.BOTTOM), 0.15F),
+							AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST).setValue(BlockStateProperties.HALF, Half.BOTTOM)
 						),
 
 						new ProcessorRule(
@@ -191,7 +271,6 @@ public class RegisterStructureProcessors {
 			context,
 			JUNGLE_RUINS_ARCHAEOLOGY,
 			List.of(
-				stateToStateProcessor(Blocks.COBBLESTONE_STAIRS, Blocks.MOSSY_COBBLESTONE_STAIRS, 0.4F),
 				new RuleProcessor(
 					List.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
@@ -214,7 +293,6 @@ public class RegisterStructureProcessors {
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE_STAIRS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState())
 					)
 				),
-				stateToStateProcessor(Blocks.COBBLESTONE_STAIRS, Blocks.MOSSY_COBBLESTONE_STAIRS, 0.4F),
 				new RuleProcessor(
 					List.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
@@ -257,20 +335,6 @@ public class RegisterStructureProcessors {
 				)
 			)
 		);
-	}
-
-	@Contract("_, _, _ -> new")
-	private static @NotNull RuleProcessor stateToStateProcessor(@NotNull Block original, @NotNull Block block, float probability) {
-		ArrayList<ProcessorRule> rules = new ArrayList<>();
-		for (BlockState state : original.getStateDefinition().getPossibleStates()) {
-			rules.add(
-				new ProcessorRule(
-					new RandomBlockStateMatchTest(state, probability),
-					AlwaysTrueTest.INSTANCE, block.withPropertiesOf(state)
-				)
-			);
-		}
-		return new RuleProcessor(rules);
 	}
 
 	@NotNull
