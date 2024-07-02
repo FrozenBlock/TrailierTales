@@ -38,6 +38,7 @@ public class JungleRuinsGenerator {
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
 		Holder<StructureProcessorList> jungleRuinsProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.JUNGLE_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> jungleRuinsProcessorWaterloggedStairs = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.JUNGLE_RUINS_ARCHAEOLOGY_WITH_STAIRS);
 
 		pool.register(
 			JUNGLE_RUINS,
@@ -45,7 +46,7 @@ public class JungleRuinsGenerator {
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("monastery"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine1"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine1"), jungleRuinsProcessorWaterloggedStairs), 1),
 					Pair.of(StructurePoolElement.single(string("shrine2"), jungleRuinsProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID

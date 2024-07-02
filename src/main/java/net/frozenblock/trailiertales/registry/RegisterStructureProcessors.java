@@ -301,6 +301,7 @@ public class RegisterStructureProcessors {
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState())
 					)
 				),
+				bottomWaterloggedStairToMossyProcessor(Blocks.COBBLESTONE_STAIRS, Blocks.MOSSY_COBBLESTONE_STAIRS, 0.4F),
 				jungleArchyLootProcessor(RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
 				jungleArchyLootProcessor(RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
 			)
@@ -335,6 +336,25 @@ public class RegisterStructureProcessors {
 				)
 			)
 		);
+	}
+
+	@Contract("_, _, _ -> new")
+	private static @NotNull RuleProcessor bottomWaterloggedStairToMossyProcessor(@NotNull Block original, Block mossy, float chance) {
+		ArrayList<ProcessorRule> rules = new ArrayList<>();
+		for (BlockState state : original.getStateDefinition().getPossibleStates()) {
+			if (state.getValue(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
+				rules.add(
+					new ProcessorRule(
+						new RandomBlockStateMatchTest(state, chance),
+						AlwaysTrueTest.INSTANCE,
+						PosAlwaysTrueTest.INSTANCE,
+						mossy.withPropertiesOf(state)
+					)
+				);
+			}
+		}
+
+		return new RuleProcessor(rules);
 	}
 
 	@NotNull
