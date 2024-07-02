@@ -12,7 +12,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/jungle/shrine1",
+        "location": "trailiertales:ruins/jungle/pillar",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
       },
@@ -21,7 +21,52 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/shrine1",
+        "processors": "trailiertales:jungle_ruins_archaeology_with_stairs",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/jungle/shrine2",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/shrine3",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/shrine4",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/shrine5",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/twin_shrines",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
       },

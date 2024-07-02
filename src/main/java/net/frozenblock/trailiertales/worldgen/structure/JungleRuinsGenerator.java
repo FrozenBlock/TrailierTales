@@ -46,8 +46,13 @@ public class JungleRuinsGenerator {
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("monastery"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("pillar"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("shrine1"), jungleRuinsProcessorWaterloggedStairs), 1),
-					Pair.of(StructurePoolElement.single(string("shrine2"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine2"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine3"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine4"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine5"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("twin_shrines"), jungleRuinsProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
@@ -61,6 +66,66 @@ public class JungleRuinsGenerator {
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("monastery_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("pillar"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("pillar_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine3"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine3_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine4"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine4_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine5"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine5_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("twin_shrines"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("twin_shrines_bottom"), jungleRuinsProcessor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
