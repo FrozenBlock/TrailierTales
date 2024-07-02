@@ -3,6 +3,24 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/abandoned_treehouse",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/bunker",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/jungle/monastery",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
@@ -75,6 +93,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/shrine7",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/jungle/statue",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
@@ -85,6 +112,24 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/jungle/tower_trap",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/town1",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/town2",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
       },

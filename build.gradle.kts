@@ -46,6 +46,7 @@ val archives_base_name: String by project
 
 val fabric_api_version: String by project
 val frozenlib_version: String by project
+val wilderwild_version: String by project
 
 val modmenu_version: String by project
 val cloth_config_version: String by project
@@ -197,7 +198,9 @@ dependencies {
 
     // Wilder Wild
     if (local_wilderwild)
-    api(project(":WilderWild", configuration = "namedElements"))?.let { include(it) }
+        api(project(":WilderWild", configuration = "namedElements"))?.let { include(it) }
+    else
+        modCompileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
 
     // Mod Menu
     modImplementation("com.terraformersmc:modmenu:$modmenu_version")

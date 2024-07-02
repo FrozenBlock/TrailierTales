@@ -45,6 +45,8 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
+					Pair.of(StructurePoolElement.single(string("abandoned_treehouse"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("bunker"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("monastery"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("pillar"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("shrine1"), jungleRuinsProcessorWaterloggedStairs), 1),
@@ -53,14 +55,28 @@ public class JungleRuinsGenerator {
 					Pair.of(StructurePoolElement.single(string("shrine4"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("shrine5"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("shrine6"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine7"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("statue"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("tower_trap"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town1"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town2"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("twin_shrines"), jungleRuinsProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
 		);
 
+		RegisterStructures.register(
+			pool,
+			string("bunker"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("bunker_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
 
 		RegisterStructures.register(
 			pool,
@@ -136,11 +152,47 @@ public class JungleRuinsGenerator {
 
 		RegisterStructures.register(
 			pool,
+			string("shrine7"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine7_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
 			string("tower_trap"),
 			new StructureTemplatePool(
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("tower_trap_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("town1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("town1_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("town2"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("town2_bottom"), jungleRuinsProcessor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -187,7 +239,7 @@ public class JungleRuinsGenerator {
 			JUNGLE_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(JUNGLE_RUIN_KEY),
-				new RandomSpreadStructurePlacement(18, 10, RandomSpreadType.LINEAR, 343577861)
+				new RandomSpreadStructurePlacement(15, 10, RandomSpreadType.LINEAR, 343577861)
 			)
 		);
 	}

@@ -54,6 +54,37 @@
           "output_state": {
             "Name": "minecraft:mossy_stone_bricks"
           }
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:cobblestone_wall",
+              "Properties": {
+                "east": "none",
+                "north": "none",
+                "south": "low",
+                "up": "true",
+                "waterlogged": "false",
+                "west": "none"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.4
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:mossy_cobblestone_wall",
+            "Properties": {
+              "east": "none",
+              "north": "none",
+              "south": "low",
+              "up": "true",
+              "waterlogged": "false",
+              "west": "none"
+            }
+          }
         }
       ]
     },
