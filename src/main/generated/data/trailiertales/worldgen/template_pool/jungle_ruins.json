@@ -66,6 +66,33 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/shrine6",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/statue",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/tower_trap",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/jungle/twin_shrines",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
