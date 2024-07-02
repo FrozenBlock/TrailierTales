@@ -206,7 +206,7 @@ public class DesertRuinsGenerator {
 				2,
 				UniformHeight.of(VerticalAnchor.absolute(-4), VerticalAnchor.absolute(-1)),
 				false,
-				Heightmap.Types.WORLD_SURFACE_WG
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 	}

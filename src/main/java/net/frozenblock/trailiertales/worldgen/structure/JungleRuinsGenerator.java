@@ -253,7 +253,7 @@ public class JungleRuinsGenerator {
 				2,
 				UniformHeight.of(VerticalAnchor.absolute(-1), VerticalAnchor.absolute(0)),
 				false,
-				Heightmap.Types.WORLD_SURFACE_WG
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 	}

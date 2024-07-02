@@ -70,7 +70,7 @@ public class BadlandsFortGenerator {
 				1,
 				ConstantHeight.of(VerticalAnchor.absolute(-2)),
 				false,
-				Heightmap.Types.WORLD_SURFACE_WG
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 	}
