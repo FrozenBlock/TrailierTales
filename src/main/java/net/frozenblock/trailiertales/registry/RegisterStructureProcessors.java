@@ -3,8 +3,6 @@ package net.frozenblock.trailiertales.registry;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -16,12 +14,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
@@ -286,12 +284,17 @@ public class RegisterStructureProcessors {
 							),
 							AlwaysTrueTest.INSTANCE,
 							Blocks.MOSSY_COBBLESTONE_WALL.defaultBlockState().setValue(WallBlock.SOUTH_WALL, WallSide.LOW)
-						)
+						),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState(), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState()),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP)),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP).setValue(BlockStateProperties.WATERLOGGED, true), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP).setValue(BlockStateProperties.WATERLOGGED, true))
 					)
 				),
 				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
 				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
 				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.5F),
 				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
 			)
 		);
@@ -317,6 +320,7 @@ public class RegisterStructureProcessors {
 				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
 				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
 				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.5F),
 				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
 			)
 		);

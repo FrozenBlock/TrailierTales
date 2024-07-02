@@ -1,10 +1,10 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
 
 public class DesertRuinsGenerator {
 	public static final ResourceKey<StructureSet> DESERT_RUINS_KEY =  RegisterStructures.ofSet("desert_ruins");

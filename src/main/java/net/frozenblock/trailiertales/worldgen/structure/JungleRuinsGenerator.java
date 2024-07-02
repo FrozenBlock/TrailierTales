@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
@@ -26,7 +27,6 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
 
 public class JungleRuinsGenerator {
 	public static final ResourceKey<StructureSet> JUNGLE_RUINS_KEY =  RegisterStructures.ofSet("jungle_ruins");
@@ -60,6 +60,8 @@ public class JungleRuinsGenerator {
 					Pair.of(StructurePoolElement.single(string("tower_trap"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("town1"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("town2"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town3"), jungleRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town4"), jungleRuinsProcessor), 1),
 					Pair.of(StructurePoolElement.single(string("twin_shrines"), jungleRuinsProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
@@ -193,6 +195,30 @@ public class JungleRuinsGenerator {
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("town2_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("town3"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("town3_bottom"), jungleRuinsProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("town4"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("town4_bottom"), jungleRuinsProcessor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)

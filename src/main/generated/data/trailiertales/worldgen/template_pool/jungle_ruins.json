@@ -138,6 +138,24 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/town3",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/jungle/town4",
+        "processors": "trailiertales:jungle_ruins_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/jungle/twin_shrines",
         "processors": "trailiertales:jungle_ruins_archaeology",
         "projection": "rigid"
