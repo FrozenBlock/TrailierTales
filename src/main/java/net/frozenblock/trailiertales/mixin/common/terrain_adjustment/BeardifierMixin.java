@@ -38,7 +38,6 @@ public class BeardifierMixin {
 	)
 	public Object trailierTales$setTerrainAdjustmentValues(Object original) {
 		if (this.trailierTales$terrainAdjustment == null) {
-			System.out.println("NULL LMFAO WHAT AN IDIOT");
 			if (original instanceof Beardifier.Rigid rigid) {
 				TerrainAdjustment adjustment = rigid.terrainAdjustment();
 				this.trailierTales$terrainAdjustment = adjustment;
@@ -106,7 +105,7 @@ public class BeardifierMixin {
 		)
 	)
 	public TerrainAdjustment trailierTales$smallPlatformToBury(TerrainAdjustment original) {
-		if (this.trailierTales$terrainAdjustment == TrailierTerrainAdjustment.SMALL_PLATFORM) {
+		if (original == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return TerrainAdjustment.BURY;
 		}
 		return original;
