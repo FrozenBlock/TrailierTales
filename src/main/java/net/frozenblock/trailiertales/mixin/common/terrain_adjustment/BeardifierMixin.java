@@ -98,18 +98,18 @@ public class BeardifierMixin {
 		return (int) (original * this.trailierTales$xScale);
 	}
 
-	@WrapOperation(
+	@ModifyExpressionValue(
 		method = "compute",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/levelgen/Beardifier$Rigid;terrainAdjustment()Lnet/minecraft/world/level/levelgen/structure/TerrainAdjustment;"
 		)
 	)
-	public TerrainAdjustment trailierTales$smallPlatformToBury(Beardifier.Rigid instance, Operation<TerrainAdjustment> original) {
+	public TerrainAdjustment trailierTales$smallPlatformToBury(TerrainAdjustment original) {
 		if (this.trailierTales$terrainAdjustment == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return TerrainAdjustment.BURY;
 		}
-		return this.trailierTales$terrainAdjustment;
+		return original;
 	}
 
 	@WrapOperation(
