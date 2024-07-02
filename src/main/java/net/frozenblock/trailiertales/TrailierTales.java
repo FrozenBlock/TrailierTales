@@ -5,6 +5,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
+import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterFeatures;
@@ -13,10 +14,17 @@ import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 
 public class TrailierTales extends FrozenModInitializer {
 
@@ -37,6 +45,24 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterLootTables.init();
 		RegisterSounds.init();
 		RegisterParticles.init();
+		StructureProcessorApi.addNamespaceTarget("minecraft",
+			new RuleProcessor(
+				List.of(
+					new ProcessorRule(
+						new BlockMatchTest(Blocks.STONE_BRICKS),
+						AlwaysTrueTest.INSTANCE, Blocks.BEDROCK.defaultBlockState()
+					)
+				)
+			));
+		StructureProcessorApi.addNamespaceTarget("minecraft",
+			new RuleProcessor(
+				List.of(
+					new ProcessorRule(
+						new BlockMatchTest(Blocks.WAXED_OXIDIZED_COPPER),
+						AlwaysTrueTest.INSTANCE, Blocks.BEDROCK.defaultBlockState()
+					)
+				)
+			));
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
