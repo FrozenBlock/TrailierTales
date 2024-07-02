@@ -289,8 +289,10 @@ public class RegisterStructureProcessors {
 						)
 					)
 				),
-				jungleArchyLootProcessor(RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
-				jungleArchyLootProcessor(RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
 			)
 		);
 
@@ -312,8 +314,10 @@ public class RegisterStructureProcessors {
 					)
 				),
 				bottomWaterloggedStairToMossyProcessor(Blocks.COBBLESTONE_STAIRS, Blocks.MOSSY_COBBLESTONE_STAIRS, 0.4F),
-				jungleArchyLootProcessor(RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
-				jungleArchyLootProcessor(RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
 			)
 		);
 	}
@@ -333,15 +337,15 @@ public class RegisterStructureProcessors {
 		);
 	}
 
-	@Contract("_, _ -> new")
-	private static @NotNull RuleProcessor jungleArchyLootProcessor(ResourceKey<LootTable> registryKey, float chance) {
+	@Contract("_, _, _, _ -> new")
+	private static @NotNull RuleProcessor jungleArchyLootProcessor(Block original, @NotNull Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
 		return new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.GRAVEL, chance),
+					new RandomBlockMatchTest(original, chance),
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
-					Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(),
+					suspicious.defaultBlockState(),
 					new AppendLoot(registryKey)
 				)
 			)
