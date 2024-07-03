@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 public class DesertRuinsGenerator {
 	public static final ResourceKey<StructureSet> DESERT_RUINS_KEY =  RegisterStructures.ofSet("desert_ruins");
 	private static final ResourceKey<Structure> DESERT_RUIN_KEY = RegisterStructures.createKey("desert_ruins");
-	public static final ResourceKey<StructureTemplatePool> DESERT_RUINS = Pools.parseKey(TrailierTalesSharedConstants.string("desert_ruins"));
+	public static final ResourceKey<StructureTemplatePool> DESERT_RUINS = Pools.parseKey(TrailierConstants.string("desert_ruins"));
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -224,6 +224,6 @@ public class DesertRuinsGenerator {
 	}
 
 	private static @NotNull String string(String name) {
-		return TrailierTalesSharedConstants.string("ruins/desert/" + name);
+		return TrailierConstants.string("ruins/desert/" + name);
 	}
 }

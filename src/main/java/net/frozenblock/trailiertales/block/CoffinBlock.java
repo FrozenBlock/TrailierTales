@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
@@ -58,7 +58,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public static final EnumProperty<CoffinPart> PART = TrailierBlockStateProperties.COFFIN_PART;
 	public static final EnumProperty<CoffinSpawnerState> STATE = TrailierBlockStateProperties.COFFIN_STATE;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
-	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TrailierTalesSharedConstants.id("coffin_follow_range");
+	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TrailierConstants.id("coffin_follow_range");
 
 	@Override
 	public @NotNull MapCodec<CoffinBlock> codec() {

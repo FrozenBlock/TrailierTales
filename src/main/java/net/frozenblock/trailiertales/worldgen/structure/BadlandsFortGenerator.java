@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 public class BadlandsFortGenerator {
 	public static final ResourceKey<StructureSet> BADLANDS_FORTS_KEY =  RegisterStructures.ofSet("badlands_fort");
 	private static final ResourceKey<Structure> BADLANDS_FORT_KEY = RegisterStructures.createKey("badlands_fort");
-	public static final ResourceKey<StructureTemplatePool> BADLANDS_FORT = Pools.parseKey(TrailierTalesSharedConstants.string("badlands_fort"));
+	public static final ResourceKey<StructureTemplatePool> BADLANDS_FORT = Pools.parseKey(TrailierConstants.string("badlands_fort"));
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -88,6 +88,6 @@ public class BadlandsFortGenerator {
 	}
 
 	private static @NotNull String string(String name) {
-		return TrailierTalesSharedConstants.string("badlands_fort/" + name);
+		return TrailierConstants.string("badlands_fort/" + name);
 	}
 }

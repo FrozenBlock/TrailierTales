@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.datagen.model;
 import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -48,7 +48,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
 
-		generator.blockEntityModels(TrailierTalesSharedConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
+		generator.blockEntityModels(TrailierConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
 			.createWithoutBlockItem(
 				RegisterBlocks.COFFIN
 			);
@@ -64,6 +64,6 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Contract("_, _ -> new")
 	private static @NotNull ModelTemplate createItem(String itemModelLocation, TextureSlot... requiredSlots) {
-		return new ModelTemplate(Optional.of(TrailierTalesSharedConstants.id("item/" + itemModelLocation)), Optional.empty(), requiredSlots);
+		return new ModelTemplate(Optional.of(TrailierConstants.id("item/" + itemModelLocation)), Optional.empty(), requiredSlots);
 	}
 }

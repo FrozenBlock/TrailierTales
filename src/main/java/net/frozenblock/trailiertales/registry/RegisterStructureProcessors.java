@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.registry;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -398,7 +398,7 @@ public class RegisterStructureProcessors {
 
 	@NotNull
 	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
-		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierTalesSharedConstants.id(string));
+		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierConstants.id(string));
 	}
 
 	@NotNull

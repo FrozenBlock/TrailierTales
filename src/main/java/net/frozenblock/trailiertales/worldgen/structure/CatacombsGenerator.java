@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.minecraft.core.Holder;
@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
 	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
-	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierTalesSharedConstants.string("catacombs/dungeon"));
+	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierConstants.string("catacombs/dungeon"));
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -489,6 +489,6 @@ public class CatacombsGenerator {
 	}
 
 	private static @NotNull String string(String name) {
-		return TrailierTalesSharedConstants.string("catacombs/" + name);
+		return TrailierConstants.string("catacombs/" + name);
 	}
 }

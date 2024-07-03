@@ -22,12 +22,12 @@ import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 public class TrailierTales extends FrozenModInitializer {
 
 	public TrailierTales() {
-		super(TrailierTalesSharedConstants.MOD_ID);
+		super(TrailierConstants.MOD_ID);
 	}
 
 	@Override
 	public void onInitialize(String modId, ModContainer container) {
-		TrailierTalesSharedConstants.startMeasuring(this);
+		TrailierConstants.startMeasuring(this);
 
 		RegisterBlocks.init();
 		RegisterBlockEntities.register();
@@ -63,6 +63,6 @@ public class TrailierTales extends FrozenModInitializer {
 
 		TrailierModIntegrations.init();
 
-		TrailierTalesSharedConstants.stopMeasuring(this);
+		TrailierConstants.stopMeasuring(this);
 	}
 }

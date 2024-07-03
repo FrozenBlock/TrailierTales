@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import java.util.Map;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.worldgen.structure.BadlandsFortGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.DesertRuinsGenerator;
@@ -30,7 +30,7 @@ public final class RegisterStructures {
 
 	@NotNull
 	public static ResourceKey<StructureSet> ofSet(@NotNull String id) {
-		return ResourceKey.create(Registries.STRUCTURE_SET, TrailierTalesSharedConstants.id(id));
+		return ResourceKey.create(Registries.STRUCTURE_SET, TrailierConstants.id(id));
 	}
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
@@ -59,7 +59,7 @@ public final class RegisterStructures {
 
 	@NotNull
 	public static ResourceKey<Structure> createKey(@NotNull String id) {
-		return ResourceKey.create(Registries.STRUCTURE, TrailierTalesSharedConstants.id(id));
+		return ResourceKey.create(Registries.STRUCTURE, TrailierConstants.id(id));
 	}
 
 	@NotNull

@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.worldgen;
 import java.util.Arrays;
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -29,11 +29,11 @@ public class TrailierFeatureBootstrap {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create
 		(Registries.CONFIGURED_FEATURE,
-			TrailierTalesSharedConstants.id("torchflower")
+			TrailierConstants.id("torchflower")
 	);
 	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TrailierTalesSharedConstants.id("torchflower")
+		TrailierConstants.id("torchflower")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -89,21 +89,21 @@ public class TrailierFeatureBootstrap {
 		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
 		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
 
-		TrailierTalesSharedConstants.log("Adding finalized configured features to datagen", true);
+		TrailierConstants.log("Adding finalized configured features to datagen", true);
 		entries.addAll(configuredFeatures);
-		TrailierTalesSharedConstants.log("Adding finalized placed features to datagen", true);
+		TrailierConstants.log("Adding finalized placed features to datagen", true);
 		entries.addAll(placedFeatures);
-		TrailierTalesSharedConstants.log("Adding finalized biomes to datagen", true);
+		TrailierConstants.log("Adding finalized biomes to datagen", true);
 		entries.addAll(biomes);
-		TrailierTalesSharedConstants.log("Adding finalized noises to datagen", true);
+		TrailierConstants.log("Adding finalized noises to datagen", true);
 		entries.addAll(noises);
-		TrailierTalesSharedConstants.log("Adding finalized processor lists to datagen", true);
+		TrailierConstants.log("Adding finalized processor lists to datagen", true);
 		entries.addAll(processorLists);
-		TrailierTalesSharedConstants.log("Adding finalized template pools to datagen", true);
+		TrailierConstants.log("Adding finalized template pools to datagen", true);
 		entries.addAll(templatePools);
-		TrailierTalesSharedConstants.log("Adding finalized structures to datagen", true);
+		TrailierConstants.log("Adding finalized structures to datagen", true);
 		entries.addAll(structures);
-		TrailierTalesSharedConstants.log("Adding finalized structure sets to datagen", true);
+		TrailierConstants.log("Adding finalized structure sets to datagen", true);
 		entries.addAll(structureSets);
 	}
 

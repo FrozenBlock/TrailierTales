@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TrailierTalesSharedConstants {
+public class TrailierConstants {
 	public static final String MOD_ID = "trailiertales";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
@@ -91,7 +91,7 @@ public class TrailierTalesSharedConstants {
 
 	@NotNull
 	public static String string(@NotNull String path) {
-		return TrailierTalesSharedConstants.id(path).toString();
+		return TrailierConstants.id(path).toString();
 	}
 
 	public static String safeString(String path) {

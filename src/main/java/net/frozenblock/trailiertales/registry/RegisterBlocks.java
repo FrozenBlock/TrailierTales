@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
@@ -335,14 +335,14 @@ public class RegisterBlocks {
 	}
 
 	private static void actualRegisterBlock(String path, Block block) {
-		if (BuiltInRegistries.BLOCK.getOptional(TrailierTalesSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.BLOCK, TrailierTalesSharedConstants.id(path), block);
+		if (BuiltInRegistries.BLOCK.getOptional(TrailierConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.BLOCK, TrailierConstants.id(path), block);
 		}
 	}
 
 	private static void actualRegisterBlockItem(String path, Block block) {
-		if (BuiltInRegistries.ITEM.getOptional(TrailierTalesSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, TrailierTalesSharedConstants.id(path), new BlockItem(block, new Item.Properties()));
+		if (BuiltInRegistries.ITEM.getOptional(TrailierConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.ITEM, TrailierConstants.id(path), new BlockItem(block, new Item.Properties()));
 		}
 	}
 

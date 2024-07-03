@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.Direction;
@@ -22,7 +22,7 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
-		StructureProcessorApi.addNamespaceWithKeywordTarget(TrailierTalesSharedConstants.MOD_ID, "catacombs/",
+		StructureProcessorApi.addNamespaceWithKeywordTarget(TrailierConstants.MOD_ID, "catacombs/",
 			new RuleProcessor(
 				List.of(
 					new ProcessorRule(

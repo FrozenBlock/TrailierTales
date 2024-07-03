@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.tag;
 
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -13,7 +13,7 @@ public class TrailierItemTags {
 
 	@NotNull
 	private static TagKey<Item> bind(@NotNull String path) {
-		return TagKey.create(Registries.ITEM, TrailierTalesSharedConstants.id(path));
+		return TagKey.create(Registries.ITEM, TrailierConstants.id(path));
 	}
 
 }

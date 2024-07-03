@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -36,6 +36,6 @@ public class RegisterLootTables {
 	}
 
 	private static ResourceKey<LootTable> register(String path) {
-		return ResourceKey.create(Registries.LOOT_TABLE, TrailierTalesSharedConstants.id(path));
+		return ResourceKey.create(Registries.LOOT_TABLE, TrailierConstants.id(path));
 	}
 }
