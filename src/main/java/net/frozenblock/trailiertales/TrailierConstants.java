@@ -33,7 +33,6 @@ public class TrailierConstants {
 	 * It's smart to use this for at least registries.
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static boolean areConfigsInit = false;
 
 	// LOGGING
 	public static void log(String string, boolean shouldLog) {
