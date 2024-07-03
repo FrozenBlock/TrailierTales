@@ -22,7 +22,7 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
-		StructureProcessorApi.addNamespaceWithKeywordTarget(TrailierTalesSharedConstants.MOD_ID, "catacombs",
+		StructureProcessorApi.addNamespaceWithKeywordTarget(TrailierTalesSharedConstants.MOD_ID, "catacombs/",
 			new RuleProcessor(
 				List.of(
 					new ProcessorRule(
