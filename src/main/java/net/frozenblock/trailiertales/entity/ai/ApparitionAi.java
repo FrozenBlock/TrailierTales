@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.entity.ai;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import net.frozenblock.trailiertales.entity.Ghost;
+import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class GhostAi {
+public class ApparitionAi {
 
-	public static final List<SensorType<? extends Sensor<? super Ghost>>> SENSOR_TYPES = List.of(
+	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS
 	);
 
@@ -43,20 +43,23 @@ public class GhostAi {
 		MemoryModuleType.WALK_TARGET,
 		MemoryModuleType.HURT_BY,
 		MemoryModuleType.HURT_BY_ENTITY,
-		MemoryModuleType.PATH
+		MemoryModuleType.PATH,
+		MemoryModuleType.NEAREST_PLAYERS,
+		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER
 	);
 
-	public static Brain<Ghost> makeBrain(Ghost ghost, Brain<Ghost> brain) {
+	public static Brain<Apparition> makeBrain(Apparition apparition, Brain<Apparition> brain) {
 		initCoreActivity(brain);
 		initIdleActivity(brain);
-		initFightActivity(ghost, brain);
+		initFightActivity(apparition, brain);
 		brain.setCoreActivities(Set.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.FIGHT);
+		brain.setDefaultActivity(Activity.IDLE);
 		brain.useDefaultActivity();
 		return brain;
 	}
 
-	private static void initCoreActivity(Brain<Ghost> brain) {
+	private static void initCoreActivity(Brain<Apparition> brain) {
 		brain.addActivity(
 			Activity.CORE,
 			0,
@@ -68,12 +71,12 @@ public class GhostAi {
 		);
 	}
 
-	private static void initIdleActivity(Brain<Ghost> brain) {
+	private static void initIdleActivity(Brain<Apparition> brain) {
 		brain.addActivity(
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
-				StartAttacking.create(ghost -> true, GhostAi::findNearestValidAttackTarget),
+				StartAttacking.create(ghost -> true, ApparitionAi::findNearestValidAttackTarget),
 				new RunOne<>( // idle look
 					ImmutableList.of(
 						Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 8.0F), 1),
@@ -91,13 +94,13 @@ public class GhostAi {
 		);
 	}
 
-	private static void initFightActivity(Ghost ghost, Brain<Ghost> brain) {
+	private static void initFightActivity(Apparition apparition, Brain<Apparition> brain) {
 		brain.addActivityAndRemoveMemoryWhenStopped(
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
-				StopAttackingIfTargetInvalid.create(entity -> !ghost.canTargetEntity(entity), GhostAi::onTargetInvalid, true),
-				SetEntityLookTarget.create(entity -> isTarget(ghost, entity), (float) ghost.getAttributeValue(Attributes.FOLLOW_RANGE)),
+				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
+				SetEntityLookTarget.create(entity -> isTarget(apparition, entity), (float) apparition.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.2F),
 				MeleeAttack.create(20)
 			),
@@ -105,23 +108,23 @@ public class GhostAi {
 		);
 	}
 
-	private static boolean isTarget(Ghost ghost, LivingEntity target) {
-		return ghost.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(entity -> entity == target).isPresent();
+	private static boolean isTarget(Apparition apparition, LivingEntity target) {
+		return apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(entity -> entity == target).isPresent();
 	}
 
-	private static void onTargetInvalid(@NotNull Ghost ghost, @NotNull LivingEntity target) {
-		if (ghost.getTarget() == target) {
-			ghost.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+	private static void onTargetInvalid(@NotNull Apparition apparition, @NotNull LivingEntity target) {
+		if (apparition.getTarget() == target) {
+			apparition.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		}
-		ghost.getNavigation().stop();
+		apparition.getNavigation().stop();
 	}
 
-	public static void updateActivity(Ghost ghost) {
-		ghost.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+	public static void updateActivity(Apparition apparition) {
+		apparition.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
 	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Ghost ghost) {
-		return ghost.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Apparition ghost) {
+		return ghost.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
 	}
 }
