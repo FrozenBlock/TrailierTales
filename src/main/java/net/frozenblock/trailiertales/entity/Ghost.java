@@ -27,8 +27,8 @@ public class Ghost extends Monster {
 	public static AttributeSupplier.Builder createGhostAttributes() {
 		return Mob.createMobAttributes()
 			.add(Attributes.MAX_HEALTH, 10.0)
-			.add(Attributes.FLYING_SPEED, 0.1F)
-			.add(Attributes.MOVEMENT_SPEED, 0.1F)
+			.add(Attributes.FLYING_SPEED, 0.5F)
+			.add(Attributes.MOVEMENT_SPEED, 0.5F)
 			.add(Attributes.ATTACK_DAMAGE, 3.0);
 	}
 
