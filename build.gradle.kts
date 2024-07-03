@@ -199,7 +199,7 @@ dependencies {
     if (local_wilderwild)
         api(project(":WilderWild", configuration = "namedElements"))?.let { include(it) }
     else
-        modImplementation("maven.modrinth:wilder-wild:$wilderwild_version")
+        modCompileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
 
     // Mod Menu
     modImplementation("com.terraformersmc:modmenu:$modmenu_version")
