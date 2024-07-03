@@ -2,8 +2,13 @@ package net.frozenblock.trailiertales.entity;
 
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.trailiertales.entity.ai.GhostAi;
+import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -13,7 +18,9 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 // a fucking ghost
 public class Ghost extends Monster {
@@ -78,5 +85,20 @@ public class Ghost extends Monster {
 		GhostAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
+	}
+
+	@Contract("null->false")
+	public boolean canTargetEntity(@Nullable Entity entity) {
+		return entity instanceof LivingEntity livingEntity
+			&& this.level() == livingEntity.level()
+			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
+			&& !this.isAlliedTo(livingEntity)
+			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != RegisterEntities.GHOST
+			&& !livingEntity.isInvulnerable()
+			&& !livingEntity.isDeadOrDying()
+			&& !livingEntity.isRemoved()
+			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 }
