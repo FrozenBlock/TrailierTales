@@ -6,10 +6,14 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
+import net.frozenblock.trailiertales.entity.render.model.GhostModel;
+import net.frozenblock.trailiertales.entity.render.renderer.GhostRenderer;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.particle.SoulParticle;
@@ -32,6 +36,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TrailierConstants.id("coffin_head"), "main");
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TrailierConstants.id("coffin_foot"), "main");
+	public static final ModelLayerLocation GHOST = new ModelLayerLocation(TrailierConstants.id("ghost"), "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -45,6 +50,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 		BlockEntityRenderers.register(RegisterBlockEntities.COFFIN, CoffinRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinRenderer::createHeadLayer);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinRenderer::createFootLayer);
+
+		EntityRendererRegistry.register(RegisterEntities.GHOST, GhostRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(GHOST, GhostModel::createBodyLayer);
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);

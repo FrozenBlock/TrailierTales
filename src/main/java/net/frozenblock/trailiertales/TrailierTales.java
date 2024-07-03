@@ -8,6 +8,7 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
@@ -32,6 +33,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterBlocks.init();
 		RegisterBlockEntities.register();
 		RegisterItems.init();
+		RegisterEntities.init();
 		RegisterRecipies.init();
 		RegisterFeatures.init();
 		TrailierBiomeModifications.init();
