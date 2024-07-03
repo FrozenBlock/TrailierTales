@@ -31,16 +31,19 @@ import java.util.Set;
 public class GhostAi {
 
 	public static final List<SensorType<? extends Sensor<? super Ghost>>> SENSOR_TYPES = List.of(
-		SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
+		SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS
 	);
 
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
-		MemoryModuleType.PATH,
 		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.NEAREST_ATTACKABLE,
 		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.HURT_BY
+		MemoryModuleType.ATTACK_TARGET,
+		MemoryModuleType.WALK_TARGET,
+		MemoryModuleType.HURT_BY,
+		MemoryModuleType.HURT_BY_ENTITY,
+		MemoryModuleType.PATH
 	);
 
 	public static Brain<Ghost> makeBrain(Ghost ghost, Brain<Ghost> brain) {
@@ -48,7 +51,7 @@ public class GhostAi {
 		initIdleActivity(brain);
 		initFightActivity(ghost, brain);
 		brain.setCoreActivities(Set.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.IDLE);
+		brain.setDefaultActivity(Activity.FIGHT);
 		brain.useDefaultActivity();
 		return brain;
 	}
