@@ -10,6 +10,7 @@ import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -45,6 +46,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.pathfinder.PathType;
@@ -112,6 +114,26 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		flyingPathNavigation.setCanOpenDoors(false);
 		flyingPathNavigation.setCanPassDoors(true);
 		return flyingPathNavigation;
+	}
+
+	@Override
+	public boolean isPushable() {
+		return false;
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader world) {
+		return 0.0F;
+	}
+
+	@Override
+	protected boolean canRide(Entity entity) {
+		return false;
+	}
+
+	@Override
+	public boolean dampensVibrations() {
+		return true;
 	}
 
 	@Override
@@ -341,6 +363,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		ApparitionAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
+	}
+
+	@Override
+	protected void sendDebugPackets() {
+		super.sendDebugPackets();
+		DebugPackets.sendEntityBrain(this);
 	}
 
 	@Contract("null->false")
