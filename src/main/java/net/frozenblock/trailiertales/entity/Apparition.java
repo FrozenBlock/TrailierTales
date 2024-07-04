@@ -146,6 +146,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
+	public boolean isInLiquid() {
+		return false;
+	}
+
+	@Override
 	public boolean isPushedByFluid() {
 		return false;
 	}
