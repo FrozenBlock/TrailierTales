@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.entity;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.trailiertales.entity.ai.ApparitionAi;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -25,11 +26,24 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Apparition extends Monster {
+	private float itemXRotScale = (float) this.random.triangle(0D, 0.75D);
+	private float prevItemXRotScale = this.itemXRotScale;
+	private float itemYRotScale = (float) this.random.triangle(0D, 0.75D);
+	private float targetItemXRotScale = (float) this.random.triangle(0D, 0.75D);
+	private float prevItemYRotScale = this.itemYRotScale;
+	private float targetItemYRotScale = (float) this.random.triangle(0D, 0.75D);
+	private float itemZRotScale = (float) this.random.triangle(0D, 0.75D);
+	private float prevItemZRotScale = this.itemZRotScale;
+	private float targetItemZRotScale = (float) this.random.triangle(0D, 0.75D);
+
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
@@ -88,18 +102,28 @@ public class Apparition extends Monster {
 		super.tick();
 		this.noPhysics = false;
 		this.setNoGravity(true);
+		this.tickTransparency();
 		this.tickItemRotation(this.random);
 	}
 
-	private float itemXRotScale;
-	private float prevItemXRotScale;
-	private float itemYRotScale;
-	private float targetItemXRotScale;
-	private float prevItemYRotScale;
-	private float targetItemYRotScale;
-	private float itemZRotScale;
-	private float prevItemZRotScale;
-	private float targetItemZRotScale;
+	private float targetTransparency;
+	private float transparency;
+	private float prevTransparency;
+
+	public void tickTransparency() {
+		AtomicReference<Float> lightLevel = new AtomicReference<>(0F);
+		BlockPos pos = this.blockPosition();
+		BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos ->
+			lightLevel.set(Math.max(lightLevel.get(), this.level().getBrightness(LightLayer.BLOCK, blockPos)))
+		);
+		this.prevTransparency = this.transparency;
+		this.targetTransparency = lightLevel.get() / (float) LightEngine.MAX_LEVEL;
+		this.transparency += (this.targetTransparency - this.transparency) * 0.3F;
+	}
+
+	public float getTransparency(float partialTick) {
+		return Mth.lerp(partialTick, this.prevTransparency, this.transparency);
+	}
 
 	public void tickItemRotation(@NotNull RandomSource random) {
 		this.prevItemXRotScale = this.itemXRotScale;
