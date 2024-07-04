@@ -340,7 +340,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.itemYRotScale = this.getItemYRotScale();
 			this.itemZRotScale = this.getItemZRotScale();
 
-			this.prevItemXRotScale = this.transparency;
+			this.prevTransparency = this.transparency;
 			this.transparency = this.getTransparency();
 		}
 	}
