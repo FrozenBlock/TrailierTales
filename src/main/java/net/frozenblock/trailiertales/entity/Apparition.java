@@ -47,6 +47,7 @@ import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LightEngine;
+import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -74,6 +75,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
 		super(entityType, world);
+		this.setPathfindingMalus(PathType.BLOCKED, 0.0F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setCanPickUpLoot(this.canPickUpLoot());
 	}
@@ -138,7 +140,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	protected void pickUpItem(@NotNull ItemEntity item) {
 		ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
-		level().addFreshEntity(newItemEntity);
+		this.level().addFreshEntity(newItemEntity);
 		InventoryCarrier.pickUpItem(this, this, newItemEntity);
 	}
 
