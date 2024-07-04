@@ -77,6 +77,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
 		super(entityType, world);
+		this.xpReward = 3;
 		this.setPathfindingMalus(PathType.BLOCKED, 0.0F);
 		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0.0F);
 		this.setPathfindingMalus(PathType.LAVA, 0.0F);
