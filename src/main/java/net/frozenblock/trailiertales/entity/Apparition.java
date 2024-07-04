@@ -60,19 +60,29 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final DustColorTransitionOptions SOUL_TO_WHITE = new DustColorTransitionOptions(
 		SOUL_PARTICLE_COLOR, WHITE, 1.0F
 	);
+	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
+	private static final EntityDataAccessor<Float> ITEM_X_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_ITEM_X_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> ITEM_Y_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_ITEM_Y_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> ITEM_Z_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_ITEM_Z_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> SHOOT_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 
 	private final SimpleContainer inventory = new SimpleContainer(1);
-	private float itemXRotScale = (float) this.random.triangle(0D, 0.75D);
-	private float prevItemXRotScale = this.itemXRotScale;
-	private float itemYRotScale = (float) this.random.triangle(0D, 0.75D);
-	private float targetItemXRotScale = (float) this.random.triangle(0D, 0.75D);
-	private float prevItemYRotScale = this.itemYRotScale;
-	private float targetItemYRotScale = (float) this.random.triangle(0D, 0.75D);
-	private float itemZRotScale = (float) this.random.triangle(0D, 0.75D);
-	private float prevItemZRotScale = this.itemZRotScale;
-	private float targetItemZRotScale = (float) this.random.triangle(0D, 0.75D);
+	private float transparency;
+	private boolean detectedProjectile;
+	private int detectedProjectileCooldownTicks;
 
-	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
+	//CLIENT VARIABLES
+	private float itemXRotScale;
+	private float prevItemXRotScale;
+	private float itemYRotScale;
+	private float prevItemYRotScale;
+	private float itemZRotScale;
+	private float prevItemZRotScale;
+	private float prevTransparency;
 
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
 		super(entityType, world);
@@ -97,13 +107,27 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setCanPickUpLoot(this.canPickUpLoot());
 	}
 
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(ITEM_STACK, ItemStack.EMPTY);
+		builder.define(ITEM_X_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
+		builder.define(TARGET_ITEM_X_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
+		builder.define(ITEM_Y_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
+		builder.define(TARGET_ITEM_Y_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
+		builder.define(ITEM_Z_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
+		builder.define(TARGET_ITEM_Z_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
+		builder.define(SHOOT_PROGRESS, 0F);
+		builder.define(TRANSPARENCY, 0F);
+	}
+
 	@NotNull
 	public static AttributeSupplier.Builder createApparitionAttributes() {
 		return Mob.createMobAttributes()
-			.add(Attributes.MAX_HEALTH, 30.0)
-			.add(Attributes.FLYING_SPEED, 0.5F)
-			.add(Attributes.MOVEMENT_SPEED, 0.5F)
-			.add(Attributes.ATTACK_DAMAGE, 3.0);
+			.add(Attributes.MAX_HEALTH, 15D)
+			.add(Attributes.FLYING_SPEED, 0.5D)
+			.add(Attributes.MOVEMENT_SPEED, 0.5D)
+			.add(Attributes.ATTACK_DAMAGE, 3D);
 	}
 
 	@Override
@@ -158,7 +182,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader world) {
-		return 0.0F;
+		return 0F;
 	}
 
 	@Override
@@ -169,12 +193,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	public boolean dampensVibrations() {
 		return true;
-	}
-
-	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(ITEM_STACK, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -237,28 +255,99 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return (this.tickCount + partialTick) * Mth.lerp(partialTick, this.prevItemZRotScale, this.itemZRotScale) * Mth.PI;
 	}
 
+	public float getItemXRotScale() {
+		return this.entityData.get(ITEM_X_ROT_SCALE);
+	}
+
+	public void setItemXRotScale(float itemXRotScale) {
+		this.entityData.set(ITEM_X_ROT_SCALE, itemXRotScale);
+	}
+
+	public float getTargetItemXRotScale() {
+		return this.entityData.get(TARGET_ITEM_X_ROT_SCALE);
+	}
+
+	public void setTargetItemXRotScale(float targetItemXRotScale) {
+		this.entityData.set(TARGET_ITEM_X_ROT_SCALE, targetItemXRotScale);
+	}
+
+	public float getItemYRotScale() {
+		return this.entityData.get(ITEM_Y_ROT_SCALE);
+	}
+
+	public void setItemYRotScale(float itemYRotScale) {
+		this.entityData.set(ITEM_Y_ROT_SCALE, itemYRotScale);
+	}
+
+	public float getTargetItemYRotScale() {
+		return this.entityData.get(TARGET_ITEM_Y_ROT_SCALE);
+	}
+
+	public void setTargetItemYRotScale(float targetItemYRotScale) {
+		this.entityData.set(TARGET_ITEM_Y_ROT_SCALE, targetItemYRotScale);
+	}
+
+	public float getItemZRotScale() {
+		return this.entityData.get(ITEM_Z_ROT_SCALE);
+	}
+
+	public void setItemZRotScale(float itemZRotScale) {
+		this.entityData.set(ITEM_Z_ROT_SCALE, itemZRotScale);
+	}
+
+	public float getTargetItemZRotScale() {
+		return this.entityData.get(TARGET_ITEM_Z_ROT_SCALE);
+	}
+
+	public void setTargetItemZRotScale(float targetItemZRotScale) {
+		this.entityData.set(TARGET_ITEM_Z_ROT_SCALE, targetItemZRotScale);
+	}
+
+	public float getShootProgress() {
+		return this.entityData.get(SHOOT_PROGRESS);
+	}
+
+	public void setShootProgress(float progress) {
+		this.entityData.set(SHOOT_PROGRESS, progress);
+	}
+
+	public float getTransparency() {
+		return this.entityData.get(TRANSPARENCY);
+	}
+
+	public void setTransparency(float transparency) {
+		this.entityData.set(TRANSPARENCY, transparency);
+	}
+
 	@Override
 	public void tick() {
 		this.noPhysics = true;
 		super.tick();
 		this.noPhysics = false;
 		this.setNoGravity(true);
-		this.scanForProjectiles();
-		this.tickTransparency();
-		this.tickItemRotation(this.random);
-		if (this.detectedProjectileCooldownTicks <= 0) {
-			this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
+		if (!this.level().isClientSide) {
+			this.scanForProjectiles();
+			this.tickTransparency();
+			this.tickItemRotation(this.random);
+			if (this.detectedProjectileCooldownTicks <= 0) {
+				this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
+			}
+		} else {
+			this.prevItemXRotScale = this.itemXRotScale;
+			this.prevItemYRotScale = this.itemYRotScale;
+			this.prevItemZRotScale = this.itemZRotScale;
+			this.itemXRotScale = this.getItemXRotScale();
+			this.itemYRotScale = this.getItemYRotScale();
+			this.itemZRotScale = this.getItemZRotScale();
+
+			this.prevItemXRotScale = this.transparency;
+			this.transparency = this.getTransparency();
 		}
 	}
 
-	private float transparency;
-	private float prevTransparency;
-	private boolean detectedProjectile;
-	private int detectedProjectileCooldownTicks;
-
 	@Override
 	public boolean canBeHitByProjectile() {
-		return super.canBeHitByProjectile() && this.transparency > 0F;
+		return super.canBeHitByProjectile() && this.getTransparency() > 0F;
 	}
 
 	@Override
@@ -321,7 +410,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				transparency.set(Math.max(transparency.get(), this.level().getBrightness(LightLayer.BLOCK, blockPos)) / (float) LightEngine.MAX_LEVEL)
 			);
 		}
-		this.prevTransparency = this.transparency;
 		this.transparency += (transparency.get() - this.transparency) * (this.detectedProjectileCooldownTicks > 0 ? 0.9F : 0.3F);
 		if (this.transparency < 0.1F && this.transparency != 0F && transparency.get() == 0F) {
 			this.transparency = 0F;
@@ -333,6 +421,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		} else if (this.transparency > 0.9F && transparency.get() == 1F) {
 			this.transparency = 1F;
 		}
+
+		this.setTransparency(this.transparency);
 	}
 
 	public float getTransparency(float partialTick) {
@@ -340,37 +430,49 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public void tickItemRotation(@NotNull RandomSource random) {
-		this.prevItemXRotScale = this.itemXRotScale;
-		this.prevItemYRotScale = this.itemYRotScale;
-		this.prevItemZRotScale = this.itemZRotScale;
-
 		if (random.nextFloat() < 0.05F) {
-			this.targetItemXRotScale = (float) Math.clamp(this.targetItemXRotScale + random.triangle(0D, 0.15D), -1F, 1F);
+			this.setTargetItemXRotScale((float) Math.clamp(this.getTargetItemXRotScale() + random.triangle(0D, 0.15D), -1F, 1F));
 		}
 
 		if (random.nextFloat() < 0.05F) {
-			this.targetItemYRotScale = (float) Math.clamp(this.targetItemYRotScale + random.triangle(0D, 0.15D), -1F, 1F);
+			this.setTargetItemYRotScale((float) Math.clamp(this.getTargetItemYRotScale() + random.triangle(0D, 0.15D), -1F, 1F));
 		}
 
 		if (random.nextFloat() < 0.05F) {
-			this.targetItemZRotScale = (float) Math.clamp(this.targetItemZRotScale + random.triangle(0D, 0.15D), -1F, 1F);
+			this.setTargetItemZRotScale((float) Math.clamp(this.getTargetItemZRotScale() + random.triangle(0D, 0.15D), -1F, 1F));
 		}
 
-		this.itemXRotScale += (this.targetItemXRotScale - this.itemXRotScale) * 0.05F;
-		this.itemYRotScale += (this.targetItemYRotScale - this.itemYRotScale) * 0.05F;
-		this.itemZRotScale += (this.targetItemZRotScale - this.itemZRotScale) * 0.05F;
+		this.setItemXRotScale(this.getItemXRotScale() + (this.getTargetItemXRotScale() - this.getItemXRotScale()) * 0.05F);
+		this.setItemXRotScale(this.getItemYRotScale() + (this.getTargetItemYRotScale() - this.getItemYRotScale()) * 0.05F);
+		this.setItemXRotScale(this.getItemZRotScale() + (this.getTargetItemZRotScale() - this.getItemZRotScale()) * 0.05F);
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbt) {
 		super.readAdditionalSaveData(nbt);
 		this.readInventoryFromTag(nbt, this.registryAccess());
+		this.setTargetItemXRotScale(nbt.getFloat("TargetItemXRotScale"));
+		this.setTargetItemYRotScale(nbt.getFloat("TargetItemYRotScale"));
+		this.setTargetItemZRotScale(nbt.getFloat("TargetItemZRotScale"));
+		this.setItemXRotScale(nbt.getFloat("ItemXRotScale"));
+		this.setItemYRotScale(nbt.getFloat("ItemYRotScale"));
+		this.setItemZRotScale(nbt.getFloat("ItemZRotScale"));
+		this.setTransparency(nbt.getFloat("Transparency"));
+		this.setShootProgress(nbt.getFloat("ShootProgress"));
 	}
 
 	@Override
 	public void addAdditionalSaveData(CompoundTag nbt) {
 		super.addAdditionalSaveData(nbt);
 		this.writeInventoryToTag(nbt, this.registryAccess());
+		nbt.putFloat("TargetItemXRotScale", this.getTargetItemXRotScale());
+		nbt.putFloat("TargetItemYRotScale", this.getTargetItemYRotScale());
+		nbt.putFloat("TargetItemZRotScale", this.getTargetItemZRotScale());
+		nbt.putFloat("ItemXRotScale", this.getItemXRotScale());
+		nbt.putFloat("ItemYRotScale", this.getItemYRotScale());
+		nbt.putFloat("ItemZRotScale", this.getItemZRotScale());
+		nbt.putFloat("Transparency", this.getTransparency());
+		nbt.putFloat("ShootProgress", this.getShootProgress());
 	}
 
 	@Override
