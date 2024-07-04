@@ -90,7 +90,7 @@ public class ApparitionAi {
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
-				StartAttacking.create(ghost -> true, ApparitionAi::findNearestValidAttackTarget),
+				StartAttacking.create(apparition -> true, ApparitionAi::findNearestValidAttackTarget),
 				new RunOne<>( // idle look
 					ImmutableList.of(
 						Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 8F), 1),

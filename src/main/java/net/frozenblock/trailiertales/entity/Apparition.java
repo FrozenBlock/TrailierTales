@@ -317,10 +317,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected void customServerAiStep() {
-		this.level().getProfiler().push("ghostBrain");
+		this.level().getProfiler().push("apparitionBrain");
 		this.getBrain().tick((ServerLevel) this.level(), this);
 		this.level().getProfiler().pop();
-		this.level().getProfiler().push("ghostActivityUpdate");
+		this.level().getProfiler().push("apparitionActivityUpdate");
 		ApparitionAi.updateActivity(this);
 		this.level().getProfiler().pop();
 		super.customServerAiStep();
