@@ -22,6 +22,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -158,7 +159,7 @@ public class CoffinSpawnerData {
 			AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
 			this.detectedPlayers.forEach(uuid -> {
 				Player player = level.getPlayerByUUID(uuid);
-				if (player != null) {
+				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
 					double distanceTo = player.distanceToSqr(origin);
 					if (distanceTo < closestDistance.get()) {
 						closestDistance.set(distanceTo);
