@@ -56,20 +56,19 @@ public class DamagingThrowableItemProjectile extends ThrowableItemProjectile {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
 		if (entity instanceof Apparition apparition) {
-			apparition.swapItem(this.getItem());
-			this.discard();
+			apparition.swapItem(this.getItem().copy());
 		} else {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
+			entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
+			this.spawnParticles();
 		}
-		this.spawnParticles();
-		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
 		this.discard();
 	}
 
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
+		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
 		this.discard();
 	}
 
