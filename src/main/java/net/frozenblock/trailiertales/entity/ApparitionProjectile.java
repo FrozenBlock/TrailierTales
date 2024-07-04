@@ -8,6 +8,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -50,8 +51,18 @@ public class ApparitionProjectile extends ThrowableItemProjectile {
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
+		if (entity instanceof Apparition apparition) {
+			ItemStack apparitionStack = apparition.getVisibleItem();
+			if (!apparitionStack.isEmpty()) {
+				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), apparitionStack.split(apparitionStack.getCount())));
+			}
+			apparition.setVisibleItem(this.getItem());
+			this.discard();
+		} else {
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
+		}
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
-
+		this.discard();
 	}
 
 	@Override

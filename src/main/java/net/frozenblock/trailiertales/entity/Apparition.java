@@ -138,9 +138,10 @@ public class Apparition extends Monster {
 	public void scanForProjectiles() {
 		List<Projectile> projectiles = this.level()
 			.getEntitiesOfClass(
-				Projectile.class, this.getBoundingBox().inflate(2D, 2D, 2D),
+				Projectile.class, this.getBoundingBox().inflate(2.5D, 2.5D, 2.5D),
 				projectile ->
-					(projectile.getOwner() == null || projectile.getOwner().getType() != RegisterEntities.APPARITION)
+					projectile.getType() != RegisterEntities.APPARITION_PROJECTILE
+						&& (projectile.getOwner() == null || projectile.getOwner().getType() != RegisterEntities.APPARITION)
 						&& !projectile.onGround()
 						&& (!(projectile instanceof AbstractArrow arrow) || !arrow.inGround)
 			);

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,6 +11,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.FastColor;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +23,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	private float transparency;
 
 	public ApparitionModel(@NotNull ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveFixed);
+		super(RenderType::entityTranslucentEmissive);
 		this.root = root;
 		this.bone = root.getChild("bone");
 	}
