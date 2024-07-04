@@ -122,6 +122,41 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
+	public boolean isPushedByFluid() {
+		return false;
+	}
+
+	@Override
+	protected boolean isAffectedByFluids() {
+		return false;
+	}
+
+	@Override
+	public boolean isInWaterOrBubble() {
+		return false;
+	}
+
+	@Override
+	public boolean isInWaterOrRain() {
+		return false;
+	}
+
+	@Override
+	public boolean isInWaterRainOrBubble() {
+		return false;
+	}
+
+	@Override
+	public boolean isInLava() {
+		return false;
+	}
+
+	@Override
+	public boolean isInWater() {
+		return false;
+	}
+
+	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader world) {
 		return 0.0F;
 	}
