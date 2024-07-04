@@ -101,7 +101,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@NotNull
 	public static AttributeSupplier.Builder createApparitionAttributes() {
 		return Mob.createMobAttributes()
-			.add(Attributes.MAX_HEALTH, 10.0)
+			.add(Attributes.MAX_HEALTH, 30.0)
 			.add(Attributes.FLYING_SPEED, 0.5F)
 			.add(Attributes.MOVEMENT_SPEED, 0.5F)
 			.add(Attributes.ATTACK_DAMAGE, 3.0);
