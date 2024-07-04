@@ -128,7 +128,6 @@ public class ApparitionAi {
 		if (apparition.getTarget() == target) {
 			apparition.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		}
-		apparition.getNavigation().stop();
 	}
 
 	public static void updateActivity(@NotNull Apparition apparition) {
