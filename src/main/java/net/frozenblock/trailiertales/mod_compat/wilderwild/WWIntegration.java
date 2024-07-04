@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
+import java.util.List;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
@@ -12,7 +13,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTes
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
-import java.util.List;
 
 public class WWIntegration extends AbstractWWIntegration {
 

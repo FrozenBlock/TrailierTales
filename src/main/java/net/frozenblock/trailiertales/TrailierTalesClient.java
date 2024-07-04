@@ -55,7 +55,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 		EntityRendererRegistry.register(RegisterEntities.APPARITION, ApparitionRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
 
-		EntityRendererRegistry.register(RegisterEntities.APPARITION_PROJECTILE, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);

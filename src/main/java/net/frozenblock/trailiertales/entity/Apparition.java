@@ -1,19 +1,25 @@
 package net.frozenblock.trailiertales.entity;
 
 import com.mojang.serialization.Dynamic;
-import net.frozenblock.trailiertales.entity.ai.ApparitionAi;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -24,14 +30,20 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.lighting.LightEngine;
@@ -39,10 +51,15 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
-public class Apparition extends Monster {
+public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob {
+	private static final Vector3f SOUL_PARTICLE_COLOR = new Vector3f(96F / 255F, 245F / 255F, 250F / 255F);
+	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
+	private static final DustColorTransitionOptions SOUL_TO_WHITE = new DustColorTransitionOptions(
+		SOUL_PARTICLE_COLOR, WHITE, 1.0F
+	);
+
+	private final SimpleContainer inventory = new SimpleContainer(1);
 	private float itemXRotScale = (float) this.random.triangle(0D, 0.75D);
 	private float prevItemXRotScale = this.itemXRotScale;
 	private float itemYRotScale = (float) this.random.triangle(0D, 0.75D);
@@ -58,6 +75,7 @@ public class Apparition extends Monster {
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
 		super(entityType, world);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
+		this.setCanPickUpLoot(this.canPickUpLoot());
 	}
 
 	@NotNull
@@ -85,12 +103,49 @@ public class Apparition extends Monster {
 		builder.define(ITEM_STACK, new ItemStack(Items.DIAMOND_SWORD));
 	}
 
+	@Override
+	public @NotNull SimpleContainer getInventory() {
+		return this.inventory;
+	}
+
 	public ItemStack getVisibleItem() {
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	public void setVisibleItem(ItemStack itemStack) {
-		this.getEntityData().set(ITEM_STACK, itemStack);
+	public void setVisibleItem(@NotNull ItemStack itemStack) {
+		ItemStack visibleItem = this.getVisibleItem();
+		if (itemStack.isEmpty() && !visibleItem.isEmpty()) {
+			this.getEntityData().set(ITEM_STACK, ItemStack.EMPTY);
+		} else if (itemStack.getItem() != this.getVisibleItem().getItem()) {
+			this.getEntityData().set(ITEM_STACK, itemStack);
+		}
+	}
+
+	@Override
+	public boolean canPickUpLoot() {
+		return !this.isOnPickupCooldown();
+	}
+
+	private boolean isOnPickupCooldown() {
+		return this.getBrain().checkMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryStatus.VALUE_PRESENT);
+	}
+
+	@Override
+	public boolean wantsToPickUp(ItemStack stack) {
+		return this.inventory.getItems().getFirst().isEmpty();
+	}
+
+	@Override
+	protected void pickUpItem(@NotNull ItemEntity item) {
+		ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
+		level().addFreshEntity(newItemEntity);
+		InventoryCarrier.pickUpItem(this, this, newItemEntity);
+	}
+
+	@Override
+	protected void dropEquipment() {
+		super.dropEquipment();
+		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
 	public float getItemRotX(float partialTick) {
@@ -105,12 +160,6 @@ public class Apparition extends Monster {
 		return (this.tickCount + partialTick) * Mth.lerp(partialTick, this.prevItemZRotScale, this.itemZRotScale) * Mth.PI;
 	}
 
-	private static final Vector3f SOUL_PARTICLE_COLOR = new Vector3f(96F / 255F, 245F / 255F, 250F / 255F);
-	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
-	private static final DustColorTransitionOptions SOUL_TO_WHITE = new DustColorTransitionOptions(
-		SOUL_PARTICLE_COLOR, WHITE, 1.0F
-	);
-
 	@Override
 	public void tick() {
 		this.noPhysics = true;
@@ -122,6 +171,9 @@ public class Apparition extends Monster {
 		this.tickItemRotation(this.random);
 		if (this.detectedProjectileCooldownTicks <= 0) {
 			this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
+		}
+		if (!this.level().isClientSide) {
+			this.setVisibleItem(this.inventory.getItems().getFirst());
 		}
 	}
 
@@ -135,12 +187,44 @@ public class Apparition extends Monster {
 		return super.canBeHitByProjectile() && this.transparency > 0F;
 	}
 
+	@Override
+	public boolean hurt(@NotNull DamageSource source, float amount) {
+		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+			if (source.getDirectEntity() instanceof Projectile projectile) {
+				if (projectile instanceof AbstractArrow abstractArrow) {
+					this.grabItem(abstractArrow.getPickupItemStackOrigin());
+					abstractArrow.discard();
+				} else if (projectile instanceof ItemSupplier itemSupplier) {
+					this.grabItem(itemSupplier.getItem());
+					projectile.discard();
+				}
+			}
+		}
+		boolean bl = super.hurt(source, amount);
+		if (this.level().isClientSide) {
+			return false;
+		}
+		if (bl) {
+			if (source.getEntity() instanceof LivingEntity livingEntity) {
+				ApparitionAi.wasHurtBy(this, livingEntity);
+			}
+		}
+		return bl;
+	}
+
+	public void grabItem(@NotNull ItemStack itemStack) {
+		if (!itemStack.isEmpty()) {
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.inventory.getItems().getFirst().copyAndClear()));
+			this.setVisibleItem(itemStack);
+		}
+	}
+
 	public void scanForProjectiles() {
 		List<Projectile> projectiles = this.level()
 			.getEntitiesOfClass(
 				Projectile.class, this.getBoundingBox().inflate(2.5D, 2.5D, 2.5D),
 				projectile ->
-					projectile.getType() != RegisterEntities.APPARITION_PROJECTILE
+					projectile.getType() != RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE
 						&& (projectile.getOwner() == null || projectile.getOwner().getType() != RegisterEntities.APPARITION)
 						&& !projectile.onGround()
 						&& (!(projectile instanceof AbstractArrow arrow) || !arrow.inGround)
@@ -198,6 +282,18 @@ public class Apparition extends Monster {
 		this.itemXRotScale += (this.targetItemXRotScale - this.itemXRotScale) * 0.05F;
 		this.itemYRotScale += (this.targetItemYRotScale - this.itemYRotScale) * 0.05F;
 		this.itemZRotScale += (this.targetItemZRotScale - this.itemZRotScale) * 0.05F;
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag nbt) {
+		super.readAdditionalSaveData(nbt);
+		this.readInventoryFromTag(nbt, this.registryAccess());
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag nbt) {
+		super.addAdditionalSaveData(nbt);
+		this.writeInventoryToTag(nbt, this.registryAccess());
 	}
 
 	@Override
@@ -266,6 +362,32 @@ public class Apparition extends Monster {
 				this.getBbWidth() / 4F,
 				0.05D
 			);
+		}
+	}
+
+	@Override
+	public void performRangedAttack(LivingEntity target, float pullProgress) {
+		ItemStack itemStack = this.inventory.getItems().getFirst();
+		if (!itemStack.isEmpty()) {
+			Projectile projectile;
+			ItemStack singleItem = itemStack.split(1);
+			if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
+				projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
+			} else {
+				DamagingThrowableItemProjectile thrownItem = new DamagingThrowableItemProjectile(this.level(), this);
+				thrownItem.setItem(singleItem);
+				projectile = thrownItem;
+			}
+			projectile.setOwner(this);
+
+			double targetY = target.getEyeY() - 1.1F;
+			double xDifference = target.getX() - this.getX();
+			double yDifference = targetY - projectile.getY();
+			double zDifference = target.getZ() - this.getZ();
+			double yAdjustment = Math.sqrt(xDifference * xDifference + zDifference * zDifference) * 0.2F;
+			projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
+			this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+			this.level().addFreshEntity(projectile);
 		}
 	}
 }

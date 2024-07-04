@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.mod_compat;
 
+import java.util.function.Supplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
@@ -7,7 +8,6 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.AbstractWWIntegration;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.NoOpWWIntegration;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.WWIntegration;
-import java.util.function.Supplier;
 
 public final class TrailierModIntegrations {
 	public static final ModIntegrationSupplier<AbstractWWIntegration> SIMPLE_COPPER_PIPES_INTEGRATION = register(

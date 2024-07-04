@@ -4,7 +4,12 @@ import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.entity.*;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -15,18 +20,18 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.NotNull;
 
-public class ApparitionProjectile extends ThrowableItemProjectile {
+public class DamagingThrowableItemProjectile extends ThrowableItemProjectile {
 
-	public ApparitionProjectile(@NotNull EntityType<? extends ApparitionProjectile> entityType, @NotNull Level level) {
+	public DamagingThrowableItemProjectile(@NotNull EntityType<? extends DamagingThrowableItemProjectile> entityType, @NotNull Level level) {
 		super(entityType, level);
 	}
 
-	public ApparitionProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
-		super(RegisterEntities.APPARITION_PROJECTILE, shooter, level);
+	public DamagingThrowableItemProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
+		super(RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE, shooter, level);
 	}
 
-	public ApparitionProjectile(@NotNull Level level, double x, double y, double z) {
-		super(RegisterEntities.APPARITION_PROJECTILE, x, y, z, level);
+	public DamagingThrowableItemProjectile(@NotNull Level level, double x, double y, double z) {
+		super(RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE, x, y, z, level);
 	}
 
 	@Override
@@ -52,15 +57,16 @@ public class ApparitionProjectile extends ThrowableItemProjectile {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
 		if (entity instanceof Apparition apparition) {
-			ItemStack apparitionStack = apparition.getVisibleItem();
+			ItemStack apparitionStack = apparition.getInventory().getItems().getFirst();
 			if (!apparitionStack.isEmpty()) {
-				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), apparitionStack.split(apparitionStack.getCount())));
+				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), apparitionStack.copyAndClear()));
 			}
 			apparition.setVisibleItem(this.getItem());
 			this.discard();
 		} else {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
 		}
+		this.spawnParticles();
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
 		this.discard();
 	}
@@ -70,6 +76,24 @@ public class ApparitionProjectile extends ThrowableItemProjectile {
 		super.onHitBlock(result);
 		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
 		this.discard();
+	}
+
+	public void spawnParticles() {
+		if (this.level() instanceof ServerLevel server) {
+			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
+			server.sendParticles(
+				new ItemParticleOption(ParticleTypes.ITEM, this.getItem()),
+				this.position().x + (dimensions.width() * 0.5),
+				this.position().y + (dimensions.height() * 0.5),
+				this.position().z + (dimensions.width() * 0.5),
+				this.random.nextInt(5, 10),
+				dimensions.width() / 4F,
+				dimensions.height() / 4F,
+				dimensions.width() / 4F,
+				0.1D
+			);
+			this.discard();
+		}
 	}
 
 }

@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.entity.ApparitionProjectile;
+import net.frozenblock.trailiertales.entity.DamagingThrowableItemProjectile;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -24,9 +24,9 @@ public final class RegisterEntities {
 			.build(TrailierConstants.string("apparition")) // id is for datafixers
 	);
 
-	public static final EntityType<ApparitionProjectile> APPARITION_PROJECTILE = register(
-		"apparition_projectile",
-		FabricEntityTypeBuilder.<ApparitionProjectile>create(MobCategory.MISC, ApparitionProjectile::new)
+	public static final EntityType<DamagingThrowableItemProjectile> DAMAGING_THROWABLE_ITEM_PROJECTILE = register(
+		"damaging_throwable_item_projectile",
+		FabricEntityTypeBuilder.<DamagingThrowableItemProjectile>create(MobCategory.MISC, DamagingThrowableItemProjectile::new)
 			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
 			.trackRangeBlocks(64)
 			.trackedUpdateRate(10)
