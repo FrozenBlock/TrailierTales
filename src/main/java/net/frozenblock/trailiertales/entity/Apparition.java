@@ -4,6 +4,9 @@ import com.mojang.serialization.Dynamic;
 import net.frozenblock.trailiertales.entity.ai.ApparitionAi;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustColorTransitionOptions;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +26,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -31,6 +38,8 @@ import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Apparition extends Monster {
@@ -96,29 +105,72 @@ public class Apparition extends Monster {
 		return (this.tickCount + partialTick) * Mth.lerp(partialTick, this.prevItemZRotScale, this.itemZRotScale) * Mth.PI;
 	}
 
+	private static final Vector3f SOUL_PARTICLE_COLOR = new Vector3f(96F / 255F, 245F / 255F, 250F / 255F);
+	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
+	private static final DustColorTransitionOptions SOUL_TO_WHITE = new DustColorTransitionOptions(
+		SOUL_PARTICLE_COLOR, WHITE, 1.0F
+	);
+
 	@Override
 	public void tick() {
 		this.noPhysics = true;
 		super.tick();
 		this.noPhysics = false;
 		this.setNoGravity(true);
+		this.scanForProjectiles();
 		this.tickTransparency();
 		this.tickItemRotation(this.random);
+		if (this.detectedProjectileCooldownTicks <= 0) {
+			this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
+		}
 	}
 
-	private float targetTransparency;
 	private float transparency;
 	private float prevTransparency;
+	private boolean detectedProjectile;
+	private int detectedProjectileCooldownTicks;
+
+	@Override
+	public boolean canBeHitByProjectile() {
+		return super.canBeHitByProjectile() && this.transparency > 0F;
+	}
+
+	public void scanForProjectiles() {
+		List<Projectile> projectiles = this.level()
+			.getEntitiesOfClass(
+				Projectile.class, this.getBoundingBox().inflate(2D, 2D, 2D),
+				projectile ->
+					(projectile.getOwner() == null || projectile.getOwner().getType() != RegisterEntities.APPARITION)
+						&& !projectile.onGround()
+						&& (!(projectile instanceof AbstractArrow arrow) || !arrow.inGround)
+			);
+		this.detectedProjectile = !projectiles.isEmpty();
+
+		this.detectedProjectileCooldownTicks = this.detectedProjectile ? 20 : Math.max(0, this.detectedProjectileCooldownTicks - 1);
+	}
 
 	public void tickTransparency() {
-		AtomicReference<Float> lightLevel = new AtomicReference<>(0F);
+		AtomicReference<Float> transparency = new AtomicReference<>(0F);
 		BlockPos pos = this.blockPosition();
-		BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos ->
-			lightLevel.set(Math.max(lightLevel.get(), this.level().getBrightness(LightLayer.BLOCK, blockPos)))
-		);
+		if (this.detectedProjectileCooldownTicks > 0) {
+			transparency.set(0F);
+		} else {
+			BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos ->
+				transparency.set(Math.max(transparency.get(), this.level().getBrightness(LightLayer.BLOCK, blockPos)) / (float) LightEngine.MAX_LEVEL)
+			);
+		}
 		this.prevTransparency = this.transparency;
-		this.targetTransparency = lightLevel.get() / (float) LightEngine.MAX_LEVEL;
-		this.transparency += (this.targetTransparency - this.transparency) * 0.3F;
+		this.transparency += (transparency.get() - this.transparency) * (this.detectedProjectileCooldownTicks > 0 ? 0.9F : 0.3F);
+		if (this.transparency < 0.1F && this.transparency != 0F && transparency.get() == 0F) {
+			this.transparency = 0F;
+			this.blocksBuilding = false;
+
+			if (this.detectedProjectileCooldownTicks > 0) {
+				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
+			}
+		} else if (this.transparency > 0.9F && transparency.get() == 1F) {
+			this.transparency = 1F;
+		}
 	}
 
 	public float getTransparency(float partialTick) {
@@ -190,5 +242,29 @@ public class Apparition extends Monster {
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+	}
+
+	@Override
+	protected void doPush(Entity entity) {
+	}
+
+	@Override
+	protected void pushEntities() {
+	}
+
+	public void spawnParticles(int count, ParticleOptions particleOptions) {
+		if (this.level() instanceof ServerLevel level) {
+			level.sendParticles(
+				particleOptions,
+				this.getX(),
+				this.getY(0.6666666666666666D),
+				this.getZ(),
+				count,
+				this.getBbWidth() / 4F,
+				this.getBbHeight() / 4F,
+				this.getBbWidth() / 4F,
+				0.05D
+			);
+		}
 	}
 }

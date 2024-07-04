@@ -19,6 +19,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
@@ -53,6 +54,8 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.APPARITION, ApparitionRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
+
+		EntityRendererRegistry.register(RegisterEntities.APPARITION_PROJECTILE, ThrownItemRenderer::new);
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
