@@ -523,7 +523,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
-			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox())
+			&& !this.inventory.getItems().getFirst().isEmpty();
 	}
 
 	@Override
