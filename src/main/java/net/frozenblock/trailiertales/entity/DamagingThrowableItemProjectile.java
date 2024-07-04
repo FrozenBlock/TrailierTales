@@ -13,7 +13,6 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -57,11 +56,7 @@ public class DamagingThrowableItemProjectile extends ThrowableItemProjectile {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
 		if (entity instanceof Apparition apparition) {
-			ItemStack apparitionStack = apparition.getInventory().getItems().getFirst();
-			if (!apparitionStack.isEmpty()) {
-				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), apparitionStack.copyAndClear()));
-			}
-			apparition.setVisibleItem(this.getItem());
+			apparition.swapItem(this.getItem());
 			this.discard();
 		} else {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));

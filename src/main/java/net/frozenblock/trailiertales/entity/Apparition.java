@@ -43,7 +43,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -140,7 +139,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(ITEM_STACK, new ItemStack(Items.DIAMOND_SWORD));
+		builder.define(ITEM_STACK, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -153,12 +152,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public void setVisibleItem(@NotNull ItemStack itemStack) {
-		ItemStack visibleItem = this.getVisibleItem();
-		if (itemStack.isEmpty() && !visibleItem.isEmpty()) {
-			this.getEntityData().set(ITEM_STACK, ItemStack.EMPTY);
-		} else if (itemStack.getItem() != this.getVisibleItem().getItem()) {
-			this.getEntityData().set(ITEM_STACK, itemStack);
-		}
+		this.getEntityData().set(ITEM_STACK, itemStack);
 	}
 
 	@Override
@@ -180,6 +174,14 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
 		this.level().addFreshEntity(newItemEntity);
 		InventoryCarrier.pickUpItem(this, this, newItemEntity);
+	}
+
+	@Override
+	public void onItemPickup(ItemEntity item) {
+		if (!this.level().isClientSide) {
+			this.setVisibleItem(item.getItem());
+		}
+		super.onItemPickup(item);
 	}
 
 	@Override
@@ -212,9 +214,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (this.detectedProjectileCooldownTicks <= 0) {
 			this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
 		}
-		if (!this.level().isClientSide) {
-			this.setVisibleItem(this.inventory.getItems().getFirst());
-		}
 	}
 
 	private float transparency;
@@ -232,10 +231,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
 			if (source.getDirectEntity() instanceof Projectile projectile) {
 				if (projectile instanceof AbstractArrow abstractArrow) {
-					this.grabItem(abstractArrow.getPickupItemStackOrigin());
+					this.swapItem(abstractArrow.getPickupItemStackOrigin());
 					abstractArrow.discard();
 				} else if (projectile instanceof ItemSupplier itemSupplier) {
-					this.grabItem(itemSupplier.getItem());
+					this.swapItem(itemSupplier.getItem());
 					projectile.discard();
 				}
 			}
@@ -252,9 +251,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return bl;
 	}
 
-	public void grabItem(@NotNull ItemStack itemStack) {
-		if (!itemStack.isEmpty()) {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.inventory.getItems().getFirst().copyAndClear()));
+	public void swapItem(@NotNull ItemStack itemStack) {
+		if (!itemStack.isEmpty() && !this.level().isClientSide) {
+			ItemStack currentStack = this.inventory.getItems().getFirst().copyAndClear();
+			if (!currentStack.isEmpty()) {
+				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), currentStack));
+			}
+			this.inventory.setItem(0, itemStack);
 			this.setVisibleItem(itemStack);
 		}
 	}
@@ -270,7 +273,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 						&& (!(projectile instanceof AbstractArrow arrow) || !arrow.inGround)
 			);
 		this.detectedProjectile = !projectiles.isEmpty();
-
 		this.detectedProjectileCooldownTicks = this.detectedProjectile ? 20 : Math.max(0, this.detectedProjectileCooldownTicks - 1);
 	}
 
@@ -434,6 +436,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
 			this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			this.level().addFreshEntity(projectile);
+			this.setVisibleItem(itemStack);
 		}
 	}
 }
