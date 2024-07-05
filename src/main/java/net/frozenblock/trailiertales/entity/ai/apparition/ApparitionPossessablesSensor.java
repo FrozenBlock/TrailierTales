@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.entity.ai.apparition;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,8 @@ public class ApparitionPossessablesSensor extends Sensor<Apparition> {
 			return;
 		}
 
-		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(List.of());
+		List<LivingEntity> immutableList = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
+		ArrayList<LivingEntity> entities = new ArrayList<>(immutableList);
 		entities.sort(Comparator.comparingDouble(apparition::distanceToSqr));
 		Optional<LivingEntity> optional = entities.stream()
 			.filter(apparition::canPossessEntity)
