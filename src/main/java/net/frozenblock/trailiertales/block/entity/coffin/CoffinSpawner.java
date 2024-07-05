@@ -10,6 +10,8 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
@@ -364,6 +366,16 @@ public final class CoffinSpawner {
 							0D
 						);
 						this.addPower(1, world);
+						if (this.getConfig().spawnsApparitions()) {
+							RandomSource random = world.getRandom();
+							int spawnRange = this.getConfig().spawnRange();
+							BlockPos apparitionPos = pos.offset(
+								random.nextInt(-spawnRange, spawnRange),
+								random.nextInt(0, 2),
+								random.nextInt(-spawnRange, spawnRange)
+							);
+							RegisterEntities.APPARITION.create(world, null, apparitionPos, MobSpawnType.TRIAL_SPAWNER, true, false);
+						}
 					} else {
 						newList.add(spawnTime - 1);
 					}
