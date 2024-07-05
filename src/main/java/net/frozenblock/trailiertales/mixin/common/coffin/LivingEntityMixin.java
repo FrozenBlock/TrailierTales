@@ -27,7 +27,8 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	@Shadow
 	protected int lastHurtByPlayerTime;
 
-	@Unique@Nullable
+	@Unique
+	@Nullable
 	private EntityCoffinData trailierTales$entityCoffinData = null;
 
 	@Unique

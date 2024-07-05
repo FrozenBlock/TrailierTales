@@ -32,14 +32,14 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAi {
-
 	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
 		SensorType.NEAREST_PLAYERS,
 		RegisterSensorTypes.APPARITION_ATTACKABLES_SENSOR,
 		RegisterSensorTypes.APPARITION_SPECIFIC_SENSOR,
-		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT
+		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT,
+		RegisterSensorTypes.APPARITION_POSSESSABLES_SENSOR
 	);
 
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
@@ -58,7 +58,9 @@ public class ApparitionAi {
 		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
 		RegisterMemoryModuleTypes.NEARBY_APPARITIONS,
 		MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS,
-		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM
+		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
+		RegisterMemoryModuleTypes.POSSESSION_COOLDOWN,
+		RegisterMemoryModuleTypes.NEAREST_POSSESSABLE
 	);
 
 	@Contract("_, _ -> param2")
@@ -80,7 +82,9 @@ public class ApparitionAi {
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
-				GoToWantedItem.create(apparition -> apparition.getInventory().getItems().getFirst().isEmpty(), 1.5F, true, 32)
+				GoToWantedItem.create(
+					apparition -> apparition.getInventory().getItems().getFirst().isEmpty() && apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.POSSESSION_COOLDOWN),
+					1.5F, true, 32)
 			)
 		);
 	}
@@ -114,7 +118,8 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
-				new ApparitionShoot(1D, 20, 16F)
+				new ApparitionShoot(1D, 20, 16F),
+				new ApparitionPossess(1.5D)
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);
@@ -136,6 +141,11 @@ public class ApparitionAi {
 
 	@NotNull
 	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Apparition apparition) {
+		return apparition.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+	}
+
+	@NotNull
+	private static Optional<? extends LivingEntity> findNearestValidPossessionTarget(@NotNull Apparition apparition) {
 		return apparition.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
 	}
 

@@ -3,8 +3,11 @@ package net.frozenblock.trailiertales.entity;
 import com.mojang.serialization.Dynamic;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.entity.ai.apparition.impl.EntityPossessionInterface;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
+import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleOptions;
@@ -14,12 +17,15 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -27,7 +33,10 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -46,7 +55,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.Contract;
@@ -60,6 +69,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final DustColorTransitionOptions SOUL_TO_WHITE = new DustColorTransitionOptions(
 		SOUL_PARTICLE_COLOR, WHITE, 1.0F
 	);
+	public static final ResourceLocation ATTRIBUTE_APPARITION_FOLLOW_RANGE = TrailierConstants.id("apparition_follow_range");
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> ITEM_X_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_ITEM_X_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
@@ -138,6 +148,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		flyingPathNavigation.setCanOpenDoors(false);
 		flyingPathNavigation.setCanPassDoors(true);
 		return flyingPathNavigation;
+	}
+
+	@Nullable
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+		this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.POSSESSION_COOLDOWN, Unit.INSTANCE, 200L);
+		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
 
 	@Override
@@ -530,6 +547,23 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !livingEntity.isRemoved()
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox())
 			&& !this.inventory.getItems().getFirst().isEmpty();
+	}
+
+	public boolean canPossessEntity(Entity entity) {
+		return entity instanceof EntityPossessionInterface entityPossessable
+			&& !entityPossessable.trailierTales$getPossessionData().isPossessed()
+			&& entity.level() == this.level()
+			&& entity.isAlive()
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
+	}
+
+	public void possessEntity(@NotNull Mob mob) {
+		if (mob instanceof EntityPossessionInterface entityPossessable) {
+			entityPossessable.trailierTales$getPossessionData().setPossessor(this);
+			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
+				.addPermanentModifier(new AttributeModifier(ATTRIBUTE_APPARITION_FOLLOW_RANGE, Math.max(48D * (this.getMaxHealth() / this.getHealth()), 16D), AttributeModifier.Operation.ADD_VALUE));
+			this.discard();
+		}
 	}
 
 	@Override

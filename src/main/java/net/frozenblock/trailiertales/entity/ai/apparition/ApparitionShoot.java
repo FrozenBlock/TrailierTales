@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,7 +30,8 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	public ApparitionShoot(double speed, int attackInterval, double range) {
 		super(
 			ImmutableMap.of(
-				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT
+				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
+				RegisterMemoryModuleTypes.POSSESSION_COOLDOWN, MemoryStatus.VALUE_PRESENT
 			),
 			240
 		);

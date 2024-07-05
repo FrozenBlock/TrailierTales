@@ -49,7 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CoffinSpawner {
-	private static final int MAX_MOB_TRACKING_DISTANCE = 76;
+	private static final int MAX_MOB_TRACKING_DISTANCE = 24;
 	private static final int MAX_MOB_TRACKING_DISTANCE_SQR = Mth.square(MAX_MOB_TRACKING_DISTANCE);
 	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (world, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
 			world, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
@@ -293,7 +293,7 @@ public final class CoffinSpawner {
 								if (this.data.detectedAnyPlayers()) {
 									if (entity instanceof Mob mob) {
 										mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
-											.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 128D, AttributeModifier.Operation.ADD_VALUE));
+											.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 8D, AttributeModifier.Operation.ADD_VALUE));
 									}
 									if (entity instanceof EntityCoffinInterface entityInterface) {
 										entityInterface.trailierTales$setCoffinData(
