@@ -64,7 +64,7 @@ public class EntityPossessionData {
 
 			optional.ifPresent(this.mob::setTarget);
 			possessor.ticksPossessing += 1;
-			if (possessor.ticksPossessing++ > possessor.ticksPossessing) {
+			if (possessor.ticksPossessing++ > possessor.minTicksPossessing) {
 				this.unpossess(level, mob);
 			}
 		}

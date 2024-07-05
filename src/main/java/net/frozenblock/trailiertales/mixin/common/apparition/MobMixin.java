@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MobMixin implements EntityPossessionInterface {
 
 	@Unique
-	private EntityPossessionData trailierTales$entityPossessionData = new EntityPossessionData(Mob.class.cast(this));
+	private final EntityPossessionData trailierTales$entityPossessionData = new EntityPossessionData(Mob.class.cast(this));
 
 	@Unique
 	@Override
@@ -33,10 +33,8 @@ public class MobMixin implements EntityPossessionInterface {
 		)
 	)
 	public void trailierTales$baseTick(CallbackInfo info) {
-		if (this.trailierTales$getPossessionData() != null) {
-			Mob mob = Mob.class.cast(this);
-			this.trailierTales$entityPossessionData.tick(mob, mob.level());
-		}
+		Mob mob = Mob.class.cast(this);
+		this.trailierTales$entityPossessionData.tick(mob, mob.level());
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

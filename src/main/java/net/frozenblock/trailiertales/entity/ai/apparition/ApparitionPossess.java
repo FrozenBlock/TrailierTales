@@ -27,7 +27,7 @@ public class ApparitionPossess extends Behavior<Apparition> {
 				RegisterMemoryModuleTypes.NEAREST_POSSESSABLE, MemoryStatus.VALUE_PRESENT,
 				RegisterMemoryModuleTypes.POSSESSION_COOLDOWN, MemoryStatus.VALUE_ABSENT
 			),
-			160
+			300
 		);
 		this.speedModifier = speed;
 	}
@@ -60,7 +60,7 @@ public class ApparitionPossess extends Behavior<Apparition> {
 
 		if (possessionTarget instanceof Mob mob) {
 			apparition.getLookControl().setLookAt(possessionTarget, 30F, 30F);
-			double AABBIncrease = Math.max(0.5D, this.possessingTicks / 40D);
+			double AABBIncrease = Math.max(0.5D, this.possessingTicks / 10D);
 			boolean isTouching = apparition.getBoundingBox().inflate(AABBIncrease).intersects(possessionTarget.getBoundingBox());
 			double speed = this.speedModifier;
 			if (isTouching) {
@@ -72,7 +72,7 @@ public class ApparitionPossess extends Behavior<Apparition> {
 			}
 			apparition.getNavigation().moveTo(possessionTarget.getX(), possessionTarget.getEyeY(), possessionTarget.getZ(), speed);
 
-			if (this.possessingTicks >= 60) {
+			if (this.possessingTicks >= 10) {
 				apparition.possessEntity(mob);
 			}
 		}
