@@ -63,6 +63,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		apparition.setAggressive(false);
 		this.seeTime = 0;
 		this.attackTime = -1;
+		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 80);
 	}
 
 	@Override

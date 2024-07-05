@@ -554,7 +554,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !entityPossessable.trailierTales$getPossessionData().isPossessed()
 			&& entity.level() == this.level()
 			&& entity.isAlive()
-			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)
+			&& entity.getType() != RegisterEntities.APPARITION;
 	}
 
 	public void possessEntity(@NotNull Mob mob) {
