@@ -132,7 +132,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
-		this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
+		this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 100L);
 		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
 
@@ -344,12 +344,16 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public void tickTransparency() {
 		AtomicReference<Float> transparency = new AtomicReference<>(0F);
 		BlockPos pos = this.blockPosition();
-		if (this.detectedProjectileCooldownTicks > 0) {
-			transparency.set(0F);
+		if (this.isAiding()) {
+			transparency.set(1F);
 		} else {
-			BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos ->
-				transparency.set(Math.max(transparency.get(), this.level().getRawBrightness(blockPos, 0)) / (float) LightEngine.MAX_LEVEL)
-			);
+			if (this.detectedProjectileCooldownTicks > 0) {
+				transparency.set(0F);
+			} else {
+				BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos ->
+					transparency.set(Math.max(transparency.get(), this.level().getRawBrightness(blockPos, 0) / (float) LightEngine.MAX_LEVEL))
+				);
+			}
 		}
 		this.transparency += (transparency.get() - this.transparency) * (this.detectedProjectileCooldownTicks > 0 ? 0.9F : 0.3F);
 		if (this.transparency < 0.1F && this.transparency != 0F && transparency.get() == 0F) {
@@ -397,6 +401,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@NotNull
 	protected Brain<Apparition> makeBrain(Dynamic<?> dynamic) {
 		return ApparitionAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	}
+
+	public boolean isAiding() {
+		return this.getBrain().checkMemory(RegisterMemoryModuleTypes.IS_AIDING, MemoryStatus.VALUE_PRESENT);
 	}
 
 	@SuppressWarnings("unchecked")

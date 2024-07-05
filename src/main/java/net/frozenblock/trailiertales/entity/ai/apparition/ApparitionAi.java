@@ -117,7 +117,8 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
-				new ApparitionShoot(1D, 20, 16F)
+				new ApparitionShoot(1D, 20, 16F),
+				new ApparitionBuff()
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);
