@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
-import net.frozenblock.trailiertales.entity.ai.apparition.impl.EntityPossessionInterface;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
@@ -22,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -36,7 +34,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -71,12 +68,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	);
 	public static final ResourceLocation ATTRIBUTE_APPARITION_FOLLOW_RANGE = TrailierConstants.id("apparition_follow_range");
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
-	private static final EntityDataAccessor<Float> ITEM_X_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> TARGET_ITEM_X_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> ITEM_Y_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> TARGET_ITEM_Y_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> ITEM_Z_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> TARGET_ITEM_Z_ROT_SCALE = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> SHOOT_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 
@@ -86,12 +77,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private int detectedProjectileCooldownTicks;
 
 	//CLIENT VARIABLES
-	private float itemXRotScale;
-	private float prevItemXRotScale;
-	private float itemYRotScale;
-	private float prevItemYRotScale;
-	private float itemZRotScale;
-	private float prevItemZRotScale;
 	private float prevTransparency;
 
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
@@ -121,12 +106,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(ITEM_STACK, ItemStack.EMPTY);
-		builder.define(ITEM_X_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
-		builder.define(TARGET_ITEM_X_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
-		builder.define(ITEM_Y_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
-		builder.define(TARGET_ITEM_Y_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
-		builder.define(ITEM_Z_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
-		builder.define(TARGET_ITEM_Z_ROT_SCALE, (float) this.random.triangle(0D, 0.75D));
 		builder.define(SHOOT_PROGRESS, 0F);
 		builder.define(TRANSPARENCY, 0F);
 	}
@@ -153,7 +132,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
-		this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.POSSESSION_COOLDOWN, Unit.INSTANCE, 200L);
+		this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
 		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
 
@@ -265,66 +244,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
-	public float getItemRotX(float partialTick) {
-		return (this.tickCount + partialTick) * Mth.lerp(partialTick, this.prevItemXRotScale, this.itemXRotScale) * Mth.PI;
-	}
-
-	public float getItemRotY(float partialTick) {
-		return (this.tickCount + partialTick) * Mth.lerp(partialTick, this.prevItemYRotScale, this.itemYRotScale) * Mth.PI;
-	}
-
-	public float getItemRotZ(float partialTick) {
-		return (this.tickCount + partialTick) * Mth.lerp(partialTick, this.prevItemZRotScale, this.itemZRotScale) * Mth.PI;
-	}
-
-	public float getItemXRotScale() {
-		return this.entityData.get(ITEM_X_ROT_SCALE);
-	}
-
-	public void setItemXRotScale(float itemXRotScale) {
-		this.entityData.set(ITEM_X_ROT_SCALE, itemXRotScale);
-	}
-
-	public float getTargetItemXRotScale() {
-		return this.entityData.get(TARGET_ITEM_X_ROT_SCALE);
-	}
-
-	public void setTargetItemXRotScale(float targetItemXRotScale) {
-		this.entityData.set(TARGET_ITEM_X_ROT_SCALE, targetItemXRotScale);
-	}
-
-	public float getItemYRotScale() {
-		return this.entityData.get(ITEM_Y_ROT_SCALE);
-	}
-
-	public void setItemYRotScale(float itemYRotScale) {
-		this.entityData.set(ITEM_Y_ROT_SCALE, itemYRotScale);
-	}
-
-	public float getTargetItemYRotScale() {
-		return this.entityData.get(TARGET_ITEM_Y_ROT_SCALE);
-	}
-
-	public void setTargetItemYRotScale(float targetItemYRotScale) {
-		this.entityData.set(TARGET_ITEM_Y_ROT_SCALE, targetItemYRotScale);
-	}
-
-	public float getItemZRotScale() {
-		return this.entityData.get(ITEM_Z_ROT_SCALE);
-	}
-
-	public void setItemZRotScale(float itemZRotScale) {
-		this.entityData.set(ITEM_Z_ROT_SCALE, itemZRotScale);
-	}
-
-	public float getTargetItemZRotScale() {
-		return this.entityData.get(TARGET_ITEM_Z_ROT_SCALE);
-	}
-
-	public void setTargetItemZRotScale(float targetItemZRotScale) {
-		this.entityData.set(TARGET_ITEM_Z_ROT_SCALE, targetItemZRotScale);
-	}
-
 	public float getShootProgress() {
 		return this.entityData.get(SHOOT_PROGRESS);
 	}
@@ -341,6 +260,14 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.entityData.set(TRANSPARENCY, transparency);
 	}
 
+	public float getItemYRot(float partialTick) {
+		return Mth.cos((this.tickCount + partialTick) / 8F) * 0.35F;
+	}
+
+	public float getItemZRot(float partialTick) {
+		return Mth.sin((this.tickCount + partialTick) / 8F) * 0.35F;
+	}
+
 	@Override
 	public void tick() {
 		this.noPhysics = true;
@@ -350,18 +277,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!this.level().isClientSide) {
 			this.scanForProjectiles();
 			this.tickTransparency();
-			this.tickItemRotation(this.random);
 			if (this.detectedProjectileCooldownTicks <= 0) {
 				this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
 			}
 		} else {
-			this.prevItemXRotScale = this.itemXRotScale;
-			this.prevItemYRotScale = this.itemYRotScale;
-			this.prevItemZRotScale = this.itemZRotScale;
-			this.itemXRotScale = this.getItemXRotScale();
-			this.itemYRotScale = this.getItemYRotScale();
-			this.itemZRotScale = this.getItemZRotScale();
-
 			this.prevTransparency = this.transparency;
 			this.transparency = this.getTransparency();
 		}
@@ -451,48 +370,19 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return Mth.lerp(partialTick, this.prevTransparency, this.transparency);
 	}
 
-	public void tickItemRotation(@NotNull RandomSource random) {
-		if (random.nextFloat() < 0.05F) {
-			this.setTargetItemXRotScale((float) Math.clamp(this.getTargetItemXRotScale() + random.triangle(0D, 0.15D), -1F, 1F));
-		}
-
-		if (random.nextFloat() < 0.05F) {
-			this.setTargetItemYRotScale((float) Math.clamp(this.getTargetItemYRotScale() + random.triangle(0D, 0.15D), -1F, 1F));
-		}
-
-		if (random.nextFloat() < 0.05F) {
-			this.setTargetItemZRotScale((float) Math.clamp(this.getTargetItemZRotScale() + random.triangle(0D, 0.15D), -1F, 1F));
-		}
-
-		this.setItemXRotScale(this.getItemXRotScale() + (this.getTargetItemXRotScale() - this.getItemXRotScale()) * 0.05F);
-		this.setItemXRotScale(this.getItemYRotScale() + (this.getTargetItemYRotScale() - this.getItemYRotScale()) * 0.05F);
-		this.setItemXRotScale(this.getItemZRotScale() + (this.getTargetItemZRotScale() - this.getItemZRotScale()) * 0.05F);
-	}
-
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbt) {
 		super.readAdditionalSaveData(nbt);
 		this.readInventoryFromTag(nbt, this.registryAccess());
-		this.setTargetItemXRotScale(nbt.getFloat("TargetItemXRotScale"));
-		this.setTargetItemYRotScale(nbt.getFloat("TargetItemYRotScale"));
-		this.setTargetItemZRotScale(nbt.getFloat("TargetItemZRotScale"));
-		this.setItemXRotScale(nbt.getFloat("ItemXRotScale"));
-		this.setItemYRotScale(nbt.getFloat("ItemYRotScale"));
-		this.setItemZRotScale(nbt.getFloat("ItemZRotScale"));
 		this.setTransparency(nbt.getFloat("Transparency"));
 		this.setShootProgress(nbt.getFloat("ShootProgress"));
+		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
 	@Override
 	public void addAdditionalSaveData(CompoundTag nbt) {
 		super.addAdditionalSaveData(nbt);
 		this.writeInventoryToTag(nbt, this.registryAccess());
-		nbt.putFloat("TargetItemXRotScale", this.getTargetItemXRotScale());
-		nbt.putFloat("TargetItemYRotScale", this.getTargetItemYRotScale());
-		nbt.putFloat("TargetItemZRotScale", this.getTargetItemZRotScale());
-		nbt.putFloat("ItemXRotScale", this.getItemXRotScale());
-		nbt.putFloat("ItemYRotScale", this.getItemYRotScale());
-		nbt.putFloat("ItemZRotScale", this.getItemZRotScale());
 		nbt.putFloat("Transparency", this.getTransparency());
 		nbt.putFloat("ShootProgress", this.getShootProgress());
 	}
@@ -547,24 +437,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !livingEntity.isRemoved()
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox())
 			&& !this.inventory.getItems().getFirst().isEmpty();
-	}
-
-	public boolean canPossessEntity(Entity entity) {
-		return entity instanceof EntityPossessionInterface entityPossessable
-			&& !entityPossessable.trailierTales$getPossessionData().isPossessed()
-			&& entity.level() == this.level()
-			&& entity.isAlive()
-			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity)
-			&& entity.getType() != RegisterEntities.APPARITION;
-	}
-
-	public void possessEntity(@NotNull Mob mob) {
-		if (mob instanceof EntityPossessionInterface entityPossessable) {
-			entityPossessable.trailierTales$getPossessionData().setPossessor(this);
-			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
-				.addPermanentModifier(new AttributeModifier(ATTRIBUTE_APPARITION_FOLLOW_RANGE, Math.max(48D * (this.getMaxHealth() / this.getHealth()), 16D), AttributeModifier.Operation.ADD_VALUE));
-			this.discard();
-		}
 	}
 
 	@Override

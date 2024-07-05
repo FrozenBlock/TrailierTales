@@ -14,8 +14,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class NearestItemNoLineOfSightSensor extends Sensor<Mob> {
-	private static final double RADIUS = 16D;
-	private static final double Y_RANGE = 16D;
+	private static final double RADIUS = 24D;
+	private static final double Y_RANGE = 24D;
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {

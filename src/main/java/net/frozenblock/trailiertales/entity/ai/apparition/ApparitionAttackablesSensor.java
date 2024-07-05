@@ -6,13 +6,13 @@ import java.util.function.Predicate;
 import net.frozenblock.trailiertales.tag.TrailierEntityTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySensor {
-	public static final float TARGET_DETECTION_DISTANCE = 16F;
 
 	@Override
 	protected boolean isMatchingEntity(LivingEntity entity, LivingEntity target) {
@@ -26,7 +26,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	private boolean isClose(LivingEntity apparition, @NotNull LivingEntity target) {
-		return target.distanceTo(apparition) <= TARGET_DETECTION_DISTANCE;
+		return target.distanceTo(apparition) <= apparition.getAttributes().getValue(Attributes.FOLLOW_RANGE);
 	}
 
 	@Override
@@ -35,11 +35,11 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	private Optional<LivingEntity> getNearestEntityNoLineOfSight(@NotNull LivingEntity entity) {
-		return entity.getBrain().getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES)
+		return entity.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
 			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> this.isMatchingEntity(entity, livingEntity)));
 	}
 
-	private Optional<LivingEntity> findClosest(@NotNull List<LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
+	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
 		for (LivingEntity livingEntity : livingEntities) {
 			if (predicate.test(livingEntity)) {
 				return Optional.of(livingEntity);

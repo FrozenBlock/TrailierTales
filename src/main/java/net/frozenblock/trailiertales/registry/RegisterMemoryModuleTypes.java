@@ -8,7 +8,6 @@ import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,8 +21,8 @@ public final class RegisterMemoryModuleTypes {
 	}
 
 	public static final MemoryModuleType<List<Apparition>> NEARBY_APPARITIONS = register("nearby_apparitions");
-	public static final MemoryModuleType<Unit> POSSESSION_COOLDOWN = register("possession_cooldown");
-	public static final MemoryModuleType<LivingEntity> NEAREST_POSSESSABLE = register("nearest_possessable");
+	public static final MemoryModuleType<Unit> AID_COOLDOWN = register("aid_cooldown");
+	public static final MemoryModuleType<Unit> IS_AIDING = register("is_aiding");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

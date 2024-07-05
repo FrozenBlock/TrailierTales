@@ -36,11 +36,10 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.translate(0F, 0.65F, 0F);
+			poseStack.translate(0F, 0.45F, 0F);
 			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
-			poseStack.mulPose(Axis.XP.rotationDegrees(entity.getItemRotX(partialTick)));
-			poseStack.mulPose(Axis.YP.rotationDegrees(entity.getItemRotY(partialTick)));
-			poseStack.mulPose(Axis.ZP.rotationDegrees(entity.getItemRotZ(partialTick)));
+			poseStack.mulPose(Axis.YN.rotation(entity.getItemYRot(partialTick)));
+			poseStack.mulPose(Axis.ZN.rotation(entity.getItemZRot(partialTick)));
 			poseStack.pushPose();
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), 1);
 			poseStack.popPose();

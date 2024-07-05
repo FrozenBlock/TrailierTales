@@ -35,11 +35,10 @@ public class ApparitionAi {
 	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
-		SensorType.NEAREST_PLAYERS,
+		RegisterSensorTypes.APPARITION_PLAYER_SENSOR,
 		RegisterSensorTypes.APPARITION_ATTACKABLES_SENSOR,
 		RegisterSensorTypes.APPARITION_SPECIFIC_SENSOR,
-		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT,
-		RegisterSensorTypes.APPARITION_POSSESSABLES_SENSOR
+		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT
 	);
 
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
@@ -59,8 +58,8 @@ public class ApparitionAi {
 		RegisterMemoryModuleTypes.NEARBY_APPARITIONS,
 		MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS,
 		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
-		RegisterMemoryModuleTypes.POSSESSION_COOLDOWN,
-		RegisterMemoryModuleTypes.NEAREST_POSSESSABLE
+		RegisterMemoryModuleTypes.AID_COOLDOWN,
+		RegisterMemoryModuleTypes.IS_AIDING
 	);
 
 	@Contract("_, _ -> param2")
@@ -83,7 +82,7 @@ public class ApparitionAi {
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
 				GoToWantedItem.create(
-					apparition -> apparition.getInventory().getItems().getFirst().isEmpty() && apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.POSSESSION_COOLDOWN),
+					apparition -> apparition.getInventory().getItems().getFirst().isEmpty(),
 					1.5F, true, 32)
 			)
 		);
@@ -118,8 +117,7 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
-				new ApparitionShoot(1D, 20, 16F),
-				new ApparitionPossess(1.5D)
+				new ApparitionShoot(1D, 20, 16F)
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);
