@@ -62,13 +62,15 @@ public class ApparitionPossess extends Behavior<Apparition> {
 			apparition.getLookControl().setLookAt(possessionTarget, 30F, 30F);
 			double AABBIncrease = Math.max(0.5D, this.possessingTicks / 40D);
 			boolean isTouching = apparition.getBoundingBox().inflate(AABBIncrease).intersects(possessionTarget.getBoundingBox());
+			double speed = this.speedModifier;
 			if (isTouching) {
 				this.possessingTicks++;
 				apparition.spawnParticles(3, ParticleTypes.EFFECT);
+				speed = 0.5D;
 			} else {
 				this.possessingTicks--;
 			}
-			apparition.getNavigation().moveTo(possessionTarget, this.speedModifier);
+			apparition.getNavigation().moveTo(possessionTarget.getX(), possessionTarget.getEyeY(), possessionTarget.getZ(), speed);
 
 			if (this.possessingTicks >= 60) {
 				apparition.possessEntity(mob);
