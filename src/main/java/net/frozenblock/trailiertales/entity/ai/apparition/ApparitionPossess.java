@@ -60,8 +60,7 @@ public class ApparitionPossess extends Behavior<Apparition> {
 
 		if (possessionTarget instanceof Mob mob) {
 			apparition.getLookControl().setLookAt(possessionTarget, 30F, 30F);
-			double AABBIncrease = Math.max(0.5D, this.possessingTicks / 10D);
-			boolean isTouching = apparition.getBoundingBox().inflate(AABBIncrease).intersects(possessionTarget.getBoundingBox());
+			boolean isTouching = apparition.getBoundingBox().expandTowards(apparition.getDeltaMovement()).intersects(possessionTarget.getBoundingBox());
 			double speed = this.speedModifier;
 			if (isTouching) {
 				this.possessingTicks++;
