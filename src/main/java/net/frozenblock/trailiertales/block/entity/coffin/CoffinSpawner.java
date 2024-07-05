@@ -374,7 +374,8 @@ public final class CoffinSpawner {
 								random.nextInt(0, 2),
 								random.nextInt(-spawnRange, spawnRange)
 							);
-							RegisterEntities.APPARITION.create(world, null, apparitionPos, MobSpawnType.TRIAL_SPAWNER, true, false);
+							Apparition apparition = RegisterEntities.APPARITION.create(world, null, apparitionPos, MobSpawnType.TRIAL_SPAWNER, true, false);
+							world.addFreshEntity(apparition);
 						}
 					} else {
 						newList.add(spawnTime - 1);
