@@ -318,7 +318,7 @@ public final class CoffinSpawner {
 		Apparition apparition = RegisterEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
-				apparition.detectedProjectileCooldownTicks = 100;
+				apparition.hiddenTicks = 100;
 				this.appendCoffinSpawnAttributes(apparition, level, pos);
 				level.addFreshEntity(apparition);
 				this.data.nextApparitionSpawnsAt = level.getGameTime() + 80L;

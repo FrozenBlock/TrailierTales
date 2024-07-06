@@ -2,7 +2,6 @@ package net.frozenblock.trailiertales.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
@@ -73,14 +72,16 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> SHOOT_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 
 	private final SimpleContainer inventory = new SimpleContainer(1);
 	private float transparency;
-	private boolean detectedProjectile;
-	public int detectedProjectileCooldownTicks;
+	private float outerTransparency;
+	public int hiddenTicks;
 
 	//CLIENT VARIABLES
 	private float prevTransparency;
+	private float prevOuterTransparency;
 	private float flicker;
 	private float prevFlicker;
 
@@ -99,6 +100,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		builder.define(ITEM_STACK, ItemStack.EMPTY);
 		builder.define(SHOOT_PROGRESS, 0F);
 		builder.define(TRANSPARENCY, 0F);
+		builder.define(OUTER_TRANSPARENCY, 0F);
 	}
 
 	@NotNull
@@ -273,6 +275,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.entityData.set(TRANSPARENCY, transparency);
 	}
 
+	public float getOuterTransparency() {
+		return this.entityData.get(OUTER_TRANSPARENCY);
+	}
+
+	public void setOuterTransparency(float transparency) {
+		this.entityData.set(OUTER_TRANSPARENCY, transparency);
+	}
+
+
 	public float getItemYRot(float partialTick) {
 		return Mth.cos((this.tickCount + partialTick) / 8F) * 0.35F;
 	}
@@ -292,14 +303,16 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.noPhysics = false;
 		this.setNoGravity(true);
 		if (!this.level().isClientSide) {
-			this.scanForProjectiles();
 			this.tickTransparency();
-			if (this.detectedProjectileCooldownTicks <= 0) {
+			if (this.hiddenTicks <= 0) {
 				this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
 			}
+			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 		} else {
 			this.prevTransparency = this.transparency;
+			this.prevOuterTransparency = this.outerTransparency;
 			this.transparency = this.getTransparency();
+			this.outerTransparency = this.getOuterTransparency();
 			this.prevFlicker = this.flicker;
 			this.flicker = Math.clamp(this.flicker + (float)((Math.random() - Math.random()) * Math.random() * Math.random() * 0.1F), 0F, 1F);
 			this.flicker *= 0.9F;
@@ -347,51 +360,56 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		}
 	}
 
-	public void scanForProjectiles() {
-		List<Projectile> projectiles = this.level()
-			.getEntitiesOfClass(
-				Projectile.class, this.getBoundingBox().inflate(2.5D, 2.5D, 2.5D),
-				projectile ->
-					projectile.getType() != RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE
-						&& (projectile.getOwner() == null || projectile.getOwner().getType() != RegisterEntities.APPARITION)
-						&& !projectile.onGround()
-						&& (!(projectile instanceof AbstractArrow arrow) || !arrow.inGround)
-			);
-		this.detectedProjectile = !projectiles.isEmpty();
-		this.detectedProjectileCooldownTicks = this.detectedProjectile ? 20 : Math.max(0, this.detectedProjectileCooldownTicks - 1);
-	}
-
 	public void tickTransparency() {
 		AtomicReference<Float> transparency = new AtomicReference<>(0F);
+		AtomicReference<Float> outerTransparency = new AtomicReference<>(0F);
 		BlockPos pos = this.blockPosition();
 		if (this.isAiding()) {
 			transparency.set(1F);
+			outerTransparency.set(1.8F);
 		} else {
-			if (this.detectedProjectileCooldownTicks > 0) {
+			if (this.hiddenTicks > 0) {
 				transparency.set(0F);
+				outerTransparency.set(0F);
 			} else {
-				BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos ->
-					transparency.set(Math.max(transparency.get(), this.level().getRawBrightness(blockPos, 0) / (float) LightEngine.MAX_LEVEL))
+				BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos -> {
+						if (transparency.get() < 1) {
+							transparency.set(Math.max(transparency.get(), this.level().getRawBrightness(blockPos, 0) / (float) LightEngine.MAX_LEVEL));
+							outerTransparency.set(transparency.get() * 0.5F);
+						}
+					}
 				);
 			}
 		}
-		this.transparency += (transparency.get() - this.transparency) * (this.detectedProjectileCooldownTicks > 0 ? 0.9F : 0.3F);
+		this.transparency += (transparency.get() - this.transparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
 		if (this.transparency < 0.1F && this.transparency != 0F && transparency.get() == 0F) {
 			this.transparency = 0F;
 			this.blocksBuilding = false;
 
-			if (this.detectedProjectileCooldownTicks > 0) {
+			if (this.hiddenTicks > 0) {
 				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
 			}
 		} else if (this.transparency > 0.9F && transparency.get() == 1F) {
 			this.transparency = 1F;
 		}
-
 		this.setTransparency(this.transparency);
+
+		this.outerTransparency += (outerTransparency.get() - this.outerTransparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
+		if (this.outerTransparency < 0.1F && this.outerTransparency != 0F && outerTransparency.get() == 0F) {
+			this.outerTransparency = 0F;
+			this.blocksBuilding = false;
+		} else if (this.outerTransparency > 1.9F && outerTransparency.get() == 2F) {
+			this.outerTransparency = 2F;
+		}
+		this.setOuterTransparency(this.outerTransparency);
 	}
 
 	public float getTransparency(float partialTick) {
 		return Mth.lerp(partialTick, this.prevTransparency, this.transparency);
+	}
+
+	public float getOuterTransparency(float partialTick) {
+		return Mth.lerp(partialTick, this.prevOuterTransparency, this.outerTransparency) * 0.5F;
 	}
 
 	@Override
@@ -399,6 +417,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		super.readAdditionalSaveData(nbt);
 		this.readInventoryFromTag(nbt, this.registryAccess());
 		this.setTransparency(nbt.getFloat("Transparency"));
+		this.setOuterTransparency(nbt.getFloat("OuterTransparency"));
 		this.setShootProgress(nbt.getFloat("ShootProgress"));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
@@ -408,6 +427,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		super.addAdditionalSaveData(nbt);
 		this.writeInventoryToTag(nbt, this.registryAccess());
 		nbt.putFloat("Transparency", this.getTransparency());
+		nbt.putFloat("OuterTransparency", this.getOuterTransparency());
 		nbt.putFloat("ShootProgress", this.getShootProgress());
 	}
 

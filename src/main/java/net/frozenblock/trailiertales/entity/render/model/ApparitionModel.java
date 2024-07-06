@@ -22,6 +22,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	private final ModelPart outer;
 
 	private float transparency;
+	private float outerTransparency;
 	private float flicker;
 
 	public ApparitionModel(@NotNull ModelPart root) {
@@ -71,6 +72,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
 		this.transparency = entity.getTransparency(tickDelta);
+		this.outerTransparency = entity.getOuterTransparency(tickDelta);
 		this.flicker = entity.getFlicker(tickDelta);
 		this.outer.yRot = entity.getItemYRot(tickDelta);
 		this.outer.zRot = entity.getItemZRot(tickDelta);
@@ -81,7 +83,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		poseStack.pushPose();
 		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency, 1F, 1F, 1F);
 		this.core.render(poseStack, buffer, packedLight, packedOverlay, coreTransparency);
-		int outerTransparency = FastColor.ARGB32.colorFromFloat((this.transparency * 0.5F) * this.flicker, 1F, 1F, 1F);
+		int outerTransparency = FastColor.ARGB32.colorFromFloat((this.outerTransparency) * this.flicker, 1F, 1F, 1F);
 		this.outer.render(poseStack, buffer, packedLight, packedOverlay, outerTransparency);
 		poseStack.popPose();
 	}
