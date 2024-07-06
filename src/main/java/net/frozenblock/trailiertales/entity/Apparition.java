@@ -176,7 +176,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public float getWalkTargetValue(BlockPos pos) {
 		Level level = this.level();
 		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
-		float successValue = 15F;
+		float successValue = 20F - level.getRawBrightness(pos, 0);
 		float punishmentValue = -0.75F;
 
 		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
