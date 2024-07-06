@@ -307,7 +307,11 @@ public final class CoffinSpawner {
 
 	public boolean canSpawnApparition(Level level) {
 		CoffinSpawnerData data = this.getData();
-		return this.getConfig().spawnsApparitions() && data.currentApparitions.isEmpty() && this.data.detectedAnyPlayers() && level.getGameTime() > data.nextApparitionSpawnsAt;
+		return this.getConfig().spawnsApparitions()
+			&& data.currentApparitions.isEmpty()
+			&& this.data.detectedAnyPlayers()
+			&& level.getGameTime() > data.nextApparitionSpawnsAt
+			&& level.getRandom().nextFloat() < 0.05F;
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
