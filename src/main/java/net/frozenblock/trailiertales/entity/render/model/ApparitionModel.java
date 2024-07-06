@@ -81,9 +81,9 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
-		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency, 1F, 1F, 1F);
+		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency  * this.flicker, 1F, 1F, 1F);
 		this.core.render(poseStack, buffer, packedLight, packedOverlay, coreTransparency);
-		int outerTransparency = FastColor.ARGB32.colorFromFloat((this.outerTransparency) * this.flicker, 1F, 1F, 1F);
+		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
 		this.outer.render(poseStack, buffer, packedLight, packedOverlay, outerTransparency);
 		poseStack.popPose();
 	}
