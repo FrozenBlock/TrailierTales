@@ -311,16 +311,19 @@ public final class CoffinSpawner {
 			&& data.currentApparitions.isEmpty()
 			&& this.data.detectedAnyPlayers()
 			&& level.getGameTime() > data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.05F;
+			&& level.getRandom().nextFloat() < 0.01F;
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
 		Apparition apparition = RegisterEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
-			apparition.detectedProjectileCooldownTicks = 100;
-			this.appendCoffinSpawnAttributes(apparition, level, pos);
-			level.addFreshEntity(apparition);
-			this.data.nextApparitionSpawnsAt = level.getGameTime() + 500L;
+			if (level.addFreshEntity(apparition)) {
+				apparition.detectedProjectileCooldownTicks = 100;
+				this.appendCoffinSpawnAttributes(apparition, level, pos);
+				level.addFreshEntity(apparition);
+				this.data.nextApparitionSpawnsAt = level.getGameTime() + 500L;
+				this.data.currentApparitions.add(apparition.getUUID());
+			}
 		}
 	}
 
@@ -402,6 +405,15 @@ public final class CoffinSpawner {
 		}
 
 		this.data.currentMobs.removeIf(uiid -> {
+			Entity entity = world.getEntity(uiid);
+			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
+			if (shouldUntrack) {
+				CoffinBlock.onCoffinUntrack(entity);
+			}
+			return shouldUntrack;
+		});
+
+		this.data.currentApparitions.removeIf(uiid -> {
 			Entity entity = world.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
