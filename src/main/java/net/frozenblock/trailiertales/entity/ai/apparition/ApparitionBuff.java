@@ -3,6 +3,8 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import java.util.List;
+import java.util.Optional;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
@@ -19,8 +21,6 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
-import java.util.List;
-import java.util.Optional;
 
 public class ApparitionBuff extends Behavior<Apparition> {
 	private int chargingTicks;

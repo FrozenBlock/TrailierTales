@@ -3,16 +3,10 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import java.util.Optional;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
-import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.entity.MobSpawnType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
