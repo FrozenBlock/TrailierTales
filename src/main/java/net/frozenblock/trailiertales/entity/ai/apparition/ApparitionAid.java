@@ -22,11 +22,11 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
-public class ApparitionBuff extends Behavior<Apparition> {
+public class ApparitionAid extends Behavior<Apparition> {
 	private int chargingTicks;
 
 	@VisibleForTesting
-	public ApparitionBuff() {
+	public ApparitionAid() {
 		super(
 			ImmutableMap.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
@@ -44,8 +44,8 @@ public class ApparitionBuff extends Behavior<Apparition> {
 	@Override
 	protected boolean canStillUse(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
-		Optional<List<LivingEntity>> optional = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES);
-		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && (optional.isPresent() && !optional.get().isEmpty());
+		Optional<LivingEntity> optional = brain.getMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
+		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && (optional.isPresent());
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class ApparitionBuff extends Behavior<Apparition> {
 
 		LivingEntity attackTarget = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (attackTarget != null) {
-			List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
+			List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
 			for (LivingEntity livingEntity : entities) {
 				if (livingEntity instanceof Mob mob) {
 					if (mob.getTarget() != attackTarget && mob.getType() != RegisterEntities.APPARITION) {

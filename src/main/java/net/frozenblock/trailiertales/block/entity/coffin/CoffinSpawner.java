@@ -52,7 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CoffinSpawner {
-	private static final int MAX_MOB_TRACKING_DISTANCE = 24;
+	private static final int MAX_MOB_TRACKING_DISTANCE = 64;
 	private static final int MAX_MOB_TRACKING_DISTANCE_SQR = Mth.square(MAX_MOB_TRACKING_DISTANCE);
 	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (world, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
 			world, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
@@ -330,7 +330,7 @@ public final class CoffinSpawner {
 	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos) {
 		if (entity instanceof Mob mob) {
 			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
-				.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 8D, AttributeModifier.Operation.ADD_VALUE));
+				.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 24D, AttributeModifier.Operation.ADD_VALUE));
 			Optional<Player> closestDetectedPlayer = this.data.getClosestDetectedPlayer(level, entity.position());
 			closestDetectedPlayer.ifPresent(mob::setTarget);
 		}
@@ -418,7 +418,7 @@ public final class CoffinSpawner {
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
 				CoffinBlock.onCoffinUntrack(entity);
-				this.data.nextApparitionSpawnsAt = world.getGameTime() + 1000L;
+				this.data.nextApparitionSpawnsAt = world.getGameTime() + 800L;
 			}
 			return shouldUntrack;
 		});

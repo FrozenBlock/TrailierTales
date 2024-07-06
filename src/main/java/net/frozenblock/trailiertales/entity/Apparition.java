@@ -177,12 +177,16 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		Level level = this.level();
 		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
 		float successValue = 20F - level.getRawBrightness(pos, 0);
-		float punishmentValue = -0.75F;
+		float punishmentValue = -1F;
 
 		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
 			if (entityCoffinInterface.trailierTales$getCoffinData() != null && level instanceof ServerLevel serverLevel) {
-				isPosSafe = isPosSafe && CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
-				punishmentValue = -5F;
+				boolean withinCatacombs = CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
+				if (withinCatacombs) {
+					punishmentValue = 0F;
+				}
+				isPosSafe = isPosSafe && withinCatacombs;
+				successValue *= 2F;
 			}
 		}
 

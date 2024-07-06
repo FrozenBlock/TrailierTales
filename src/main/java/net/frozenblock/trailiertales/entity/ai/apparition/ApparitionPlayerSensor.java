@@ -37,7 +37,7 @@ public class ApparitionPlayerSensor extends Sensor<Apparition> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel world, @NotNull Apparition apparition) {
-		double range = apparition.getAttributes().getValue(Attributes.FOLLOW_RANGE);
+		double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
 		List<Player> list = world.players()
 			.stream()
 			.filter(EntitySelector.NO_SPECTATORS)

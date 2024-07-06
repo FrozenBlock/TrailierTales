@@ -38,7 +38,8 @@ public class ApparitionAi {
 		RegisterSensorTypes.APPARITION_PLAYER_SENSOR,
 		RegisterSensorTypes.APPARITION_ATTACKABLES_SENSOR,
 		RegisterSensorTypes.APPARITION_SPECIFIC_SENSOR,
-		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT
+		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT,
+		RegisterSensorTypes.APPARITION_AIDABLES_SENSOR
 	);
 
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
@@ -59,7 +60,9 @@ public class ApparitionAi {
 		MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS,
 		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
 		RegisterMemoryModuleTypes.AID_COOLDOWN,
-		RegisterMemoryModuleTypes.IS_AIDING
+		RegisterMemoryModuleTypes.IS_AIDING,
+		RegisterMemoryModuleTypes.NEARBY_AIDABLES,
+		RegisterMemoryModuleTypes.NEAREST_AIDABLE
 	);
 
 	@Contract("_, _ -> param2")
@@ -118,7 +121,7 @@ public class ApparitionAi {
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
 				new ApparitionShoot(1D, 20, 16F),
-				new ApparitionBuff()
+				new ApparitionAid()
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);
