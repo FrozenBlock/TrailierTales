@@ -39,9 +39,12 @@ public class CoffinSpawnerData {
 				Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
+				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
 				Codec.LONG.lenientOptionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
 				Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
+				Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
+				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("power", 0).forGetter(data -> data.power),
 				SpawnData.CODEC.lenientOptionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
 				Codec.BOOL.lenientOptionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
@@ -53,9 +56,12 @@ public class CoffinSpawnerData {
 	protected final IntArrayList soulsToSpawn = new IntArrayList();
 	protected final Set<UUID> detectedPlayers = new HashSet<>();
 	protected final Set<UUID> currentMobs = new HashSet<>();
+	protected final Set<UUID> currentApparitions = new HashSet<>();
 	protected long powerCooldownEndsAt;
 	protected long nextMobSpawnsAt;
 	protected int totalMobsSpawned;
+	protected long nextApparitionSpawnsAt;
+	protected int totalApparitionsSpawned;
 	protected int power;
 	protected Optional<SpawnData> nextSpawnData;
 	protected boolean withinCatacombs;
@@ -68,7 +74,10 @@ public class CoffinSpawnerData {
 			new IntArrayList(),
 			Collections.emptySet(),
 			Collections.emptySet(),
+			Collections.emptySet(),
 			0L,
+			0L,
+			0,
 			0L,
 			0,
 			0,
@@ -83,9 +92,12 @@ public class CoffinSpawnerData {
 		List<Integer> soulsToSpawn,
 		Set<UUID> detectedPlayers,
 		Set<UUID> currentMobs,
+		Set<UUID> currentApparitions,
 		long powerCooldownEndsAt,
 		long nextMobSpawnsAt,
 		int totalMobsSpawned,
+		long nextApparitionSpawnsAt,
+		int totalApparitionsSpawned,
 		int power,
 		Optional<SpawnData> nextSpawnData,
 		boolean withinCatacombs,
@@ -95,9 +107,12 @@ public class CoffinSpawnerData {
 		this.soulsToSpawn.addAll(soulsToSpawn);
 		this.detectedPlayers.addAll(detectedPlayers);
 		this.currentMobs.addAll(currentMobs);
+		this.currentApparitions.addAll(currentApparitions);
 		this.powerCooldownEndsAt = powerCooldownEndsAt;
 		this.nextMobSpawnsAt = nextMobSpawnsAt;
 		this.totalMobsSpawned = totalMobsSpawned;
+		this.nextApparitionSpawnsAt = nextApparitionSpawnsAt;
+		this.totalApparitionsSpawned = totalApparitionsSpawned;
 		this.power = power;
 		this.nextSpawnData = nextSpawnData;
 		this.withinCatacombs = withinCatacombs;
@@ -110,6 +125,7 @@ public class CoffinSpawnerData {
 		this.nextMobSpawnsAt = 0L;
 		this.powerCooldownEndsAt = 0L;
 		this.currentMobs.clear();
+		this.currentApparitions.clear();
 	}
 
 	public boolean hasMobToSpawn(Level level, RandomSource random, BlockPos pos) {

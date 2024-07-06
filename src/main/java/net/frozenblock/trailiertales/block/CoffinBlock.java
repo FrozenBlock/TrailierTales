@@ -228,7 +228,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		Spawner.appendHoverText(stack, tooltip, "SpawnData");
 	}
 
-	public static void onCoffinUntrack(Entity entity) {
+	public static void onCoffinUntrack(@Nullable Entity entity) {
 		if (entity instanceof LivingEntity livingEntity) {
 			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
 			if (followRange != null) {

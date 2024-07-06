@@ -1,9 +1,12 @@
 package net.frozenblock.trailiertales.entity;
 
 import com.mojang.serialization.Dynamic;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
+import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
@@ -78,26 +81,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	//CLIENT VARIABLES
 	private float prevTransparency;
+	private float flicker;
+	private float prevFlicker;
 
 	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
 		super(entityType, world);
 		this.xpReward = 3;
-		this.setPathfindingMalus(PathType.BLOCKED, 0.0F);
-		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0.0F);
-		this.setPathfindingMalus(PathType.LAVA, 0.0F);
-		this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0.0F);
-		this.setPathfindingMalus(PathType.DANGER_FIRE, 0.0F);
-		this.setPathfindingMalus(PathType.POWDER_SNOW, 0.0F);
-		this.setPathfindingMalus(PathType.FENCE, 0.0F);
-		this.setPathfindingMalus(PathType.WATER, 0.0F);
-		this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
-		this.setPathfindingMalus(PathType.DANGER_OTHER, 0.0F);
-		this.setPathfindingMalus(PathType.DAMAGE_OTHER, 0.0F);
-		this.setPathfindingMalus(PathType.DOOR_WOOD_CLOSED, 0.0F);
-		this.setPathfindingMalus(PathType.DOOR_IRON_CLOSED, 0.0F);
-		this.setPathfindingMalus(PathType.BREACH, 0.0F);
-		this.setPathfindingMalus(PathType.LEAVES, 0.0F);
-		this.setPathfindingMalus(PathType.STICKY_HONEY, 0.0F);
+		Arrays.stream(PathType.values()).forEach(pathType -> this.setPathfindingMalus(pathType, 0F));
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setCanPickUpLoot(this.canPickUpLoot());
 	}
@@ -116,7 +106,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			.add(Attributes.MAX_HEALTH, 15D)
 			.add(Attributes.FLYING_SPEED, 0.5D)
 			.add(Attributes.MOVEMENT_SPEED, 0.5D)
-			.add(Attributes.ATTACK_DAMAGE, 3D);
+			.add(Attributes.ATTACK_DAMAGE, 3D)
+			.add(Attributes.FOLLOW_RANGE, 24D);
 	}
 
 	@Override
@@ -182,8 +173,25 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public float getWalkTargetValue(BlockPos pos, LevelReader world) {
-		return 0F;
+	public float getWalkTargetValue(BlockPos pos) {
+		Level level = this.level();
+		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
+		float successValue = 15F;
+		float punishmentValue = -0.75F;
+
+		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
+			if (entityCoffinInterface.trailierTales$getCoffinData() != null && level instanceof ServerLevel serverLevel) {
+				isPosSafe = isPosSafe && CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
+				punishmentValue = -5F;
+			}
+		}
+
+		return isPosSafe ? successValue : punishmentValue;
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader world) {
+		return !world.getBlockState(pos).isCollisionShapeFullBlock(world, pos) ? 15F : -0.75F;
 	}
 
 	@Override
@@ -268,6 +276,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return Mth.sin((this.tickCount + partialTick) / 8F) * 0.35F;
 	}
 
+	public float getFlicker(float partialTick) {
+		return 1F - Math.clamp(Mth.lerp(partialTick, this.prevFlicker, this.flicker) * 3F, 0F, 1F);
+	}
+
 	@Override
 	public void tick() {
 		this.noPhysics = true;
@@ -283,6 +295,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		} else {
 			this.prevTransparency = this.transparency;
 			this.transparency = this.getTransparency();
+			this.prevFlicker = this.flicker;
+			this.flicker = Math.clamp(this.flicker + (float)((Math.random() - Math.random()) * Math.random() * Math.random() * 0.1F), 0F, 1F);
+			this.flicker *= 0.9F;
 		}
 	}
 

@@ -35,6 +35,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -293,15 +294,7 @@ public final class CoffinSpawner {
 								}
 								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
 								if (this.data.detectedAnyPlayers()) {
-									if (entity instanceof Mob mob) {
-										mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
-											.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 8D, AttributeModifier.Operation.ADD_VALUE));
-									}
-									if (entity instanceof EntityCoffinInterface entityInterface) {
-										entityInterface.trailierTales$setCoffinData(
-											new EntityCoffinData(pos, this.uuid)
-										);
-									}
+									this.appendCoffinSpawnAttributes(entity, level, pos);
 								}
 								return Optional.of(entity.getUUID());
 							}
@@ -309,6 +302,39 @@ public final class CoffinSpawner {
 					}
 				}
 			}
+		}
+	}
+
+	public boolean canSpawnApparition(Level level) {
+		CoffinSpawnerData data = this.getData();
+		return this.getConfig().spawnsApparitions() && data.currentApparitions.isEmpty() && this.data.detectedAnyPlayers() && level.getGameTime() > data.nextApparitionSpawnsAt;
+	}
+
+	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
+		RandomSource random = level.getRandom();
+		int spawnRange = this.getConfig().spawnRange();
+		BlockPos apparitionPos = pos.offset(
+			random.nextInt(-spawnRange, spawnRange),
+			random.nextInt(0, 2),
+			random.nextInt(-spawnRange, spawnRange)
+		);
+		Apparition apparition = RegisterEntities.APPARITION.create(level, null, apparitionPos, MobSpawnType.TRIAL_SPAWNER, true, false);
+		this.appendCoffinSpawnAttributes(apparition, level, pos);
+		level.addFreshEntity(apparition);
+		this.data.nextApparitionSpawnsAt = level.getGameTime() + 500L;
+	}
+
+	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos) {
+		if (entity instanceof Mob mob) {
+			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
+				.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 8D, AttributeModifier.Operation.ADD_VALUE));
+			Optional<Player> closestDetectedPlayer = this.data.getClosestDetectedPlayer(level, entity.position());
+			closestDetectedPlayer.ifPresent(mob::setTarget);
+		}
+		if (entity instanceof EntityCoffinInterface entityInterface) {
+			entityInterface.trailierTales$setCoffinData(
+				new EntityCoffinData(pos, this.uuid)
+			);
 		}
 	}
 
@@ -366,17 +392,6 @@ public final class CoffinSpawner {
 							0D
 						);
 						this.addPower(1, world);
-						if (this.getConfig().spawnsApparitions()) {
-							RandomSource random = world.getRandom();
-							int spawnRange = this.getConfig().spawnRange();
-							BlockPos apparitionPos = pos.offset(
-								random.nextInt(-spawnRange, spawnRange),
-								random.nextInt(0, 2),
-								random.nextInt(-spawnRange, spawnRange)
-							);
-							Apparition apparition = RegisterEntities.APPARITION.create(world, null, apparitionPos, MobSpawnType.TRIAL_SPAWNER, true, false);
-							world.addFreshEntity(apparition);
-						}
 					} else {
 						newList.add(spawnTime - 1);
 					}
@@ -410,11 +425,7 @@ public final class CoffinSpawner {
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, UUID uuid) {
-		Entity entity = level.getEntity(uuid);
-		return entity == null
-			|| !entity.level().dimension().equals(level.dimension())
-			|| entity.blockPosition().distSqr(pos) > (double)MAX_MOB_TRACKING_DISTANCE_SQR
-			|| entity.isRemoved();
+		return shouldMobBeUntracked(level, pos, level.getEntity(uuid));
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, Entity entity) {

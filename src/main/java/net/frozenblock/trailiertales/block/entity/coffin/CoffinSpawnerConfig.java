@@ -21,7 +21,7 @@ public record CoffinSpawnerConfig(
 		1F,
 		400,
 		4,
-		false
+		true
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		5,

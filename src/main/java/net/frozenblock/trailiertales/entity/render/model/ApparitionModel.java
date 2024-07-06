@@ -22,6 +22,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	private final ModelPart outer;
 
 	private float transparency;
+	private float flicker;
 
 	public ApparitionModel(@NotNull ModelPart root) {
 		super(RenderType::entityTranslucentEmissive);
@@ -50,10 +51,16 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	@Override
 	public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		animationProgress = animationProgress + (limbAngle * 3.5F);
 		this.core.yRot = headYaw * ((float) Math.PI / 180F);
+		this.core.xRot = headPitch * ((float) Math.PI / 180F);
+
+		float tighten = 1F - limbDistance * 0.75F;
+		this.outer.yRot *= tighten;
+		this.outer.zRot *= tighten;
 
 		//SQUASH & STRETCH
-		float sinIdle = (float) (Math.sin(animationProgress * 0.3F) * 0.1F);
+		float sinIdle = (float) (Math.sin(animationProgress * 0.3F) * 0.1F) * tighten;
 		float squash = sinIdle + 1F;
 
 		this.outer.xScale = squash;
@@ -64,6 +71,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
 		this.transparency = entity.getTransparency(tickDelta);
+		this.flicker = entity.getFlicker(tickDelta);
 		this.outer.yRot = entity.getItemYRot(tickDelta);
 		this.outer.zRot = entity.getItemZRot(tickDelta);
 	}
@@ -73,7 +81,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		poseStack.pushPose();
 		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency, 1F, 1F, 1F);
 		this.core.render(poseStack, buffer, packedLight, packedOverlay, coreTransparency);
-		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.transparency * 0.5F, 1F, 1F, 1F);
+		int outerTransparency = FastColor.ARGB32.colorFromFloat((this.transparency * 0.5F) * this.flicker, 1F, 1F, 1F);
 		this.outer.render(poseStack, buffer, packedLight, packedOverlay, outerTransparency);
 		poseStack.popPose();
 	}
