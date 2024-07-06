@@ -315,17 +315,13 @@ public final class CoffinSpawner {
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
-		RandomSource random = level.getRandom();
-		int spawnRange = this.getConfig().spawnRange();
-		BlockPos apparitionPos = pos.offset(
-			random.nextInt(-spawnRange, spawnRange),
-			random.nextInt(0, 2),
-			random.nextInt(-spawnRange, spawnRange)
-		);
-		Apparition apparition = RegisterEntities.APPARITION.create(level, null, apparitionPos, MobSpawnType.TRIAL_SPAWNER, true, false);
-		this.appendCoffinSpawnAttributes(apparition, level, pos);
-		level.addFreshEntity(apparition);
-		this.data.nextApparitionSpawnsAt = level.getGameTime() + 500L;
+		Apparition apparition = RegisterEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
+		if (apparition != null) {
+			apparition.detectedProjectileCooldownTicks = 100;
+			this.appendCoffinSpawnAttributes(apparition, level, pos);
+			level.addFreshEntity(apparition);
+			this.data.nextApparitionSpawnsAt = level.getGameTime() + 500L;
+		}
 	}
 
 	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos) {

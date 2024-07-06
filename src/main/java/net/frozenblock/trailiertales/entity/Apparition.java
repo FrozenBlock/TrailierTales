@@ -77,7 +77,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private final SimpleContainer inventory = new SimpleContainer(1);
 	private float transparency;
 	private boolean detectedProjectile;
-	private int detectedProjectileCooldownTicks;
+	public int detectedProjectileCooldownTicks;
 
 	//CLIENT VARIABLES
 	private float prevTransparency;
