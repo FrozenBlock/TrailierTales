@@ -5,31 +5,31 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.item.ItemEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class NearestItemNoLineOfSightSensor extends Sensor<Mob> {
+public class ApparitionNearestItemSensor extends Sensor<Apparition> {
 	private static final double RADIUS = 24D;
 	private static final double Y_RANGE = 24D;
 
 	@Override
-	public Set<MemoryModuleType<?>> requires() {
+	public @NotNull Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel world, @NotNull Mob mob) {
-		Brain<?> brain = mob.getBrain();
-		List<ItemEntity> list = world.getEntitiesOfClass(ItemEntity.class, mob.getBoundingBox().inflate(RADIUS, Y_RANGE, RADIUS), itemEntity -> true);
-		list.sort(Comparator.comparingDouble(mob::distanceToSqr));
+	protected void doTick(@NotNull ServerLevel world, @NotNull Apparition apparition) {
+		Brain<?> brain = apparition.getBrain();
+		List<ItemEntity> list = world.getEntitiesOfClass(ItemEntity.class, apparition.getBoundingBox().inflate(RADIUS, Y_RANGE, RADIUS), itemEntity -> true);
+		list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
 		Optional<ItemEntity> optional = list.stream()
-			.filter(itemEntity -> mob.wantsToPickUp(itemEntity.getItem()))
-			.filter(itemEntity -> itemEntity.closerThan(mob, RADIUS))
+			.filter(apparition::wantsToPickUp)
+			.filter(itemEntity -> itemEntity.closerThan(apparition, RADIUS))
 			.findFirst();
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, optional);
 	}

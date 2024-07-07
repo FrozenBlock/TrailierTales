@@ -92,6 +92,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setPathfindingMalus(PathType.BLOCKED, 8F);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.setCanPickUpLoot(this.canPickUpLoot());
+		this.blocksBuilding = false;
 	}
 
 	@Override
@@ -233,6 +234,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.getBrain().checkMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryStatus.VALUE_PRESENT);
 	}
 
+	public boolean wantsToPickUp(@NotNull ItemEntity itemEntity) {
+		return this.wantsToPickUp(itemEntity.getItem()) && (itemEntity.getOwner() == null || itemEntity.getOwner().getType() == RegisterEntities.APPARITION);
+	}
+
 	@Override
 	public boolean wantsToPickUp(ItemStack stack) {
 		return this.inventory.getItems().getFirst().isEmpty();
@@ -293,7 +298,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public float getFlicker(float partialTick) {
-		return 1F - Math.clamp(Mth.lerp(partialTick, this.prevFlicker, this.flicker) * 3F, 0F, 1F);
+		return 1F - Mth.lerp(partialTick, this.prevFlicker, this.flicker);
 	}
 
 	@Override
@@ -314,8 +319,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.transparency = this.getTransparency();
 			this.outerTransparency = this.getOuterTransparency();
 			this.prevFlicker = this.flicker;
-			this.flicker = Math.clamp(this.flicker + (float)((Math.random() - Math.random()) * Math.random() * Math.random() * 0.1F), 0F, 1F);
-			this.flicker *= 0.9F;
+			this.flicker += ((this.random.nextFloat() * 0.175F) - this.flicker) * 0.5F;
 		}
 	}
 
@@ -351,12 +355,16 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public void swapItem(@NotNull ItemStack itemStack) {
 		if (!itemStack.isEmpty() && !this.level().isClientSide) {
-			ItemStack currentStack = this.inventory.getItems().getFirst().copyAndClear();
-			if (!currentStack.isEmpty()) {
-				this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), currentStack));
-			}
+			this.dropItem();
 			this.inventory.setItem(0, itemStack);
 			this.setVisibleItem(itemStack);
+		}
+	}
+
+	public void dropItem() {
+		ItemStack currentStack = this.inventory.getItems().getFirst().copyAndClear();
+		if (!currentStack.isEmpty()) {
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), currentStack));
 		}
 	}
 
@@ -366,7 +374,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		BlockPos pos = this.blockPosition();
 		if (this.isAiding()) {
 			transparency.set(1F);
-			outerTransparency.set(1.8F);
+			outerTransparency.set(1.5F);
 		} else {
 			if (this.hiddenTicks > 0) {
 				transparency.set(0F);
@@ -382,23 +390,20 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			}
 		}
 		this.transparency += (transparency.get() - this.transparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
-		if (this.transparency < 0.1F && this.transparency != 0F && transparency.get() == 0F) {
+		if (this.transparency < 0.025F && this.transparency != 0F && transparency.get() == 0F) {
 			this.transparency = 0F;
-			this.blocksBuilding = false;
-
 			if (this.hiddenTicks > 0) {
 				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
 			}
-		} else if (this.transparency > 0.9F && transparency.get() == 1F) {
+		} else if (this.transparency > 0.975F && transparency.get() == 1F) {
 			this.transparency = 1F;
 		}
 		this.setTransparency(this.transparency);
 
 		this.outerTransparency += (outerTransparency.get() - this.outerTransparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
-		if (this.outerTransparency < 0.1F && this.outerTransparency != 0F && outerTransparency.get() == 0F) {
+		if (this.outerTransparency < 0.025F && this.outerTransparency != 0F && outerTransparency.get() == 0F) {
 			this.outerTransparency = 0F;
-			this.blocksBuilding = false;
-		} else if (this.outerTransparency > 1.9F && outerTransparency.get() == 2F) {
+		} else if (this.outerTransparency > 1.975F && outerTransparency.get() == 2F) {
 			this.outerTransparency = 2F;
 		}
 		this.setOuterTransparency(this.outerTransparency);
@@ -410,6 +415,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public float getOuterTransparency(float partialTick) {
 		return Mth.lerp(partialTick, this.prevOuterTransparency, this.outerTransparency) * 0.5F;
+	}
+
+	@Nullable
+	@Override
+	public LivingEntity getTarget() {
+		return this.getTargetFromBrain();
 	}
 
 	@Override

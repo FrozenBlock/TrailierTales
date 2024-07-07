@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -26,7 +27,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	private float flicker;
 
 	public ApparitionModel(@NotNull ModelPart root) {
-		super(RenderType::entityTranslucentEmissive);
+		super(FrozenRenderType::entityTranslucentEmissiveAlwaysRender);
 		this.root = root;
 		this.core = root.getChild("core");
 		this.outer = root.getChild("outer");
@@ -41,6 +42,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 		meshdefinition.getRoot().addOrReplaceChild("outer", CubeListBuilder.create()
 			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F),  PartPose.offset(0F, 17F, 0F));
+
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
@@ -71,8 +73,8 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
-		this.transparency = entity.getTransparency(tickDelta);
-		this.outerTransparency = entity.getOuterTransparency(tickDelta);
+		this.transparency = 1F;
+		this.outerTransparency = 0.5F;
 		this.flicker = entity.getFlicker(tickDelta);
 		this.outer.yRot = entity.getItemYRot(tickDelta);
 		this.outer.zRot = entity.getItemZRot(tickDelta);
@@ -81,7 +83,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
-		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency  * this.flicker, 1F, 1F, 1F);
+		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency * this.flicker, 1F, 1F, 1F);
 		this.core.render(poseStack, buffer, packedLight, packedOverlay, coreTransparency);
 		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
 		this.outer.render(poseStack, buffer, packedLight, packedOverlay, outerTransparency);

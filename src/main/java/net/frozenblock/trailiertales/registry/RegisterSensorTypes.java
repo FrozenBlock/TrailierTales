@@ -6,7 +6,7 @@ import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAidablesSens
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAttackablesSensor;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionPlayerSensor;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionSpecificSensor;
-import net.frozenblock.trailiertales.entity.ai.apparition.NearestItemNoLineOfSightSensor;
+import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionNearestItemSensor;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.Sensor;
@@ -24,7 +24,7 @@ public final class RegisterSensorTypes {
 
 	public static final SensorType<ApparitionSpecificSensor> APPARITION_SPECIFIC_SENSOR = register("apparition_specific_sensor", ApparitionSpecificSensor::new);
 	public static final SensorType<ApparitionAttackablesSensor> APPARITION_ATTACKABLES_SENSOR = register("apparition_attackables_sensor", ApparitionAttackablesSensor::new);
-	public static final SensorType<NearestItemNoLineOfSightSensor> NEAREST_ITEM_NO_LINE_OF_SIGHT = register("nearest_item_no_line_of_sight", NearestItemNoLineOfSightSensor::new);
+	public static final SensorType<ApparitionNearestItemSensor> APPARITION_NEAREST_ITEM_SENSOR = register("apparition_nearest_item_sensor", ApparitionNearestItemSensor::new);
 	public static final SensorType<ApparitionPlayerSensor> APPARITION_PLAYER_SENSOR = register("apparition_player_sensor", ApparitionPlayerSensor::new);
 	public static final SensorType<ApparitionAidablesSensor> APPARITION_AIDABLES_SENSOR = register("apparition_aidables_sensor", ApparitionAidablesSensor::new);
 

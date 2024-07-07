@@ -38,7 +38,7 @@ public class ApparitionAi {
 		RegisterSensorTypes.APPARITION_PLAYER_SENSOR,
 		RegisterSensorTypes.APPARITION_ATTACKABLES_SENSOR,
 		RegisterSensorTypes.APPARITION_SPECIFIC_SENSOR,
-		RegisterSensorTypes.NEAREST_ITEM_NO_LINE_OF_SIGHT,
+		RegisterSensorTypes.APPARITION_NEAREST_ITEM_SENSOR,
 		RegisterSensorTypes.APPARITION_AIDABLES_SENSOR
 	);
 

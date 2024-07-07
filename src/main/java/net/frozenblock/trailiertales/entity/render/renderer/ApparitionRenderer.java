@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -36,7 +37,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 		ItemStack stack = entity.getVisibleItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.translate(0F, 0.45F, 0F);
+			poseStack.translate(0F, 0.425F, 0F);
 			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
 			poseStack.mulPose(Axis.YN.rotation(entity.getItemYRot(partialTick)));
 			poseStack.mulPose(Axis.ZN.rotation(entity.getItemZRot(partialTick)));
@@ -57,5 +58,10 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 	@NotNull
 	public ResourceLocation getTextureLocation(Apparition entity) {
 		return TEXTURE;
+	}
+
+	@Override
+	protected int getBlockLightLevel(Apparition entity, BlockPos pos) {
+		return 15;
 	}
 }

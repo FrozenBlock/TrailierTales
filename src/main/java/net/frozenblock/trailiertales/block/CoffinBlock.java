@@ -9,6 +9,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
+import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -234,9 +235,13 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			if (followRange != null) {
 				followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
 			}
-			if (livingEntity instanceof EntityCoffinInterface entityInterface) {
-				entityInterface.trailierTales$setCoffinData(null);
-			}
+		}
+		if (entity instanceof EntityCoffinInterface entityInterface) {
+			entityInterface.trailierTales$setCoffinData(null);
+		}
+		if (entity instanceof Apparition apparition) {
+			apparition.dropItem();
+			apparition.discard();
 		}
 	}
 
