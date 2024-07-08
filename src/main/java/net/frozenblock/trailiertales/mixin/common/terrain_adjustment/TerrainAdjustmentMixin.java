@@ -37,7 +37,7 @@ public class TerrainAdjustmentMixin {
 			shift = At.Shift.AFTER
 		)
 	)
-	private static void trailierTales$addCustomBoatType(CallbackInfo info) {
+	private static void trailierTales$addCustomTerrainAdjustment(CallbackInfo info) {
 		var types = new ArrayList<>(Arrays.asList($VALUES));
 		var last = types.get(types.size() - 1);
 

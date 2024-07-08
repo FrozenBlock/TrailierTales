@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 78872547,
+    "separation": 10,
+    "spacing": 18
+  },
+  "structures": [
+    {
+      "structure": "trailiertales:savanna_ruins",
+      "weight": 1
+    }
+  ]
+}

@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.mixin.client.decorated_pot;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -45,7 +45,7 @@ public class DecoratedPotPatternsMixin {
 	@Contract("_, _, _ -> new")
 	@Unique
 	private static void trailierTales$register(Registry<DecoratedPotPattern> registry, ResourceKey<DecoratedPotPattern> registryKey, String path) {
-		Registry.register(registry, registryKey, new DecoratedPotPattern(TrailierTalesSharedConstants.id(path)));
+		Registry.register(registry, registryKey, new DecoratedPotPattern(TrailierConstants.id(path)));
 	}
 
 }

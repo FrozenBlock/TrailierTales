@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,13 +25,13 @@ public class RegisterItems {
 	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		ResourceKey.create(
 			Registries.TRIM_PATTERN,
-			TrailierTalesSharedConstants.id("desolation")
+			TrailierConstants.id("desolation")
 		)
 	);
 	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		ResourceKey.create(
 			Registries.TRIM_PATTERN,
-			TrailierTalesSharedConstants.id("undead")
+			TrailierConstants.id("undead")
 		)
 	);
 
@@ -79,8 +79,8 @@ public class RegisterItems {
 	}
 
 	private static void actualRegister(@NotNull Item item, @NotNull String path) {
-		if (BuiltInRegistries.ITEM.getOptional(TrailierTalesSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, TrailierTalesSharedConstants.id(path), item);
+		if (BuiltInRegistries.ITEM.getOptional(TrailierConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.ITEM, TrailierConstants.id(path), item);
 		}
 	}
 

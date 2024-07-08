@@ -16,6 +16,9 @@
 
   "block.trailiertales.surveyor": "Surveyor",
 
+  "entity.trailiertales.apparition": "Apparition",
+  "entity.trailiertales.damaging_throwable_item_projectile": "Thrown Item",
+
   "block.trailiertales.potted_cyan_rose": "Potted Cyan Rose",
   "block.trailiertales.cyan_rose": "Cyan Rose",
   "block.trailiertales.cyan_rose_crop": "Cyan Rose Crop",

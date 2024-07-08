@@ -17,9 +17,7 @@ public class JigsawStructureMixin {
 			target = "Lnet/minecraft/world/level/levelgen/structure/structures/JigsawStructure;terrainAdaptation()Lnet/minecraft/world/level/levelgen/structure/TerrainAdjustment;"
 		)
 	)
-	private static TerrainAdjustment trailierTales$smallPlatformToBury(
-		TerrainAdjustment original
-	) {
+	private static TerrainAdjustment trailierTales$smallPlatformToBury(TerrainAdjustment original) {
 		if (original == TrailierTerrainAdjustment.SMALL_PLATFORM) {
 			return TerrainAdjustment.BURY;
 		}

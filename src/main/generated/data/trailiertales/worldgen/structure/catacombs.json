@@ -1,73 +1,15 @@
 {
   "type": "minecraft:jigsaw",
   "biomes": "#minecraft:has_structure/mineshaft",
+  "liquid_settings": "ignore_waterlogging",
   "max_distance_from_center": 116,
-  "pool_aliases": [
-    {
-      "type": "minecraft:random",
-      "alias": "trailiertales:catacombs/dungeon/spawner",
-      "targets": [
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/chain/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/chain/zombie",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/chain_hanging/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/chain_hanging/zombie",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/pillar/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/pillar/zombie",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall/zombie",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall_chain/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall_chain/zombie",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall_chain_hanging/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall_chain_hanging/zombie",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall_hanging/skeleton",
-          "weight": 1
-        },
-        {
-          "data": "trailiertales:catacombs/dungeon/spawner/wall_hanging/zombie",
-          "weight": 1
-        }
-      ]
-    }
-  ],
   "size": 20,
-  "spawn_overrides": {},
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": []
+    }
+  },
   "start_height": {
     "type": "minecraft:uniform",
     "max_inclusive": {

@@ -1,9 +1,12 @@
 package net.frozenblock.trailiertales.registry;
 
 import java.util.Map;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.worldgen.structure.BadlandsFortGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.DesertRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.JungleRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.SavannaRuinsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -27,27 +30,36 @@ public final class RegisterStructures {
 
 	@NotNull
 	public static ResourceKey<StructureSet> ofSet(@NotNull String id) {
-		return ResourceKey.create(Registries.STRUCTURE_SET, TrailierTalesSharedConstants.id(id));
+		return ResourceKey.create(Registries.STRUCTURE_SET, TrailierConstants.id(id));
 	}
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
 		BadlandsFortGenerator.bootstrapTemplatePool(context);
 		CatacombsGenerator.bootstrapTemplatePool(context);
+		DesertRuinsGenerator.bootstrapTemplatePool(context);
+		JungleRuinsGenerator.bootstrapTemplatePool(context);
+		SavannaRuinsGenerator.bootstrapTemplatePool(context);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		BadlandsFortGenerator.bootstrap(context);
 		CatacombsGenerator.bootstrap(context);
+		DesertRuinsGenerator.bootstrap(context);
+		JungleRuinsGenerator.bootstrap(context);
+		SavannaRuinsGenerator.bootstrap(context);
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
 		BadlandsFortGenerator.bootstrapStructureSet(context);
 		CatacombsGenerator.bootstrapStructureSet(context);
+		DesertRuinsGenerator.bootstrapStructureSet(context);
+		JungleRuinsGenerator.bootstrapStructureSet(context);
+		SavannaRuinsGenerator.bootstrapStructureSet(context);
 	}
 
 	@NotNull
 	public static ResourceKey<Structure> createKey(@NotNull String id) {
-		return ResourceKey.create(Registries.STRUCTURE, TrailierTalesSharedConstants.id(id));
+		return ResourceKey.create(Registries.STRUCTURE, TrailierConstants.id(id));
 	}
 
 	@NotNull

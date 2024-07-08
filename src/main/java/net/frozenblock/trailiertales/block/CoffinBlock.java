@@ -2,25 +2,35 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import java.util.List;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
+import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -49,7 +59,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public static final EnumProperty<CoffinPart> PART = TrailierBlockStateProperties.COFFIN_PART;
 	public static final EnumProperty<CoffinSpawnerState> STATE = TrailierBlockStateProperties.COFFIN_STATE;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
-	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TrailierTalesSharedConstants.id("coffin_follow_range");
+	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TrailierConstants.id("coffin_follow_range");
 
 	@Override
 	public @NotNull MapCodec<CoffinBlock> codec() {
@@ -140,6 +150,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(FACING, PART, STATE);
 	}
 
@@ -205,20 +216,34 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
 			mutableBlockPos.move(direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			int newLight = level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
 			finalLight = Math.max(finalLight, newLight);
 			mutableBlockPos.move(direction, -1);
 		}
 		return finalLight;
 	}
 
-	/*
 	@Override
 	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag options) {
 		super.appendHoverText(stack, tooltipContext, tooltip, options);
-		Spawner.appendHoverText(stack, tooltip, "spawn_data");
+		Spawner.appendHoverText(stack, tooltip, "SpawnData");
 	}
-	 */
+
+	public static void onCoffinUntrack(@Nullable Entity entity) {
+		if (entity instanceof LivingEntity livingEntity) {
+			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
+			if (followRange != null) {
+				followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
+			}
+		}
+		if (entity instanceof EntityCoffinInterface entityInterface) {
+			entityInterface.trailierTales$setCoffinData(null);
+		}
+		if (entity instanceof Apparition apparition) {
+			apparition.dropItem();
+			apparition.discard();
+		}
+	}
 
 	@Nullable
 	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(

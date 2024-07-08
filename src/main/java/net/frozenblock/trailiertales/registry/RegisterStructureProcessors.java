@@ -1,8 +1,9 @@
 package net.frozenblock.trailiertales.registry;
 
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
 import java.util.List;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -13,9 +14,15 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
@@ -23,12 +30,19 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockSt
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
+import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterStructureProcessors {
 	public static final float SUSPICIOUS_BLOCK_TO_NORMAL_085_CHANCE = 0.85F;
 	public static final ResourceKey<StructureProcessorList> SUSPICIOUS_BLOCK_TO_NORMAL_085 = createKey("suspicious_block_to_normal_085");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION = createKey("catacombs_degradation");
+	public static final ResourceKey<StructureProcessorList> DESERT_RUINS_ARCHAEOLOGY = createKey("desert_ruins_archaeology");
+	public static final ResourceKey<StructureProcessorList> JUNGLE_RUINS_ARCHAEOLOGY = createKey("jungle_ruins_archaeology");
+	public static final ResourceKey<StructureProcessorList> JUNGLE_RUINS_ARCHAEOLOGY_WITH_STAIRS = createKey("jungle_ruins_archaeology_with_stairs");
+	public static final ResourceKey<StructureProcessorList> SAVANNA_RUINS_ARCHAEOLOGY = createKey("savanna_ruins_archaeology");
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
 		HolderGetter<Block> blockHolderGetter = context.lookup(Registries.BLOCK);
@@ -219,17 +233,172 @@ public class RegisterStructureProcessors {
 							new RandomBlockStateMatchTest(
 								Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.7F),
 							AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1).setValue(BlockStateProperties.LIT, true)
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.POTTED_DEAD_BUSH, 0.1F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.POTTED_DEAD_BUSH, 0.6F),
+							AlwaysTrueTest.INSTANCE, Blocks.FLOWER_POT.defaultBlockState()
+						),
+
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.225F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
 						)
 					)
 				),
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
+
+		register(
+			context,
+			DESERT_RUINS_ARCHAEOLOGY,
+			List.of(
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState())
+					)
+				),
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+			)
+		);
+
+		register(
+			context,
+			JUNGLE_RUINS_ARCHAEOLOGY,
+			List.of(
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState()),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(
+								Blocks.COBBLESTONE_WALL.defaultBlockState().setValue(WallBlock.SOUTH_WALL, WallSide.LOW),
+								0.4F
+							),
+							AlwaysTrueTest.INSTANCE,
+							Blocks.MOSSY_COBBLESTONE_WALL.defaultBlockState().setValue(WallBlock.SOUTH_WALL, WallSide.LOW)
+						),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState(), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState()),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP)),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP).setValue(BlockStateProperties.WATERLOGGED, true), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP).setValue(BlockStateProperties.WATERLOGGED, true))
+					)
+				),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.5F),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+			)
+		);
+
+		register(
+			context,
+			JUNGLE_RUINS_ARCHAEOLOGY_WITH_STAIRS,
+			List.of(
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE_STAIRS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState())
+					)
+				),
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState())
+					)
+				),
+				bottomWaterloggedStairToMossyProcessor(Blocks.COBBLESTONE_STAIRS, Blocks.MOSSY_COBBLESTONE_STAIRS, 0.4F),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.5F),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+			)
+		);
+
+		register(
+			context,
+			SAVANNA_RUINS_ARCHAEOLOGY,
+			List.of(
+				new RuleProcessor(
+					List.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState())
+					)
+				),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.3F),
+				jungleArchyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.5F),
+				jungleArchyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+			)
+		);
+	}
+
+	@Contract("_, _ -> new")
+	private static @NotNull RuleProcessor desertArchyLootProcessor(ResourceKey<LootTable> registryKey, float chance) {
+		return new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.SAND, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.SUSPICIOUS_SAND.defaultBlockState(),
+					new AppendLoot(registryKey)
+				)
+			)
+		);
+	}
+
+	@Contract("_, _, _, _ -> new")
+	private static @NotNull RuleProcessor jungleArchyLootProcessor(Block original, @NotNull Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
+		return new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(
+					new RandomBlockMatchTest(original, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					suspicious.defaultBlockState(),
+					new AppendLoot(registryKey)
+				)
+			)
+		);
+	}
+
+	@Contract("_, _, _ -> new")
+	private static @NotNull RuleProcessor bottomWaterloggedStairToMossyProcessor(@NotNull Block original, Block mossy, float chance) {
+		ArrayList<ProcessorRule> rules = new ArrayList<>();
+		for (BlockState state : original.getStateDefinition().getPossibleStates()) {
+			if (state.getValue(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
+				rules.add(
+					new ProcessorRule(
+						new RandomBlockStateMatchTest(state, chance),
+						AlwaysTrueTest.INSTANCE,
+						PosAlwaysTrueTest.INSTANCE,
+						mossy.withPropertiesOf(state)
+					)
+				);
+			}
+		}
+
+		return new RuleProcessor(rules);
 	}
 
 	@NotNull
 	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
-		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierTalesSharedConstants.id(string));
+		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierConstants.id(string));
 	}
 
 	@NotNull

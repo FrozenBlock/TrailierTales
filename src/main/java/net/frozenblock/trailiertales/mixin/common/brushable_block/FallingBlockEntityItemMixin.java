@@ -1,16 +1,12 @@
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
-import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.BrushableBlock;
-import net.minecraft.world.level.block.entity.BrushableBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,9 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FallingBlockEntity.class)
 public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface {
-
-	@Shadow
-	private BlockState blockState;
 
 	@Unique
 	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
@@ -54,25 +47,12 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 		FallingBlockEntity.class.cast(this).spawnAtLocation(this.trailierTales$itemStack);
 	}
 
-	@Inject(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;discard()V",
-			shift = At.Shift.BEFORE
-		)
-	)
-	public void trailierTales$tick(CallbackInfo info) {
+	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
+	public void trailierTales$spawnCustomItemAfterBroken(Block block, BlockPos pos, CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-		if (!fallingBlockEntity.level().isClientSide && this.trailierTales$overrideBreak) {
-			BlockPos blockPos = fallingBlockEntity.blockPosition();
-
-			if (this.trailierTales$itemStack != ItemStack.EMPTY && this.blockState.getBlock() instanceof BrushableBlock) {
-				BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity(blockPos, this.blockState);
-				fallingBlockEntity.level().setBlockEntity(brushableBlockEntity);
-				((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(this.trailierTales$itemStack);
-			}
-
+		if (!fallingBlockEntity.level().isClientSide && this.trailierTales$itemStack != ItemStack.EMPTY) {
+			fallingBlockEntity.spawnAtLocation(this.trailierTales$itemStack.copy());
+			this.trailierTales$itemStack = ItemStack.EMPTY;
 		}
 	}
 

@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
@@ -257,8 +257,8 @@ public class RegisterBlocks {
 		registerBlockAfter(POLISHED_GRANITE_BRICK_SLAB, "polished_granite_brick_wall", POLISHED_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(POLISHED_GRANITE_BRICK_WALL, "mossy_polished_granite_bricks", MOSSY_POLISHED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICKS, "mossy_polished_granite_brick_stairs", MOSSY_POLISHED_GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICK_SLAB, "mossy_polished_granite_brick_slab", MOSSY_POLISHED_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICK_WALL, "mossy_polished_granite_brick_wall", MOSSY_POLISHED_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICK_STAIRS, "mossy_polished_granite_brick_slab", MOSSY_POLISHED_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_GRANITE_BRICK_SLAB, "mossy_polished_granite_brick_wall", MOSSY_POLISHED_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockBefore(Blocks.POLISHED_DIORITE, "chiseled_polished_diorite", CHISELED_POLISHED_DIORITE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.POLISHED_DIORITE_SLAB, "polished_diorite_bricks", POLISHED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -268,8 +268,8 @@ public class RegisterBlocks {
 		registerBlockAfter(POLISHED_DIORITE_BRICK_SLAB, "polished_diorite_brick_wall", POLISHED_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(POLISHED_DIORITE_BRICK_WALL, "mossy_polished_diorite_bricks", MOSSY_POLISHED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICKS, "mossy_polished_diorite_brick_stairs", MOSSY_POLISHED_DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICK_SLAB, "mossy_polished_diorite_brick_slab", MOSSY_POLISHED_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICK_WALL, "mossy_polished_diorite_brick_wall", MOSSY_POLISHED_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICK_STAIRS, "mossy_polished_diorite_brick_slab", MOSSY_POLISHED_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_DIORITE_BRICK_SLAB, "mossy_polished_diorite_brick_wall", MOSSY_POLISHED_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockBefore(Blocks.POLISHED_ANDESITE, "chiseled_polished_andesite", CHISELED_POLISHED_ANDESITE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.POLISHED_ANDESITE_SLAB, "polished_andesite_bricks", POLISHED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -279,8 +279,8 @@ public class RegisterBlocks {
 		registerBlockAfter(POLISHED_ANDESITE_BRICK_SLAB, "polished_andesite_brick_wall", POLISHED_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(POLISHED_ANDESITE_BRICK_WALL, "mossy_polished_andesite_bricks", MOSSY_POLISHED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICKS, "mossy_polished_andesite_brick_stairs", MOSSY_POLISHED_ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICK_SLAB, "mossy_polished_andesite_brick_slab", MOSSY_POLISHED_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICK_WALL, "mossy_polished_andesite_brick_wall", MOSSY_POLISHED_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICK_STAIRS, "mossy_polished_andesite_brick_slab", MOSSY_POLISHED_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_POLISHED_ANDESITE_BRICK_SLAB, "mossy_polished_andesite_brick_wall", MOSSY_POLISHED_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -335,14 +335,14 @@ public class RegisterBlocks {
 	}
 
 	private static void actualRegisterBlock(String path, Block block) {
-		if (BuiltInRegistries.BLOCK.getOptional(TrailierTalesSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.BLOCK, TrailierTalesSharedConstants.id(path), block);
+		if (BuiltInRegistries.BLOCK.getOptional(TrailierConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.BLOCK, TrailierConstants.id(path), block);
 		}
 	}
 
 	private static void actualRegisterBlockItem(String path, Block block) {
-		if (BuiltInRegistries.ITEM.getOptional(TrailierTalesSharedConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, TrailierTalesSharedConstants.id(path), new BlockItem(block, new Item.Properties()));
+		if (BuiltInRegistries.ITEM.getOptional(TrailierConstants.id(path)).isEmpty()) {
+			Registry.register(BuiltInRegistries.ITEM, TrailierConstants.id(path), new BlockItem(block, new Item.Properties()));
 		}
 	}
 

@@ -114,7 +114,16 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 
 	@Override
 	public void setEntityId(EntityType<?> entityType, RandomSource random) {
-		this.coffinSpawner.getData().setEntityId(this.coffinSpawner, random, entityType);
+		BlockPos pos = this.getBlockPos();
+		CoffinSpawner coffinSpawner = this.getCoffinSpawner();
+		BlockState state = this.getBlockState();
+		if (this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.HEAD) {
+			pos = pos.relative(CoffinBlock.getConnectedDirection(state));
+			if (this.level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity) {
+				coffinSpawner = coffinBlockEntity.getCoffinSpawner();
+			}
+		}
+		coffinSpawner.getData().setEntityId(entityType, this.level, random, pos);
 		this.setChanged();
 	}
 

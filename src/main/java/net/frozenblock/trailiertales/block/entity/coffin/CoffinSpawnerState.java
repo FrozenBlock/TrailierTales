@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.Optional;
-import net.frozenblock.trailiertales.TrailierTalesSharedConstants;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -31,15 +31,36 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	}
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
-		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		return switch (this) {
-			case INACTIVE -> coffinSpawnerData.hasMobToSpawn(spawner, level.random)
-				&& CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) <= coffinSpawnerData.maxActiveLightLevel ? ACTIVE : INACTIVE;
+			case INACTIVE -> getInactiveState(pos, spawner, level);
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
 			default -> throw new MatchException(null, null);
 		};
+	}
+
+	private static CoffinSpawnerState getInactiveState(
+		BlockPos pos,
+		@NotNull CoffinSpawner spawner,
+		@NotNull ServerLevel level
+	) {
+		CoffinSpawnerData coffinSpawnerData = spawner.getData();
+		if (
+			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
+				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
+		) {
+			return INACTIVE;
+		} else {
+			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
+				if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+					return AGGRESSIVE;
+				} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+					return IRRITATED;
+				}
+			}
+		}
+		return ACTIVE;
 	}
 
 	private static CoffinSpawnerState activeTickAndGetNext(
@@ -52,7 +73,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		if (
-			!coffinSpawnerData.hasMobToSpawn(spawner, level.random)
+			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
 				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
 		) {
 			return INACTIVE;
@@ -60,9 +81,13 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
+			if (spawner.canSpawnApparition(level)) {
+				spawner.spawnApparition(level, pos);
+			}
+
 			if (!coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
-				coffinSpawnerData.power = 0;
+				coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getAggressiveConfig().powerForNextLevel() : coffinSpawnerData.power;
 				return coffinSpawnerState.getNextPowerState();
 			}
 
@@ -77,7 +102,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 					coffinSpawnerData.currentMobs.add(uuid);
 					++coffinSpawnerData.totalMobsSpawned;
 					coffinSpawnerData.nextMobSpawnsAt = level.getGameTime() + (long)coffinSpawnerConfig.ticksBetweenSpawn();
-					coffinSpawnerConfig.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
+					coffinSpawnerData.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
 						coffinSpawnerData.nextSpawnData = Optional.of(spawnData.data());
 						spawner.markUpdated();
 					});
@@ -114,7 +139,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	@Contract("_, _ -> new")
 	private static @NotNull ResourceLocation getTexture(String stateName, boolean foot) {
-		return TrailierTalesSharedConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName +".png");
+		return TrailierConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName +".png");
 	}
 
 	@Override
