@@ -54,6 +54,10 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		this.model.prepareMobModel(entity, limbAngle, limbDistance, tickDelta);
 		this.model.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.renderType);
-		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, OverlayTexture.pack(0F, entity.hurtTime > 0));
+		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(entity, 0F));
+	}
+
+	private int getOverlay(@NotNull T entity, float whiteOverlayProgress) {
+		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(entity.hurtTime > 0 || entity.deathTime > 0));
 	}
 }
