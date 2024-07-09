@@ -62,7 +62,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 			List<LivingEntity> list = world.getEntitiesOfClass(
 				LivingEntity.class,
 				aABB,
-				livingEntity2 -> isClose(apparition, livingEntity2)
+				livingEntity2 -> isMatchingEntity(apparition, livingEntity2)
 			);
 			list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
 			brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, list);
