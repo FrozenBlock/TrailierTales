@@ -34,7 +34,8 @@ public class ApparitionAid extends Behavior<Apparition> {
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
 				RegisterMemoryModuleTypes.AID_COOLDOWN, MemoryStatus.VALUE_ABSENT,
 				RegisterMemoryModuleTypes.IS_AIDING, MemoryStatus.VALUE_ABSENT
-			)
+			),
+			80
 		);
 	}
 
@@ -62,23 +63,26 @@ public class ApparitionAid extends Behavior<Apparition> {
 		Brain<Apparition> brain = apparition.getBrain();
 		brain.eraseMemory(RegisterMemoryModuleTypes.IS_AIDING);
 		brain.setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
-
-		List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
-		brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
-			if (livingEntity instanceof Mob mob) {
-				mob.setTarget(attackTarget);
-				spawnParticles(world, livingEntity, apparition.getRandom().nextInt(9, 18), ParticleTypes.EFFECT);
-			}
-		}));
 		apparition.setAidAnimProgress(0F);
+		this.chargingTicks = 0;
 	}
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
 		List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
-		entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), RegisterParticles.AID_BUBBLE));
-		apparition.setAidAnimProgress(1F);
+		if (this.chargingTicks++ >= 60) {
+			entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), RegisterParticles.AID_BUBBLE));
+			apparition.setAidAnimProgress(1F);
+		} else {
+			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
+				if (livingEntity instanceof Mob mob) {
+					mob.setTarget(attackTarget);
+					spawnParticles(world, livingEntity, apparition.getRandom().nextInt(9, 18), ParticleTypes.EFFECT);
+				}
+			}));
+			this.doStop(world, apparition, l);
+		}
 	}
 
 	private static void spawnParticles(@NotNull ServerLevel level, @NotNull LivingEntity entity, int count, ParticleOptions particleOptions) {
