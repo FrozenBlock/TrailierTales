@@ -257,14 +257,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void onItemPickup(ItemEntity item) {
-		if (!this.level().isClientSide) {
-			this.setVisibleItem(item.getItem());
-		}
-		super.onItemPickup(item);
-	}
-
-	@Override
 	protected void dropEquipment() {
 		super.dropEquipment();
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
@@ -326,6 +318,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
+			this.setVisibleItem(this.inventory.getItems().getFirst());
 		} else {
 			this.prevTransparency = this.transparency;
 			this.prevOuterTransparency = this.outerTransparency;
@@ -374,7 +367,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!itemStack.isEmpty() && !this.level().isClientSide) {
 			this.dropItem();
 			this.inventory.setItem(0, itemStack);
-			this.setVisibleItem(itemStack);
 		}
 	}
 
@@ -572,7 +564,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
 			this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			this.level().addFreshEntity(projectile);
-			this.setVisibleItem(itemStack);
 		}
 	}
 }
