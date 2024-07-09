@@ -69,6 +69,10 @@ public class ApparitionAid extends Behavior<Apparition> {
 		if (brain.hasMemoryValue(RegisterMemoryModuleTypes.IS_AIDING)) {
 			entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), RegisterParticles.AID_BUBBLE));
 			apparition.setAidAnimProgress(1F);
+			LivingEntity nearestAidable = brain.getMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE).orElse(null);
+			if (nearestAidable != null) {
+				apparition.getNavigation().moveTo(nearestAidable.getX(), nearestAidable.getEyeY() + 0.5F, nearestAidable.getZ(), 1D);
+			}
 		} else {
 			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
 				if (livingEntity instanceof Mob mob) {
