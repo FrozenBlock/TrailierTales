@@ -3,11 +3,13 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -50,34 +52,32 @@ public class ApparitionAid extends Behavior<Apparition> {
 
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
+		Brain<Apparition> brain = apparition.getBrain();
 		apparition.playSound(SoundEvents.BREEZE_INHALE, 1F, 1F);
-		apparition.getBrain().setMemory(RegisterMemoryModuleTypes.IS_AIDING, Unit.INSTANCE);
+		brain.setMemory(RegisterMemoryModuleTypes.IS_AIDING, Unit.INSTANCE);
 	}
 
 	@Override
 	protected void stop(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
-		apparition.setAggressive(false);
 		brain.eraseMemory(RegisterMemoryModuleTypes.IS_AIDING);
 		brain.setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
 
-		LivingEntity attackTarget = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
-		if (attackTarget != null) {
-			List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
-			for (LivingEntity livingEntity : entities) {
-				if (livingEntity instanceof Mob mob) {
-					if (mob.getTarget() != attackTarget && mob.getType() != RegisterEntities.APPARITION) {
-						mob.setTarget(attackTarget);
-						spawnParticles(world, livingEntity, apparition.getRandom().nextInt(9, 18), ParticleTypes.EFFECT);
-					}
-				}
+		List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
+		brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
+			if (livingEntity instanceof Mob mob) {
+				mob.setTarget(attackTarget);
+				spawnParticles(world, livingEntity, apparition.getRandom().nextInt(9, 18), ParticleTypes.EFFECT);
 			}
-		}
+		}));
 		apparition.setAidAnimProgress(0F);
 	}
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
+		Brain<Apparition> brain = apparition.getBrain();
+		List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
+		entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), RegisterParticles.AID_BUBBLE));
 		apparition.setAidAnimProgress(1F);
 	}
 

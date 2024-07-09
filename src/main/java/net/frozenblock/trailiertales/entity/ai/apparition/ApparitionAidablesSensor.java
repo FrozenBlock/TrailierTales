@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.entity.ai.apparition;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +39,11 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		LivingEntity newTarget = apparition.getTarget();
 		if (entity instanceof Mob mob && newTarget != null && mob.getType() != RegisterEntities.APPARITION) {
 			LivingEntity currentTarget = mob.getTarget();
-			return currentTarget == null || currentTarget.getType() != EntityType.PLAYER;
+			return mob != apparition
+				&& mob.isAlive()
+				&& !mob.isSpectator()
+				&& mob != currentTarget
+				&& (currentTarget == null || currentTarget.getType() != EntityType.PLAYER);
 		}
 		return false;
 	}
@@ -50,20 +54,23 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel world, @NotNull Apparition apparition) {
-		double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
-		AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
-		List<LivingEntity> list = world.getEntitiesOfClass(
-			LivingEntity.class,
-			aABB,
-			livingEntity2 -> livingEntity2 != apparition
-				&& livingEntity2.isAlive()
-				&& !livingEntity2.isSpectator()
-				&& !(livingEntity2 instanceof Player player && player.isCreative())
-		);
-		list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
 		Brain<?> brain = apparition.getBrain();
-		brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, list);
-		apparition.getBrain().setMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
+		LivingEntity attackTarget = apparition.getTarget();
+		if (attackTarget != null) {
+			double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
+			AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
+			List<LivingEntity> list = world.getEntitiesOfClass(
+				LivingEntity.class,
+				aABB,
+				livingEntity2 -> isClose(apparition, livingEntity2)
+			);
+			list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
+			brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, list);
+			brain.setMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
+		} else {
+			brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
+			brain.eraseMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
+		}
 	}
 
 	private Optional<LivingEntity> getNearestEntity(@NotNull Apparition apparition) {

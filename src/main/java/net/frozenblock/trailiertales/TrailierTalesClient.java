@@ -11,6 +11,7 @@ import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegis
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.render.renderer.ApparitionRenderer;
+import net.frozenblock.trailiertales.particle.ApparitionAidParticle;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
@@ -62,5 +63,6 @@ public class TrailierTalesClient implements ClientModInitializer {
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
+		particleRegistry.register(RegisterParticles.AID_BUBBLE, ApparitionAidParticle.Provider::new);
 	}
 }

@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterParticles {
 	public static final SimpleParticleType COFFIN_SOUL = register("coffin_soul");
 	public static final SimpleParticleType COFFIN_SOUL_ENTER = register("coffin_soul_enter");
+	public static final SimpleParticleType AID_BUBBLE = register("aid_bubble");
 
 	public static void init() {
 		TrailierConstants.log("Registering Particles for Trailier Tales.", TrailierConstants.UNSTABLE_LOGGING);
