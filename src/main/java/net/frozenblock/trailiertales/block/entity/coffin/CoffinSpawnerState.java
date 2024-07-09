@@ -2,7 +2,6 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.Optional;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -46,10 +45,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		if (
-			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
-				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
-		) {
+		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
 			return INACTIVE;
 		} else {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
@@ -72,10 +68,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
-		if (
-			!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)
-				|| CoffinBlock.getLightLevelSurroundingCoffin(level, level.getBlockState(pos), pos) > coffinSpawnerData.maxActiveLightLevel
-		) {
+		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
 			return INACTIVE;
 		} else {
 			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);

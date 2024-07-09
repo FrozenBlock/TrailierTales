@@ -80,7 +80,7 @@ public final class CoffinSpawner {
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("irritated_config", CoffinSpawnerConfig.IRRITATED).forGetter(CoffinSpawner::getIrritatedConfig),
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("aggressive_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getAggressiveConfig),
 					CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
-					Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 18000).forGetter(CoffinSpawner::getPowerCooldownLength),
+					Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 12000).forGetter(CoffinSpawner::getPowerCooldownLength),
 					Codec.intRange(1, MAX_MOB_TRACKING_DISTANCE).optionalFieldOf("required_player_range", MAX_MOB_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
 					Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID),
 					Codec.BOOL.optionalFieldOf("attempting_to_spawn_mob", false).forGetter(CoffinSpawner::isAttemptingToSpawnMob)
@@ -106,7 +106,7 @@ public final class CoffinSpawner {
 			CoffinSpawnerConfig.IRRITATED,
 			CoffinSpawnerConfig.AGGRESSIVE,
 			new CoffinSpawnerData(),
-			18000,
+			12000,
 			MAX_MOB_TRACKING_DISTANCE,
 			UUID.randomUUID().toString(),
 			false,
@@ -256,6 +256,12 @@ public final class CoffinSpawner {
 							if (!customSpawnRules.isValidPosition(blockPos, level)) {
 								return Optional.empty();
 							}
+						}
+
+						int lightAtPos = level.getRawBrightness(blockPos, 0);
+						int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
+						if (randomSource.nextInt(lightToleranceDifference * 20) > 0) {
+							return Optional.empty();
 						}
 
 						Entity entity = EntityType.loadEntityRecursive(compoundTag, level, entityx -> {
