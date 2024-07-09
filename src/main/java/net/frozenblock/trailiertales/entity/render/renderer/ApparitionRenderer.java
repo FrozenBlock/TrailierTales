@@ -25,7 +25,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 	private final ItemRenderer itemRenderer;
 	private float itemYaw;
 
-	private static final ResourceLocation TEXTURE = TrailierConstants.id("textures/entity/apparition/apparition_white.png");
+	private static final ResourceLocation TEXTURE = TrailierConstants.id("textures/entity/apparition/apparition_active.png");
 
 	public ApparitionRenderer(EntityRendererProvider.Context context) {
 		super(context, new ApparitionModel<>(context.bakeLayer(TrailierTalesClient.APPARITION)), 0.5F);
@@ -35,7 +35,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,
-			TrailierConstants.id("textures/entity/apparition/apparition_active.png"),
+			TrailierConstants.id("textures/entity/apparition/apparition_bright.png"),
 			false
 		));
 		this.addLayer(new ApparitionOverlayLayer<>(
