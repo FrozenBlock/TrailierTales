@@ -81,11 +81,10 @@ public class ApparitionShoot extends Behavior<Apparition> {
 			int seeTime = brain.getMemory(RegisterMemoryModuleTypes.SEE_TIME).orElse(0);
 			if (lineOfSight) {
 				seeTime += 1;
-				brain.setMemory(RegisterMemoryModuleTypes.SEE_TIME, seeTime);
 			} else {
 				seeTime -= 1;
-				brain.setMemory(RegisterMemoryModuleTypes.SEE_TIME, seeTime);
 			}
+			brain.setMemory(RegisterMemoryModuleTypes.SEE_TIME, seeTime);
 
 			int strafeTime = brain.getMemory(RegisterMemoryModuleTypes.STRAFING_TIME).orElse(-1);
 			if (!(distance > 256D) && seeTime >= 20) {

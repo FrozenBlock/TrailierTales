@@ -62,7 +62,12 @@ public class ApparitionAi {
 		RegisterMemoryModuleTypes.AID_COOLDOWN,
 		RegisterMemoryModuleTypes.IS_AIDING,
 		RegisterMemoryModuleTypes.NEARBY_AIDABLES,
-		RegisterMemoryModuleTypes.NEAREST_AIDABLE
+		RegisterMemoryModuleTypes.NEAREST_AIDABLE,
+		RegisterMemoryModuleTypes.SEE_TIME,
+		RegisterMemoryModuleTypes.STRAFING_CLOCKWISE,
+		RegisterMemoryModuleTypes.STRAFING_BACKWARDS,
+		RegisterMemoryModuleTypes.STRAFING_TIME,
+		RegisterMemoryModuleTypes.CHARGING_TICKS
 	);
 
 	@Contract("_, _ -> param2")
