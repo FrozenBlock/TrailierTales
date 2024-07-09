@@ -1,13 +1,16 @@
 package net.frozenblock.trailiertales.entity.render.model;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import java.util.List;
 import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.lib.entity.impl.client.rendering.ModelPartInvertInterface;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -24,31 +27,65 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	private final ModelPart root;
 	public final ModelPart core;
 	public final ModelPart outer;
+	private final AlphaFunction<T> coreAlphaFunction;
+	private final AlphaFunction<T> outerAlphaFunction;
+	private final DrawSelector<T, ApparitionModel<T>> drawSelector;
+	private final List<ModelPart> modelParts;
+	private final List<ModelPart> coreParts;
+	private final List<ModelPart> outerParts;
 
-	private float transparency;
+	private float coreTransparency;
 	private float outerTransparency;
 	private float flicker;
 
 	public ApparitionModel(@NotNull ModelPart root) {
-		this(FrozenRenderType::entityTranslucentEmissiveAlwaysRenderCull, root);
+		this(
+			FrozenRenderType::entityTranslucentEmissiveAlwaysRenderCull,
+			root,
+			Apparition::getTransparency,
+			Apparition::getOuterTransparency,
+			ApparitionModel::getParts
+		);
 	}
 
-	public ApparitionModel(Function<ResourceLocation, RenderType> function, @NotNull ModelPart root) {
+	public ApparitionModel(
+		Function<ResourceLocation, RenderType> function,
+		@NotNull ModelPart root,
+		AlphaFunction<T> coreAlpha,
+		AlphaFunction<T> outerAlpha,
+		DrawSelector<T, ApparitionModel<T>> drawSelector
+	) {
 		super(function);
 		this.root = root;
 		this.core = root.getChild("core");
 		this.outer = root.getChild("outer");
-
 		ModelPartInvertInterface.class.cast(this.outer).frozenLib$setInverted(true);
+
+		this.coreAlphaFunction = coreAlpha;
+		this.outerAlphaFunction = outerAlpha;
+		this.drawSelector = drawSelector;
+		this.modelParts = ImmutableList.of(this.core, this.outer);
+		this.coreParts = ImmutableList.of(this.core);
+		this.outerParts = ImmutableList.of(this.outer);
+	}
+
+	public List<ModelPart> getParts() {
+		return this.modelParts;
+	}
+
+	public List<ModelPart> getCoreParts() {
+		return this.coreParts;
+	}
+
+	public List<ModelPart> getOuterParts() {
+		return this.outerParts;
 	}
 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
-
 		meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create()
 			.texOffs(0, 28).addBox(-5F, -5F, -5F, 10F, 10F, 10F), PartPose.offset(0F, 17F, 0F));
-
 		meshdefinition.getRoot().addOrReplaceChild("outer", CubeListBuilder.create()
 			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F),  PartPose.offset(0F, 17F, 0F));
 
@@ -82,25 +119,18 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
-		this.transparency = this.getTransparency(entity, tickDelta);
-		this.outerTransparency = this.getOuterTransparency(entity, tickDelta);
+		this.coreTransparency = this.coreAlphaFunction.apply(entity, tickDelta);
+		this.outerTransparency = this.outerAlphaFunction.apply(entity, tickDelta);
 		this.flicker = entity.getFlicker(tickDelta);
 		this.outer.yRot = entity.getItemYRot(tickDelta);
 		this.outer.zRot = entity.getItemZRot(tickDelta);
 	}
 
-	public float getTransparency(@NotNull Apparition entity, float tickDelta) {
-		return entity.getTransparency(tickDelta);
-	}
-
-	public float getOuterTransparency(@NotNull Apparition entity, float tickDelta) {
-		return entity.getOuterTransparency(tickDelta);
-	}
-
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
-		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency * this.flicker, 1F, 1F, 1F);
+		this.onlyDrawSelectedParts();
+		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.coreTransparency * this.flicker, 1F, 1F, 1F);
 		if (coreTransparency != 0) {
 		this.core.render(poseStack, buffer, 15728640, packedOverlay, coreTransparency);
 		}
@@ -108,6 +138,28 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		if (outerTransparency != 0) {
 			this.outer.render(poseStack, buffer, 15728640, packedOverlay, outerTransparency);
 		}
+		this.resetDrawForAllParts();
 		poseStack.popPose();
+	}
+
+	private void onlyDrawSelectedParts() {
+		List<ModelPart> list = this.drawSelector.getPartsToDraw(this);
+		this.root().getAllParts().forEach(modelPart -> modelPart.skipDraw = true);
+		list.forEach(modelPart -> modelPart.skipDraw = false);
+	}
+
+	private void resetDrawForAllParts() {
+		this.root().getAllParts().forEach(modelPart -> modelPart.skipDraw = false);
+	}
+
+
+	@Environment(EnvType.CLIENT)
+	public interface AlphaFunction<T extends Apparition> {
+		float apply(T apparition, float tickDelta);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public interface DrawSelector<T extends Apparition, M extends EntityModel<T>> {
+		List<ModelPart> getPartsToDraw(M entityModel);
 	}
 }

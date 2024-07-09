@@ -39,7 +39,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TrailierConstants.id("coffin_head"), "main");
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TrailierConstants.id("coffin_foot"), "main");
 	public static final ModelLayerLocation APPARITION = new ModelLayerLocation(TrailierConstants.id("apparition"), "main");
-	public static final ModelLayerLocation APPARITION_OUTER = new ModelLayerLocation(TrailierConstants.id("apparition"), "outer");
+	public static final ModelLayerLocation APPARITION_OVERLAY = new ModelLayerLocation(TrailierConstants.id("apparition"), "overlay");
 
 	@Override
 	public void onInitializeClient() {
@@ -56,7 +56,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(RegisterEntities.APPARITION, ApparitionRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
-		EntityModelLayerRegistry.registerModelLayer(APPARITION_OUTER, ApparitionModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
