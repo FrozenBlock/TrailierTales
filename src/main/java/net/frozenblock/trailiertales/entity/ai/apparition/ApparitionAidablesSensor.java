@@ -75,7 +75,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	private Optional<LivingEntity> getNearestEntity(@NotNull Apparition apparition) {
 		return apparition.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES)
-			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> this.isMatchingEntity(apparition, livingEntity)));
+			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> true));
 	}
 
 	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {

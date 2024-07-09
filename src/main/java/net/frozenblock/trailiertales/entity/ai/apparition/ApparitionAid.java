@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAid extends Behavior<Apparition> {
-	private int chargingTicks;
 
 	@VisibleForTesting
 	public ApparitionAid() {
@@ -55,23 +54,21 @@ public class ApparitionAid extends Behavior<Apparition> {
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
 		apparition.playSound(SoundEvents.BREEZE_INHALE, 1F, 1F);
-		brain.setMemory(RegisterMemoryModuleTypes.IS_AIDING, Unit.INSTANCE);
+		brain.setMemoryWithExpiry(RegisterMemoryModuleTypes.IS_AIDING, Unit.INSTANCE, 60L);
 	}
 
 	@Override
 	protected void stop(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
-		brain.eraseMemory(RegisterMemoryModuleTypes.IS_AIDING);
 		brain.setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
 		apparition.setAidAnimProgress(0F);
-		this.chargingTicks = 0;
 	}
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
 		List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
-		if (this.chargingTicks++ >= 60) {
+		if (brain.hasMemoryValue(RegisterMemoryModuleTypes.IS_AIDING)) {
 			entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), RegisterParticles.AID_BUBBLE));
 			apparition.setAidAnimProgress(1F);
 		} else {
