@@ -78,6 +78,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
+		apparition.setAidAnimProgress(1F);
 	}
 
 	private static void spawnParticles(@NotNull ServerLevel level, @NotNull LivingEntity entity, int count, ParticleOptions particleOptions) {

@@ -239,7 +239,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public boolean wantsToPickUp(@NotNull ItemEntity itemEntity) {
-		return this.wantsToPickUp(itemEntity.getItem()) && (itemEntity.getOwner() == null || itemEntity.getOwner().getType() == RegisterEntities.APPARITION);
+		return this.wantsToPickUp(itemEntity.getItem()) && (itemEntity.getOwner() == null || itemEntity.getOwner().getType() == RegisterEntities.APPARITION) && this.getTarget() != null;
 	}
 
 	@Override

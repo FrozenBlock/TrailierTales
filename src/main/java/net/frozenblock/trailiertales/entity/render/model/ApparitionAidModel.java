@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class ApparitionAidModel<T extends Apparition> extends ApparitionModel<T> {
 
 	public ApparitionAidModel(@NotNull ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveAlwaysRenderCull, root);
-		this.core.visible = false;
+		super(FrozenRenderType::apparitionOuter, root);
 	}
 
 	@Override
@@ -22,6 +21,6 @@ public class ApparitionAidModel<T extends Apparition> extends ApparitionModel<T>
 
 	@Override
 	public float getTransparency(@NotNull Apparition entity, float tickDelta) {
-		return 0F;
+		return entity.getAidAnimProgress(tickDelta);
 	}
 }

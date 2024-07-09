@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAidLayer extends RenderLayer<Apparition, ApparitionModel<Apparition>> {
-	private static final RenderType TEXTURE = FrozenRenderType.entityTranslucentEmissiveAlwaysRenderCull(TrailierConstants.id("textures/entity/apparition/apparition_bright.png"));
+	private static final RenderType TEXTURE = FrozenRenderType.apparitionOuter(TrailierConstants.id("textures/entity/apparition/apparition_active.png"));
 	private final ApparitionModel<Apparition> model;
 
 	public ApparitionAidLayer(EntityRendererProvider.@NotNull Context context, RenderLayerParent<Apparition, ApparitionModel<Apparition>> renderLayerParent) {
