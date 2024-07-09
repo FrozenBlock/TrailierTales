@@ -260,7 +260,7 @@ public final class CoffinSpawner {
 
 						int lightAtPos = level.getRawBrightness(blockPos, 0);
 						int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
-						if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 20) > 0) {
+						if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 10) > 0) {
 							return Optional.empty();
 						}
 
