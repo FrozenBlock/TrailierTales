@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.memory.WalkTarget;
 import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAid extends Behavior<Apparition> {
@@ -30,7 +31,8 @@ public class ApparitionAid extends Behavior<Apparition> {
 			ImmutableMap.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
 				RegisterMemoryModuleTypes.AID_COOLDOWN, MemoryStatus.VALUE_ABSENT,
-				RegisterMemoryModuleTypes.IS_AIDING, MemoryStatus.VALUE_ABSENT
+				RegisterMemoryModuleTypes.IS_AIDING, MemoryStatus.VALUE_ABSENT,
+				MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED
 			),
 			80
 		);
@@ -71,7 +73,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 			apparition.setAidAnimProgress(1F);
 			LivingEntity nearestAidable = brain.getMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE).orElse(null);
 			if (nearestAidable != null) {
-				apparition.getNavigation().moveTo(nearestAidable.getX(), nearestAidable.getEyeY() + 0.5F, nearestAidable.getZ(), 1D);
+				brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(nearestAidable.getEyePosition().add(0D, 0.5D, 0D), 1F, 0));
 			}
 		} else {
 			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
