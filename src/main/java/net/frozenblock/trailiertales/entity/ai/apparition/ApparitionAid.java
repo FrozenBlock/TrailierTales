@@ -73,7 +73,8 @@ public class ApparitionAid extends Behavior<Apparition> {
 			apparition.setAidAnimProgress(1F);
 			LivingEntity nearestAidable = brain.getMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE).orElse(null);
 			if (nearestAidable != null) {
-				brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(nearestAidable.getEyePosition().add(0D, 0.5D, 0D), 1F, 0));
+				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+				apparition.getNavigation().moveTo(nearestAidable.getX(), nearestAidable.getEyeY() + 0.5D, nearestAidable.getZ(), 0, 1.75D);
 			}
 		} else {
 			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
