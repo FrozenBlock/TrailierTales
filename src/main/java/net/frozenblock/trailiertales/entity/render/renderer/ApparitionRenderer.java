@@ -45,14 +45,6 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			ApparitionModel::getParts,
 			TrailierConstants.id("textures/entity/apparition/apparition_aggressive.png")
 		));
-		this.addLayer(new ApparitionOverlayLayer<>(
-			context,
-			this,
-			(apparition, tickDelta) -> (1F - apparition.getFlicker(tickDelta)) * 0.3F,
-			(apparition, tickDelta) -> (1F - apparition.getFlicker(tickDelta)) * 0.3F,
-			ApparitionModel::getParts,
-			TrailierConstants.id("textures/entity/apparition/apparition_bright.png")
-		));
 		this.itemRenderer = context.getItemRenderer();
 	}
 
