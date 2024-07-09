@@ -73,12 +73,11 @@ public class ApparitionAid extends Behavior<Apparition> {
 				}
 			}
 		}
+		apparition.setAidAnimProgress(0F);
 	}
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
-		Brain<Apparition> brain = apparition.getBrain();
-		brain.setMemory(RegisterMemoryModuleTypes.IS_AIDING, Unit.INSTANCE);
 	}
 
 	private static void spawnParticles(@NotNull ServerLevel level, @NotNull LivingEntity entity, int count, ParticleOptions particleOptions) {

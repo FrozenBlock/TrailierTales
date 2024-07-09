@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
+import net.frozenblock.lib.entity.impl.client.rendering.ModelPartInvertInterface;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,24 +14,32 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> {
 	private final ModelPart root;
-	private final ModelPart core;
-	private final ModelPart outer;
+	public final ModelPart core;
+	public final ModelPart outer;
 
 	private float transparency;
 	private float outerTransparency;
 	private float flicker;
 
 	public ApparitionModel(@NotNull ModelPart root) {
-		super(FrozenRenderType::entityTranslucentEmissiveAlwaysRender);
+		this(FrozenRenderType::entityTranslucentEmissiveAlwaysRenderCull, root);
+	}
+
+	public ApparitionModel(Function<ResourceLocation, RenderType> function, @NotNull ModelPart root) {
+		super(function);
 		this.root = root;
 		this.core = root.getChild("core");
 		this.outer = root.getChild("outer");
+
+		ModelPartInvertInterface.class.cast(this.outer).frozenLib$setInverted(true);
 	}
 
 	@NotNull
@@ -73,20 +82,32 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
-		this.transparency = 1F;
-		this.outerTransparency = 0.5F;
+		this.transparency = this.getTransparency(entity, tickDelta);
+		this.outerTransparency = this.getOuterTransparency(entity, tickDelta);
 		this.flicker = entity.getFlicker(tickDelta);
 		this.outer.yRot = entity.getItemYRot(tickDelta);
 		this.outer.zRot = entity.getItemZRot(tickDelta);
+	}
+
+	public float getTransparency(@NotNull Apparition entity, float tickDelta) {
+		return entity.getTransparency(tickDelta);
+	}
+
+	public float getOuterTransparency(@NotNull Apparition entity, float tickDelta) {
+		return entity.getOuterTransparency(tickDelta);
 	}
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
 		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.transparency * this.flicker, 1F, 1F, 1F);
-		this.core.render(poseStack, buffer, packedLight, packedOverlay, coreTransparency);
+		if (coreTransparency != 0) {
+		this.core.render(poseStack, buffer, 15728640, packedOverlay, coreTransparency);
+		}
 		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
-		this.outer.render(poseStack, buffer, packedLight, packedOverlay, outerTransparency);
+		if (outerTransparency != 0) {
+			this.outer.render(poseStack, buffer, 15728640, packedOverlay, outerTransparency);
+		}
 		poseStack.popPose();
 	}
 }

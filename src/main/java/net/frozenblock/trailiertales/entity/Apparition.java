@@ -73,6 +73,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final EntityDataAccessor<Float> SHOOT_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> AID_ANIM_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 
 	private final SimpleContainer inventory = new SimpleContainer(1);
 	private float transparency;
@@ -82,6 +83,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	//CLIENT VARIABLES
 	private float prevTransparency;
 	private float prevOuterTransparency;
+	private float aidAnimProgress;
+	private float prevAidAnimProgress;
 	private float flicker;
 	private float prevFlicker;
 
@@ -102,6 +105,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		builder.define(SHOOT_PROGRESS, 0F);
 		builder.define(TRANSPARENCY, 0F);
 		builder.define(OUTER_TRANSPARENCY, 0F);
+		builder.define(AID_ANIM_PROGRESS, 0F);
 	}
 
 	@NotNull
@@ -288,6 +292,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.entityData.set(OUTER_TRANSPARENCY, transparency);
 	}
 
+	public float getAidAnimProgress() {
+		return this.entityData.get(AID_ANIM_PROGRESS);
+	}
+
+	public void setAidAnimProgress(float progress) {
+		this.entityData.set(AID_ANIM_PROGRESS, progress);
+	}
 
 	public float getItemYRot(float partialTick) {
 		return Mth.cos((this.tickCount + partialTick) / 8F) * 0.35F;
@@ -320,6 +331,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.outerTransparency = this.getOuterTransparency();
 			this.prevFlicker = this.flicker;
 			this.flicker += ((this.random.nextFloat() * 0.175F) - this.flicker) * 0.5F;
+			this.prevAidAnimProgress = this.aidAnimProgress;
+			this.aidAnimProgress += (this.getAidAnimProgress() - this.aidAnimProgress) * 0.3F;
 		}
 	}
 
@@ -417,6 +430,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return Mth.lerp(partialTick, this.prevOuterTransparency, this.outerTransparency) * 0.5F;
 	}
 
+	public float getAidAnimProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevAidAnimProgress, this.aidAnimProgress) * 0.85F;
+	}
+
 	@Nullable
 	@Override
 	public LivingEntity getTarget() {
@@ -429,6 +446,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.readInventoryFromTag(nbt, this.registryAccess());
 		this.setTransparency(nbt.getFloat("Transparency"));
 		this.setOuterTransparency(nbt.getFloat("OuterTransparency"));
+		this.setAidAnimProgress(nbt.getFloat("AidAnimProgress"));
 		this.setShootProgress(nbt.getFloat("ShootProgress"));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
@@ -439,6 +457,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.writeInventoryToTag(nbt, this.registryAccess());
 		nbt.putFloat("Transparency", this.getTransparency());
 		nbt.putFloat("OuterTransparency", this.getOuterTransparency());
+		nbt.putFloat("AidAnimProgress", this.getAidAnimProgress());
 		nbt.putFloat("ShootProgress", this.getShootProgress());
 	}
 

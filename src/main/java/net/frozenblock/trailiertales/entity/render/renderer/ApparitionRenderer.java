@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.entity.render.layer.ApparitionAidLayer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -24,10 +25,11 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 	private final ItemRenderer itemRenderer;
 	private float itemYaw;
 
-	private static final ResourceLocation TEXTURE = TrailierConstants.id("textures/entity/apparition/apparition.png");
+	private static final ResourceLocation TEXTURE = TrailierConstants.id("textures/entity/apparition/apparition_white.png");
 
 	public ApparitionRenderer(EntityRendererProvider.Context context) {
 		super(context, new ApparitionModel<>(context.bakeLayer(TrailierTalesClient.APPARITION)), 0.5F);
+		this.addLayer(new ApparitionAidLayer(context, this));
 		this.itemRenderer = context.getItemRenderer();
 	}
 
