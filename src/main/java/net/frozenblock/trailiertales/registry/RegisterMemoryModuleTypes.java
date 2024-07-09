@@ -26,6 +26,11 @@ public final class RegisterMemoryModuleTypes {
 	public static final MemoryModuleType<Unit> IS_AIDING = register("is_aiding");
 	public static final MemoryModuleType<List<LivingEntity>> NEARBY_AIDABLES = register("nearby_aidables");
 	public static final MemoryModuleType<LivingEntity> NEAREST_AIDABLE = register("nearest_aidable");
+	public static final MemoryModuleType<Integer> SEE_TIME = register("see_time");
+	public static final MemoryModuleType<Unit> STRAFING_CLOCKWISE = register("strafing_clockwise");
+	public static final MemoryModuleType<Unit> STRAFING_BACKWARDS = register("strafing_backwards");
+	public static final MemoryModuleType<Integer> STRAFING_TIME = register("strafing_time");
+	public static final MemoryModuleType<Integer> CHARGING_TICKS = register("charging_ticks");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

@@ -3,8 +3,10 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
@@ -15,27 +17,20 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class ApparitionShoot extends Behavior<Apparition> {
-	private final double speedModifier;
-	private int attackIntervalMin;
-	private final double attackRadiusSqr;
-	private int attackTime = -1;
-	private int seeTime;
-	private boolean strafingClockwise;
-	private boolean strafingBackwards;
-	private int strafingTime = -1;
-	private int chargingTicks;
 
 	@VisibleForTesting
-	public ApparitionShoot(double speed, int attackInterval, double range) {
+	public ApparitionShoot() {
 		super(
 			ImmutableMap.of(
-				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT
+				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
+				RegisterMemoryModuleTypes.SEE_TIME, MemoryStatus.REGISTERED,
+				RegisterMemoryModuleTypes.STRAFING_CLOCKWISE, MemoryStatus.REGISTERED,
+				RegisterMemoryModuleTypes.STRAFING_BACKWARDS, MemoryStatus.REGISTERED,
+				RegisterMemoryModuleTypes.STRAFING_TIME, MemoryStatus.REGISTERED,
+				RegisterMemoryModuleTypes.CHARGING_TICKS, MemoryStatus.REGISTERED
 			),
 			240
 		);
-		this.speedModifier = speed;
-		this.attackIntervalMin = attackInterval;
-		this.attackRadiusSqr = range * range;
 	}
 
 	@Override
@@ -59,10 +54,13 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void stop(ServerLevel world, @NotNull Apparition apparition, long l) {
+		Brain<Apparition> brain = apparition.getBrain();
 		apparition.setAggressive(false);
-		this.seeTime = 0;
-		this.attackTime = -1;
-		this.chargingTicks = 0;
+		brain.eraseMemory(RegisterMemoryModuleTypes.SEE_TIME);
+		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE);
+		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS);
+		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_TIME);
+		brain.eraseMemory(RegisterMemoryModuleTypes.CHARGING_TICKS);
 		apparition.setPoltergeistAnimProgress(0F);
 		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 80);
 	}
@@ -75,45 +73,63 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		if (livingEntity != null) {
 			double distance = apparition.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
 			boolean lineOfSight = apparition.getSensing().hasLineOfSight(livingEntity);
-			boolean hasSeen = this.seeTime > 0;
+			boolean hasSeen = brain.hasMemoryValue(RegisterMemoryModuleTypes.SEE_TIME);
 			if (lineOfSight != hasSeen) {
-				this.seeTime = 0;
+				brain.eraseMemory(RegisterMemoryModuleTypes.SEE_TIME);
 			}
 
+			int seeTime = brain.getMemory(RegisterMemoryModuleTypes.SEE_TIME).orElse(0);
 			if (lineOfSight) {
-				this.seeTime++;
+				seeTime += 1;
+				brain.setMemory(RegisterMemoryModuleTypes.SEE_TIME, seeTime);
 			} else {
-				this.seeTime--;
+				seeTime -= 1;
+				brain.setMemory(RegisterMemoryModuleTypes.SEE_TIME, seeTime);
 			}
 
-			if (!(distance > this.attackRadiusSqr) && this.seeTime >= 20) {
+			int strafeTime = brain.getMemory(RegisterMemoryModuleTypes.STRAFING_TIME).orElse(-1);
+			if (!(distance > 256D) && seeTime >= 20) {
 				apparition.getNavigation().stop();
-				this.strafingTime++;
+				strafeTime += 1;
+				brain.setMemory(RegisterMemoryModuleTypes.STRAFING_TIME, strafeTime);
 			} else {
-				apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), this.speedModifier);
-				this.strafingTime = -1;
+				apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
+				brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_TIME);
 			}
 
-			if (this.strafingTime >= 20) {
+			if (brain.getMemory(RegisterMemoryModuleTypes.STRAFING_TIME).orElse(0) >= 20) {
 				if (apparition.getRandom().nextFloat() < 0.3F) {
-					this.strafingClockwise = !this.strafingClockwise;
+					brain.getMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE)
+						.ifPresentOrElse(
+							unit -> brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE),
+							() -> brain.setMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE, Unit.INSTANCE)
+						);
+					brain.eraseMemory(RegisterMemoryModuleTypes.CHARGING_TICKS);
 				}
 
 				if (apparition.getRandom().nextFloat() < 0.3F) {
-					this.strafingBackwards = !this.strafingBackwards;
+					brain.getMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS)
+						.ifPresentOrElse(
+							unit -> brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS),
+							() -> brain.setMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE)
+						);
 				}
 
-				this.strafingTime = 0;
+				strafeTime = 0;
+				brain.setMemory(RegisterMemoryModuleTypes.STRAFING_TIME, strafeTime);
 			}
 
-			if (this.strafingTime > -1) {
-				if (distance > this.attackRadiusSqr * 0.75F) {
-					this.strafingBackwards = false;
-				} else if (distance < this.attackRadiusSqr * 0.25F) {
-					this.strafingBackwards = true;
+			if (strafeTime > -1) {
+				if (distance > 256D * 0.75F) {
+					brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS);
+				} else if (distance < 256D * 0.25F) {
+					brain.setMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE);
 				}
 
-				apparition.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
+				apparition.getMoveControl().strafe(
+					brain.hasMemoryValue(RegisterMemoryModuleTypes.STRAFING_BACKWARDS) ? -0.5F : 0.5F,
+					brain.hasMemoryValue(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE) ? 0.5F : -0.5F
+				);
 				if (apparition.getControlledVehicle() instanceof Mob mob) {
 					mob.lookAt(livingEntity, 30F, 30F);
 				}
@@ -123,19 +139,21 @@ public class ApparitionShoot extends Behavior<Apparition> {
 				apparition.getLookControl().setLookAt(livingEntity, 30F, 30F);
 			}
 
-			if (this.chargingTicks > 0) {
-				if (!lineOfSight && this.seeTime < -60) {
-					this.chargingTicks = 0;
+			int chargingTicks = brain.getMemory(RegisterMemoryModuleTypes.CHARGING_TICKS).orElse(0);
+			if (chargingTicks > 0) {
+				if (!lineOfSight && seeTime < -60) {
+					chargingTicks = 0;
 				} else if (lineOfSight) {
-					if (this.chargingTicks++ >= 20) {
-						this.chargingTicks = 0;
+					if (chargingTicks++ >= 20) {
+						chargingTicks = 0;
 						apparition.performRangedAttack(livingEntity, 0.3F + (apparition.getRandom().nextFloat() * 1.4F));
-						this.attackTime = this.attackIntervalMin;
+						this.doStop(world, apparition, l);
 					}
 				}
-			} else if (--this.attackTime <= 0 && this.seeTime >= -60) {
-				this.chargingTicks++;
+			} else if (seeTime >= -60) {
+				chargingTicks++;
 			}
+			brain.setMemory(RegisterMemoryModuleTypes.CHARGING_TICKS, chargingTicks);
 		}
 	}
 

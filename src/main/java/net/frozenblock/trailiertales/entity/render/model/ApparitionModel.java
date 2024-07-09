@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.entity.render.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
@@ -17,7 +18,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import org.jetbrains.annotations.NotNull;
-import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> {
