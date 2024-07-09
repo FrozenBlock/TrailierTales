@@ -70,10 +70,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	);
 	public static final ResourceLocation ATTRIBUTE_APPARITION_FOLLOW_RANGE = TrailierConstants.id("apparition_follow_range");
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
-	private static final EntityDataAccessor<Float> SHOOT_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> AID_ANIM_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> POLTERGEIST_ANIM_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 
 	private final SimpleContainer inventory = new SimpleContainer(1);
 	private float transparency;
@@ -85,6 +85,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private float prevOuterTransparency;
 	private float aidAnimProgress;
 	private float prevAidAnimProgress;
+	private float poltergeistAnimProgress;
+	private float prevPoltergeistAnimProgress;
 	private float flicker;
 	private float prevFlicker;
 
@@ -102,10 +104,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(ITEM_STACK, ItemStack.EMPTY);
-		builder.define(SHOOT_PROGRESS, 0F);
 		builder.define(TRANSPARENCY, 0F);
 		builder.define(OUTER_TRANSPARENCY, 0F);
 		builder.define(AID_ANIM_PROGRESS, 0F);
+		builder.define(POLTERGEIST_ANIM_PROGRESS, 0F);
 	}
 
 	@NotNull
@@ -239,7 +241,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public boolean wantsToPickUp(@NotNull ItemEntity itemEntity) {
-		return this.wantsToPickUp(itemEntity.getItem()) && (itemEntity.getOwner() == null || itemEntity.getOwner().getType() == RegisterEntities.APPARITION) && this.getTarget() != null;
+		return this.wantsToPickUp(itemEntity.getItem()) && this.getTarget() != null;
 	}
 
 	@Override
@@ -268,14 +270,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
-	public float getShootProgress() {
-		return this.entityData.get(SHOOT_PROGRESS);
-	}
-
-	public void setShootProgress(float progress) {
-		this.entityData.set(SHOOT_PROGRESS, progress);
-	}
-
 	public float getTransparency() {
 		return this.entityData.get(TRANSPARENCY);
 	}
@@ -298,6 +292,14 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public void setAidAnimProgress(float progress) {
 		this.entityData.set(AID_ANIM_PROGRESS, progress);
+	}
+
+	public float getPoltergeistAnimProgress() {
+		return this.entityData.get(POLTERGEIST_ANIM_PROGRESS);
+	}
+
+	public void setPoltergeistAnimProgress(float progress) {
+		this.entityData.set(POLTERGEIST_ANIM_PROGRESS, progress);
 	}
 
 	public float getItemYRot(float partialTick) {
@@ -333,6 +335,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.flicker += ((this.random.nextFloat() * 0.175F) - this.flicker) * 0.5F;
 			this.prevAidAnimProgress = this.aidAnimProgress;
 			this.aidAnimProgress += (this.getAidAnimProgress() - this.aidAnimProgress) * 0.3F;
+			this.prevPoltergeistAnimProgress = this.poltergeistAnimProgress;
+			this.poltergeistAnimProgress += (this.getPoltergeistAnimProgress() - this.poltergeistAnimProgress) * 0.3F;
 		}
 	}
 
@@ -434,6 +438,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return Mth.lerp(partialTick, this.prevAidAnimProgress, this.aidAnimProgress) * 0.85F;
 	}
 
+	public float getPoltergeistAnimProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevPoltergeistAnimProgress, this.poltergeistAnimProgress) * 0.85F;
+	}
+
 	@Nullable
 	@Override
 	public LivingEntity getTarget() {
@@ -447,7 +455,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setTransparency(nbt.getFloat("Transparency"));
 		this.setOuterTransparency(nbt.getFloat("OuterTransparency"));
 		this.setAidAnimProgress(nbt.getFloat("AidAnimProgress"));
-		this.setShootProgress(nbt.getFloat("ShootProgress"));
+		this.setPoltergeistAnimProgress(nbt.getFloat("PoltergeistAnimProgress"));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
@@ -458,7 +466,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		nbt.putFloat("Transparency", this.getTransparency());
 		nbt.putFloat("OuterTransparency", this.getOuterTransparency());
 		nbt.putFloat("AidAnimProgress", this.getAidAnimProgress());
-		nbt.putFloat("ShootProgress", this.getShootProgress());
+		nbt.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());
 	}
 
 	@Override

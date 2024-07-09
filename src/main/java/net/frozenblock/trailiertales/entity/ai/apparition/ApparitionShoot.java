@@ -54,6 +54,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
 		apparition.playSound(SoundEvents.BREEZE_INHALE, 1F, 1F);
 		apparition.setAggressive(true);
+		apparition.setPoltergeistAnimProgress(1F);
 	}
 
 	@Override
@@ -61,6 +62,8 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		apparition.setAggressive(false);
 		this.seeTime = 0;
 		this.attackTime = -1;
+		this.chargingTicks = 0;
+		apparition.setPoltergeistAnimProgress(0F);
 		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 80);
 	}
 
