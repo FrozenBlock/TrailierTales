@@ -35,7 +35,8 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,
-			TrailierConstants.id("textures/entity/apparition/apparition_active.png")
+			TrailierConstants.id("textures/entity/apparition/apparition_active.png"),
+			false
 		));
 		this.addLayer(new ApparitionOverlayLayer<>(
 			context,
@@ -43,7 +44,8 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,
-			TrailierConstants.id("textures/entity/apparition/apparition_aggressive.png")
+			TrailierConstants.id("textures/entity/apparition/apparition_aggressive.png"),
+			true
 		));
 		this.itemRenderer = context.getItemRenderer();
 	}

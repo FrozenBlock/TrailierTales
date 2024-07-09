@@ -25,17 +25,18 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		ApparitionModel.AlphaFunction<T> coreAlphaFunciton,
 		ApparitionModel.AlphaFunction<T> outerAlphaFunction,
 		ApparitionModel.DrawSelector<T, ApparitionModel<T>> drawSelector,
-		ResourceLocation texture
+		ResourceLocation texture,
+		boolean cull
 	) {
 		super(renderLayerParent);
 		this.model = new ApparitionModel<>(
-			FrozenRenderType::apparitionOuter,
+			cull ? FrozenRenderType::apparitionOuterCull : FrozenRenderType::apparitionOuter,
 			context.bakeLayer(TrailierTalesClient.APPARITION_OVERLAY),
 			coreAlphaFunciton,
 			outerAlphaFunction,
 			drawSelector
 		);
-		this.renderType = FrozenRenderType.apparitionOuter(texture);
+		this.renderType = cull ? FrozenRenderType.apparitionOuterCull(texture) : FrozenRenderType.apparitionOuter(texture);
 	}
 
 	@Override
