@@ -174,6 +174,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			this.trailierTales$targetItemScale = 0F;
 			this.trailierTales$itemScale = 0F;
 			this.trailierTales$prevItemScale = 0F;
+			this.trailierTales$runRebrush = false;
 			return instance;
 		}
 		return original.call(instance);
