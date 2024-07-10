@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -175,9 +176,23 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			this.trailierTales$itemScale = 0F;
 			this.trailierTales$prevItemScale = 0F;
 			this.trailierTales$runRebrush = false;
+			this.item = ItemStack.EMPTY;
 			return instance;
 		}
 		return original.call(instance);
+	}
+
+	@Inject(
+		method = "tryLoadLootTable",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;lootTable:Lnet/minecraft/resources/ResourceKey;",
+			opcode = Opcodes.PUTFIELD,
+			shift = At.Shift.AFTER
+		)
+	)
+	private void trailierTales$storeLootTable(CompoundTag nbt, CallbackInfoReturnable<Boolean> info) {
+		this.trailierTales$storedLootTable = this.lootTable;
 	}
 
 	@Unique
