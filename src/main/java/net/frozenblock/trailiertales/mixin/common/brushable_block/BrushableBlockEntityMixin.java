@@ -81,6 +81,8 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Nullable
 	public ResourceKey<LootTable> lootTable;
 	@Shadow
+	private long lootTableSeed;
+	@Shadow
 	private int brushCount;
 
 	@Unique
@@ -177,6 +179,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			this.trailierTales$prevItemScale = 0F;
 			this.trailierTales$runRebrush = false;
 			this.item = ItemStack.EMPTY;
+			this.lootTableSeed = 0L;
 			return instance;
 		}
 		return original.call(instance);
