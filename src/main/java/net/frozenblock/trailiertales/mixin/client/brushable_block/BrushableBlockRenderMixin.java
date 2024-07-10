@@ -28,9 +28,7 @@ public class BrushableBlockRenderMixin {
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;"
 		)
 	)
-	public Comparable<Integer> trailierTales$removeBrushRequirementAndSetItemScale(
-		Comparable<Integer> original
-	) {
+	public Comparable<Integer> trailierTales$removeBrushRequirementAndSetItemScale(Comparable<Integer> original) {
 		return 1;
 	}
 

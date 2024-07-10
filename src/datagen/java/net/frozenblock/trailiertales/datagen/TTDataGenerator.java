@@ -16,6 +16,7 @@ import net.frozenblock.trailiertales.datagen.tag.TTDamageTypeTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
+import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
@@ -52,7 +53,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
-		TrailierConstants.log("Registering Biomes for Trailier Tales", TrailierConstants.UNSTABLE_LOGGING);
+		TrailierConstants.log("Building datagen registries for Trailier Tales", TrailierConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, TrailierFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, TrailierFeatureBootstrap::bootstrapPlaced);
@@ -60,6 +61,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
 		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
+		registryBuilder.add(Registries.ENCHANTMENT, RegisterEnchantments::bootstrap);
 	}
 
 }

@@ -8,6 +8,7 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.registry.RegisterItems;
@@ -44,6 +45,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterLootTables.init();
 		RegisterSounds.init();
 		RegisterParticles.init();
+		RegisterEnchantments.init();
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();

@@ -1,15 +1,23 @@
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -26,9 +34,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BrushableBlockEntity.class)
 public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
 
-	@Shadow
-	@Nullable
-	public ResourceKey<LootTable> lootTable;
 	@Unique
 	private float trailierTales$targetXLerp = 0.5F;
 	@Unique
@@ -62,12 +67,18 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Unique
 	@Nullable
 	private Direction trailierTales$hitDirection;
+	@Unique
+	private boolean trailierTales$rebrushed = false;
+	@Unique
+	private ResourceKey<LootTable> trailierTales$storedLootTable;
 	@Shadow
 	@Nullable
 	private Direction hitDirection;
 	@Shadow
 	private ItemStack item;
-
+	@Shadow
+	@Nullable
+	public ResourceKey<LootTable> lootTable;
 	@Shadow
 	private int brushCount;
 
@@ -92,13 +103,80 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
-	public void trailierTales$load(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
+	public void trailierTales$loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.trailierTales$readNBT(compoundTag);
+		if (compoundTag.contains("Rebrushed")) this.trailierTales$rebrushed = compoundTag.getBoolean("Rebrushed");
+		if (compoundTag.contains("TrailierTalesStoredLootTable", 8)) {
+			this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(compoundTag.getString("TrailierTalesStoredLootTable")));
+		}
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
 	public void trailierTales$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.trailierTales$saveNBT(compoundTag);
+		if (this.trailierTales$rebrushed)
+			compoundTag.putBoolean("Rebrushed", this.trailierTales$rebrushed);
+		if (this.trailierTales$storedLootTable != null) {
+			compoundTag.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.location().toString());
+		}
+	}
+
+	@Unique
+	private boolean trailierTales$runRebrush;
+
+	@Inject(
+		method = "brush",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;brushingCompleted(Lnet/minecraft/world/entity/player/Player;)V",
+			shift = At.Shift.BEFORE
+		)
+	)
+	public void trailierTales$rebrushA(
+		long ticks, Player player, Direction direction, CallbackInfoReturnable<Boolean> info
+	) {
+		if (!this.trailierTales$hasCustomItem) {
+			ItemStack stack = player.getUseItem();
+			int rebrushLevel = stack.getEnchantments().getLevel(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH));
+			if (rebrushLevel > 0) {
+				float rebrushChance = this.trailierTales$rebrushed ? 0.035F * rebrushLevel : 0.1F * rebrushLevel;
+				if (player.getRandom().nextFloat() < rebrushChance) {
+					this.trailierTales$runRebrush = true;
+				}
+			}
+		}
+	}
+
+	@WrapOperation(
+		method = "brushingCompleted",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/BrushableBlock;getTurnsInto()Lnet/minecraft/world/level/block/Block;"
+		)
+	)
+	private Block trailierTales$runRebrush(BrushableBlock instance, Operation<Block> original) {
+		if (this.trailierTales$runRebrush) {
+			this.trailierTales$rebrushed = true;
+			this.lootTable = this.trailierTales$storedLootTable;
+			this.brushCount = 0;
+			this.hitDirection = null;
+			this.trailierTales$targetXLerp = 0.5F;
+			this.trailierTales$xLerp = 0.5F;
+			this.trailierTales$prevXLerp = 0.5F;
+			this.trailierTales$targetYLerp = 0F;
+			this.trailierTales$yLerp = 0F;
+			this.trailierTales$prevYLerp = 0F;
+			this.trailierTales$targetZLerp = 0.5F;
+			this.trailierTales$zLerp = 0.5F;
+			this.trailierTales$prevZLerp = 0.5F;
+			this.trailierTales$rotation = 0F;
+			this.trailierTales$prevRotation = 0F;
+			this.trailierTales$targetItemScale = 0F;
+			this.trailierTales$itemScale = 0F;
+			this.trailierTales$prevItemScale = 0F;
+			return instance;
+		}
+		return original.call(instance);
 	}
 
 	@Unique
@@ -212,6 +290,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	public boolean trailierTales$setItem(@NotNull ItemStack itemStack) {
 		this.item = itemStack;
 		this.trailierTales$hasCustomItem = true;
+		this.trailierTales$storedLootTable = null;
 		return true;
 	}
 
