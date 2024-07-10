@@ -360,11 +360,7 @@ public final class CoffinSpawner {
 		boolean isPreparing = this.data.isPreparingToSpawnNextMob(level, this.getConfig(), additionalPlayers, 45);
 		boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
 		boolean canSpawnInLevel = this.canSpawnInLevel(level) && this.getState().isCapableOfSpawning();
-		boolean blocked = false;
-		if (direction != null) {
-			blocked = CoffinBlock.isCoffinBlockedAt(direction, level, pos);
-		}
-		return isPreparing && !finishedSpawningMobs && canSpawnInLevel && !blocked;
+		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
 	}
 
 	public void tickServer(ServerLevel world, BlockPos pos, CoffinPart part, boolean ominous) {
