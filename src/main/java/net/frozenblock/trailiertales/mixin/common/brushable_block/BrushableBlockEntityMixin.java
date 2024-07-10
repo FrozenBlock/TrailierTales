@@ -135,14 +135,12 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			shift = At.Shift.BEFORE
 		)
 	)
-	public void trailierTales$rebrushA(
-		long ticks, Player player, Direction direction, CallbackInfoReturnable<Boolean> info
-	) {
+	public void trailierTales$rebrushA(long ticks, Player player, Direction direction, CallbackInfoReturnable<Boolean> info) {
 		if (!this.trailierTales$hasCustomItem) {
 			ItemStack stack = player.getUseItem();
 			int rebrushLevel = stack.getEnchantments().getLevel(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH));
 			if (rebrushLevel > 0) {
-				float rebrushChance = this.trailierTales$rebrushed ? 0.035F * rebrushLevel : 0.1F * rebrushLevel;
+				float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;
 				if (player.getRandom().nextFloat() < rebrushChance) {
 					this.trailierTales$runRebrush = true;
 				}
