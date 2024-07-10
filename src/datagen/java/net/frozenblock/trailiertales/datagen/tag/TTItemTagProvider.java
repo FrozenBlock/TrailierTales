@@ -112,5 +112,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		this.getOrCreateTagBuilder(TrailierItemTags.BRUSHES)
 			.add(Items.BRUSH);
+
+		this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+			.add(Items.BRUSH);
 	}
 }
