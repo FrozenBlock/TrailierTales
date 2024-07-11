@@ -211,6 +211,9 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_CLIENTS);
 				}
 			}
+			if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
+				this.trailierTales$storedLootTable = this.lootTable;
+			}
 		}
 			this.trailierTales$prevRotation = this.trailierTales$rotation;
 			if (this.hitDirection != null) {
