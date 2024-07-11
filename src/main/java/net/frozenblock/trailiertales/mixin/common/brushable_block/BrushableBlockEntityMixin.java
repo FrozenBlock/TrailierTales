@@ -119,7 +119,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		this.trailierTales$saveNBT(compoundTag);
 		if (this.trailierTales$rebrushed)
 			compoundTag.putBoolean("Rebrushed", this.trailierTales$rebrushed);
-		if (this.trailierTales$storedLootTable != null) {
+		if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
 			compoundTag.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.location().toString());
 		}
 	}

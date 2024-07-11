@@ -732,7 +732,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/staircase/bottom1",
+        "location": "trailiertales:catacombs/corridor/staircase/bottom_big_pillar1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
@@ -741,7 +741,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/staircase/top1",
+        "location": "trailiertales:catacombs/corridor/staircase/top_big_pillar1",
         "processors": "trailiertales:catacombs_degradation",
         "projection": "rigid"
       },
