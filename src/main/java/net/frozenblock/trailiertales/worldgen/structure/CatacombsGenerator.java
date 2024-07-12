@@ -183,10 +183,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right_front"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right_front"), catacombsDegradation), 3),
 
-					// Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), catacombsDegradation), 11),
-					// Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), catacombsDegradation), 11),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom_big_pillar1"), catacombsDegradation), 22),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/top_big_pillar1"), catacombsDegradation), 22),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), catacombsDegradation), 22),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), catacombsDegradation), 22),
 
 					Pair.of(StructurePoolElement.single(string("corridor/dead_end/cap1"), catacombsDegradation), 3), // Total 9
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_cap"), catacombsDegradation), 3),
