@@ -261,7 +261,7 @@ public final class CoffinSpawner {
 
 						int lightAtPos = level.getRawBrightness(blockPos, 0);
 						int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
-						if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 10) > 0) {
+						if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 25) > 0) {
 							return Optional.empty();
 						}
 
@@ -368,9 +368,7 @@ public final class CoffinSpawner {
 		}
 
 		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
-		boolean coffinBlocked = false;
 		if (direction != null) {
-			coffinBlocked = CoffinBlock.isCoffinBlockedAt(direction, world, pos);
 			if (!this.data.soulsToSpawn.isEmpty()) {
 				boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
 				boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
@@ -430,7 +428,7 @@ public final class CoffinSpawner {
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world, coffinBlocked);
+			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world);
 			if (nextState != currentState) {
 				this.setState(world, nextState);
 			}

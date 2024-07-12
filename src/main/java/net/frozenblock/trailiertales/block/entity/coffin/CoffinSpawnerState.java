@@ -29,12 +29,12 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		this.footTexture = getTexture(name, true);
 	}
 
-	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level, boolean blocked) {
+	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level) {
 		return switch (this) {
 			case INACTIVE -> getInactiveState(pos, spawner, level);
-			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
-			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level, blocked);
-			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level, blocked);
+			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level);
+			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level);
+			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level);
 			default -> throw new MatchException(null, null);
 		};
 	}
@@ -63,8 +63,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		CoffinSpawnerState coffinSpawnerState,
 		BlockPos pos,
 		@NotNull CoffinSpawner spawner,
-		@NotNull ServerLevel level,
-		boolean blocked
+		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
@@ -90,7 +89,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 					coffinSpawnerData.nextMobSpawnsAt = 0L;
 					coffinSpawnerData.power = 0;
 				}
-			} else if (coffinSpawnerData.isReadyToSpawnNextMob(level, coffinSpawnerConfig, additionalPlayers, blocked)) {
+			} else if (coffinSpawnerData.isReadyToSpawnNextMob(level, coffinSpawnerConfig, additionalPlayers)) {
 				spawner.spawnMob(level, pos).ifPresent(uuid -> {
 					coffinSpawnerData.currentMobs.add(uuid);
 					++coffinSpawnerData.totalMobsSpawned;
