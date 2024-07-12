@@ -196,6 +196,13 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		this.trailierTales$storedLootTable = this.lootTable;
 	}
 
+	@Inject(method = "setLootTable", at = @At("HEAD"))
+	public void trailierTales$setLootTable(ResourceKey<LootTable> lootTable, long lootTableSeed, CallbackInfo info) {
+		if (lootTable != null) {
+			this.trailierTales$storedLootTable = lootTable;;
+		}
+	}
+
 	@Unique
 	@Override
 	public void trailierTales$tick() {
@@ -211,7 +218,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_CLIENTS);
 				}
 			}
-			if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
+			if (this.trailierTales$storedLootTable == null && this.lootTable != null) {
 				this.trailierTales$storedLootTable = this.lootTable;
 			}
 		}
