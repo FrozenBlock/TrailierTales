@@ -52,6 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CoffinSpawner {
+	private static final int PLAYER_TRACKING_DISTANCE = 48;
 	private static final int MAX_MOB_TRACKING_DISTANCE = 64;
 	private static final int MAX_MOB_TRACKING_DISTANCE_SQR = Mth.square(MAX_MOB_TRACKING_DISTANCE);
 	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (world, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
@@ -81,7 +82,7 @@ public final class CoffinSpawner {
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("aggressive_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getAggressiveConfig),
 					CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
 					Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 12000).forGetter(CoffinSpawner::getPowerCooldownLength),
-					Codec.intRange(1, MAX_MOB_TRACKING_DISTANCE).optionalFieldOf("required_player_range", MAX_MOB_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
+					Codec.intRange(1, PLAYER_TRACKING_DISTANCE).optionalFieldOf("required_player_range", PLAYER_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
 					Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID),
 					Codec.BOOL.optionalFieldOf("attempting_to_spawn_mob", false).forGetter(CoffinSpawner::isAttemptingToSpawnMob)
 				)
@@ -107,7 +108,7 @@ public final class CoffinSpawner {
 			CoffinSpawnerConfig.AGGRESSIVE,
 			new CoffinSpawnerData(),
 			12000,
-			MAX_MOB_TRACKING_DISTANCE,
+			PLAYER_TRACKING_DISTANCE,
 			UUID.randomUUID().toString(),
 			false,
 			coffin,
@@ -299,9 +300,7 @@ public final class CoffinSpawner {
 									mob.spawnAnim();
 								}
 								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
-								if (this.data.detectedAnyPlayers()) {
-									this.appendCoffinSpawnAttributes(entity, level, pos);
-								}
+								this.appendCoffinSpawnAttributes(entity, level, pos);
 								return Optional.of(entity.getUUID());
 							}
 						}
