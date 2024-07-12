@@ -17,6 +17,7 @@ import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -35,6 +36,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
@@ -343,6 +345,9 @@ public final class CoffinSpawner {
 			entityInterface.trailierTales$setCoffinData(
 				new EntityCoffinData(pos, this.uuid)
 			);
+		}
+		if (entity instanceof Apparition apparition) {
+			apparition.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(level.dimension(), pos));
 		}
 	}
 

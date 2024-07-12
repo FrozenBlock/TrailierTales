@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
@@ -57,6 +58,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -206,6 +208,18 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader world) {
 		return !world.getBlockState(pos).isCollisionShapeFullBlock(world, pos) ? 15F : -0.75F;
+	}
+
+	public boolean shouldReturnToHome() {
+		if (this instanceof EntityCoffinInterface coffinInterface) {
+			if (coffinInterface.trailierTales$getCoffinData() != null) {
+				Optional<CoffinSpawner> optional = coffinInterface.trailierTales$getCoffinData().getSpawner(this.level());
+				if (optional.isPresent()) {
+					return this.position().distanceTo(Vec3.atCenterOf(coffinInterface.trailierTales$getCoffinData().getPos())) >= 58D;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override

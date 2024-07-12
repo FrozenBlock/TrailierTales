@@ -8,26 +8,32 @@ import java.util.Set;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.GoToWantedItem;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
+import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -67,7 +73,8 @@ public class ApparitionAi {
 		RegisterMemoryModuleTypes.STRAFING_CLOCKWISE,
 		RegisterMemoryModuleTypes.STRAFING_BACKWARDS,
 		RegisterMemoryModuleTypes.STRAFING_TIME,
-		RegisterMemoryModuleTypes.CHARGING_TICKS
+		RegisterMemoryModuleTypes.CHARGING_TICKS,
+		MemoryModuleType.HOME
 	);
 
 	@Contract("_, _ -> param2")
@@ -91,7 +98,8 @@ public class ApparitionAi {
 				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
 				GoToWantedItem.create(
 					apparition -> apparition.getInventory().getItems().getFirst().isEmpty(),
-					1.5F, true, 32)
+					1.25F, true, 32),
+				StayCloseToTarget.create(ApparitionAi::getLookTarget, entity -> true, 7, 16, 1F)
 			)
 		);
 	}
@@ -130,6 +138,30 @@ public class ApparitionAi {
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);
+	}
+
+	private static boolean shouldGoTowardsHome(@NotNull LivingEntity apparition, @NotNull GlobalPos pos) {
+		Level level = apparition.level();
+		return level.dimension() == pos.dimension() && !((Apparition)apparition).shouldReturnToHome();
+	}
+
+	@NotNull
+	private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity apparition) {
+		Brain<?> brain = apparition.getBrain();
+		Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
+		if (home.isPresent()) {
+			GlobalPos globalPos = home.get();
+			if (shouldGoTowardsHome(apparition, globalPos)) {
+				return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), apparition.level())));
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	@NotNull
+	private static BlockPos randomPosAround(@NotNull BlockPos pos, @NotNull Level level) {
+		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
 	}
 
 	private static boolean isTarget(@NotNull Apparition apparition, LivingEntity target) {
