@@ -25,7 +25,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 	private final ItemRenderer itemRenderer;
 	private float itemYaw;
 
-	private static final ResourceLocation TEXTURE = TrailierConstants.id("textures/entity/apparition/apparition_active.png");
+	private static final ResourceLocation TEXTURE = TrailierConstants.id("textures/entity/apparition/apparition.png");
 
 	public ApparitionRenderer(EntityRendererProvider.Context context) {
 		super(context, new ApparitionModel<>(context.bakeLayer(TrailierTalesClient.APPARITION)), 0.5F);
@@ -44,7 +44,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,
-			TrailierConstants.id("textures/entity/apparition/apparition_aggressive.png"),
+			TrailierConstants.id("textures/entity/apparition/apparition_irritated.png"),
 			true
 		));
 		this.itemRenderer = context.getItemRenderer();
