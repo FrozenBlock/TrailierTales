@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.behavior.RandomStroll;
 import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.behavior.StayCloseToTarget;
@@ -132,9 +133,18 @@ public class ApparitionAi {
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
 				new ApparitionAid(),
 				new ApparitionShoot(),
-				GoToWantedItem.create(
-					apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
-					1.25F, true, 32)
+				new RunOne<>( // idle look
+					ImmutableList.of(
+						Pair.of(
+							GoToWantedItem.create(
+								apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
+								1.25F, true, 32
+							),
+							1
+						),
+						Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), 1)
+					)
+				)
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);

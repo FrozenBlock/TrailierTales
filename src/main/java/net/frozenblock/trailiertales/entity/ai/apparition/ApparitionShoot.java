@@ -88,11 +88,15 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 			int strafeTime = brain.getMemory(RegisterMemoryModuleTypes.STRAFING_TIME).orElse(-1);
 			if (!(distance > 256D) && seeTime >= 20) {
+				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 				apparition.getNavigation().stop();
 				strafeTime += 1;
 				brain.setMemory(RegisterMemoryModuleTypes.STRAFING_TIME, strafeTime);
 			} else {
 				apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
+				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 				brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_TIME);
 			}
 
@@ -130,11 +134,14 @@ public class ApparitionShoot extends Behavior<Apparition> {
 					brain.hasMemoryValue(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE) ? 0.5F : -0.5F
 				);
 				if (apparition.getControlledVehicle() instanceof Mob mob) {
+					brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 					mob.lookAt(livingEntity, 30F, 30F);
 				}
 
+				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 				apparition.lookAt(livingEntity, 30F, 30F);
 			} else {
+				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 				apparition.getLookControl().setLookAt(livingEntity, 30F, 30F);
 			}
 
