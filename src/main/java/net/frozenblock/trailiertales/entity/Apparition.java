@@ -119,7 +119,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			.add(Attributes.FLYING_SPEED, 0.5D)
 			.add(Attributes.MOVEMENT_SPEED, 0.5D)
 			.add(Attributes.ATTACK_DAMAGE, 3D)
-			.add(Attributes.FOLLOW_RANGE, 24D);
+			.add(Attributes.FOLLOW_RANGE, 24D)
+			.add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
 	}
 
 	@Override
