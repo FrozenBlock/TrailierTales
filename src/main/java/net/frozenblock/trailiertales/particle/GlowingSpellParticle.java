@@ -72,6 +72,11 @@ public class GlowingSpellParticle extends TextureSheetParticle {
 			&& localPlayer.isScoping();
 	}
 
+	@Override
+	protected int getLightColor(float tint) {
+		return 240;
+	}
+
 	@Environment(EnvType.CLIENT)
 	public static class MobEffectProvider implements ParticleProvider<ColorParticleOption> {
 		private final SpriteSet sprite;
