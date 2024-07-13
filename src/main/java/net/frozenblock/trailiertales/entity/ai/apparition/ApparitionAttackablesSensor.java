@@ -22,7 +22,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	private boolean isHostileTarget(@NotNull LivingEntity entity) {
-		return entity.getType().is(TrailierEntityTags.APPARITION_ALWAYS_HOSTILES);
+		return entity.getType().is(TrailierEntityTags.APPARITION_TARGETABLE);
 	}
 
 	private boolean isClose(LivingEntity apparition, @NotNull LivingEntity target) {

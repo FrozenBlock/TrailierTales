@@ -9,8 +9,8 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.tag.TrailierEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -330,7 +330,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
 			if (this.hiddenTicks <= 0) {
-				this.spawnParticles(this.random.nextInt(0, 4), APPARITION_TO_WHITE);
+				this.spawnParticles(this.random.nextInt(0, 3), APPARITION_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
@@ -523,8 +523,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
-			&& livingEntity.getType() != EntityType.ARMOR_STAND
-			&& livingEntity.getType() != RegisterEntities.APPARITION
+			&& entity.getType().is(TrailierEntityTags.APPARITION_TARGETABLE)
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()

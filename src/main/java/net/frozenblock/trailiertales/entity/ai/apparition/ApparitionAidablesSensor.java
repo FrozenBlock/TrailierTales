@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +39,13 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	private boolean isAidable(@NotNull Apparition apparition, @NotNull LivingEntity entity) {
 		LivingEntity newTarget = apparition.getTarget();
-		if (entity instanceof Mob mob && newTarget != null && mob.getType() != RegisterEntities.APPARITION) {
+		if (
+			entity instanceof Mob mob
+				&& newTarget != null
+				&& mob.getType() != RegisterEntities.APPARITION
+				&& !mob.getType().getCategory().isFriendly()
+				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
+		) {
 			LivingEntity currentTarget = mob.getTarget();
 			return mob != apparition
 				&& mob.isAlive()

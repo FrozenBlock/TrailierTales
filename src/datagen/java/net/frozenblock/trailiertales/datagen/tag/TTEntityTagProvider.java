@@ -18,7 +18,7 @@ public final class TTEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(TrailierEntityTags.APPARITION_ALWAYS_HOSTILES)
+		this.getOrCreateTagBuilder(TrailierEntityTags.APPARITION_TARGETABLE)
 			.add(EntityType.PLAYER);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
