@@ -40,7 +40,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	public ApparitionModel(@NotNull ModelPart root) {
 		this(
-			FrozenRenderType::entityTranslucentEmissiveAlwaysRenderCull,
+			FrozenRenderType::apparitionOuterCull,
 			root,
 			Apparition::getTransparency,
 			Apparition::getOuterTransparency,
