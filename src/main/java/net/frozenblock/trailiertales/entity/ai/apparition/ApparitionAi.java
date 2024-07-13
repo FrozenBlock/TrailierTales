@@ -131,19 +131,12 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
+				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F),
 				new ApparitionAid(),
 				new ApparitionShoot(),
-				new RunOne<>( // idle look
-					ImmutableList.of(
-						Pair.of(
-							GoToWantedItem.create(
-								apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
-								1.25F, true, 32
-							),
-							1
-						),
-						Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), 1)
-					)
+				GoToWantedItem.create(
+					apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
+					1.25F, true, 32
 				)
 			),
 			MemoryModuleType.ATTACK_TARGET
@@ -190,7 +183,12 @@ public class ApparitionAi {
 
 	@NotNull
 	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Apparition apparition) {
-		return apparition.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+		Brain<Apparition> brain = apparition.getBrain();
+		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)) {
+			return brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
+		} else {
+			return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+		}
 	}
 
 	@NotNull

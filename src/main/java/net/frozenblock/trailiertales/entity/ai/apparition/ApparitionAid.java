@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -38,7 +37,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
-		return apparition.getPose() == Pose.STANDING;
+		return apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
 	}
 
 	@Override

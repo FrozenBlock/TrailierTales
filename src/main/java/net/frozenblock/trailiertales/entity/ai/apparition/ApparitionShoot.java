@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -35,7 +34,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
-		return apparition.getPose() == Pose.STANDING
+		return !apparition.getInventory().getItems().getFirst().isEmpty()
 			&& apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(livingEntity -> isTargetWithinRange(apparition, livingEntity)).orElse(false);
 	}
 
@@ -62,7 +61,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_TIME);
 		brain.eraseMemory(RegisterMemoryModuleTypes.CHARGING_TICKS);
 		apparition.setPoltergeistAnimProgress(0F);
-		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 80);
+		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 300);
 	}
 
 	@Override
