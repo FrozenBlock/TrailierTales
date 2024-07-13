@@ -349,6 +349,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
+	public boolean requiresCustomPersistence() {
+		return super.requiresCustomPersistence() || !this.getVisibleItem().isEmpty();
+	}
+
+	@Override
 	public boolean canBeHitByProjectile() {
 		return super.canBeHitByProjectile() && this.getTransparency() > 0F;
 	}
