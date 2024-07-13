@@ -8,15 +8,17 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.particles.ColorParticleOption;
 import org.jetbrains.annotations.NotNull;
 
-public class ApparitionAidParticle extends TextureSheetParticle {
+public class ColorableBubbleParticle extends TextureSheetParticle {
 	private final SpriteSet spriteProvider;
 
-	ApparitionAidParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
+	ColorableBubbleParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
 		super(world, d, e, f);
 		this.spriteProvider = spriteProvider;
+		this.setSpriteFromAge(spriteProvider);
+		this.quadSize *= 1.2F;
 		this.setSize(0.02F, 0.02F);
 		this.xd = g * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
 		this.yd = h * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
@@ -52,17 +54,17 @@ public class ApparitionAidParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
+	public static class Provider implements ParticleProvider<ColorParticleOption> {
 		private final SpriteSet sprite;
 
-		public Provider(SpriteSet spriteProvider) {
-			this.sprite = spriteProvider;
+		public Provider(SpriteSet spriteSet) {
+			this.sprite = spriteSet;
 		}
 
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i) {
-			ApparitionAidParticle apparitionAidParticle = new ApparitionAidParticle(world, d, e, f, g, h, i, this.sprite);
-			apparitionAidParticle.setSpriteFromAge(this.sprite);
-			return apparitionAidParticle;
+		public Particle createParticle(ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i) {
+			Particle particle = new ColorableBubbleParticle(world, d, e, f, g, h, i, this.sprite);
+			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
+			return particle;
 		}
 	}
 }

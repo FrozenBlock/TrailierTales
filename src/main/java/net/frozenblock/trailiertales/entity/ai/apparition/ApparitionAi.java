@@ -95,11 +95,7 @@ public class ApparitionAi {
 			ImmutableList.of(
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
-				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
-				GoToWantedItem.create(
-					apparition -> apparition.getInventory().getItems().getFirst().isEmpty(),
-					1.25F, true, 32),
-				StayCloseToTarget.create(ApparitionAi::getLookTarget, entity -> true, 7, 16, 1F)
+				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS)
 			)
 		);
 	}
@@ -110,6 +106,7 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StartAttacking.create(apparition -> true, ApparitionAi::findNearestValidAttackTarget),
+				StayCloseToTarget.create(ApparitionAi::getLookTarget, entity -> true, 7, 16, 1F),
 				new RunOne<>( // idle look
 					ImmutableList.of(
 						Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 8F), 1),
@@ -133,8 +130,11 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
+				new ApparitionAid(),
 				new ApparitionShoot(),
-				new ApparitionAid()
+				GoToWantedItem.create(
+					apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
+					1.25F, true, 32)
 			),
 			MemoryModuleType.ATTACK_TARGET
 		);

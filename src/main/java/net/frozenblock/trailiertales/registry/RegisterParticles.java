@@ -4,7 +4,9 @@ import com.mojang.serialization.MapCodec;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -16,7 +18,15 @@ import org.jetbrains.annotations.NotNull;
 public final class RegisterParticles {
 	public static final SimpleParticleType COFFIN_SOUL = register("coffin_soul");
 	public static final SimpleParticleType COFFIN_SOUL_ENTER = register("coffin_soul_enter");
-	public static final SimpleParticleType AID_BUBBLE = register("aid_bubble");
+	public static final ParticleType<ColorParticleOption> COLORABLE_BUBBLE = register(
+		"colorable_bubble", false, ColorParticleOption::codec, ColorParticleOption::streamCodec
+	);
+	public static final ParticleType<ColorParticleOption> GLOWING_ENTITY_EFFECT = register(
+		"glowing_entity_effect", false, ColorParticleOption::codec, ColorParticleOption::streamCodec
+	);
+	public static final ParticleType<GlowingDustColorTransitionOptions> GLOWING_DUST_COLOR_TRANSITION = register(
+		"glowing_dust_color_transition", false, particleType -> GlowingDustColorTransitionOptions.CODEC, particleType -> GlowingDustColorTransitionOptions.STREAM_CODEC
+	);
 
 	public static void init() {
 		TrailierConstants.log("Registering Particles for Trailier Tales.", TrailierConstants.UNSTABLE_LOGGING);

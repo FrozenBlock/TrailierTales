@@ -8,10 +8,10 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -65,10 +65,10 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob {
-	private static final Vector3f SOUL_PARTICLE_COLOR = new Vector3f(96F / 255F, 245F / 255F, 250F / 255F);
+	private static final Vector3f PARTICLE_COLOR = new Vector3f(162F / 255F, 181F/ 255F, 217F / 255F);
 	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
-	private static final DustColorTransitionOptions SOUL_TO_WHITE = new DustColorTransitionOptions(
-		SOUL_PARTICLE_COLOR, WHITE, 1.0F
+	private static final GlowingDustColorTransitionOptions APPARITION_TO_WHITE = new GlowingDustColorTransitionOptions(
+		PARTICLE_COLOR, WHITE, 1F
 	);
 	public static final ResourceLocation ATTRIBUTE_APPARITION_FOLLOW_RANGE = TrailierConstants.id("apparition_follow_range");
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
@@ -120,7 +120,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			.add(Attributes.MOVEMENT_SPEED, 0.5D)
 			.add(Attributes.ATTACK_DAMAGE, 3D)
 			.add(Attributes.FOLLOW_RANGE, 24D)
-			.add(Attributes.KNOCKBACK_RESISTANCE, 0.75D);
+			.add(Attributes.KNOCKBACK_RESISTANCE, 0.35D);
 	}
 
 	@Override
@@ -330,7 +330,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
 			if (this.hiddenTicks <= 0) {
-				this.spawnParticles(this.random.nextInt(0, 5), SOUL_TO_WHITE);
+				this.spawnParticles(this.random.nextInt(0, 4), APPARITION_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());

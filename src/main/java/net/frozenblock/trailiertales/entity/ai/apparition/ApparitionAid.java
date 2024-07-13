@@ -4,10 +4,10 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import java.util.List;
-import java.util.Optional;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -45,8 +45,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	@Override
 	protected boolean canStillUse(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
-		Optional<LivingEntity> optional = brain.getMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
-		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && (optional.isPresent());
+		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && brain.hasMemoryValue(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
 	}
 
 	@Override
@@ -63,12 +62,15 @@ public class ApparitionAid extends Behavior<Apparition> {
 		apparition.setAidAnimProgress(0F);
 	}
 
+	private static final ParticleOptions BUBBLE_PARTICLE = ColorParticleOption.create(RegisterParticles.COLORABLE_BUBBLE, 162F / 255F, 181F/ 255F, 217F / 255F);
+	private static final ParticleOptions EFFECT_PARTICLE = ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 162F / 255F, 181F/ 255F, 217F / 255F);
+
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
 		List<LivingEntity> entities = brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
 		if (brain.hasMemoryValue(RegisterMemoryModuleTypes.IS_AIDING)) {
-			entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), RegisterParticles.AID_BUBBLE));
+			entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), BUBBLE_PARTICLE));
 			apparition.setAidAnimProgress(1F);
 			LivingEntity nearestAidable = brain.getMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE).orElse(null);
 			if (nearestAidable != null) {
@@ -79,7 +81,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
 				if (livingEntity instanceof Mob mob) {
 					mob.setTarget(attackTarget);
-					spawnParticles(world, livingEntity, apparition.getRandom().nextInt(9, 18), ParticleTypes.EFFECT);
+					spawnParticles(world, livingEntity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
 				}
 			}));
 			this.doStop(world, apparition, l);
