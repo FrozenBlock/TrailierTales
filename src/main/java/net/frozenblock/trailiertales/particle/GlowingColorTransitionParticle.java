@@ -3,18 +3,18 @@ package net.frozenblock.trailiertales.particle;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.DustParticleBase;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.DustColorTransitionOptions;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-public class GlowingColorTransitionParticle extends DustParticleBase<DustColorTransitionOptions> {
+public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDustColorTransitionOptions> {
 	private final Vector3f fromColor;
 	private final Vector3f toColor;
 
@@ -26,7 +26,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<DustColorTr
 		double velocityX,
 		double velocityY,
 		double velocityZ,
-		DustColorTransitionOptions particleEffect,
+		GlowingDustColorTransitionOptions particleEffect,
 		SpriteSet spriteProvider
 	) {
 		super(world, x, y, z, velocityX, velocityY, velocityZ, particleEffect, spriteProvider);
@@ -60,7 +60,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<DustColorTr
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static class Provider implements ParticleProvider<DustColorTransitionOptions> {
+	public static class Provider implements ParticleProvider<GlowingDustColorTransitionOptions> {
 		private final SpriteSet sprites;
 
 		public Provider(SpriteSet spriteProvider) {
@@ -68,7 +68,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<DustColorTr
 		}
 
 		public Particle createParticle(
-			DustColorTransitionOptions dustColorTransitionOptions, ClientLevel world, double d, double e, double f, double g, double h, double i
+			GlowingDustColorTransitionOptions dustColorTransitionOptions, ClientLevel world, double d, double e, double f, double g, double h, double i
 		) {
 			return new GlowingColorTransitionParticle(world, d, e, f, g, h, i, dustColorTransitionOptions, this.sprites);
 		}
