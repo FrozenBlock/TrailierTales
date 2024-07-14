@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,6 +42,7 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 			if (livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox())) {
 				hauntingTicks += 2;
 				if (hauntingTicks >= 150) {
+					apparition.playSound(RegisterSounds.APPARITION_AID);
 					hauntingTicks = 0;
 					livingEntity.addEffect(
 						new MobEffectInstance(

@@ -9,6 +9,7 @@ import java.util.UUID;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -54,7 +55,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
-		apparition.playSound(SoundEvents.BREEZE_INHALE, 1F, 1F);
+		apparition.playSound(RegisterSounds.APPARITION_AID);
 		brain.setMemory(RegisterMemoryModuleTypes.AIDING_TIME, 61);
 		List<UUID> trackingUUIDs = new ArrayList<>();
 		brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).ifPresent(nearbyAidables -> {

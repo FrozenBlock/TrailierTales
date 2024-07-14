@@ -26,6 +26,11 @@ public class RegisterSounds {
 		COFFIN_FALL
 	);
 
+	public static final SoundEvent APPARITION_IDLE = register("entity.apparition.idle");
+	public static final SoundEvent APPARITION_HURT = register("entity.apparition.hurt");
+	public static final SoundEvent APPARITION_DEATH = register("entity.apparition.death");
+	public static final SoundEvent APPARITION_AID = register("entity.apparition.aid");
+
 	public static final SoundEvent SUSPICIOUS_DIRT_BREAK = register("block.suspicious_dirt.break");
 	public static final SoundEvent SUSPICIOUS_DIRT_STEP = register("block.suspicious_dirt.step");
 	public static final SoundEvent SUSPICIOUS_DIRT_PLACE = register("block.suspicious_dirt.place");

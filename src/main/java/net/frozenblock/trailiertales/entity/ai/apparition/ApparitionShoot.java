@@ -4,6 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
@@ -46,7 +47,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
-		apparition.playSound(SoundEvents.BREEZE_INHALE, 1F, 1F);
+		apparition.playSound(RegisterSounds.APPARITION_AID);
 		apparition.setAggressive(true);
 		apparition.setPoltergeistAnimProgress(1F);
 	}

@@ -55,5 +55,45 @@
       "trailiertales:block/coffin/spawn3"
     ],
     "subtitle": "subtitles.block.coffin.spawn_mob"
+  },
+  "entity.apparition.idle": {
+    "sounds": [
+      "trailiertales:mob/apparition/idle1",
+      "trailiertales:mob/apparition/idle2",
+      "trailiertales:mob/apparition/idle3",
+      "trailiertales:mob/apparition/idle4",
+      "trailiertales:mob/apparition/idle5",
+      "trailiertales:mob/apparition/idle6",
+      "trailiertales:mob/apparition/idle7"
+    ],
+    "subtitle": "subtitles.entity.apparition.idle"
+  },
+  "entity.apparition.hurt": {
+    "sounds": [
+      "trailiertales:mob/apparition/hurt1",
+      "trailiertales:mob/apparition/hurt2",
+      "trailiertales:mob/apparition/hurt3",
+      "trailiertales:mob/apparition/hurt4",
+      "trailiertales:mob/apparition/hurt5",
+      "trailiertales:mob/apparition/hurt6",
+      "trailiertales:mob/apparition/hurt7"
+    ],
+    "subtitle": "subtitles.entity.apparition.hurt"
+  },
+  "entity.apparition.death": {
+    "sounds": [
+      "trailiertales:mob/apparition/death1",
+      "trailiertales:mob/apparition/death2",
+      "trailiertales:mob/apparition/death3"
+    ],
+    "subtitle": "subtitles.entity.apparition.death"
+  },
+  "entity.apparition.aid": {
+    "sounds": [
+      "trailiertales:mob/apparition/pickup1",
+      "trailiertales:mob/apparition/pickup2",
+      "trailiertales:mob/apparition/pickup3"
+    ],
+    "subtitle": "subtitles.entity.apparition.aid"
   }
 }

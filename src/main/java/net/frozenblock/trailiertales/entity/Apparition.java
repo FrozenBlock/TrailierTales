@@ -10,6 +10,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterf
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.tag.TrailierEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -21,6 +22,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
@@ -320,6 +322,27 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public float getFlicker(float partialTick) {
 		return 1F - Mth.lerp(partialTick, this.prevFlicker, this.flicker);
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return RegisterSounds.APPARITION_IDLE;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return RegisterSounds.APPARITION_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return RegisterSounds.APPARITION_DEATH;
+	}
+
+	@Override
+	protected float getSoundVolume() {
+		return 0.35F;
 	}
 
 	@Override

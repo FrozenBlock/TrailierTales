@@ -74,5 +74,10 @@
   "block.trailiertales.mossy_deepslate_tiles": "Mossy Deepslate Tiles",
   "block.trailiertales.mossy_deepslate_tile_stairs": "Mossy Deepslate Tile Stairs",
   "block.trailiertales.mossy_deepslate_tile_slab": "Mossy Deepslate Tile Slab",
-  "block.trailiertales.mossy_deepslate_tile_wall": "Mossy Deepslate Tile Wall"
+  "block.trailiertales.mossy_deepslate_tile_wall": "Mossy Deepslate Tile Wall",
+
+  "subtitles.entity.apparition.idle": "Apparition looms",
+  "subtitles.entity.apparition.hurt": "Apparition hurts",
+  "subtitles.entity.apparition.death": "Apparition dies",
+  "subtitles.entity.apparition.aid": "Apparition starts to hypnotize"
 }
