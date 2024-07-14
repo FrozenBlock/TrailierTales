@@ -199,6 +199,7 @@ public class RegisterStructureProcessors {
 					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.ARCHER_POTTERY_SHERD,
+					RegisterItems.BULLSEYE_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD
 				),
