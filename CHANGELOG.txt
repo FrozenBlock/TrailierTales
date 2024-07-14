@@ -4,3 +4,45 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
+- New Jungle, Desert, and Savanna ruins have been added.
+- Added Suspicious Red Sand, Suspicious Clay, and Suspicious Dirt.
+- The 3rd person brushing animation is now much smoother.
+- Items now smoothly come out of Suspicious blocks.
+
+- Added the Rebrush enchantment.
+ - At a rate of 10% per level, will allow you to brush a Suspicious block a second time.
+ - Can be rebrushed after the first time at a rate of 3% per level.
+
+- Added the Catacombs structure.
+ - Contains plenty of rooms and corridors, leading to players easily getting lost or killed.
+ - Some rooms have reward chests, which can contain the new Rebrush enchantment.
+ - The new Coffin generates here.
+
+- Added the Coffin block, only generating in the Catacombs structure.
+ - Cannot be crafted or obtained in Survival.
+ - Takes just as long as a Trial Spawner/Vault to break.
+ - Spawns mobs occasionally, with three levels of aggression depending on how many spawned mobs have been killed.
+ - Can be slowed down by placing bright light sources nearby.
+ - Spawns Apparitions occasionally.
+ - Mobs spawned from Coffins have a higher follow distance attribute.
+
+- Added the Apparition.
+ - Will grab items and thrust them at the player to damage them.
+ - Will "hypnotize" mobs into targeting the player if they aren't targeting them already.
+ - Can target players from relatively far distances.
+ - When in contact with a player for long enough, will give them the new Haunt effect.
+ - Becomes invisible when in darkness.
+
+- Added the Haunt effect.
+ - Acts much like Darkness, bringing fog inwards and dampening light.
+ - Halves the attenuation distance of sounds.
+
+- Added the Surveyor.
+ - When a player is within its line of sight, will emit a Redstone signal of 15.
+ - Emits a signal equivalent to the player's distance from the block with a comparator.
+
+- Added the Cyan Rose.
+ - The third obtainable plant from the Sniffer.
+
+- Added the Undead and Desolation Armor Trims.
+- Added the Wither, Bullseye, Incidence, and Bloom Pottery Sherds.

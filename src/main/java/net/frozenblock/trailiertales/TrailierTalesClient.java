@@ -33,10 +33,14 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String BLANK_DECORATED_NAME = "decorated_pot_blank_side";
 	public static final String BULLSEYE_POTTERY_PATTERN_NAME = "bullseye_pottery_pattern";
 	public static final String WITHER_POTTERY_PATTERN_NAME = "wither_pottery_pattern";
+	public static final String BLOOM_POTTERY_PATTERN_NAME = "bloom_pottery_pattern.png";
+	public static final String INCIDENCE_POTTERY_PATTERN_NAME = "incidence_pottery_pattern";
 
 	public static final ResourceKey<DecoratedPotPattern> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BLANK_DECORATED_NAME));
 	public static final ResourceKey<DecoratedPotPattern> BULLSEYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BULLSEYE_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> WITHER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(WITHER_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BLOOM_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BLOOM_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> INCIDENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(INCIDENCE_POTTERY_PATTERN_NAME));
 
 	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TrailierConstants.id("coffin_head"), "main");
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TrailierConstants.id("coffin_foot"), "main");

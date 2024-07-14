@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
-import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,6 +31,8 @@ public class DecoratedPotPatternsMixin {
 		newMap.putAll(original);
 		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
+		newMap.put(RegisterItems.BLOOM_POTTERY_SHERD, TrailierTalesClient.BLOOM_POTTERY_PATTERN);
+		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
 		return Map.copyOf(newMap);
 	}
 
@@ -40,9 +41,10 @@ public class DecoratedPotPatternsMixin {
 		trailierTales$register(registry, TrailierTalesClient.BLANK_DECORATED, TrailierTalesClient.BLANK_DECORATED_NAME);
 		trailierTales$register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.BLOOM_POTTERY_PATTERN, TrailierTalesClient.BLOOM_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN_NAME);
 	}
 
-	@Contract("_, _, _ -> new")
 	@Unique
 	private static void trailierTales$register(Registry<DecoratedPotPattern> registry, ResourceKey<DecoratedPotPattern> registryKey, String path) {
 		Registry.register(registry, registryKey, new DecoratedPotPattern(TrailierConstants.id(path)));
