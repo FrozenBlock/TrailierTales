@@ -500,7 +500,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public boolean isAiding() {
-		return this.getBrain().checkMemory(RegisterMemoryModuleTypes.IS_AIDING, MemoryStatus.VALUE_PRESENT);
+		return this.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.AIDING_TIME);
 	}
 
 	@SuppressWarnings("unchecked")
