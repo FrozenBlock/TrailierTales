@@ -342,7 +342,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected float getSoundVolume() {
-		return 0.35F;
+		return 0.75F;
 	}
 
 	@Override
