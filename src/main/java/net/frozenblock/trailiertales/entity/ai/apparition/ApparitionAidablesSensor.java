@@ -45,7 +45,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				&& mob.getType() != RegisterEntities.APPARITION
 				&& !mob.getType().getCategory().isFriendly()
 				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
-				&& !takenUUIDs.contains(newTarget.getUUID())
+				&& !takenUUIDs.contains(mob.getUUID())
 		) {
 			Brain<Apparition> brain = apparition.getBrain();
 			if (brain.hasMemoryValue(RegisterMemoryModuleTypes.AIDING_TIME)) {
