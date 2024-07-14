@@ -327,7 +327,6 @@ public final class CoffinSpawner {
 			if (level.addFreshEntity(apparition)) {
 				apparition.hiddenTicks = 100;
 				this.appendCoffinSpawnAttributes(apparition, level, pos);
-				level.addFreshEntity(apparition);
 				this.data.nextApparitionSpawnsAt = level.getGameTime() + 80L;
 				this.data.currentApparitions.add(apparition.getUUID());
 			}
