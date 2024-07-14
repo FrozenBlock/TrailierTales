@@ -967,7 +967,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/archery",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_degradation_archery",
         "projection": "rigid"
       },
       "weight": 3
@@ -1012,7 +1012,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/lava_trap",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_degradation_fire",
         "projection": "rigid"
       },
       "weight": 3

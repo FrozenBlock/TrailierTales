@@ -43,7 +43,8 @@ public class CatacombsGenerator {
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
 		Holder<StructureProcessorList> catacombsDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION);
-
+		Holder<StructureProcessorList> catacombsDegradationArchery = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION_ARCHERY);
+		Holder<StructureProcessorList> catacombsDegradationFire = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION_FIRE);
 		pool.register(
 			START,
 			new StructureTemplatePool(
@@ -211,12 +212,12 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars2"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars3"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars3"), catacombsDegradation), 1),
-					Pair.of(StructurePoolElement.single(string("tomb/archery"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("tomb/archery"), catacombsDegradationArchery), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/burial"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb1"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb2"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/king"), catacombsDegradation), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/lava_trap"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("tomb/lava_trap"), catacombsDegradationFire), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/maze"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/piston_puzzle"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("tomb/poison_trap"), catacombsDegradation), 3),

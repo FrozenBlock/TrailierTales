@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:badlands_fort/fort1",
-        "processors": "trailiertales:suspicious_block_to_normal_085",
+        "processors": "trailiertales:badlands_fort_archaeology",
         "projection": "rigid"
       },
       "weight": 1
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:badlands_fort/fort2",
-        "processors": "trailiertales:suspicious_block_to_normal_085",
+        "processors": "trailiertales:badlands_fort_archaeology",
         "projection": "rigid"
       },
       "weight": 1
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:badlands_fort/fort_tower1",
-        "processors": "trailiertales:suspicious_block_to_normal_085",
+        "processors": "trailiertales:badlands_fort_archaeology",
         "projection": "rigid"
       },
       "weight": 1
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:badlands_fort/fort_tower2",
-        "processors": "trailiertales:suspicious_block_to_normal_085",
+        "processors": "trailiertales:badlands_fort_archaeology",
         "projection": "rigid"
       },
       "weight": 1

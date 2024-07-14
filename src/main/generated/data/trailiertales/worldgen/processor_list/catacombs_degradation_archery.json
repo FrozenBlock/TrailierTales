@@ -466,14 +466,9 @@
             "default_to_brick": false,
             "sherds": [
               "minecraft:skull_pottery_sherd",
-              "minecraft:skull_pottery_sherd",
-              "minecraft:prize_pottery_sherd",
-              "minecraft:plenty_pottery_sherd",
-              "minecraft:sheaf_pottery_sherd",
-              "minecraft:heart_pottery_sherd",
               "minecraft:archer_pottery_sherd",
-              "minecraft:blade_pottery_sherd",
-              "trailiertales:wither_pottery_sherd"
+              "trailiertales:wither_pottery_sherd",
+              "trailiertales:bullseye_pottery_sherd"
             ]
           },
           "input_predicate": {

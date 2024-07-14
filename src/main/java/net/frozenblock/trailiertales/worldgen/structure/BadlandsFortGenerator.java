@@ -37,7 +37,7 @@ public class BadlandsFortGenerator {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> badlandsFortDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SUSPICIOUS_BLOCK_TO_NORMAL_085);
+		Holder<StructureProcessorList> badlandsFortDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.BADLANDS_FORT_ARCHAEOLOGY);
 
 		pool.register(
 			BADLANDS_FORT,
