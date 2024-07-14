@@ -10,3 +10,7 @@ accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolE
 accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment <init> (Ljava/lang/String;ILjava/lang/String;)V
 accessible method net/minecraft/world/entity/projectile/ProjectileUtil getHitResult (Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/Level;FLnet/minecraft/world/level/ClipContext$Block;)Lnet/minecraft/world/phys/HitResult;
 accessible field net/minecraft/world/entity/projectile/AbstractArrow inGround Z
+accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;ILnet/minecraft/core/particles/ParticleOptions;)V
+accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+accessible class net/minecraft/client/renderer/FogRenderer$MobEffectFogFunction
+accessible class net/minecraft/client/renderer/FogRenderer$FogData

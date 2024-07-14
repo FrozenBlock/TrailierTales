@@ -96,7 +96,8 @@ public class ApparitionAi {
 			ImmutableList.of(
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
-				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS)
+				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
+				new ApparitionHaunt()
 			)
 		);
 	}

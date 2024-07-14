@@ -14,6 +14,7 @@ import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.RegisterMobEffects;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
@@ -46,6 +47,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterSounds.init();
 		RegisterParticles.init();
 		RegisterEnchantments.init();
+		RegisterMobEffects.init();
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();

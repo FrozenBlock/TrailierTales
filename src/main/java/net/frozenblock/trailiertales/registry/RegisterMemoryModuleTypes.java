@@ -31,6 +31,7 @@ public final class RegisterMemoryModuleTypes {
 	public static final MemoryModuleType<Unit> STRAFING_BACKWARDS = register("strafing_backwards");
 	public static final MemoryModuleType<Integer> STRAFING_TIME = register("strafing_time");
 	public static final MemoryModuleType<Integer> CHARGING_TICKS = register("charging_ticks");
+	public static final MemoryModuleType<Integer> HAUNTING_TICKS = register("haunting_ticks");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

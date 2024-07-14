@@ -20,7 +20,11 @@
     "client.brush.ItemInHandLayerMixin",
     "client.brushable_block.BrushableBlockRenderMixin",
     "client.decorated_pot.DecoratedPotPatternsMixin",
-    "client.decorated_pot.DecoratedPotRendererMixin"
+    "client.decorated_pot.DecoratedPotRendererMixin",
+    "client.haunt.FogRendererMixin",
+    "client.haunt.LevelRendererMixin",
+    "client.haunt.LightTextureMixin",
+    "client.haunt.SoundEngineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

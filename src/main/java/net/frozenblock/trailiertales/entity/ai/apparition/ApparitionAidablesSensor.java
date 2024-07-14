@@ -18,7 +18,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 

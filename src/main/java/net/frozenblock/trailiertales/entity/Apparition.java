@@ -58,6 +58,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -395,6 +396,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!currentStack.isEmpty()) {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), currentStack));
 		}
+	}
+
+	@Override
+	public @NotNull AABB getAttackBoundingBox() { // Extends access for outside-package classes
+		return super.getAttackBoundingBox();
 	}
 
 	public void tickTransparency() {
