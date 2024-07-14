@@ -75,7 +75,8 @@ public class ApparitionAi {
 		RegisterMemoryModuleTypes.STRAFING_BACKWARDS,
 		RegisterMemoryModuleTypes.STRAFING_TIME,
 		RegisterMemoryModuleTypes.CHARGING_TICKS,
-		MemoryModuleType.HOME
+		MemoryModuleType.HOME,
+		RegisterMemoryModuleTypes.HAUNTING_TICKS
 	);
 
 	@Contract("_, _ -> param2")
