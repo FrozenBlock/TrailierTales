@@ -2,9 +2,11 @@ package net.frozenblock.trailiertales.datagen.loot;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -12,6 +14,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
+import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -125,7 +128,15 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(5))
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(
+							LootItem.lootTableItem(Items.BOOK)
+								.setWeight(3)
+								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
+									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH),
+									ConstantValue.exactly(1.0F)
+								))
+						)
 				)
 				.withPool(
 					LootPool.lootPool()

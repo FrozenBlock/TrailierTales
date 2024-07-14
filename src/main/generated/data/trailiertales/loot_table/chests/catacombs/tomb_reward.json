@@ -23,7 +23,21 @@
             }
           ],
           "name": "minecraft:book",
-          "weight": 10
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "enchantments": {
+                "trailiertales:rebrush": 1.0
+              },
+              "function": "minecraft:set_enchantments"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 3
         }
       ],
       "rolls": 1.0
