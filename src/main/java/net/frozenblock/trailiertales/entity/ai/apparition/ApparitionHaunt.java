@@ -45,7 +45,7 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 					livingEntity.addEffect(
 						new MobEffectInstance(
 							RegisterMobEffects.HAUNT,
-							30
+							600
 						)
 					);
 				}
