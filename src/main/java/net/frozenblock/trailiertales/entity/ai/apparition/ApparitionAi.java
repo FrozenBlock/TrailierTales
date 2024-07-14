@@ -67,7 +67,7 @@ public class ApparitionAi {
 		MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS,
 		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
 		RegisterMemoryModuleTypes.AID_COOLDOWN,
-		RegisterMemoryModuleTypes.IS_AIDING,
+		RegisterMemoryModuleTypes.AIDING_TIME,
 		RegisterMemoryModuleTypes.NEARBY_AIDABLES,
 		RegisterMemoryModuleTypes.NEAREST_AIDABLE,
 		RegisterMemoryModuleTypes.SEE_TIME,
@@ -76,7 +76,8 @@ public class ApparitionAi {
 		RegisterMemoryModuleTypes.STRAFING_TIME,
 		RegisterMemoryModuleTypes.CHARGING_TICKS,
 		MemoryModuleType.HOME,
-		RegisterMemoryModuleTypes.HAUNTING_TICKS
+		RegisterMemoryModuleTypes.HAUNTING_TICKS,
+		RegisterMemoryModuleTypes.AIDING_ENTITIES
 	);
 
 	@Contract("_, _ -> param2")
@@ -98,6 +99,7 @@ public class ApparitionAi {
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
+				new CountDownCooldownTicks(RegisterMemoryModuleTypes.AIDING_TIME),
 				new ApparitionHaunt()
 			)
 		);

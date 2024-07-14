@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.registry;
 import com.mojang.serialization.Codec;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.core.Registry;
@@ -23,7 +24,7 @@ public final class RegisterMemoryModuleTypes {
 
 	public static final MemoryModuleType<List<Apparition>> NEARBY_APPARITIONS = register("nearby_apparitions");
 	public static final MemoryModuleType<Unit> AID_COOLDOWN = register("aid_cooldown");
-	public static final MemoryModuleType<Unit> IS_AIDING = register("is_aiding");
+	public static final MemoryModuleType<Integer> AIDING_TIME = register("aiding_time");
 	public static final MemoryModuleType<List<LivingEntity>> NEARBY_AIDABLES = register("nearby_aidables");
 	public static final MemoryModuleType<LivingEntity> NEAREST_AIDABLE = register("nearest_aidable");
 	public static final MemoryModuleType<Integer> SEE_TIME = register("see_time");
@@ -32,6 +33,7 @@ public final class RegisterMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> STRAFING_TIME = register("strafing_time");
 	public static final MemoryModuleType<Integer> CHARGING_TICKS = register("charging_ticks");
 	public static final MemoryModuleType<Integer> HAUNTING_TICKS = register("haunting_ticks");
+	public static final MemoryModuleType<List<UUID>> AIDING_ENTITIES = register("aiding_entities");
 
 	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {

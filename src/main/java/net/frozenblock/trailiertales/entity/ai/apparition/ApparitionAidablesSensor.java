@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Predicate;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -31,12 +32,12 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		);
 	}
 
-	protected boolean isMatchingEntity(Apparition apparition, LivingEntity target) {
+	protected boolean isMatchingEntity(Apparition apparition, LivingEntity target, List<UUID> takenUUIDs) {
 		return this.isClose(apparition, target)
-			&& this.isAidable(apparition, target);
+			&& this.isAidable(apparition, target, takenUUIDs);
 	}
 
-	private boolean isAidable(@NotNull Apparition apparition, @NotNull LivingEntity entity) {
+	private boolean isAidable(@NotNull Apparition apparition, @NotNull LivingEntity entity, List<UUID> takenUUIDs) {
 		LivingEntity newTarget = apparition.getTarget();
 		if (
 			entity instanceof Mob mob
@@ -44,7 +45,15 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				&& mob.getType() != RegisterEntities.APPARITION
 				&& !mob.getType().getCategory().isFriendly()
 				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
+				&& !takenUUIDs.contains(newTarget.getUUID())
 		) {
+			Brain<Apparition> brain = apparition.getBrain();
+			if (brain.hasMemoryValue(RegisterMemoryModuleTypes.AIDING_TIME)) {
+				Optional<List<UUID>> trackingUUIDs = brain.getMemory(RegisterMemoryModuleTypes.AIDING_ENTITIES);
+				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) {
+					return false;
+				}
+			}
 			LivingEntity currentTarget = mob.getTarget();
 			return mob != apparition
 				&& mob.isAlive()
@@ -64,12 +73,21 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		Brain<?> brain = apparition.getBrain();
 		LivingEntity attackTarget = apparition.getTarget();
 		if (attackTarget != null) {
+			List<UUID> takenUUIDs = new ArrayList<>();
+			world.getAllEntities().forEach(
+				entity -> {
+					if (entity instanceof Apparition otherApparition && otherApparition != apparition) {
+						otherApparition.getBrain().getMemory(RegisterMemoryModuleTypes.AIDING_ENTITIES).ifPresent(takenUUIDs::addAll);
+					}
+				}
+			);
+
 			double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
 			AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
 			List<LivingEntity> list = world.getEntitiesOfClass(
 				LivingEntity.class,
 				aABB,
-				livingEntity2 -> isMatchingEntity(apparition, livingEntity2)
+				livingEntity2 -> isMatchingEntity(apparition, livingEntity2, takenUUIDs)
 			);
 			list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
 			brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, list);
