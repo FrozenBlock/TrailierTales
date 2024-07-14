@@ -135,12 +135,16 @@ public class ApparitionAi {
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
-				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F),
-				new ApparitionAid(),
-				new ApparitionShoot(),
-				GoToWantedItem.create(
-					apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
-					1.25F, true, 32
+				new RunOne<>(
+					ImmutableList.of(
+						Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), 1),
+						Pair.of(new ApparitionAid(), 1),
+						Pair.of(new ApparitionShoot(), 1),
+						Pair.of(GoToWantedItem.create(
+							apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
+							1.25F, true, 28
+						), 1)
+					)
 				)
 			),
 			MemoryModuleType.ATTACK_TARGET
