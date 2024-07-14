@@ -12,6 +12,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
@@ -30,7 +31,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	public static final MapCodec<SurveyorBlock> CODEC = RecordCodecBuilder.mapCodec(
 		color -> color.group(propertiesCodec()).apply(color, SurveyorBlock::new)
 	);
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final DirectionProperty FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
 	@Override
@@ -45,7 +46,6 @@ public class SurveyorBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
 		builder.add(FACING, POWERED);
 	}
 
@@ -135,17 +135,5 @@ public class SurveyorBlock extends BaseEntityBlock {
 		return level instanceof ServerLevel serverLevel
 			? createTickerHelper(blockEntityType, RegisterBlockEntities.SURVEYOR, (unusedWorld, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
 			: null;
-	}
-
-	public static boolean isSurveyorSightBlockedAt(Direction direction, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		BlockPos offsetPos = pos.relative(direction);
-		return level.getBlockState(pos.relative(direction)).isRedstoneConductor(level, offsetPos);
-	}
-
-	@Nullable
-	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
-		BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
-	) {
-		return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
 	}
 }

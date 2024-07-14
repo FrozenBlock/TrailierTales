@@ -12,6 +12,7 @@
     "common.coffin.EntityMixin",
     "common.coffin.LivingEntityMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
+    "common.surveyor.RedStoneWireBlockMixin",
     "common.terrain_adjustment.BeardifierMixin",
     "common.terrain_adjustment.JigsawStructureMixin",
     "common.terrain_adjustment.TerrainAdjustmentMixin"

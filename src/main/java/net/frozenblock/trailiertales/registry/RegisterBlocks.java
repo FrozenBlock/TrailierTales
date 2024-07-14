@@ -235,7 +235,7 @@ public class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.STONE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
-			.strength(3.0F)
+			.strength(3F)
 			.requiresCorrectToolForDrops()
 			.isRedstoneConductor(Blocks::never)
 	);
