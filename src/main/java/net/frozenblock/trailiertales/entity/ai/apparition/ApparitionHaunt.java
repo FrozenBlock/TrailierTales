@@ -39,8 +39,8 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 			int hauntingTicks = brain.getMemory(RegisterMemoryModuleTypes.HAUNTING_TICKS).orElse(0);
 
 			if (livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox())) {
-				hauntingTicks += 1;
-				if (hauntingTicks >= 100) {
+				hauntingTicks += 2;
+				if (hauntingTicks >= 150) {
 					hauntingTicks = 0;
 					livingEntity.addEffect(
 						new MobEffectInstance(
