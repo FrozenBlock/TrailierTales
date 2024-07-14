@@ -1,6 +1,8 @@
 package net.frozenblock.trailiertales;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
@@ -22,7 +24,12 @@ import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
+import net.minecraft.advancements.critereon.MobEffectsPredicate;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 
 public class TrailierTales extends FrozenModInitializer {
 
@@ -49,6 +56,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterEnchantments.init();
 		RegisterMobEffects.init();
 
+
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
 			//if (AmbienceAndMiscConfig.get().modifyAdvancements) {
@@ -63,6 +71,15 @@ public class TrailierTales extends FrozenModInitializer {
 								"trailiertales:cyan_rose"
 							)
 						);
+					}
+					case "minecraft:nether/all_effects" -> {
+						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+							map.put(RegisterMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
+							predicate.effectMap = map;
+						}
 					}
 					default -> {
 					}
