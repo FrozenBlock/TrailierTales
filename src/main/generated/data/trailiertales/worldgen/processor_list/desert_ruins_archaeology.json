@@ -50,7 +50,7 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/desert_ruins"
+            "loot_table": "trailiertales:archaeology/desert_ruins_rare"
           },
           "input_predicate": {
             "block": "minecraft:sand",
