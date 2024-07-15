@@ -37,31 +37,34 @@ public class DesertRuinsGenerator {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> desertRuinsProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.DESERT_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> processor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.DESERT_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> fossilProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.DESERT_RUINS_ARCHAEOLOGY_FOSSIL);
+		Holder<StructureProcessorList> surfaceRuinsProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.DESERT_RUINS_ARCHAEOLOGY_SURFACE);
+		Holder<StructureProcessorList> potWellProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.DESERT_RUINS_ARCHAEOLOGY_POTS);
 
 		pool.register(
 			DESERT_RUINS,
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("archway"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("bunker"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("coliseum"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("dune"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fossil1"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fossil2"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("house1"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("house2"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("house3"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("house4"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("monastery"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("pillar1"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("pillar2"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("pillar3"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("well"), desertRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("well_aquifer"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("archway"), surfaceRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("bunker"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("coliseum"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("dune"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("fort"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("fossil1"), fossilProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("fossil2"), fossilProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("house1"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("house2"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("house3"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("house4"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("monastery"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("pillar1"), surfaceRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("pillar2"), surfaceRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("pillar3"), surfaceRuinsProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("well"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("well_aquifer"), potWellProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
@@ -74,7 +77,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("bunker_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("bunker_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -86,7 +89,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("dune_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("dune_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -98,7 +101,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("house1_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("house1_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -110,7 +113,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("house2_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("house2_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -122,7 +125,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("house3_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("house3_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -134,7 +137,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("house4_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("house4_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -146,7 +149,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("monastery_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("monastery_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -158,7 +161,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -170,7 +173,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("well_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("well_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -183,7 +186,7 @@ public class DesertRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("well_aquifer_bottom"), desertRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("well_aquifer_bottom"), potWellProcessor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)

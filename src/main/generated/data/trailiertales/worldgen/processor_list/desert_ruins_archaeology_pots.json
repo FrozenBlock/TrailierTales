@@ -1,0 +1,98 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "minecraft:sand",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.175
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:sandstone"
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "trailiertales:archaeology/desert_ruins_pots"
+          },
+          "input_predicate": {
+            "block": "minecraft:sand",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.4
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:suspicious_sand",
+            "Properties": {
+              "can_place_item": "false",
+              "dusted": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "minecraft:decorated_pot",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.5
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:water",
+            "Properties": {
+              "level": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "frozenlib:block_state_respecting_rule",
+      "rules": [
+        {
+          "block_entity_modifier": {
+            "type": "frozenlib:append_sherds",
+            "chance_per_slot": 1.0,
+            "default_to_brick": false,
+            "sherds": [
+              "minecraft:arms_up_pottery_sherd",
+              "minecraft:archer_pottery_sherd",
+              "minecraft:brewer_pottery_sherd",
+              "minecraft:miner_pottery_sherd",
+              "minecraft:skull_pottery_sherd",
+              "minecraft:prize_pottery_sherd"
+            ]
+          },
+          "input_predicate": {
+            "block": "minecraft:decorated_pot",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 1.0
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_block": "minecraft:decorated_pot"
+        }
+      ]
+    }
+  ]
+}

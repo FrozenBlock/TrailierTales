@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/well_aquifer_bottom",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_pots",
         "projection": "rigid"
       },
       "weight": 1

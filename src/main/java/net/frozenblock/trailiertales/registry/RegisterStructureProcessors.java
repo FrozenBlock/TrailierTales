@@ -37,6 +37,9 @@ public class RegisterStructureProcessors {
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION_ARCHERY = createKey("catacombs_degradation_archery");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION_FIRE = createKey("catacombs_degradation_fire");
 	public static final ResourceKey<StructureProcessorList> DESERT_RUINS_ARCHAEOLOGY = createKey("desert_ruins_archaeology");
+	public static final ResourceKey<StructureProcessorList> DESERT_RUINS_ARCHAEOLOGY_SURFACE = createKey("desert_ruins_archaeology_surface");
+	public static final ResourceKey<StructureProcessorList> DESERT_RUINS_ARCHAEOLOGY_FOSSIL = createKey("desert_ruins_archaeology_fossil");
+	public static final ResourceKey<StructureProcessorList> DESERT_RUINS_ARCHAEOLOGY_POTS = createKey("desert_ruins_archaeology_pots");
 	public static final ResourceKey<StructureProcessorList> JUNGLE_RUINS_ARCHAEOLOGY = createKey("jungle_ruins_archaeology");
 	public static final ResourceKey<StructureProcessorList> JUNGLE_RUINS_ARCHAEOLOGY_WITH_STAIRS = createKey("jungle_ruins_archaeology_with_stairs");
 	public static final ResourceKey<StructureProcessorList> SAVANNA_RUINS_ARCHAEOLOGY = createKey("savanna_ruins_archaeology");
@@ -47,9 +50,9 @@ public class RegisterStructureProcessors {
 		register(
 			context,
 			RegisterStructureProcessors.BADLANDS_FORT_ARCHAEOLOGY,
-			List.of(
+			ImmutableList.of(
 				new RuleProcessor(
-					List.of(
+					ImmutableList.of(
 						new ProcessorRule(
 							new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_RED_SAND, 0.85F),
 							AlwaysTrueTest.INSTANCE, Blocks.RED_SAND.defaultBlockState()
@@ -143,7 +146,7 @@ public class RegisterStructureProcessors {
 		);
 
 		final BlockStateRespectingRuleProcessor catacombsBlockStateRespectingRuleProcessor = new BlockStateRespectingRuleProcessor(
-			List.of(
+			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
 					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS
 				),
@@ -225,15 +228,15 @@ public class RegisterStructureProcessors {
 			)
 		);
 
+		RuleProcessor desertRuinsProcessor = new RuleProcessor(
+			ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()))
+		);
+
 		register(
 			context,
 			DESERT_RUINS_ARCHAEOLOGY,
-			List.of(
-				new RuleProcessor(
-					List.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState())
-					)
-				),
+			ImmutableList.of(
+				desertRuinsProcessor,
 				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
 				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_RARE, 0.1F)
 			)
@@ -241,10 +244,55 @@ public class RegisterStructureProcessors {
 
 		register(
 			context,
-			JUNGLE_RUINS_ARCHAEOLOGY,
-			List.of(
+			DESERT_RUINS_ARCHAEOLOGY_SURFACE,
+			ImmutableList.of(
+				desertRuinsProcessor,
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_PILLAR, 0.35F)
+			)
+		);
+
+		register(
+			context,
+			DESERT_RUINS_ARCHAEOLOGY_FOSSIL,
+			ImmutableList.of(
+				desertRuinsProcessor,
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_FOSSIl, 0.4F)
+			)
+		);
+
+		register(
+			context,
+			DESERT_RUINS_ARCHAEOLOGY_POTS,
+			ImmutableList.of(
+				desertRuinsProcessor,
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS, 0.4F),
 				new RuleProcessor(
-					List.of(
+					ImmutableList.of(
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.5F),
+							AlwaysTrueTest.INSTANCE, Blocks.WATER.defaultBlockState()
+						)
+					)
+				),
+				decoratedPotSherdProcessor(
+					1F,
+					false,
+					Items.ARMS_UP_POTTERY_SHERD,
+					Items.ARCHER_POTTERY_SHERD,
+					Items.BREWER_POTTERY_SHERD,
+					Items.MINER_POTTERY_SHERD,
+					Items.SKULL_POTTERY_SHERD,
+					Items.PRIZE_POTTERY_SHERD
+				)
+			)
+		);
+
+		register(
+			context,
+			JUNGLE_RUINS_ARCHAEOLOGY,
+			ImmutableList.of(
+				new RuleProcessor(
+					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
@@ -253,7 +301,7 @@ public class RegisterStructureProcessors {
 					)
 				),
 				new BlockStateRespectingRuleProcessor(
-					List.of(
+					ImmutableList.of(
 						new BlockStateRespectingProcessorRule(
 							new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState(), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB
 						),
@@ -273,14 +321,14 @@ public class RegisterStructureProcessors {
 		register(
 			context,
 			JUNGLE_RUINS_ARCHAEOLOGY_WITH_STAIRS,
-			List.of(
+			ImmutableList.of(
 				new RuleProcessor(
-					List.of(
+					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE_STAIRS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState())
 					)
 				),
 				new RuleProcessor(
-					List.of(
+					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
@@ -289,7 +337,7 @@ public class RegisterStructureProcessors {
 					)
 				),
 				new BlockStateRespectingRuleProcessor(
-					List.of(
+					ImmutableList.of(
 						new BlockStateRespectingProcessorRule(
 							new RandomBlockStateMatchTest(Blocks.COBBLESTONE_STAIRS.defaultBlockState(), 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_STAIRS
 						)
@@ -306,9 +354,9 @@ public class RegisterStructureProcessors {
 		register(
 			context,
 			SAVANNA_RUINS_ARCHAEOLOGY,
-			List.of(
+			ImmutableList.of(
 				new RuleProcessor(
-					List.of(
+					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState())
 					)
