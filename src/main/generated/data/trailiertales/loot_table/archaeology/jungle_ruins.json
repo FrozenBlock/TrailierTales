@@ -16,6 +16,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:gray_dye",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:brown_candle",
           "weight": 20
         },

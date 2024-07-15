@@ -37,26 +37,27 @@ public class SavannaRuinsGenerator {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> savannaRuinsProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SAVANNA_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> surfaceProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE);
+		Holder<StructureProcessorList> processor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SAVANNA_RUINS_ARCHAEOLOGY);
 
 		pool.register(
 			SAVANNA_RUINS,
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("archway"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("bunker"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("courtyard"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("house1"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("house2"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("monastery1"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("monastery2"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("monastery3"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower1"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower2"), savannaRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("town"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("archway"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("bunker"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("courtyard"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("fort"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("house1"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("house2"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("monastery1"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("monastery2"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("monastery3"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower1"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower2"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town"), surfaceProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
@@ -68,7 +69,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("archway_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("archway_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -80,7 +81,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("bunker_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("bunker_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -92,7 +93,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("courtyard_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("courtyard_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -104,7 +105,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("fort_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("fort_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -116,7 +117,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("house1_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("house1_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -128,7 +129,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("house2_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("house2_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -140,7 +141,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("monastery1_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("monastery1_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -152,7 +153,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("monastery2_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("monastery2_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -164,7 +165,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("monastery3_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("monastery3_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -176,7 +177,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -188,7 +189,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("tower1_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("tower1_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -200,7 +201,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("tower2_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("tower2_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -212,7 +213,7 @@ public class SavannaRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("town_bottom"), savannaRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("town_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)

@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -24,12 +24,12 @@ public class RegisterLootTables {
 	public static final ResourceKey<LootTable> JUNGLE_RUINS_ARCHAEOLOGY = register("archaeology/jungle_ruins");
 	public static final ResourceKey<LootTable> JUNGLE_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/jungle_ruins_surface");
 	public static final ResourceKey<LootTable> SAVANNA_RUINS_ARCHAEOLOGY = register("archaeology/savanna_ruins");
-	public static final ResourceKey<LootTable> SAVANNA_RUINS_ARCHAEOLOGY_RARE = register("archaeology/savanna_ruins");
+	public static final ResourceKey<LootTable> SAVANNA_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/savanna_surface");
 
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(id) && source.isBuiltin()) {
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS));
 				tableBuilder.withPool(pool);

@@ -37,12 +37,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/savanna_ruins"
+            "loot_table": "trailiertales:archaeology/savanna_surface"
           },
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.3
+            "probability": 0.295
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -63,12 +63,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/savanna_ruins"
+            "loot_table": "trailiertales:archaeology/savanna_surface"
           },
           "input_predicate": {
             "block": "minecraft:dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.25
+            "probability": 0.195
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -89,12 +89,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/savanna_ruins"
+            "loot_table": "trailiertales:archaeology/savanna_surface"
           },
           "input_predicate": {
             "block": "minecraft:coarse_dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.25
+            "probability": 0.195
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -115,7 +115,7 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/savanna_ruins"
+            "loot_table": "trailiertales:archaeology/savanna_surface"
           },
           "input_predicate": {
             "block": "minecraft:clay",
