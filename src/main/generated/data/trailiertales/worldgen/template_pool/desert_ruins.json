@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/bunker",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/dune",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -67,7 +67,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/house1",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -76,7 +76,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/house2",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -85,7 +85,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/house3",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -94,7 +94,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/house4",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -103,7 +103,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/monastery",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -139,7 +139,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/shrine",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -148,7 +148,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/well",
-        "processors": "trailiertales:desert_ruins_archaeology",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1
@@ -157,7 +157,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:ruins/desert/well_aquifer",
-        "processors": "trailiertales:desert_ruins_archaeology_pots",
+        "processors": "trailiertales:desert_ruins_archaeology_surface",
         "projection": "rigid"
       },
       "weight": 1

@@ -7,63 +7,96 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:blue_dye",
-          "weight": 2
+          "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:yellow_dye",
-          "weight": 2
+          "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat",
-          "weight": 2
+          "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:blue_candle",
-          "weight": 2
+          "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:emerald",
-          "weight": 2
+          "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat_seeds"
+          "name": "minecraft:wheat_seeds",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget"
+          "name": "minecraft:gold_nugget",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal"
+          "name": "minecraft:coal",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:dead_bush"
+          "name": "minecraft:dead_bush",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:brick"
+          "name": "minecraft:brick",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:clay"
+          "name": "minecraft:clay",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal"
+          "name": "minecraft:coal",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:flower_pot"
+          "name": "minecraft:flower_pot",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:stick"
+          "name": "minecraft:stick",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arms_up_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:archer_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brewer_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:miner_pottery_sherd",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dune_armor_trim_smithing_template"
         }
       ],
       "rolls": 1.0

@@ -24,7 +24,7 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/desert_ruins_pillar"
+            "loot_table": "trailiertales:archaeology/desert_ruins_surface"
           },
           "input_predicate": {
             "block": "minecraft:sand",

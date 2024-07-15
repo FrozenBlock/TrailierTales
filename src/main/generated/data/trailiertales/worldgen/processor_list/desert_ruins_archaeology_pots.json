@@ -29,13 +29,39 @@
           "input_predicate": {
             "block": "minecraft:sand",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.325
+            "probability": 0.3
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
             "Name": "minecraft:suspicious_sand",
+            "Properties": {
+              "can_place_item": "false",
+              "dusted": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "trailiertales:archaeology/desert_ruins_pots"
+          },
+          "input_predicate": {
+            "block": "minecraft:clay",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.3
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:suspicious_clay",
             "Properties": {
               "can_place_item": "false",
               "dusted": "0"

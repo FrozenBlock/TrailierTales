@@ -237,8 +237,7 @@ public class RegisterStructureProcessors {
 			DESERT_RUINS_ARCHAEOLOGY,
 			ImmutableList.of(
 				desertRuinsProcessor,
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.255F),
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_RARE, 0.15F)
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.35F)
 			)
 		);
 
@@ -247,7 +246,7 @@ public class RegisterStructureProcessors {
 			DESERT_RUINS_ARCHAEOLOGY_SURFACE,
 			ImmutableList.of(
 				desertRuinsProcessor,
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_PILLAR, 0.35F)
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_SURFACE, 0.35F)
 			)
 		);
 
@@ -265,7 +264,8 @@ public class RegisterStructureProcessors {
 			DESERT_RUINS_ARCHAEOLOGY_POTS,
 			ImmutableList.of(
 				desertRuinsProcessor,
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS, 0.325F),
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS, 0.3F),
+				desertArchyLootProcessorClay(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS, 0.3F),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(
@@ -379,6 +379,21 @@ public class RegisterStructureProcessors {
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
 					Blocks.SUSPICIOUS_SAND.defaultBlockState(),
+					new AppendLoot(registryKey)
+				)
+			)
+		);
+	}
+
+	@Contract("_, _ -> new")
+	private static @NotNull RuleProcessor desertArchyLootProcessorClay(ResourceKey<LootTable> registryKey, float chance) {
+		return new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.CLAY, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
 					new AppendLoot(registryKey)
 				)
 			)
