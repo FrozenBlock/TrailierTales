@@ -97,22 +97,22 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:archer_pottery_sherd",
-          "weight": 6
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:explorer_pottery_sherd",
-          "weight": 6
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "trailiertales:bloom_pottery_sherd",
-          "weight": 6
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:scrape_pottery_sherd",
-          "weight": 6
+          "weight": 7
         }
       ],
       "rolls": 1.0
