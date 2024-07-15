@@ -237,8 +237,8 @@ public class RegisterStructureProcessors {
 			DESERT_RUINS_ARCHAEOLOGY,
 			ImmutableList.of(
 				desertRuinsProcessor,
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_RARE, 0.1F)
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.255F),
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_RARE, 0.15F)
 			)
 		);
 
@@ -265,7 +265,7 @@ public class RegisterStructureProcessors {
 			DESERT_RUINS_ARCHAEOLOGY_POTS,
 			ImmutableList.of(
 				desertRuinsProcessor,
-				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS, 0.4F),
+				desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS, 0.325F),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(
