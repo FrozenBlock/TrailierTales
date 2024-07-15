@@ -6,22 +6,27 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:blue_dye",
+          "name": "minecraft:brown_dye",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:yellow_dye",
+          "name": "minecraft:white_dye",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat",
+          "name": "minecraft:brown_candle",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:blue_candle",
+          "name": "minecraft:white_candle",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:green_candle",
           "weight": 20
         },
         {
@@ -31,8 +36,28 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:wheat",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:wheat_seeds",
           "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cocoa_beans",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_seeds",
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -71,8 +96,13 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:arms_up_pottery_sherd",
-          "weight": 6
+          "name": "minecraft:string",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:jungle_hanging_sign",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -81,17 +111,22 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:brewer_pottery_sherd",
+          "name": "minecraft:explorer_pottery_sherd",
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:miner_pottery_sherd",
+          "name": "trailiertales:bloom_pottery_sherd",
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:dune_armor_trim_smithing_template"
+          "name": "minecraft:scrape_pottery_sherd",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wild_armor_trim_smithing_template"
         }
       ],
       "rolls": 1.0

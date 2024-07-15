@@ -41,11 +41,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:flower_pot",
           "weight": 20
         },

@@ -94,6 +94,44 @@
         {
           "input_predicate": {
             "block_state": {
+              "Name": "minecraft:cobblestone_slab",
+              "Properties": {
+                "type": "bottom",
+                "waterlogged": "false"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.4
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_block": "minecraft:mossy_cobblestone_slab"
+        },
+        {
+          "input_predicate": {
+            "block_state": {
+              "Name": "minecraft:cobblestone_wall",
+              "Properties": {
+                "east": "none",
+                "north": "none",
+                "south": "none",
+                "up": "true",
+                "waterlogged": "false",
+                "west": "none"
+              }
+            },
+            "predicate_type": "minecraft:random_blockstate_match",
+            "probability": 0.4
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_block": "minecraft:mossy_cobblestone_wall"
+        },
+        {
+          "input_predicate": {
+            "block_state": {
               "Name": "minecraft:cobblestone_stairs",
               "Properties": {
                 "facing": "north",
@@ -118,12 +156,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins"
+            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
           },
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.3
+            "probability": 0.295
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -144,12 +182,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins"
+            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
           },
           "input_predicate": {
             "block": "minecraft:dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.3
+            "probability": 0.195
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -170,12 +208,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins"
+            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
           },
           "input_predicate": {
             "block": "minecraft:coarse_dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.3
+            "probability": 0.195
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -196,44 +234,18 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins"
+            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
           },
           "input_predicate": {
             "block": "minecraft:clay",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.5
+            "probability": 0.4
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
             "Name": "trailiertales:suspicious_clay",
-            "Properties": {
-              "can_place_item": "false",
-              "dusted": "0"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
-        {
-          "block_entity_modifier": {
-            "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins"
-          },
-          "input_predicate": {
-            "block": "minecraft:gravel",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.1
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:suspicious_gravel",
             "Properties": {
               "can_place_item": "false",
               "dusted": "0"

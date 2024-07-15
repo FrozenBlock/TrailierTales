@@ -37,32 +37,32 @@ public class JungleRuinsGenerator {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> jungleRuinsProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.JUNGLE_RUINS_ARCHAEOLOGY);
-		Holder<StructureProcessorList> jungleRuinsProcessorWaterloggedStairs = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.JUNGLE_RUINS_ARCHAEOLOGY_WITH_STAIRS);
+		Holder<StructureProcessorList> processor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.JUNGLE_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> surfaceProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.JUNGLE_RUINS_ARCHAEOLOGY_SURFACE);
 
 		pool.register(
 			JUNGLE_RUINS,
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("abandoned_treehouse"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("bunker"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("monastery"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("pillar"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine1"), jungleRuinsProcessorWaterloggedStairs), 1),
-					Pair.of(StructurePoolElement.single(string("shrine2"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine3"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine4"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine5"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine6"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("shrine7"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("statue"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower_trap"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("town1"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("town2"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("town3"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("town4"), jungleRuinsProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("twin_shrines"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("abandoned_treehouse"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("bunker"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("monastery"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("pillar"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine1"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine2"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine3"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine4"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine5"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine6"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("shrine7"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("statue"), processor), 1),
+					Pair.of(StructurePoolElement.single(string("tower_trap"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town1"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town2"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town3"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("town4"), surfaceProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("twin_shrines"), surfaceProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
@@ -74,7 +74,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("bunker_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("bunker_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -86,7 +86,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("monastery_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("monastery_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -98,7 +98,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("pillar_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("pillar_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -110,7 +110,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine3_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine3_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -122,7 +122,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine4_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine4_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -134,7 +134,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine5_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine5_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -146,7 +146,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine6_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine6_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -158,7 +158,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("shrine7_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("shrine7_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -170,7 +170,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("tower_trap_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("tower_trap_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -182,7 +182,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("town1_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("town1_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -194,7 +194,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("town2_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("town2_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -206,7 +206,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("town3_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("town3_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -218,7 +218,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("town4_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("town4_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -230,7 +230,7 @@ public class JungleRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("twin_shrines_bottom"), jungleRuinsProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("twin_shrines_bottom"), processor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
