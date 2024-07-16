@@ -7,13 +7,13 @@ import java.util.Optional;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
+import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -472,7 +472,7 @@ public class CatacombsGenerator {
 			CATACOMBS_KEY,
 			new JigsawStructure(
 				RegisterStructures.structure(
-					holderGetter.getOrThrow(BiomeTags.HAS_MINESHAFT),
+					holderGetter.getOrThrow(TrailierBiomeTags.HAS_CATACOMBS),
 					Map.of(
 						MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, MobSpawnSettings.EMPTY_MOB_LIST)
 					),

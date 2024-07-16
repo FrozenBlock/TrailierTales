@@ -2,8 +2,8 @@
   "placement": {
     "type": "minecraft:random_spread",
     "salt": 78872547,
-    "separation": 10,
-    "spacing": 18
+    "separation": 17,
+    "spacing": 20
   },
   "structures": [
     {

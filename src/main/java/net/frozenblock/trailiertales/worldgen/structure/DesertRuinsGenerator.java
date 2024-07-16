@@ -5,6 +5,7 @@ import java.util.List;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
+import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -12,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -201,7 +201,7 @@ public class DesertRuinsGenerator {
 			DESERT_RUIN_KEY,
 			new JigsawStructure(
 				RegisterStructures.structure(
-					holderGetter.getOrThrow(BiomeTags.HAS_DESERT_PYRAMID),
+					holderGetter.getOrThrow(TrailierBiomeTags.HAS_DESERT_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TrailierTerrainAdjustment.SMALL_PLATFORM
 				),
@@ -221,7 +221,7 @@ public class DesertRuinsGenerator {
 			DESERT_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(DESERT_RUIN_KEY),
-				new RandomSpreadStructurePlacement(18, 10, RandomSpreadType.LINEAR, 9432401)
+				new RandomSpreadStructurePlacement(22, 17, RandomSpreadType.LINEAR, 9432401)
 			)
 		);
 	}

@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#c:is_plains",
+      "required": false
+    },
+    {
+      "id": "#c:is_snowy_plains",
+      "required": false
+    },
+    {
+      "id": "#c:is_forest",
+      "required": false
+    },
+    {
+      "id": "#c:is_birch_forest",
+      "required": false
+    }
+  ]
+}

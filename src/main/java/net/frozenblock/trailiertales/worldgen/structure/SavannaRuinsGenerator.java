@@ -5,6 +5,7 @@ import java.util.List;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
+import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -12,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -228,7 +228,7 @@ public class SavannaRuinsGenerator {
 			SAVANNA_RUIN_KEY,
 			new JigsawStructure(
 				RegisterStructures.structure(
-					holderGetter.getOrThrow(BiomeTags.IS_SAVANNA),
+					holderGetter.getOrThrow(TrailierBiomeTags.HAS_SAVANNA_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TrailierTerrainAdjustment.SMALL_PLATFORM
 				),
@@ -248,7 +248,7 @@ public class SavannaRuinsGenerator {
 			SAVANNA_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(SAVANNA_RUIN_KEY),
-				new RandomSpreadStructurePlacement(18, 10, RandomSpreadType.LINEAR, 78872547)
+				new RandomSpreadStructurePlacement(20, 17, RandomSpreadType.LINEAR, 78872547)
 			)
 		);
 	}
