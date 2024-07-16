@@ -38,6 +38,7 @@ public class BlockEntityTypeMixin {
 		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_RED_SAND);
 		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_DIRT);
 		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_CLAY);
+		brushableBlocks.add(RegisterBlocks.SUSPICIOUS_SOUL_SOIL);
 		return new BlockEntityType.Builder<>(instance, Set.copyOf(brushableBlocks));
 	}
 

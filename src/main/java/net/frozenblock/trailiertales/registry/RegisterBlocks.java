@@ -66,6 +66,18 @@ public class RegisterBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
+	public static final Block SUSPICIOUS_SOUL_SOIL = new NonFallingBrushableBlock(
+		Blocks.SOUL_SOIL,
+		SoundEvents.BRUSH_SAND,
+		SoundEvents.BRUSH_SAND_COMPLETED,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_BROWN)
+			.instrument(NoteBlockInstrument.FLUTE)
+			.strength(0.25f)
+			.sound(SoundType.SUSPICIOUS_SAND)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
 	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
 	);
@@ -244,6 +256,7 @@ public class RegisterBlocks {
 		registerBlockAfter(Blocks.SUSPICIOUS_SAND, "suspicious_red_sand", SUSPICIOUS_RED_SAND, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(SUSPICIOUS_RED_SAND, "suspicious_dirt",SUSPICIOUS_DIRT, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(SUSPICIOUS_DIRT, "suspicious_clay", SUSPICIOUS_CLAY, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlockAfter(Blocks.SUSPICIOUS_GRAVEL, "suspicious_soul_soil", SUSPICIOUS_SOUL_SOIL, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 
 		registerBlockAfter(Blocks.TORCHFLOWER, "cyan_rose", CYAN_ROSE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
