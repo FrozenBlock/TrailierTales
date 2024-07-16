@@ -6,6 +6,7 @@ import net.frozenblock.trailiertales.worldgen.structure.BadlandsFortGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.JungleRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.SavannaRuinsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -39,6 +40,7 @@ public final class RegisterStructures {
 		DesertRuinsGenerator.bootstrapTemplatePool(context);
 		JungleRuinsGenerator.bootstrapTemplatePool(context);
 		SavannaRuinsGenerator.bootstrapTemplatePool(context);
+		RuinsGenerator.bootstrapTemplatePool(context);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
@@ -47,6 +49,7 @@ public final class RegisterStructures {
 		DesertRuinsGenerator.bootstrap(context);
 		JungleRuinsGenerator.bootstrap(context);
 		SavannaRuinsGenerator.bootstrap(context);
+		RuinsGenerator.bootstrap(context);
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
@@ -55,6 +58,7 @@ public final class RegisterStructures {
 		DesertRuinsGenerator.bootstrapStructureSet(context);
 		JungleRuinsGenerator.bootstrapStructureSet(context);
 		SavannaRuinsGenerator.bootstrapStructureSet(context);
+		RuinsGenerator.bootstrapStructureSet(context);
 	}
 
 	@NotNull

@@ -44,6 +44,10 @@ public class RegisterStructureProcessors {
 	public static final ResourceKey<StructureProcessorList> JUNGLE_RUINS_ARCHAEOLOGY_SURFACE = createKey("jungle_ruins_archaeology_surface");
 	public static final ResourceKey<StructureProcessorList> SAVANNA_RUINS_ARCHAEOLOGY = createKey("savanna_ruins_archaeology");
 	public static final ResourceKey<StructureProcessorList> SAVANNA_RUINS_ARCHAEOLOGY_SURFACE = createKey("savanna_ruins_archaeology_surface");
+	public static final ResourceKey<StructureProcessorList> RUINS_ARCHAEOLOGY = createKey("ruins_archaeology");
+	public static final ResourceKey<StructureProcessorList> RUINS_ARCHAEOLOGY_SURFACE = createKey("ruins_archaeology_surface");
+	public static final ResourceKey<StructureProcessorList> RUINS_ARCHAEOLOGY_LIBRARY = createKey("ruins_archaeology_library");
+	public static final ResourceKey<StructureProcessorList> RUINS_ARCHAEOLOGY_POTS = createKey("ruins_archaeology_pots");
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
 		HolderGetter<Block> blockHolderGetter = context.lookup(Registries.BLOCK);
@@ -295,6 +299,8 @@ public class RegisterStructureProcessors {
 			ImmutableList.of(
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.STONE_BRICKS.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.4F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState())
@@ -372,6 +378,94 @@ public class RegisterStructureProcessors {
 				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
 				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
 				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.4F)
+			)
+		);
+
+		RuleProcessor genericDegradationProcessor = new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.STONE_BRICKS.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState())
+			)
+		);
+		BlockStateRespectingRuleProcessor genericSlabWallStairsMossyProcessor = new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState(), 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.COBBLESTONE_WALL.defaultBlockState(), 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_WALL
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.COBBLESTONE_STAIRS.defaultBlockState(), 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_STAIRS
+				)
+			)
+		);
+
+		register(
+			context,
+			RUINS_ARCHAEOLOGY,
+			ImmutableList.of(
+				genericDegradationProcessor,
+				genericSlabWallStairsMossyProcessor,
+				archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.275F),
+				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.2F),
+				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.2F),
+				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.4F)
+			)
+		);
+
+		register(
+			context,
+			RUINS_ARCHAEOLOGY_SURFACE,
+			ImmutableList.of(
+				genericDegradationProcessor,
+				genericSlabWallStairsMossyProcessor,
+				archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.RUINS_ARCHAEOLOGY_SURFACE, 0.2F),
+				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
+				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
+				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY_SURFACE, 0.4F)
+			)
+		);
+
+		register(
+			context,
+			RUINS_ARCHAEOLOGY_LIBRARY,
+			ImmutableList.of(
+				genericDegradationProcessor,
+				genericSlabWallStairsMossyProcessor,
+				archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.RUINS_ARCHAEOLOGY_LIBRARY, 0.275F),
+				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY_LIBRARY, 0.2F),
+				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY_LIBRARY, 0.2F),
+				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY_LIBRARY, 0.4F)
+			)
+		);
+
+		register(
+			context,
+			RUINS_ARCHAEOLOGY_POTS,
+			ImmutableList.of(
+				genericDegradationProcessor,
+				genericSlabWallStairsMossyProcessor,
+				archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.275F),
+				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.2F),
+				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.2F),
+				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.4F),
+				decoratedPotSherdProcessor(
+					1F,
+					false,
+					Items.BLADE_POTTERY_SHERD,
+					Items.MINER_POTTERY_SHERD,
+					RegisterItems.BULLSEYE_POTTERY_SHERD,
+					Items.ARCHER_POTTERY_SHERD,
+					Items.ARMS_UP_POTTERY_SHERD,
+					Items.BREWER_POTTERY_SHERD,
+					Items.FRIEND_POTTERY_SHERD
+				)
 			)
 		);
 	}

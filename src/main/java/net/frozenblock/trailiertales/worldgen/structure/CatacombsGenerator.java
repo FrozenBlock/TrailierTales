@@ -476,7 +476,7 @@ public class CatacombsGenerator {
 					Map.of(
 						MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, MobSpawnSettings.EMPTY_MOB_LIST)
 					),
-					GenerationStep.Decoration.UNDERGROUND_DECORATION,
+					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
 					TerrainAdjustment.ENCAPSULATE
 				),
 				templatePool.getOrThrow(START),

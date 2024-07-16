@@ -6,17 +6,27 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:brown_dye",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:white_dye",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:red_dye",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:yellow_dye",
+          "name": "minecraft:brown_candle",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:purple_dye",
+          "name": "minecraft:white_candle",
           "weight": 20
         },
         {
@@ -26,33 +36,53 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:yellow_candle",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:purple_dye",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:emerald",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat",
+          "name": "minecraft:book",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat_seeds",
+          "name": "minecraft:paper",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:beetroot_seeds",
+          "name": "minecraft:wheat",
           "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot_seeds",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -96,43 +126,33 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:lead",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:acacia_hanging_sign",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:oak_hanging_sign",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:sheaf_pottery_sherd",
+          "name": "minecraft:birch_hanging_sign",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:plenty_pottery_sherd",
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:howl_pottery_sherd",
+          "name": "minecraft:prize_pottery_sherd",
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd",
-          "weight": 4
+          "name": "minecraft:explorer_pottery_sherd",
+          "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:shelter_pottery_sherd",
-          "weight": 7
+          "name": "minecraft:brewer_pottery_sherd",
+          "weight": 6
         }
       ],
       "rolls": 1.0

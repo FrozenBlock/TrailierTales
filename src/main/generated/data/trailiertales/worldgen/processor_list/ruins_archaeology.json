@@ -5,24 +5,6 @@
       "rules": [
         {
           "input_predicate": {
-            "block": "minecraft:cobblestone_stairs",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.3
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:gravel"
-          }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
-        {
-          "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.2
@@ -77,7 +59,7 @@
           "input_predicate": {
             "block": "minecraft:cobblestone",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.4
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -90,7 +72,7 @@
           "input_predicate": {
             "block": "minecraft:stone_bricks",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.4
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -127,7 +109,7 @@
               }
             },
             "predicate_type": "minecraft:random_blockstate_match",
-            "probability": 0.4
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -148,7 +130,7 @@
               }
             },
             "predicate_type": "minecraft:random_blockstate_match",
-            "probability": 0.4
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -167,7 +149,7 @@
               }
             },
             "predicate_type": "minecraft:random_blockstate_match",
-            "probability": 0.4
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -182,12 +164,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
+            "loot_table": "trailiertales:archaeology/ruins"
           },
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.275
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -208,12 +190,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
+            "loot_table": "trailiertales:archaeology/ruins"
           },
           "input_predicate": {
             "block": "minecraft:dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.15
+            "probability": 0.2
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -234,12 +216,12 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
+            "loot_table": "trailiertales:archaeology/ruins"
           },
           "input_predicate": {
             "block": "minecraft:coarse_dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.15
+            "probability": 0.2
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -260,7 +242,7 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:archaeology/jungle_ruins_surface"
+            "loot_table": "trailiertales:archaeology/ruins"
           },
           "input_predicate": {
             "block": "minecraft:clay",

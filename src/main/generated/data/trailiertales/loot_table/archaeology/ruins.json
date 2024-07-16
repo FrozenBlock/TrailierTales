@@ -6,32 +6,32 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:brown_dye",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:white_dye",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:red_dye",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:yellow_dye",
+          "name": "minecraft:brown_candle",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:purple_dye",
+          "name": "minecraft:white_candle",
           "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:red_candle",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:yellow_candle",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:purple_dye",
           "weight": 20
         },
         {
@@ -51,8 +51,23 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_seeds",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:beetroot_seeds",
-          "weight": 10
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -106,8 +121,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:acacia_hanging_sign",
-          "weight": 10
+          "name": "minecraft:book",
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -116,23 +131,43 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:sheaf_pottery_sherd",
+          "name": "minecraft:birch_hanging_sign",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blade_pottery_sherd",
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:howl_pottery_sherd",
+          "name": "minecraft:miner_pottery_sherd",
           "weight": 6
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd",
+          "name": "trailiertales:bullseye_pottery_sherd",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:archer_pottery_sherd",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arms_up_pottery_sherd",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brewer_pottery_sherd",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:friend_pottery_sherd",
           "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:shelter_pottery_sherd",
-          "weight": 7
         }
       ],
       "rolls": 1.0
