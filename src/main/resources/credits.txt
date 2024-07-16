@@ -2,31 +2,41 @@ Luna/Lunade/AViewFromTheTop - Lead dev & producer
 
 wigglewoggle - Builder
     - Main builder of Catacombs structure pieces after prototyping
+    - Generic, Savanna, Desert, and Jungle ruins
 
 Soro335
     - Came up with Badlands Fort designs
 
-Voxelotl - Texture Artist:
-    - Suspicious Clay
-    - Mossy Cobbled Deepslate
-    - Mossy Deepslate Bricks
-    - Mossy Deepslate Tiles
-    - Bullseye Pottery Sherd
-    - Wither Pottery Sherd (TO BE NAMED)
-    - Coffin
+Voxelotl
+    - Texture Artist:
+      - Suspicious Clay
+      - Mossy Cobbled Deepslate
+      - Mossy Deepslate Bricks
+      - Mossy Deepslate Tiles
+      - Bullseye Pottery Sherd
+      - Wither Pottery Sherd
+      - Bloom Pottery Sherd
+      - Coffin
+      - Undead Armor Trim
+      - Surveyor
+      - Apparition
+    - Came up with the Undead Armor Trim
 
-Zhen - Texture Artist:
-    - Suspicious Dirt
-    - Cyan Rose
-    - Incidence Pottery Sherd
-    - All New Andesite, Diorite, and Granite Variants
+Zhen
+    - Texture Artist:
+      - Suspicious Dirt
+      - Cyan Rose
+      - Incidence Pottery Sherd
+      - All New Andesite, Diorite, and Granite Variants
+    - Came up with the Surveyor
+    - Useful Apparition feedback/ideas
 
 Rebel459
-    - Implemented and made textures for the Desolation and Undead Armor Trims
+    - Implemented and made textures for the Desolation Armor Trim
 
-Stella/Osmiooo - Assistant Dev (idk if you want the second name on there or not)
+Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks
-    - Implemented Wither Pottery Sherd (TO BE NAMED)
+    - Implemented the Wither Pottery Sherd
 
 Eggmanplant
     - Polish translation and a few early bug fixes
