@@ -1,8 +1,9 @@
 {
   "type": "minecraft:jigsaw",
   "biomes": "#trailiertales:has_catacombs",
+  "dimension_padding": 6,
   "liquid_settings": "ignore_waterlogging",
-  "max_distance_from_center": 116,
+  "max_distance_from_center": 100,
   "size": 20,
   "spawn_overrides": {
     "monster": {

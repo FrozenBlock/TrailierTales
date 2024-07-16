@@ -26,6 +26,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
@@ -447,15 +448,15 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector1"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector2"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector3"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector7"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), catacombsDegradation), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), catacombsDegradation), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector1"), catacombsDegradation), 5),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector2"), catacombsDegradation), 5),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector3"), catacombsDegradation), 5),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), catacombsDegradation), 5),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector7"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), catacombsDegradation), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), catacombsDegradation), 12)
 				),
@@ -485,9 +486,9 @@ public class CatacombsGenerator {
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
-				116,
+				100,
 				List.of(),
-				JigsawStructure.DEFAULT_DIMENSION_PADDING,
+				new DimensionPadding(6),
 				LiquidSettings.IGNORE_WATERLOGGING
 			)
 		);

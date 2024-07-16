@@ -190,6 +190,7 @@ public class RegisterStructureProcessors {
 					Items.HEART_POTTERY_SHERD,
 					Items.ARCHER_POTTERY_SHERD,
 					Items.BLADE_POTTERY_SHERD,
+					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -227,6 +228,7 @@ public class RegisterStructureProcessors {
 					Items.SKULL_POTTERY_SHERD,
 					Items.ARMS_UP_POTTERY_SHERD,
 					Items.BURN_POTTERY_SHERD,
+					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
