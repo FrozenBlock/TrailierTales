@@ -28,6 +28,32 @@
           "output_state": {
             "Name": "minecraft:coarse_dirt"
           }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:mud_bricks",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.1
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:packed_mud"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:packed_mud",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.1
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:mud_bricks"
+          }
         }
       ]
     },
@@ -42,7 +68,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.295
+            "probability": 0.2
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -68,7 +94,7 @@
           "input_predicate": {
             "block": "minecraft:dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.195
+            "probability": 0.15
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -94,7 +120,7 @@
           "input_predicate": {
             "block": "minecraft:coarse_dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.195
+            "probability": 0.15
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
