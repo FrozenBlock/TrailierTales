@@ -46,23 +46,23 @@ public class RegisterBlocks {
 	);
 	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
 		Blocks.DIRT,
-		SoundEvents.BRUSH_GRAVEL,
-		SoundEvents.BRUSH_GRAVEL_COMPLETED,
+		RegisterSounds.BRUSH_DIRT,
+		RegisterSounds.BRUSH_DIRT_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.DIRT)
 			.strength(0.25f)
-			.sound(SoundType.SUSPICIOUS_GRAVEL)
+			.sound(RegisterSounds.SUSPICIOUS_DIRT)
 			.pushReaction(PushReaction.DESTROY)
 	);
 	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(
 		Blocks.CLAY,
-		SoundEvents.BRUSH_GRAVEL,
-		SoundEvents.BRUSH_GRAVEL_COMPLETED,
+		RegisterSounds.BRUSH_CLAY,
+		RegisterSounds.BRUSH_CLAY_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.CLAY)
 			.instrument(NoteBlockInstrument.FLUTE)
 			.strength(0.25f)
-			.sound(SoundType.SUSPICIOUS_GRAVEL)
+			.sound(RegisterSounds.SUSPICIOUS_CLAY)
 			.pushReaction(PushReaction.DESTROY)
 	);
 

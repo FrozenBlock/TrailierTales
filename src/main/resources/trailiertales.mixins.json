@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "common.brush.BrushParticleMixin",
+    "common.brush.BrushSoundMixin",
     "common.brushable_block.BlockEntityTypeMixin",
     "common.brushable_block.BrushableBlockEntityMixin",
     "common.brushable_block.BrushableBlockMixin",
@@ -20,6 +21,7 @@
   "client": [
     "client.brush.ItemInHandLayerMixin",
     "client.brushable_block.BrushableBlockRenderMixin",
+    "client.brushable_block.BrushingCompleteSoundMixin",
     "client.decorated_pot.DecoratedPotPatternsMixin",
     "client.decorated_pot.DecoratedPotRendererMixin",
     "client.haunt.FogRendererMixin",

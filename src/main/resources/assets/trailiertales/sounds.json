@@ -1,4 +1,380 @@
 {
+  "block.suspicious_clay.break": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/break1",
+      "minecraft:block/suspicious_gravel/break2",
+      "minecraft:block/suspicious_gravel/break3",
+      "minecraft:block/suspicious_gravel/break4",
+      "minecraft:block/suspicious_gravel/break5",
+      "minecraft:block/suspicious_gravel/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.suspicious_clay.fall": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/step1",
+      "minecraft:block/suspicious_gravel/step2",
+      "minecraft:block/suspicious_gravel/step3",
+      "minecraft:block/suspicious_gravel/step4"
+    ]
+  },
+  "block.suspicious_clay.hit": {
+    "sounds": [
+      {
+        "name": "minecraft:block/suspicious_gravel/step1",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/suspicious_gravel/step2",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/suspicious_gravel/step3",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/suspicious_gravel/step4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.suspicious_clay.place": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/place1",
+      "minecraft:block/suspicious_gravel/place2",
+      "minecraft:block/suspicious_gravel/place3",
+      "minecraft:block/suspicious_gravel/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.suspicious_clay.step": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/step1",
+      "minecraft:block/suspicious_gravel/step2",
+      "minecraft:block/suspicious_gravel/step3",
+      "minecraft:block/suspicious_gravel/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "item.brush.brushing.clay": {
+    "sounds": [
+      {
+        "name": "minecraft:item/brush/brushing_gravel1",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "minecraft:item/brush/brushing_gravel2",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "minecraft:item/brush/brushing_gravel3",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "minecraft:item/brush/brushing_gravel4",
+        "pitch": 0.6,
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.item.brush.brushing.clay"
+  },
+  "item.brush.brushing.clay.complete": {
+    "sounds": [
+      "minecraft:item/brush/brushing_gravel_complete1",
+      "minecraft:item/brush/brushing_gravel_complete2",
+      "minecraft:item/brush/brushing_gravel_complete3",
+      "minecraft:item/brush/brushing_gravel_complete4"
+    ],
+    "subtitle": "subtitles.item.brush.brushing.clay.complete"
+  },
+
+  "block.suspicious_dirt.break": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/break1",
+      "minecraft:block/suspicious_gravel/break2",
+      "minecraft:block/suspicious_gravel/break3",
+      "minecraft:block/suspicious_gravel/break4",
+      "minecraft:block/suspicious_gravel/break5",
+      "minecraft:block/suspicious_gravel/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.suspicious_dirt.fall": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/step1",
+      "minecraft:block/suspicious_gravel/step2",
+      "minecraft:block/suspicious_gravel/step3",
+      "minecraft:block/suspicious_gravel/step4"
+    ]
+  },
+  "block.suspicious_dirt.hit": {
+    "sounds": [
+      {
+        "name": "minecraft:block/suspicious_gravel/step1",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/suspicious_gravel/step2",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/suspicious_gravel/step3",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/suspicious_gravel/step4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.suspicious_dirt.place": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/place1",
+      "minecraft:block/suspicious_gravel/place2",
+      "minecraft:block/suspicious_gravel/place3",
+      "minecraft:block/suspicious_gravel/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.suspicious_dirt.step": {
+    "sounds": [
+      "minecraft:block/suspicious_gravel/step1",
+      "minecraft:block/suspicious_gravel/step2",
+      "minecraft:block/suspicious_gravel/step3",
+      "minecraft:block/suspicious_gravel/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "item.brush.brushing.dirt": {
+    "sounds": [
+      {
+        "name": "minecraft:item/brush/brushing_gravel1",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "minecraft:item/brush/brushing_gravel2",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "minecraft:item/brush/brushing_gravel3",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "minecraft:item/brush/brushing_gravel4",
+        "pitch": 0.6,
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.item.brush.brushing.dirt"
+  },
+  "item.brush.brushing.dirt.complete": {
+    "sounds": [
+      "minecraft:item/brush/brushing_gravel_complete1",
+      "minecraft:item/brush/brushing_gravel_complete2",
+      "minecraft:item/brush/brushing_gravel_complete3",
+      "minecraft:item/brush/brushing_gravel_complete4"
+    ],
+    "subtitle": "subtitles.item.brush.brushing.dirt.complete"
+  },
+
+  "block.suspicious_clay_ww.break": {
+    "sounds": [
+      "trailiertales:block/suspicious_clay/break1",
+      "trailiertales:block/suspicious_clay/break2",
+      "trailiertales:block/suspicious_clay/break3",
+      "trailiertales:block/suspicious_clay/break4",
+      "trailiertales:block/suspicious_clay/break5",
+      "trailiertales:block/suspicious_clay/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.suspicious_clay_ww.fall": {
+    "sounds": [
+      "trailiertales:block/suspicious_clay/step1",
+      "trailiertales:block/suspicious_clay/step2",
+      "trailiertales:block/suspicious_clay/step3",
+      "trailiertales:block/suspicious_clay/step4",
+      "trailiertales:block/suspicious_clay/step5",
+      "trailiertales:block/suspicious_clay/step6"
+    ]
+  },
+  "block.suspicious_clay_ww.hit": {
+    "sounds": [
+      {
+        "name": "trailiertales:block/suspicious_clay/step1",
+        "volume": 0.8
+      },
+      {
+        "name": "trailiertales:block/suspicious_clay/step2",
+        "volume": 0.8
+      },
+      {
+        "name": "trailiertales:block/suspicious_clay/step3",
+        "volume": 0.8
+      },
+      {
+        "name": "trailiertales:block/suspicious_clay/step4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.suspicious_clay_ww.place": {
+    "sounds": [
+      "trailiertales:block/suspicious_clay/place1",
+      "trailiertales:block/suspicious_clay/place2",
+      "trailiertales:block/suspicious_clay/place3",
+      "trailiertales:block/suspicious_clay/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.suspicious_clay_ww.step": {
+    "sounds": [
+      "trailiertales:block/suspicious_clay/step1",
+      "trailiertales:block/suspicious_clay/step2",
+      "trailiertales:block/suspicious_clay/step3",
+      "trailiertales:block/suspicious_clay/step4",
+      "trailiertales:block/suspicious_clay/step5",
+      "trailiertales:block/suspicious_clay/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "item.brush.brushing.clay_ww": {
+    "sounds": [
+      {
+        "name": "trailiertales:item/brush/brushing_clay1",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "trailiertales:item/brush/brushing_clay2",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "trailiertales:item/brush/brushing_clay3",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "trailiertales:item/brush/brushing_clay4",
+        "pitch": 0.6,
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.item.brush.brushing.clay"
+  },
+  "item.brush.brushing.clay_ww.complete": {
+    "sounds": [
+      "trailiertales:item/brush/brushing_clay_complete1",
+      "trailiertales:item/brush/brushing_clay_complete2",
+      "trailiertales:item/brush/brushing_clay_complete3",
+      "trailiertales:item/brush/brushing_clay_complete4"
+    ],
+    "subtitle": "subtitles.item.brush.brushing.clay.complete"
+  },
+
+  "block.suspicious_gravel_ww.break": {
+    "sounds": [
+      "trailiertales:block/suspicious_gravel/break1",
+      "trailiertales:block/suspicious_gravel/break2",
+      "trailiertales:block/suspicious_gravel/break3",
+      "trailiertales:block/suspicious_gravel/break4",
+      "trailiertales:block/suspicious_gravel/break5",
+      "trailiertales:block/suspicious_gravel/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.suspicious_gravel_ww.fall": {
+    "sounds": [
+      "trailiertales:block/suspicious_gravel/step1",
+      "trailiertales:block/suspicious_gravel/step2",
+      "trailiertales:block/suspicious_gravel/step3",
+      "trailiertales:block/suspicious_gravel/step4"
+    ]
+  },
+  "block.suspicious_gravel_ww.hit": {
+    "sounds": [
+      {
+        "name": "trailiertales:block/suspicious_gravel/step1",
+        "volume": 0.8
+      },
+      {
+        "name": "trailiertales:block/suspicious_gravel/step2",
+        "volume": 0.8
+      },
+      {
+        "name": "trailiertales:block/suspicious_gravel/step3",
+        "volume": 0.8
+      },
+      {
+        "name": "trailiertales:block/suspicious_gravel/step4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.suspicious_gravel_ww.place": {
+    "sounds": [
+      "trailiertales:block/suspicious_gravel/place1",
+      "trailiertales:block/suspicious_gravel/place2",
+      "trailiertales:block/suspicious_gravel/place3",
+      "trailiertales:block/suspicious_gravel/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.suspicious_gravel_ww.step": {
+    "sounds": [
+      "trailiertales:block/suspicious_gravel/step1",
+      "trailiertales:block/suspicious_gravel/step2",
+      "trailiertales:block/suspicious_gravel/step3",
+      "trailiertales:block/suspicious_gravel/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "item.brush.brushing.gravel_ww": {
+    "sounds": [
+      {
+        "name": "trailiertales:item/brush/brushing_gravel1",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "trailiertales:item/brush/brushing_gravel2",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "trailiertales:item/brush/brushing_gravel3",
+        "pitch": 0.6,
+        "volume": 0.6
+      },
+      {
+        "name": "trailiertales:item/brush/brushing_gravel4",
+        "pitch": 0.6,
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.item.brush.brushing.gravel"
+  },
+  "item.brush.brushing.gravel_ww.complete": {
+    "sounds": [
+      "trailiertales:item/brush/brushing_gravel_complete1",
+      "trailiertales:item/brush/brushing_gravel_complete2",
+      "trailiertales:item/brush/brushing_gravel_complete3",
+      "trailiertales:item/brush/brushing_gravel_complete4"
+    ],
+    "subtitle": "subtitles.item.brush.brushing.gravel.complete"
+  },
+
   "block.coffin.break": {
     "sounds": [
       "trailiertales:block/coffin/place1",

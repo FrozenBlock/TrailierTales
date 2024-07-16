@@ -1,8 +1,11 @@
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import java.util.List;
+import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.Direction;
@@ -22,6 +25,17 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
+		BlockSoundGroupOverwrites.addBlock(
+			net.frozenblock.trailiertales.registry.RegisterBlocks.SUSPICIOUS_CLAY,
+			RegisterSounds.SUSPICIOUS_CLAY_WW,
+			() -> BlockConfig.get().blockSounds.claySounds
+		);
+		BlockSoundGroupOverwrites.addBlock(
+			Blocks.SUSPICIOUS_GRAVEL,
+			RegisterSounds.SUSPICIOUS_GRAVEL_WW,
+			() -> BlockConfig.get().blockSounds.claySounds
+		);
+
 		StructureProcessorApi.addNamespaceWithKeywordTarget(TrailierConstants.MOD_ID, "catacombs/",
 			new RuleProcessor(
 				List.of(
@@ -78,5 +92,15 @@ public class WWIntegration extends AbstractWWIntegration {
 				)
 			)
 		);
+	}
+
+	@Override
+	public boolean newClaySounds() {
+		return BlockConfig.get().blockSounds.claySounds;
+	}
+
+	@Override
+	public boolean newGravelSounds() {
+		return BlockConfig.get().blockSounds.gravelSounds;
 	}
 }

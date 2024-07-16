@@ -79,6 +79,13 @@
   "block.trailiertales.mossy_deepslate_tile_slab": "Mossy Deepslate Tile Slab",
   "block.trailiertales.mossy_deepslate_tile_wall": "Mossy Deepslate Tile Wall",
 
+  "subtitles.item.brush.brushing.clay": "Brushing Clay",
+  "subtitles.item.brush.brushing.clay.complete": "Brushing Clay completed",
+  "subtitles.item.brush.brushing.dirt": "Brushing Dirt",
+  "subtitles.item.brush.brushing.dirt.complete": "Brushing Dirt completed",
+  "subtitles.item.brush.brushing.soul_soil": "Brushing Soul Soil",
+  "subtitles.item.brush.brushing.soul_soil.complete": "Brushing Soul Soil completed",
+
   "subtitles.entity.apparition.idle": "Apparition looms",
   "subtitles.entity.apparition.hurt": "Apparition hurts",
   "subtitles.entity.apparition.death": "Apparition dies",
