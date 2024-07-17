@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.mixin.client.haunt;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
@@ -28,11 +29,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GuiMixin {
 	@Unique
 	private static final ResourceLocation TRAILIER_TALES$HEART_HAUNT = TrailierConstants.id("hud/heart/haunt");
+	@Unique
+	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT = TrailierConstants.id("hud/armor_haunt");
+	@Unique
+	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT_HALF = TrailierConstants.id("hud/armor_haunt_half");
+	@Unique
+	private static final ResourceLocation TRAILIER_TALES$FOOD_HAUNT = TrailierConstants.id("hud/food_haunt");
 
 	@Unique
-	private boolean trailierTales$isHaunted;
+	private static boolean trailierTales$isHaunted;
 	@Unique
-	private int trailierTales$hauntTicks;
+	private static int trailierTales$hauntTicks;
 
 	@Shadow
 	@Final
@@ -49,11 +56,11 @@ public class GuiMixin {
 	)
 	private void trailierTales$setHauntedInfo(CallbackInfo info) {
 		Player player = this.minecraft.player;
-		this.trailierTales$isHaunted = player.hasEffect(RegisterMobEffects.HAUNT);
-		if (this.trailierTales$isHaunted) {
-			this.trailierTales$hauntTicks = Math.min(50, this.trailierTales$hauntTicks + 1);
+		trailierTales$isHaunted = player.hasEffect(RegisterMobEffects.HAUNT);
+		if (trailierTales$isHaunted) {
+			trailierTales$hauntTicks = Math.min(50, trailierTales$hauntTicks + 1);
 		} else {
-			this.trailierTales$hauntTicks = Math.max(0, this.trailierTales$hauntTicks - 1);
+			trailierTales$hauntTicks = Math.max(0, trailierTales$hauntTicks - 1);
 		}
 	}
 
@@ -95,7 +102,7 @@ public class GuiMixin {
 	private int trailierTales$lerpBackHealth(
 		int original, @Share("trailierTales$maxHealthAttribute") LocalDoubleRef doubleRef
 	) {
-		return (int) Mth.lerp(this.trailierTales$getHauntProgress(), original, doubleRef.get());
+		return (int) Mth.lerp(trailierTales$getHauntProgress(), original, doubleRef.get());
 	}
 
 	@ModifyExpressionValue(
@@ -107,12 +114,12 @@ public class GuiMixin {
 		)
 	)
 	private int trailierTales$hauntAbsorption(int absorptionAmount) {
-		return (int) (absorptionAmount * (1F - this.trailierTales$getHauntProgress()));
+		return (int) (absorptionAmount * (1F - trailierTales$getHauntProgress()));
 	}
 
 	@ModifyVariable(method = "renderHearts", at = @At("HEAD"), argsOnly = true, ordinal = 3)
 	private int trailierTales$hideRegeneration(int regeneratingHeartIndex) {
-		return this.trailierTales$isHaunted ? Integer.MAX_VALUE : regeneratingHeartIndex;
+		return trailierTales$isHaunted ? Integer.MAX_VALUE : regeneratingHeartIndex;
 	}
 
 	@ModifyVariable(method = "renderHearts", at = @At("HEAD"), argsOnly = true, ordinal = 4)
@@ -126,7 +133,7 @@ public class GuiMixin {
 		int regeneratingHeartIndex,
 		float maxHealth
 	) {
-		return this.trailierTales$isHaunted ? (int) maxHealth : lastHealth;
+		return trailierTales$isHaunted ? (int) maxHealth : lastHealth;
 	}
 
 	@ModifyVariable(method = "renderHearts", at = @At("HEAD"), argsOnly = true, ordinal = 5)
@@ -140,7 +147,7 @@ public class GuiMixin {
 		int regeneratingHeartIndex,
 		float maxHealth
 	) {
-		return this.trailierTales$isHaunted ? (int) maxHealth : health;
+		return trailierTales$isHaunted ? (int) maxHealth : health;
 	}
 
 	@WrapOperation(
@@ -160,16 +167,94 @@ public class GuiMixin {
 	private void trailierTales$renderHauntedHeart(
 		Gui instance, GuiGraphics graphics, Gui.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, Operation<Void> original
 	) {
-		if (this.trailierTales$isHaunted) {
+		if (trailierTales$isHaunted) {
 			this.trailierTales$forceRenderHeart(graphics, TRAILIER_TALES$HEART_HAUNT, x, y);
 		} else {
 			original.call(instance, graphics, type, x, y, hardcore, blinking, half);
 		}
 	}
 
+	@ModifyExpressionValue(
+		method = "renderArmor",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/player/Player;getArmorValue()I"
+		)
+	)
+	private static int trailierTales$hideArmor(int armorValue) {
+		return (int) (armorValue * (1F - trailierTales$getHauntProgress()));
+	}
+
+	@ModifyExpressionValue(
+		method = "renderArmor",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/gui/Gui;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/ResourceLocation;"
+		)
+	)
+	private static ResourceLocation trailierTales$hauntedFullArmor(ResourceLocation original) {
+		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HAUNT : original;
+	}
+
+	@ModifyExpressionValue(
+		method = "renderArmor",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/gui/Gui;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/ResourceLocation;"
+		)
+	)
+	private static ResourceLocation trailierTales$hauntedHalfArmor(ResourceLocation original) {
+		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HAUNT_HALF : original;
+	}
+
+	@WrapWithCondition(
+		method = "renderFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
+				ordinal = 0,
+				shift = At.Shift.AFTER
+			)
+		)
+	)
+	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height) {
+		return !trailierTales$isHaunted;
+	}
+
+	@WrapOperation(
+		method = "renderFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
+			ordinal = 0
+		)
+	)
+	private void trailierTales$hauntedHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+		original.call(instance, texture, x, y, width, height);
+		if (trailierTales$isHaunted) {
+			original.call(instance, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
+		}
+	}
+
+	@ModifyExpressionValue(
+		method = "renderFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F"
+		)
+	)
+	private float trailierTales$hideHungerChange(float saturationLevel) {
+		return trailierTales$isHaunted ? 1F : saturationLevel;
+	}
+
 	@Unique
-	private float trailierTales$getHauntProgress() {
-		return this.trailierTales$hauntTicks / 50F;
+	private static float trailierTales$getHauntProgress() {
+		return trailierTales$hauntTicks / 50F;
 	}
 
 	@Unique
