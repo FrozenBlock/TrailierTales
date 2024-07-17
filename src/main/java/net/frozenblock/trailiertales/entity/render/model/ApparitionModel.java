@@ -30,14 +30,16 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	public final ModelPart inner;
 	public final ModelPart outline;
 	public final ModelPart outer;
-	private final AlphaFunction<T> coreAlphaFunction;
+	private final AlphaFunction<T> innerAlphaFunction;
+	private final AlphaFunction<T> outlineAlphaFunction;
 	private final AlphaFunction<T> outerAlphaFunction;
 	private final DrawSelector<T, ApparitionModel<T>> drawSelector;
 	private final List<ModelPart> modelParts;
 	private final List<ModelPart> coreParts;
 	private final List<ModelPart> outerParts;
 
-	private float coreTransparency;
+	private float innerTransparency;
+	private float outlineTransparency;
 	private float outerTransparency;
 	private float flicker;
 
@@ -45,7 +47,8 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		this(
 			FrozenRenderType::apparitionOuterCull,
 			root,
-			Apparition::getTransparency,
+			Apparition::getInnerTransparency,
+			Apparition::getOutlineTransparency,
 			Apparition::getOuterTransparency,
 			ApparitionModel::getParts
 		);
@@ -54,7 +57,8 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	public ApparitionModel(
 		Function<ResourceLocation, RenderType> function,
 		@NotNull ModelPart root,
-		AlphaFunction<T> coreAlpha,
+		AlphaFunction<T> innerAlpha,
+		AlphaFunction<T> outlineAlpha,
 		AlphaFunction<T> outerAlpha,
 		DrawSelector<T, ApparitionModel<T>> drawSelector
 	) {
@@ -67,7 +71,8 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 		ModelPartInvertInterface.class.cast(this.outline).frozenLib$setInverted(true);
 
-		this.coreAlphaFunction = coreAlpha;
+		this.innerAlphaFunction = innerAlpha;
+		this.outlineAlphaFunction = outlineAlpha;
 		this.outerAlphaFunction = outerAlpha;
 		this.drawSelector = drawSelector;
 		this.modelParts = ImmutableList.of(this.core, this.inner, this.outline, this.outer);
@@ -91,12 +96,12 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 
-		PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.offset(0F, 17F, 0F));
+		PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.ZERO);
 
 		core.addOrReplaceChild("inner", CubeListBuilder.create()
-			.texOffs(0, 28).addBox(-5F, -5F, -5F, 10F, 10F, 10F), PartPose.ZERO);
+			.texOffs(0, 28).addBox(-5F, -5F, -5F, 10F, 10F, 10F), PartPose.offset(0F, 17F, 0F));
 		core.addOrReplaceChild("outline", CubeListBuilder.create()
-				.texOffs(0, 48).addBox(-5.5F, -5.5F, -5.5F, 11F, 11F, 11F), PartPose.ZERO);
+				.texOffs(0, 48).addBox(-5.5F, -5.5F, -5.5F, 11F, 11F, 11F), PartPose.offset(0F, 17F, 0F));
 
 		meshdefinition.getRoot().addOrReplaceChild("outer", CubeListBuilder.create()
 			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F),  PartPose.offset(0F, 17F, 0F));
@@ -131,7 +136,8 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	@Override
 	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
-		this.coreTransparency = this.coreAlphaFunction.apply(entity, tickDelta);
+		this.innerTransparency = this.innerAlphaFunction.apply(entity, tickDelta);
+		this.outlineTransparency = this.outlineAlphaFunction.apply(entity, tickDelta);
 		this.outerTransparency = this.outerAlphaFunction.apply(entity, tickDelta);
 		this.flicker = entity.getFlicker(tickDelta);
 		this.outer.yRot = entity.getItemYRot(tickDelta);
@@ -142,9 +148,13 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
 		this.onlyDrawSelectedParts();
-		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.coreTransparency * this.flicker, 1F, 1F, 1F);
-		if (coreTransparency != 0) {
-			this.core.render(poseStack, buffer, 15728640, packedOverlay, coreTransparency);
+		int innerTransparency = FastColor.ARGB32.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
+		if (innerTransparency != 0) {
+			this.inner.render(poseStack, buffer, 15728640, packedOverlay, innerTransparency);
+		}
+		int outlineTransparency = FastColor.ARGB32.colorFromFloat(this.outlineTransparency * this.flicker, 1F, 1F, 1F);
+		if (outlineTransparency != 0) {
+			this.outline.render(poseStack, buffer, 15728640, packedOverlay, outlineTransparency);
 		}
 		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
 		if (outerTransparency != 0) {

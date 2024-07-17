@@ -34,6 +34,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			this,
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
+			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,
 			TrailierConstants.id("textures/entity/apparition/apparition_hypnotizing.png"),
 			false
@@ -41,6 +42,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 		this.addLayer(new ApparitionOverlayLayer<>(
 			context,
 			this,
+			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,

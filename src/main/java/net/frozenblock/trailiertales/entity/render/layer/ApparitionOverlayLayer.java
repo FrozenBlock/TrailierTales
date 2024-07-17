@@ -22,7 +22,8 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 	public ApparitionOverlayLayer(
 		EntityRendererProvider.@NotNull Context context,
 		RenderLayerParent<T, ApparitionModel<T>> renderLayerParent,
-		ApparitionModel.AlphaFunction<T> coreAlphaFunciton,
+		ApparitionModel.AlphaFunction<T> innerAlphaFunction,
+		ApparitionModel.AlphaFunction<T> outlineAlphaFunction,
 		ApparitionModel.AlphaFunction<T> outerAlphaFunction,
 		ApparitionModel.DrawSelector<T, ApparitionModel<T>> drawSelector,
 		ResourceLocation texture,
@@ -32,7 +33,8 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		this.model = new ApparitionModel<>(
 			cull ? FrozenRenderType::apparitionOuterCull : FrozenRenderType::apparitionOuter,
 			context.bakeLayer(TrailierTalesClient.APPARITION_OVERLAY),
-			coreAlphaFunciton,
+			innerAlphaFunction,
+			outlineAlphaFunction,
 			outerAlphaFunction,
 			drawSelector
 		);

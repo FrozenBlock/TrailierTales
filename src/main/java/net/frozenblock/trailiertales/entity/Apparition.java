@@ -280,7 +280,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 
-	public float getTransparency() {
+	public float getInnerTransparency() {
 		return this.entityData.get(TRANSPARENCY);
 	}
 
@@ -361,7 +361,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		} else {
 			this.prevTransparency = this.transparency;
 			this.prevOuterTransparency = this.outerTransparency;
-			this.transparency = this.getTransparency();
+			this.transparency = this.getInnerTransparency();
 			this.outerTransparency = this.getOuterTransparency();
 			this.prevFlicker = this.flicker;
 			this.flicker += ((this.random.nextFloat() * 0.175F) - this.flicker) * 0.5F;
@@ -379,7 +379,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean canBeHitByProjectile() {
-		return super.canBeHitByProjectile() && this.getTransparency() > 0F;
+		return super.canBeHitByProjectile() && this.getInnerTransparency() > 0F;
 	}
 
 	@Override
@@ -467,8 +467,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setOuterTransparency(this.outerTransparency);
 	}
 
-	public float getTransparency(float partialTick) {
+	public float getInnerTransparency(float partialTick) {
 		return Mth.lerp(partialTick, this.prevTransparency, this.transparency) * 0.75F;
+	}
+
+	public float getOutlineTransparency(float partialTick) {
+		return this.getInnerTransparency(partialTick) * 0.5F;
 	}
 
 	public float getOuterTransparency(float partialTick) {
@@ -504,7 +508,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public void addAdditionalSaveData(CompoundTag nbt) {
 		super.addAdditionalSaveData(nbt);
 		this.writeInventoryToTag(nbt, this.registryAccess());
-		nbt.putFloat("Transparency", this.getTransparency());
+		nbt.putFloat("Transparency", this.getInnerTransparency());
 		nbt.putFloat("OuterTransparency", this.getOuterTransparency());
 		nbt.putFloat("AidAnimProgress", this.getAidAnimProgress());
 		nbt.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());

@@ -30,9 +30,9 @@ public class GuiMixin {
 	@Unique
 	private static final ResourceLocation TRAILIER_TALES$HEART_HAUNT = TrailierConstants.id("hud/heart/haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT = TrailierConstants.id("hud/armor_haunt");
+	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT = TrailierConstants.id("hud/armor_full_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT_HALF = TrailierConstants.id("hud/armor_haunt_half");
+	private static final ResourceLocation TRAILIER_TALES$ARMOR_HALF_HAUNT = TrailierConstants.id("hud/armor_half_haunt");
 	@Unique
 	private static final ResourceLocation TRAILIER_TALES$FOOD_HAUNT = TrailierConstants.id("hud/food_haunt");
 	@Unique
@@ -206,7 +206,7 @@ public class GuiMixin {
 		)
 	)
 	private static ResourceLocation trailierTales$hauntedHalfArmor(ResourceLocation original) {
-		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HAUNT_HALF : original;
+		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HALF_HAUNT : original;
 	}
 
 	@WrapWithCondition(
