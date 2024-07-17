@@ -25,6 +25,21 @@
           "weight": 10
         },
         {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "enchantments": {
+                "trailiertales:rebrush": 1.0
+              },
+              "function": "minecraft:set_enchantments"
+            }
+          ],
+          "name": "minecraft:book",
+          "quality": 3,
+          "weight": 3
+        },
+        {
           "type": "minecraft:empty",
           "weight": 5
         }
@@ -41,7 +56,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
@@ -57,7 +72,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
@@ -74,7 +89,23 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:name_tag",
-          "weight": 15
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:emerald",
+          "weight": 7
         },
         {
           "type": "minecraft:empty",
@@ -93,7 +124,22 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:skull_pottery_sherd",
-          "weight": 3
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:prize_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:plenty_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sheaf_pottery_sherd",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -102,15 +148,27 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "trailiertales:bullseye_pottery_sherd"
+          "name": "minecraft:archer_pottery_sherd",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:blade_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brewer_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:wither_pottery_sherd",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:bullseye_pottery_sherd",
           "weight": 2
         },
         {
@@ -204,22 +262,6 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:stick",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
           "name": "minecraft:arrow",
           "weight": 2
         },
@@ -236,7 +278,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:experience_bottle"
+          "name": "minecraft:experience_bottle",
+          "weight": 4
         },
         {
           "type": "minecraft:empty",
@@ -307,14 +350,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 7.0,
+                "max": 6.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:bone",
-          "weight": 20
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -323,14 +366,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 5.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:rotten_flesh",
-          "weight": 18
+          "weight": 6
         },
         {
           "type": "minecraft:item",
@@ -352,6 +395,70 @@
           "type": "minecraft:item",
           "name": "minecraft:book",
           "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:brick",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:flower_pot",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:dead_bush",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:stick",
+          "weight": 5
         }
       ],
       "functions": [
