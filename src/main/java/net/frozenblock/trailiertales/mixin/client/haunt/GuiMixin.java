@@ -232,20 +232,15 @@ public class GuiMixin {
 		method = "renderFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"
-		),
-		slice = @Slice(
-			from = @At(
-				value = "INVOKE",
-				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
-				ordinal = 0,
-				shift = At.Shift.AFTER
-			)
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
+			ordinal = 0
 		)
 	)
 	private void trailierTales$hauntedHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
-		texture = trailierTales$isHaunted ? TRAILIER_TALES$FOOD_HAUNT : texture;
 		original.call(instance, texture, x, y, width, height);
+		if (trailierTales$isHaunted) {
+			original.call(instance, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
+		}
 	}
 
 	@ModifyExpressionValue(
