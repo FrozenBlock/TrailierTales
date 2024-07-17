@@ -472,7 +472,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public float getOutlineTransparency(float partialTick) {
-		return this.getInnerTransparency(partialTick) * 0.5F;
+		return this.getInnerTransparency(partialTick) * 0.75F;
 	}
 
 	public float getOuterTransparency(float partialTick) {
