@@ -17,6 +17,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
@@ -26,6 +27,8 @@ import org.jetbrains.annotations.NotNull;
 public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	public final ModelPart core;
+	public final ModelPart inner;
+	public final ModelPart outline;
 	public final ModelPart outer;
 	private final AlphaFunction<T> coreAlphaFunction;
 	private final AlphaFunction<T> outerAlphaFunction;
@@ -58,14 +61,17 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		super(function);
 		this.root = root;
 		this.core = root.getChild("core");
+		this.inner = this.core.getChild("inner");
+		this.outline = this.core.getChild("outline");
 		this.outer = root.getChild("outer");
-		ModelPartInvertInterface.class.cast(this.outer).frozenLib$setInverted(true);
+
+		ModelPartInvertInterface.class.cast(this.outline).frozenLib$setInverted(true);
 
 		this.coreAlphaFunction = coreAlpha;
 		this.outerAlphaFunction = outerAlpha;
 		this.drawSelector = drawSelector;
-		this.modelParts = ImmutableList.of(this.core, this.outer);
-		this.coreParts = ImmutableList.of(this.core);
+		this.modelParts = ImmutableList.of(this.core, this.inner, this.outline, this.outer);
+		this.coreParts = ImmutableList.of(this.core, this.inner, this.outline);
 		this.outerParts = ImmutableList.of(this.outer);
 	}
 
@@ -84,12 +90,18 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
-		meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create()
-			.texOffs(0, 28).addBox(-5F, -5F, -5F, 10F, 10F, 10F), PartPose.offset(0F, 17F, 0F));
+
+		PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.offset(0F, 17F, 0F));
+
+		core.addOrReplaceChild("inner", CubeListBuilder.create()
+			.texOffs(0, 28).addBox(-5F, -5F, -5F, 10F, 10F, 10F), PartPose.ZERO);
+		core.addOrReplaceChild("outline", CubeListBuilder.create()
+				.texOffs(0, 48).addBox(-5.5F, -5.5F, -5.5F, 11F, 11F, 11F), PartPose.ZERO);
+
 		meshdefinition.getRoot().addOrReplaceChild("outer", CubeListBuilder.create()
 			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F),  PartPose.offset(0F, 17F, 0F));
 
-		return LayerDefinition.create(meshdefinition, 64, 64);
+		return LayerDefinition.create(meshdefinition, 80, 80);
 	}
 
 	@Override
@@ -132,7 +144,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		this.onlyDrawSelectedParts();
 		int coreTransparency = FastColor.ARGB32.colorFromFloat(this.coreTransparency * this.flicker, 1F, 1F, 1F);
 		if (coreTransparency != 0) {
-		this.core.render(poseStack, buffer, 15728640, packedOverlay, coreTransparency);
+			this.core.render(poseStack, buffer, 15728640, packedOverlay, coreTransparency);
 		}
 		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
 		if (outerTransparency != 0) {
