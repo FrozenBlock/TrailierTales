@@ -431,13 +431,13 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector2"), catacombsDegradation), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector3"), catacombsDegradation), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), catacombsDegradation), 5),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), catacombsDegradation), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector7"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), catacombsDegradation), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), catacombsDegradation), 12)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), catacombsDegradation), 16)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -453,13 +453,13 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector2"), catacombsDegradation), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector3"), catacombsDegradation), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), catacombsDegradation), 5),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), catacombsDegradation), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), catacombsDegradation), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), catacombsDegradation), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector7"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), catacombsDegradation), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), catacombsDegradation), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), catacombsDegradation), 12)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), catacombsDegradation), 16)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
