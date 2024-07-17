@@ -35,6 +35,8 @@ public class GuiMixin {
 	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT_HALF = TrailierConstants.id("hud/armor_haunt_half");
 	@Unique
 	private static final ResourceLocation TRAILIER_TALES$FOOD_HAUNT = TrailierConstants.id("hud/food_haunt");
+	@Unique
+	private static final ResourceLocation TRAILIER_TALES$AIR_HAUNT = TrailierConstants.id("hud/air_haunt");
 
 	@Unique
 	private static boolean trailierTales$isHaunted;
@@ -235,10 +237,8 @@ public class GuiMixin {
 		)
 	)
 	private void trailierTales$hauntedHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+		texture = trailierTales$isHaunted ? TRAILIER_TALES$FOOD_HAUNT : texture;
 		original.call(instance, texture, x, y, width, height);
-		if (trailierTales$isHaunted) {
-			original.call(instance, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
-		}
 	}
 
 	@ModifyExpressionValue(
@@ -250,6 +250,35 @@ public class GuiMixin {
 	)
 	private float trailierTales$hideHungerChange(float saturationLevel) {
 		return trailierTales$isHaunted ? 1F : saturationLevel;
+	}
+
+	@ModifyExpressionValue(
+		method = "renderPlayerHealth",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/player/Player;getAirSupply()I"
+		)
+	)
+	private int trailierTales$hideAirSupply(int airSupply) {
+		return trailierTales$isHaunted ? (int) (airSupply * trailierTales$getHauntProgress()) : airSupply;
+	}
+
+	@WrapOperation(
+		method = "renderPlayerHealth",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/client/gui/Gui;AIR_SPRITE:Lnet/minecraft/resources/ResourceLocation;"
+			)
+		)
+	)
+	private void trailierTales$hauntedAirSupply(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+		texture = trailierTales$isHaunted ? TRAILIER_TALES$AIR_HAUNT : texture;
+		original.call(instance, texture, x, y, width, height);
 	}
 
 	@Unique
