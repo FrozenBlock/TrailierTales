@@ -232,8 +232,15 @@ public class GuiMixin {
 		method = "renderFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
-			ordinal = 0
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
+				ordinal = 0,
+				shift = At.Shift.AFTER
+			)
 		)
 	)
 	private void trailierTales$hauntedHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
@@ -252,15 +259,27 @@ public class GuiMixin {
 		return trailierTales$isHaunted ? 1F : saturationLevel;
 	}
 
-	@ModifyExpressionValue(
+	@WrapOperation(
 		method = "renderPlayerHealth",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/player/Player;getAirSupply()I"
+			target = "Ljava/lang/Math;min(II)I"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/world/entity/player/Player;getMaxAirSupply()I"
+			)
 		)
 	)
-	private int trailierTales$hideAirSupply(int airSupply) {
-		return trailierTales$isHaunted ? (int) (airSupply * trailierTales$getHauntProgress()) : airSupply;
+	private int trailierTales$hideAirSupply(int airSupply, int maxAirSupply, Operation<Integer> original) {
+		int finalSupply = original.call(airSupply, maxAirSupply);
+		if (trailierTales$isHaunted) {
+			if (finalSupply != maxAirSupply) {
+				return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
+			}
+		}
+		return finalSupply;
 	}
 
 	@WrapOperation(
