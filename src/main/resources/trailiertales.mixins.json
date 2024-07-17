@@ -25,6 +25,7 @@
     "client.decorated_pot.DecoratedPotPatternsMixin",
     "client.decorated_pot.DecoratedPotRendererMixin",
     "client.haunt.FogRendererMixin",
+    "client.haunt.GuiMixin",
     "client.haunt.LevelRendererMixin",
     "client.haunt.LightTextureMixin",
     "client.haunt.SoundEngineMixin"
