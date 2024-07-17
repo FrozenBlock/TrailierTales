@@ -60,7 +60,7 @@ public class GuiMixin {
 		Player player = this.minecraft.player;
 		trailierTales$isHaunted = player.hasEffect(RegisterMobEffects.HAUNT);
 		if (trailierTales$isHaunted) {
-			trailierTales$hauntTicks = Math.min(50, trailierTales$hauntTicks + 1);
+			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
 		} else {
 			trailierTales$hauntTicks = Math.max(0, trailierTales$hauntTicks - 1);
 		}
@@ -297,7 +297,7 @@ public class GuiMixin {
 
 	@Unique
 	private static float trailierTales$getHauntProgress() {
-		return trailierTales$hauntTicks / 50F;
+		return trailierTales$hauntTicks / 40F;
 	}
 
 	@Unique
