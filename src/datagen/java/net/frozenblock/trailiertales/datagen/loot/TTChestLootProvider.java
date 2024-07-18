@@ -57,7 +57,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(5F, 10F))
+						.setRolls(UniformGenerator.between(4F, 9F))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.BONE).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 6))))
@@ -228,7 +228,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(1F, 5F))
+						.setRolls(UniformGenerator.between(1F, 4F))
 						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
 						.add(LootItem.lootTableItem(Items.BREAD).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 						.add(LootItem.lootTableItem(Items.CARROT).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
@@ -240,7 +240,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(UniformGenerator.between(2F, 5F))
+						.setRolls(UniformGenerator.between(2F, 4F))
 						.add(LootItem.lootTableItem(Items.CANDLE).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
 						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
