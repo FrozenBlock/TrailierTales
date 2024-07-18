@@ -191,7 +191,7 @@ dependencies {
 
     // FrozenLib
     if (local_frozenlib)
-        api(project(":FrozenLib", configuration = "namedElements"))?.let { include(it) }
+        api(project(":FrozenLib", configuration = "outputs"))?.let { include(it) }
     else
         modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
 
