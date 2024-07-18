@@ -49,7 +49,7 @@
             }
           ],
           "name": "minecraft:emerald",
-          "weight": 6
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -85,7 +85,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 3
         }
       ],
       "rolls": {

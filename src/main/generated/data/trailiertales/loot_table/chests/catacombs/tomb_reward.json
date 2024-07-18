@@ -105,7 +105,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 2
         }
       ],
       "rolls": {
@@ -349,7 +349,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 15
+          "weight": 10
         }
       ],
       "rolls": {
@@ -679,7 +679,7 @@
             }
           ],
           "name": "minecraft:brick",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -695,7 +695,7 @@
             }
           ],
           "name": "minecraft:flower_pot",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -711,7 +711,7 @@
             }
           ],
           "name": "minecraft:dead_bush",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -727,7 +727,7 @@
             }
           ],
           "name": "minecraft:stick",
-          "weight": 5
+          "weight": 3
         }
       ],
       "functions": [

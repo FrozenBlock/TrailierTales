@@ -86,17 +86,17 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 35
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:rotten_flesh",
           "weight": 25
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal",
+          "name": "minecraft:rotten_flesh",
           "weight": 18
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -126,7 +126,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:candle",
-          "weight": 20
+          "weight": 18
         }
       ],
       "rolls": 1.0

@@ -41,7 +41,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 3
         }
       ],
       "rolls": 1.0
@@ -109,7 +109,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 2
         }
       ],
       "rolls": {
@@ -357,7 +357,7 @@
             }
           ],
           "name": "minecraft:bone",
-          "weight": 10
+          "weight": 8
         },
         {
           "type": "minecraft:item",

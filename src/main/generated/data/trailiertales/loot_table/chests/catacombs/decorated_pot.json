@@ -25,8 +25,23 @@
           "weight": 10
         },
         {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "enchantments": {
+                "trailiertales:rebrush": 1.0
+              },
+              "function": "minecraft:set_enchantments"
+            }
+          ],
+          "name": "minecraft:book",
+          "quality": 3,
+          "weight": 3
+        },
+        {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 3
         }
       ],
       "rolls": 1.0
@@ -41,14 +56,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:gold_ingot",
-          "weight": 9
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -57,28 +72,43 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:iron_ingot",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond",
-          "weight": 2
+          "name": "minecraft:diamond"
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:name_tag",
-          "weight": 15
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:emerald",
+          "weight": 7
         },
         {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 2
         }
       ],
       "rolls": {
@@ -167,22 +197,6 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:stick",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
           "name": "minecraft:arrow",
           "weight": 2
         },
@@ -199,7 +213,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:experience_bottle"
+          "name": "minecraft:experience_bottle",
+          "weight": 4
         },
         {
           "type": "minecraft:empty",
@@ -238,6 +253,22 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:soul_lantern",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
                 "max": 3.0,
                 "min": 1.0
               },
@@ -254,14 +285,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 7.0,
+                "max": 6.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:bone",
-          "weight": 20
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -270,14 +301,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 5.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:rotten_flesh",
-          "weight": 18
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -299,6 +330,38 @@
           "type": "minecraft:item",
           "name": "minecraft:book",
           "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:dead_bush",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:stick",
+          "weight": 5
         }
       ],
       "functions": [
