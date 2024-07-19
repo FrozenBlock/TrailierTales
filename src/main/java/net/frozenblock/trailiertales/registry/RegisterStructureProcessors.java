@@ -217,7 +217,7 @@ public class RegisterStructureProcessors {
 							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4)
 						),
 						new ProcessorRule(
-							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.1F),
+							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.15F),
 							AlwaysTrueTest.INSTANCE, Blocks.POTTED_DEAD_BUSH.defaultBlockState()
 						)
 					)
