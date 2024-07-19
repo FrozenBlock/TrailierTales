@@ -462,7 +462,7 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
-            "loot_table": "trailiertales:chests/catacombs/decorated_pot"
+            "loot_table": "trailiertales:pots/catacombs/decorated_pot"
           },
           "input_predicate": {
             "block": "minecraft:decorated_pot",
