@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
@@ -173,12 +174,15 @@ public class RegisterStructureProcessors {
 			)
 		);
 
+		final BlockStateRespectingRuleProcessor catacombsPotLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
+
 		register(
 			context,
 			CATACOMBS_DEGRADATION,
 			ImmutableList.of(
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
+				catacombsPotLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -203,6 +207,7 @@ public class RegisterStructureProcessors {
 			ImmutableList.of(
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
+				catacombsPotLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -222,6 +227,7 @@ public class RegisterStructureProcessors {
 			ImmutableList.of(
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
+				catacombsPotLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -467,6 +473,20 @@ public class RegisterStructureProcessors {
 					Items.ARMS_UP_POTTERY_SHERD,
 					Items.BREWER_POTTERY_SHERD,
 					Items.FRIEND_POTTERY_SHERD
+				)
+			)
+		);
+	}
+
+	private static @NotNull BlockStateRespectingRuleProcessor catacombsPotLootProcessor(ResourceKey<LootTable> registryKey) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new BlockMatchTest(Blocks.DECORATED_POT),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.DECORATED_POT,
+					new AppendLoot(registryKey)
 				)
 			)
 		);

@@ -461,6 +461,25 @@
       "rules": [
         {
           "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "trailiertales:chests/catacombs/decorated_pot"
+          },
+          "input_predicate": {
+            "block": "minecraft:decorated_pot",
+            "predicate_type": "minecraft:block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_block": "minecraft:decorated_pot"
+        }
+      ]
+    },
+    {
+      "processor_type": "frozenlib:block_state_respecting_rule",
+      "rules": [
+        {
+          "block_entity_modifier": {
             "type": "frozenlib:append_sherds",
             "chance_per_slot": 1.0,
             "default_to_brick": false,
