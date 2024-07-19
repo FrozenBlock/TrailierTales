@@ -8,7 +8,6 @@ import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
 import net.minecraft.world.level.levelgen.Beardifier;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawJunction;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,9 +22,6 @@ public class BeardifierMixin {
 	@Shadow
 	@Final
 	private ObjectListIterator<Beardifier.Rigid> pieceIterator;
-	@Unique
-	@Nullable
-	private TerrainAdjustment trailierTales$terrainAdjustment = null;
 
 	@Unique
 	private int trailierTales$yOffset = 0;
@@ -49,14 +45,13 @@ public class BeardifierMixin {
 	public void trailierTales$setTerrainAdjustmentValues(ObjectListIterator<Beardifier.Rigid> pieceIterator, ObjectListIterator<JigsawJunction> junctionIterator, CallbackInfo info) {
 		if (this.pieceIterator.hasNext()) {
 			TerrainAdjustment adjustment = this.pieceIterator.next().terrainAdjustment();
-			this.trailierTales$terrainAdjustment = adjustment;
 			if (adjustment == TrailierTerrainAdjustment.SMALL_PLATFORM) {
-				this.trailierTales$yOffset = -4;
-				this.trailierTales$xScale = 0.5D;
-				this.trailierTales$zScale = 0.5D;
-				this.trailierTales$xContributionScale = 4D;
-				this.trailierTales$yContributionScale = 3D;
-				this.trailierTales$zContributionScale = 4D;
+				this.trailierTales$yOffset = -12;
+				this.trailierTales$xScale = 2D;
+				this.trailierTales$zScale = 2D;
+				this.trailierTales$xContributionScale = 0.7D;
+				this.trailierTales$yContributionScale = 1.25D;
+				this.trailierTales$zContributionScale = 0.7D;
 			}
 			this.pieceIterator.previous();
 		}
