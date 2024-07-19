@@ -46,11 +46,11 @@ public class BeardifierMixin {
 		if (this.pieceIterator.hasNext()) {
 			TerrainAdjustment adjustment = this.pieceIterator.next().terrainAdjustment();
 			if (adjustment == TrailierTerrainAdjustment.SMALL_PLATFORM) {
-				this.trailierTales$yOffset = -12;
+				this.trailierTales$yOffset = -13;
 				this.trailierTales$xScale = 2D;
 				this.trailierTales$zScale = 2D;
 				this.trailierTales$xContributionScale = 0.7D;
-				this.trailierTales$yContributionScale = 1.25D;
+				this.trailierTales$yContributionScale = 1D;
 				this.trailierTales$zContributionScale = 0.7D;
 			}
 			this.pieceIterator.previous();
