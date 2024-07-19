@@ -37,7 +37,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
 			ApparitionModel::getParts,
 			TrailierConstants.id("textures/entity/apparition/apparition_hypnotizing.png"),
-			false
+			true
 		));
 		this.addLayer(new ApparitionOverlayLayer<>(
 			context,
