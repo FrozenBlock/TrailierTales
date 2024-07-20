@@ -620,8 +620,7 @@ public class CatacombsGenerator {
 					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
 				),
 				new ProcessorRule(
-					new RandomBlockMatchTest(
-						Blocks.DECORATED_POT, 0.333F),
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.333F),
 					AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4)
 				),
 				new ProcessorRule(
