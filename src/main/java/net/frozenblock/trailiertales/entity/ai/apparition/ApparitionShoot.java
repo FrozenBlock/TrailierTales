@@ -46,7 +46,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
-		apparition.playSound(RegisterSounds.APPARITION_AID);
+		apparition.playSound(RegisterSounds.APPARITION_AID, 1F, apparition.getVoicePitch());
 		apparition.setAggressive(true);
 		apparition.setPoltergeistAnimProgress(1F);
 	}
