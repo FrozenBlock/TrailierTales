@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/catacombs_center",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
       "weight": 1

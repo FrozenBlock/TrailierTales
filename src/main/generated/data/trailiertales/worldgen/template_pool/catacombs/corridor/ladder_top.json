@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_all",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 4
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_left",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 2
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_left_front",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 3
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_left_right",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 3
@@ -40,7 +40,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_right",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 2
@@ -49,7 +49,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_right_front",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 3
@@ -58,7 +58,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/ladder/top_cap",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1

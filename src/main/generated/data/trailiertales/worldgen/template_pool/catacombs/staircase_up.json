@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector1",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 5
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector2",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 5
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector3",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 5
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector4",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 5
@@ -40,7 +40,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector5",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1
@@ -49,7 +49,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector6",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1
@@ -58,7 +58,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector7",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1
@@ -67,7 +67,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector8",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1
@@ -76,7 +76,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector9",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1
@@ -85,7 +85,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/connector10",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 1
@@ -94,7 +94,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/staircase/top1",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
       "weight": 16

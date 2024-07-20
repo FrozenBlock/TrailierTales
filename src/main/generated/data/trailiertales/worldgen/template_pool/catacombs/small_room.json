@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/buried",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/cabin1",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/cabin2",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/jail",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -40,7 +40,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/kitchen",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -49,7 +49,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/mine1",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -58,7 +58,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/mine2",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -67,7 +67,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/portal",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -76,7 +76,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/pot_making",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -85,7 +85,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/ritual1",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10
@@ -94,7 +94,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/ritual2",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
       "weight": 10

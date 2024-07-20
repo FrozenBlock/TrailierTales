@@ -4,7 +4,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/soul_lantern",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 2
@@ -13,7 +15,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 19
@@ -22,7 +26,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull1",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 19
@@ -31,7 +37,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull2",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 19
@@ -40,7 +48,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull3",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 19
@@ -49,7 +59,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull4",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 19
@@ -58,7 +70,9 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/blank",
-        "processors": "trailiertales:catacombs_degradation",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 123

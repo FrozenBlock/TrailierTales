@@ -4,10 +4,36 @@
       "processor_type": "minecraft:rule",
       "rules": [
         {
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "trailiertales:archaeology/catacombs/corridor"
+          },
+          "input_predicate": {
+            "block": "minecraft:gravel",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.196
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:suspicious_gravel",
+            "Properties": {
+              "can_place_item": "false",
+              "dusted": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.1
+            "probability": 0.333
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -20,7 +46,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.2
+            "probability": 0.333
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -132,41 +158,15 @@
         },
         {
           "input_predicate": {
-            "block": "minecraft:suspicious_gravel",
+            "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.425
+            "probability": 0.25788498
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
             "Name": "minecraft:tuff"
-          }
-        },
-        {
-          "input_predicate": {
-            "block": "minecraft:suspicious_gravel",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.9225
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:gravel"
-          }
-        },
-        {
-          "input_predicate": {
-            "block": "trailiertales:suspicious_clay",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.35
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:clay"
           }
         },
         {
@@ -370,19 +370,6 @@
           "output_state": {
             "Name": "minecraft:flower_pot"
           }
-        },
-        {
-          "input_predicate": {
-            "block": "minecraft:decorated_pot",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.333
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:cave_air"
-          }
         }
       ]
     },
@@ -534,10 +521,15 @@
             "default_to_brick": false,
             "sherds": [
               "minecraft:skull_pottery_sherd",
+              "minecraft:skull_pottery_sherd",
+              "minecraft:prize_pottery_sherd",
+              "minecraft:plenty_pottery_sherd",
+              "minecraft:sheaf_pottery_sherd",
+              "minecraft:heart_pottery_sherd",
               "minecraft:archer_pottery_sherd",
-              "trailiertales:bullseye_pottery_sherd",
-              "trailiertales:wither_pottery_sherd",
-              "trailiertales:bullseye_pottery_sherd"
+              "minecraft:blade_pottery_sherd",
+              "minecraft:brewer_pottery_sherd",
+              "trailiertales:wither_pottery_sherd"
             ]
           },
           "input_predicate": {
