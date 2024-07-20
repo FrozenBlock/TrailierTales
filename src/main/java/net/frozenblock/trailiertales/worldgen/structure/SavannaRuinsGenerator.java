@@ -1,9 +1,11 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.frozenblock.trailiertales.worldgen.TrailierTerrainAdjustment;
@@ -14,6 +16,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -25,20 +29,31 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
+import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class SavannaRuinsGenerator {
 	public static final ResourceKey<StructureSet> SAVANNA_RUINS_KEY =  RegisterStructures.ofSet("savanna_ruins");
 	private static final ResourceKey<Structure> SAVANNA_RUIN_KEY = RegisterStructures.createKey("savanna_ruins");
 	public static final ResourceKey<StructureTemplatePool> SAVANNA_RUINS = Pools.parseKey(TrailierConstants.string("savanna_ruins"));
+	public static final ResourceKey<StructureProcessorList> SAVANNA_RUINS_ARCHAEOLOGY = createKey("savanna_ruins_archaeology");
+	public static final ResourceKey<StructureProcessorList> SAVANNA_RUINS_ARCHAEOLOGY_SURFACE = createKey("savanna_ruins_archaeology_surface");
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> surfaceProcessor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE);
-		Holder<StructureProcessorList> processor = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.SAVANNA_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> surfaceProcessor = structureProcessorGetter.getOrThrow(SAVANNA_RUINS_ARCHAEOLOGY_SURFACE);
+		Holder<StructureProcessorList> processor = structureProcessorGetter.getOrThrow(SAVANNA_RUINS_ARCHAEOLOGY);
 
 		pool.register(
 			SAVANNA_RUINS,
@@ -253,7 +268,69 @@ public class SavannaRuinsGenerator {
 		);
 	}
 
+	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
+		RuleProcessor savannaRuleProcessor = new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.PACKED_MUD.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.PACKED_MUD, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MUD_BRICKS.defaultBlockState())
+			)
+		);
+
+		register(
+			context,
+			SAVANNA_RUINS_ARCHAEOLOGY,
+			ImmutableList.of(
+				savannaRuleProcessor,
+				archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.275F),
+				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.2F),
+				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.2F),
+				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.4F)
+			)
+		);
+
+		register(
+			context,
+			SAVANNA_RUINS_ARCHAEOLOGY_SURFACE,
+			ImmutableList.of(
+				savannaRuleProcessor,
+				archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.2F),
+				archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
+				archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
+				archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE, 0.4F)
+			)
+		);
+	}
+
+	@Contract("_, _, _, _ -> new")
+	private static @NotNull RuleProcessor archyLootProcessor(Block original, @NotNull Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
+		return new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(
+					new RandomBlockMatchTest(original, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					suspicious.defaultBlockState(),
+					new AppendLoot(registryKey)
+				)
+			)
+		);
+	}
+
 	private static @NotNull String string(String name) {
 		return TrailierConstants.string("ruins/savanna/" + name);
+	}
+
+	@NotNull
+	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
+		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierConstants.id(string));
+	}
+
+	@NotNull
+	private static Holder<StructureProcessorList> register(
+		@NotNull BootstrapContext<StructureProcessorList> entries, @NotNull ResourceKey<StructureProcessorList> key, @NotNull List<StructureProcessor> list
+	) {
+		return entries.register(key, new StructureProcessorList(list));
 	}
 }

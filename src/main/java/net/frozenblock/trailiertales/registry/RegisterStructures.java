@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterStructures {
@@ -59,6 +60,15 @@ public final class RegisterStructures {
 		JungleRuinsGenerator.bootstrapStructureSet(context);
 		SavannaRuinsGenerator.bootstrapStructureSet(context);
 		RuinsGenerator.bootstrapStructureSet(context);
+	}
+
+	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
+		BadlandsFortGenerator.bootstrapProcessor(context);
+		CatacombsGenerator.bootstrapProcessor(context);
+		DesertRuinsGenerator.bootstrapProcessor(context);
+		JungleRuinsGenerator.bootstrapProcessor(context);
+		SavannaRuinsGenerator.bootstrapProcessor(context);
+		RuinsGenerator.bootstrapProcessor(context);
 	}
 
 	@NotNull

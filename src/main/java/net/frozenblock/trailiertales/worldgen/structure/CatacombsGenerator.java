@@ -5,8 +5,13 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.minecraft.core.Holder;
@@ -15,9 +20,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
@@ -31,22 +41,37 @@ import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
+import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
+import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
 	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
 	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierConstants.string("catacombs/dungeon"));
+	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION = createKey("catacombs_degradation");
+	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION_ARCHERY = createKey("catacombs_degradation_archery");
+	public static final ResourceKey<StructureProcessorList> CATACOMBS_DEGRADATION_FIRE = createKey("catacombs_degradation_fire");
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> catacombsDegradation = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION);
-		Holder<StructureProcessorList> catacombsDegradationArchery = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION_ARCHERY);
-		Holder<StructureProcessorList> catacombsDegradationFire = structureProcessorGetter.getOrThrow(RegisterStructureProcessors.CATACOMBS_DEGRADATION_FIRE);
+		Holder<StructureProcessorList> catacombsDegradation = structureProcessorGetter.getOrThrow(CATACOMBS_DEGRADATION);
+		Holder<StructureProcessorList> catacombsDegradationArchery = structureProcessorGetter.getOrThrow(CATACOMBS_DEGRADATION_ARCHERY);
+		Holder<StructureProcessorList> catacombsDegradationFire = structureProcessorGetter.getOrThrow(CATACOMBS_DEGRADATION_FIRE);
 		pool.register(
 			START,
 			new StructureTemplatePool(
@@ -507,7 +532,239 @@ public class CatacombsGenerator {
 		);
 	}
 
+	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
+		final RuleProcessor catacombsRuleProcessor = new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
+
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILES.defaultBlockState()),
+
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
+
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.425F),
+					AlwaysTrueTest.INSTANCE, Blocks.TUFF.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.SUSPICIOUS_GRAVEL, 0.9225F),
+					AlwaysTrueTest.INSTANCE, Blocks.GRAVEL.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockMatchTest(RegisterBlocks.SUSPICIOUS_CLAY, 0.35F),
+					AlwaysTrueTest.INSTANCE, Blocks.CLAY.defaultBlockState()
+				),
+
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.COBWEB, 0.65F),
+					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+				),
+
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.CANDLE, 0.8F),
+					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockStateMatchTest(
+						Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.15F),
+					AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3)
+				),
+				new ProcessorRule(
+					new RandomBlockStateMatchTest(
+						Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.5F),
+					AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 2)
+				),
+				new ProcessorRule(
+					new RandomBlockStateMatchTest(
+						Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4), 0.7F),
+					AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1)
+				),
+
+				new ProcessorRule(
+					new RandomBlockStateMatchTest(
+						Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.15F),
+					AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 3).setValue(BlockStateProperties.LIT, true)
+				),
+				new ProcessorRule(
+					new RandomBlockStateMatchTest(
+						Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.5F),
+					AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 2).setValue(BlockStateProperties.LIT, true)
+				),
+				new ProcessorRule(
+					new RandomBlockStateMatchTest(
+						Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4).setValue(BlockStateProperties.LIT, true), 0.7F),
+					AlwaysTrueTest.INSTANCE, Blocks.RED_CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1).setValue(BlockStateProperties.LIT, true)
+				),
+
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.POTTED_DEAD_BUSH, 0.1F),
+					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.POTTED_DEAD_BUSH, 0.6F),
+					AlwaysTrueTest.INSTANCE, Blocks.FLOWER_POT.defaultBlockState()
+				),
+
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.333F),
+					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+				)
+			)
+		);
+
+		final BlockStateRespectingRuleProcessor catacombsBlockStateRespectingRuleProcessor = new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_TILE_STAIRS.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_BRICK_WALL.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_TILE_WALL.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_BRICK_SLAB.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB
+				),
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_TILE_SLAB.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB
+				)
+			)
+		);
+
+		final BlockStateRespectingRuleProcessor catacombsPotLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
+
+		register(
+			context,
+			CATACOMBS_DEGRADATION,
+			ImmutableList.of(
+				catacombsRuleProcessor,
+				catacombsBlockStateRespectingRuleProcessor,
+				catacombsPotLootProcessor,
+				decoratedPotSherdProcessor(
+					1F,
+					false,
+					Items.SKULL_POTTERY_SHERD,
+					Items.SKULL_POTTERY_SHERD,
+					Items.PRIZE_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					Items.SHEAF_POTTERY_SHERD,
+					Items.HEART_POTTERY_SHERD,
+					Items.ARCHER_POTTERY_SHERD,
+					Items.BLADE_POTTERY_SHERD,
+					Items.BREWER_POTTERY_SHERD,
+					RegisterItems.WITHER_POTTERY_SHERD
+				),
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		register(
+			context,
+			CATACOMBS_DEGRADATION_ARCHERY,
+			ImmutableList.of(
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.1F),
+							AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(
+								Blocks.DECORATED_POT, 0.2F),
+							AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4)
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.POTTED_DEAD_BUSH.defaultBlockState()
+						)
+					)
+				),
+				catacombsRuleProcessor,
+				catacombsBlockStateRespectingRuleProcessor,
+				catacombsPotLootProcessor,
+				decoratedPotSherdProcessor(
+					1F,
+					false,
+					Items.SKULL_POTTERY_SHERD,
+					Items.ARCHER_POTTERY_SHERD,
+					RegisterItems.BULLSEYE_POTTERY_SHERD,
+					RegisterItems.WITHER_POTTERY_SHERD,
+					RegisterItems.BULLSEYE_POTTERY_SHERD
+				),
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		register(
+			context,
+			CATACOMBS_DEGRADATION_FIRE,
+			ImmutableList.of(
+				catacombsRuleProcessor,
+				catacombsBlockStateRespectingRuleProcessor,
+				catacombsPotLootProcessor,
+				decoratedPotSherdProcessor(
+					1F,
+					false,
+					Items.SKULL_POTTERY_SHERD,
+					Items.ARMS_UP_POTTERY_SHERD,
+					Items.BURN_POTTERY_SHERD,
+					Items.BREWER_POTTERY_SHERD,
+					RegisterItems.WITHER_POTTERY_SHERD
+				),
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+	}
+
+	private static @NotNull BlockStateRespectingRuleProcessor catacombsPotLootProcessor(ResourceKey<LootTable> registryKey) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new BlockMatchTest(Blocks.DECORATED_POT),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.DECORATED_POT,
+					new AppendLoot(registryKey)
+				)
+			)
+		);
+	}
+
+	@Contract("_, _, _ -> new")
+	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, boolean defaultToBricks, Item... sherds) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.DECORATED_POT,
+					new AppendSherds(chance, defaultToBricks, sherds)
+				)
+			)
+		);
+	}
+
 	private static @NotNull String string(String name) {
 		return TrailierConstants.string("catacombs/" + name);
+	}
+
+	@NotNull
+	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
+		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierConstants.id(string));
+	}
+
+	@NotNull
+	private static Holder<StructureProcessorList> register(
+		@NotNull BootstrapContext<StructureProcessorList> entries, @NotNull ResourceKey<StructureProcessorList> key, @NotNull List<StructureProcessor> list
+	) {
+		return entries.register(key, new StructureProcessorList(list));
 	}
 }
