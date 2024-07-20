@@ -10,7 +10,7 @@
           "type": "minecraft:add",
           "value": {
             "type": "minecraft:linear",
-            "base": 1,
+            "base": 2,
             "per_level_above_first": 2
           }
         }
