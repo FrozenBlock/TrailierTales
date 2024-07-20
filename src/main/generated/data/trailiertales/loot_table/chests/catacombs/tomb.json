@@ -37,7 +37,7 @@
           ],
           "name": "minecraft:book",
           "quality": 3,
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:empty",
@@ -442,7 +442,7 @@
             }
           ],
           "name": "minecraft:dead_bush",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -474,8 +474,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 9.0,
-        "min": 4.0
+        "max": 8.0,
+        "min": 3.0
       }
     }
   ]

@@ -16,6 +16,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "trailiertales:music_disc_fausse_vie",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:enchant_randomly",
@@ -558,7 +563,7 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 4.0,
+        "max": 3.0,
         "min": 1.0
       }
     },
@@ -711,7 +716,7 @@
             }
           ],
           "name": "minecraft:dead_bush",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -743,8 +748,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 4.0,
-        "min": 2.0
+        "max": 3.0,
+        "min": 1.0
       }
     }
   ]
