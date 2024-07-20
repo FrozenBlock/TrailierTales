@@ -56,7 +56,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.333
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -69,7 +69,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.333
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -87,7 +87,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.15
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
