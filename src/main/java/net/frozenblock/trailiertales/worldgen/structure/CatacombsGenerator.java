@@ -557,7 +557,7 @@ public class CatacombsGenerator {
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()),
 
 				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.GRAVEL, 0.25788497F),
+					new RandomBlockMatchTest(Blocks.GRAVEL, 0.425F),
 					AlwaysTrueTest.INSTANCE, Blocks.TUFF.defaultBlockState()
 				),
 
@@ -654,10 +654,10 @@ public class CatacombsGenerator {
 		);
 
 		final BlockStateRespectingRuleProcessor catacombsPotLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
-		final RuleProcessor tombArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.196F);
-		final RuleProcessor corridorArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.196F);
-		final RuleProcessor corridorRareArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.196F);
-		final RuleProcessor corridorRareClayArchy = catacombsArchy(true, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.7F);
+		final RuleProcessor tombArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.0775F);
+		final RuleProcessor corridorArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.0775F);
+		final RuleProcessor corridorRareArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.0775F);
+		final RuleProcessor corridorRareClayArchy = catacombsArchy(true, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.65F);
 
 		final BlockStateRespectingRuleProcessor zombieSkeletonCoffinProcessor = coffinProcessor(EntityType.ZOMBIE, EntityType.SKELETON);
 		final BlockStateRespectingRuleProcessor skeletonCoffinProcessor = coffinProcessor(EntityType.SKELETON);

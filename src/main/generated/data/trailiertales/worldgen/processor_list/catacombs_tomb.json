@@ -11,7 +11,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.196
+            "probability": 0.0775
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -183,7 +183,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.25788498
+            "probability": 0.425
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
