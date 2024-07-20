@@ -4,7 +4,6 @@
     "translate": "enchantment.trailiertales.rebrush"
   },
   "effects": {
-    "minecraft:prevent_equipment_drop": {}
   },
   "max_cost": {
     "base": 75,
@@ -18,6 +17,6 @@
   "slots": [
     "hand"
   ],
-  "supported_items": "#trailiertales:brushes",
+  "supported_items": "#trailiertales:enchantable/brush",
   "weight": 2
 }

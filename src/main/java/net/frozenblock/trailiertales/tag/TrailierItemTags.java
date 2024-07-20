@@ -10,7 +10,7 @@ public class TrailierItemTags {
 
 	public static final TagKey<Item> COPYABLE_SHERDS = bind("copyable_sherds");
 	public static final TagKey<Item> POT_BASES = bind("pot_bases");
-	public static final TagKey<Item> BRUSHES = bind("brushes");
+	public static final TagKey<Item> BRUSH_ENCHANTABLE = bind("enchantable/brush");
 
 	@NotNull
 	private static TagKey<Item> bind(@NotNull String path) {

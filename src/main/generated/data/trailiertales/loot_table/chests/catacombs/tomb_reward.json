@@ -17,7 +17,7 @@
         {
           "type": "minecraft:item",
           "name": "trailiertales:music_disc_fausse_vie",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -43,6 +43,20 @@
           ],
           "name": "minecraft:book",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "enchantments": {
+                "trailiertales:reaping": 1.0
+              },
+              "function": "minecraft:set_enchantments"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 2
         }
       ],
       "rolls": 1.0

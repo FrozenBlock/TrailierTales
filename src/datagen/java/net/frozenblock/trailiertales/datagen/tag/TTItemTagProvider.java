@@ -110,7 +110,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())
 			.add(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.asItem());
 
-		this.getOrCreateTagBuilder(TrailierItemTags.BRUSHES)
+		this.getOrCreateTagBuilder(TrailierItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);
 
 		this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)

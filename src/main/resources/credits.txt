@@ -30,6 +30,8 @@ Zhen
       - All New Andesite, Diorite, and Granite Variants
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
+    - Came up with the functionality of the Reaping enchantment
+    - Made the Fausse Vie Music Disc
 
 Rebel459
     - Implemented and made textures for the Desolation Armor Trim
