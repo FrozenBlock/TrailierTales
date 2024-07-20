@@ -13,6 +13,7 @@ import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
@@ -20,16 +21,20 @@ import org.jetbrains.annotations.NotNull;
 public class RegisterItems {
 
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(RegisterBlocks.CYAN_ROSE_CROP, new Item.Properties());
+
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item INCIDENCE_POTTERY_SHERD = new Item(new Item.Properties());
+
 	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		ResourceKey.create(Registries.TRIM_PATTERN, TrailierConstants.id("desolation"))
 	);
 	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		ResourceKey.create(Registries.TRIM_PATTERN, TrailierConstants.id("undead"))
 	);
+
+	public static final Item MUSIC_DISC_FAUSSE_VIE = new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(RegisterJukeboxSongs.FAUSSE_VIE));
 
 	public static void init() {
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
@@ -39,7 +44,7 @@ public class RegisterItems {
 		registerItemAfter(Items.HOWL_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-
+		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
 	@SafeVarargs

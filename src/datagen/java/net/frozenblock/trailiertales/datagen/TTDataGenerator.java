@@ -18,6 +18,7 @@ import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
+import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
 import net.frozenblock.trailiertales.registry.RegisterStructureProcessors;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
@@ -64,6 +65,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 		registryBuilder.add(Registries.ENCHANTMENT, RegisterEnchantments::bootstrap);
+		registryBuilder.add(Registries.JUKEBOX_SONG, RegisterJukeboxSongs::bootstrap);
 	}
 
 }

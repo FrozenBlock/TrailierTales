@@ -1,4 +1,13 @@
 {
+  "music_disc.fausse_vie": {
+    "sounds": [
+      {
+        "name": "trailiertales:records/fausse_vie",
+        "stream": true
+      }
+    ]
+  },
+
   "block.suspicious_clay.break": {
     "sounds": [
       "minecraft:block/suspicious_gravel/break1",

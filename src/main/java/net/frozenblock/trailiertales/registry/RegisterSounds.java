@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.block.SoundType;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterSounds {
+	public static final Holder.Reference<SoundEvent> MUSIC_DISC_FAUSSE_VIE = registerForHolder("music_disc.fausse_vie");
 
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
@@ -103,6 +105,18 @@ public class RegisterSounds {
 	private static SoundEvent register(@NotNull String string) {
 		ResourceLocation resourceLocation = TrailierConstants.id(string);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation));
+	}
+
+	private static Holder.@NotNull Reference<SoundEvent> registerForHolder(String id) {
+		return registerForHolder(TrailierConstants.id(id));
+	}
+
+	private static Holder.@NotNull Reference<SoundEvent> registerForHolder(ResourceLocation id) {
+		return registerForHolder(id, id);
+	}
+
+	private static Holder.@NotNull Reference<SoundEvent> registerForHolder(ResourceLocation id, ResourceLocation soundId) {
+		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(soundId));
 	}
 
 	public static void init() {}
