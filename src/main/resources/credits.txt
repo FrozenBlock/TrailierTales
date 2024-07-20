@@ -31,7 +31,7 @@ Zhen
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
-    - Made the Fausse Vie Music Disc
+    - Made the Fausse Vie music disc
 
 Rebel459
     - Implemented and made textures for the Desolation Armor Trim

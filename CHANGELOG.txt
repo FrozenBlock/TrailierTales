@@ -8,10 +8,16 @@ Put changelog here:
 - Added Suspicious Red Sand, Suspicious Clay, and Suspicious Dirt.
 - The 3rd person brushing animation is now much smoother.
 - Items now smoothly come out of Suspicious blocks.
+- Added the "Fausse Vie" music disc by Zhen.
 
 - Added the Rebrush enchantment.
  - At a rate of 10% per level, will allow you to brush a Suspicious block a second time.
  - Can be rebrushed after the first time at a rate of 3% per level.
+ - Has three levels.
+
+- Added the Reaping enchantment.
+ - Increases mob XP drops at a rate of 2 per level.
+ - Has three levels.
 
 - Added the Catacombs structure.
  - Contains plenty of rooms and corridors, leading to players easily getting lost or killed.
