@@ -1,0 +1,8 @@
+{
+  "comparator_output": 10,
+  "description": {
+    "translate": "jukebox_song.trailiertales.fausse_vie"
+  },
+  "length_in_seconds": 246.0,
+  "sound_event": "trailiertales:music_disc.fausse_vie"
+}
