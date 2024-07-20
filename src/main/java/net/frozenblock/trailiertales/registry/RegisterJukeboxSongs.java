@@ -12,9 +12,9 @@ import net.minecraft.world.item.JukeboxSong;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterJukeboxSongs {
-	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = create("13");
+	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = create("fausse_vie");
 
-	public void init() {
+	public static void init() {
 	}
 
 	private static @NotNull ResourceKey<JukeboxSong> create(String path) {
