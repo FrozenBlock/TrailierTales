@@ -82,9 +82,9 @@ public class BadlandsRuinsGenerator {
 				empty,
 				List.of(
 					Pair.of(StructurePoolElement.single(string("fort/pillar1")), 5),
-					Pair.of(StructurePoolElement.single(string("fort/pillar2")), 20),
-					Pair.of(StructurePoolElement.single(string("fort/pillar3")), 20),
-					Pair.of(StructurePoolElement.single(string("fort/pillar4")), 13),
+					Pair.of(StructurePoolElement.single(string("fort/pillar2")), 17),
+					Pair.of(StructurePoolElement.single(string("fort/pillar3")), 17),
+					Pair.of(StructurePoolElement.single(string("fort/pillar4")), 9),
 					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen1")), 6),
 					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen2")), 5),
 					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen3")), 3),
