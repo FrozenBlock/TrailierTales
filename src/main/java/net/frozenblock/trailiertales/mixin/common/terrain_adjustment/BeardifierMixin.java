@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Beardifier.class)
@@ -41,17 +42,21 @@ public class BeardifierMixin {
 	@Unique
 	private double trailierTales$zContributionScale = 1D;
 
+	@Unique
+	private boolean trailierTales$cancelBeardAbove = false;
+
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$setTerrainAdjustmentValues(ObjectListIterator<Beardifier.Rigid> pieceIterator, ObjectListIterator<JigsawJunction> junctionIterator, CallbackInfo info) {
 		if (this.pieceIterator.hasNext()) {
 			TerrainAdjustment adjustment = this.pieceIterator.next().terrainAdjustment();
 			if (adjustment == TrailierTerrainAdjustment.SMALL_PLATFORM) {
-				this.trailierTales$yOffset = -13;
+				this.trailierTales$yOffset = -12;
 				this.trailierTales$xScale = 2D;
 				this.trailierTales$zScale = 2D;
 				this.trailierTales$xContributionScale = 0.7D;
 				this.trailierTales$yContributionScale = 1D;
 				this.trailierTales$zContributionScale = 0.7D;
+				this.trailierTales$cancelBeardAbove = true;
 			}
 			this.pieceIterator.previous();
 		}
@@ -126,6 +131,24 @@ public class BeardifierMixin {
 	)
 	public double trailierTales$smallPlatformLogicInBury(double x, double y, double z, Operation<Double> operation) {
 		return operation.call(x * this.trailierTales$xContributionScale, y * this.trailierTales$yContributionScale, z * this.trailierTales$zContributionScale);
+	}
+
+	@ModifyExpressionValue(
+		method = "compute",
+		at = @At(
+			value = "INVOKE",
+			target = "Lit/unimi/dsi/fastutil/objects/ObjectListIterator;hasNext()Z",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/level/levelgen/Beardifier;junctionIterator:Lit/unimi/dsi/fastutil/objects/ObjectListIterator;"
+			)
+		)
+	)
+	public boolean isTrailierTales$cancelBeard(boolean original) {
+		return !this.trailierTales$cancelBeardAbove && original;
 	}
 
 }
