@@ -21,7 +21,7 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_BADLANDS_FORT)
+		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_BADLANDS_RUINS)
 			.add(Biomes.BADLANDS)
 			.add(Biomes.WOODED_BADLANDS);
 

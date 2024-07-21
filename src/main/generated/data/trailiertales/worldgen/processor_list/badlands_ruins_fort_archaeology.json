@@ -1,0 +1,65 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "trailiertales:archaeology/badlands_ruins_surface"
+          },
+          "input_predicate": {
+            "block": "minecraft:red_sand",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.15
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "trailiertales:suspicious_red_sand",
+            "Properties": {
+              "can_place_item": "false",
+              "dusted": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "minecraft:red_sandstone",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.2
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:cut_red_sandstone"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:red_sandstone",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.075
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:chiseled_red_sandstone"
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:protected_blocks",
+      "value": "#minecraft:features_cannot_replace"
+    }
+  ]
+}

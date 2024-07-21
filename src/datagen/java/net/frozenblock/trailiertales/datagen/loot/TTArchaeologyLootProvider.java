@@ -458,5 +458,32 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(6))
 				)
 		);
+
+		registry.accept(
+			RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_SURFACE,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.ORANGE_DYE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.BROWN_DYE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.BLUE_CANDLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(7))
+						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(13))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(14))
+						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.CLAY).setWeight(6))
+						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(5))
+						.add(LootItem.lootTableItem(Items.STRING).setWeight(7))
+						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(5))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(4))
+						.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD).setWeight(4))
+						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(4))
+						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(4))
+				)
+		);
 	}
 }

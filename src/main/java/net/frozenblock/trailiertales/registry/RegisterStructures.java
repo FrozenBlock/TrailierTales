@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.registry;
 
 import java.util.Map;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.worldgen.structure.BadlandsFortGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.JungleRuinsGenerator;
@@ -36,7 +36,7 @@ public final class RegisterStructures {
 	}
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
-		BadlandsFortGenerator.bootstrapTemplatePool(context);
+		BadlandsRuinsGenerator.bootstrapTemplatePool(context);
 		CatacombsGenerator.bootstrapTemplatePool(context);
 		DesertRuinsGenerator.bootstrapTemplatePool(context);
 		JungleRuinsGenerator.bootstrapTemplatePool(context);
@@ -45,7 +45,7 @@ public final class RegisterStructures {
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
-		BadlandsFortGenerator.bootstrap(context);
+		BadlandsRuinsGenerator.bootstrap(context);
 		CatacombsGenerator.bootstrap(context);
 		DesertRuinsGenerator.bootstrap(context);
 		JungleRuinsGenerator.bootstrap(context);
@@ -54,7 +54,7 @@ public final class RegisterStructures {
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
-		BadlandsFortGenerator.bootstrapStructureSet(context);
+		BadlandsRuinsGenerator.bootstrapStructureSet(context);
 		CatacombsGenerator.bootstrapStructureSet(context);
 		DesertRuinsGenerator.bootstrapStructureSet(context);
 		JungleRuinsGenerator.bootstrapStructureSet(context);
@@ -63,7 +63,7 @@ public final class RegisterStructures {
 	}
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
-		BadlandsFortGenerator.bootstrapProcessor(context);
+		BadlandsRuinsGenerator.bootstrapProcessor(context);
 		CatacombsGenerator.bootstrapProcessor(context);
 		DesertRuinsGenerator.bootstrapProcessor(context);
 		JungleRuinsGenerator.bootstrapProcessor(context);

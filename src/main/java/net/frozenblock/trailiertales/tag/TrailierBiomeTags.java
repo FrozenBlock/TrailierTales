@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TrailierBiomeTags {
 
-	public static final TagKey<Biome> HAS_BADLANDS_FORT = bind("has_badlands_fort");
+	public static final TagKey<Biome> HAS_BADLANDS_RUINS = bind("has_badlands_ruins");
 	public static final TagKey<Biome> HAS_CATACOMBS = bind("has_catacombs");
 	public static final TagKey<Biome> HAS_DESERT_RUINS = bind("has_desert_ruins");
 	public static final TagKey<Biome> HAS_JUNGLE_RUINS = bind("has_jungle_ruins");
