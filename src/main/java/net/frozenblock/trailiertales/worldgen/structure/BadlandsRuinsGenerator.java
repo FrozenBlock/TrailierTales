@@ -74,17 +74,17 @@ public class BadlandsRuinsGenerator {
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("pillar1")), 5),
-					Pair.of(StructurePoolElement.single(string("pillar2")), 20),
-					Pair.of(StructurePoolElement.single(string("pillar3")), 20),
-					Pair.of(StructurePoolElement.single(string("pillar4")), 13),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen1")), 5),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen2")), 4),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen3")), 2),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen4")), 3),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen5")), 5),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen6")), 5),
-					Pair.of(StructurePoolElement.single(string("pillar_fallen7")), 5)
+					Pair.of(StructurePoolElement.single(string("fort/pillar1")), 5),
+					Pair.of(StructurePoolElement.single(string("fort/pillar2")), 20),
+					Pair.of(StructurePoolElement.single(string("fort/pillar3")), 20),
+					Pair.of(StructurePoolElement.single(string("fort/pillar4")), 13),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen1")), 5),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen2")), 4),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen3")), 2),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen4")), 3),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen5")), 5),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen6")), 5),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen7")), 5)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)

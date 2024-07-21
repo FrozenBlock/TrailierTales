@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar1",
+        "location": "trailiertales:ruins/badlands/fort/pillar1",
         "processors": {
           "processors": []
         },
@@ -14,7 +14,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar2",
+        "location": "trailiertales:ruins/badlands/fort/pillar2",
         "processors": {
           "processors": []
         },
@@ -25,7 +25,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar3",
+        "location": "trailiertales:ruins/badlands/fort/pillar3",
         "processors": {
           "processors": []
         },
@@ -36,7 +36,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar4",
+        "location": "trailiertales:ruins/badlands/fort/pillar4",
         "processors": {
           "processors": []
         },
@@ -47,7 +47,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen1",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen1",
         "processors": {
           "processors": []
         },
@@ -58,7 +58,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen2",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen2",
         "processors": {
           "processors": []
         },
@@ -69,7 +69,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen3",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen3",
         "processors": {
           "processors": []
         },
@@ -80,7 +80,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen4",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen4",
         "processors": {
           "processors": []
         },
@@ -91,7 +91,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen5",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen5",
         "processors": {
           "processors": []
         },
@@ -102,7 +102,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen6",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen6",
         "processors": {
           "processors": []
         },
@@ -113,7 +113,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/pillar_fallen7",
+        "location": "trailiertales:ruins/badlands/fort/pillar_fallen7",
         "processors": {
           "processors": []
         },
