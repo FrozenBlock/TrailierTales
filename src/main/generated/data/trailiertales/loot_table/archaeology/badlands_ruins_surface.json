@@ -47,7 +47,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:dead_bush",
-          "weight": 14
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -62,7 +62,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:flower_pot",
-          "weight": 10
+          "weight": 13
         },
         {
           "type": "minecraft:item",
