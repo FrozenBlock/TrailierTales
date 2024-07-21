@@ -46,23 +46,30 @@ public class BadlandsRuinsGenerator {
 	private static final ResourceKey<Structure> BADLANDS_RUIN_KEY = RegisterStructures.createKey("badlands_ruins");
 	public static final ResourceKey<StructureTemplatePool> BADLANDS_RUINS = Pools.parseKey(TrailierConstants.string("badlands_ruins"));
 	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_FORT_ARCHAEOLOGY = createKey("badlands_ruins_fort_archaeology");
+	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_TOWER_ARCHAEOLOGY = createKey("badlands_ruins_tower_archaeology");
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
 		Holder<StructureProcessorList> fortArchyProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_FORT_ARCHAEOLOGY);
+		Holder<StructureProcessorList> towerArchyProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_TOWER_ARCHAEOLOGY);
 
 		pool.register(
 			BADLANDS_RUINS,
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("fort1"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort2"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort3"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort4"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort5"), fortArchyProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("fort/fort1"), fortArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("fort/fort2"), fortArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("fort/fort3"), fortArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("fort/fort4"), fortArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("fort/fort5"), fortArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower/tower1"), towerArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower/tower2"), towerArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower/tower3"), towerArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower/tower4"), towerArchyProcessor), 1),
+					Pair.of(StructurePoolElement.single(string("tower/tower5"), towerArchyProcessor), 1)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
@@ -78,13 +85,13 @@ public class BadlandsRuinsGenerator {
 					Pair.of(StructurePoolElement.single(string("fort/pillar2")), 20),
 					Pair.of(StructurePoolElement.single(string("fort/pillar3")), 20),
 					Pair.of(StructurePoolElement.single(string("fort/pillar4")), 13),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen1")), 5),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen2")), 4),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen3")), 2),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen4")), 3),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen5")), 5),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen6")), 5),
-					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen7")), 5)
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen1")), 6),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen2")), 5),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen3")), 3),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen4")), 4),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen5")), 6),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen6")), 6),
+					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen7")), 6)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -132,6 +139,35 @@ public class BadlandsRuinsGenerator {
 				badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
 				new RuleProcessor(
 					ImmutableList.of(
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.RED_SANDSTONE, 0.2F),
+							AlwaysTrueTest.INSTANCE, Blocks.CUT_RED_SANDSTONE.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.RED_SANDSTONE, 0.075F),
+							AlwaysTrueTest.INSTANCE, Blocks.CHISELED_RED_SANDSTONE.defaultBlockState()
+						)
+					)
+				),
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		register(
+			context,
+			BADLANDS_RUINS_TOWER_ARCHAEOLOGY,
+			ImmutableList.of(
+				badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_SURFACE, 0.15F),
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.CHISELED_RED_SANDSTONE, 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()
+						),
+						new ProcessorRule(
+							new RandomBlockMatchTest(Blocks.CUT_RED_SANDSTONE, 0.15F),
+							AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()
+						),
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.RED_SANDSTONE, 0.2F),
 							AlwaysTrueTest.INSTANCE, Blocks.CUT_RED_SANDSTONE.defaultBlockState()

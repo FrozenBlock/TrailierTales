@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/fort1",
+        "location": "trailiertales:ruins/badlands/fort/fort1",
         "processors": "trailiertales:badlands_ruins_fort_archaeology",
         "projection": "rigid"
       },
@@ -12,7 +12,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/fort2",
+        "location": "trailiertales:ruins/badlands/fort/fort2",
         "processors": "trailiertales:badlands_ruins_fort_archaeology",
         "projection": "rigid"
       },
@@ -21,7 +21,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/fort3",
+        "location": "trailiertales:ruins/badlands/fort/fort3",
         "processors": "trailiertales:badlands_ruins_fort_archaeology",
         "projection": "rigid"
       },
@@ -30,7 +30,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/fort4",
+        "location": "trailiertales:ruins/badlands/fort/fort4",
         "processors": "trailiertales:badlands_ruins_fort_archaeology",
         "projection": "rigid"
       },
@@ -39,8 +39,53 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:ruins/badlands/fort5",
+        "location": "trailiertales:ruins/badlands/fort/fort5",
         "processors": "trailiertales:badlands_ruins_fort_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/badlands/tower/tower1",
+        "processors": "trailiertales:badlands_ruins_tower_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/badlands/tower/tower2",
+        "processors": "trailiertales:badlands_ruins_tower_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/badlands/tower/tower3",
+        "processors": "trailiertales:badlands_ruins_tower_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/badlands/tower/tower4",
+        "processors": "trailiertales:badlands_ruins_tower_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/badlands/tower/tower5",
+        "processors": "trailiertales:badlands_ruins_tower_archaeology",
         "projection": "rigid"
       },
       "weight": 1
