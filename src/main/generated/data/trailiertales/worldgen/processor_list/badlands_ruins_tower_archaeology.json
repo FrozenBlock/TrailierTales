@@ -39,7 +39,7 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:sandstone"
+            "Name": "minecraft:red_sandstone"
           }
         },
         {
@@ -52,7 +52,7 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:sandstone"
+            "Name": "minecraft:red_sandstone"
           }
         },
         {

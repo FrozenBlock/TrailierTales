@@ -162,11 +162,11 @@ public class BadlandsRuinsGenerator {
 					ImmutableList.of(
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.CHISELED_RED_SANDSTONE, 0.15F),
-							AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()
+							AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()
 						),
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.CUT_RED_SANDSTONE, 0.15F),
-							AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()
+							AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()
 						),
 						new ProcessorRule(
 							new RandomBlockMatchTest(Blocks.RED_SANDSTONE, 0.2F),
