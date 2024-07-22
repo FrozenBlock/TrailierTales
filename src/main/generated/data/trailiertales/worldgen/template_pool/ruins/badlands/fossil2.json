@@ -1,0 +1,14 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:ruins/badlands/fossil2_bottom",
+        "processors": "trailiertales:badlands_ruins_archaeology_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

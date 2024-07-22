@@ -47,6 +47,9 @@ public class BadlandsRuinsGenerator {
 	public static final ResourceKey<StructureTemplatePool> BADLANDS_RUINS = Pools.parseKey(TrailierConstants.string("badlands_ruins"));
 	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_FORT_ARCHAEOLOGY = createKey("badlands_ruins_fort_archaeology");
 	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_TOWER_ARCHAEOLOGY = createKey("badlands_ruins_tower_archaeology");
+	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_ARCHAEOLOGY_SURFACE = createKey("badlands_ruins_archaeology_surface");
+	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_ARCHAEOLOGY = createKey("badlands_ruins_archaeology");
+	public static final ResourceKey<StructureProcessorList> BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL = createKey("badlands_ruins_archaeology_fossil");
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -54,22 +57,52 @@ public class BadlandsRuinsGenerator {
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
 		Holder<StructureProcessorList> fortArchyProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_FORT_ARCHAEOLOGY);
 		Holder<StructureProcessorList> towerArchyProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_TOWER_ARCHAEOLOGY);
+		Holder<StructureProcessorList> surfaceProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_ARCHAEOLOGY_SURFACE);
+		Holder<StructureProcessorList> archyProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_ARCHAEOLOGY);
+		Holder<StructureProcessorList> fossilProcessor = structureProcessorGetter.getOrThrow(BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL);
 
 		pool.register(
 			BADLANDS_RUINS,
 			new StructureTemplatePool(
 				empty,
 				List.of(
-					Pair.of(StructurePoolElement.single(string("fort/fort1"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort/fort2"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort/fort3"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort/fort4"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("fort/fort5"), fortArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower/tower1"), towerArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower/tower2"), towerArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower/tower3"), towerArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower/tower4"), towerArchyProcessor), 1),
-					Pair.of(StructurePoolElement.single(string("tower/tower5"), towerArchyProcessor), 1)
+					Pair.of(StructurePoolElement.single(string("fort/fort1"), fortArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("fort/fort2"), fortArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("fort/fort3"), fortArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("fort/fort4"), fortArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("fort/fort5"), fortArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("tower/tower1"), towerArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("tower/tower2"), towerArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("tower/tower3"), towerArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("tower/tower4"), towerArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("tower/tower5"), towerArchyProcessor), 2),
+					Pair.of(StructurePoolElement.single(string("fossil1"), fossilProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("fossil2"), fossilProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("house1"), towerArchyProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("house2"), towerArchyProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("house3"), towerArchyProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("house4"), towerArchyProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("house5"), towerArchyProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("meeting_point1"), towerArchyProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("outpost1"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine1"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine2"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine3"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine4"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine5"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine6"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine7"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine8"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine9"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine10"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine11"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("shrine12"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("temple1"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("town1"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("town2"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("twin_houses1"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("twin_houses2"), surfaceProcessor), 5),
+					Pair.of(StructurePoolElement.single(string("watchtower1"), surfaceProcessor), 5)
 				),
 			StructureTemplatePool.Projection.RIGID
 			)
@@ -92,6 +125,330 @@ public class BadlandsRuinsGenerator {
 					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen5")), 6),
 					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen6")), 6),
 					Pair.of(StructurePoolElement.single(string("fort/pillar_fallen7")), 6)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("fossil1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("fossil1_bottom"), fossilProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("fossil2"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("fossil2_bottom"), fossilProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("house1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("house1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("house2"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("house2_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("house3"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("house3_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("house4"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("house4_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("house5"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("house5_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("meeting_point1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("meeting_point1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("outpost1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("outpost1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine2"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine2_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine3"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine3_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine4"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine4_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine5"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine5_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine6"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine6_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine7"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine7_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine8"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine8_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine9"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine9_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine10"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine10_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine11"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine11_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("shrine12"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("shrine12_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("temple1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("temple1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("town1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("town1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("town2"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("town2_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("twin_houses1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("twin_houses1_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("twin_houses2"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("twin_houses2_bottom"), archyProcessor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
+		RegisterStructures.register(
+			pool,
+			string("watchtower1"),
+			new StructureTemplatePool(
+				empty,
+				List.of(
+					Pair.of(StructurePoolElement.single(string("watchtower1_bottom"), archyProcessor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -126,7 +483,7 @@ public class BadlandsRuinsGenerator {
 			BADLANDS_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_RUIN_KEY),
-				new RandomSpreadStructurePlacement(20, 15, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(17, 11, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
 			)
 		);
 	}
@@ -178,6 +535,64 @@ public class BadlandsRuinsGenerator {
 						)
 					)
 				),
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		final RuleProcessor redSandProcessor = new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.RED_SAND, 0.1F),
+					AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()
+				)
+			)
+		);
+
+		final RuleProcessor redSandstoneProcessor = new RuleProcessor(
+			ImmutableList.of(
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.CHISELED_RED_SANDSTONE, 0.15F),
+					AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.CUT_RED_SANDSTONE, 0.15F),
+					AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.CUT_RED_SANDSTONE, 0.75F),
+					AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState()
+				)
+			)
+		);
+
+		register(
+			context,
+			BADLANDS_RUINS_ARCHAEOLOGY_SURFACE,
+			ImmutableList.of(
+				badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_SURFACE, 0.3F),
+				redSandstoneProcessor,
+				redSandProcessor,
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		register(
+			context,
+			BADLANDS_RUINS_ARCHAEOLOGY,
+			ImmutableList.of(
+				badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY, 0.3F),
+				redSandstoneProcessor,
+				redSandProcessor,
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		register(
+			context,
+			BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL,
+			ImmutableList.of(
+				badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL, 0.4F),
+				redSandProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);

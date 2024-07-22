@@ -29,6 +29,9 @@ public class RegisterLootTables {
 	public static final ResourceKey<LootTable> RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/ruins_surface");
 	public static final ResourceKey<LootTable> RUINS_ARCHAEOLOGY_LIBRARY = register("archaeology/ruins_library");
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/badlands_ruins_surface");
+	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY = register("archaeology/badlands_ruins");
+	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL = register("archaeology/badlands_ruins_fossil");
+
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
