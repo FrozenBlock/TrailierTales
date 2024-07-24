@@ -102,22 +102,22 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:sheaf_pottery_sherd",
-          "weight": 6
+          "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:howl_pottery_sherd",
-          "weight": 6
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd",
-          "weight": 3
+          "name": "trailiertales:cultivator_pottery_sherd",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:shelter_pottery_sherd",
-          "weight": 8
+          "weight": 7
         }
       ],
       "rolls": 1.0

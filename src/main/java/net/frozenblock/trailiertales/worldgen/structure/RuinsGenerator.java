@@ -464,11 +464,8 @@ public class RuinsGenerator {
 				decoratedPotSherdProcessor(
 					1F,
 					false,
-					Items.BLADE_POTTERY_SHERD,
 					Items.MINER_POTTERY_SHERD,
-					RegisterItems.BULLSEYE_POTTERY_SHERD,
 					Items.ARCHER_POTTERY_SHERD,
-					Items.ARMS_UP_POTTERY_SHERD,
 					Items.BREWER_POTTERY_SHERD,
 					Items.FRIEND_POTTERY_SHERD
 				)

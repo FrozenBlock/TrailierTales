@@ -126,8 +126,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd",
-          "weight": 4
+          "name": "trailiertales:cultivator_pottery_sherd",
+          "weight": 6
         },
         {
           "type": "minecraft:item",

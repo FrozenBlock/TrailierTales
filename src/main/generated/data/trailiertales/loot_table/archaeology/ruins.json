@@ -146,17 +146,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:bullseye_pottery_sherd",
-          "weight": 6
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:archer_pottery_sherd",
-          "weight": 6
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:arms_up_pottery_sherd",
           "weight": 6
         },
         {
