@@ -28,6 +28,10 @@ Zhen
       - Cyan Rose
       - Incidence Pottery Sherd
       - All New Andesite, Diorite, and Granite Variants
+      - Cultivator Pottery Sherd
+      - Spade Pottery Sherd
+      - Cracked & Mossy Tuff Bricks
+      - All New Calcite Variants
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment

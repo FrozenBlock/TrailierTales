@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "trailiertales:block/mossy_polished_diorite_bricks",
-    "side": "trailiertales:block/mossy_polished_diorite_bricks",
-    "top": "trailiertales:block/mossy_polished_diorite_bricks"
-  }
-}

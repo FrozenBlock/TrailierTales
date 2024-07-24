@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "trailiertales:block/polished_andesite_bricks"
-  }
-}

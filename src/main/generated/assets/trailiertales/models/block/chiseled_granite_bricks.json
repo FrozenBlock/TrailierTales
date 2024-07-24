@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "trailiertales:block/chiseled_granite_bricks"
+  }
+}

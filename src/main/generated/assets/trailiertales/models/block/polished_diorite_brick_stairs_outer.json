@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "trailiertales:block/polished_diorite_bricks",
-    "side": "trailiertales:block/polished_diorite_bricks",
-    "top": "trailiertales:block/polished_diorite_bricks"
-  }
-}

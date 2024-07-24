@@ -1,11 +1,15 @@
 {
   "values": [
-    "trailiertales:polished_granite_brick_wall",
-    "trailiertales:mossy_polished_granite_brick_wall",
-    "trailiertales:polished_diorite_brick_wall",
-    "trailiertales:mossy_polished_diorite_brick_wall",
-    "trailiertales:polished_andesite_brick_wall",
-    "trailiertales:mossy_polished_andesite_brick_wall",
+    "trailiertales:granite_brick_wall",
+    "trailiertales:mossy_granite_brick_wall",
+    "trailiertales:diorite_brick_wall",
+    "trailiertales:mossy_diorite_brick_wall",
+    "trailiertales:andesite_brick_wall",
+    "trailiertales:calcite_wall",
+    "trailiertales:polished_calcite_wall",
+    "trailiertales:calcite_brick_wall",
+    "trailiertales:mossy_calcite_brick_wall",
+    "trailiertales:mossy_andesite_brick_wall",
     "trailiertales:mossy_cobbled_deepslate_wall",
     "trailiertales:mossy_deepslate_brick_wall",
     "trailiertales:mossy_deepslate_tile_wall"

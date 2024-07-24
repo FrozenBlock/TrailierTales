@@ -33,6 +33,8 @@ public class DecoratedPotPatternsMixin {
 		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
 		newMap.put(RegisterItems.BLOOM_POTTERY_SHERD, TrailierTalesClient.BLOOM_POTTERY_PATTERN);
 		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.CULTIVATOR_POTTERY_SHERD, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN);
+		newMap.put(RegisterItems.SPADE_POTTERY_SHERD, TrailierTalesClient.SPADE_POTTERY_PATTERN);
 		return Map.copyOf(newMap);
 	}
 
@@ -43,6 +45,8 @@ public class DecoratedPotPatternsMixin {
 		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.BLOOM_POTTERY_PATTERN, TrailierTalesClient.BLOOM_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.SPADE_POTTERY_PATTERN, TrailierTalesClient.SPADE_POTTERY_PATTERN_NAME);
 	}
 
 	@Unique

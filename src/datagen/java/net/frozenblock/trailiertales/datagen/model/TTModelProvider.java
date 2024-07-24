@@ -13,7 +13,6 @@ import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -29,20 +28,19 @@ public final class TTModelProvider extends FabricModelProvider {
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
 		generator.createPlant(RegisterBlocks.CYAN_ROSE, RegisterBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
 
-		generator.family(RegisterBlocks.POLISHED_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_POLISHED_GRANITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_POLISHED_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_POLISHED_GRANITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CRACKED_POLISHED_GRANITE_BRICKS, TexturedModel.CUBE);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_POLISHED_GRANITE, TexturedModel.CUBE);
+		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_GRANITE_BRICK);
 
-		generator.family(RegisterBlocks.POLISHED_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_POLISHED_DIORITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_POLISHED_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_POLISHED_DIORITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CRACKED_POLISHED_DIORITE_BRICKS, TexturedModel.CUBE);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_POLISHED_DIORITE, TexturedModel.CUBE);
+		generator.family(RegisterBlocks.DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_DIORITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DIORITE_BRICK);
 
-		generator.family(RegisterBlocks.POLISHED_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_POLISHED_ANDESITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_POLISHED_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_POLISHED_ANDESITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CRACKED_POLISHED_ANDESITE_BRICKS, TexturedModel.CUBE);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_POLISHED_ANDESITE, TexturedModel.CUBE);
+		generator.family(RegisterBlocks.ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_ANDESITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_ANDESITE_BRICK);
+
+		generator.family(Blocks.CALCITE).generateFor(RegisterBlocks.FAMILY_CALCITE);
+		generator.family(RegisterBlocks.POLISHED_CALCITE).generateFor(RegisterBlocks.FAMILY_POLISHED_CALCITE);
+		generator.family(RegisterBlocks.CALCITE_BRICKS).generateFor(RegisterBlocks.FAMILY_CALCITE_BRICK);
+		generator.family(RegisterBlocks.MOSSY_CALCITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_CALCITE_BRICK);
 
 		generator.family(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(RegisterBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
@@ -61,6 +59,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.BLOOM_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.INCIDENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.CULTIVATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.SPADE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
 		COFFIN_INVENTORY.create(ModelLocationUtils.getModelLocation(RegisterBlocks.COFFIN.asItem()), TextureMapping.particle(Blocks.DEEPSLATE_BRICKS), generator.output);
 	}

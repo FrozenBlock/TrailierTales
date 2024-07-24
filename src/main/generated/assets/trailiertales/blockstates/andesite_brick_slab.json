@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/andesite_brick_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/andesite_bricks"
+    },
+    "type=top": {
+      "model": "trailiertales:block/andesite_brick_slab_top"
+    }
+  }
+}

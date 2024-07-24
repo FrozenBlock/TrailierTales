@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/calcite_brick_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/calcite_bricks"
+    },
+    "type=top": {
+      "model": "trailiertales:block/calcite_brick_slab_top"
+    }
+  }
+}

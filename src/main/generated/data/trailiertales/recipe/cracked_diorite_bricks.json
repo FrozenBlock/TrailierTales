@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "trailiertales:diorite_bricks"
+  },
+  "result": {
+    "id": "trailiertales:cracked_diorite_bricks"
+  }
+}
