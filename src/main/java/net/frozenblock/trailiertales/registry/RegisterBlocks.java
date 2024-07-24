@@ -351,6 +351,7 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_ANDESITE_BRICK_STAIRS, "mossy_andesite_brick_slab", MOSSY_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_ANDESITE_BRICK_SLAB, "mossy_andesite_brick_wall", MOSSY_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
+		FrozenCreativeTabs.addBefore(Blocks.DEEPSLATE, Blocks.CALCITE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.CALCITE, "calcite_stairs", CALCITE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CALCITE_STAIRS, "calcite_slab", CALCITE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CALCITE_SLAB, "calcite_wall", CALCITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
