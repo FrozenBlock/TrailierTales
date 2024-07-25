@@ -392,6 +392,18 @@
           "output_state": {
             "Name": "minecraft:flower_pot"
           }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:sand",
+            "predicate_type": "minecraft:block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:gravel"
+          }
         }
       ]
     },

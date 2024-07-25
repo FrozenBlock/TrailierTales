@@ -250,7 +250,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 3
     },
     {
       "element": {
@@ -259,7 +259,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 3
     },
     {
       "element": {
@@ -268,7 +268,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 3
     },
     {
       "element": {
@@ -277,7 +277,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 3
     },
     {
       "element": {
@@ -286,7 +286,25 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/all_large",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/all_skulls",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
     },
     {
       "element": {
@@ -781,7 +799,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -790,7 +808,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 2
     },
     {
       "element": {
@@ -799,7 +817,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -808,7 +826,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -817,7 +835,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -826,7 +844,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -835,7 +853,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -844,7 +862,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -853,7 +871,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 2
     },
     {
       "element": {
@@ -970,7 +988,7 @@
         "processors": "trailiertales:catacombs_archery",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -979,7 +997,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -988,7 +1006,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -997,7 +1015,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -1015,7 +1033,7 @@
         "processors": "trailiertales:catacombs_lava_trap",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -1024,16 +1042,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 3
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/piston_puzzle",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 3
+      "weight": 2
     },
     {
       "element": {
@@ -1042,7 +1051,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
     },
     {
       "element": {
@@ -1051,7 +1060,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 2
     },
     {
       "element": {
@@ -1060,7 +1069,349 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/basement_hallway",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/bridge1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/bridge2",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/construction",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/courtyard1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/courtyard2",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/cradle",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/fancy_tomb3",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/fancy_tomb4",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/flood",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/gallery",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/gravel_trap1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/gravel_trap2",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/gravel_trap3",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/hidden_lever",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/hidden_tomb",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/mob_drop",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/pick_a_lever",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/pick_a_pot",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/puzzle1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/puzzle2",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/puzzle3",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/puzzle4",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/puzzle_stages",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/ramp",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/ruins",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/secret_room",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/shoot_the_target",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/skeleton_pot",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb6",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb7",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb8",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb9",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb10",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/surveyor_blockade",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/three_story",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/small_gallery",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/surveyor_timing",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
     },
     {
       "element": {

@@ -3,7 +3,25 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/room/buried",
+        "location": "trailiertales:catacombs/room/art_studio",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/buried1",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/buried2",
         "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
@@ -22,6 +40,123 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/cabin2",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic1",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic2",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic3",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic4",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic5",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic6",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic7",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic8",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic9",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic10",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic11",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic12",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic13",
         "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
@@ -94,6 +229,51 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/ritual2",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/ritual3",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/ritual4",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/ritual5",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/ritual6",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/storage",
         "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
