@@ -4,7 +4,6 @@
   "package": "net.frozenblock.trailiertales.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CandleBlockMixin",
     "common.brush.BrushParticleMixin",
     "common.brush.BrushSoundMixin",
     "common.brushable_block.BlockEntityTypeMixin",
