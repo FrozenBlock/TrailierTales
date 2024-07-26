@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.mod_compat.wilderwild;
 import java.util.List;
 import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -36,7 +36,7 @@ public class WWIntegration extends AbstractWWIntegration {
 			() -> BlockConfig.get().blockSounds.claySounds
 		);
 
-		StructureProcessorApi.addNamespaceWithKeywordTarget(TrailierConstants.MOD_ID, "catacombs/",
+		StructureProcessorApi.addProcessor(CatacombsGenerator.CATACOMBS_KEY.location(),
 			new RuleProcessor(
 				List.of(
 					new ProcessorRule(
