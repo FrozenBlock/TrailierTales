@@ -49,8 +49,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
 
-		generator.createGenericCube(RegisterBlocks.CRACKED_END_STONE_BRICKS);
-		generator.createGenericCube(RegisterBlocks.CHISELED_END_STONE_BRICKS);
+		generator.createTrivialCube(RegisterBlocks.CRACKED_END_STONE_BRICKS);
+		generator.createTrivialCube(RegisterBlocks.CHISELED_END_STONE_BRICKS);
 		generator.family(RegisterBlocks.CHORAL_END_STONE_BRICKS).generateFor(RegisterBlocks.FAMILY_CHORAL_END_STONE_BRICKS);
 
 		generator.blockEntityModels(TrailierConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
