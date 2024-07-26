@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/choral_end_stone_brick_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/choral_end_stone_bricks"
+    },
+    "type=top": {
+      "model": "trailiertales:block/choral_end_stone_brick_slab_top"
+    }
+  }
+}

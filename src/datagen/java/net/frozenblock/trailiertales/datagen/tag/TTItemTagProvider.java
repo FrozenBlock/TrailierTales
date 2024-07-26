@@ -95,7 +95,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_TUFF_BRICK_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem());
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem())
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
 			.add(RegisterBlocks.GRANITE_BRICK_SLAB.asItem())
@@ -111,7 +112,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_TUFF_BRICK_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem());
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem())
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
 			.add(RegisterBlocks.GRANITE_BRICK_WALL.asItem())
@@ -127,7 +129,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_TUFF_BRICK_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem());
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem())
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
 			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())

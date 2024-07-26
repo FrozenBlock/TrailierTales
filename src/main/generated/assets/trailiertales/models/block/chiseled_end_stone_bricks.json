@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "trailiertales:block/chiseled_end_stone_bricks_down",
+    "east": "trailiertales:block/chiseled_end_stone_bricks_east",
+    "north": "trailiertales:block/chiseled_end_stone_bricks_north",
+    "particle": "trailiertales:block/chiseled_end_stone_bricks_particle",
+    "south": "trailiertales:block/chiseled_end_stone_bricks_south",
+    "up": "trailiertales:block/chiseled_end_stone_bricks_up",
+    "west": "trailiertales:block/chiseled_end_stone_bricks_west"
+  }
+}

@@ -110,6 +110,13 @@
   "block.trailiertales.mossy_deepslate_tile_slab": "Mossy Deepslate Tile Slab",
   "block.trailiertales.mossy_deepslate_tile_wall": "Mossy Deepslate Tile Wall",
 
+  "block.trailiertales.cracked_end_stone_bricks": "Cracked End Stone Bricks",
+  "block.trailiertales.chiseled_end_stone_bricks": "Chiseled End Stone Bricks",
+  "block.trailiertales.choral_end_stone_bricks": "Choral End Stone Bricks",
+  "block.trailiertales.choral_end_stone_brick_stairs": "Choral End Stone Stairs",
+  "block.trailiertales.choral_end_stone_brick_slab": "Choral End Stone Slab",
+  "block.trailiertales.choral_end_stone_brick_wall": "Choral End Stone Wall",
+
   "subtitles.item.brush.brushing.clay": "Brushing Clay",
   "subtitles.item.brush.brushing.clay.complete": "Brushing Clay completed",
   "subtitles.item.brush.brushing.dirt": "Brushing Dirt",

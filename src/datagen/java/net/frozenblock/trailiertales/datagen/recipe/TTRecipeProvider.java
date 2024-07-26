@@ -434,6 +434,31 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS, RegisterBlocks.MOSSY_DEEPSLATE_TILES);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL, RegisterBlocks.MOSSY_DEEPSLATE_TILES);
 
+		// END STONE BRICKS
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.END_STONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_END_STONE_BRICKS.asItem(), 0.1F, 200)
+			.unlockedBy("has_end_stone_bricks", has(Blocks.END_STONE_BRICKS))
+			.save(recipeOutput);
+
+		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Ingredient.of(Blocks.END_STONE_BRICK_SLAB))
+			.unlockedBy("has_end_stone_bricks", has(Blocks.END_STONE_BRICKS))
+			.unlockedBy("has_chiseled_end_stone_bricks", has(RegisterBlocks.CHISELED_END_STONE_BRICKS))
+			.unlockedBy("has_end_stone_brick_slab", has(Blocks.END_STONE_BRICK_SLAB))
+			.save(recipeOutput);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICKS)
+			.requires(Blocks.END_STONE_BRICKS)
+			.requires(Blocks.VINE)
+			.group("choral_end_stone_bricks")
+			.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE_BRICKS, Blocks.VINE));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB, RegisterBlocks.CHORAL_END_STONE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS, RegisterBlocks.CHORAL_END_STONE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_WALL, RegisterBlocks.CHORAL_END_STONE_BRICKS);
+
 		// DESOLATION SMITHING TEMPLATE
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)

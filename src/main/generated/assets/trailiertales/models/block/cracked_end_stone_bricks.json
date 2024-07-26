@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "trailiertales:block/cracked_end_stone_bricks_down",
+    "east": "trailiertales:block/cracked_end_stone_bricks_east",
+    "north": "trailiertales:block/cracked_end_stone_bricks_north",
+    "particle": "trailiertales:block/cracked_end_stone_bricks_particle",
+    "south": "trailiertales:block/cracked_end_stone_bricks_south",
+    "up": "trailiertales:block/cracked_end_stone_bricks_up",
+    "west": "trailiertales:block/cracked_end_stone_bricks_west"
+  }
+}

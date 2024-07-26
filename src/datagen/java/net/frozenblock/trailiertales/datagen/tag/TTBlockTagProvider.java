@@ -89,6 +89,13 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL)
 
+			.add(RegisterBlocks.CRACKED_END_STONE_BRICKS)
+			.add(RegisterBlocks.CHISELED_END_STONE_BRICKS)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICKS)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL)
+
 			.add(RegisterBlocks.SURVEYOR);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -129,7 +136,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_TUFF_BRICK_STAIRS)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS);
 
 		this.getOrCreateTagBuilder(BlockTags.SLABS)
 			.add(RegisterBlocks.GRANITE_BRICK_SLAB)
@@ -145,7 +153,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_TUFF_BRICK_SLAB)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB);
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB);
 
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
 			.add(RegisterBlocks.GRANITE_BRICK_WALL)
@@ -161,7 +170,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_TUFF_BRICK_WALL)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL)
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.ANCIENT_CITY_REPLACEABLE)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)

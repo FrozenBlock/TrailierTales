@@ -64,6 +64,12 @@
     "trailiertales:mossy_deepslate_tile_stairs",
     "trailiertales:mossy_deepslate_tile_slab",
     "trailiertales:mossy_deepslate_tile_wall",
+    "trailiertales:cracked_end_stone_bricks",
+    "trailiertales:chiseled_end_stone_bricks",
+    "trailiertales:choral_end_stone_bricks",
+    "trailiertales:choral_end_stone_brick_stairs",
+    "trailiertales:choral_end_stone_brick_slab",
+    "trailiertales:choral_end_stone_brick_wall",
     "trailiertales:surveyor"
   ]
 }

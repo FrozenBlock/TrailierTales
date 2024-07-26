@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "trailiertales:block/choral_end_stone_bricks",
+    "side": "trailiertales:block/choral_end_stone_bricks",
+    "top": "trailiertales:block/choral_end_stone_bricks"
+  }
+}

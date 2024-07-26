@@ -302,6 +302,22 @@ public class RegisterBlocks {
 		.wall(MOSSY_DEEPSLATE_TILE_WALL)
 		.getFamily();
 
+	// ENDSTONE
+	public static final Block CRACKED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
+	public static final Block CHISELED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
+	public static final Block CHORAL_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
+	public static final Block CHORAL_END_STONE_BRICK_STAIRS = new StairBlock(
+		CHORAL_END_STONE_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICK_STAIRS)
+	);
+	public static final Block CHORAL_END_STONE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
+	public static final Block CHORAL_END_STONE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
+	public static final BlockFamily FAMILY_CHORAL_END_STONE_BRICKS = BlockFamilies.familyBuilder(CHORAL_END_STONE_BRICKS)
+		.stairs(CHORAL_END_STONE_BRICK_STAIRS)
+		.slab(CHORAL_END_STONE_BRICK_SLAB)
+		.wall(CHORAL_END_STONE_BRICK_WALL)
+		.getFamily();
+
 	public static final CoffinBlock COFFIN = new CoffinBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.DEEPSLATE)
@@ -405,6 +421,13 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_deepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.END_STONE_BRICKS, "cracked_end_stone_bricks", CRACKED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.END_STONE_BRICK_WALL, "chiseled_end_stone_bricks",CHISELED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHISELED_END_STONE_BRICKS, "choral_end_stone_bricks", CHORAL_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHORAL_END_STONE_BRICKS, "choral_end_stone_brick_stairs", CHORAL_END_STONE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHORAL_END_STONE_BRICK_STAIRS, "choral_end_stone_brick_slab", CHORAL_END_STONE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHORAL_END_STONE_BRICK_SLAB, "choral_end_stone_brick_wall", CHORAL_END_STONE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
