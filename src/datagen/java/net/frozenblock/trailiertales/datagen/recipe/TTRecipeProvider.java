@@ -335,6 +335,30 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_CALCITE_BRICK_STAIRS, RegisterBlocks.MOSSY_CALCITE_BRICKS);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_CALCITE_BRICK_WALL, RegisterBlocks.MOSSY_CALCITE_BRICKS);
 
+		// TUFF BRICKS
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_TUFF_BRICKS.asItem(), 0.1F, 200)
+			.unlockedBy("has_tuff_bricks", has(Blocks.TUFF_BRICKS))
+			.save(recipeOutput);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_TUFF_BRICKS)
+			.requires(Blocks.TUFF_BRICKS)
+			.requires(Blocks.VINE)
+			.group("mossy_tuff_bricks")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_TUFF_BRICKS, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_TUFF_BRICKS)
+			.requires(Blocks.TUFF_BRICKS)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("mossy_tuff_bricks")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.MOSSY_TUFF_BRICKS, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_TUFF_BRICK_SLAB, RegisterBlocks.MOSSY_TUFF_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_TUFF_BRICK_STAIRS, RegisterBlocks.MOSSY_TUFF_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_TUFF_BRICK_WALL, RegisterBlocks.MOSSY_TUFF_BRICKS);
+
 		// MOSSY COBBLED DEEPSLATE
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)

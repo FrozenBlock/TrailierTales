@@ -78,6 +78,12 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.MOSSY_CALCITE_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(RegisterBlocks.MOSSY_CALCITE_BRICK_WALL);
 
+		this.dropSelf(RegisterBlocks.CRACKED_TUFF_BRICKS);
+		this.dropSelf(RegisterBlocks.MOSSY_TUFF_BRICKS);
+		this.dropSelf(RegisterBlocks.MOSSY_TUFF_BRICK_STAIRS);
+		this.add(RegisterBlocks.MOSSY_TUFF_BRICK_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.MOSSY_TUFF_BRICK_WALL);
+
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE);
 		this.dropSelf(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS);
 		this.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);

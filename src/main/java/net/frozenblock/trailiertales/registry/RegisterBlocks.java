@@ -246,6 +246,21 @@ public class RegisterBlocks {
 		.wall(MOSSY_CALCITE_BRICK_WALL)
 		.getFamily();
 
+	// TUFF
+	public static final Block CRACKED_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS));
+	public static final Block MOSSY_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS));
+	public static final Block MOSSY_TUFF_BRICK_STAIRS = new StairBlock(
+		MOSSY_TUFF_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICK_STAIRS)
+	);
+	public static final Block MOSSY_TUFF_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
+	public static final Block MOSSY_TUFF_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_TUFF_BRICKS = BlockFamilies.familyBuilder(MOSSY_TUFF_BRICKS)
+		.stairs(MOSSY_TUFF_BRICK_STAIRS)
+		.slab(MOSSY_TUFF_BRICK_SLAB)
+		.wall(MOSSY_TUFF_BRICK_WALL)
+		.getFamily();
+
 	// MOSSY DEEPSLATE
 
 	public static final Block MOSSY_COBBLED_DEEPSLATE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE));
@@ -369,6 +384,12 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_CALCITE_BRICKS, "mossy_calcite_brick_stairs", MOSSY_CALCITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_CALCITE_BRICK_STAIRS, "mossy_calcite_brick_slab", MOSSY_CALCITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_CALCITE_BRICK_SLAB, "mossy_calcite_brick_wall", MOSSY_CALCITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.TUFF_BRICKS, "cracked_tuff_bricks", CRACKED_TUFF_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.CHISELED_TUFF_BRICKS, "mossy_tuff_bricks", MOSSY_TUFF_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_TUFF_BRICKS, "mossy_tuff_brick_stairs", MOSSY_TUFF_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_TUFF_BRICK_STAIRS, "mossy_tuff_brick_slab", MOSSY_TUFF_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_TUFF_BRICK_SLAB, "mossy_tuff_brick_wall", MOSSY_TUFF_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
