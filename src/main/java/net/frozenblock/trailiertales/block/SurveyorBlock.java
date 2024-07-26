@@ -119,13 +119,13 @@ public class SurveyorBlock extends BaseEntityBlock {
 		return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite().getOpposite());
 	}
 
-	public static void updatePower(@NotNull Level level, BlockPos pos, @NotNull BlockState state, int lastDetectionPower) {
+	public static void updatePower(@NotNull Level level, BlockPos pos, @NotNull BlockState state, int lastDetectionPower, boolean updateNeighbors) {
 		boolean shouldPower = lastDetectionPower > 0;
 		if (shouldPower != state.getValue(POWERED)) {
 			level.setBlockAndUpdate(pos, state.setValue(POWERED, shouldPower));
-			if (state.getBlock() instanceof SurveyorBlock surveyorBlock) {
-				surveyorBlock.updateNeighborsInFront(level, pos, state);
-			}
+		}
+		if (updateNeighbors && state.getBlock() instanceof SurveyorBlock surveyorBlock) {
+			surveyorBlock.updateNeighborsInFront(level, pos, state);
 		}
 	}
 

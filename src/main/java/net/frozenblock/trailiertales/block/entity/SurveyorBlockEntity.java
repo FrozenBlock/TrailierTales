@@ -138,8 +138,10 @@ public class SurveyorBlockEntity extends BlockEntity {
 					}
 				}
 			}
+			int previousDetection = this.lastDetectionPower;
 			this.lastDetectionPower = Math.clamp(15 - closestDetection, 0, 15);
-			SurveyorBlock.updatePower(serverLevel, pos, state, this.lastDetectionPower);
+			boolean updateNeighbors = previousDetection != this.lastDetectionPower;
+			SurveyorBlock.updatePower(serverLevel, pos, state, this.lastDetectionPower, updateNeighbors);
 		} else {
 			this.detectionCooldown -= 1;
 		}
