@@ -19,7 +19,7 @@ public record CoffinSpawnerConfig(
 		1F,
 		2F,
 		0F,
-		400,
+		500,
 		4,
 		true
 	);
@@ -29,7 +29,7 @@ public record CoffinSpawnerConfig(
 		1F,
 		2F,
 		1F,
-		240,
+		350,
 		12,
 		true
 	);
@@ -39,7 +39,7 @@ public record CoffinSpawnerConfig(
 		1F,
 		3F,
 		2F,
-		120,
+		200,
 		20,
 		true
 	);
