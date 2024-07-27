@@ -3,7 +3,6 @@ package net.frozenblock.trailiertales.entity;
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
@@ -354,7 +353,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
 			if (this.hiddenTicks <= 0) {
-				this.spawnParticles(this.random.nextInt(0, 3), APPARITION_TO_WHITE);
+				this.spawnParticles(this.random.nextInt(0, 2), APPARITION_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
@@ -427,41 +426,34 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public void tickTransparency() {
-		AtomicReference<Float> transparency = new AtomicReference<>(0F);
-		AtomicReference<Float> outerTransparency = new AtomicReference<>(0F);
-		BlockPos pos = this.blockPosition();
+		float transparency = 0F;
+		float outerTransparency = 0F;
 		if (this.isAiding()) {
-			transparency.set(1F);
-			outerTransparency.set(1.5F);
+			transparency = 1F;
+			outerTransparency = 1.5F;
 		} else {
 			if (this.hiddenTicks > 0) {
-				transparency.set(0F);
-				outerTransparency.set(0F);
+				transparency = 0F;
+				outerTransparency = 0F;
 			} else {
-				BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1)).forEach(blockPos -> {
-						if (transparency.get() < 1) {
-							transparency.set(Math.max(transparency.get(), this.level().getRawBrightness(blockPos, 0) / (float) LightEngine.MAX_LEVEL));
-							outerTransparency.set(transparency.get() * 0.5F);
-						}
-					}
-				);
+				transparency = Math.max(transparency, this.level().getRawBrightness(BlockPos.containing(this.getEyePosition()), 0) / (float) LightEngine.MAX_LEVEL);
 			}
 		}
-		this.transparency += (transparency.get() - this.transparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
-		if (this.transparency < 0.025F && this.transparency != 0F && transparency.get() == 0F) {
+		this.transparency += (transparency - this.transparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
+		if (this.transparency < 0.025F && this.transparency != 0F && transparency == 0F) {
 			this.transparency = 0F;
 			if (this.hiddenTicks > 0) {
 				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
 			}
-		} else if (this.transparency > 0.975F && transparency.get() == 1F) {
+		} else if (this.transparency > 0.975F && transparency == 1F) {
 			this.transparency = 1F;
 		}
 		this.setTransparency(this.transparency);
 
-		this.outerTransparency += (outerTransparency.get() - this.outerTransparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
-		if (this.outerTransparency < 0.025F && this.outerTransparency != 0F && outerTransparency.get() == 0F) {
+		this.outerTransparency += (outerTransparency - this.outerTransparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
+		if (this.outerTransparency < 0.025F && this.outerTransparency != 0F && outerTransparency == 0F) {
 			this.outerTransparency = 0F;
-		} else if (this.outerTransparency > 1.975F && outerTransparency.get() == 2F) {
+		} else if (this.outerTransparency > 1.975F && outerTransparency == 2F) {
 			this.outerTransparency = 2F;
 		}
 		this.setOuterTransparency(this.outerTransparency);
