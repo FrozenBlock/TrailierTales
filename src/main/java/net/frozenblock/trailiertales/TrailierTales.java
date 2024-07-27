@@ -74,8 +74,8 @@ public class TrailierTales extends FrozenModInitializer {
 			BuiltinStructures.END_CITY.location(),
 			new RuleProcessor(
 				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
 				)
 			)
 		);
