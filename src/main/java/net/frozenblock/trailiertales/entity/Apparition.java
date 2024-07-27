@@ -437,6 +437,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				outerTransparency = 0F;
 			} else {
 				transparency = Math.max(transparency, this.level().getRawBrightness(BlockPos.containing(this.getEyePosition()), 0) / (float) LightEngine.MAX_LEVEL);
+				outerTransparency = transparency * 0.5F;
 			}
 		}
 		this.transparency += (transparency - this.transparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
