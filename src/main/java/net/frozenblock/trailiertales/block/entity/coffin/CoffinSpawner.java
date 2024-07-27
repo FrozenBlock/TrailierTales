@@ -318,7 +318,7 @@ public final class CoffinSpawner {
 			&& data.currentApparitions.isEmpty()
 			&& data.detectedAnyPlayers()
 			&& level.getGameTime() > data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.00025F;
+			&& level.getRandom().nextFloat() < 0.0001F;
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
