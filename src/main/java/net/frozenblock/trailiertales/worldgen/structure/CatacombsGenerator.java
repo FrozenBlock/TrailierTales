@@ -694,6 +694,10 @@ public class CatacombsGenerator {
 				new ProcessorRule(
 					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.25F),
 					AlwaysTrueTest.INSTANCE, Blocks.POTTED_DEAD_BUSH.defaultBlockState()
+				),
+				new ProcessorRule(
+					new RandomBlockMatchTest(Blocks.BARREL, 1F),
+					AlwaysTrueTest.INSTANCE, Blocks.DECORATED_POT.defaultBlockState()
 				)
 			)
 		);
