@@ -427,7 +427,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public void tickTransparency() {
 		float transparency = 0F;
-		float outerTransparency = 0F;
+		float outerTransparency;
 		if (this.isAiding()) {
 			transparency = 1F;
 			outerTransparency = 1.5F;
