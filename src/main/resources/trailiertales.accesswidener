@@ -21,3 +21,6 @@ accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/wo
 accessible class net/minecraft/client/renderer/FogRenderer$MobEffectFogFunction
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible class net/minecraft/client/gui/Gui$HeartType
+
+# Data Fixers
+accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;

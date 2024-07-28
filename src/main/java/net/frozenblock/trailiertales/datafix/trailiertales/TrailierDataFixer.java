@@ -3,6 +3,8 @@ package net.frozenblock.trailiertales.datafix.trailiertales;
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.minecraft.util.datafix.fixes.AddNewChoices;
+import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -10,7 +12,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class TrailierDataFixer {
-	public static final int DATA_VERSION = 1;
+	public static final int DATA_VERSION = 2;
 
 	private TrailierDataFixer() {
 		throw new UnsupportedOperationException("TrailierDataFixer contains only static declarations.");
@@ -237,6 +239,11 @@ public class TrailierDataFixer {
 			TrailierConstants.id("mossy_andesite_brick_wall"),
 			schemaV1
 		);
+
+		Schema schemaV2 = builder.addSchema(2, TTV2::new);
+		builder.addFixer(new AddNewChoices(schemaV2, "Added Apparition", References.ENTITY));
+		builder.addFixer(new AddNewChoices(schemaV2, "Added Damaging Throwable Item Projectile", References.ENTITY));
+
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 	}
 
