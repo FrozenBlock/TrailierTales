@@ -72,7 +72,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final GlowingDustColorTransitionOptions APPARITION_TO_WHITE = new GlowingDustColorTransitionOptions(
 		PARTICLE_COLOR, WHITE, 1F
 	);
-	public static final ResourceLocation ATTRIBUTE_APPARITION_FOLLOW_RANGE = TrailierConstants.id("apparition_follow_range");
+
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);

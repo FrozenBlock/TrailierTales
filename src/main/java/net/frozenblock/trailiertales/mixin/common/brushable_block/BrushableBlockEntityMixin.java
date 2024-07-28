@@ -72,6 +72,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	private boolean trailierTales$rebrushed = false;
 	@Unique
 	private ResourceKey<LootTable> trailierTales$storedLootTable;
+
 	@Shadow
 	@Nullable
 	private Direction hitDirection;
