@@ -2,12 +2,7 @@
   "elements": [
     {
       "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/decoration/chain/chain_blank",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
+        "element_type": "minecraft:empty_pool_element"
       },
       "weight": 150
     },

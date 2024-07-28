@@ -68,12 +68,7 @@
     },
     {
       "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/decoration/blank",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
+        "element_type": "minecraft:empty_pool_element"
       },
       "weight": 123
     }
