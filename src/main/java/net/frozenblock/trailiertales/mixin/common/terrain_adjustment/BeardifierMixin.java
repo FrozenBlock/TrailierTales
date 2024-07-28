@@ -136,7 +136,8 @@ public class BeardifierMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lit/unimi/dsi/fastutil/objects/ObjectListIterator;hasNext()Z",
-			ordinal = 0
+			ordinal = 0,
+			remap = false
 		),
 		slice = @Slice(
 			from = @At(
