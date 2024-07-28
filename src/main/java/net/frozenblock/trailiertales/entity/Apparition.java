@@ -11,7 +11,6 @@ import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransition
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.tag.TrailierEntityTags;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -437,7 +436,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				transparency = 0F;
 				outerTransparency = 0F;
 			} else {
-				transparency = Math.max(transparency, LightTexture.getBrightness(this.level().dimensionType(), this.level().getMaxLocalRawBrightness(BlockPos.containing(this.getEyePosition()), 0)));
+				transparency = Math.max(transparency, this.level().getRawBrightness(BlockPos.containing(this.getEyePosition()), 0) / (float) LightEngine.MAX_LEVEL);
 				outerTransparency = transparency * 0.5F;
 			}
 		}
