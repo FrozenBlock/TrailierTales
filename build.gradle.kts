@@ -112,9 +112,13 @@ loom {
         }
 
         named("client") {
+            vmArg("-Dfabric-tag-conventions-v2.missingTagTranslationWarning=SILENCED")
+
             ideConfigGenerated(true)
         }
         named("server") {
+            vmArg("-Dfabric-tag-conventions-v2.missingTagTranslationWarning=SILENCED")
+
             ideConfigGenerated(true)
         }
     }
