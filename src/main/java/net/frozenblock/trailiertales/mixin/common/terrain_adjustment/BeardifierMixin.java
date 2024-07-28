@@ -116,17 +116,15 @@ public class BeardifierMixin {
 		)
 	)
 	public TerrainAdjustment trailierTales$smallPlatformToBury(TerrainAdjustment original) {
-		if (original == TrailierTerrainAdjustment.SMALL_PLATFORM) {
-			return TerrainAdjustment.BURY;
-		}
-		return original;
+		return original == TrailierTerrainAdjustment.SMALL_PLATFORM ? TerrainAdjustment.BURY : original;
 	}
 
 	@WrapOperation(
 		method = "compute",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/levelgen/Beardifier;getBuryContribution(DDD)D"
+			target = "Lnet/minecraft/world/level/levelgen/Beardifier;getBuryContribution(DDD)D",
+			ordinal = 0
 		)
 	)
 	public double trailierTales$smallPlatformLogicInBury(double x, double y, double z, Operation<Double> operation) {
