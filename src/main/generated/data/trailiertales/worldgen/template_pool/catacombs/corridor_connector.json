@@ -876,16 +876,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/skull_left_chest",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/skull_right_chest",
+        "location": "trailiertales:catacombs/tomb/skull_chest",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },

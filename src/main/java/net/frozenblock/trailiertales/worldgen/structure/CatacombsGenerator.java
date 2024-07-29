@@ -8,6 +8,8 @@ import java.util.Optional;
 import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
+import net.frozenblock.lib.worldgen.structure.api.WeightedProcessorRule;
+import net.frozenblock.lib.worldgen.structure.api.WeightedRuleProcessor;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
@@ -22,6 +24,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
@@ -29,6 +32,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -391,43 +396,6 @@ public class CatacombsGenerator {
 
 		RegisterStructures.register(
 			pool,
-			string("corridor_decoration"),
-			new StructureTemplatePool(
-				empty,
-				ImmutableList.of(
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/soul_lantern")), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull")), 19),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull1")), 19),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull2")), 19),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull3")), 19),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4")), 19),
-					Pair.of(StructurePoolElement.empty(), 123)
-				),
-				StructureTemplatePool.Projection.RIGID
-			)
-		);
-
-		RegisterStructures.register(
-			pool,
-			string("tomb_decoration"),
-			new StructureTemplatePool(
-				empty,
-				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 20),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/soul_lantern")), 6),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull")), 12),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull1")), 12),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull2")), 12),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull3")), 12),
-					Pair.of(StructurePoolElement.single(string("tomb/decoration/skull4")), 12)
-
-				),
-				StructureTemplatePool.Projection.RIGID
-			)
-		);
-
-		RegisterStructures.register(
-			pool,
 			string("decoration/chain"),
 			new StructureTemplatePool(
 				empty,
@@ -724,6 +692,64 @@ public class CatacombsGenerator {
 			)
 		);
 
+		final WeightedRuleProcessor corridorDecorationProcessor = new WeightedRuleProcessor(
+			ImmutableList.of(
+				new WeightedProcessorRule(
+					new BlockMatchTest(Blocks.SKELETON_SKULL),
+					AlwaysTrueTest.INSTANCE,
+					SimpleWeightedRandomList.<BlockState>builder()
+						.add(Blocks.CAVE_AIR.defaultBlockState(), 125)
+						.add(Blocks.SOUL_LANTERN.defaultBlockState(), 4)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 0), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 1), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 2), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 3), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 4), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 5), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 6), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 7), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 8), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 9), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 10), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 11), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 12), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 13), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 14), 5)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 15), 5)
+						.build()
+				)
+			)
+		);
+
+		final WeightedRuleProcessor tombDecorationProcessor = new WeightedRuleProcessor(
+			ImmutableList.of(
+				new WeightedProcessorRule(
+					new BlockMatchTest(Blocks.SKELETON_SKULL),
+					AlwaysTrueTest.INSTANCE,
+					SimpleWeightedRandomList.<BlockState>builder()
+						.add(Blocks.CAVE_AIR.defaultBlockState(), 20)
+						.add(Blocks.SOUL_LANTERN.defaultBlockState(), 6)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 0), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 1), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 2), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 3), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 4), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 5), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 6), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 7), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 8), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 9), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 10), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 11), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 12), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 13), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 14), 12)
+						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 15), 12)
+						.build()
+				)
+			)
+		);
+
 		final BlockStateRespectingRuleProcessor catacombsPotLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
 		final RuleProcessor tombArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.0775F);
 		final RuleProcessor corridorArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.0775F);
@@ -739,6 +765,7 @@ public class CatacombsGenerator {
 			CATACOMBS_CORRIDOR,
 			ImmutableList.of(
 				corridorArchy,
+				corridorDecorationProcessor,
 				catacombsPotProcessor,
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
@@ -766,6 +793,7 @@ public class CatacombsGenerator {
 			CATACOMBS_CORRIDOR_RARE,
 			ImmutableList.of(
 				corridorRareArchy,
+				corridorDecorationProcessor,
 				catacombsPotProcessor,
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
@@ -794,6 +822,7 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				tombArchy,
 				zombieSkeletonCoffinProcessor,
+				tombDecorationProcessor,
 				catacombsPotProcessor,
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
@@ -823,6 +852,7 @@ public class CatacombsGenerator {
 				tombArchy,
 				huskCoffinProcessor,
 				catacombsPotProcessor,
+				tombDecorationProcessor,
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
 				catacombsPotLootProcessor,
@@ -845,6 +875,7 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				tombArchy,
 				skeletonCoffinProcessor,
+				tombDecorationProcessor,
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(
@@ -884,6 +915,7 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				tombArchy,
 				zombieSkeletonCoffinProcessor,
+				tombDecorationProcessor,
 				catacombsPotProcessor,
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,
@@ -907,6 +939,7 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				corridorRareArchy,
 				corridorRareClayArchy,
+				corridorDecorationProcessor,
 				catacombsPotProcessor,
 				catacombsRuleProcessor,
 				catacombsBlockStateRespectingRuleProcessor,

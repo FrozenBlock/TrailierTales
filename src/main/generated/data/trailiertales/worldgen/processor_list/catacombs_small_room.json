@@ -53,6 +53,198 @@
       ]
     },
     {
+      "processor_type": "frozenlib:weighted_rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "minecraft:skeleton_skull",
+            "predicate_type": "minecraft:block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_states": [
+            {
+              "data": {
+                "Name": "minecraft:cave_air"
+              },
+              "weight": 125
+            },
+            {
+              "data": {
+                "Name": "minecraft:soul_lantern",
+                "Properties": {
+                  "hanging": "false",
+                  "waterlogged": "false"
+                }
+              },
+              "weight": 4
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "0"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "1"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "2"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "3"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "4"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "5"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "6"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "7"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "8"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "9"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "10"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "11"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "12"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "13"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "14"
+                }
+              },
+              "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:skeleton_skull",
+                "Properties": {
+                  "powered": "false",
+                  "rotation": "15"
+                }
+              },
+              "weight": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
       "processor_type": "minecraft:rule",
       "rules": [
         {
