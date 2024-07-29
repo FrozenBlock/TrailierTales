@@ -169,11 +169,11 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/connector_room2"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/connector_room3"), corridor), 3),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all1"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all2"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all3"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all4"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/all5"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all1"), corridor), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all2"), corridor), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all3"), corridor), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all4"), corridor), 4),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/all5"), corridor), 4),
 					Pair.of(StructurePoolElement.single(string("corridor/intersection/all_large"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/intersection/all_skulls"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/intersection/all_door1"), corridor), 1),
@@ -181,55 +181,35 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_all"), corridor), 4),
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_all"), corridor), 4),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left1"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left2"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left3"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left4"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left5"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_door1"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_door2"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn1"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn2"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn3"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn4"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn5"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn_door1"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/turn_door2"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_turn"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_turn"), corridor), 2),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front1"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front2"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front3"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front4"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front5"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front_door1"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_front_door2"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_front"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_front"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch1"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch2"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch3"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch4"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch5"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch_door1"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/branch_door2"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_branch"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_branch"), corridor), 3),
 
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right1"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right2"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right3"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right4"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right5"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right_door1"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/left_right_door2"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_right"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_right"), corridor), 3),
-
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right1"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right2"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right3"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right4"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right5"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_door1"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_door2"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right"), corridor), 2),
-
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front1"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front2"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front3"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front4"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front5"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front_door1"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/intersection/right_front_door2"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right_front"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right_front"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides1"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides2"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides3"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides4"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides5"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides_door1"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/intersection/sides_door2"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_sides"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_sides"), corridor), 3),
 
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 22),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 22),
@@ -323,11 +303,9 @@ public class CatacombsGenerator {
 				empty,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_all"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_front"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_left_right"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_right_front"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_turn"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_branch"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_sides"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/bottom_cap"), corridor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
@@ -341,11 +319,9 @@ public class CatacombsGenerator {
 				empty,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_all"), corridor), 4),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_front"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_left_right"), corridor), 3),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right"), corridor), 2),
-					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_right_front"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_turn"), corridor), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_branch"), corridor), 3),
+					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_sides"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_cap"), corridor), 1)
 				),
 				StructureTemplatePool.Projection.RIGID
@@ -750,6 +726,16 @@ public class CatacombsGenerator {
 			)
 		);
 
+		final BlockStateRespectingRuleProcessor permanentSkullProcessor = new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new BlockMatchTest(Blocks.WITHER_SKELETON_SKULL),
+					AlwaysTrueTest.INSTANCE,
+					Blocks.SKELETON_SKULL
+				)
+			)
+		);
+
 		final BlockStateRespectingRuleProcessor catacombsPotLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
 		final RuleProcessor tombArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.0775F);
 		final RuleProcessor corridorArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.0775F);
@@ -784,6 +770,7 @@ public class CatacombsGenerator {
 					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
@@ -812,6 +799,7 @@ public class CatacombsGenerator {
 					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
@@ -841,6 +829,7 @@ public class CatacombsGenerator {
 					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
@@ -865,6 +854,7 @@ public class CatacombsGenerator {
 					Items.HEART_POTTERY_SHERD,
 					Items.BREWER_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
@@ -905,6 +895,7 @@ public class CatacombsGenerator {
 					RegisterItems.WITHER_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
@@ -929,6 +920,7 @@ public class CatacombsGenerator {
 					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
@@ -958,6 +950,7 @@ public class CatacombsGenerator {
 					Items.BREWER_POTTERY_SHERD,
 					RegisterItems.WITHER_POTTERY_SHERD
 				),
+				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);

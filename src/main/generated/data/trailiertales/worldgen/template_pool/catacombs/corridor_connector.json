@@ -250,7 +250,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -259,7 +259,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -268,7 +268,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -277,7 +277,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -286,7 +286,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 3
+      "weight": 4
     },
     {
       "element": {
@@ -345,7 +345,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left1",
+        "location": "trailiertales:catacombs/corridor/intersection/turn1",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -354,7 +354,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left2",
+        "location": "trailiertales:catacombs/corridor/intersection/turn2",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -363,7 +363,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left3",
+        "location": "trailiertales:catacombs/corridor/intersection/turn3",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -372,7 +372,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left4",
+        "location": "trailiertales:catacombs/corridor/intersection/turn4",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -381,7 +381,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left5",
+        "location": "trailiertales:catacombs/corridor/intersection/turn5",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -390,7 +390,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_door1",
+        "location": "trailiertales:catacombs/corridor/intersection/turn_door1",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -399,7 +399,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_door2",
+        "location": "trailiertales:catacombs/corridor/intersection/turn_door2",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -408,7 +408,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/bottom_left",
+        "location": "trailiertales:catacombs/corridor/ladder/bottom_turn",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -417,7 +417,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/top_left",
+        "location": "trailiertales:catacombs/corridor/ladder/top_turn",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -426,70 +426,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front3",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front4",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front5",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front_door1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_front_door2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/bottom_left_front",
+        "location": "trailiertales:catacombs/corridor/intersection/branch1",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -498,7 +435,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/top_left_front",
+        "location": "trailiertales:catacombs/corridor/intersection/branch2",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -507,70 +444,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right3",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right4",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right5",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right_door1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/left_right_door2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/bottom_left_right",
+        "location": "trailiertales:catacombs/corridor/intersection/branch3",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -579,7 +453,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/top_left_right",
+        "location": "trailiertales:catacombs/corridor/intersection/branch4",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -588,151 +462,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right3",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right4",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right5",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_door1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_door2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/bottom_right",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/top_right",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front3",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front4",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front5",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front_door1",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/intersection/right_front_door2",
-        "processors": "trailiertales:catacombs_corridor",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/bottom_right_front",
+        "location": "trailiertales:catacombs/corridor/intersection/branch5",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -741,7 +471,115 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/ladder/top_right_front",
+        "location": "trailiertales:catacombs/corridor/intersection/branch_door1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/branch_door2",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/ladder/bottom_branch",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/ladder/top_branch",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides2",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides3",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides4",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides5",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides_door1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/intersection/sides_door2",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/ladder/bottom_sides",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/ladder/top_sides",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
