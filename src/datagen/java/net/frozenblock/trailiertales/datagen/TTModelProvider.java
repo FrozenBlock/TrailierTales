@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.datagen.model;
+package net.frozenblock.trailiertales.datagen;
 
 import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

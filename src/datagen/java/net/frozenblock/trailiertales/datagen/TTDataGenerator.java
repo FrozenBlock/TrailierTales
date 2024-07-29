@@ -8,7 +8,6 @@ import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTArchaeologyLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTBlockLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTChestLootProvider;
-import net.frozenblock.trailiertales.datagen.model.TTModelProvider;
 import net.frozenblock.trailiertales.datagen.recipe.TTRecipeProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTBiomeTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTBlockTagProvider;
