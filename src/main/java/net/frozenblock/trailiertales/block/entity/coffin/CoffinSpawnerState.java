@@ -35,7 +35,6 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level);
-			default -> throw new MatchException(null, null);
 		};
 	}
 
@@ -48,15 +47,23 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
 			return INACTIVE;
 		} else {
-			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
-				if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-					return AGGRESSIVE;
-				} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-					return IRRITATED;
+			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
+			if (spawner.canSpawnApparition(level)) {
+				spawner.spawnApparition(level, pos);
+			}
+
+			if (coffinSpawnerData.detectedAnyPlayers()) {
+				if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
+					if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+						return AGGRESSIVE;
+					} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+						return IRRITATED;
+					}
 				}
+				return ACTIVE;
 			}
 		}
-		return ACTIVE;
+		return INACTIVE;
 	}
 
 	private static CoffinSpawnerState activeTickAndGetNext(

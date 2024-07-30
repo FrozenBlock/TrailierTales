@@ -309,7 +309,7 @@ public final class CoffinSpawner {
 									mob.spawnAnim();
 								}
 								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
-								this.appendCoffinSpawnAttributes(entity, level, pos);
+								this.appendCoffinSpawnAttributes(entity, level, pos, false);
 								return Optional.of(entity.getUUID());
 							}
 						}
@@ -323,9 +323,9 @@ public final class CoffinSpawner {
 		CoffinSpawnerData data = this.getData();
 		return this.getConfig().spawnsApparitions()
 			&& data.currentApparitions.isEmpty()
-			&& data.detectedAnyPlayers()
+			&& data.hasPotentialPlayers()
 			&& level.getGameTime() > data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.0001F;
+			&& level.getRandom().nextFloat() < 0.00015F;
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
@@ -333,18 +333,18 @@ public final class CoffinSpawner {
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
 				apparition.hiddenTicks = 100;
-				this.appendCoffinSpawnAttributes(apparition, level, pos);
-				this.data.nextApparitionSpawnsAt = level.getGameTime() + 80L;
+				this.appendCoffinSpawnAttributes(apparition, level, pos, true);
+				this.data.nextApparitionSpawnsAt = level.getGameTime() + 2400L;
 				this.data.currentApparitions.add(apparition.getUUID());
 			}
 		}
 	}
 
-	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos) {
+	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos, boolean usePotentialPlayers) {
 		if (entity instanceof Mob mob) {
 			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
 				.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 24D, AttributeModifier.Operation.ADD_VALUE));
-			Optional<Player> closestDetectedPlayer = this.data.getClosestDetectedPlayer(level, entity.position());
+			Optional<Player> closestDetectedPlayer = usePotentialPlayers ? this.data.getClosestPotentialPlayer(level, entity.position()) :  this.data.getClosestDetectedPlayer(level, entity.position());
 			closestDetectedPlayer.ifPresent(mob::setTarget);
 		}
 		if (entity instanceof EntityCoffinInterface entityInterface) {
@@ -428,7 +428,7 @@ public final class CoffinSpawner {
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
 				CoffinBlock.onCoffinUntrack(entity);
-				this.data.nextApparitionSpawnsAt = world.getGameTime() + 800L;
+				this.data.nextApparitionSpawnsAt = world.getGameTime() + 1200L;
 			}
 			return shouldUntrack;
 		});
