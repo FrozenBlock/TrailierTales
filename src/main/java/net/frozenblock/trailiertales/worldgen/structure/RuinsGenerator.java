@@ -8,7 +8,6 @@ import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorR
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;

@@ -19,15 +19,11 @@ import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -46,7 +42,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.BlockHitResult;
@@ -54,7 +49,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public final class CoffinSpawner {
 	private static final int PLAYER_TRACKING_DISTANCE = 48;
@@ -75,7 +69,6 @@ public final class CoffinSpawner {
 	private final int powerCooldownLength;
 	private final CoffinSpawner.StateAccessor stateAccessor;
 	private final PlayerDetector.EntitySelector entitySelector;
-	private boolean overridePeacefulAndMobSpawnRule;
 	private final UUID uuid;
 	private boolean attemptingToSpawnMob;
 
@@ -221,12 +214,8 @@ public final class CoffinSpawner {
 		return this.entitySelector;
 	}
 
-	public boolean canSpawnInLevel(Level level) {
-		if (this.overridePeacefulAndMobSpawnRule) {
-			return true;
-		} else {
-			return level.getDifficulty() != Difficulty.PEACEFUL && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
-		}
+	public boolean canSpawnInLevel(@NotNull Level level) {
+		return level.getDifficulty() != Difficulty.PEACEFUL && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
 	}
 
 	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
@@ -323,7 +312,7 @@ public final class CoffinSpawner {
 		CoffinSpawnerData data = this.getData();
 		return data.hasPotentialPlayers()
 			&& level.getGameTime() >= data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.0003F
+			&& level.getRandom().nextFloat() < 0.0009F
 			&& data.currentApparitions.size() < this.getConfig().maxApparitions();
 	}
 
@@ -356,15 +345,15 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public void updateAttemptingToSpawn(@NotNull ServerLevel level, BlockPos pos, @Nullable Direction direction) {
-		boolean isAttempting = this.isAttemptingToSpawnMob(level, pos, direction);
+	public void updateAttemptingToSpawn(@NotNull ServerLevel level) {
+		boolean isAttempting = this.isAttemptingToSpawnMob(level);
 		if (isAttempting != this.attemptingToSpawnMob) {
 			this.attemptingToSpawnMob = isAttempting;
 			this.markUpdated();
 		}
 	}
 
-	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level, BlockPos pos, @Nullable Direction direction) {
+	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level) {
 		int additionalPlayers = this.data.countAdditionalPlayers();
 		boolean isPreparing = this.data.isPreparingToSpawnNextMob(level, this.getConfig(), additionalPlayers, 45);
 		boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
@@ -442,7 +431,7 @@ public final class CoffinSpawner {
 				this.setState(world, nextState);
 			}
 		}
-		this.updateAttemptingToSpawn(world, pos, direction);
+		this.updateAttemptingToSpawn(world);
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, UUID uuid) {
@@ -461,35 +450,9 @@ public final class CoffinSpawner {
 		return !(blockHitResult.getBlockPos().equals(BlockPos.containing(spawnerPos)) || blockHitResult.getType() == HitResult.Type.MISS);
 	}
 
-	public static void addSpawnParticles(Level world, BlockPos pos, RandomSource random, SimpleParticleType simpleParticleType) {
-		for(int i = 0; i < 20; ++i) {
-			double d = (double)pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 2D;
-			double e = (double)pos.getY() + 0.5D + (random.nextDouble() - 0.5D) * 2D;
-			double f = (double)pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 2D;
-			world.addParticle(ParticleTypes.SMOKE, d, e, f, 0D, 0D, 0D);
-			world.addParticle(simpleParticleType, d, e, f, 0D, 0D, 0D);
-		}
-	}
-
-	public static void addDetectPlayerParticles(Level world, BlockPos pos, RandomSource random, int detectedPlayers, ParticleOptions particleOptions) {
-		for(int i = 0; i < 30 + Math.min(detectedPlayers, 10) * 5; ++i) {
-			double d = (double)(2F * random.nextFloat() - 1F) * 0.65;
-			double e = (double)(2F * random.nextFloat() - 1F) * 0.65;
-			double f = (double)pos.getX() + 0.5 + d;
-			double g = (double)pos.getY() + 0.1 + (double)random.nextFloat() * 0.8;
-			double h = (double)pos.getZ() + 0.5 + e;
-			world.addParticle(particleOptions, f, g, h, 0.0, 0.0, 0.0);
-		}
-	}
-
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
 		Structure structure = structureManager.registryAccess().registryOrThrow(Registries.STRUCTURE).get(CatacombsGenerator.CATACOMBS_KEY);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
-	}
-
-	@VisibleForTesting
-	public void overridePeacefulAndMobSpawnRule() {
-		this.overridePeacefulAndMobSpawnRule = true;
 	}
 
 	public interface StateAccessor {
