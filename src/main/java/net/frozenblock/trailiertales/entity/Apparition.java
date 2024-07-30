@@ -140,10 +140,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
 
-
 	@Override
-	public boolean isInvulnerable() {
-		return super.isInvulnerable() || this.hiddenTicks > 0;
+	public boolean isInvulnerableTo(DamageSource damageSource) {
+		return super.isInvulnerableTo(damageSource) || this.isHidden();
+	}
+
+	public boolean isHidden() {
+		return this.hiddenTicks > 0;
 	}
 
 	@Override
@@ -356,7 +359,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setNoGravity(true);
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
-			if (this.hiddenTicks <= 0) {
+			if (!this.isHidden()) {
 				this.spawnParticles(this.random.nextInt(0, 2), APPARITION_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
@@ -435,11 +438,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public void tickTransparency() {
 		float transparency = 0F;
 		float outerTransparency;
+		boolean isHidden = this.isHidden();
 		if (this.isAiding()) {
 			transparency = 1F;
 			outerTransparency = 1.5F;
 		} else {
-			if (this.hiddenTicks > 0) {
+			if (isHidden) {
 				transparency = 0F;
 				outerTransparency = 0F;
 			} else {
@@ -448,11 +452,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				outerTransparency = transparency * 0.5F;
 			}
 		}
-		float interpolationFactor = this.hiddenTicks > 0 ? 0.9F : 0.3F;
+		float interpolationFactor = isHidden ? 0.9F : 0.3F;
 		this.transparency += (transparency - this.transparency) * interpolationFactor;
 		if (this.transparency < 0.025F && this.transparency != 0F && transparency == 0F) {
 			this.transparency = 0F;
-			if (this.hiddenTicks > 0) {
+			if (isHidden) {
 				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
 			}
 		} else if (this.transparency > 0.975F && transparency == 1F) {

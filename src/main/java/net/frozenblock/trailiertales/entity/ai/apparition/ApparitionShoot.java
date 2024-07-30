@@ -34,7 +34,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
-		return !apparition.getInventory().getItems().getFirst().isEmpty() && apparition.hiddenTicks < 0
+		return !apparition.getInventory().getItems().getFirst().isEmpty() && !apparition.isHidden()
 			&& apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(livingEntity -> isTargetWithinRange(apparition, livingEntity)).orElse(false);
 	}
 
