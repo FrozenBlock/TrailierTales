@@ -744,7 +744,7 @@ public class CatacombsGenerator {
 		final RuleProcessor corridorRareClayArchy = catacombsArchy(true, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.65F);
 		final BlockStateRespectingRuleProcessor corridorChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_CORRIDOR);
 		final BlockStateRespectingRuleProcessor tombChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_TOMB);
-		final BlockStateRespectingRuleProcessor rewardChests = chestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD, 0.2F);
+		final BlockStateRespectingRuleProcessor rewardChests = chestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD, 0.33F);
 		final BlockStateRespectingRuleProcessor guaranteedRewardChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD);
 
 		final BlockStateRespectingRuleProcessor zombieSkeletonCoffinProcessor = coffinProcessor(EntityType.ZOMBIE, EntityType.SKELETON);
