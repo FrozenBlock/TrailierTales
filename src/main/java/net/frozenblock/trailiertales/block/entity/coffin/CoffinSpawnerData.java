@@ -188,7 +188,7 @@ public class CoffinSpawnerData {
 		if (!players.isEmpty()) {
 			AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
 			AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
-			this.detectedPlayers.forEach(uuid -> {
+			players.forEach(uuid -> {
 				Player player = level.getPlayerByUUID(uuid);
 				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
 					double distanceTo = player.distanceToSqr(origin);
