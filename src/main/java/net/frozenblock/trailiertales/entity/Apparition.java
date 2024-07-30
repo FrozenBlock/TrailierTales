@@ -370,7 +370,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		super.tick();
 		this.noPhysics = false;
 		this.setNoGravity(true);
-		boolean wasHiding = this.isHiding();
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
 			boolean isHidden = this.isHiding();
@@ -380,8 +379,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 			boolean hiding = this.hiddenTicks > 0;
 			this.setHiding(hiding);
-			if (wasHiding != hiding) {
-				this.level().broadcastEntityEvent(this, (byte) (hiding ? 64 : 63));
+			if (isHidden != hiding) {
 				this.refreshDimensions();
 			}
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
@@ -400,16 +398,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void handleEntityEvent(byte status) {
-		if (status == (byte) 63) {
-			this.setHiding(false);
+	public void onSyncedDataUpdated(EntityDataAccessor<?> data) {
+		if (HIDING.equals(data)) {
 			this.refreshDimensions();
-		} else if (status == (byte) 64) {
-			this.setHiding(true);
-			this.refreshDimensions();
-		} else {
-			super.handleEntityEvent(status);
 		}
+		super.onSyncedDataUpdated(data);
 	}
 
 	@Override
