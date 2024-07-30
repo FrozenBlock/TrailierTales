@@ -29,11 +29,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -143,6 +145,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	public boolean isInvulnerableTo(DamageSource damageSource) {
 		return super.isInvulnerableTo(damageSource) || this.isHidden();
+	}
+
+	@Override
+	protected @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
+		return this.isHidden() ? this.getType().getDimensions().scale(0F) : super.getDefaultDimensions(pose);
 	}
 
 	public boolean isHidden() {
@@ -359,10 +366,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setNoGravity(true);
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
-			if (!this.isHidden()) {
+			boolean isHidden = this.isHidden();
+			if (!isHidden) {
 				this.spawnParticles(this.random.nextInt(0, 2), APPARITION_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
+			if (isHidden != this.isHidden()) {
+				this.level().broadcastEntityEvent(this, (byte) 64);
+				this.refreshDimensions();
+			}
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 		} else {
 			this.prevTransparency = this.transparency;
@@ -375,6 +387,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.aidAnimProgress += (this.getAidAnimProgress() - this.aidAnimProgress) * 0.3F;
 			this.prevPoltergeistAnimProgress = this.poltergeistAnimProgress;
 			this.poltergeistAnimProgress += (this.getPoltergeistAnimProgress() - this.poltergeistAnimProgress) * 0.3F;
+		}
+	}
+
+	@Override
+	public void handleEntityEvent(byte status) {
+		if (status == (byte) 64) {
+			this.refreshDimensions();
+		} else {
+			super.handleEntityEvent(status);
 		}
 	}
 
@@ -458,6 +479,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.transparency = 0F;
 			if (isHidden) {
 				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
+				this.level().broadcastEntityEvent(this, (byte) 64);
+				this.refreshDimensions();
 			}
 		} else if (this.transparency > 0.975F && transparency == 1F) {
 			this.transparency = 1F;
@@ -495,6 +518,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	public float getPoltergeistAnimProgress(float partialTick) {
 		return Mth.lerp(partialTick, this.prevPoltergeistAnimProgress, this.poltergeistAnimProgress) * 0.85F;
+	}
+
+	public float totalTransparency(float partialTick) {
+		return Math.max(Math.max(this.getInnerTransparency(partialTick), this.getPoltergeistAnimProgress(partialTick)), this.getAidAnimProgress(partialTick));
 	}
 
 	@Nullable
