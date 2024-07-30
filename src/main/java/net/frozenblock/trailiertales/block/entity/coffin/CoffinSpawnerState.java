@@ -48,7 +48,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			return INACTIVE;
 		} else {
 			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
-			if (spawner.canSpawnApparition(level)) {
+			if (spawner.canSpawnApparition(level, pos)) {
 				spawner.spawnApparition(level, pos);
 			}
 
@@ -83,7 +83,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			}
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
-			if (spawner.canSpawnApparition(level)) {
+			if (spawner.canSpawnApparition(level, pos)) {
 				spawner.spawnApparition(level, pos);
 			}
 

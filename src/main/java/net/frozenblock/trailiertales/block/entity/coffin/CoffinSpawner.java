@@ -308,12 +308,20 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public boolean canSpawnApparition(Level level) {
+	public boolean canSpawnApparition(Level level, BlockPos pos) {
 		CoffinSpawnerData data = this.getData();
-		return data.hasPotentialPlayers()
-			&& level.getGameTime() >= data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.0009F
-			&& data.currentApparitions.size() < this.getConfig().maxApparitions();
+		if (data.hasPotentialPlayers() && level.getGameTime() >= data.nextApparitionSpawnsAt && data.currentApparitions.size() < this.getConfig().maxApparitions()) {
+			Vec3 vec3 = Vec3.atCenterOf(pos);
+			Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
+			if (optionalPlayer.isPresent()) {
+				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
+				double playerRange = this.getRequiredPlayerRange();
+				double chance = playerRange - distance;
+				chance = (0.009D / playerRange) * chance;
+				return level.getRandom().nextDouble() < chance;
+			}
+		}
+		return false;
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
