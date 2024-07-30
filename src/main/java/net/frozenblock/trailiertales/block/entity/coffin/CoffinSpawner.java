@@ -328,9 +328,9 @@ public final class CoffinSpawner {
 		Apparition apparition = RegisterEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
-				apparition.hiddenTicks = 100;
+				apparition.hiddenTicks = 500;
 				this.appendCoffinSpawnAttributes(apparition, level, pos, true);
-				this.data.nextApparitionSpawnsAt = level.getGameTime() + 1200L;
+				this.data.nextApparitionSpawnsAt = level.getGameTime() + 1000L;
 				this.data.currentApparitions.add(apparition.getUUID());
 			}
 		}

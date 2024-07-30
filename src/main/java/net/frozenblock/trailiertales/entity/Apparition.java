@@ -140,6 +140,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
 
+
+	@Override
+	public boolean isInvulnerable() {
+		return super.isInvulnerable() || this.hiddenTicks > 0;
+	}
+
 	@Override
 	public boolean isPushable() {
 		return false;
