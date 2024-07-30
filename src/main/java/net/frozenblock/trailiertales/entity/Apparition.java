@@ -378,7 +378,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				this.spawnParticles(this.random.nextInt(0, 2), APPARITION_TO_WHITE);
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
-			this.setHiding(this.hiddenTicks > 0);
+			boolean hiding = this.hiddenTicks > 0;
+			this.setHiding(hiding);
+			if (wasHiding != hiding) {
+				this.level().broadcastEntityEvent(this, (byte) (hiding ? 64 : 63));
+				this.refreshDimensions();
+			}
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 		} else {
 			this.prevTransparency = this.transparency;
@@ -392,8 +397,18 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.prevPoltergeistAnimProgress = this.poltergeistAnimProgress;
 			this.poltergeistAnimProgress += (this.getPoltergeistAnimProgress() - this.poltergeistAnimProgress) * 0.3F;
 		}
-		if (wasHiding != this.isHiding()) {
+	}
+
+	@Override
+	public void handleEntityEvent(byte status) {
+		if (status == (byte) 63) {
+			this.setHiding(false);
 			this.refreshDimensions();
+		} else if (status == (byte) 64) {
+			this.setHiding(true);
+			this.refreshDimensions();
+		} else {
+			super.handleEntityEvent(status);
 		}
 	}
 
