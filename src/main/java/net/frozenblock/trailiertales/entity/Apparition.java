@@ -367,7 +367,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.transparency = this.getInnerTransparency();
 			this.outerTransparency = this.getOuterTransparency();
 			this.prevFlicker = this.flicker;
-			this.flicker += ((this.random.nextFloat() * 0.175F) - this.flicker) * 0.5F;
+			this.flicker += Math.max(0F, (this.random.nextFloat() * 0.175F) - this.flicker) * 0.5F;
 			this.prevAidAnimProgress = this.aidAnimProgress;
 			this.aidAnimProgress += (this.getAidAnimProgress() - this.aidAnimProgress) * 0.3F;
 			this.prevPoltergeistAnimProgress = this.poltergeistAnimProgress;
@@ -429,7 +429,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return super.getAttackBoundingBox();
 	}
 
-	private static final double BRIGHTNESS_OFFSET = 8;
+	private static final double BRIGHTNESS_OFFSET = 6D;
 	private static final double BRIGHTNESS_DIVISOR = LightEngine.MAX_LEVEL - BRIGHTNESS_OFFSET;
 
 	public void tickTransparency() {
@@ -448,7 +448,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				outerTransparency = transparency * 0.5F;
 			}
 		}
-		this.transparency += (transparency - this.transparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
+		float interpolationFactor = this.hiddenTicks > 0 ? 0.9F : 0.3F;
+		this.transparency += (transparency - this.transparency) * interpolationFactor;
 		if (this.transparency < 0.025F && this.transparency != 0F && transparency == 0F) {
 			this.transparency = 0F;
 			if (this.hiddenTicks > 0) {
@@ -459,11 +460,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		}
 		this.setTransparency(this.transparency);
 
-		this.outerTransparency += (outerTransparency - this.outerTransparency) * (this.hiddenTicks > 0 ? 0.9F : 0.3F);
+		this.outerTransparency += (outerTransparency - this.outerTransparency) * interpolationFactor;
 		if (this.outerTransparency < 0.025F && this.outerTransparency != 0F && outerTransparency == 0F) {
 			this.outerTransparency = 0F;
-		} else if (this.outerTransparency > 1.975F && outerTransparency == 2F) {
-			this.outerTransparency = 2F;
+		} else if (this.outerTransparency > 0.975F && outerTransparency == 1F) {
+			this.outerTransparency = 1F;
 		}
 		this.setOuterTransparency(this.outerTransparency);
 	}
