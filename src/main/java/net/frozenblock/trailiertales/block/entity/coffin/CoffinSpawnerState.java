@@ -78,6 +78,9 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			return INACTIVE;
 		} else {
 			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
+			if (!coffinSpawnerData.detectedAnyPlayers()) {
+				return INACTIVE;
+			}
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
 			if (spawner.canSpawnApparition(level)) {
