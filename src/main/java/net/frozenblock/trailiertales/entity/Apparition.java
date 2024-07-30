@@ -534,6 +534,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setOuterTransparency(nbt.getFloat("OuterTransparency"));
 		this.setAidAnimProgress(nbt.getFloat("AidAnimProgress"));
 		this.setPoltergeistAnimProgress(nbt.getFloat("PoltergeistAnimProgress"));
+		this.setHiding(nbt.getBoolean("Hiding"));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
@@ -545,6 +546,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		nbt.putFloat("OuterTransparency", this.getOuterTransparency());
 		nbt.putFloat("AidAnimProgress", this.getAidAnimProgress());
 		nbt.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());
+		nbt.putBoolean("Hiding", this.isHiding());
 	}
 
 	@Override
