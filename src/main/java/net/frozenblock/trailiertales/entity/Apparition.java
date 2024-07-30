@@ -429,6 +429,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return super.getAttackBoundingBox();
 	}
 
+	private static final double BRIGHTNESS_OFFSET = 8;
+	private static final double BRIGHTNESS_DIVISOR = LightEngine.MAX_LEVEL - BRIGHTNESS_OFFSET;
+
 	public void tickTransparency() {
 		float transparency = 0F;
 		float outerTransparency;
@@ -440,7 +443,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				transparency = 0F;
 				outerTransparency = 0F;
 			} else {
-				transparency = Math.max(transparency, this.level().getMaxLocalRawBrightness(BlockPos.containing(this.getEyePosition())) / (float) LightEngine.MAX_LEVEL);
+				double brightness = Math.max(0, this.level().getMaxLocalRawBrightness(BlockPos.containing(this.getEyePosition())) - BRIGHTNESS_OFFSET);
+				transparency = (float) Math.max(transparency, brightness / BRIGHTNESS_DIVISOR);
 				outerTransparency = transparency * 0.5F;
 			}
 		}
