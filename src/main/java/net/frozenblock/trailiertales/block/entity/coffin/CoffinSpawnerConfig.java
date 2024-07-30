@@ -11,7 +11,7 @@ public record CoffinSpawnerConfig(
 	float simultaneousMobsAddedPerPlayer,
 	int ticksBetweenSpawn,
 	int powerForNextLevel,
-	boolean spawnsApparitions
+	int maxApparitions
 ) {
 	public static final CoffinSpawnerConfig DEFAULT = new CoffinSpawnerConfig(
 		4,
@@ -20,8 +20,8 @@ public record CoffinSpawnerConfig(
 		2F,
 		0F,
 		500,
-		8,
-		true
+		4,
+		1
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		5,
@@ -30,8 +30,8 @@ public record CoffinSpawnerConfig(
 		2F,
 		1F,
 		350,
-		24,
-		true
+		12,
+		1
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		6,
@@ -40,8 +40,8 @@ public record CoffinSpawnerConfig(
 		3F,
 		1F,
 		200,
-		40,
-		true
+		24,
+		2
 	);
 
 	public static final Codec<CoffinSpawnerConfig> CODEC = RecordCodecBuilder.create(
@@ -63,8 +63,9 @@ public record CoffinSpawnerConfig(
 				Codec.intRange(0, Integer.MAX_VALUE)
 					.lenientOptionalFieldOf("power_for_next_level", DEFAULT.powerForNextLevel)
 					.forGetter(CoffinSpawnerConfig::powerForNextLevel),
-				Codec.BOOL.lenientOptionalFieldOf("spawns_apparitions", DEFAULT.spawnsApparitions)
-					.forGetter(CoffinSpawnerConfig::spawnsApparitions)
+				Codec.intRange(0, Integer.MAX_VALUE)
+					.lenientOptionalFieldOf("max_apparitions", DEFAULT.maxApparitions)
+					.forGetter(CoffinSpawnerConfig::maxApparitions)
 			)
 			.apply(instance, CoffinSpawnerConfig::new)
 	);

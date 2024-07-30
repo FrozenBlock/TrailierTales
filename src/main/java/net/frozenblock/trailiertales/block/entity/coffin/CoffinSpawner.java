@@ -321,11 +321,10 @@ public final class CoffinSpawner {
 
 	public boolean canSpawnApparition(Level level) {
 		CoffinSpawnerData data = this.getData();
-		return this.getConfig().spawnsApparitions()
-			&& data.currentApparitions.isEmpty()
-			&& data.hasPotentialPlayers()
-			&& level.getGameTime() > data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.00015F;
+		return data.hasPotentialPlayers()
+			&& level.getGameTime() >= data.nextApparitionSpawnsAt
+			&& level.getRandom().nextFloat() < 0.0003F
+			&& data.currentApparitions.size() < this.getConfig().maxApparitions();
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
@@ -334,7 +333,7 @@ public final class CoffinSpawner {
 			if (level.addFreshEntity(apparition)) {
 				apparition.hiddenTicks = 100;
 				this.appendCoffinSpawnAttributes(apparition, level, pos, true);
-				this.data.nextApparitionSpawnsAt = level.getGameTime() + 2400L;
+				this.data.nextApparitionSpawnsAt = level.getGameTime() + 1200L;
 				this.data.currentApparitions.add(apparition.getUUID());
 			}
 		}
@@ -428,7 +427,6 @@ public final class CoffinSpawner {
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
 				CoffinBlock.onCoffinUntrack(entity);
-				this.data.nextApparitionSpawnsAt = world.getGameTime() + 1200L;
 			}
 			return shouldUntrack;
 		});
