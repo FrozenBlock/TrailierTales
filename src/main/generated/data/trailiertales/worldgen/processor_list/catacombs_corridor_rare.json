@@ -720,6 +720,25 @@
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
+            "loot_table": "trailiertales:chests/catacombs/corridor"
+          },
+          "input_predicate": {
+            "block": "minecraft:chest",
+            "predicate_type": "minecraft:block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_block": "minecraft:chest"
+        }
+      ]
+    },
+    {
+      "processor_type": "frozenlib:block_state_respecting_rule",
+      "rules": [
+        {
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
             "loot_table": "trailiertales:pots/catacombs/decorated_pot"
           },
           "input_predicate": {

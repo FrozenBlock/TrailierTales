@@ -44,6 +44,7 @@ public class CoffinProcessor implements RuleBlockEntityModifier {
 		CompoundTag compoundTag = nbt == null ? new CompoundTag() : nbt.copy();
 		if (compoundTag.contains("uuid")) {
 			compoundTag.remove("uuid");
+			compoundTag.remove("max_active_light_level");
 			compoundTag.putBoolean("within_catacombs", this.withinCatacombs);
 
 			EntityType<?> entityType = this.getRandomEntity(random);

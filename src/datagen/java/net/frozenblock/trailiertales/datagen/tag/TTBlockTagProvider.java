@@ -4,11 +4,13 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.tag.TrailierBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -191,6 +193,18 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILES);
+
+		this.getOrCreateTagBuilder(TrailierBlockTags.COFFIN_UNSPAWNABLE_ON)
+			.add(Blocks.REDSTONE_WIRE)
+			.add(Blocks.REDSTONE_TORCH)
+			.add(Blocks.REDSTONE_WALL_TORCH)
+			.add(Blocks.REDSTONE_BLOCK)
+			.add(Blocks.REDSTONE_LAMP)
+			.add(Blocks.LEVER)
+			.add(Blocks.REPEATER)
+			.add(Blocks.COMPARATOR)
+			.addOptionalTag(BlockTags.BUTTONS)
+			.addOptionalTag(BlockTags.PRESSURE_PLATES);
 
 		// WILDER WILD
 

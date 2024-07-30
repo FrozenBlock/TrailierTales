@@ -1,0 +1,20 @@
+{
+  "values": [
+    "minecraft:redstone_wire",
+    "minecraft:redstone_torch",
+    "minecraft:redstone_wall_torch",
+    "minecraft:redstone_block",
+    "minecraft:redstone_lamp",
+    "minecraft:lever",
+    "minecraft:repeater",
+    "minecraft:comparator",
+    {
+      "id": "#minecraft:buttons",
+      "required": false
+    },
+    {
+      "id": "#minecraft:pressure_plates",
+      "required": false
+    }
+  ]
+}

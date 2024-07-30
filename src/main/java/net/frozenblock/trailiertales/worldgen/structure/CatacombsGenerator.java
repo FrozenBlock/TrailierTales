@@ -50,6 +50,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.CappedProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
@@ -550,7 +551,7 @@ public class CatacombsGenerator {
 	}
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
-		final RuleProcessor catacombsRuleProcessor = new RuleProcessor(
+		final RuleProcessor baseProcessor = new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
@@ -624,7 +625,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		final RuleProcessor catacombsPotProcessor = new RuleProcessor(
+		final RuleProcessor potProcessor = new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(
 					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.25F),
@@ -645,7 +646,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		final BlockStateRespectingRuleProcessor catacombsBlockStateRespectingRuleProcessor = new BlockStateRespectingRuleProcessor(
+		final BlockStateRespectingRuleProcessor blockStateRespectingRuleProcessor = new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
 					new RandomBlockStateMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS.defaultBlockState(), 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS
@@ -736,11 +737,15 @@ public class CatacombsGenerator {
 			)
 		);
 
-		final BlockStateRespectingRuleProcessor catacombsPotLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
+		final BlockStateRespectingRuleProcessor potLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
 		final RuleProcessor tombArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.0775F);
 		final RuleProcessor corridorArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.0775F);
 		final RuleProcessor corridorRareArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.0775F);
 		final RuleProcessor corridorRareClayArchy = catacombsArchy(true, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.65F);
+		final BlockStateRespectingRuleProcessor corridorChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_CORRIDOR);
+		final BlockStateRespectingRuleProcessor tombChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_TOMB);
+		final BlockStateRespectingRuleProcessor rewardChests = chestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD, 0.2F);
+		final BlockStateRespectingRuleProcessor guaranteedRewardChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD);
 
 		final BlockStateRespectingRuleProcessor zombieSkeletonCoffinProcessor = coffinProcessor(EntityType.ZOMBIE, EntityType.SKELETON);
 		final BlockStateRespectingRuleProcessor skeletonCoffinProcessor = coffinProcessor(EntityType.SKELETON);
@@ -752,10 +757,11 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				corridorArchy,
 				corridorDecorationProcessor,
-				catacombsPotProcessor,
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				potProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				corridorChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -781,10 +787,11 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				corridorRareArchy,
 				corridorDecorationProcessor,
-				catacombsPotProcessor,
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				potProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				corridorChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -811,10 +818,12 @@ public class CatacombsGenerator {
 				tombArchy,
 				zombieSkeletonCoffinProcessor,
 				tombDecorationProcessor,
-				catacombsPotProcessor,
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				potProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				tombChests,
+				rewardChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -840,11 +849,12 @@ public class CatacombsGenerator {
 			ImmutableList.of(
 				tombArchy,
 				huskCoffinProcessor,
-				catacombsPotProcessor,
+				potProcessor,
 				tombDecorationProcessor,
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				guaranteedRewardChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -883,9 +893,11 @@ public class CatacombsGenerator {
 						)
 					)
 				),
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				tombChests,
+				rewardChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -907,10 +919,12 @@ public class CatacombsGenerator {
 				tombArchy,
 				zombieSkeletonCoffinProcessor,
 				tombDecorationProcessor,
-				catacombsPotProcessor,
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				potProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				tombChests,
+				rewardChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -932,10 +946,11 @@ public class CatacombsGenerator {
 				corridorRareArchy,
 				corridorRareClayArchy,
 				corridorDecorationProcessor,
-				catacombsPotProcessor,
-				catacombsRuleProcessor,
-				catacombsBlockStateRespectingRuleProcessor,
-				catacombsPotLootProcessor,
+				potProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				corridorChests,
+				potLootProcessor,
 				decoratedPotSherdProcessor(
 					1F,
 					false,
@@ -985,7 +1000,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull RuleProcessor catacombsArchy(boolean clay, ResourceKey<LootTable> registryKey, float chance) {
+	private static @NotNull RuleProcessor catacombsArchy(boolean clay, ResourceKey<LootTable> lootTable, float chance) {
 		return new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(
@@ -993,7 +1008,7 @@ public class CatacombsGenerator {
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
 					!clay ? Blocks.SUSPICIOUS_GRAVEL.defaultBlockState() : RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
-					new AppendLoot(registryKey)
+					new AppendLoot(lootTable)
 				)
 			)
 		);
@@ -1008,6 +1023,34 @@ public class CatacombsGenerator {
 					PosAlwaysTrueTest.INSTANCE,
 					RegisterBlocks.COFFIN,
 					new CoffinProcessor(true, entities)
+				)
+			)
+		);
+	}
+
+	private static @NotNull BlockStateRespectingRuleProcessor guaranteedChestProcessor(ResourceKey<LootTable> lootTable) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new BlockMatchTest(Blocks.CHEST),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.CHEST,
+					new AppendLoot(lootTable)
+				)
+			)
+		);
+	}
+
+	private static @NotNull BlockStateRespectingRuleProcessor chestProcessor(ResourceKey<LootTable> lootTable, float chance) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockMatchTest(Blocks.CHEST, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.CHEST,
+					new AppendLoot(lootTable)
 				)
 			)
 		);
