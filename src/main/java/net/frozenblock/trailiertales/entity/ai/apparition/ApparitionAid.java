@@ -40,7 +40,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
-		return apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.NEAREST_AIDABLE) && !apparition.isHidden();
+		return apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.NEAREST_AIDABLE) && !apparition.isHiding();
 	}
 
 	@Override
