@@ -40,7 +40,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
-		return apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
+		return apparition.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.NEAREST_AIDABLE) && !apparition.isHiding();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
-		apparition.playSound(RegisterSounds.APPARITION_AID, 1F, apparition.getVoicePitch());
+		apparition.playSound(RegisterSounds.APPARITION_AID, apparition.getSoundVolume(), apparition.getVoicePitch());
 		brain.setMemory(RegisterMemoryModuleTypes.AIDING_TIME, 61);
 		List<UUID> trackingUUIDs = new ArrayList<>();
 		brain.getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES).ifPresent(nearbyAidables -> {

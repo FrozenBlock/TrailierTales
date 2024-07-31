@@ -73,6 +73,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 	protected void setupRotations(Apparition entity, PoseStack matrices, float animationProgress, float bodyYaw, float tickDelta, float f) {
 		super.setupRotations(entity, matrices, animationProgress, bodyYaw, tickDelta, f);
 		this.itemYaw = bodyYaw;
+		this.shadowStrength = entity.totalTransparency(tickDelta);
 	}
 
 	@Override

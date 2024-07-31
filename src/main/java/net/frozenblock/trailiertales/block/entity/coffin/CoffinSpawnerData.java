@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -12,22 +13,27 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
-import net.minecraft.Util;
+import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +43,7 @@ public class CoffinSpawnerData {
 		instance -> instance.group(
 				SpawnData.LIST_CODEC.lenientOptionalFieldOf("spawn_potentials", SimpleWeightedRandomList.empty()).forGetter(data -> data.spawnPotentials),
 				Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
+				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
@@ -54,6 +61,7 @@ public class CoffinSpawnerData {
 	);
 
 	protected final IntArrayList soulsToSpawn = new IntArrayList();
+	protected final Set<UUID> potentialPlayers = new HashSet<>();
 	protected final Set<UUID> detectedPlayers = new HashSet<>();
 	protected final Set<UUID> currentMobs = new HashSet<>();
 	protected final Set<UUID> currentApparitions = new HashSet<>();
@@ -75,6 +83,7 @@ public class CoffinSpawnerData {
 			Collections.emptySet(),
 			Collections.emptySet(),
 			Collections.emptySet(),
+			Collections.emptySet(),
 			0L,
 			0L,
 			0,
@@ -90,6 +99,7 @@ public class CoffinSpawnerData {
 	public CoffinSpawnerData(
 		SimpleWeightedRandomList<SpawnData> spawnPotentials,
 		List<Integer> soulsToSpawn,
+		Set<UUID> potentialPlayers,
 		Set<UUID> detectedPlayers,
 		Set<UUID> currentMobs,
 		Set<UUID> currentApparitions,
@@ -105,6 +115,7 @@ public class CoffinSpawnerData {
 	) {
 		this.spawnPotentials = spawnPotentials;
 		this.soulsToSpawn.addAll(soulsToSpawn);
+		this.potentialPlayers.addAll(potentialPlayers);
 		this.detectedPlayers.addAll(detectedPlayers);
 		this.currentMobs.addAll(currentMobs);
 		this.currentApparitions.addAll(currentApparitions);
@@ -165,15 +176,23 @@ public class CoffinSpawnerData {
 		return !this.detectedPlayers.isEmpty();
 	}
 
-	public UUID randomPlayerUUID(RandomSource random) {
-		return Util.getRandom(this.detectedPlayers.stream().toList(), random);
+	public boolean hasPotentialPlayers() {
+		return !this.potentialPlayers.isEmpty();
 	}
 
 	public Optional<Player> getClosestDetectedPlayer(Level level, Vec3 origin) {
-		if (this.detectedAnyPlayers()) {
+		return this.getClosestPlayerFromSet(this.detectedPlayers, level, origin);
+	}
+
+	public Optional<Player> getClosestPotentialPlayer(Level level, Vec3 origin) {
+		return this.getClosestPlayerFromSet(this.potentialPlayers, level, origin);
+	}
+
+	private Optional<Player> getClosestPlayerFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin) {
+		if (!players.isEmpty()) {
 			AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
 			AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
-			this.detectedPlayers.forEach(uuid -> {
+			players.forEach(uuid -> {
 				Player player = level.getPlayerByUUID(uuid);
 				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
 					double distanceTo = player.distanceToSqr(origin);
@@ -188,17 +207,31 @@ public class CoffinSpawnerData {
 		return Optional.empty();
 	}
 
-	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, CoffinSpawner coffinSpawner) {
+	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
 		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
 		if (isSecondForPos) {
 			List<UUID> list = coffinSpawner.getPlayerDetector()
 				.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
+			this.potentialPlayers.addAll(list);
 
-			if (this.detectedPlayers.addAll(list)) {
-				world.levelEvent(LevelEvent.PARTICLES_TRIAL_SPAWNER_DETECT_PLAYER, pos, this.detectedPlayers.size());
+			List<UUID> detectedList = new ArrayList<>(list);
+			detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !player.hasEffect(RegisterMobEffects.HAUNT));
+			for (UUID uuid : this.currentApparitions) {
+				if (world.getEntity(uuid) instanceof Apparition apparition) {
+					LivingEntity target = apparition.getTarget();
+					if (target instanceof Player player) {
+						detectedList.add(player.getUUID());
+					}
+				}
 			}
 
-			this.detectedPlayers.removeIf(uuid -> !list.contains(uuid));
+			if (this.detectedPlayers.addAll(detectedList)) {
+				RandomSource randomSource = world.random;
+				CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL, 6 + Math.max(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos);
+				world.playSound(null, pos, RegisterSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
+			}
+
+			this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
 		}
 	}
 
@@ -223,10 +256,5 @@ public class CoffinSpawnerData {
 
 	protected void setNextSpawnData(@Nullable Level world, BlockPos pos, SpawnData spawnEntry) {
 		this.nextSpawnData = Optional.ofNullable(spawnEntry);
-	}
-
-	private static long lowResolutionPosition(@NotNull ServerLevel world, @NotNull BlockPos pos) {
-		BlockPos blockPos = new BlockPos(Mth.floor((float)pos.getX() / 30F), Mth.floor((float)pos.getY() / 20F), Mth.floor((float)pos.getZ() / 30F));
-		return world.getSeed() + blockPos.asLong();
 	}
 }

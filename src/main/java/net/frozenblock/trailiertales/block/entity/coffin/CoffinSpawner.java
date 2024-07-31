@@ -19,15 +19,11 @@ import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -54,7 +50,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public final class CoffinSpawner {
 	private static final int PLAYER_TRACKING_DISTANCE = 48;
@@ -75,7 +70,6 @@ public final class CoffinSpawner {
 	private final int powerCooldownLength;
 	private final CoffinSpawner.StateAccessor stateAccessor;
 	private final PlayerDetector.EntitySelector entitySelector;
-	private boolean overridePeacefulAndMobSpawnRule;
 	private final UUID uuid;
 	private boolean attemptingToSpawnMob;
 
@@ -221,12 +215,8 @@ public final class CoffinSpawner {
 		return this.entitySelector;
 	}
 
-	public boolean canSpawnInLevel(Level level) {
-		if (this.overridePeacefulAndMobSpawnRule) {
-			return true;
-		} else {
-			return level.getDifficulty() != Difficulty.PEACEFUL && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
-		}
+	public boolean canSpawnInLevel(@NotNull Level level) {
+		return level.getDifficulty() != Difficulty.PEACEFUL && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
 	}
 
 	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
@@ -309,7 +299,7 @@ public final class CoffinSpawner {
 									mob.spawnAnim();
 								}
 								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
-								this.appendCoffinSpawnAttributes(entity, level, pos);
+								this.appendCoffinSpawnAttributes(entity, level, pos, false);
 								return Optional.of(entity.getUUID());
 							}
 						}
@@ -319,32 +309,39 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public boolean canSpawnApparition(Level level) {
+	public boolean canSpawnApparition(Level level, BlockPos pos) {
 		CoffinSpawnerData data = this.getData();
-		return this.getConfig().spawnsApparitions()
-			&& data.currentApparitions.isEmpty()
-			&& data.detectedAnyPlayers()
-			&& level.getGameTime() > data.nextApparitionSpawnsAt
-			&& level.getRandom().nextFloat() < 0.0001F;
+		if (data.hasPotentialPlayers() && level.getGameTime() >= data.nextApparitionSpawnsAt && data.currentApparitions.size() < this.getConfig().maxApparitions()) {
+			Vec3 vec3 = Vec3.atCenterOf(pos);
+			Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
+			if (optionalPlayer.isPresent()) {
+				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
+				double playerRange = this.getRequiredPlayerRange();
+				double chance = playerRange - distance;
+				chance = (0.0006D / playerRange) * chance;
+				return level.getRandom().nextDouble() < chance;
+			}
+		}
+		return false;
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
 		Apparition apparition = RegisterEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
-				apparition.hiddenTicks = 100;
-				this.appendCoffinSpawnAttributes(apparition, level, pos);
-				this.data.nextApparitionSpawnsAt = level.getGameTime() + 80L;
+				apparition.hiddenTicks = 500;
+				this.appendCoffinSpawnAttributes(apparition, level, pos, true);
+				this.data.nextApparitionSpawnsAt = level.getGameTime() + 1000L;
 				this.data.currentApparitions.add(apparition.getUUID());
 			}
 		}
 	}
 
-	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos) {
+	public void appendCoffinSpawnAttributes(Entity entity, Level level, BlockPos pos, boolean usePotentialPlayers) {
 		if (entity instanceof Mob mob) {
 			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
 				.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 24D, AttributeModifier.Operation.ADD_VALUE));
-			Optional<Player> closestDetectedPlayer = this.data.getClosestDetectedPlayer(level, entity.position());
+			Optional<Player> closestDetectedPlayer = usePotentialPlayers ? this.data.getClosestPotentialPlayer(level, entity.position()) :  this.data.getClosestDetectedPlayer(level, entity.position());
 			closestDetectedPlayer.ifPresent(mob::setTarget);
 		}
 		if (entity instanceof EntityCoffinInterface entityInterface) {
@@ -357,15 +354,15 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public void updateAttemptingToSpawn(@NotNull ServerLevel level, BlockPos pos, @Nullable Direction direction) {
-		boolean isAttempting = this.isAttemptingToSpawnMob(level, pos, direction);
+	public void updateAttemptingToSpawn(@NotNull ServerLevel level) {
+		boolean isAttempting = this.isAttemptingToSpawnMob(level);
 		if (isAttempting != this.attemptingToSpawnMob) {
 			this.attemptingToSpawnMob = isAttempting;
 			this.markUpdated();
 		}
 	}
 
-	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level, BlockPos pos, @Nullable Direction direction) {
+	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level) {
 		int additionalPlayers = this.data.countAdditionalPlayers();
 		boolean isPreparing = this.data.isPreparingToSpawnNextMob(level, this.getConfig(), additionalPlayers, 45);
 		boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
@@ -373,7 +370,7 @@ public final class CoffinSpawner {
 		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
 	}
 
-	public void tickServer(ServerLevel world, BlockPos pos, CoffinPart part, boolean ominous) {
+	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
 		if (part == CoffinPart.HEAD || world.isClientSide) {
 			return;
 		}
@@ -381,29 +378,10 @@ public final class CoffinSpawner {
 		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
 		if (direction != null) {
 			if (!this.data.soulsToSpawn.isEmpty()) {
-				boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
-				boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
-				boolean isOppositeZ = isNegativeDirection && direction.getAxis() == Direction.Axis.Z;
 				IntArrayList newList = new IntArrayList();
 				this.data.soulsToSpawn.forEach(spawnTime -> {
 					if (spawnTime <= 0) {
-						double stepX = direction.getStepX();
-						double stepZ = direction.getStepZ();
-						double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
-						double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
-						double xOffset = Math.abs(stepX * 0.35D);
-						double zOffset = Math.abs(stepZ * 0.35D);
-						world.sendParticles(
-							RegisterParticles.COFFIN_SOUL_ENTER,
-							pos.getX() + relativeX,
-							pos.getY() + 0.95D,
-							pos.getZ() + relativeZ,
-						4,
-							xOffset,
-							0D,
-							zOffset,
-							0D
-						);
+						CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL_ENTER, 4, 0D, direction, pos);
 						this.addPower(1, world);
 					} else {
 						newList.add(spawnTime - 1);
@@ -428,7 +406,6 @@ public final class CoffinSpawner {
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
 				CoffinBlock.onCoffinUntrack(entity);
-				this.data.nextApparitionSpawnsAt = world.getGameTime() + 800L;
 			}
 			return shouldUntrack;
 		});
@@ -439,12 +416,12 @@ public final class CoffinSpawner {
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world);
+			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, world);
 			if (nextState != currentState) {
 				this.setState(world, nextState);
 			}
 		}
-		this.updateAttemptingToSpawn(world, pos, direction);
+		this.updateAttemptingToSpawn(world);
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, UUID uuid) {
@@ -463,35 +440,9 @@ public final class CoffinSpawner {
 		return !(blockHitResult.getBlockPos().equals(BlockPos.containing(spawnerPos)) || blockHitResult.getType() == HitResult.Type.MISS);
 	}
 
-	public static void addSpawnParticles(Level world, BlockPos pos, RandomSource random, SimpleParticleType simpleParticleType) {
-		for(int i = 0; i < 20; ++i) {
-			double d = (double)pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 2D;
-			double e = (double)pos.getY() + 0.5D + (random.nextDouble() - 0.5D) * 2D;
-			double f = (double)pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 2D;
-			world.addParticle(ParticleTypes.SMOKE, d, e, f, 0D, 0D, 0D);
-			world.addParticle(simpleParticleType, d, e, f, 0D, 0D, 0D);
-		}
-	}
-
-	public static void addDetectPlayerParticles(Level world, BlockPos pos, RandomSource random, int detectedPlayers, ParticleOptions particleOptions) {
-		for(int i = 0; i < 30 + Math.min(detectedPlayers, 10) * 5; ++i) {
-			double d = (double)(2F * random.nextFloat() - 1F) * 0.65;
-			double e = (double)(2F * random.nextFloat() - 1F) * 0.65;
-			double f = (double)pos.getX() + 0.5 + d;
-			double g = (double)pos.getY() + 0.1 + (double)random.nextFloat() * 0.8;
-			double h = (double)pos.getZ() + 0.5 + e;
-			world.addParticle(particleOptions, f, g, h, 0.0, 0.0, 0.0);
-		}
-	}
-
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
 		Structure structure = structureManager.registryAccess().registryOrThrow(Registries.STRUCTURE).get(CatacombsGenerator.CATACOMBS_KEY);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
-	}
-
-	@VisibleForTesting
-	public void overridePeacefulAndMobSpawnRule() {
-		this.overridePeacefulAndMobSpawnRule = true;
 	}
 
 	public interface StateAccessor {

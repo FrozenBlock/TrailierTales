@@ -34,7 +34,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
-		return !apparition.getInventory().getItems().getFirst().isEmpty()
+		return !apparition.getInventory().getItems().getFirst().isEmpty() && !apparition.isHiding()
 			&& apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(livingEntity -> isTargetWithinRange(apparition, livingEntity)).orElse(false);
 	}
 
@@ -46,7 +46,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
-		apparition.playSound(RegisterSounds.APPARITION_AID, 1F, apparition.getVoicePitch());
+		apparition.playSound(RegisterSounds.APPARITION_HOLDING_ITEM, apparition.getSoundVolume(), apparition.getVoicePitch());
 		apparition.setAggressive(true);
 		apparition.setPoltergeistAnimProgress(1F);
 	}

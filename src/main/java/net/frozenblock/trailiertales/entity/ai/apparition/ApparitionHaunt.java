@@ -42,7 +42,7 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 			if (livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox())) {
 				hauntingTicks += 2;
 				if (hauntingTicks >= 150) {
-					apparition.playSound(RegisterSounds.APPARITION_AID, 1F, apparition.getVoicePitch());
+					apparition.playSound(RegisterSounds.APPARITION_HAUNT, apparition.getSoundVolume(), apparition.getVoicePitch());
 					hauntingTicks = 0;
 					livingEntity.addEffect(
 						new MobEffectInstance(

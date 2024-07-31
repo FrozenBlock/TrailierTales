@@ -1,4 +1,4 @@
-Luna/Lunade/AViewFromTheTop - Lead dev & producer
+Luna/Lunade/AViewFromTheTop - Lead Dev/Producer & Sound Designer
 
 wigglewoggle - Builder
     - Main builder of Catacombs structure pieces after prototyping
@@ -46,3 +46,10 @@ Stella/Osmiooo
 
 Eggmanplant
     - Polish translation and a few early bug fixes
+
+The following sounds were used in this mod. Please note that sounds that aren't credited are sourced directly from Minecraft or self-made.
+https://freesound.org/people/ra_gun/sounds/77470/
+https://freesound.org/people/cMilan/sounds/426782/
+https://freesound.org/people/NomadApe/sounds/444920/
+https://freesound.org/people/craigsmith/sounds/675765/
+https://freesound.org/people/Glitchedtones/sounds/322417/

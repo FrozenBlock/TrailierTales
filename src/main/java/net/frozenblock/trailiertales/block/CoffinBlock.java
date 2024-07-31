@@ -13,6 +13,7 @@ import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -188,7 +189,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			blockEntityType,
 			RegisterBlockEntities.COFFIN,
 			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
-				.tickServer(serverLevel, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
+				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: createTickerHelper(
 			blockEntityType,
 			RegisterBlockEntities.COFFIN,
@@ -205,10 +206,6 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	private static boolean isCoffinHalfBlockedAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
 		BlockPos blockPos = pos.above();
 		return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
-	}
-
-	public static int getLightLevelSurroundingCoffin(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos) {
-		return Math.max(getLightLevel(level, pos), getLightLevel(level, pos.relative(getConnectedDirection(state))));
 	}
 
 	private static int getLightLevel(@NotNull Level level, @NotNull BlockPos pos) {
@@ -251,5 +248,35 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
 	) {
 		return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
+	}
+
+	public static void spawnParticlesFrom(
+		@NotNull ServerLevel world,
+		ParticleOptions particleOptions,
+		int count,
+		double speed,
+		@NotNull Direction coffinOrientation,
+		@NotNull BlockPos pos
+	) {
+		boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		double stepX = coffinOrientation.getStepX();
+		double stepZ = coffinOrientation.getStepZ();
+		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		double xOffset = Math.abs(stepX * 0.35D);
+		double zOffset = Math.abs(stepZ * 0.35D);
+		world.sendParticles(
+			particleOptions,
+			pos.getX() + relativeX,
+			pos.getY() + 0.95D,
+			pos.getZ() + relativeZ,
+			count,
+			xOffset,
+			0D,
+			zOffset,
+			speed
+		);
 	}
 }

@@ -32,7 +32,6 @@ import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
@@ -175,10 +174,6 @@ public class ApparitionAi {
 		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
 	}
 
-	private static boolean isTarget(@NotNull Apparition apparition, LivingEntity target) {
-		return apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(entity -> entity == target).isPresent();
-	}
-
 	private static void onTargetInvalid(@NotNull Apparition apparition, @NotNull LivingEntity target) {
 		if (apparition.getTarget() == target) {
 			apparition.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
@@ -199,11 +194,6 @@ public class ApparitionAi {
 		}
 	}
 
-	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidPossessionTarget(@NotNull Apparition apparition) {
-		return apparition.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
-	}
-
 	public static void wasHurtBy(@NotNull Apparition apparition, LivingEntity target) {
 		if (apparition.canTargetEntity(target)) {
 			if (!Sensor.isEntityAttackableIgnoringLineOfSight(apparition, target)) {
@@ -214,7 +204,6 @@ public class ApparitionAi {
 			}
 
 			setAngerTarget(apparition, target);
-			broadcastAngerTarget(apparition, target);
 		}
 	}
 
@@ -224,43 +213,5 @@ public class ApparitionAi {
 		}
 		apparition.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		apparition.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
-	}
-
-	public static void broadcastAngerTarget(@NotNull Apparition apparition, LivingEntity target) {
-	//	Optional<List<Apparition>> nearbyApparitions = getNearbyApparitions(apparition);
-	//	nearbyApparitions.ifPresent(apparitions -> apparitions.forEach(listedApparition -> setAngerTargetIfCloserThanCurrent(listedApparition, target)));
-	}
-
-	private static void setAngerTargetIfCloserThanCurrent(@NotNull Apparition apparition, LivingEntity currentTarget) {
-		Optional<LivingEntity> optional = getAngerTarget(apparition);
-		LivingEntity livingEntity = BehaviorUtils.getNearestTarget(apparition, optional, currentTarget);
-		if (optional.isPresent() && optional.get() == livingEntity) {
-			return;
-		}
-		setAngerTarget(apparition, livingEntity);
-	}
-
-	private static void setAngerTargetToNearestTargetablePlayerIfFound(Apparition apparition, LivingEntity currentTarget) {
-		Optional<Player> optional = getNearestVisibleTargetablePlayer(apparition);
-		if (optional.isPresent()) {
-			setAngerTarget(apparition, optional.get());
-		} else {
-			setAngerTarget(apparition, currentTarget);
-		}
-
-	}
-
-	@NotNull
-	private static Optional<LivingEntity> getAngerTarget(@NotNull Apparition apparition) {
-		return apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
-	}
-
-	@NotNull
-	private static Optional<List<Apparition>> getNearbyApparitions(@NotNull Apparition apparition) {
-		return apparition.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_APPARITIONS);
-	}
-
-	public static Optional<Player> getNearestVisibleTargetablePlayer(@NotNull Apparition apparition) {
-		return apparition.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) ? apparition.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) : Optional.empty();
 	}
 }

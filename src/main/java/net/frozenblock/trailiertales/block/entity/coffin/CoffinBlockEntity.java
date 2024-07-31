@@ -5,6 +5,7 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -12,7 +13,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -80,8 +80,8 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 			if (coffinSpawnerState.isCapableOfSpawning()) {
 				RandomSource randomSource = world.getRandom();
 				if (randomSource.nextFloat() <= 0.02F) {
-					SoundEvent soundEvent = ominous ? SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS : SoundEvents.TRIAL_SPAWNER_AMBIENT;
-					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.75F, randomSource.nextFloat() + 0.5F, false);
+					SoundEvent soundEvent = RegisterSounds.COFFIN_AMBIENT;
+					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.1F, randomSource.nextFloat() + 0.5F, false);
 				}
 			}
 		}

@@ -2,10 +2,13 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.Optional;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,40 +32,50 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		this.footTexture = getTexture(name, true);
 	}
 
-	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, ServerLevel level) {
+	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		return switch (this) {
-			case INACTIVE -> getInactiveState(pos, spawner, level);
-			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, level);
-			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, level);
-			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, level);
-			default -> throw new MatchException(null, null);
+			case INACTIVE -> getInactiveState(pos, spawner, state, level);
+			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
+			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, state, level);
+			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
 		};
 	}
 
 	private static CoffinSpawnerState getInactiveState(
 		BlockPos pos,
 		@NotNull CoffinSpawner spawner,
+		BlockState state,
 		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
 			return INACTIVE;
 		} else {
-			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
-				if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-					return AGGRESSIVE;
-				} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-					return IRRITATED;
+			Direction direction = CoffinBlock.getConnectedDirection(state);
+			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
+			if (spawner.canSpawnApparition(level, pos)) {
+				spawner.spawnApparition(level, pos);
+			}
+
+			if (coffinSpawnerData.detectedAnyPlayers()) {
+				if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
+					if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+						return AGGRESSIVE;
+					} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+						return IRRITATED;
+					}
 				}
+				return ACTIVE;
 			}
 		}
-		return ACTIVE;
+		return INACTIVE;
 	}
 
 	private static CoffinSpawnerState activeTickAndGetNext(
 		CoffinSpawnerState coffinSpawnerState,
 		BlockPos pos,
 		@NotNull CoffinSpawner spawner,
+		BlockState state,
 		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
@@ -70,10 +83,14 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
 			return INACTIVE;
 		} else {
-			coffinSpawnerData.tryDetectPlayers(level, pos, spawner);
+			Direction direction = CoffinBlock.getConnectedDirection(state);
+			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
+			if (!coffinSpawnerData.detectedAnyPlayers()) {
+				return INACTIVE;
+			}
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
-			if (spawner.canSpawnApparition(level)) {
+			if (spawner.canSpawnApparition(level, pos)) {
 				spawner.spawnApparition(level, pos);
 			}
 

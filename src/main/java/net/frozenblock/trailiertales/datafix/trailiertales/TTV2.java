@@ -3,12 +3,12 @@ package net.frozenblock.trailiertales.datafix.trailiertales;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
+import java.util.Map;
+import java.util.function.Supplier;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import net.minecraft.util.datafix.schemas.V100;
-import java.util.Map;
-import java.util.function.Supplier;
 
 public class TTV2 extends NamespacedSchema {
 
