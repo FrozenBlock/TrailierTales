@@ -533,5 +533,11 @@
       "trailiertales:mob/apparition/haunt3"
     ],
     "subtitle": "subtitles.entity.apparition.haunt"
+  },
+  "entity.apparition.throw": {
+    "sounds": [
+      "minecraft:random/bow"
+    ],
+    "subtitle": "subtitles.entity.apparition.throw"
   }
 }
