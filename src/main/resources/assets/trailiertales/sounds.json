@@ -450,9 +450,18 @@
   },
   "block.coffin.detect_player": {
     "sounds": [
-      "trailiertales:block/coffin/detect_player1",
-      "trailiertales:block/coffin/detect_player2",
-      "trailiertales:block/coffin/detect_player3"
+      {
+        "attenuation_distance": 32,
+        "name": "trailiertales:block/coffin/detect_player1"
+      },
+      {
+        "attenuation_distance": 32,
+        "name": "trailiertales:block/coffin/detect_player2"
+      },
+      {
+        "attenuation_distance": 32,
+        "name": "trailiertales:block/coffin/detect_player3"
+      }
     ],
     "subtitle": "subtitles.block.coffin.detect_player"
   },
