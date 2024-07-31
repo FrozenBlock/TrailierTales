@@ -433,6 +433,29 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.coffin.ambient": {
+    "sounds": [
+      "trailiertales:block/coffin/ambient1",
+      "trailiertales:block/coffin/ambient2",
+      "trailiertales:block/coffin/ambient3",
+      "trailiertales:block/coffin/ambient4",
+      "trailiertales:block/coffin/ambient5",
+      "trailiertales:block/coffin/ambient6",
+      "trailiertales:block/coffin/ambient7",
+      "trailiertales:block/coffin/ambient8",
+      "trailiertales:block/coffin/ambient9",
+      "trailiertales:block/coffin/ambient10"
+    ],
+    "subtitle": "subtitles.block.coffin.ambient"
+  },
+  "block.coffin.detect_player": {
+    "sounds": [
+      "trailiertales:block/coffin/detect_player1",
+      "trailiertales:block/coffin/detect_player2",
+      "trailiertales:block/coffin/detect_player3"
+    ],
+    "subtitle": "subtitles.block.coffin.detect_player"
+  },
   "block.coffin.spawn_mob": {
     "sounds": [
       "trailiertales:block/coffin/spawn1",
@@ -448,8 +471,7 @@
       "trailiertales:mob/apparition/idle3",
       "trailiertales:mob/apparition/idle4",
       "trailiertales:mob/apparition/idle5",
-      "trailiertales:mob/apparition/idle6",
-      "trailiertales:mob/apparition/idle7"
+      "trailiertales:mob/apparition/idle6"
     ],
     "subtitle": "subtitles.entity.apparition.idle"
   },
@@ -475,10 +497,32 @@
   },
   "entity.apparition.aid": {
     "sounds": [
-      "trailiertales:mob/apparition/pickup1",
-      "trailiertales:mob/apparition/pickup2",
-      "trailiertales:mob/apparition/pickup3"
+      "trailiertales:mob/apparition/anger1",
+      "trailiertales:mob/apparition/anger2",
+      "trailiertales:mob/apparition/anger3",
+      "trailiertales:mob/apparition/anger4",
+      "trailiertales:mob/apparition/anger5",
+      "trailiertales:mob/apparition/anger6"
     ],
     "subtitle": "subtitles.entity.apparition.aid"
+  },
+  "entity.apparition.holding_item": {
+    "sounds": [
+      "trailiertales:mob/apparition/anger1",
+      "trailiertales:mob/apparition/anger2",
+      "trailiertales:mob/apparition/anger3",
+      "trailiertales:mob/apparition/anger4",
+      "trailiertales:mob/apparition/anger5",
+      "trailiertales:mob/apparition/anger6"
+    ],
+    "subtitle": "subtitles.entity.apparition.holding_item"
+  },
+  "entity.apparition.haunt": {
+    "sounds": [
+      "trailiertales:mob/apparition/haunt1",
+      "trailiertales:mob/apparition/haunt2",
+      "trailiertales:mob/apparition/haunt3"
+    ],
+    "subtitle": "subtitles.entity.apparition.haunt"
   }
 }

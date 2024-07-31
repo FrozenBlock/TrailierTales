@@ -18,6 +18,8 @@ public class RegisterSounds {
 	public static final SoundEvent COFFIN_HIT = register("block.coffin.hit");
 	public static final SoundEvent COFFIN_FALL = register("block.coffin.fall");
 	public static final SoundEvent COFFIN_SPAWN_MOB = register("block.coffin.spawn_mob");
+	public static final SoundEvent COFFIN_AMBIENT = register("block.coffin.ambient");
+	public static final SoundEvent COFFIN_DETECT_PLAYER = register("block.coffin.detect_player");
 	public static final SoundType COFFIN = new SoundType(
 		1F,
 		1F,
@@ -32,6 +34,8 @@ public class RegisterSounds {
 	public static final SoundEvent APPARITION_HURT = register("entity.apparition.hurt");
 	public static final SoundEvent APPARITION_DEATH = register("entity.apparition.death");
 	public static final SoundEvent APPARITION_AID = register("entity.apparition.aid");
+	public static final SoundEvent APPARITION_HOLDING_ITEM = register("entity.apparition.holding_item");
+	public static final SoundEvent APPARITION_HAUNT = register("entity.apparition.haunt");
 
 	public static final SoundEvent SUSPICIOUS_DIRT_BREAK = register("block.suspicious_dirt.break");
 	public static final SoundEvent SUSPICIOUS_DIRT_STEP = register("block.suspicious_dirt.step");

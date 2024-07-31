@@ -30,7 +30,6 @@
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
 
   "block.trailiertales.coffin": "Coffin",
-  "subtitles.block.coffin.spawn_mob": "Coffin spawns a mob",
 
   "block.trailiertales.surveyor": "Surveyor",
 
@@ -128,8 +127,14 @@
   "subtitles.item.brush.brushing.soul_soil": "Brushing Soul Soil",
   "subtitles.item.brush.brushing.soul_soil.complete": "Brushing Soul Soil completed",
 
+  "subtitles.block.coffin.spawn_mob": "Coffin spawns a mob",
+  "subtitles.block.coffin.ambient": "Souls rustle",
+  "subtitles.block.coffin.detect_player": "Coffin's aura intensifies",
+
   "subtitles.entity.apparition.idle": "Apparition looms",
   "subtitles.entity.apparition.hurt": "Apparition hurts",
   "subtitles.entity.apparition.death": "Apparition dies",
-  "subtitles.entity.apparition.aid": "Apparition starts to hypnotize"
+  "subtitles.entity.apparition.aid": "Apparition starts to hypnotize",
+  "subtitles.entity.apparition.holding_item": "Apparition grabs item",
+  "subtitles.entity.apparition.haunt": "Apparition haunts"
 }
