@@ -81,7 +81,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 				RandomSource randomSource = world.getRandom();
 				if (randomSource.nextFloat() <= 0.02F) {
 					SoundEvent soundEvent = RegisterSounds.COFFIN_AMBIENT;
-					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.75F, randomSource.nextFloat() + 0.5F, false);
+					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.15F, randomSource.nextFloat() + 0.5F, false);
 				}
 			}
 		}
