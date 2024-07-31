@@ -42,6 +42,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.BlockHitResult;
@@ -369,7 +370,7 @@ public final class CoffinSpawner {
 		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
 	}
 
-	public void tickServer(ServerLevel world, BlockPos pos, CoffinPart part, boolean ominous) {
+	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
 		if (part == CoffinPart.HEAD || world.isClientSide) {
 			return;
 		}
@@ -377,29 +378,10 @@ public final class CoffinSpawner {
 		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
 		if (direction != null) {
 			if (!this.data.soulsToSpawn.isEmpty()) {
-				boolean isNegativeDirection = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
-				boolean isOppositeX = isNegativeDirection && direction.getAxis() == Direction.Axis.X;
-				boolean isOppositeZ = isNegativeDirection && direction.getAxis() == Direction.Axis.Z;
 				IntArrayList newList = new IntArrayList();
 				this.data.soulsToSpawn.forEach(spawnTime -> {
 					if (spawnTime <= 0) {
-						double stepX = direction.getStepX();
-						double stepZ = direction.getStepZ();
-						double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
-						double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
-						double xOffset = Math.abs(stepX * 0.35D);
-						double zOffset = Math.abs(stepZ * 0.35D);
-						world.sendParticles(
-							RegisterParticles.COFFIN_SOUL_ENTER,
-							pos.getX() + relativeX,
-							pos.getY() + 0.95D,
-							pos.getZ() + relativeZ,
-						4,
-							xOffset,
-							0D,
-							zOffset,
-							0D
-						);
+						CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL_ENTER, 4, 0D, direction, pos);
 						this.addPower(1, world);
 					} else {
 						newList.add(spawnTime - 1);
@@ -434,7 +416,7 @@ public final class CoffinSpawner {
 				this.setState(world, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, world);
+			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, world);
 			if (nextState != currentState) {
 				this.setState(world, nextState);
 			}

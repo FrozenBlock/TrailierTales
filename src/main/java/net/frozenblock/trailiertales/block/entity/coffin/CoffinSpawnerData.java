@@ -13,12 +13,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
+import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
@@ -29,7 +34,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -203,7 +207,7 @@ public class CoffinSpawnerData {
 		return Optional.empty();
 	}
 
-	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, CoffinSpawner coffinSpawner) {
+	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
 		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
 		if (isSecondForPos) {
 			List<UUID> list = coffinSpawner.getPlayerDetector()
@@ -222,7 +226,9 @@ public class CoffinSpawnerData {
 			}
 
 			if (this.detectedPlayers.addAll(detectedList)) {
-				world.levelEvent(LevelEvent.PARTICLES_TRIAL_SPAWNER_DETECT_PLAYER, pos, this.detectedPlayers.size());
+				RandomSource randomSource = world.random;
+				CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL, 6 + Math.max(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos);
+				world.playSound(null, pos, RegisterSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
 			}
 
 			this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
