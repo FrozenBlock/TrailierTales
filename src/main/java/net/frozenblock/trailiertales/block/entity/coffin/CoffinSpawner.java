@@ -381,7 +381,7 @@ public final class CoffinSpawner {
 				IntArrayList newList = new IntArrayList();
 				this.data.soulsToSpawn.forEach(spawnTime -> {
 					if (spawnTime <= 0) {
-						CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL_ENTER, 4, 0D, direction, pos);
+						CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL_ENTER, 4, 0D, direction, pos, 0.35D);
 						this.addPower(1, world);
 					} else {
 						newList.add(spawnTime - 1);

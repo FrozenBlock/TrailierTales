@@ -256,7 +256,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		int count,
 		double speed,
 		@NotNull Direction coffinOrientation,
-		@NotNull BlockPos pos
+		@NotNull BlockPos pos,
+		double spread
 	) {
 		boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
 		boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
@@ -265,8 +266,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		double stepZ = coffinOrientation.getStepZ();
 		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
 		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
-		double xOffset = Math.abs(stepX * 0.35D);
-		double zOffset = Math.abs(stepZ * 0.35D);
+		double xOffset = Math.abs(stepX * spread);
+		double zOffset = Math.abs(stepZ * spread);
 		world.sendParticles(
 			particleOptions,
 			pos.getX() + relativeX,

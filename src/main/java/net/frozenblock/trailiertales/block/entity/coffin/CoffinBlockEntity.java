@@ -12,7 +12,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -79,9 +78,8 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 
 			if (coffinSpawnerState.isCapableOfSpawning()) {
 				RandomSource randomSource = world.getRandom();
-				if (randomSource.nextFloat() <= 0.02F) {
-					SoundEvent soundEvent = RegisterSounds.COFFIN_AMBIENT;
-					world.playLocalSound(pos, soundEvent, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.1F, randomSource.nextFloat() + 0.5F, false);
+				if (randomSource.nextFloat() <= 0.0175F) {
+					world.playLocalSound(pos, RegisterSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.05F, randomSource.nextFloat() + 0.5F, false);
 				}
 			}
 		}
