@@ -5,9 +5,9 @@ import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
-import org.jetbrains.annotations.ApiStatus;
 import static net.frozenblock.trailiertales.TrailierConstants.MOD_ID;
 import static net.frozenblock.trailiertales.TrailierConstants.configPath;
+import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public final class MixinsConfig {

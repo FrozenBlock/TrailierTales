@@ -3,9 +3,11 @@ package net.frozenblock.trailiertales.entity;
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
 import java.util.Optional;
+import net.frozenblock.lib.wind.api.WindDisturbingEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.mod_compat.FrozenLibIntegration;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
@@ -19,6 +21,7 @@ import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -66,7 +69,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob {
+public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob, WindDisturbingEntity {
 	private static final Vector3f PARTICLE_COLOR = new Vector3f(162F / 255F, 181F/ 255F, 217F / 255F);
 	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
 	private static final GlowingDustColorTransitionOptions APPARITION_TO_WHITE = new GlowingDustColorTransitionOptions(
@@ -670,5 +673,29 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.playSound(RegisterSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			this.level().addFreshEntity(projectile);
 		}
+	}
+
+	@Override
+	public@NotNull ResourceLocation frozenLib$getWindDisturbanceLogicID() {
+		return FrozenLibIntegration.APPARITION_WIND_DISTURBANCE;
+	}
+
+	@Override
+	public double frozenLib$getWindWidth() {
+		return 12D;
+	}
+
+	@Override
+	public double frozenLib$getWindHeight() {
+		return 12D;
+	}
+
+	public double frozenLib$getWindAreaYOffset() {
+		return 0D;
+	}
+
+	@Override
+	public boolean frozenLib$useSyncPacket() {
+		return false;
 	}
 }

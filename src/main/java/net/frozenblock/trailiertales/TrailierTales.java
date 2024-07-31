@@ -1,14 +1,7 @@
 package net.frozenblock.trailiertales;
 
-import com.google.common.collect.ImmutableList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.advancement.api.AdvancementAPI;
-import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.datafix.trailiertales.TrailierDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
@@ -27,20 +20,6 @@ import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.EffectsChangedTrigger;
-import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
-import net.minecraft.advancements.critereon.MobEffectsPredicate;
-import net.minecraft.core.Holder;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 
 public class TrailierTales extends FrozenModInitializer {
 
@@ -69,47 +48,6 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterMobEffects.init();
 		RegisterJukeboxSongs.init();
 		RegsiterRuleBlockEntityModifiers.init();
-
-		StructureProcessorApi.addProcessor(
-			BuiltinStructures.END_CITY.location(),
-			new RuleProcessor(
-				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
-				)
-			)
-		);
-
-		AdvancementEvents.INIT.register((holder, registries) -> {
-			Advancement advancement = holder.value();
-			//if (AmbienceAndMiscConfig.get().modifyAdvancements) {
-
-				switch (holder.id().toString()) {
-					case "minecraft:adventure/plant_any_sniffer_seed" -> {
-						AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(RegisterBlocks.CYAN_ROSE_CROP).triggerInstance())
-						);
-						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								"trailiertales:cyan_rose"
-							)
-						);
-					}
-					case "minecraft:nether/all_effects" -> {
-						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
-							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
-							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
-							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(RegisterMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
-							predicate.effectMap = map;
-						}
-					}
-					default -> {
-					}
-				}
-
-			//}
-		});
 
 		TrailierModIntegrations.init();
 

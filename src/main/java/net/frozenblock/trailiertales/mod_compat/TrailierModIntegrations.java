@@ -11,6 +11,7 @@ import net.frozenblock.trailiertales.mod_compat.wilderwild.WWIntegration;
 
 public final class TrailierModIntegrations {
 
+	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
 	public static final ModIntegrationSupplier<AbstractWWIntegration> WILDER_WILD_INTEGRATION = register(
 		WWIntegration::new,
 		NoOpWWIntegration::new,
