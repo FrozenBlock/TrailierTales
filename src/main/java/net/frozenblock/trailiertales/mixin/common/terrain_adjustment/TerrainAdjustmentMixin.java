@@ -39,7 +39,7 @@ public class TerrainAdjustmentMixin {
 	)
 	private static void trailierTales$addCustomTerrainAdjustment(CallbackInfo info) {
 		var types = new ArrayList<>(Arrays.asList($VALUES));
-		var last = types.get(types.size() - 1);
+		var last = types.getLast();
 
 		var smallPlatform = trailierTales$newType("TRAILIER_TALES_SMALL_PLATFORM", last.ordinal() + 1, "trailier_tales_small_platform");
 		TrailierTerrainAdjustment.SMALL_PLATFORM = smallPlatform;
