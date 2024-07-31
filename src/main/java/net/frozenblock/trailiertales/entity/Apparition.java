@@ -215,6 +215,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
+	public int getAmbientSoundInterval() {
+		return 200;
+	}
+
+	@Override
 	public float getWalkTargetValue(BlockPos pos) {
 		Level level = this.level();
 		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
