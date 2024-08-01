@@ -197,11 +197,6 @@ public class RegisterBlocks {
 	);
 	public static final Block CALCITE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
 	public static final Block CALCITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
-	public static final BlockFamily FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
-		.stairs(CALCITE_STAIRS)
-		.slab(CALCITE_SLAB)
-		.wall(CALCITE_WALL)
-		.getFamily();
 
 	public static final Block POLISHED_CALCITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
 	public static final Block POLISHED_CALCITE_STAIRS = new StairBlock(

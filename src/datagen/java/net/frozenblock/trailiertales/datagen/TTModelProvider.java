@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -21,6 +23,12 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTModelProvider extends FabricModelProvider {
+	private static final BlockFamily FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
+		.stairs(RegisterBlocks.CALCITE_STAIRS)
+		.slab(RegisterBlocks.CALCITE_SLAB)
+		.wall(RegisterBlocks.CALCITE_WALL)
+		.getFamily();
+
 	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
 
 	public TTModelProvider(FabricDataOutput output) {
@@ -42,7 +50,7 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		BlockModelGenerators.BlockFamilyProvider calciteFamily = generator.family(Blocks.CALCITE);
 		calciteFamily.skipGeneratingModelsFor.add(Blocks.CALCITE);
-		calciteFamily.generateFor(RegisterBlocks.FAMILY_CALCITE);
+		calciteFamily.generateFor(FAMILY_CALCITE);
 		generator.family(RegisterBlocks.POLISHED_CALCITE).generateFor(RegisterBlocks.FAMILY_POLISHED_CALCITE);
 		BlockModelGenerators.BlockFamilyProvider calciteBricksFamily = generator.family(RegisterBlocks.CALCITE_BRICKS);
 		calciteBricksFamily.skipGeneratingModelsFor.add(RegisterBlocks.CHISELED_CALCITE_BRICKS);
