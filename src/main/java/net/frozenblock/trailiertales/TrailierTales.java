@@ -18,6 +18,8 @@ import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
+import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
 
@@ -32,6 +34,8 @@ public class TrailierTales extends FrozenModInitializer {
 		TrailierConstants.startMeasuring(this);
 
 		TrailierDataFixer.applyDataFixes(container);
+		RegisterStructureTypes.init();
+		RegisterStructurePieceTypes.init();
 		RegisterBlocks.init();
 		RegisterBlockEntities.register();
 		RegisterItems.init();
