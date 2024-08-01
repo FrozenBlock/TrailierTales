@@ -168,7 +168,7 @@ public class RuinsPieces {
 	private static @Nullable RuinPiece addPiece(
 		StructureTemplateManager structureTemplateManager,
 		List<BoundingBox> boundingBoxes,
-		BlockPos pos,
+		@NotNull BlockPos pos,
 		Rotation rotation,
 		StructurePieceAccessor pieces,
 		RandomSource random,
@@ -179,14 +179,7 @@ public class RuinsPieces {
 		maxAttempts += 1;
 
 		RuinPiece potentialPiece;
-		ResourceLocation structureId;
-		if (feature.biomeType == RuinsStructure.Type.GENERIC) {
-			structureId = getRandomGenericRuin(random);
-		} else if (feature.biomeType == RuinsStructure.Type.SAVANNA) {
-			structureId = getRandomSavannaRuin(random);
-		} else {
-			structureId = getRandomGenericRuin(random);
-		}
+		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for (int i = 0; i < maxAttempts; i++) {
@@ -218,20 +211,22 @@ public class RuinsPieces {
 		return ruinPiece;
 	}
 
+	private static ResourceLocation getPieceForType(RuinsStructure.Type type, RandomSource random) {
+		if (type == RuinsStructure.Type.SAVANNA) {
+			return getRandomSavannaRuin(random);
+		}
+		return getRandomGenericRuin(random);
+	}
+
 	private static @NotNull RuinPiece addStarterPiece(
 		StructureTemplateManager structureTemplateManager,
-		BlockPos pos,
+		@NotNull BlockPos pos,
 		Rotation rotation,
-		StructurePieceAccessor pieces,
+		@NotNull StructurePieceAccessor pieces,
 		RandomSource random,
 		@NotNull RuinsStructure feature
 	) {
-		ResourceLocation structureId;
-		if (feature.biomeType == RuinsStructure.Type.GENERIC) {
-			structureId = getRandomGenericRuin(random);
-		} else {
-			structureId = getRandomGenericRuin(random);
-		}
+		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		RuinPiece piece = new RuinPiece(structureTemplateManager, structureId, mutableBlockPos, rotation, feature.biomeType);
 		pieces.addPiece(piece);
