@@ -47,8 +47,8 @@ public class SavannaRuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.SAVANNA,
-				0.9F,
-				UniformInt.of(1, 4)
+				1F,
+				UniformInt.of(2, 5)
 			)
 		);
 	}

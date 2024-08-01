@@ -66,7 +66,7 @@ public class RuinsPieces {
 		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("surface")));
 		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
 		SAVANNA_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("buried")));
-		
+
 		fillInPieceOffsets();
 	}
 
