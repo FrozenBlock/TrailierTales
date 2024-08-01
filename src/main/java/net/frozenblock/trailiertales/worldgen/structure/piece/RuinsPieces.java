@@ -45,23 +45,39 @@ import org.jetbrains.annotations.Nullable;
 
 public class RuinsPieces {
 	private static final Map<ResourceLocation, Integer> PIECE_OFFSETS = new Object2IntLinkedOpenHashMap<>();
+	// GENERIC
 	private static final ArrayList<ResourceLocation> GENERIC_SURFACE_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> GENERIC_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
+	// SAVANNA
+	private static final ArrayList<ResourceLocation> SAVANNA_SURFACE_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> SAVANNA_MOSTLY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> SAVANNA_BURIED_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
-		GENERIC_SURFACE_PIECES.clear();
-		GENERIC_MOSTLY_BURIED_PIECES.clear();
-		GENERIC_BURIED_PIECES.clear();
-		GENERIC_FIVE_FROM_TOP_PIECES.clear();
+		clearPieceLists();
 
 		GENERIC_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("surface")));
 		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
 		GENERIC_BURIED_PIECES .addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
 		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("five_from_top")));
 
+		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("surface")));
+		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
+		SAVANNA_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("buried")));
+		
 		fillInPieceOffsets();
+	}
+
+	private static void clearPieceLists() {
+		GENERIC_SURFACE_PIECES.clear();
+		GENERIC_MOSTLY_BURIED_PIECES.clear();
+		GENERIC_BURIED_PIECES.clear();
+		GENERIC_FIVE_FROM_TOP_PIECES.clear();
+		SAVANNA_SURFACE_PIECES.clear();
+		SAVANNA_MOSTLY_BURIED_PIECES.clear();
+		SAVANNA_BURIED_PIECES.clear();
 	}
 
 	private static void fillInPieceOffsets() {
@@ -69,6 +85,8 @@ public class RuinsPieces {
 		GENERIC_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
 		GENERIC_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, -2));
 		GENERIC_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
+		SAVANNA_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
+		SAVANNA_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, -2));
 	}
 
 	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
@@ -91,6 +109,11 @@ public class RuinsPieces {
 		return "ruins/generic/" + path;
 	}
 
+	@Contract("_ -> new")
+	private static @NotNull String createSavannaRuinPath(String path) {
+		return "ruins/savanna/" + path;
+	}
+
 	private static @NotNull ResourceLocation getRandomGenericRuin(@NotNull RandomSource random) {
 		if (random.nextFloat() <= 0.75F) {
 			return Util.getRandom(GENERIC_MOSTLY_BURIED_PIECES, random);
@@ -99,6 +122,16 @@ public class RuinsPieces {
 			return Util.getRandom(GENERIC_FIVE_FROM_TOP_PIECES, random);
 		}
 		return random.nextBoolean() ? Util.getRandom(GENERIC_SURFACE_PIECES, random) : Util.getRandom(GENERIC_BURIED_PIECES, random);
+	}
+
+	private static @NotNull ResourceLocation getRandomSavannaRuin(@NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.75F) {
+			return Util.getRandom(SAVANNA_MOSTLY_BURIED_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.175F) {
+			return Util.getRandom(SAVANNA_SURFACE_PIECES, random);
+		}
+		return Util.getRandom(SAVANNA_BURIED_PIECES, random);
 	}
 
 	public static void addPieces(
@@ -149,6 +182,8 @@ public class RuinsPieces {
 		ResourceLocation structureId;
 		if (feature.biomeType == RuinsStructure.Type.GENERIC) {
 			structureId = getRandomGenericRuin(random);
+		} else if (feature.biomeType == RuinsStructure.Type.SAVANNA) {
+			structureId = getRandomSavannaRuin(random);
 		} else {
 			structureId = getRandomGenericRuin(random);
 		}

@@ -40,8 +40,6 @@ public final class RegisterStructures {
 		CatacombsGenerator.bootstrapTemplatePool(context);
 		DesertRuinsGenerator.bootstrapTemplatePool(context);
 		JungleRuinsGenerator.bootstrapTemplatePool(context);
-		SavannaRuinsGenerator.bootstrapTemplatePool(context);
-		RuinsGenerator.bootstrapTemplatePool(context);
 	}
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
@@ -67,7 +65,6 @@ public final class RegisterStructures {
 		CatacombsGenerator.bootstrapProcessor(context);
 		DesertRuinsGenerator.bootstrapProcessor(context);
 		JungleRuinsGenerator.bootstrapProcessor(context);
-		SavannaRuinsGenerator.bootstrapProcessor(context);
 	}
 
 	@NotNull

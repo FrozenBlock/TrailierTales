@@ -25,7 +25,6 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
@@ -42,9 +41,6 @@ public class RuinsGenerator {
 	public static final ResourceKey<StructureSet> RUINS_KEY = RegisterStructures.ofSet("ruins");
 	private static final ResourceKey<Structure> RUIN_KEY = RegisterStructures.createKey("ruins");
 
-	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
-	}
-
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 
@@ -57,7 +53,7 @@ public class RuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.GENERIC,
-				0.75F,
+				0.9F,
 				UniformInt.of(1, 4)
 			)
 		);
