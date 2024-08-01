@@ -98,6 +98,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB)
 			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL)
 
+			.add(RegisterBlocks.PURPUR_WALL)
+
 			.add(RegisterBlocks.SURVEYOR);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -173,7 +175,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL)
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL);
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL)
+			.add(RegisterBlocks.PURPUR_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.ANCIENT_CITY_REPLACEABLE)
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE)
@@ -205,6 +208,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.COMPARATOR)
 			.addOptionalTag(BlockTags.BUTTONS)
 			.addOptionalTag(BlockTags.PRESSURE_PLATES);
+
+		this.getOrCreateTagBuilder(BlockTags.FEATURES_CANNOT_REPLACE)
+			.add(RegisterBlocks.COFFIN);
 
 		// WILDER WILD
 

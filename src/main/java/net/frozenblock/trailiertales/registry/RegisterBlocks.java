@@ -303,6 +303,7 @@ public class RegisterBlocks {
 		.getFamily();
 
 	// ENDSTONE
+
 	public static final Block CRACKED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
 	public static final Block CHISELED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
 	public static final Block CHORAL_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
@@ -317,6 +318,12 @@ public class RegisterBlocks {
 		.slab(CHORAL_END_STONE_BRICK_SLAB)
 		.wall(CHORAL_END_STONE_BRICK_WALL)
 		.getFamily();
+
+	// PURPUR
+
+	public static final Block CRACKED_PURPUR_BLOCK = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK));
+	public static final Block PURPUR_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK));
+	public static final Block CHISELED_PURPUR_BLOCK = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK));
 
 	public static final CoffinBlock COFFIN = new CoffinBlock(
 		BlockBehaviour.Properties.of()
@@ -428,6 +435,10 @@ public class RegisterBlocks {
 		registerBlockAfter(CHORAL_END_STONE_BRICKS, "choral_end_stone_brick_stairs", CHORAL_END_STONE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CHORAL_END_STONE_BRICK_STAIRS, "choral_end_stone_brick_slab", CHORAL_END_STONE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CHORAL_END_STONE_BRICK_SLAB, "choral_end_stone_brick_wall", CHORAL_END_STONE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.PURPUR_BLOCK, "cracked_purpur_block", CRACKED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.PURPUR_SLAB, "purpur_wall", PURPUR_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(PURPUR_WALL, "chiseled_purpur_block", CHISELED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "trailiertales:block/chiseled_calcite_bricks"
+    "end": "trailiertales:block/chiseled_calcite_bricks_top",
+    "side": "trailiertales:block/chiseled_calcite_bricks"
   }
 }

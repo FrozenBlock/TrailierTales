@@ -459,6 +459,22 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS, RegisterBlocks.CHORAL_END_STONE_BRICKS);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_WALL, RegisterBlocks.CHORAL_END_STONE_BRICKS);
 
+		// PURPUR
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.PURPUR_BLOCK), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_PURPUR_BLOCK.asItem(), 0.1F, 200)
+			.unlockedBy("has_purpur_block", has(Blocks.PURPUR_BLOCK))
+			.save(recipeOutput);
+
+		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_PURPUR_BLOCK, Ingredient.of(Blocks.PURPUR_SLAB))
+			.unlockedBy("has_purpur_block", has(Blocks.PURPUR_BLOCK))
+			.unlockedBy("has_chiseled_purpur_block", has(RegisterBlocks.CHISELED_PURPUR_BLOCK))
+			.unlockedBy("has_purpur_slab", has(Blocks.PURPUR_SLAB))
+			.save(recipeOutput);
+
+		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
+
 		// DESOLATION SMITHING TEMPLATE
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)

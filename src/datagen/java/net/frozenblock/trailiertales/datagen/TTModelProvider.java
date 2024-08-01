@@ -13,6 +13,9 @@ import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -37,10 +40,15 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(RegisterBlocks.ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_ANDESITE_BRICK);
 		generator.family(RegisterBlocks.MOSSY_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_ANDESITE_BRICK);
 
-		generator.family(Blocks.CALCITE).generateFor(RegisterBlocks.FAMILY_CALCITE);
+		BlockModelGenerators.BlockFamilyProvider calciteFamily = generator.family(Blocks.CALCITE);
+		calciteFamily.skipGeneratingModelsFor.add(Blocks.CALCITE);
+		calciteFamily.generateFor(RegisterBlocks.FAMILY_CALCITE);
 		generator.family(RegisterBlocks.POLISHED_CALCITE).generateFor(RegisterBlocks.FAMILY_POLISHED_CALCITE);
-		generator.family(RegisterBlocks.CALCITE_BRICKS).generateFor(RegisterBlocks.FAMILY_CALCITE_BRICK);
+		BlockModelGenerators.BlockFamilyProvider calciteBricksFamily = generator.family(RegisterBlocks.CALCITE_BRICKS);
+		calciteBricksFamily.skipGeneratingModelsFor.add(RegisterBlocks.CHISELED_CALCITE_BRICKS);
+		calciteBricksFamily.generateFor(RegisterBlocks.FAMILY_CALCITE_BRICK);
 		generator.family(RegisterBlocks.MOSSY_CALCITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_CALCITE_BRICK);
+		generator.createTrivialBlock(RegisterBlocks.CHISELED_CALCITE_BRICKS, TexturedModel.COLUMN_WITH_WALL);
 
 		generator.createTrivialCube(RegisterBlocks.CRACKED_TUFF_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_TUFF_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_TUFF_BRICKS);
@@ -53,10 +61,24 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(RegisterBlocks.CHISELED_END_STONE_BRICKS);
 		generator.family(RegisterBlocks.CHORAL_END_STONE_BRICKS).generateFor(RegisterBlocks.FAMILY_CHORAL_END_STONE_BRICKS);
 
+		generator.createTrivialCube(RegisterBlocks.CRACKED_PURPUR_BLOCK);
+		generator.createTrivialCube(RegisterBlocks.CHISELED_PURPUR_BLOCK);
+		this.wall(generator, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
+
 		generator.blockEntityModels(TrailierConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
 			.createWithoutBlockItem(
 				RegisterBlocks.COFFIN
 			);
+	}
+
+	public void wall(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
+		TextureMapping mapping = TexturedModel.CUBE.get(originalBlock).getMapping();
+		ResourceLocation resourceLocation = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
+		ResourceLocation resourceLocation2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
+		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
+		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
+		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
+		generator.delegateItemModel(wallBlock, resourceLocation4);
 	}
 
 	@Override
