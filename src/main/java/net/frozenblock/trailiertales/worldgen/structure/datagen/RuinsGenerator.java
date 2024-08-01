@@ -49,7 +49,7 @@ public class RuinsGenerator {
 			RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(RUIN_KEY),
-				new RandomSpreadStructurePlacement(45, 20, RandomSpreadType.LINEAR, 68415318)
+				new RandomSpreadStructurePlacement(45, 30, RandomSpreadType.LINEAR, 68415318)
 			)
 		);
 	}

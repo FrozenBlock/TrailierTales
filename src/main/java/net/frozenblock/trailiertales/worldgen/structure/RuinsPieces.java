@@ -299,7 +299,7 @@ public class RuinsPieces {
 			StructurePlaceSettings placeSettings = new StructurePlaceSettings()
 				.setRotation(rotation)
 				.setMirror(Mirror.NONE)
-				.addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
+				.addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
 
 			GENERIC_PROCESSORS.forEach(placeSettings::addProcessor);
 			return placeSettings;
