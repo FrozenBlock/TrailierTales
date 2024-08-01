@@ -35,7 +35,6 @@ public class RegisterLootTables {
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL = register("archaeology/badlands_ruins_fossil");
 
 	public static void init() {
-		//SNIFFER DIGGING - CYAN ROSE
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key)) {
 				LootPool.Builder pool = LootPool.lootPool()

@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.worldgen.structure;
+package net.frozenblock.trailiertales.worldgen.structure.datagen;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;

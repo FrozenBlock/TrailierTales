@@ -2,12 +2,12 @@ package net.frozenblock.trailiertales.registry;
 
 import java.util.Map;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.worldgen.structure.BadlandsRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.CatacombsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.DesertRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.JungleRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.RuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.SavannaRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
