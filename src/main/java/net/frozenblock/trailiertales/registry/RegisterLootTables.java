@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
+import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.core.registries.Registries;
@@ -40,6 +41,9 @@ public class RegisterLootTables {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS));
 				tableBuilder.withPool(pool);
+			} else if (BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY.equals(key) || BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY.equals(key)) {
+				FabricLootTableBuilder fabricLootTableBuilder = (FabricLootTableBuilder)tableBuilder;
+				fabricLootTableBuilder.modifyPools((lootPool -> lootPool.add(LootItem.lootTableItem(RegisterItems.INCIDENCE_POTTERY_SHERD))));
 			}
 		});
 	}
