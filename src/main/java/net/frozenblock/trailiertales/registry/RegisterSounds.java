@@ -27,6 +27,21 @@ public class RegisterSounds {
 		CALCITE_BRICKS_FALL
 	);
 
+	public static final SoundEvent BRICKS_BREAK = register("block.bricks.break");
+	public static final SoundEvent BRICKS_STEP = register("block.bricks.step");
+	public static final SoundEvent BRICKS_PLACE = register("block.bricks.place");
+	public static final SoundEvent BRICKS_HIT = register("block.bricks.hit");
+	public static final SoundEvent BRICKS_FALL = register("block.bricks.fall");
+	public static final SoundType BRICKS = new SoundType(
+		1F,
+		1F,
+		BRICKS_BREAK,
+		BRICKS_STEP,
+		BRICKS_PLACE,
+		BRICKS_HIT,
+		BRICKS_FALL
+	);
+
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");

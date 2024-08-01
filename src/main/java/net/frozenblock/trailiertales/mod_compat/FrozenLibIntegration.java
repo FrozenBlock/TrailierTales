@@ -10,6 +10,7 @@ import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.integration.api.ModIntegration;
+import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
@@ -17,6 +18,7 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
+import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -31,6 +33,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
@@ -73,6 +76,89 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.STONE_BRICKS,
+				Blocks.STONE_BRICK_STAIRS,
+				Blocks.STONE_BRICK_SLAB,
+				Blocks.STONE_BRICK_WALL,
+				Blocks.CHISELED_STONE_BRICKS,
+				Blocks.CRACKED_STONE_BRICKS,
+				Blocks.MOSSY_STONE_BRICKS,
+				Blocks.MOSSY_STONE_BRICK_STAIRS,
+				Blocks.MOSSY_STONE_BRICK_SLAB,
+				Blocks.MOSSY_STONE_BRICK_WALL,
+				Blocks.INFESTED_STONE_BRICKS,
+				Blocks.INFESTED_CHISELED_STONE_BRICKS,
+				Blocks.INFESTED_CRACKED_STONE_BRICKS,
+				Blocks.INFESTED_MOSSY_STONE_BRICKS
+			},
+			RegisterSounds.BRICKS,
+			() -> true
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.BRICKS,
+				Blocks.BRICK_STAIRS,
+				Blocks.BRICK_SLAB,
+				Blocks.BRICK_WALL
+			},
+			RegisterSounds.BRICKS,
+			() -> true
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				RegisterBlocks.GRANITE_BRICKS,
+				RegisterBlocks.GRANITE_BRICK_STAIRS,
+				RegisterBlocks.GRANITE_BRICK_SLAB,
+				RegisterBlocks.GRANITE_BRICK_WALL,
+				RegisterBlocks.CHISELED_GRANITE_BRICKS,
+				RegisterBlocks.CRACKED_GRANITE_BRICKS,
+				RegisterBlocks.MOSSY_GRANITE_BRICKS,
+				RegisterBlocks.MOSSY_GRANITE_BRICK_STAIRS,
+				RegisterBlocks.MOSSY_GRANITE_BRICK_SLAB,
+				RegisterBlocks.MOSSY_GRANITE_BRICK_WALL
+			},
+			RegisterSounds.BRICKS,
+			() -> true
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				RegisterBlocks.DIORITE_BRICKS,
+				RegisterBlocks.DIORITE_BRICK_STAIRS,
+				RegisterBlocks.DIORITE_BRICK_SLAB,
+				RegisterBlocks.DIORITE_BRICK_WALL,
+				RegisterBlocks.CHISELED_DIORITE_BRICKS,
+				RegisterBlocks.CRACKED_DIORITE_BRICKS,
+				RegisterBlocks.MOSSY_DIORITE_BRICKS,
+				RegisterBlocks.MOSSY_DIORITE_BRICK_STAIRS,
+				RegisterBlocks.MOSSY_DIORITE_BRICK_SLAB,
+				RegisterBlocks.MOSSY_DIORITE_BRICK_WALL
+			},
+			RegisterSounds.BRICKS,
+			() -> true
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				RegisterBlocks.ANDESITE_BRICKS,
+				RegisterBlocks.ANDESITE_BRICK_STAIRS,
+				RegisterBlocks.ANDESITE_BRICK_SLAB,
+				RegisterBlocks.ANDESITE_BRICK_WALL,
+				RegisterBlocks.CHISELED_ANDESITE_BRICKS,
+				RegisterBlocks.CRACKED_ANDESITE_BRICKS,
+				RegisterBlocks.MOSSY_ANDESITE_BRICKS,
+				RegisterBlocks.MOSSY_ANDESITE_BRICK_STAIRS,
+				RegisterBlocks.MOSSY_ANDESITE_BRICK_SLAB,
+				RegisterBlocks.MOSSY_ANDESITE_BRICK_WALL
+			},
+			RegisterSounds.BRICKS,
+			() -> true
+		);
+
 		StructureProcessorApi.addProcessor(
 			BuiltinStructures.END_CITY.location(),
 			new RuleProcessor(

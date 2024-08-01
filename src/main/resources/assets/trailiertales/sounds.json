@@ -437,6 +437,51 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
+  "block.bricks.break": {
+    "sounds": [
+      "trailiertales:block/bricks/place1",
+      "trailiertales:block/bricks/place2",
+      "trailiertales:block/bricks/place3",
+      "trailiertales:block/bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.bricks.fall": {
+    "sounds": [
+      "trailiertales:block/bricks/step1",
+      "trailiertales:block/bricks/step2",
+      "trailiertales:block/bricks/step3",
+      "trailiertales:block/bricks/step4"
+    ]
+  },
+  "block.bricks.hit": {
+    "sounds": [
+      "trailiertales:block/bricks/place1",
+      "trailiertales:block/bricks/place2",
+      "trailiertales:block/bricks/place3",
+      "trailiertales:block/bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.bricks.place": {
+    "sounds": [
+      "trailiertales:block/bricks/place1",
+      "trailiertales:block/bricks/place2",
+      "trailiertales:block/bricks/place3",
+      "trailiertales:block/bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.bricks.step": {
+    "sounds": [
+      "trailiertales:block/bricks/step1",
+      "trailiertales:block/bricks/step2",
+      "trailiertales:block/bricks/step3",
+      "trailiertales:block/bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
   "block.coffin.break": {
     "sounds": [
       "trailiertales:block/coffin/place1",
