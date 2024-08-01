@@ -8,6 +8,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import org.jetbrains.annotations.NotNull;
 
 public class RegisterLootTables {
 	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
@@ -35,7 +36,7 @@ public class RegisterLootTables {
 	public static void init() {
 		//SNIFFER DIGGING - CYAN ROSE
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && source.isBuiltin()) {
+			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key)) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS));
 				tableBuilder.withPool(pool);
@@ -43,7 +44,7 @@ public class RegisterLootTables {
 		});
 	}
 
-	private static ResourceKey<LootTable> register(String path) {
+	private static @NotNull ResourceKey<LootTable> register(String path) {
 		return ResourceKey.create(Registries.LOOT_TABLE, TrailierConstants.id(path));
 	}
 }
