@@ -79,6 +79,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.PURPUR_BLOCK, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_PURPUR_BLOCK.defaultBlockState()),
 					new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState()),
 					new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState())
 				)
