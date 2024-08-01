@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.worldgen.structure.piece;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
@@ -19,9 +20,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -65,7 +66,7 @@ public class RuinsPieces {
 			ImmutableList.of(
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.75F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.6F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState())
@@ -90,7 +91,6 @@ public class RuinsPieces {
 		archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.4F),
 		decoratedPotSherdProcessor(
 			1F,
-			false,
 			Items.MINER_POTTERY_SHERD,
 			Items.ARCHER_POTTERY_SHERD,
 			Items.BREWER_POTTERY_SHERD,
@@ -98,39 +98,36 @@ public class RuinsPieces {
 		)
 	);
 
-	private static final ImmutableList<ResourceLocation> GENERIC_SURFACE_PIECES = ImmutableList.of(
-		genericRuinId("archway3"),
-		genericRuinId("shrine1"),
-		genericRuinId("pillar1"),
-		genericRuinId("pillars1"));
-	private static final ImmutableList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = ImmutableList.of(
-		genericRuinId("archway2"),
-		genericRuinId("archway3"),
-		genericRuinId("fort1"),
-		genericRuinId("fort2"),
-		genericRuinId("fort3"),
-		genericRuinId("house1"),
-		genericRuinId("house2"),
-		genericRuinId("houses1"),
-		genericRuinId("shrine3"),
-		genericRuinId("shrine4"),
-		genericRuinId("shrine5"),
-		genericRuinId("shrine6"),
-		genericRuinId("shrine7"),
-		genericRuinId("shrine8"),
-		genericRuinId("town1"),
-		genericRuinId("twin_houses1"),
-		genericRuinId("twin_houses2"));
-	private static final ImmutableList<ResourceLocation> GENERIC_BURIED_PIECES = ImmutableList.of(
-		genericRuinId("house1"),
-		genericRuinId("library1"),
-		genericRuinId("shrine2"));
-	private static final ImmutableList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = ImmutableList.of(
-		genericRuinId("well1"));
+	private static ImmutableList<ResourceLocation> GENERIC_SURFACE_PIECES = ImmutableList.of();
+	private static ImmutableList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = ImmutableList.of();
+	private static ImmutableList<ResourceLocation> GENERIC_BURIED_PIECES = ImmutableList.of();
+	private static ImmutableList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = ImmutableList.of();
+
+	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
+		GENERIC_SURFACE_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("surface")));
+		GENERIC_MOSTLY_BURIED_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
+		GENERIC_BURIED_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
+		GENERIC_FIVE_FROM_TOP_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("five_from_top")));
+	}
+
+	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
+		Set<ResourceLocation> foundPieces = resourceManager.listResources(
+			"structure/" + path,
+			resourceLocation -> resourceLocation.getPath().endsWith(".nbt") && resourceLocation.getNamespace().equals(namespace)
+		).keySet();
+		ArrayList<ResourceLocation> convertedLocations = new ArrayList<>();
+		foundPieces.forEach(resourceLocation -> {
+			String newPath = resourceLocation.getPath();
+			newPath = newPath.replace(".nbt", "");
+			newPath = newPath.replace("structure/", "");
+			convertedLocations.add(ResourceLocation.tryBuild(resourceLocation.getNamespace(), newPath));
+		});
+		return convertedLocations;
+	}
 
 	@Contract("_ -> new")
-	private static @NotNull ResourceLocation genericRuinId(String path) {
-		return TrailierConstants.id("ruins/generic/" + path);
+	private static @NotNull String createGenericRuinPath(String path) {
+		return "ruins/generic/" + path;
 	}
 
 	@Contract("_, _, _, _ -> new")
@@ -148,8 +145,8 @@ public class RuinsPieces {
 		);
 	}
 
-	@Contract("_, _, _ -> new")
-	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, boolean defaultToBricks, Item... sherds) {
+	@Contract("_, _ -> new")
+	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, Item... sherds) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -157,7 +154,7 @@ public class RuinsPieces {
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
 					Blocks.DECORATED_POT,
-					new AppendSherds(chance, defaultToBricks, sherds)
+					new AppendSherds(chance, false, sherds)
 				)
 			)
 		);

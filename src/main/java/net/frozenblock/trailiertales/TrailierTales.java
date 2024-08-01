@@ -1,5 +1,7 @@
 package net.frozenblock.trailiertales;
 
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.trailiertales.datafix.trailiertales.TrailierDataFixer;
@@ -22,6 +24,11 @@ import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
+import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
+import org.jetbrains.annotations.NotNull;
 
 public class TrailierTales extends FrozenModInitializer {
 
@@ -54,6 +61,18 @@ public class TrailierTales extends FrozenModInitializer {
 		RegsiterRuleBlockEntityModifiers.init();
 
 		TrailierModIntegrations.init();
+
+		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+			@Override
+			public ResourceLocation getFabricId() {
+				return TrailierConstants.id("ruins_structure_piece_loader");
+			}
+
+			@Override
+			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
+				RuinsPieces.reloadPiecesFromDirectories(resourceManager);
+			}
+		});
 
 		TrailierConstants.stopMeasuring(this);
 	}
