@@ -544,7 +544,7 @@ public class CatacombsGenerator {
 			CATACOMBS_STRUCTURE_SET_KEY,
 			new StructureSet(
 				structure.getOrThrow(CATACOMBS_KEY),
-				new RandomSpreadStructurePlacement(40, 30, RandomSpreadType.LINEAR, 1488497114) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(90, 50, RandomSpreadType.LINEAR, 1886497114) // ancient city salt is 20083232
 			)
 		);
 	}

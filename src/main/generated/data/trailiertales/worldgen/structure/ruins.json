@@ -2,7 +2,11 @@
   "type": "trailiertales:ruins",
   "biome_type": "generic",
   "biomes": "#trailiertales:has_ruins",
-  "cluster_probability": 0.9,
+  "cluster_pieces": {
+    "max_inclusive": 4,
+    "min_inclusive": 1
+  },
+  "cluster_probability": 0.75,
   "spawn_overrides": {},
   "step": "surface_structures"
 }

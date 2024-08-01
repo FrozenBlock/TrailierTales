@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.worldgen.structure;
+package net.frozenblock.trailiertales.worldgen.structure.piece;
 
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
+import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -191,15 +192,15 @@ public class RuinsPieces {
 		BoundingBox boundingBox,
 		RandomSource random,
 		@NotNull BlockPos pos,
-		RuinsStructure feature,
+		@NotNull RuinsStructure feature,
 		StructurePieceAccessor pieces
 	) {
 		List<BoundingBox> boundingBoxes = new ArrayList<>();
 		boundingBoxes.add(boundingBox);
-		int totalPieces = Mth.nextInt(random, 2, 6);
+		int totalPieces = feature.clusterPieces.sample(random);
 		for (int pieceNumber = 0; pieceNumber < totalPieces; pieceNumber++) {
 			Rotation newRotation = Rotation.getRandom(random);
-			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 7);
+			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 2);
 		}
 	}
 

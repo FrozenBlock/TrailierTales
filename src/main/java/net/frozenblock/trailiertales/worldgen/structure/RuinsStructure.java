@@ -5,8 +5,10 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -19,17 +21,20 @@ public class RuinsStructure extends Structure {
 		instance -> instance.group(
 				settingsCodec(instance),
 				RuinsStructure.Type.CODEC.fieldOf("biome_type").forGetter(feature -> feature.biomeType),
-				Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability)
+				Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
+				UniformInt.CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces)
 			)
 			.apply(instance, RuinsStructure::new)
 	);
 	public final RuinsStructure.Type biomeType;
 	public final float clusterProbability;
+	public final UniformInt clusterPieces;
 
-	public RuinsStructure(Structure.StructureSettings settings, RuinsStructure.Type biomeType, float clusterProbability) {
+	public RuinsStructure(Structure.StructureSettings settings, RuinsStructure.Type biomeType, float clusterProbability, UniformInt clusterPieces) {
 		super(settings);
 		this.biomeType = biomeType;
 		this.clusterProbability = clusterProbability;
+		this.clusterPieces = clusterPieces;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -37,7 +38,8 @@ public class RuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.GENERIC,
-				0.9F
+				0.75F,
+				UniformInt.of(1, 4)
 			)
 		);
 	}
