@@ -68,7 +68,6 @@ public final class RegisterStructures {
 		DesertRuinsGenerator.bootstrapProcessor(context);
 		JungleRuinsGenerator.bootstrapProcessor(context);
 		SavannaRuinsGenerator.bootstrapProcessor(context);
-		RuinsGenerator.bootstrapProcessor(context);
 	}
 
 	@NotNull

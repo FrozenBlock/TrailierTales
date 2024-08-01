@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.NotNull;
 
 public class RuinsStructure extends Structure {
@@ -54,21 +56,27 @@ public class RuinsStructure extends Structure {
 	}
 
 	public enum Type implements StringRepresentable {
-		GENERIC("generic"),
-		BADLANDS("badlands"),
-		DESERT("desert"),
-		JUNGLE("jungle"),
-		SAVANNA("savanna");
+		GENERIC("generic", RuinsGenerator.PROCESSORS),
+		BADLANDS("badlands", RuinsGenerator.PROCESSORS),
+		DESERT("desert", RuinsGenerator.PROCESSORS),
+		JUNGLE("jungle", RuinsGenerator.PROCESSORS),
+		SAVANNA("savanna", RuinsGenerator.PROCESSORS);
 
 		public static final Codec<RuinsStructure.Type> CODEC = StringRepresentable.fromEnum(RuinsStructure.Type::values);
 		private final String name;
+		private final StructureProcessorList processors;
 
-		Type(final String name) {
+		Type(final String name, StructureProcessorList processors) {
 			this.name = name;
+			this.processors = processors;
 		}
 
 		public String getName() {
 			return this.name;
+		}
+
+		public StructureProcessorList getProcessors() {
+			return this.processors;
 		}
 
 		@Override

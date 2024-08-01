@@ -1,38 +1,30 @@
 package net.frozenblock.trailiertales.worldgen.structure.piece;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,72 +34,41 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class RuinsPieces {
-	private static final List<StructureProcessor> GENERIC_PROCESSORS = ImmutableList.of(
-		new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.6F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState())
-			)
-		),
-		new BlockStateRespectingRuleProcessor(
-			ImmutableList.of(
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockStateMatchTest(Blocks.COBBLESTONE_SLAB.defaultBlockState(), 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB
-				),
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockStateMatchTest(Blocks.COBBLESTONE_WALL.defaultBlockState(), 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_WALL
-				),
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockStateMatchTest(Blocks.COBBLESTONE_STAIRS.defaultBlockState(), 0.25F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_STAIRS
-				)
-			)
-		),
-		archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.275F),
-		archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.2F),
-		archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.2F),
-		archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.4F),
-		decoratedPotSherdProcessor(
-			1F,
-			Items.MINER_POTTERY_SHERD,
-			Items.ARCHER_POTTERY_SHERD,
-			Items.BREWER_POTTERY_SHERD,
-			Items.FRIEND_POTTERY_SHERD
-		)
-	);
-
-	private static ImmutableList<ResourceLocation> GENERIC_SURFACE_PIECES = ImmutableList.of();
-	private static ImmutableList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = ImmutableList.of();
-	private static ImmutableList<ResourceLocation> GENERIC_BURIED_PIECES = ImmutableList.of();
-	private static ImmutableList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = ImmutableList.of();
+	private static final Map<ResourceLocation, Integer> PIECE_OFFSETS = new Object2IntLinkedOpenHashMap<>();
+	private static final ArrayList<ResourceLocation> GENERIC_SURFACE_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> GENERIC_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
-		GENERIC_SURFACE_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("surface")));
-		GENERIC_MOSTLY_BURIED_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
-		GENERIC_BURIED_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
-		GENERIC_FIVE_FROM_TOP_PIECES = ImmutableList.copyOf(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("five_from_top")));
+		GENERIC_SURFACE_PIECES.clear();
+		GENERIC_MOSTLY_BURIED_PIECES.clear();
+		GENERIC_BURIED_PIECES.clear();
+		GENERIC_FIVE_FROM_TOP_PIECES.clear();
+
+		GENERIC_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("surface")));
+		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
+		GENERIC_BURIED_PIECES .addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
+		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("five_from_top")));
+
+		fillInPieceOffsets();
+	}
+
+	private static void fillInPieceOffsets() {
+		PIECE_OFFSETS.clear();
+		GENERIC_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
+		GENERIC_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, -2));
+		GENERIC_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
 	}
 
 	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
@@ -128,36 +89,6 @@ public class RuinsPieces {
 	@Contract("_ -> new")
 	private static @NotNull String createGenericRuinPath(String path) {
 		return "ruins/generic/" + path;
-	}
-
-	@Contract("_, _, _, _ -> new")
-	private static @NotNull RuleProcessor archyLootProcessor(Block original, @NotNull Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
-		return new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(
-					new RandomBlockMatchTest(original, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					suspicious.defaultBlockState(),
-					new AppendLoot(registryKey)
-				)
-			)
-		);
-	}
-
-	@Contract("_, _ -> new")
-	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, Item... sherds) {
-		return new BlockStateRespectingRuleProcessor(
-			ImmutableList.of(
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					Blocks.DECORATED_POT,
-					new AppendSherds(chance, false, sherds)
-				)
-			)
-		);
 	}
 
 	private static @NotNull ResourceLocation getRandomGenericRuin(@NotNull RandomSource random) {
@@ -293,13 +224,13 @@ public class RuinsPieces {
 			this.biomeType = biomeType;
 		}
 
-		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.Type type) {
+		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.@NotNull Type type) {
 			StructurePlaceSettings placeSettings = new StructurePlaceSettings()
 				.setRotation(rotation)
 				.setMirror(Mirror.NONE)
 				.addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
 
-			GENERIC_PROCESSORS.forEach(placeSettings::addProcessor);
+			type.getProcessors().list().forEach(placeSettings::addProcessor);
 			return placeSettings;
 		}
 
@@ -330,7 +261,6 @@ public class RuinsPieces {
 			ChunkPos chunkPos,
 			BlockPos pos
 		) {
-			ResourceLocation pieceName = this.makeTemplateLocation();
 			int i = world.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, this.templatePosition.getX(), this.templatePosition.getZ());
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
 			BlockPos blockPos = StructureTemplate.transform(
@@ -338,15 +268,8 @@ public class RuinsPieces {
 				)
 				.offset(this.templatePosition);
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getHeight(this.templatePosition, world, blockPos), this.templatePosition.getZ());
-
-			int offset;
-			if (GENERIC_MOSTLY_BURIED_PIECES.contains(pieceName)) {
-				offset = -this.getBoundingBox().getYSpan() + 3;
-			} else if (GENERIC_BURIED_PIECES.contains(pieceName)) {
-				offset = -this.getBoundingBox().getYSpan() - random.nextInt(1, 3);
-			} else if (GENERIC_FIVE_FROM_TOP_PIECES.contains(pieceName)) {
-				offset = -this.getBoundingBox().getYSpan() + 5;
-			} else {
+			Integer offset = PIECE_OFFSETS.computeIfPresent(this.makeTemplateLocation(), (resourceLocation, integer) -> this.getBoundingBox().getYSpan() + integer);
+			if (offset == null) {
 				offset = -1;
 			}
 
