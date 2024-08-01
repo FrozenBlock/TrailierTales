@@ -268,7 +268,7 @@ public class RuinsPieces {
 				)
 				.offset(this.templatePosition);
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getHeight(this.templatePosition, world, blockPos), this.templatePosition.getZ());
-			Integer offset = PIECE_OFFSETS.computeIfPresent(this.makeTemplateLocation(), (resourceLocation, integer) -> this.getBoundingBox().getYSpan() + integer);
+			Integer offset = PIECE_OFFSETS.computeIfPresent(this.makeTemplateLocation(), (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
 			if (offset == null) {
 				offset = -1;
 			}
