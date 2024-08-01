@@ -384,6 +384,59 @@
     "subtitle": "subtitles.item.brush.brushing.gravel.complete"
   },
 
+  "block.calcite_bricks.break": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/place1",
+      "trailiertales:block/calcite_bricks/place2",
+      "trailiertales:block/calcite_bricks/place3",
+      "trailiertales:block/calcite_bricks/place4",
+      "trailiertales:block/calcite_bricks/place5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.calcite_bricks.fall": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/step1",
+      "trailiertales:block/calcite_bricks/step2",
+      "trailiertales:block/calcite_bricks/step3",
+      "trailiertales:block/calcite_bricks/step4",
+      "trailiertales:block/calcite_bricks/step5",
+      "trailiertales:block/calcite_bricks/step6"
+    ]
+  },
+  "block.calcite_bricks.hit": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/step1",
+      "trailiertales:block/calcite_bricks/step2",
+      "trailiertales:block/calcite_bricks/step3",
+      "trailiertales:block/calcite_bricks/step4",
+      "trailiertales:block/calcite_bricks/step5",
+      "trailiertales:block/calcite_bricks/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.calcite_bricks.place": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/place1",
+      "trailiertales:block/calcite_bricks/place2",
+      "trailiertales:block/calcite_bricks/place3",
+      "trailiertales:block/calcite_bricks/place4",
+      "trailiertales:block/calcite_bricks/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.calcite_bricks.step": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/step1",
+      "trailiertales:block/calcite_bricks/step2",
+      "trailiertales:block/calcite_bricks/step3",
+      "trailiertales:block/calcite_bricks/step4",
+      "trailiertales:block/calcite_bricks/step5",
+      "trailiertales:block/calcite_bricks/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
   "block.coffin.break": {
     "sounds": [
       "trailiertales:block/coffin/place1",

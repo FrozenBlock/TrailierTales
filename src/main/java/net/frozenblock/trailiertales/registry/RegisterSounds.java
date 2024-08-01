@@ -12,6 +12,21 @@ import org.jetbrains.annotations.NotNull;
 public class RegisterSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_DISC_FAUSSE_VIE = registerForHolder("music_disc.fausse_vie");
 
+	public static final SoundEvent CALCITE_BRICKS_BREAK = register("block.calcite_bricks.break");
+	public static final SoundEvent CALCITE_BRICKS_STEP = register("block.calcite_bricks.step");
+	public static final SoundEvent CALCITE_BRICKS_PLACE = register("block.calcite_bricks.place");
+	public static final SoundEvent CALCITE_BRICKS_HIT = register("block.calcite_bricks.hit");
+	public static final SoundEvent CALCITE_BRICKS_FALL = register("block.calcite_bricks.fall");
+	public static final SoundType CALCITE_BRICKS = new SoundType(
+		1F,
+		1F,
+		CALCITE_BRICKS_BREAK,
+		CALCITE_BRICKS_STEP,
+		CALCITE_BRICKS_PLACE,
+		CALCITE_BRICKS_HIT,
+		CALCITE_BRICKS_FALL
+	);
+
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");

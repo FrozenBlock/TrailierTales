@@ -216,15 +216,15 @@ public class RegisterBlocks {
 		.wall(POLISHED_CALCITE_WALL)
 		.getFamily();
 
-	public static final Block CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
+	public static final Block CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).sound(RegisterSounds.CALCITE_BRICKS));
 	public static final Block CALCITE_BRICK_STAIRS = new StairBlock(
 		CALCITE_BRICKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS)
 	);
 	public static final Block CALCITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
 	public static final Block CALCITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CRACKED_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
-	public static final Block CHISELED_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
+	public static final Block CRACKED_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
+	public static final Block CHISELED_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
 	public static final BlockFamily FAMILY_CALCITE_BRICK = BlockFamilies.familyBuilder(CALCITE_BRICKS)
 		.stairs(CALCITE_BRICK_STAIRS)
 		.slab(CALCITE_BRICK_SLAB)
@@ -233,7 +233,7 @@ public class RegisterBlocks {
 		.chiseled(CHISELED_CALCITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE));
+	public static final Block MOSSY_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
 	public static final Block MOSSY_CALCITE_BRICK_STAIRS = new StairBlock(
 		MOSSY_CALCITE_BRICKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
