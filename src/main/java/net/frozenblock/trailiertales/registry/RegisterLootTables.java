@@ -21,15 +21,14 @@ public class RegisterLootTables {
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE = register("archaeology/catacombs/corridor_rare");
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_TOMB = register("archaeology/catacombs/tomb");
 	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY = register("archaeology/desert_ruins");
-	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/desert_ruins_surface");
-	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY_FOSSIl = register("archaeology/desert_ruins_fossil");
-	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY_POTS = register("archaeology/desert_ruins_pots");
 	public static final ResourceKey<LootTable> JUNGLE_RUINS_ARCHAEOLOGY = register("archaeology/jungle_ruins");
 	public static final ResourceKey<LootTable> SAVANNA_RUINS_ARCHAEOLOGY = register("archaeology/savanna_ruins");
 	public static final ResourceKey<LootTable> RUINS_ARCHAEOLOGY = register("archaeology/ruins");
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/badlands_ruins_surface");
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY = register("archaeology/badlands_ruins");
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL = register("archaeology/badlands_ruins_fossil");
+
+	public static final ResourceKey<LootTable> FOSSIL_ARCHAEOLOGY = register("archaeology/fossil");
 
 	public static void init() {
 		LootTableEvents.REPLACE.register((key, lootTable, source, registries) -> {
@@ -75,11 +74,13 @@ public class RegisterLootTables {
 					).build();
 			} else if (BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE.equals(key)) {
 				// Removed Burn
+				// Removed Danger
+				// Added Protection
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
-							.add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(RegisterItems.PROTECTION_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD))

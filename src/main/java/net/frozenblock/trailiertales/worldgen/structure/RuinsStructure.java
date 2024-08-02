@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
@@ -60,7 +61,7 @@ public class RuinsStructure extends Structure {
 	public enum Type implements StringRepresentable {
 		GENERIC("generic", RuinsGenerator.PROCESSORS),
 		BADLANDS("badlands", RuinsGenerator.PROCESSORS),
-		DESERT("desert", RuinsGenerator.PROCESSORS),
+		DESERT("desert", DesertRuinsGenerator.PROCESSORS),
 		JUNGLE("jungle", JungleRuinsGenerator.PROCESSORS),
 		SAVANNA("savanna", SavannaRuinsGenerator.PROCESSORS);
 

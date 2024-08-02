@@ -59,6 +59,12 @@ public class RuinsPieces {
 	private static final ArrayList<ResourceLocation> JUNGLE_MOSTLY_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> JUNGLE_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> JUNGLE_SEVEN_FROM_TOP_PIECES = Lists.newArrayList();
+	// DESERT
+	private static final ArrayList<ResourceLocation> DESERT_SURFACE_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> DESERT_MOSTLY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> DESERT_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> DESERT_FOUR_FROM_TOP_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> DESERT_SIX_FROM_TOP_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
 		clearPieceLists();
@@ -77,6 +83,12 @@ public class RuinsPieces {
 		JUNGLE_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("buried")));
 		JUNGLE_SEVEN_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("seven_from_top")));
 
+		DESERT_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("surface")));
+		DESERT_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("mostly_buried")));
+		DESERT_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("buried")));
+		DESERT_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("four_from_top")));
+		DESERT_SIX_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("six_from_top")));
+
 		fillInPieceOffsets();
 	}
 
@@ -92,6 +104,11 @@ public class RuinsPieces {
 		JUNGLE_MOSTLY_BURIED_PIECES.clear();
 		JUNGLE_BURIED_PIECES.clear();
 		JUNGLE_SEVEN_FROM_TOP_PIECES.clear();
+		DESERT_SURFACE_PIECES.clear();
+		DESERT_MOSTLY_BURIED_PIECES.clear();
+		DESERT_BURIED_PIECES.clear();
+		DESERT_FOUR_FROM_TOP_PIECES.clear();
+		DESERT_SIX_FROM_TOP_PIECES.clear();
 	}
 
 	private static void fillInPieceOffsets() {
@@ -104,6 +121,10 @@ public class RuinsPieces {
 		JUNGLE_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
 		JUNGLE_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
 		JUNGLE_SEVEN_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 7));
+		DESERT_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
+		DESERT_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
+		DESERT_FOUR_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 4));
+		DESERT_SIX_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 6));
 	}
 
 	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
@@ -134,6 +155,11 @@ public class RuinsPieces {
 	@Contract("_ -> new")
 	private static @NotNull String createJungleRuinPath(String path) {
 		return "ruins/jungle/" + path;
+	}
+
+	@Contract("_ -> new")
+	private static @NotNull String createDesertRuinPath(String path) {
+		return "ruins/desert/" + path;
 	}
 
 	private static @NotNull ResourceLocation getRandomGenericRuin(@NotNull RandomSource random) {
@@ -169,6 +195,18 @@ public class RuinsPieces {
 		return Util.getRandom(JUNGLE_BURIED_PIECES, random);
 	}
 
+	private static @NotNull ResourceLocation getRandomDesertRuin(@NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.65F) {
+			return Util.getRandom(DESERT_SURFACE_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.35F) {
+			return random.nextBoolean() ? Util.getRandom(DESERT_SIX_FROM_TOP_PIECES, random) : Util.getRandom(DESERT_MOSTLY_BURIED_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.75F) {
+			return Util.getRandom(DESERT_MOSTLY_BURIED_PIECES, random);
+		}
+		return Util.getRandom(DESERT_BURIED_PIECES, random);
+	}
 
 	public static void addPieces(
 		StructureTemplateManager structureTemplateManager,
@@ -253,6 +291,9 @@ public class RuinsPieces {
 		}
 		if (type == RuinsStructure.Type.JUNGLE) {
 			return getRandomJungleRuin(random);
+		}
+		if (type == RuinsStructure.Type.DESERT) {
+			return getRandomDesertRuin(random);
 		}
 		return getRandomGenericRuin(random);
 	}

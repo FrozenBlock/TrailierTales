@@ -138,16 +138,15 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.CLAY).setWeight(7))
 						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.ARMS_UP_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(RegisterItems.SHINE_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(RegisterItems.NEEDLES_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE))
 				)
 		);
 
 		registry.accept(
-			RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_FOSSIl,
+			RegisterLootTables.FOSSIL_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -156,52 +155,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DEAD_BUSH))
 						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH))
 						.add(LootItem.lootTableItem(Items.STICK))
-				)
-		);
-
-		registry.accept(
-			RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_SURFACE,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BLUE_DYE).setWeight(30))
-						.add(LootItem.lootTableItem(Items.YELLOW_DYE).setWeight(30))
-						.add(LootItem.lootTableItem(Items.BLUE_CANDLE).setWeight(30))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(20))
-						.add(LootItem.lootTableItem(Items.COAL).setWeight(20))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(20))
-						.add(LootItem.lootTableItem(Items.BRICK).setWeight(20))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(20))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(20))
-						.add(LootItem.lootTableItem(Items.ARMS_UP_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(4))
-				)
-		);
-
-		registry.accept(
-			RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY_POTS,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BLUE_DYE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.YELLOW_DYE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.BLUE_CANDLE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(2))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET))
-						.add(LootItem.lootTableItem(Items.COAL))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH))
-						.add(LootItem.lootTableItem(Items.BRICK))
-						.add(LootItem.lootTableItem(Items.CLAY))
-						.add(LootItem.lootTableItem(Items.COAL))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT))
-						.add(LootItem.lootTableItem(Items.ARMS_UP_POTTERY_SHERD))
-						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD))
-						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD))
-						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD))
-						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD))
-						.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD))
 				)
 		);
 
