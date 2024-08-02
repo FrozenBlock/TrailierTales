@@ -92,6 +92,11 @@ sourceSets {
     main {
         resources {
             srcDirs("src/main/generated")
+            setExcludes(
+                listOf(
+                    "assets/minecraft"
+                )
+            )
         }
     }
 }
