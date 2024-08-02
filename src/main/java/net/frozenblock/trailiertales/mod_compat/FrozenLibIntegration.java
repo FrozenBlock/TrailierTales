@@ -102,7 +102,11 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.BRICKS,
 				Blocks.BRICK_STAIRS,
 				Blocks.BRICK_SLAB,
-				Blocks.BRICK_WALL
+				Blocks.BRICK_WALL,
+				RegisterBlocks.MOSSY_BRICKS,
+				RegisterBlocks.MOSSY_BRICK_STAIRS,
+				RegisterBlocks.MOSSY_BRICK_SLAB,
+				RegisterBlocks.MOSSY_BRICK_WALL
 			},
 			RegisterSounds.BRICKS,
 			() -> true

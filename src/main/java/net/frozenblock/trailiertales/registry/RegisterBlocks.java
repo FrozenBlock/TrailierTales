@@ -191,6 +191,7 @@ public class RegisterBlocks {
 		.getFamily();
 
 	// CALCITE
+
 	public static final Block CALCITE_STAIRS = new StairBlock(
 		Blocks.CALCITE.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
@@ -242,11 +243,12 @@ public class RegisterBlocks {
 		.getFamily();
 
 	// TUFF
+
 	public static final Block CRACKED_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS));
 	public static final Block MOSSY_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS));
 	public static final Block MOSSY_TUFF_BRICK_STAIRS = new StairBlock(
 		MOSSY_TUFF_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICK_STAIRS)
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
 	);
 	public static final Block MOSSY_TUFF_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
 	public static final Block MOSSY_TUFF_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
@@ -254,6 +256,22 @@ public class RegisterBlocks {
 		.stairs(MOSSY_TUFF_BRICK_STAIRS)
 		.slab(MOSSY_TUFF_BRICK_SLAB)
 		.wall(MOSSY_TUFF_BRICK_WALL)
+		.getFamily();
+
+	// BRICKS
+
+	public static final Block CRACKED_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS));
+	public static final Block MOSSY_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS));
+	public static final Block MOSSY_BRICK_STAIRS = new StairBlock(
+		MOSSY_BRICKS.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS)
+	);
+	public static final Block MOSSY_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS));
+	public static final Block MOSSY_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS));
+	public static final BlockFamily FAMILY_MOSSY_BRICKS = BlockFamilies.familyBuilder(MOSSY_BRICKS)
+		.stairs(MOSSY_BRICK_STAIRS)
+		.slab(MOSSY_BRICK_SLAB)
+		.wall(MOSSY_BRICK_WALL)
 		.getFamily();
 
 	// MOSSY DEEPSLATE
@@ -408,6 +426,12 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_TUFF_BRICKS, "mossy_tuff_brick_stairs", MOSSY_TUFF_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_TUFF_BRICK_STAIRS, "mossy_tuff_brick_slab", MOSSY_TUFF_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_TUFF_BRICK_SLAB, "mossy_tuff_brick_wall", MOSSY_TUFF_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.BRICKS, "cracked_bricks", CRACKED_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.BRICK_WALL, "mossy_bricks", MOSSY_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_BRICKS, "mossy_brick_stairs", MOSSY_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_BRICK_STAIRS, "mossy_brick_slab", MOSSY_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(MOSSY_BRICK_SLAB, "mossy_brick_wall", MOSSY_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
