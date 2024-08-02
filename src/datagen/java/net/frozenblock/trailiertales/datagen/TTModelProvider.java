@@ -61,6 +61,9 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(RegisterBlocks.CRACKED_TUFF_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_TUFF_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_TUFF_BRICKS);
 
+		generator.createTrivialCube(RegisterBlocks.CRACKED_BRICKS);
+		generator.family(RegisterBlocks.MOSSY_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_BRICKS);
+
 		generator.family(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(RegisterBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
