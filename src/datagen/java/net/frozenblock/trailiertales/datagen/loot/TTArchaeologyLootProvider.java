@@ -314,37 +314,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY_SURFACE,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.YELLOW_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.PURPLE_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.YELLOW_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.PURPLE_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(10))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
-						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.CLAY).setWeight(6))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
-						.add(LootItem.lootTableItem(Items.ACACIA_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD).setWeight(5))
-						.add(LootItem.lootTableItem(Items.HOWL_POTTERY_SHERD).setWeight(5))
-						.add(LootItem.lootTableItem(RegisterItems.CULTIVATOR_POTTERY_SHERD).setWeight(5))
-						.add(LootItem.lootTableItem(Items.SHELTER_POTTERY_SHERD).setWeight(7))
-				)
-		);
-
-		registry.accept(
 			RegisterLootTables.RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
@@ -372,7 +341,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
 						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(10))
 						.add(LootItem.lootTableItem(Items.LEAD).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BOOK).setWeight(7))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.BIRCH_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(6))
@@ -380,78 +349,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD).setWeight(4))
-				)
-		);
-
-		registry.accept(
-			RegisterLootTables.RUINS_ARCHAEOLOGY_SURFACE,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BROWN_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHITE_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.BROWN_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHITE_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
-						.add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(7))
-						.add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(7))
-						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(7))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
-						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.CLAY).setWeight(6))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
-						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BIRCH_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD).setWeight(3))
-				)
-		);
-
-		registry.accept(
-			RegisterLootTables.RUINS_ARCHAEOLOGY_LIBRARY,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BROWN_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHITE_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.BROWN_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHITE_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
-						.add(LootItem.lootTableItem(Items.BOOK).setWeight(20))
-						.add(LootItem.lootTableItem(Items.PAPER).setWeight(15))
-						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(10))
-						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(10))
-						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(3))
-						.add(LootItem.lootTableItem(Items.CARROT).setWeight(3))
-						.add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(3))
-						.add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(3))
-						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(3))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
-						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.CLAY).setWeight(7))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
-						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BIRCH_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(6))
 				)
 		);
 

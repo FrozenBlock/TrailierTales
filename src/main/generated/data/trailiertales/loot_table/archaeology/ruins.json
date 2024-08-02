@@ -122,7 +122,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:book",
-          "weight": 7
+          "weight": 10
         },
         {
           "type": "minecraft:item",
