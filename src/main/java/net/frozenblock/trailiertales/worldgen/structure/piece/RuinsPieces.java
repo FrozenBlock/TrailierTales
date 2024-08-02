@@ -54,18 +54,28 @@ public class RuinsPieces {
 	private static final ArrayList<ResourceLocation> SAVANNA_SURFACE_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> SAVANNA_MOSTLY_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> SAVANNA_BURIED_PIECES = Lists.newArrayList();
+	// JUNGLE
+	private static final ArrayList<ResourceLocation> JUNGLE_SURFACE_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> JUNGLE_MOSTLY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> JUNGLE_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> JUNGLE_SEVEN_FROM_TOP_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
 		clearPieceLists();
 
 		GENERIC_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("surface")));
 		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
-		GENERIC_BURIED_PIECES .addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
+		GENERIC_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
 		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("five_from_top")));
 
 		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("surface")));
 		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
 		SAVANNA_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("buried")));
+
+		JUNGLE_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("surface")));
+		JUNGLE_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("mostly_buried")));
+		JUNGLE_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("buried")));
+		JUNGLE_SEVEN_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("seven_from_top")));
 
 		fillInPieceOffsets();
 	}
@@ -78,15 +88,22 @@ public class RuinsPieces {
 		SAVANNA_SURFACE_PIECES.clear();
 		SAVANNA_MOSTLY_BURIED_PIECES.clear();
 		SAVANNA_BURIED_PIECES.clear();
+		JUNGLE_SURFACE_PIECES.clear();
+		JUNGLE_MOSTLY_BURIED_PIECES.clear();
+		JUNGLE_BURIED_PIECES.clear();
+		JUNGLE_SEVEN_FROM_TOP_PIECES.clear();
 	}
 
 	private static void fillInPieceOffsets() {
 		PIECE_OFFSETS.clear();
 		GENERIC_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		GENERIC_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, -2));
+		GENERIC_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
 		GENERIC_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
 		SAVANNA_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		SAVANNA_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, -2));
+		SAVANNA_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
+		JUNGLE_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
+		JUNGLE_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
+		JUNGLE_SEVEN_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 7));
 	}
 
 	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
@@ -114,6 +131,11 @@ public class RuinsPieces {
 		return "ruins/savanna/" + path;
 	}
 
+	@Contract("_ -> new")
+	private static @NotNull String createJungleRuinPath(String path) {
+		return "ruins/jungle/" + path;
+	}
+
 	private static @NotNull ResourceLocation getRandomGenericRuin(@NotNull RandomSource random) {
 		if (random.nextFloat() <= 0.75F) {
 			return Util.getRandom(GENERIC_MOSTLY_BURIED_PIECES, random);
@@ -133,6 +155,20 @@ public class RuinsPieces {
 		}
 		return Util.getRandom(SAVANNA_BURIED_PIECES, random);
 	}
+
+	private static @NotNull ResourceLocation getRandomJungleRuin(@NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.75F) {
+			return Util.getRandom(JUNGLE_MOSTLY_BURIED_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.05F) {
+			return Util.getRandom(JUNGLE_SEVEN_FROM_TOP_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.75F) {
+			return Util.getRandom(JUNGLE_SURFACE_PIECES, random);
+		}
+		return Util.getRandom(JUNGLE_BURIED_PIECES, random);
+	}
+
 
 	public static void addPieces(
 		StructureTemplateManager structureTemplateManager,
@@ -214,6 +250,9 @@ public class RuinsPieces {
 	private static ResourceLocation getPieceForType(RuinsStructure.Type type, RandomSource random) {
 		if (type == RuinsStructure.Type.SAVANNA) {
 			return getRandomSavannaRuin(random);
+		}
+		if (type == RuinsStructure.Type.JUNGLE) {
+			return getRandomJungleRuin(random);
 		}
 		return getRandomGenericRuin(random);
 	}

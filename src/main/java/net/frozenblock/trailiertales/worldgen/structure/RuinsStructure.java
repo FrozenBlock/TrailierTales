@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
@@ -60,7 +61,7 @@ public class RuinsStructure extends Structure {
 		GENERIC("generic", RuinsGenerator.PROCESSORS),
 		BADLANDS("badlands", RuinsGenerator.PROCESSORS),
 		DESERT("desert", RuinsGenerator.PROCESSORS),
-		JUNGLE("jungle", RuinsGenerator.PROCESSORS),
+		JUNGLE("jungle", JungleRuinsGenerator.PROCESSORS),
 		SAVANNA("savanna", SavannaRuinsGenerator.PROCESSORS);
 
 		public static final Codec<RuinsStructure.Type> CODEC = StringRepresentable.fromEnum(RuinsStructure.Type::values);
