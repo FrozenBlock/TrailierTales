@@ -7,9 +7,6 @@ import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierItemTags {
-
-	public static final TagKey<Item> COPYABLE_SHERDS = bind("copyable_sherds");
-	public static final TagKey<Item> POT_BASES = bind("pot_bases");
 	public static final TagKey<Item> BRUSH_ENCHANTABLE = bind("enchantable/brush");
 
 	@NotNull

@@ -27,44 +27,6 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(TrailierItemTags.COPYABLE_SHERDS)
-			.add(Items.SCRAPE_POTTERY_SHERD)
-			.add(Items.SHEAF_POTTERY_SHERD)
-			.add(Items.SHELTER_POTTERY_SHERD)
-			.add(Items.SKULL_POTTERY_SHERD)
-			.add(Items.SNORT_POTTERY_SHERD)
-			.add(Items.ANGLER_POTTERY_SHERD)
-			.add(Items.ARCHER_POTTERY_SHERD)
-			.add(Items.ARMS_UP_POTTERY_SHERD)
-			.add(Items.BLADE_POTTERY_SHERD)
-			.add(Items.BREWER_POTTERY_SHERD)
-			.add(Items.BURN_POTTERY_SHERD)
-			.add(Items.DANGER_POTTERY_SHERD)
-			.add(Items.EXPLORER_POTTERY_SHERD)
-			.add(Items.FLOW_POTTERY_SHERD)
-			.add(Items.FRIEND_POTTERY_SHERD)
-			.add(Items.GUSTER_POTTERY_SHERD)
-			.add(Items.HEART_POTTERY_SHERD)
-			.add(Items.HEARTBREAK_POTTERY_SHERD)
-			.add(Items.HOWL_POTTERY_SHERD)
-			.add(Items.MINER_POTTERY_SHERD)
-			.add(Items.MOURNER_POTTERY_SHERD)
-			.add(Items.PLENTY_POTTERY_SHERD)
-			.add(Items.PRIZE_POTTERY_SHERD)
-			.add(RegisterItems.BAIT_POTTERY_SHERD)
-			.add(RegisterItems.BLOOM_POTTERY_SHERD)
-			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
-			.add(RegisterItems.CULTIVATOR_POTTERY_SHERD)
-			.add(RegisterItems.ESSENCE_POTTERY_SHERD)
-			.add(RegisterItems.EYE_POTTERY_SHERD)
-			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
-			.add(RegisterItems.PROTECTION_POTTERY_SHERD)
-			.add(RegisterItems.SPADE_POTTERY_SHERD)
-			.add(RegisterItems.WITHER_POTTERY_SHERD);
-
-		this.getOrCreateTagBuilder(TrailierItemTags.POT_BASES)
-			.add(Items.BRICK);
-
 		this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS)
 			.add(RegisterItems.BAIT_POTTERY_SHERD)
 			.add(RegisterItems.BLOOM_POTTERY_SHERD)
@@ -73,7 +35,9 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.ESSENCE_POTTERY_SHERD)
 			.add(RegisterItems.EYE_POTTERY_SHERD)
 			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
+			.add(RegisterItems.NEEDLES_POTTERY_SHERD)
 			.add(RegisterItems.PROTECTION_POTTERY_SHERD)
+			.add(RegisterItems.SHINE_POTTERY_SHERD)
 			.add(RegisterItems.SPADE_POTTERY_SHERD)
 			.add(RegisterItems.WITHER_POTTERY_SHERD);
 

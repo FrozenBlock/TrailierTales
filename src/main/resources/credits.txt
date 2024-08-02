@@ -39,7 +39,10 @@ Zhen
       - Essence Pottery Sherd/Pattern
       - Eye Pottery Sherd/Pattern
       - Incidence Pottery Sherd/Pattern
+      - Lumber Pottery Sherd/Pattern
+      - Needles Pottery Sherd/Pattern
       - Protection Pottery Sherd/Pattern
+      - Shine Pottery Sherd/Pattern
       - Spade Pottery Sherd/Pattern
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas

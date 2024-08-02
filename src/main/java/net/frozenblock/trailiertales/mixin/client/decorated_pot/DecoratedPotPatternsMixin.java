@@ -36,7 +36,10 @@ public class DecoratedPotPatternsMixin {
 		newMap.put(RegisterItems.ESSENCE_POTTERY_SHERD, TrailierTalesClient.ESSENCE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.EYE_POTTERY_SHERD, TrailierTalesClient.EYE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.LUMBER_POTTERY_SHERD, TrailierTalesClient.LUMBER_POTTERY_PATTERN);
+		newMap.put(RegisterItems.NEEDLES_POTTERY_SHERD, TrailierTalesClient.NEEDLES_POTTERY_PATTERN);
 		newMap.put(RegisterItems.PROTECTION_POTTERY_SHERD, TrailierTalesClient.PROTECTION_POTTERY_PATTERN);
+		newMap.put(RegisterItems.SHINE_POTTERY_SHERD, TrailierTalesClient.SHINE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.SPADE_POTTERY_SHERD, TrailierTalesClient.SPADE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
 		return Map.copyOf(newMap);
@@ -52,7 +55,10 @@ public class DecoratedPotPatternsMixin {
 		trailierTales$register(registry, TrailierTalesClient.ESSENCE_POTTERY_PATTERN, TrailierTalesClient.ESSENCE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.EYE_POTTERY_PATTERN, TrailierTalesClient.EYE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.LUMBER_POTTERY_PATTERN, TrailierTalesClient.LUMBER_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.NEEDLES_POTTERY_PATTERN, TrailierTalesClient.NEEDLES_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.PROTECTION_POTTERY_PATTERN, TrailierTalesClient.PROTECTION_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.SHINE_POTTERY_PATTERN, TrailierTalesClient.SHINE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.SPADE_POTTERY_PATTERN, TrailierTalesClient.SPADE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
 	}
