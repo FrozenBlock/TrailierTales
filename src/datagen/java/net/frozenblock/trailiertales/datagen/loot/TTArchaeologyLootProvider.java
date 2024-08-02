@@ -240,37 +240,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY_SURFACE,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BROWN_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHITE_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.GRAY_DYE).setWeight(8))
-						.add(LootItem.lootTableItem(Items.BROWN_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHITE_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.GREEN_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(13))
-						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
-						.add(LootItem.lootTableItem(Items.COCOA_BEANS).setWeight(10))
-						.add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(6))
-						.add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(6))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
-						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.CLAY).setWeight(6))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
-						.add(LootItem.lootTableItem(RegisterItems.LUMBER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.BLOOM_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.SHOWER_POTTERY_SHERD).setWeight(7))
-				)
-		);
-
-		registry.accept(
 			RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(

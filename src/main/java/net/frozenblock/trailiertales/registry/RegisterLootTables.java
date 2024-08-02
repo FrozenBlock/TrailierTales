@@ -25,7 +25,6 @@ public class RegisterLootTables {
 	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY_FOSSIl = register("archaeology/desert_ruins_fossil");
 	public static final ResourceKey<LootTable> DESERT_RUINS_ARCHAEOLOGY_POTS = register("archaeology/desert_ruins_pots");
 	public static final ResourceKey<LootTable> JUNGLE_RUINS_ARCHAEOLOGY = register("archaeology/jungle_ruins");
-	public static final ResourceKey<LootTable> JUNGLE_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/jungle_ruins_surface");
 	public static final ResourceKey<LootTable> SAVANNA_RUINS_ARCHAEOLOGY = register("archaeology/savanna_ruins");
 	public static final ResourceKey<LootTable> RUINS_ARCHAEOLOGY = register("archaeology/ruins");
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY_SURFACE = register("archaeology/badlands_ruins_surface");
