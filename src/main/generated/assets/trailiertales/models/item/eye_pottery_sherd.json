@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "trailiertales:item/eye_pottery_sherd"
+  }
+}

@@ -1,17 +1,28 @@
 {
-  "block.trailiertales.suspicious_red_sand": "Suspicious Red Sand",
-  "block.trailiertales.suspicious_dirt": "Suspicious Dirt",
-  "block.trailiertales.suspicious_clay": "Suspicious Clay",
-  "block.trailiertales.suspicious_soul_soil": "Suspicious Soul Soil",
+  "entity.trailiertales.apparition": "Apparition",
+  "entity.trailiertales.damaging_throwable_item_projectile": "Thrown Item",
 
-  "item.trailiertales.bullseye_pottery_sherd": "Bullseye Pottery Sherd",
-  "item.trailiertales.wither_pottery_sherd": "Wither Pottery Sherd",
-  "item.trailiertales.incidence_pottery_sherd": "Incidence Pottery Sherd",
+  "effect.trailiertales.haunt": "Haunt",
+
+  "enchantment.trailiertales.rebrush": "Rebrush",
+  "enchantment.trailiertales.reaping": "Reaping",
+
+  "item.trailiertales.bait_pottery_sherd": "Bait Pottery Sherd",
   "item.trailiertales.bloom_pottery_sherd": "Bloom Pottery Sherd",
+  "item.trailiertales.bullseye_pottery_sherd": "Bullseye Pottery Sherd",
   "item.trailiertales.cultivator_pottery_sherd": "Cultivator Pottery Sherd",
+  "item.trailiertales.essence_pottery_sherd": "Essence Pottery Sherd",
+  "item.trailiertales.eye_pottery_sherd": "Eye Pottery Sherd",
+  "item.trailiertales.incidence_pottery_sherd": "Incidence Pottery Sherd",
+  "item.trailiertales.protection_pottery_sherd": "Protection Pottery Sherd",
   "item.trailiertales.spade_pottery_sherd": "Spade Pottery Sherd",
+  "item.trailiertales.wither_pottery_sherd": "Wither Pottery Sherd",
+
   "item.trailiertales.desolation_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.undead_armor_trim_smithing_template": "Smithing Template",
+
+  "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
+  "trim_pattern.trailiertales.undead": "Undead Armor Trim",
 
   "item.trailiertales.music_disc_fausse_vie": "Music Disc",
   "item.trailiertales.music_disc_fausse_vie.desc": "Zhen - Fausse Vie",
@@ -21,20 +32,13 @@
   "tag.trailiertales.pot_bases": "Pot Bases",
   "tag.trailiertales.brush_enchantable": "Brush Enchantable",
 
-  "enchantment.trailiertales.rebrush": "Rebrush",
-  "enchantment.trailiertales.reaping": "Reaping",
-
-  "effect.trailiertales.haunt": "Haunt",
-
-  "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
-  "trim_pattern.trailiertales.undead": "Undead Armor Trim",
+  "block.trailiertales.suspicious_red_sand": "Suspicious Red Sand",
+  "block.trailiertales.suspicious_dirt": "Suspicious Dirt",
+  "block.trailiertales.suspicious_clay": "Suspicious Clay",
+  "block.trailiertales.suspicious_soul_soil": "Suspicious Soul Soil",
 
   "block.trailiertales.coffin": "Coffin",
-
   "block.trailiertales.surveyor": "Surveyor",
-
-  "entity.trailiertales.apparition": "Apparition",
-  "entity.trailiertales.damaging_throwable_item_projectile": "Thrown Item",
 
   "block.trailiertales.potted_cyan_rose": "Potted Cyan Rose",
   "block.trailiertales.cyan_rose": "Cyan Rose",

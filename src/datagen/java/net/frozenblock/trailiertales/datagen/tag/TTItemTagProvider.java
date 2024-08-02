@@ -51,23 +51,31 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.MOURNER_POTTERY_SHERD)
 			.add(Items.PLENTY_POTTERY_SHERD)
 			.add(Items.PRIZE_POTTERY_SHERD)
-			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
-			.add(RegisterItems.WITHER_POTTERY_SHERD)
+			.add(RegisterItems.BAIT_POTTERY_SHERD)
 			.add(RegisterItems.BLOOM_POTTERY_SHERD)
-			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
+			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
 			.add(RegisterItems.CULTIVATOR_POTTERY_SHERD)
-			.add(RegisterItems.SPADE_POTTERY_SHERD);
+			.add(RegisterItems.ESSENCE_POTTERY_SHERD)
+			.add(RegisterItems.EYE_POTTERY_SHERD)
+			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
+			.add(RegisterItems.PROTECTION_POTTERY_SHERD)
+			.add(RegisterItems.SPADE_POTTERY_SHERD)
+			.add(RegisterItems.WITHER_POTTERY_SHERD);
 
 		this.getOrCreateTagBuilder(TrailierItemTags.POT_BASES)
 			.add(Items.BRICK);
 
 		this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS)
-			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
-			.add(RegisterItems.WITHER_POTTERY_SHERD)
+			.add(RegisterItems.BAIT_POTTERY_SHERD)
 			.add(RegisterItems.BLOOM_POTTERY_SHERD)
-			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
+			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
 			.add(RegisterItems.CULTIVATOR_POTTERY_SHERD)
-			.add(RegisterItems.SPADE_POTTERY_SHERD);
+			.add(RegisterItems.ESSENCE_POTTERY_SHERD)
+			.add(RegisterItems.EYE_POTTERY_SHERD)
+			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
+			.add(RegisterItems.PROTECTION_POTTERY_SHERD)
+			.add(RegisterItems.SPADE_POTTERY_SHERD)
+			.add(RegisterItems.WITHER_POTTERY_SHERD);
 
 		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
 			.add(RegisterItems.CYAN_ROSE_SEEDS);

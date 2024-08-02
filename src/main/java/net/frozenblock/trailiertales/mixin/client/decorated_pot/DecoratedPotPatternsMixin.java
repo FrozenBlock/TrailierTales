@@ -29,24 +29,32 @@ public class DecoratedPotPatternsMixin {
 	private static Map<Item, ResourceKey<DecoratedPotPattern>> trailierTales$addNewSherds(Map<Item, ResourceKey<DecoratedPotPattern>> original) {
 		Object2ObjectLinkedOpenHashMap<Item, ResourceKey<DecoratedPotPattern>> newMap = new Object2ObjectLinkedOpenHashMap<>();
 		newMap.putAll(original);
-		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
+		newMap.put(RegisterItems.BAIT_POTTERY_SHERD, TrailierTalesClient.BAIT_POTTERY_PATTERN);
 		newMap.put(RegisterItems.BLOOM_POTTERY_SHERD, TrailierTalesClient.BLOOM_POTTERY_PATTERN);
-		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.CULTIVATOR_POTTERY_SHERD, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN);
+		newMap.put(RegisterItems.ESSENCE_POTTERY_SHERD, TrailierTalesClient.ESSENCE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.EYE_POTTERY_SHERD, TrailierTalesClient.EYE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.PROTECTION_POTTERY_SHERD, TrailierTalesClient.PROTECTION_POTTERY_PATTERN);
 		newMap.put(RegisterItems.SPADE_POTTERY_SHERD, TrailierTalesClient.SPADE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
 		return Map.copyOf(newMap);
 	}
 
 	@Inject(method = "bootstrap", at = @At(value = "RETURN", shift = At.Shift.BEFORE))
 	private static void trailierTales$bootstrap(Registry<DecoratedPotPattern> registry, CallbackInfoReturnable<DecoratedPotPattern> info) {
 		trailierTales$register(registry, TrailierTalesClient.BLANK_DECORATED, TrailierTalesClient.BLANK_DECORATED_NAME);
-		trailierTales$register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
-		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.BAIT_POTTERY_PATTERN, TrailierTalesClient.BAIT_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.BLOOM_POTTERY_PATTERN, TrailierTalesClient.BLOOM_POTTERY_PATTERN_NAME);
-		trailierTales$register(registry, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.ESSENCE_POTTERY_PATTERN, TrailierTalesClient.ESSENCE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.EYE_POTTERY_PATTERN, TrailierTalesClient.EYE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.PROTECTION_POTTERY_PATTERN, TrailierTalesClient.PROTECTION_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.SPADE_POTTERY_PATTERN, TrailierTalesClient.SPADE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
 	}
 
 	@Unique

@@ -22,12 +22,16 @@ public class RegisterItems {
 
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(RegisterBlocks.CYAN_ROSE_CROP, new Item.Properties());
 
-	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties());
-	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties());
-	public static final Item INCIDENCE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item CULTIVATOR_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item ESSENCE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item EYE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item INCIDENCE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item PROTECTION_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item SPADE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties());
 
 	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		ResourceKey.create(Registries.TRIM_PATTERN, TrailierConstants.id("desolation"))
@@ -40,12 +44,18 @@ public class RegisterItems {
 
 	public static void init() {
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(Items.SNORT_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+
+		registerItemBefore(Items.BLADE_POTTERY_SHERD, BAIT_POTTERY_SHERD, "bait_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.BLADE_POTTERY_SHERD, BLOOM_POTTERY_SHERD, "bloom_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(Items.HOWL_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.DANGER_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.EXPLORER_POTTERY_SHERD, ESSENCE_POTTERY_SHERD, "essence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.EXPLORER_POTTERY_SHERD, EYE_POTTERY_SHERD, "eye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.HOWL_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SKULL_POTTERY_SHERD, PROTECTION_POTTERY_SHERD, "protection_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.SKULL_POTTERY_SHERD, SPADE_POTTERY_SHERD, "spade_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SNORT_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+
 		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
