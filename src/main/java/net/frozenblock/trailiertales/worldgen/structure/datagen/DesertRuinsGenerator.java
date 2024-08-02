@@ -53,7 +53,7 @@ public class DesertRuinsGenerator {
 				),
 				RuinsStructure.Type.DESERT,
 				0.9F,
-				UniformInt.of(1, 4)
+				UniformInt.of(2, 4)
 			)
 		);
 	}
