@@ -39,6 +39,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.NEEDLES_POTTERY_SHERD)
 			.add(RegisterItems.PROTECTION_POTTERY_SHERD)
 			.add(RegisterItems.SHINE_POTTERY_SHERD)
+			.add(RegisterItems.SHOWER_POTTERY_SHERD)
 			.add(RegisterItems.SPADE_POTTERY_SHERD)
 			.add(RegisterItems.WITHER_POTTERY_SHERD);
 
