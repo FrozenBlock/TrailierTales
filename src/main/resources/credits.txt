@@ -10,12 +10,13 @@ Soro335
 Voxelotl
     - Texture Artist:
       - Suspicious Clay
+      - Cracked and Chiseled Purpur Blocks
       - Mossy Cobbled Deepslate
       - Mossy Deepslate Bricks
       - Mossy Deepslate Tiles
-      - Bullseye Pottery Sherd
-      - Wither Pottery Sherd
       - Bloom Pottery Sherd
+      - Bullseye Pottery Sherd/Pattern
+      - Wither Pottery Sherd/Pattern
       - Coffin
       - Undead Armor Trim
       - Surveyor
@@ -26,12 +27,20 @@ Zhen
     - Texture Artist:
       - Suspicious Dirt
       - Cyan Rose
-      - Incidence Pottery Sherd
-      - All New Andesite, Diorite, and Granite Variants
-      - Cultivator Pottery Sherd
-      - Spade Pottery Sherd
-      - Cracked & Mossy Tuff Bricks
-      - All New Calcite Variants
+      - Ectoplasm
+      - Haunt effect icon and hotbar textures
+      - All new Andesite, Diorite, and Granite variants
+      - All new End Stone and End Stone Bricks variants
+      - Cracked and Mossy Tuff Bricks
+      - All new Calcite variants
+      - Cracked and Mossy Bricks
+      - Bait Pottery Sherd/Pattern
+      - Cultivator Pottery Sherd/Pattern
+      - Essence Pottery Sherd/Pattern
+      - Eye Pottery Sherd/Pattern
+      - Incidence Pottery Sherd/Pattern
+      - Protection Pottery Sherd/Pattern
+      - Spade Pottery Sherd/Pattern
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
