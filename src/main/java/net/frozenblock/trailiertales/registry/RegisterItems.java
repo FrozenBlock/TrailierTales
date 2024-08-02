@@ -32,6 +32,7 @@ public class RegisterItems {
 	public static final Item NEEDLES_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item PROTECTION_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item SHINE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item SHOWER_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item SPADE_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties());
 
@@ -58,6 +59,7 @@ public class RegisterItems {
 		registerItemAfter(Items.MOURNER_POTTERY_SHERD, NEEDLES_POTTERY_SHERD, "needles_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.PRIZE_POTTERY_SHERD, PROTECTION_POTTERY_SHERD, "protection_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.SHELTER_POTTERY_SHERD, SHINE_POTTERY_SHERD, "shine_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(SHINE_POTTERY_SHERD, SHOWER_POTTERY_SHERD, "shower_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.SKULL_POTTERY_SHERD, SPADE_POTTERY_SHERD, "spade_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.SNORT_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 

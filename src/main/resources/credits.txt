@@ -43,6 +43,7 @@ Zhen
       - Needles Pottery Sherd/Pattern
       - Protection Pottery Sherd/Pattern
       - Shine Pottery Sherd/Pattern
+      - Shower Pottery Sherd/Pattern
       - Spade Pottery Sherd/Pattern
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
