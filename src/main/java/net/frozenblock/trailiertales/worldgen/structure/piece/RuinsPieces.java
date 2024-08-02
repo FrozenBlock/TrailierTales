@@ -268,8 +268,8 @@ public class RuinsPieces {
 					BlockPos center = boundingBox.getCenter();
 					int xDirection = random.nextBoolean() ? 1 : -1;
 					int zDirection = random.nextBoolean() ? 1 : -1;
-					int xStep = (int) ((boundingBox.getXSpan() * 0.5D) + (currentBox.getXSpan() * 0.5D) + random.nextInt(2, 16));
-					int zStep = (int) ((boundingBox.getZSpan() * 0.5D) + (currentBox.getZSpan() * 0.5D) + random.nextInt(2, 16));
+					int xStep = (int) ((boundingBox.getXSpan() * 0.5D) + (currentBox.getXSpan() * 0.5D) + random.nextInt(2, 6));
+					int zStep = (int) ((boundingBox.getZSpan() * 0.5D) + (currentBox.getZSpan() * 0.5D) + random.nextInt(2, 6));
 					mutableBlockPos.set(center).move(xStep * xDirection, 0, zStep * zDirection);
 					inflatedBox.set(inflatedBox.get().moved(xStep * xDirection, 0, zStep * zDirection));
 				}
