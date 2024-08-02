@@ -60,7 +60,7 @@ public class DecoratedPotPatternsMixin {
 		trailierTales$register(registry, TrailierTalesClient.NEEDLES_POTTERY_PATTERN, TrailierTalesClient.NEEDLES_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.PROTECTION_POTTERY_PATTERN, TrailierTalesClient.PROTECTION_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.SHINE_POTTERY_PATTERN, TrailierTalesClient.SHINE_POTTERY_PATTERN_NAME);
-		trailierTales$register(registry, TrailierTalesClient.SHINE_POTTERY_PATTERN, TrailierTalesClient.SHOWER_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.SHOWER_POTTERY_PATTERN, TrailierTalesClient.SHOWER_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.SPADE_POTTERY_PATTERN, TrailierTalesClient.SPADE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.WITHER_POTTERY_PATTERN, TrailierTalesClient.WITHER_POTTERY_PATTERN_NAME);
 	}
