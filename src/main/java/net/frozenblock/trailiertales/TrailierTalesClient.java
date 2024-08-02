@@ -31,10 +31,10 @@ import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 public class TrailierTalesClient implements ClientModInitializer {
 
 	public static final String BLANK_DECORATED_NAME = "decorated_pot_blank_side";
-	public static final String BAIT_POTTERY_PATTERN_NAME = "bait_pottery_pattern.png";
-	public static final String BLOOM_POTTERY_PATTERN_NAME = "bloom_pottery_pattern.png";
+	public static final String BAIT_POTTERY_PATTERN_NAME = "bait_pottery_pattern";
+	public static final String BLOOM_POTTERY_PATTERN_NAME = "bloom_pottery_pattern";
 	public static final String BULLSEYE_POTTERY_PATTERN_NAME = "bullseye_pottery_pattern";
-	public static final String CULTIVATOR_POTTERY_PATTERN_NAME = "cultivator_pottery_pattern.png";
+	public static final String CULTIVATOR_POTTERY_PATTERN_NAME = "cultivator_pottery_pattern";
 	public static final String ESSENCE_POTTERY_PATTERN_NAME = "essence_pottery_pattern";
 	public static final String EYE_POTTERY_PATTERN_NAME = "eye_pottery_pattern";
 	public static final String INCIDENCE_POTTERY_PATTERN_NAME = "incidence_pottery_pattern";
