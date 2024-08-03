@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
@@ -14,19 +15,28 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
 public class RuinsStructure extends Structure {
@@ -105,6 +115,10 @@ public class RuinsStructure extends Structure {
 		return getStub(context, collector -> this.generatePieces(collector, context));
 	}
 
+	public @NotNull Optional<GenerationStub> createSingleGenerationPoint(Structure.GenerationContext context, StructurePiece piece) {
+		return getStub(context, collector -> collector.addPiece(piece));
+	}
+
 	private @NotNull Optional<Structure.GenerationStub> getStub(
 		Structure.@NotNull GenerationContext context, Consumer<StructurePiecesBuilder> generator
 	) {
@@ -113,6 +127,45 @@ public class RuinsStructure extends Structure {
 		int z = chunkPos.getMiddleBlockZ();
 		int y = this.getHeight(new BlockPos(x, 0, z), context);
 		return Optional.of(new Structure.GenerationStub(new BlockPos(x, y, z), generator));
+	}
+
+	@Override
+	public @NotNull StructureStart generate(
+		RegistryAccess registryManager,
+		ChunkGenerator chunkGenerator,
+		BiomeSource biomeSource,
+		RandomState randomState,
+		StructureTemplateManager structureTemplateManager,
+		long seed,
+		ChunkPos chunkPos,
+		int startReferences,
+		LevelHeightAccessor world,
+		Predicate<Holder<Biome>> validBiomePredicate
+	) {
+		Structure.GenerationContext generationContext = new Structure.GenerationContext(
+			registryManager, chunkGenerator, biomeSource, randomState, structureTemplateManager, seed, chunkPos, world, validBiomePredicate
+		);
+		Optional<Structure.GenerationStub> optional = this.findValidGenerationPoint(generationContext);
+		if (optional.isPresent()) {
+			StructurePiecesBuilder structurePiecesBuilder = optional.get().getPiecesBuilder();
+			for (StructurePiece piece : structurePiecesBuilder.build().pieces()) {
+				RuinsStructure ruinsStructure = new RuinsStructure(this.settings, this.biomeType, this.clusterProbability, this.clusterPieces, this.heightmap, this.heightProvider);
+				Optional<GenerationStub> stub = this.createSingleGenerationPoint(generationContext, piece);
+				if (stub.isPresent()) {
+					StructureStart structureStart = new StructureStart(ruinsStructure, new ChunkPos(piece.getBoundingBox().getCenter()), startReferences, structurePiecesBuilder.build());
+					if (structureStart.isValid()) {
+						//TODO: SERVER LEVEL
+						ServerLevel.structureManager.setStartForStructure();
+					}
+				}
+			}
+			StructureStart structureStart = new StructureStart(this, chunkPos, startReferences, structurePiecesBuilder.build());
+			if (structureStart.isValid()) {
+				return structureStart;
+			}
+		}
+
+		return StructureStart.INVALID_START;
 	}
 
 	private void generatePieces(StructurePiecesBuilder collector, Structure.@NotNull GenerationContext context) {
