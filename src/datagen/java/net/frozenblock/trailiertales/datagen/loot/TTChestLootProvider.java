@@ -158,7 +158,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(UniformGenerator.between(1F, 4F))
-						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(3))
+						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(2))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(9).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
