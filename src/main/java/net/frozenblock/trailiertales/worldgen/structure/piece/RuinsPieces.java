@@ -263,7 +263,7 @@ public class RuinsPieces {
 		int totalPieces = feature.clusterPieces.sample(random);
 		for (int pieceNumber = 0; pieceNumber < totalPieces; pieceNumber++) {
 			Rotation newRotation = Rotation.getRandom(random);
-			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 2);
+			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 7);
 		}
 	}
 
