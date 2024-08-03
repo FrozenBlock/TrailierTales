@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
@@ -134,7 +135,7 @@ public class RuinsStructure extends Structure {
 		DESERT("desert", DesertRuinsGenerator.PROCESSORS),
 		JUNGLE("jungle", JungleRuinsGenerator.PROCESSORS),
 		SAVANNA("savanna", SavannaRuinsGenerator.PROCESSORS),
-		DEEPSLATE("deepslate", BadlandsRuinsGenerator.PROCESSORS),;
+		DEEPSLATE("deepslate", DeepslateRuinsGenerator.PROCESSORS),;
 
 		public static final Codec<RuinsStructure.Type> CODEC = StringRepresentable.fromEnum(RuinsStructure.Type::values);
 		private final String name;

@@ -4,6 +4,7 @@ import java.util.Map;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
@@ -46,6 +47,7 @@ public final class RegisterStructures {
 		JungleRuinsGenerator.bootstrap(context);
 		SavannaRuinsGenerator.bootstrap(context);
 		RuinsGenerator.bootstrap(context);
+		DeepslateRuinsGenerator.bootstrap(context);
 	}
 
 	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
@@ -55,6 +57,7 @@ public final class RegisterStructures {
 		JungleRuinsGenerator.bootstrapStructureSet(context);
 		SavannaRuinsGenerator.bootstrapStructureSet(context);
 		RuinsGenerator.bootstrapStructureSet(context);
+		DeepslateRuinsGenerator.bootstrapStructureSet(context);
 	}
 
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {

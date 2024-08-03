@@ -1,0 +1,22 @@
+{
+  "type": "trailiertales:ruins",
+  "biome_type": "deepslate",
+  "biomes": "#trailiertales:has_deepslate_ruins",
+  "cluster_pieces": {
+    "max_inclusive": 7,
+    "min_inclusive": 2
+  },
+  "cluster_probability": 1.0,
+  "height_provider": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "above_bottom": 48
+    },
+    "min_inclusive": {
+      "above_bottom": 10
+    }
+  },
+  "spawn_overrides": {},
+  "step": "underground_structures",
+  "terrain_adaptation": "beard_thin"
+}
