@@ -3,10 +3,10 @@
   "biome_type": "badlands",
   "biomes": "#trailiertales:has_badlands_ruins",
   "cluster_pieces": {
-    "max_inclusive": 6,
-    "min_inclusive": 2
+    "max_inclusive": 7,
+    "min_inclusive": 3
   },
-  "cluster_probability": 0.9,
+  "cluster_probability": 1.0,
   "spawn_overrides": {},
   "step": "surface_structures"
 }

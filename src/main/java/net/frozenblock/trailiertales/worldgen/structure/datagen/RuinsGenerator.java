@@ -58,7 +58,7 @@ public class RuinsGenerator {
 				),
 				RuinsStructure.Type.GENERIC,
 				0.9F,
-				UniformInt.of(1, 4)
+				UniformInt.of(1, 6)
 			)
 		);
 	}

@@ -47,8 +47,8 @@ public class BadlandsRuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.BADLANDS,
-				0.9F,
-				UniformInt.of(2, 6)
+				1F,
+				UniformInt.of(3, 7)
 			)
 		);
 	}

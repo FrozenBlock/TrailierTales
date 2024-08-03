@@ -3,8 +3,8 @@
   "biome_type": "generic",
   "biomes": "#trailiertales:has_ruins",
   "cluster_pieces": {
-    "max_inclusive": 4,
-    "min_inclusive": 1
+    "max_inclusive": 6,
+    "min_inclusive": 2
   },
   "cluster_probability": 0.9,
   "spawn_overrides": {},

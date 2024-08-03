@@ -3,7 +3,7 @@
   "biome_type": "desert",
   "biomes": "#trailiertales:has_desert_ruins",
   "cluster_pieces": {
-    "max_inclusive": 4,
+    "max_inclusive": 5,
     "min_inclusive": 2
   },
   "cluster_probability": 0.9,
