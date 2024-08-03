@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
@@ -275,7 +276,7 @@ public class RuinsPieces {
 		@NotNull RuinsStructure feature,
 		StructurePieceAccessor pieces
 	) {
-		List<BoundingBox> boundingBoxes = new ArrayList<>();
+		ObjectArrayList<BoundingBox> boundingBoxes = new ObjectArrayList<>();
 		boundingBoxes.add(boundingBox);
 		int totalPieces = feature.clusterPieces.sample(random);
 		for (int pieceNumber = 0; pieceNumber < totalPieces; pieceNumber++) {
@@ -286,7 +287,7 @@ public class RuinsPieces {
 
 	private static @Nullable RuinPiece addPiece(
 		StructureTemplateManager structureTemplateManager,
-		List<BoundingBox> boundingBoxes,
+		ObjectArrayList<BoundingBox> boundingBoxes,
 		@NotNull BlockPos pos,
 		Rotation rotation,
 		StructurePieceAccessor pieces,
@@ -313,9 +314,10 @@ public class RuinsPieces {
 			);
 			BoundingBox currentBox = potentialPiece.getBoundingBox();
 			AtomicReference<BoundingBox> inflatedBox = new AtomicReference<>(currentBox.inflatedBy(2));
-
+			List<BoundingBox> shuffledBoxes = Util.shuffledCopy(boundingBoxes, random);
 			AtomicBoolean intersected = new AtomicBoolean(false);
-			boundingBoxes.forEach(boundingBox -> {
+			
+			shuffledBoxes.forEach(boundingBox -> {
 				if (boundingBox.intersects(inflatedBox.get())) {
 					intersected.set(true);
 					BlockPos center = boundingBox.getCenter();
@@ -335,6 +337,7 @@ public class RuinsPieces {
 			if (!intersected.get()) {
 				ruinPiece = potentialPiece;
 				pieces.addPiece(ruinPiece);
+				boundingBoxes.add(ruinPiece.getBoundingBox());
 				break;
 			}
 		}
