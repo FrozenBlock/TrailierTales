@@ -35,7 +35,7 @@
               "function": "minecraft:set_enchantments"
             }
           ],
-          "name": "minecraft:book",
+          "name": "minecraft:enchanted_book",
           "quality": 3,
           "weight": 2
         },

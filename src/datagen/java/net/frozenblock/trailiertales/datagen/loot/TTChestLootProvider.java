@@ -82,7 +82,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(1))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(
-							LootItem.lootTableItem(Items.BOOK)
+							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
 								.setWeight(2).setQuality(Rarity.EPIC.ordinal())
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
 									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH),
@@ -135,12 +135,11 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(5))
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
 						.add(LootItem.lootTableItem(RegisterItems.MUSIC_DISC_FAUSSE_VIE).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(
-							LootItem.lootTableItem(Items.BOOK)
+							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
 								.setWeight(3)
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
 									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH),
@@ -148,8 +147,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 								))
 						)
 						.add(
-							LootItem.lootTableItem(Items.BOOK)
-								.setWeight(2)
+							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
+								.setWeight(3)
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
 									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REAPING),
 									ConstantValue.exactly(1F)
@@ -159,6 +158,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(UniformGenerator.between(1F, 4F))
+						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(9).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
