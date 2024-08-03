@@ -65,7 +65,7 @@ public class DeepslateRuinsGenerator {
 			DEEPSLATE_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(DEEPSLATE_RUIN_KEY),
-				new RandomSpreadStructurePlacement(30, 10, RandomSpreadType.LINEAR, 4684896)
+				new RandomSpreadStructurePlacement(15, 10, RandomSpreadType.LINEAR, 4684896)
 			)
 		);
 	}
