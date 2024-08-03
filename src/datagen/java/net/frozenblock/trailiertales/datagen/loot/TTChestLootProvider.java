@@ -1,5 +1,7 @@
 package net.frozenblock.trailiertales.datagen.loot;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
@@ -23,8 +25,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 
 public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 

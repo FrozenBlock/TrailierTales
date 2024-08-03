@@ -3,8 +3,8 @@
   "biome_type": "badlands",
   "biomes": "#trailiertales:has_badlands_ruins",
   "cluster_pieces": {
-    "max_inclusive": 7,
-    "min_inclusive": 3
+    "max_inclusive": 6,
+    "min_inclusive": 2
   },
   "cluster_probability": 1.0,
   "spawn_overrides": {},

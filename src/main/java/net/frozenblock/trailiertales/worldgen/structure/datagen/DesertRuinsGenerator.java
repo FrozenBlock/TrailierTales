@@ -76,6 +76,11 @@ public class DesertRuinsGenerator {
 		ImmutableList.of(
 			new RuleProcessor(
 				ImmutableList.of(
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.CHISELED_SANDSTONE, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.CUT_SANDSTONE.defaultBlockState())
+				)
+			),
+			new RuleProcessor(
+				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.CUT_SANDSTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_SANDSTONE.defaultBlockState())
 				)
@@ -85,7 +90,24 @@ public class DesertRuinsGenerator {
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.SMOOTH_SANDSTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState())
 				)
 			),
-			desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.35F),
+			new BlockStateRespectingRuleProcessor(
+				ImmutableList.of(
+					new BlockStateRespectingProcessorRule(
+						new RandomBlockMatchTest(Blocks.CUT_SANDSTONE_SLAB, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_SANDSTONE_SLAB
+					)
+				)
+			),
+			new BlockStateRespectingRuleProcessor(
+				ImmutableList.of(
+					new BlockStateRespectingProcessorRule(
+						new RandomBlockMatchTest(Blocks.SMOOTH_SANDSTONE_SLAB, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_SANDSTONE_SLAB
+					),
+					new BlockStateRespectingProcessorRule(
+						new RandomBlockMatchTest(Blocks.SMOOTH_SANDSTONE_STAIRS, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE_STAIRS
+					)
+				)
+			),
+			desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.2F),
 			desertArchyLootProcessorClay(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
 			new RuleProcessor(
 				ImmutableList.of(

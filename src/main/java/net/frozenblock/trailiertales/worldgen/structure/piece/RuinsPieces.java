@@ -69,6 +69,7 @@ public class RuinsPieces {
 	private static final ArrayList<ResourceLocation> BADLANDS_SURFACE_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> BADLANDS_MOSTLY_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> BADLANDS_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> BADLANDS_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
 		clearPieceLists();
@@ -96,6 +97,7 @@ public class RuinsPieces {
 		BADLANDS_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("surface")));
 		BADLANDS_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("mostly_buried")));
 		BADLANDS_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("buried")));
+		BADLANDS_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("five_from_top")));
 
 		fillInPieceOffsets();
 	}
@@ -120,6 +122,7 @@ public class RuinsPieces {
 		BADLANDS_SURFACE_PIECES.clear();
 		BADLANDS_MOSTLY_BURIED_PIECES.clear();
 		BADLANDS_BURIED_PIECES.clear();
+		BADLANDS_FIVE_FROM_TOP_PIECES.clear();
 	}
 
 	private static void fillInPieceOffsets() {
@@ -138,6 +141,7 @@ public class RuinsPieces {
 		DESERT_SIX_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 6));
 		BADLANDS_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
 		BADLANDS_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
+		BADLANDS_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
 	}
 
 	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
@@ -227,11 +231,14 @@ public class RuinsPieces {
 	}
 
 	private static @NotNull ResourceLocation getRandomBadlandsRuins(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.9F) {
+		if (random.nextFloat() <= 0.8F) {
 			return Util.getRandom(BADLANDS_MOSTLY_BURIED_PIECES, random);
 		}
 		if (random.nextFloat() <= 0.3F) {
 			return Util.getRandom(BADLANDS_SURFACE_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.075F) {
+			return Util.getRandom(BADLANDS_FIVE_FROM_TOP_PIECES, random);
 		}
 		return Util.getRandom(BADLANDS_BURIED_PIECES, random);
 	}
