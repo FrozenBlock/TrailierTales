@@ -3,7 +3,6 @@ package net.frozenblock.trailiertales.worldgen.structure.datagen;
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
@@ -53,7 +52,7 @@ public class DeepslateRuinsGenerator {
 				),
 				RuinsStructure.Type.DEEPSLATE,
 				1F,
-				UniformInt.of(2, 7),
+				UniformInt.of(3, 6),
 				UniformHeight.of(VerticalAnchor.aboveBottom(10), VerticalAnchor.aboveBottom(48))
 			)
 		);
@@ -66,7 +65,7 @@ public class DeepslateRuinsGenerator {
 			DEEPSLATE_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(DEEPSLATE_RUIN_KEY),
-				new RandomSpreadStructurePlacement(40, 20, RandomSpreadType.LINEAR, 4684896)
+				new RandomSpreadStructurePlacement(30, 10, RandomSpreadType.LINEAR, 4684896)
 			)
 		);
 	}
@@ -81,56 +80,29 @@ public class DeepslateRuinsGenerator {
 			),
 			new RuleProcessor(
 				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILES.defaultBlockState())
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState())
 				)
 			),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_SLAB
+						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_SLAB
+						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_STAIRS
+						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_STAIRS, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_STAIRS
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_STAIRS
+						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_STAIRS
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_WALL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_WALL
+						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_WALL, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_WALL
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_WALL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_WALL
-					)
-				)
-			),
-			new BlockStateRespectingRuleProcessor(
-				ImmutableList.of(
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB
-					),
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB
-					),
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS
-					),
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS
-					),
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_WALL, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL
-					),
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_WALL, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL
-					),
-					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.COBBLED_DEEPSLATE_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB
+						new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_WALL, 0.175F), AlwaysTrueTest.INSTANCE, Blocks.COBBLED_DEEPSLATE_WALL
 					)
 				)
 			),
