@@ -470,9 +470,13 @@ public class RuinsPieces {
 				)
 				.offset(this.templatePosition);
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, blockPos), this.templatePosition.getZ());
-			Integer offset = PIECE_OFFSETS.computeIfPresent(this.makeTemplateLocation(), (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
+			ResourceLocation pieceLocation = this.makeTemplateLocation();
+			Integer offset = PIECE_OFFSETS.computeIfPresent(pieceLocation, (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
 			if (offset == null) {
 				offset = -1;
+			}
+			if (DEEPSLATE_PIECES.contains(pieceLocation)) {
+				offset -=1;
 			}
 
 			this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
