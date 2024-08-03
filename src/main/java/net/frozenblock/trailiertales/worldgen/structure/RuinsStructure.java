@@ -21,9 +21,7 @@ import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.WorldGenerationContext;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -87,18 +85,17 @@ public class RuinsStructure extends Structure {
 	}
 
 	public int getHeight(
-		@NotNull ChunkGenerator chunkGenerator,
 		BlockPos pos,
-		LevelHeightAccessor heightAccessor,
-		RandomState randomState,
-		WorldgenRandom random
+		Structure.@NotNull GenerationContext context
 	) {
+		LevelHeightAccessor heightAccessor = context.heightAccessor();
+		ChunkGenerator chunkGenerator = context.chunkGenerator();
 		Heightmap.Types heightmapType = this.heightmap.orElseGet(() -> this.heightProvider.isEmpty() ? Heightmap.Types.OCEAN_FLOOR_WG : null);
 		if (heightmapType != null) {
-			return chunkGenerator.getFirstOccupiedHeight(pos.getX(), pos.getZ(), heightmapType, heightAccessor, randomState);
+			return chunkGenerator.getFirstOccupiedHeight(pos.getX(), pos.getZ(), heightmapType, heightAccessor, context.randomState());
 		}
 		WorldGenerationContext worldGenerationContext = new WorldGenerationContext(chunkGenerator, heightAccessor);
-		int y = this.heightProvider.get().sample(random.forkPositional().at(pos), worldGenerationContext);
+		int y = this.heightProvider.get().sample(context.random().forkPositional().at(pos), worldGenerationContext);
 		this.providedHeight = Optional.of(y);
 		return y;
 	}
@@ -114,14 +111,16 @@ public class RuinsStructure extends Structure {
 		ChunkPos chunkPos = context.chunkPos();
 		int x = chunkPos.getMiddleBlockX();
 		int z = chunkPos.getMiddleBlockZ();
-		int y = this.getHeight(context.chunkGenerator(), new BlockPos(x, 0, z), context.heightAccessor(), context.randomState(), context.random());
+		int y = this.getHeight(new BlockPos(x, 0, z), context);
 		return Optional.of(new Structure.GenerationStub(new BlockPos(x, y, z), generator));
 	}
 
 	private void generatePieces(StructurePiecesBuilder collector, Structure.@NotNull GenerationContext context) {
-		BlockPos blockPos = new BlockPos(context.chunkPos().getMinBlockX(), 90, context.chunkPos().getMinBlockZ());
+		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+		mutablePos.set(context.chunkPos().getMinBlockX(), 90, context.chunkPos().getMinBlockZ());
+		mutablePos.set(mutablePos.getX(), this.getHeight(mutablePos, context), mutablePos.getZ());
 		Rotation rotation = Rotation.getRandom(context.random());
-		RuinsPieces.addPieces(context.structureTemplateManager(), blockPos, rotation, collector, context.random(), this);
+		RuinsPieces.addPieces(context.structureTemplateManager(), mutablePos, rotation, collector, context.random(), this);
 	}
 
 	@Override
@@ -135,7 +134,7 @@ public class RuinsStructure extends Structure {
 		DESERT("desert", DesertRuinsGenerator.PROCESSORS),
 		JUNGLE("jungle", JungleRuinsGenerator.PROCESSORS),
 		SAVANNA("savanna", SavannaRuinsGenerator.PROCESSORS),
-		DEEPSLATE("deepslate", DeepslateRuinsGenerator.PROCESSORS),;
+		DEEPSLATE("deepslate", DeepslateRuinsGenerator.PROCESSORS);
 
 		public static final Codec<RuinsStructure.Type> CODEC = StringRepresentable.fromEnum(RuinsStructure.Type::values);
 		private final String name;
