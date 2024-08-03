@@ -1,9 +1,11 @@
 package net.frozenblock.trailiertales.worldgen.structure.datagen;
 
 import com.google.common.collect.ImmutableList;
+import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
@@ -14,6 +16,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,6 +37,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class BadlandsRuinsGenerator {
@@ -136,6 +141,14 @@ public class BadlandsRuinsGenerator {
 				)
 			),
 			badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY, 0.2F),
+			decoratedPotSherdProcessor(
+				1F,
+				false,
+				Items.SKULL_POTTERY_SHERD,
+				Items.HEARTBREAK_POTTERY_SHERD,
+				RegisterItems.WITHER_POTTERY_SHERD,
+				Items.MINER_POTTERY_SHERD
+			),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
 	);
@@ -149,6 +162,21 @@ public class BadlandsRuinsGenerator {
 					PosAlwaysTrueTest.INSTANCE,
 					RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState(),
 					new AppendLoot(registryKey)
+				)
+			)
+		);
+	}
+
+	@Contract("_, _, _ -> new")
+	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, boolean defaultToBricks, Item... sherds) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, chance),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					Blocks.DECORATED_POT,
+					new AppendSherds(chance, defaultToBricks, sherds)
 				)
 			)
 		);
