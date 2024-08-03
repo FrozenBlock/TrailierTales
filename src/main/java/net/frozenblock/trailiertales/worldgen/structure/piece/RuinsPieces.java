@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -70,6 +71,8 @@ public class RuinsPieces {
 	private static final ArrayList<ResourceLocation> BADLANDS_MOSTLY_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> BADLANDS_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> BADLANDS_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
+	// DEEPSLATE
+	private static final ArrayList<ResourceLocation> DEEPSLATE_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
 		clearPieceLists();
@@ -99,6 +102,8 @@ public class RuinsPieces {
 		BADLANDS_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("buried")));
 		BADLANDS_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("five_from_top")));
 
+		DEEPSLATE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, "ruins/deepslate"));
+
 		fillInPieceOffsets();
 	}
 
@@ -123,6 +128,7 @@ public class RuinsPieces {
 		BADLANDS_MOSTLY_BURIED_PIECES.clear();
 		BADLANDS_BURIED_PIECES.clear();
 		BADLANDS_FIVE_FROM_TOP_PIECES.clear();
+		DEEPSLATE_PIECES.clear();
 	}
 
 	private static void fillInPieceOffsets() {
@@ -230,7 +236,7 @@ public class RuinsPieces {
 		return Util.getRandom(DESERT_BURIED_PIECES, random);
 	}
 
-	private static @NotNull ResourceLocation getRandomBadlandsRuins(@NotNull RandomSource random) {
+	private static @NotNull ResourceLocation getRandomBadlandsRuin(@NotNull RandomSource random) {
 		if (random.nextFloat() <= 0.8F) {
 			return Util.getRandom(BADLANDS_MOSTLY_BURIED_PIECES, random);
 		}
@@ -241,6 +247,10 @@ public class RuinsPieces {
 			return Util.getRandom(BADLANDS_FIVE_FROM_TOP_PIECES, random);
 		}
 		return Util.getRandom(BADLANDS_BURIED_PIECES, random);
+	}
+
+	private static @NotNull ResourceLocation getRandomDeepslateRuin(@NotNull RandomSource random) {
+		return Util.getRandom(DEEPSLATE_PIECES, random);
 	}
 
 	public static void addPieces(
@@ -292,7 +302,15 @@ public class RuinsPieces {
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for (int i = 0; i < maxAttempts; i++) {
-			potentialPiece = new RuinPiece(structureTemplateManager, structureId, mutableBlockPos, rotation, feature.biomeType);
+			potentialPiece = new RuinPiece(
+				structureTemplateManager,
+				structureId,
+				mutableBlockPos,
+				rotation,
+				feature.biomeType,
+				feature.heightmap,
+				feature.providedHeight
+			);
 			BoundingBox currentBox = potentialPiece.getBoundingBox();
 			AtomicReference<BoundingBox> inflatedBox = new AtomicReference<>(currentBox.inflatedBy(2));
 
@@ -335,7 +353,10 @@ public class RuinsPieces {
 			return getRandomDesertRuin(random);
 		}
 		if (type == RuinsStructure.Type.BADLANDS) {
-			return getRandomBadlandsRuins(random);
+			return getRandomBadlandsRuin(random);
+		}
+		if (type == RuinsStructure.Type.DEEPSLATE) {
+			return getRandomDeepslateRuin(random);
 		}
 		return getRandomGenericRuin(random);
 	}
@@ -350,30 +371,49 @@ public class RuinsPieces {
 	) {
 		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		RuinPiece piece = new RuinPiece(structureTemplateManager, structureId, mutableBlockPos, rotation, feature.biomeType);
+		RuinPiece piece = new RuinPiece(
+			structureTemplateManager,
+			structureId,
+			mutableBlockPos,
+			rotation,
+			feature.biomeType,
+			feature.heightmap,
+			feature.providedHeight
+		);
 		pieces.addPiece(piece);
 		return piece;
 	}
 
 	public static class RuinPiece extends TemplateStructurePiece {
 		private final RuinsStructure.Type biomeType;
+		public final Optional<Heightmap.Types> heightmap;
+		private Optional<Integer> providedHeight;
 
 		public RuinPiece(
 			StructureTemplateManager structureTemplateManager,
 			ResourceLocation structureId,
 			BlockPos pos,
 			Rotation rotation,
-			RuinsStructure.Type biomeType
+			RuinsStructure.Type biomeType, Optional<Heightmap.Types> heightmap,
+			Optional<Integer> providedHeight
 		) {
 			super(RegisterStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
 			this.biomeType = biomeType;
+			this.heightmap = heightmap;
+			this.providedHeight = providedHeight;
 		}
 
 		private RuinPiece(
-			StructureTemplateManager templateManager, CompoundTag nbt, Rotation rotation, RuinsStructure.Type biomeType
+			StructureTemplateManager templateManager,
+			CompoundTag nbt, Rotation rotation,
+			RuinsStructure.Type biomeType,
+			Optional<Heightmap.Types> heightmap,
+			Optional<Integer> providedHeight
 		) {
 			super(RegisterStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
 			this.biomeType = biomeType;
+			this.heightmap = heightmap;
+			this.providedHeight = providedHeight;
 		}
 
 		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.@NotNull Type type) {
@@ -389,7 +429,15 @@ public class RuinsPieces {
 		public static @NotNull RuinPiece create(StructureTemplateManager templateManager, @NotNull CompoundTag nbt) {
 			Rotation rotation = Rotation.valueOf(nbt.getString("Rot"));
 			RuinsStructure.Type type = RuinsStructure.Type.valueOf(nbt.getString("BiomeType"));
-			return new RuinPiece(templateManager, nbt, rotation, type);
+			Heightmap.Types heightmap = null;
+			if (nbt.contains("HeightmapType")) {
+				heightmap = Heightmap.Types.valueOf(nbt.getString("HeightmapType"));
+			}
+			Integer providedHeight = null;
+			if (nbt.contains("ProvidedHeight")) {
+				providedHeight = nbt.getInt("ProvidedHeight");
+			}
+			return new RuinPiece(templateManager, nbt, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight));
 		}
 
 		@Override
@@ -397,6 +445,8 @@ public class RuinsPieces {
 			super.addAdditionalSaveData(context, nbt);
 			nbt.putString("Rot", this.placeSettings.getRotation().name());
 			nbt.putString("BiomeType", this.biomeType.toString());
+			this.heightmap.ifPresent(types -> nbt.putString("HeightmapType", types.toString()));
+			this.providedHeight.ifPresent(height -> nbt.putInt("ProvidedHeight", height));
 		}
 
 		@Override
@@ -413,13 +463,13 @@ public class RuinsPieces {
 			ChunkPos chunkPos,
 			BlockPos pos
 		) {
-			int i = world.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, this.templatePosition.getX(), this.templatePosition.getZ());
+			int i = this.getGenHeight(world, this.templatePosition, random, 5);
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
 			BlockPos blockPos = StructureTemplate.transform(
 					new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1), Mirror.NONE, this.placeSettings.getRotation(), BlockPos.ZERO
 				)
 				.offset(this.templatePosition);
-			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getHeight(this.templatePosition, world, blockPos), this.templatePosition.getZ());
+			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, blockPos), this.templatePosition.getZ());
 			Integer offset = PIECE_OFFSETS.computeIfPresent(this.makeTemplateLocation(), (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
 			if (offset == null) {
 				offset = -1;
@@ -429,7 +479,15 @@ public class RuinsPieces {
 			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
 		}
 
-		private int getHeight(@NotNull BlockPos start, BlockGetter world, BlockPos end) {
+		public int getGenHeight(@NotNull WorldGenLevel world, BlockPos pos, RandomSource random, int providerOffset) {
+			Heightmap.Types heightmapType = this.heightmap.orElseGet(() -> this.providedHeight.isEmpty() ? Heightmap.Types.OCEAN_FLOOR_WG : null);
+			if (heightmapType != null) {
+				return world.getHeight(heightmapType, pos.getX(), pos.getZ());
+			}
+			return this.providedHeight.get() + (random.nextInt(providerOffset) * (random.nextBoolean() ? 1 : -1));
+		}
+
+		private int getFinalHeight(@NotNull BlockPos start, BlockGetter world, BlockPos end) {
 			int i = start.getY();
 			int j = 512;
 			int k = i - 1;

@@ -13,6 +13,7 @@ public class TrailierBiomeTags {
 	public static final TagKey<Biome> HAS_DESERT_RUINS = bind("has_desert_ruins");
 	public static final TagKey<Biome> HAS_JUNGLE_RUINS = bind("has_jungle_ruins");
 	public static final TagKey<Biome> HAS_SAVANNA_RUINS = bind("has_savanna_ruins");
+	public static final TagKey<Biome> HAS_DEEPSLATE_RUINS = bind("has_deepslate_ruins");
 	public static final TagKey<Biome> HAS_RUINS = bind("has_ruins");
 
 	@NotNull

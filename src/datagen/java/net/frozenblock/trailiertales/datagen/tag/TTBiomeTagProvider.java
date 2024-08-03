@@ -23,7 +23,8 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_BADLANDS_RUINS)
 			.add(Biomes.BADLANDS)
-			.add(Biomes.WOODED_BADLANDS);
+			.add(Biomes.WOODED_BADLANDS)
+			.add(Biomes.ERODED_BADLANDS);
 
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_CATACOMBS)
 			.addOptionalTag(BiomeTags.IS_OCEAN)
@@ -43,10 +44,14 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT);
 
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_SAVANNA_RUINS)
-			.add(Biomes.SAVANNA);
+			.add(Biomes.SAVANNA)
+			.add(Biomes.SAVANNA_PLATEAU);
 
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_JUNGLE_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_JUNGLE);
+
+		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_DEEPSLATE_RUINS)
+			.add(Biomes.DEEP_DARK);
 
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_PLAINS)

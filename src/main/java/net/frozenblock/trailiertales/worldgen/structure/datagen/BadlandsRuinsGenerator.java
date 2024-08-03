@@ -22,6 +22,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
@@ -57,7 +58,8 @@ public class BadlandsRuinsGenerator {
 				),
 				RuinsStructure.Type.BADLANDS,
 				1F,
-				UniformInt.of(2, 6)
+				UniformInt.of(2, 6),
+				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
 	}
