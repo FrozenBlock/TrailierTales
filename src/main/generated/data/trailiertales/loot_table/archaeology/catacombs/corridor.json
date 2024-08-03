@@ -31,11 +31,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:wither_pottery_sherd",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:gold_nugget",
           "weight": 8
         },

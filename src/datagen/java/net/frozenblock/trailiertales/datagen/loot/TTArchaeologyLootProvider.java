@@ -39,7 +39,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(8))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(3))
 						.add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(5))
@@ -69,7 +68,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.BULLSEYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(4))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
@@ -99,7 +97,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(4))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
@@ -265,38 +262,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_SURFACE,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.ORANGE_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.YELLOW_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.BROWN_DYE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.ORANGE_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.RED_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.YELLOW_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.BROWN_CANDLE).setWeight(20))
-						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
-						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(7))
-						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(13))
-						.add(LootItem.lootTableItem(Items.COAL).setWeight(3))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(10))
-						.add(LootItem.lootTableItem(Items.BRICK).setWeight(5))
-						.add(LootItem.lootTableItem(Items.CLAY).setWeight(3))
-						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(13))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(3))
-						.add(LootItem.lootTableItem(Items.STRING).setWeight(3))
-						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(5))
-						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(4))
-						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(4))
-				)
-		);
-
-		registry.accept(
 			RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
@@ -326,19 +291,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(6))
-				)
-		);
-
-		registry.accept(
-			RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY_FOSSIL,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.COAL))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH))
-						.add(LootItem.lootTableItem(Items.STICK))
 				)
 		);
 	}

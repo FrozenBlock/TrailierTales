@@ -65,6 +65,10 @@ public class RuinsPieces {
 	private static final ArrayList<ResourceLocation> DESERT_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> DESERT_FOUR_FROM_TOP_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> DESERT_SIX_FROM_TOP_PIECES = Lists.newArrayList();
+	// BADLANDS
+	private static final ArrayList<ResourceLocation> BADLANDS_SURFACE_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> BADLANDS_MOSTLY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> BADLANDS_BURIED_PIECES = Lists.newArrayList();
 
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
 		clearPieceLists();
@@ -89,6 +93,10 @@ public class RuinsPieces {
 		DESERT_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("four_from_top")));
 		DESERT_SIX_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("six_from_top")));
 
+		BADLANDS_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("surface")));
+		BADLANDS_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("mostly_buried")));
+		BADLANDS_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("buried")));
+
 		fillInPieceOffsets();
 	}
 
@@ -109,6 +117,9 @@ public class RuinsPieces {
 		DESERT_BURIED_PIECES.clear();
 		DESERT_FOUR_FROM_TOP_PIECES.clear();
 		DESERT_SIX_FROM_TOP_PIECES.clear();
+		BADLANDS_SURFACE_PIECES.clear();
+		BADLANDS_MOSTLY_BURIED_PIECES.clear();
+		BADLANDS_BURIED_PIECES.clear();
 	}
 
 	private static void fillInPieceOffsets() {
@@ -125,6 +136,8 @@ public class RuinsPieces {
 		DESERT_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
 		DESERT_FOUR_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 4));
 		DESERT_SIX_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 6));
+		BADLANDS_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
+		BADLANDS_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
 	}
 
 	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
@@ -160,6 +173,11 @@ public class RuinsPieces {
 	@Contract("_ -> new")
 	private static @NotNull String createDesertRuinPath(String path) {
 		return "ruins/desert/" + path;
+	}
+
+	@Contract("_ -> new")
+	private static @NotNull String createBadlandsRuinPath(String path) {
+		return "ruins/badlands/" + path;
 	}
 
 	private static @NotNull ResourceLocation getRandomGenericRuin(@NotNull RandomSource random) {
@@ -206,6 +224,16 @@ public class RuinsPieces {
 			return Util.getRandom(DESERT_MOSTLY_BURIED_PIECES, random);
 		}
 		return Util.getRandom(DESERT_BURIED_PIECES, random);
+	}
+
+	private static @NotNull ResourceLocation getRandomBadlandsRuins(@NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.9F) {
+			return Util.getRandom(BADLANDS_MOSTLY_BURIED_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.3F) {
+			return Util.getRandom(BADLANDS_SURFACE_PIECES, random);
+		}
+		return Util.getRandom(BADLANDS_BURIED_PIECES, random);
 	}
 
 	public static void addPieces(
@@ -266,10 +294,14 @@ public class RuinsPieces {
 				if (boundingBox.intersects(inflatedBox.get())) {
 					intersected.set(true);
 					BlockPos center = boundingBox.getCenter();
+					boolean useXSpan = random.nextBoolean();
+					boolean useZSpan = !useXSpan || random.nextBoolean();
 					int xDirection = random.nextBoolean() ? 1 : -1;
 					int zDirection = random.nextBoolean() ? 1 : -1;
-					int xStep = (int) ((boundingBox.getXSpan() * 0.5D) + (currentBox.getXSpan() * 0.5D) + random.nextInt(2, 6));
-					int zStep = (int) ((boundingBox.getZSpan() * 0.5D) + (currentBox.getZSpan() * 0.5D) + random.nextInt(2, 6));
+					double xSpanScale = useXSpan ? 0.5D : 0D;
+					double zSpanScale = useZSpan ? 0.5D : 0D;
+					int xStep = (int) ((boundingBox.getXSpan() * xSpanScale) + (currentBox.getXSpan() * xSpanScale) + random.nextInt(2, 6));
+					int zStep = (int) ((boundingBox.getZSpan() * zSpanScale) + (currentBox.getZSpan() * zSpanScale) + random.nextInt(2, 6));
 					mutableBlockPos.set(center).move(xStep * xDirection, 0, zStep * zDirection);
 					inflatedBox.set(inflatedBox.get().moved(xStep * xDirection, 0, zStep * zDirection));
 				}
@@ -294,6 +326,9 @@ public class RuinsPieces {
 		}
 		if (type == RuinsStructure.Type.DESERT) {
 			return getRandomDesertRuin(random);
+		}
+		if (type == RuinsStructure.Type.BADLANDS) {
+			return getRandomBadlandsRuins(random);
 		}
 		return getRandomGenericRuin(random);
 	}

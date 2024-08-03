@@ -769,8 +769,7 @@ public class CatacombsGenerator {
 					Items.PRIZE_POTTERY_SHERD,
 					Items.HEART_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD,
-					RegisterItems.WITHER_POTTERY_SHERD
+					RegisterItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -796,8 +795,7 @@ public class CatacombsGenerator {
 					Items.PRIZE_POTTERY_SHERD,
 					Items.HEART_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD,
-					RegisterItems.WITHER_POTTERY_SHERD
+					RegisterItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -825,8 +823,7 @@ public class CatacombsGenerator {
 					Items.PRIZE_POTTERY_SHERD,
 					Items.HEART_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD,
-					RegisterItems.WITHER_POTTERY_SHERD
+					RegisterItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -894,7 +891,6 @@ public class CatacombsGenerator {
 					Items.SKULL_POTTERY_SHERD,
 					Items.ARCHER_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD,
-					RegisterItems.WITHER_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
@@ -923,8 +919,7 @@ public class CatacombsGenerator {
 					Items.SKULL_POTTERY_SHERD,
 					Items.BURN_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD,
-					RegisterItems.WITHER_POTTERY_SHERD
+					RegisterItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -951,8 +946,7 @@ public class CatacombsGenerator {
 					Items.PRIZE_POTTERY_SHERD,
 					Items.HEART_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD,
-					RegisterItems.WITHER_POTTERY_SHERD
+					RegisterItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
