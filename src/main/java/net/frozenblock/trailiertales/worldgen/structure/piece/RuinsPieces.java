@@ -281,7 +281,7 @@ public class RuinsPieces {
 		int totalPieces = feature.clusterPieces.sample(random);
 		for (int pieceNumber = 0; pieceNumber < totalPieces; pieceNumber++) {
 			Rotation newRotation = Rotation.getRandom(random);
-			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 7);
+			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 20);
 		}
 	}
 
@@ -483,7 +483,7 @@ public class RuinsPieces {
 			}
 
 			this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
-			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox.inflatedBy(80), chunkPos, pos);
+			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox.inflatedBy(200), chunkPos, pos);
 		}
 
 		public int getGenHeight(@NotNull WorldGenLevel world, BlockPos pos, RandomSource random, int providerOffset) {

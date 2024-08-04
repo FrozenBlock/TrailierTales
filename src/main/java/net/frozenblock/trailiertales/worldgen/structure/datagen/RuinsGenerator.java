@@ -56,8 +56,8 @@ public class RuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.GENERIC,
-				0.9F,
-				UniformInt.of(1, 6),
+				1F,
+				UniformInt.of(20, 40),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);

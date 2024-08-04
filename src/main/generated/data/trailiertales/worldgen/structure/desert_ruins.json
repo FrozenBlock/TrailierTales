@@ -3,10 +3,10 @@
   "biome_type": "desert",
   "biomes": "#trailiertales:has_desert_ruins",
   "cluster_pieces": {
-    "max_inclusive": 5,
-    "min_inclusive": 2
+    "max_inclusive": 40,
+    "min_inclusive": 20
   },
-  "cluster_probability": 0.9,
+  "cluster_probability": 1.0,
   "heightmap": "OCEAN_FLOOR_WG",
   "spawn_overrides": {},
   "step": "surface_structures"

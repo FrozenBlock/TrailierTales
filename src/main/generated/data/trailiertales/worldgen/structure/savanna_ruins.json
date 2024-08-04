@@ -3,8 +3,8 @@
   "biome_type": "savanna",
   "biomes": "#trailiertales:has_savanna_ruins",
   "cluster_pieces": {
-    "max_inclusive": 5,
-    "min_inclusive": 2
+    "max_inclusive": 40,
+    "min_inclusive": 20
   },
   "cluster_probability": 1.0,
   "heightmap": "OCEAN_FLOOR_WG",
