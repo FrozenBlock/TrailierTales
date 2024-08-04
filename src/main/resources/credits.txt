@@ -14,8 +14,9 @@ Voxelotl
       - Mossy Cobbled Deepslate
       - Mossy Deepslate Bricks
       - Mossy Deepslate Tiles
-      - Bloom Pottery Sherd
+      - Bloom Pottery Sherd/Pattern
       - Bullseye Pottery Sherd/Pattern
+      - Crescent Pottery Sherd/Pattern
       - Wither Pottery Sherd/Pattern
       - Coffin
       - Undead Armor Trim

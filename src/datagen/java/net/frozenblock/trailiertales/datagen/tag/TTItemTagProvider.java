@@ -31,6 +31,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.BAIT_POTTERY_SHERD)
 			.add(RegisterItems.BLOOM_POTTERY_SHERD)
 			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
+			.add(RegisterItems.CRESCENT_POTTERY_SHERD)
 			.add(RegisterItems.CULTIVATOR_POTTERY_SHERD)
 			.add(RegisterItems.ESSENCE_POTTERY_SHERD)
 			.add(RegisterItems.EYE_POTTERY_SHERD)

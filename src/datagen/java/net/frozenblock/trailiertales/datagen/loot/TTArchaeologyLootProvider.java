@@ -286,7 +286,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.MOURNER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(7))
 				)
 		);
 

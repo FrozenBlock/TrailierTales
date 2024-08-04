@@ -34,6 +34,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String BAIT_POTTERY_PATTERN_NAME = "bait_pottery_pattern";
 	public static final String BLOOM_POTTERY_PATTERN_NAME = "bloom_pottery_pattern";
 	public static final String BULLSEYE_POTTERY_PATTERN_NAME = "bullseye_pottery_pattern";
+	public static final String CRESCENT_POTTERY_PATTERN_NAME = "crescent_pottery_pattern";
 	public static final String CULTIVATOR_POTTERY_PATTERN_NAME = "cultivator_pottery_pattern";
 	public static final String ESSENCE_POTTERY_PATTERN_NAME = "essence_pottery_pattern";
 	public static final String EYE_POTTERY_PATTERN_NAME = "eye_pottery_pattern";
@@ -50,6 +51,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final ResourceKey<DecoratedPotPattern> BAIT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BAIT_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> BLOOM_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BLOOM_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> BULLSEYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BULLSEYE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> CRESCENT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CRESCENT_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> CULTIVATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CULTIVATOR_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> ESSENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(ESSENCE_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> EYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(EYE_POTTERY_PATTERN_NAME));

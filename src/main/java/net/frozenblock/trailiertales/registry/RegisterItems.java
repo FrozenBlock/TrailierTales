@@ -24,6 +24,7 @@ public class RegisterItems {
 	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties());
+	public static final Item CRESCENT_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item CULTIVATOR_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item ESSENCE_POTTERY_SHERD = new Item(new Item.Properties());
 	public static final Item EYE_POTTERY_SHERD = new Item(new Item.Properties());
@@ -51,7 +52,8 @@ public class RegisterItems {
 		registerItemBefore(Items.BLADE_POTTERY_SHERD, BAIT_POTTERY_SHERD, "bait_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.BLADE_POTTERY_SHERD, BLOOM_POTTERY_SHERD, "bloom_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemBefore(Items.DANGER_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.DANGER_POTTERY_SHERD, CRESCENT_POTTERY_SHERD, "crescent_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(CRESCENT_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.EXPLORER_POTTERY_SHERD, ESSENCE_POTTERY_SHERD, "essence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.EXPLORER_POTTERY_SHERD, EYE_POTTERY_SHERD, "eye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.HOWL_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
