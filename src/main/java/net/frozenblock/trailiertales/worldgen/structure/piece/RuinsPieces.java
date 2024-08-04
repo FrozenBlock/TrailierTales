@@ -483,7 +483,7 @@ public class RuinsPieces {
 			}
 
 			this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
-			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox.inflatedBy(80), chunkPos, pos);
+			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox.inflatedBy(100), chunkPos, pos);
 		}
 
 		public int getGenHeight(@NotNull WorldGenLevel world, BlockPos pos, RandomSource random, int providerOffset) {
