@@ -69,7 +69,7 @@ public class DesertRuinsGenerator {
 			DESERT_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(DESERT_RUIN_KEY),
-				new RandomSpreadStructurePlacement(45, 30, RandomSpreadType.LINEAR, 9432401)
+				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 9432401)
 			)
 		);
 	}

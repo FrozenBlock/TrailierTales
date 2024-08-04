@@ -66,7 +66,7 @@ public class JungleRuinsGenerator {
 			JUNGLE_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(JUNGLE_RUIN_KEY),
-				new RandomSpreadStructurePlacement(40, 30, RandomSpreadType.LINEAR, 343577861)
+				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 343577861)
 			)
 		);
 	}

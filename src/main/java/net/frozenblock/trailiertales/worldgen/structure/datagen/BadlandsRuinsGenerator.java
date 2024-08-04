@@ -71,7 +71,7 @@ public class BadlandsRuinsGenerator {
 			BADLANDS_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(BADLANDS_RUIN_KEY),
-				new RandomSpreadStructurePlacement(40, 30, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 21338252) // ancient city salt is 20083232
 			)
 		);
 	}
