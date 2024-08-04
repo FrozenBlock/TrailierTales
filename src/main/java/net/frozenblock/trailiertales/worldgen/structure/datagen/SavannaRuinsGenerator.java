@@ -51,7 +51,7 @@ public class SavannaRuinsGenerator {
 				),
 				RuinsStructure.Type.SAVANNA,
 				1F,
-				UniformInt.of(20, 40),
+				UniformInt.of(2, 5),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);

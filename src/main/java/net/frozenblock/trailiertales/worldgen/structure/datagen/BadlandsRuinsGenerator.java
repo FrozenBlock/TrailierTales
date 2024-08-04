@@ -58,7 +58,7 @@ public class BadlandsRuinsGenerator {
 				),
 				RuinsStructure.Type.BADLANDS,
 				1F,
-				UniformInt.of(20, 40),
+				UniformInt.of(2, 6),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);

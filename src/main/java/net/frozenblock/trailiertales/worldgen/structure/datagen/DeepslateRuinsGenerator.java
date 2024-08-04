@@ -52,7 +52,7 @@ public class DeepslateRuinsGenerator {
 				),
 				RuinsStructure.Type.DEEPSLATE,
 				1F,
-				UniformInt.of(20, 40),
+				UniformInt.of(3, 6),
 				UniformHeight.of(VerticalAnchor.aboveBottom(10), VerticalAnchor.aboveBottom(48))
 			)
 		);

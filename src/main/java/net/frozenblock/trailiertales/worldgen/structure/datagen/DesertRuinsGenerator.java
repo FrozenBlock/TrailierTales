@@ -55,8 +55,8 @@ public class DesertRuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.DESERT,
-				1F,
-				UniformInt.of(20, 40),
+				0.9F,
+				UniformInt.of(2, 5),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);

@@ -3,10 +3,10 @@
   "biome_type": "jungle",
   "biomes": "#trailiertales:has_jungle_ruins",
   "cluster_pieces": {
-    "max_inclusive": 40,
-    "min_inclusive": 20
+    "max_inclusive": 5,
+    "min_inclusive": 1
   },
-  "cluster_probability": 1.0,
+  "cluster_probability": 0.9,
   "heightmap": "OCEAN_FLOOR_WG",
   "spawn_overrides": {},
   "step": "surface_structures"
