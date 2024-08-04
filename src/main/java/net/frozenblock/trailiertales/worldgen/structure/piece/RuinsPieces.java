@@ -316,7 +316,7 @@ public class RuinsPieces {
 			AtomicReference<BoundingBox> inflatedBox = new AtomicReference<>(currentBox.inflatedBy(2));
 			List<BoundingBox> shuffledBoxes = Util.shuffledCopy(boundingBoxes, random);
 			AtomicBoolean intersected = new AtomicBoolean(false);
-			
+
 			shuffledBoxes.forEach(boundingBox -> {
 				if (boundingBox.intersects(inflatedBox.get())) {
 					intersected.set(true);
@@ -483,7 +483,7 @@ public class RuinsPieces {
 			}
 
 			this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
-			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
+			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox.inflatedBy(60), chunkPos, pos);
 		}
 
 		public int getGenHeight(@NotNull WorldGenLevel world, BlockPos pos, RandomSource random, int providerOffset) {
