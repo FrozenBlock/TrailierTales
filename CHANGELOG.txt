@@ -72,15 +72,174 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Invisible players cannot be detected, unless wearing armor
 
 ## CATACOMBS
+- A maze-like, difficult underground structure from a long-lost civilization
+- Skeleton skulls line the walls of the Catacombs
+- Supicious Gravel occasionally generates on the floor
+- Contains many corridors and tombs
+    - Each tomb contains at least one Coffin, and may contain a Chest
+    - Each Chest has a chance to reward very valuable loot, including but not limited to the new Rebrush enchantment, Reaping enchantment, Undead armor trim, and the new "Fausse Vie" music disc by Zhen
+    - Some tombs are laid out as puzzles, while others strictly focus on combat
+- Being so difficult and dark, it is recommended to bring strong tools, armor, and a lot of torches.
 
+## HAUNT
+- A new mob effect
+- Much like the Darkness mob effect, brings dark fog inwards and dampens light
+- Blocks out health, armor, hunger, and air supply stats, becoming either invisible or unreadable to the player
+- Halves the distance sounds can be heard from
+- Coffins can detect any player with this mob effect
+
+## COFFIN
+- A new block that spawns mobs
+    - The mob can be changed by using a spawn egg on the Coffin
+- Is inactive by default, but will spawn an Apparition occasionally
+    - One the Apparition has targeted a player, the Coffin will activate and begin spawning mobs
+    - Once the Apparition has been killed, the Coffin will become inactive and the cycle will repeat
+- Each time a spawned mob its killed, will increase the Coffin's power along three stages
+    - Active
+        - The default strength
+        - 400 ticks between spawns
+        - Only one mob can spawn at a time
+    - Irritated
+        - An intermediate strength triggered at a power of 4
+        - 300 ticks between spawns
+        - The amount of simultaneous spawned mobs per extra player increases to one
+    - Irritated
+        - The highest strength triggered at a power of 12
+        - Can spawn two Apparitions instead of one
+        - 200 ticks between spawns
+    - A Coffin's power will reset after 12000 ticks, or 10 minutes
+
+## APPARITION
+- A new mysterious mob that spawns from Coffins
+- Can travel through blocks and other mobs
+- Detects players at relatively far distances
+- Will occasionally "hypnotize" nearby mobs, causing them to target the player
+- Finds dropped items and throws them to damage the player
+- Is invisible in the darkness, aside from a particle trail
+- Will apply the Haunt mob effect if it has been in direct contact with a player for long enough
+
+## REBRUSH
+- A new enchantment found from Chests in Catacombs
+- At a rate of 10% per level, has a chance to let a Suspicious block be looted again
+    - Has a 3% chance per level to let a Suspicious block be looted again after the first excavation
+- Goes up to level 3
+
+## REAPING
+- A new enchantment found from Chests in Catacombs
+- Adds an additional 2 xp per level to experience orbs upon a mob's death
+- Goes up to level 3
+
+## BUILDING BLOCKS
+- Added Granite Bricks
+    - Added Chiseled Granite Bricks
+    - Added Cracked Granite Bricks
+    - Added Granite Brick Stairs
+    - Added Granite Brick Slab
+    - Added Granite Brick Wall
+    - Added Mossy Granite Bricks
+        - Added Mossy Granite Brick Stairs
+        - Added Mossy Granite Brick Slab
+        - Added Mossy Granite Brick Wall
+- Added Diorite Bricks
+    - Added Chiseled Diorite Bricks
+    - Added Cracked Diorite Bricks
+    - Added Diorite Brick Stairs
+    - Added Diorite Brick Slab
+    - Added Diorite Brick Wall
+    - Added Mossy Diorite Bricks
+        - Added Mossy Diorite Brick Stairs
+        - Added Mossy Diorite Brick Slab
+        - Added Mossy Diorite Brick Wall
+- Added Andesite Bricks
+    - Added Chiseled Andesite Bricks
+    - Added Cracked Andesite Bricks
+    - Added Andesite Brick Stairs
+    - Added Andesite Brick Slab
+    - Added Andesite Brick Wall
+    - Added Mossy Andesite Bricks
+        - Added Mossy Andesite Brick Stairs
+        - Added Mossy Andesite Brick Slab
+        - Added Mossy Andesite Brick Wall
+- Added the Calcite block family
+    - Added Calcite Stairs
+    - Added Calcite Slab
+    - Added Calcite wall
+    - Added Polished Calcite
+        - Added Polished Calcite Stairs
+        - Added Polished Calcite Slab
+        - Added Polished Calcite wall
+    - Added Calcite Bricks
+        - Added Chiseled Calcite Bricks
+        - Added Cracked Calcite Bricks
+        - Added Calcite Brick Stairs
+        - Added Calcite Brick Slab
+        - Added Calcite Brick Wall
+        - Added Mossy Calcite Bricks
+            - Added Mossy Calcite Brick Stairs
+            - Added Mossy Calcite Brick Slab
+            - Added Mossy Calcite Brick Wall
+- Finished the Tuff block family
+    - Added Cracked Tuff Bricks
+    - Added Mossy Tuff Bricks
+        - Added Mossy Tuff Brick Stairs
+        - Added Mossy Tuff Brick Slab
+        - Added Mossy Tuff Brick Wall
+- Finished the Bricks block family
+    - Added Cracked Bricks
+    - Added Mossy Bricks
+        - Added Mossy Brick Stairs
+        - Added Mossy Brick Slab
+        - Added Mossy Brick Wall
+- Finished the Cobbled Deepslate block family
+    - Added Mossy Cobbled Deepslate
+        - Added Mossy Cobbled Deepslate Stairs
+        - Added Mossy Cobbled Deepslate Slab
+        - Added Mossy Cobbled Deepslate Wall
+- Finished the Deepslate Bricks block family
+    - Added Mossy Deepslate Bricks
+        - Added Mossy Deepslate Brick Stairs
+        - Added Mossy Deepslate Brick Slab
+        - Added Mossy Deepslate Brick Wall
+- Finished the Deepslate Tiles block family
+    - Added Mossy Deepslate Tiles
+        - Added Mossy Deepslate Tile Stairs
+        - Added Mossy Deepslate Tile Slab
+        - Added Mossy Deepslate Tile Wall
+- Finished the Sandstone block family
+    - Added Smooth Sandstone Wall
+    - Added Cut Sandstone Stairs
+    - Added Cut Sandstone Wall
+- Finished the Red Sandstone block family
+    - Added Smooth Red Sandstone Wall
+    - Added Cut Red Sandstone Stairs
+    - Added Cut Red Sandstone Wall
+- Finished the End Stone Bricks block family
+    - Added Cracked End Stone Bricks
+    - Added Chiseled End Stone Bricks
+        - Added Choral End Stone Bricks
+        - Added Choral End Stone Brick Stairs
+        - Added Choral End Stone Brick Slab
+        - Added Choral End Stone Brick Wall
+- Finished the Purpur block family
+    - Added Cracked Purpur Block
+    - Added Chiseled Purpur Block
+    - Added Purpur Wall
 
 # CHANGES
 
 ## ARCHAEOLOGY
-- The third person brushing animation is now smooth, instead of choppy.
-- Items now smoothly inch out of suspicious blocks.
-- Particles are now created when a brush is moving backwards.
-- A softer sound is now played when a brush is moving backwards.
+- The third person brushing animation is now smooth
+- Items now smoothly inch out of suspicious blocks
+- Particles are now created when a brush is moving backwards
+- A softer sound is now played when a brush is moving backwards
+- Shelter Pottery Sherd can no longer be found in Warm Ocean Ruins
+- Blade, Mourner, and Plenty Pottery Sherds can no longer be found in Cold Ocean Ruins
+- Burn and Danger Pottery Sherds can no longer be found in Trail Ruins
+- Miner Pottery Sherd can no longer be found in Desert Pyramids
+- Shelter Pottery Sherd can now be found in Savanna Ruins
+- Mourner Pottery Sherd can now be found in Deepslate Ruins
+- Miner Pottery Sherd can not be found in Deepslate Ruins
+- Danger Pottery Sherd can now be found in Desert Ruins
 
 ## DECORATED POTS
 - Each time a Decorated Pot wobbles, the next time it wobbles, its animation will be flipped.
