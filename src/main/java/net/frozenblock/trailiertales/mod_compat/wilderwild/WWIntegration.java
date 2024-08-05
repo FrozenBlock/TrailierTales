@@ -1,10 +1,14 @@
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import java.util.List;
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
@@ -15,7 +19,11 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
+import static net.minecraft.world.level.block.Blocks.*;
+import static net.minecraft.world.level.block.Blocks.MUD_BRICK_SLAB;
 
 public class WWIntegration extends AbstractWWIntegration {
 
@@ -34,6 +42,26 @@ public class WWIntegration extends AbstractWWIntegration {
 			Blocks.SUSPICIOUS_GRAVEL,
 			RegisterSounds.SUSPICIOUS_GRAVEL_WW,
 			() -> BlockConfig.get().blockSounds.claySounds
+		);
+
+		StructureProcessorApi.addProcessor(
+			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
+			new RuleProcessor(
+				ImmutableList.of(
+					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, CRACKED_MUD_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICKS.defaultBlockState())
+				)
+			)
+		);
+		StructureProcessorApi.addProcessor(
+			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
+			new BlockStateRespectingRuleProcessor(
+				ImmutableList.of(
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_STAIRS),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_SLAB),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_WALL)
+				)
+			)
 		);
 
 		StructureProcessorApi.addProcessor(CatacombsGenerator.CATACOMBS_KEY.location(),
