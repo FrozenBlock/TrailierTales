@@ -10,7 +10,6 @@ import net.frozenblock.trailiertales.mod_compat.wilderwild.NoOpWWIntegration;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.WWIntegration;
 
 public final class TrailierModIntegrations {
-
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
 	public static final ModIntegrationSupplier<AbstractWWIntegration> WILDER_WILD_INTEGRATION = register(
 		WWIntegration::new,
@@ -34,6 +33,6 @@ public final class TrailierModIntegrations {
 	}
 
 	public static <T extends ModIntegration> ModIntegration registerAndGet(Supplier<T> integration, String modID) {
-		return ModIntegrations.register(integration, TrailierConstants.MOD_ID, modID).getIntegration();
+		return register(integration, modID).getIntegration();
 	}
 }
