@@ -68,11 +68,11 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
 
-		this.wallSmooth(generator, RegisterBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SMOOTH_SANDSTONE);
+		this.wallSmooth(generator, RegisterBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SANDSTONE);
 		this.stairs(generator, RegisterBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE);
 		this.wall(generator, RegisterBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
 
-		this.wallSmooth(generator, RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.SMOOTH_RED_SANDSTONE);
+		this.wallSmooth(generator, RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.RED_SANDSTONE);
 		this.stairs(generator, RegisterBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
 		this.wall(generator, RegisterBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
 
