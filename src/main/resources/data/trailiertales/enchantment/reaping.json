@@ -7,11 +7,11 @@
     "minecraft:mob_experience": [
       {
         "effect": {
-          "type": "minecraft:add",
+          "type": "minecraft:multiply",
           "value": {
             "type": "minecraft:linear",
-            "base": 2,
-            "per_level_above_first": 2
+            "base": 1.2,
+            "per_level_above_first": 0.2
           }
         }
       }
