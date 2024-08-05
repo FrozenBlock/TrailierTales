@@ -74,7 +74,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final Vector3f AID_DUST_COLOR = new Vector3f(24F / 255F, 252F / 255F, 1F);
 	private static final Vector3f POLTERGEIST_DUST_COLOR = new Vector3f(222F / 255F, 157F / 255F, 224F / 255F);
 	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
-
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
@@ -414,7 +413,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private @NotNull ParticleOptions createAmbientParticleOptions() {
 		float aidProgress = this.getAidAnimProgress();
 		float poltergeistProgress = this.getPoltergeistAnimProgress();
-		Vector3f finalColor = BASE_DUST_COLOR.lerp(AID_DUST_COLOR, aidProgress);
+		Vector3f finalColor = new Vector3f(BASE_DUST_COLOR);
+		finalColor = finalColor.lerp(AID_DUST_COLOR, aidProgress);
 		finalColor = finalColor.lerp(POLTERGEIST_DUST_COLOR, poltergeistProgress);
 		return new GlowingDustColorTransitionOptions(
 			finalColor, WHITE, 1F
