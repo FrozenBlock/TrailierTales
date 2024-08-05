@@ -4,51 +4,83 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
-- New Jungle, Desert, and Savanna ruins have been added.
-- Added Suspicious Red Sand, Suspicious Clay, and Suspicious Dirt.
-- The 3rd person brushing animation is now much smoother.
-- Items now smoothly come out of Suspicious blocks.
-- Added the "Fausse Vie" music disc by Zhen.
+# Minecraft: Java Edition - Trailier Tales
+After the Wilder Update controversy passed, Trails & Tales came along and effectively accomplished the same thing. Although it didn't overpromise, it felt as though it had under-delivered on the content side of things.
+We're back once again to hopefully remedy this, with Trailier Tales!
 
-- Added the Rebrush enchantment.
- - At a rate of 10% per level, will allow you to brush a Suspicious block a second time.
- - Can be rebrushed after the first time at a rate of 3% per level.
- - Has three levels.
+**DISCLAIMER**
+Do not use this mod in attempt to harass Mojang. They are hard workers and know what's best for their game- we're simply adding and changing features as we see fit.
 
-- Added the Reaping enchantment.
- - Increases mob XP drops at a rate of 2 per level.
- - Has three levels.
+# NEW FEATURES
+- Added new Ruins structures
+- Added new Pottery Sherds
+- Added new Armor Trims
+- Added Suspicious Red Sand
+- Added Suspicious Clay
+- Added Suspicious Dirt
+- Added Cyan Roses
+- Added the Surveyor block
+- Added Catacombs
+- Added Haunt mob effect
+- Added the Coffin block
+- Added Apparition mob
+- Added the Rebrush enchantment
+- Added the Reaping enchantment
+- Added Music Disc Fausse Vie
+- Expanded and finished many building block sets
 
-- Added the Catacombs structure.
- - Contains plenty of rooms and corridors, leading to players easily getting lost or killed.
- - Some rooms have reward chests, which can contain the new Rebrush enchantment.
- - The new Coffin generates here.
+## RUINS
+- Added Ruins in all Plains and Forest biomes.
+- Added Jungle Ruins in all Jungle biomes.
+- Added Savanna Ruins in Savanna and Savanna Plateau biomes.
+- Added Desert Ruins in all Desert biomes.
+- Added Badlands Ruins in Badlands, Wooded Badlands, and Eroded Badlands biomes.
+- Added Deepslate Ruins in the Deep Dark biome.
+- Will usually generate in clusters.
+- Suspicious blocks will these structures contain new pottery sherds.
+- From most to least common, each building can be either partially buried, on the surface, or completely buried.
+- New structure pieces for each ruin type can easily be added by dragging and dropping a piece in `.nbt` format into one of the existing subfolders in their respective `trailiertales:structure/ruins/` folder.
 
-- Added the Coffin block, only generating in the Catacombs structure.
- - Cannot be crafted or obtained in Survival.
- - Takes just as long as a Trial Spawner/Vault to break.
- - Spawns mobs occasionally, with three levels of aggression depending on how many spawned mobs have been killed.
- - Can be slowed down by placing bright light sources nearby.
- - Spawns Apparitions occasionally.
- - Mobs spawned from Coffins have a higher follow distance attribute.
+## POTTERY SHERDS
+- Added Bait Pottery Sherd, found in Warm and Cold Ocean Ruins
+- Added Bloom Pottery Sherd, found in Jungle Ruins
+- Added Bullseye Pottery Sherd, found in Catacombs
+- Added Crescent Pottery Sherd, found in Deepslate Ruins
+- Added Cultivator Pottery Sherd, found in Savanna Ruins
+- Added Essence Pottery Sherd, found in Catacombs
+- Added Eye Pottery Sherd, found in Catacombs
+- Added Incidence Pottery Sherd, found in Cold Ocean Ruins
+- Added Lumber Pottery Sherd, found in Jungle Ruins
+- Added Needles Pottery Sherd, found in Desert Ruins
+- Added Protection Pottery Sherd, found in Trail Ruins
+- Added Shine Pottery Sherd, found in Desert Ruins
+- Added Shower Pottery Sherd, found in Jungle Ruins
+- Added Spade Pottery Sherd, found in Desert Pyramids
+- Added Wither Pottery Sherd, found in Badlands Ruins
 
-- Added the Apparition.
- - Will grab items and thrust them at the player to damage them.
- - Will "hypnotize" mobs into targeting the player if they aren't targeting them already.
- - Can target players from relatively far distances.
- - When in contact with a player for long enough, will give them the new Haunt effect.
- - Becomes invisible when in darkness.
+## ARMOR TRIMS
+- Added Undead Armor Trim, found in Catacombs
 
-- Added the Haunt effect.
- - Acts much like Darkness, bringing fog inwards and dampening light.
- - Halves the attenuation distance of sounds.
+## Cyan Roses
+- Sniffers can now dig up Cyan Rose Seeds
+- Seeds can be planted, growing into the Cyan Rose plant
 
-- Added the Surveyor.
- - When a player is within its line of sight, will emit a Redstone signal of 15.
- - Emits a signal equivalent to the player's distance from the block with a comparator.
+## SURVEYOR
+- A new redstone component that detects a player in its line of sight
+- Will output a full signal when detecting a player, and a decreasing signal based on the player's distance when used with a Redstone Comparator
+- Other mobs can block the Surveyor's view of the player
+- Invisible players cannot be detected, unless wearing armor
 
-- Added the Cyan Rose.
- - The third obtainable plant from the Sniffer.
+## CATACOMBS
 
-- Added the Undead and Desolation Armor Trims.
-- Added the Wither, Bullseye, Incidence, and Bloom Pottery Sherds.
+
+# CHANGES
+
+## ARCHAEOLOGY
+- The third person brushing animation is now smooth, instead of choppy.
+- Items now smoothly inch out of suspicious blocks.
+- Particles are now created when a brush is moving backwards.
+- A softer sound is now played when a brush is moving backwards.
+
+## DECORATED POTS
+- Each time a Decorated Pot wobbles, the next time it wobbles, its animation will be flipped.
