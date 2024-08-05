@@ -1110,15 +1110,6 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/puzzle_stages",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/ramp",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
