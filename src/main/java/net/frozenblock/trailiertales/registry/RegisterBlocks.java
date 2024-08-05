@@ -41,7 +41,7 @@ public class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_ORANGE)
 			.instrument(NoteBlockInstrument.SNARE)
-			.strength(0.25f).sound(SoundType.SUSPICIOUS_SAND)
+			.strength(0.25F).sound(SoundType.SUSPICIOUS_SAND)
 			.pushReaction(PushReaction.DESTROY)
 	);
 	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
@@ -50,7 +50,7 @@ public class RegisterBlocks {
 		RegisterSounds.BRUSH_DIRT_COMPLETED,
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.DIRT)
-			.strength(0.25f)
+			.strength(0.25F)
 			.sound(RegisterSounds.SUSPICIOUS_DIRT)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -61,7 +61,7 @@ public class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.CLAY)
 			.instrument(NoteBlockInstrument.FLUTE)
-			.strength(0.25f)
+			.strength(0.25F)
 			.sound(RegisterSounds.SUSPICIOUS_CLAY)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -73,7 +73,7 @@ public class RegisterBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_BROWN)
 			.instrument(NoteBlockInstrument.FLUTE)
-			.strength(0.25f)
+			.strength(0.25F)
 			.sound(SoundType.SUSPICIOUS_SAND)
 			.pushReaction(PushReaction.DESTROY)
 	);
