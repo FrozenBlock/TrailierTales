@@ -19,6 +19,8 @@ import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterItems {
+	public static final Item ECTOPLASM = new Item(new Item.Properties());
+
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(RegisterBlocks.CYAN_ROSE_CROP, new Item.Properties());
 
 	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties());
@@ -47,6 +49,8 @@ public class RegisterItems {
 	public static final Item MUSIC_DISC_FAUSSE_VIE = new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(RegisterJukeboxSongs.FAUSSE_VIE));
 
 	public static void init() {
+		registerItemBefore(Items.MAGMA_CREAM, ECTOPLASM, "ectoplasm", CreativeModeTabs.INGREDIENTS);
+
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerItemBefore(Items.BLADE_POTTERY_SHERD, BAIT_POTTERY_SHERD, "bait_pottery_sherd", CreativeModeTabs.INGREDIENTS);

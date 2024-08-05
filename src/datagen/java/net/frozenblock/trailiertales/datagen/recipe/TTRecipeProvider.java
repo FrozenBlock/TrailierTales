@@ -40,6 +40,18 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput recipeOutput) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RegisterBlocks.SURVEYOR)
+			.define('E', RegisterItems.ECTOPLASM)
+			.define('A', Items.AMETHYST_SHARD)
+			.define('R', Items.REDSTONE)
+			.define('#', Blocks.COBBLESTONE)
+			.pattern("###")
+			.pattern("RAE")
+			.pattern("###")
+			.unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD))
+			.unlockedBy("has_ectoplasm", has(RegisterItems.ECTOPLASM))
+			.save(recipeOutput);
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
 			.define('#', Items.GRAVEL)
 			.pattern(" # ")

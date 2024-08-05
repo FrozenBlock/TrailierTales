@@ -117,6 +117,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Finds dropped items and throws them to damage the player
 - Is invisible in the darkness, aside from a particle trail
 - Will apply the Haunt mob effect if it has been in direct contact with a player for long enough
+- Drops Ectoplasm upon death, which can be used as a potion ingredient or to craft the Surveyor block
 
 ## REBRUSH
 - A new enchantment found from Chests in Catacombs
