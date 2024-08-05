@@ -446,9 +446,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				if (projectile instanceof AbstractArrow abstractArrow) {
 					this.swapItem(abstractArrow.getPickupItemStackOrigin());
 					abstractArrow.discard();
+					return false;
 				} else if (projectile instanceof ItemSupplier itemSupplier) {
 					this.swapItem(itemSupplier.getItem());
 					projectile.discard();
+					return false;
 				}
 			}
 		}
