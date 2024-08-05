@@ -70,11 +70,10 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob, WindDisturbingEntity {
-	private static final Vector3f PARTICLE_COLOR = new Vector3f(162F / 255F, 181F/ 255F, 217F / 255F);
+	private static final Vector3f BASE_DUST_COLOR = new Vector3f(162F / 255F, 181F / 255F, 217F / 255F);
+	private static final Vector3f AID_DUST_COLOR = new Vector3f(24F / 255F, 252F / 255F, 1F);
+	private static final Vector3f POLTERGEIST_DUST_COLOR = new Vector3f(222F / 255F, 157F / 255F, 224F / 255F);
 	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
-	private static final GlowingDustColorTransitionOptions APPARITION_TO_WHITE = new GlowingDustColorTransitionOptions(
-		PARTICLE_COLOR, WHITE, 1F
-	);
 
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
@@ -388,7 +387,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.tickTransparency();
 			boolean isHidden = this.isHiding();
 			if (!isHidden) {
-				this.spawnParticles(this.random.nextInt(0, 2), APPARITION_TO_WHITE);
+				this.spawnParticles(this.random.nextInt(0, 2), this.createAmbientParticleOptions());
 			}
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 			boolean hiding = this.hiddenTicks > 0;
@@ -409,6 +408,17 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.prevPoltergeistAnimProgress = this.poltergeistAnimProgress;
 			this.poltergeistAnimProgress += (this.getPoltergeistAnimProgress() - this.poltergeistAnimProgress) * 0.3F;
 		}
+	}
+
+	@Contract(" -> new")
+	private @NotNull ParticleOptions createAmbientParticleOptions() {
+		float aidProgress = this.getAidAnimProgress();
+		float poltergeistProgress = this.getPoltergeistAnimProgress();
+		Vector3f finalColor = BASE_DUST_COLOR.lerp(AID_DUST_COLOR, aidProgress);
+		finalColor = finalColor.lerp(POLTERGEIST_DUST_COLOR, poltergeistProgress);
+		return new GlowingDustColorTransitionOptions(
+			finalColor, WHITE, 1F
+		);
 	}
 
 	@Override
