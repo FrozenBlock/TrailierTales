@@ -166,5 +166,17 @@
   "subtitles.entity.apparition.aid": "Apparition starts to hypnotize",
   "subtitles.entity.apparition.holding_item": "Apparition grabs item",
   "subtitles.entity.apparition.haunt": "Apparition haunts",
-  "subtitles.entity.apparition.throw": "Apparition thrusts item"
+  "subtitles.entity.apparition.throw": "Apparition thrusts item",
+
+  "option.trailiertales.component.title": "Trailier Tales Options",
+
+  "option.trailiertales.worldgen": "Worldgen",
+  "option.trailiertales.end_city": "End City",
+  "tooltip.trailiertales.end_city": "Contains options for the End City.",
+  "option.trailiertales.cracked_end_city": "Cracked Blocks",
+  "tooltip.trailiertales.cracked_end_city": "Whether End Cities should occasionally generate cracked blocks.",
+  "option.trailiertales.choral_end_city": "Choral Blocks",
+  "tooltip.trailiertales.choral_end_city": "Whether End Cities should occasionally generate Choral End Stone Bricks.",
+  "option.trailiertales.chiseled_end_city": "Chiseled Blocks",
+  "tooltip.trailiertales.chiseled_end_city": "Whether End Cities should occasionally generate Chiseled Purpur Blocks."
 }

@@ -15,6 +15,7 @@ import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.config.WorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
@@ -164,18 +165,40 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> true
 		);
 
-		StructureProcessorApi.addProcessor(
-			BuiltinStructures.END_CITY.location(),
-			new RuleProcessor(
-				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.PURPUR_BLOCK, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_PURPUR_BLOCK.defaultBlockState()),
-					new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState()),
-					new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState())
+		if (WorldgenConfig.get().endCity.generateCracked) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.END_CITY.location(),
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.PURPUR_BLOCK, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_PURPUR_BLOCK.defaultBlockState())
+					)
 				)
-			)
-		);
+			);
+		}
+
+		if (WorldgenConfig.get().endCity.generateChoral) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.END_CITY.location(),
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
+					)
+				)
+			);
+		}
+
+		if (WorldgenConfig.get().endCity.generateChiseled) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.END_CITY.location(),
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState()),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState())
+					)
+				)
+			);
+		}
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();

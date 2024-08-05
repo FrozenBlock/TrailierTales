@@ -30,6 +30,9 @@
     "client": [
       "net.frozenblock.trailiertales.TrailierTalesClient"
     ],
+    "modmenu": [
+      "net.frozenblock.trailiertales.config.modmenu.ModMenuIntegration"
+    ],
     "fabric-datagen": [
       "net.frozenblock.trailiertales.datagen.TTDataGenerator"
     ]
