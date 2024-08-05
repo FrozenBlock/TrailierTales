@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
-import java.util.List;
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
@@ -11,9 +11,11 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerat
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.BlockConfig;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
+import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Blocks;
+import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
@@ -21,9 +23,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMat
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
-import static net.minecraft.world.level.block.Blocks.*;
-import static net.minecraft.world.level.block.Blocks.MUD_BRICK_SLAB;
 
 public class WWIntegration extends AbstractWWIntegration {
 

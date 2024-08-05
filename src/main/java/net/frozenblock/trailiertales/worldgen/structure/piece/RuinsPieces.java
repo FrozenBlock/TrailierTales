@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.worldgen.structure.piece;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;

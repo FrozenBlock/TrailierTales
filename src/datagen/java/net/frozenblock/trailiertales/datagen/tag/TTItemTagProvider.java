@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.tag.TrailierItemTags;
@@ -27,6 +28,12 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(ConventionalItemTags.MUSIC_DISCS)
+			.add(RegisterItems.MUSIC_DISC_FAUSSE_VIE);
+
+		this.getOrCreateTagBuilder(ItemTags.SAND)
+			.add(RegisterBlocks.SUSPICIOUS_RED_SAND.asItem());
+
 		this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS)
 			.add(RegisterItems.BAIT_POTTERY_SHERD)
 			.add(RegisterItems.BLOOM_POTTERY_SHERD)
@@ -72,6 +79,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem())
+			.add(RegisterBlocks.CUT_SANDSTONE_STAIRS.asItem())
+			.add(RegisterBlocks.CUT_RED_SANDSTONE_STAIRS.asItem())
 			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
@@ -109,6 +118,10 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem())
 			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL.asItem())
+			.add(RegisterBlocks.SMOOTH_SANDSTONE_WALL.asItem())
+			.add(RegisterBlocks.CUT_SANDSTONE_WALL.asItem())
+			.add(RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL.asItem())
+			.add(RegisterBlocks.CUT_RED_SANDSTONE_WALL.asItem())
 			.add(RegisterBlocks.PURPUR_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)

@@ -128,6 +128,14 @@
   "block.trailiertales.mossy_deepslate_tile_slab": "Mossy Deepslate Tile Slab",
   "block.trailiertales.mossy_deepslate_tile_wall": "Mossy Deepslate Tile Wall",
 
+  "block.trailiertales.smooth_sandstone_wall": "Smooth Sandstone Wall",
+  "block.trailiertales.cut_sandstone_stairs": "Cut Sandstone Stairs",
+  "block.trailiertales.cut_sandstone_wall": "Cut Sandstone Wall",
+
+  "block.trailiertales.smooth_red_sandstone_wall": "Smooth Red Sandstone Wall",
+  "block.trailiertales.cut_red_sandstone_stairs": "Cut Red Sandstone Stairs",
+  "block.trailiertales.cut_red_sandstone_wall": "Cut Red Sandstone Wall",
+
   "block.trailiertales.cracked_end_stone_bricks": "Cracked End Stone Bricks",
   "block.trailiertales.chiseled_end_stone_bricks": "Chiseled End Stone Bricks",
   "block.trailiertales.choral_end_stone_bricks": "Choral End Stone Bricks",

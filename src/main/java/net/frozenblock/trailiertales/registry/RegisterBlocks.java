@@ -315,6 +315,26 @@ public class RegisterBlocks {
 		.wall(MOSSY_DEEPSLATE_TILE_WALL)
 		.getFamily();
 
+	// SANDSTONE
+
+	public static final Block SMOOTH_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE));
+
+	public static final Block CUT_SANDSTONE_STAIRS = new StairBlock(
+		Blocks.CUT_SANDSTONE.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
+	);
+	public static final Block CUT_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE));
+
+	// RED SANDSTONE
+
+	public static final Block SMOOTH_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE));
+
+	public static final Block CUT_RED_SANDSTONE_STAIRS = new StairBlock(
+		Blocks.CUT_RED_SANDSTONE.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
+	);
+	public static final Block CUT_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE));
+
 	// ENDSTONE
 
 	public static final Block CRACKED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
@@ -447,6 +467,14 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_deepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.SMOOTH_SANDSTONE_SLAB, "smooth_sandstone_wall", SMOOTH_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(Blocks.CUT_SANDSTONE_SLAB, "cut_sandstone_stairs", CUT_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.CUT_SANDSTONE_SLAB, "cut_sandstone_wall", CUT_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.SMOOTH_RED_SANDSTONE_SLAB, "smooth_red_sandstone_wall", SMOOTH_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockBefore(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_stairs", CUT_RED_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_wall", CUT_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.END_STONE_BRICKS, "cracked_end_stone_bricks", CRACKED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.END_STONE_BRICK_WALL, "chiseled_end_stone_bricks", CHISELED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);

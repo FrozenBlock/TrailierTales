@@ -105,6 +105,14 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL);
 
+		this.dropSelf(RegisterBlocks.SMOOTH_SANDSTONE_WALL);
+		this.dropSelf(RegisterBlocks.CUT_SANDSTONE_STAIRS);
+		this.dropSelf(RegisterBlocks.CUT_SANDSTONE_WALL);
+
+		this.dropSelf(RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL);
+		this.dropSelf(RegisterBlocks.CUT_RED_SANDSTONE_STAIRS);
+		this.dropSelf(RegisterBlocks.CUT_RED_SANDSTONE_WALL);
+
 		this.dropSelf(RegisterBlocks.CRACKED_END_STONE_BRICKS);
 		this.dropSelf(RegisterBlocks.CHISELED_END_STONE_BRICKS);
 		this.dropSelf(RegisterBlocks.CHORAL_END_STONE_BRICKS);
@@ -116,6 +124,9 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(RegisterBlocks.CHISELED_PURPUR_BLOCK);
 		this.dropSelf(RegisterBlocks.PURPUR_WALL);
 
+		this.add(RegisterBlocks.SUSPICIOUS_RED_SAND, noDrop());
+		this.add(RegisterBlocks.SUSPICIOUS_DIRT, noDrop());
+		this.add(RegisterBlocks.SUSPICIOUS_CLAY, noDrop());
 		this.add(RegisterBlocks.COFFIN, noDrop());
 		this.dropSelf(RegisterBlocks.SURVEYOR);
 	}

@@ -68,6 +68,14 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
 
+		this.wall(generator, RegisterBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SMOOTH_SANDSTONE);
+		this.stairs(generator, RegisterBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE);
+		this.wall(generator, RegisterBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
+
+		this.wall(generator, RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.SMOOTH_RED_SANDSTONE);
+		this.stairs(generator, RegisterBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
+		this.wall(generator, RegisterBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
+
 		generator.createTrivialCube(RegisterBlocks.CRACKED_END_STONE_BRICKS);
 		generator.createTrivialCube(RegisterBlocks.CHISELED_END_STONE_BRICKS);
 		generator.family(RegisterBlocks.CHORAL_END_STONE_BRICKS).generateFor(RegisterBlocks.FAMILY_CHORAL_END_STONE_BRICKS);
@@ -90,6 +98,15 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
 		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
 		generator.delegateItemModel(wallBlock, resourceLocation4);
+	}
+
+	public void stairs(@NotNull BlockModelGenerators generator, Block stairsBlock, Block originalBlock) {
+		TextureMapping mapping = TexturedModel.CUBE.get(originalBlock).getMapping();
+		ResourceLocation resourceLocation = ModelTemplates.STAIRS_INNER.create(stairsBlock, mapping, generator.modelOutput);
+		ResourceLocation resourceLocation2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, mapping, generator.modelOutput);
+		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, mapping, generator.modelOutput);
+		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, resourceLocation, resourceLocation2, resourceLocation3));
+		generator.delegateItemModel(stairsBlock, resourceLocation2);
 	}
 
 	@Override
