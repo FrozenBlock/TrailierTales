@@ -59,7 +59,7 @@ public class RegisterEnchantments {
 				)
 			).withEffect(
 				EnchantmentEffectComponents.MOB_EXPERIENCE,
-				new MultiplyValue(LevelBasedValue.perLevel(1.3F, 0.225F))
+				new MultiplyValue(LevelBasedValue.perLevel(1.2F, 0.3F))
 			)
 		);
 	}
