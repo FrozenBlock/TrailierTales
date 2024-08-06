@@ -21,10 +21,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(@NotNull CraftingInput input, Level world) {
-		if (!ItemConfig.SHERD_DUPLICATION_RECIPE) {
-			return false;
-		}
-		if (!this.canCraftInDimensions(input.width(), input.height())) {
+		if (!ItemConfig.SHERD_DUPLICATION_RECIPE || !this.canCraftInDimensions(input.width(), input.height())) {
 			return false;
 		}
 		int sherds = 0;
@@ -43,12 +40,11 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override @NotNull
 	public ItemStack assemble(@NotNull CraftingInput input, HolderLookup.Provider provider) {
-		if (!ItemConfig.SHERD_DUPLICATION_RECIPE) {
-			return ItemStack.EMPTY;
-		}
-		for (ItemStack itemStack : input.items()) {
-			if (itemStack.is(ItemTags.DECORATED_POT_SHERDS)) {
-				return new ItemStack(itemStack.getItem(), 2);
+		if (ItemConfig.SHERD_DUPLICATION_RECIPE) {
+			for (ItemStack itemStack : input.items()) {
+				if (itemStack.is(ItemTags.DECORATED_POT_SHERDS)) {
+					return new ItemStack(itemStack.getItem(), 2);
+				}
 			}
 		}
 		return ItemStack.EMPTY;

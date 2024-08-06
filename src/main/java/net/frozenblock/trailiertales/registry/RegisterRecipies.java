@@ -8,7 +8,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 public class RegisterRecipies {
-
 	public static final RecipeSerializer<SherdCopyRecipe> SHERD_COPY_RECIPE = Registry.register(
 		BuiltInRegistries.RECIPE_SERIALIZER,
 		TrailierConstants.id("crafting_sherd_copy"),
@@ -17,6 +16,4 @@ public class RegisterRecipies {
 
 	public static void init() {
 	}
-
-
 }
