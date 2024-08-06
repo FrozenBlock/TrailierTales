@@ -30,16 +30,16 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Expanded and finished many building block sets
 
 ## RUINS
-- Added Ruins in all Plains and Forest biomes.
-- Added Jungle Ruins in all Jungle biomes.
-- Added Savanna Ruins in Savanna and Savanna Plateau biomes.
-- Added Desert Ruins in all Desert biomes.
-- Added Badlands Ruins in Badlands, Wooded Badlands, and Eroded Badlands biomes.
-- Added Deepslate Ruins in the Deep Dark biome.
-- Will usually generate in clusters.
-- Suspicious blocks will these structures contain new pottery sherds.
-- From most to least common, each building can be either partially buried, on the surface, or completely buried.
-- New structure pieces for each ruin type can easily be added by dragging and dropping a piece in `.nbt` format into one of the existing subfolders in their respective `trailiertales:structure/ruins/` folder.
+- Added Ruins in all Plains and Forest biomes
+- Added Jungle Ruins in all Jungle biomes
+- Added Savanna Ruins in Savanna and Savanna Plateau biomes
+- Added Desert Ruins in all Desert biomes
+- Added Badlands Ruins in Badlands, Wooded Badlands, and Eroded Badlands biomes
+- Added Deepslate Ruins in the Deep Dark biome
+- Will usually generate in clusters
+- Suspicious blocks will these structures contain new pottery sherds
+- From most to least common, each building can be either partially buried, on the surface, or completely buried
+- New structure pieces for each ruin type can easily be added by dragging and dropping a piece in `.nbt` format into one of the existing subfolders in their respective `trailiertales:structure/ruins/` folder
 
 ## POTTERY SHERDS
 - Added Bait Pottery Sherd, found in Warm and Cold Ocean Ruins
@@ -79,7 +79,8 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Each tomb contains at least one Coffin, and may contain a Chest
     - Each Chest has a chance to reward very valuable loot, including but not limited to the new Rebrush enchantment, Reaping enchantment, Undead armor trim, and the new "Fausse Vie" music disc by Zhen
     - Some tombs are laid out as puzzles, while others strictly focus on combat
-- Being so difficult and dark, it is recommended to bring strong tools, armor, and a lot of torches.
+- Being so difficult and dark, it is recommended to bring strong tools, armor, and a lot of torches
+- Catacombs Explorer Maps can be found in Trail Ruins, and traded for with Cartographer Villagers
 
 ## HAUNT
 - A new mob effect
@@ -251,4 +252,4 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Danger Pottery Sherd can now be found in Desert Ruins
 
 ## DECORATED POTS
-- Each time a Decorated Pot wobbles, the next time it wobbles, its animation will be flipped.
+- Each time a Decorated Pot wobbles, the next time it wobbles, its animation will be flipped

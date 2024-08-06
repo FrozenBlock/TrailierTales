@@ -6,14 +6,19 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.config.EntityConfig;
 import net.frozenblock.trailiertales.tag.TrailierStructureTags;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
+import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -80,10 +85,22 @@ public class RegisterLootTables {
 				// Removed Burn
 				// Removed Danger
 				// Added Protection
+				// Added Catacombs Explorer Map
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
+							.add(
+								LootItem.lootTableItem(Items.MAP)
+									.apply(
+										ExplorationMapFunction.makeExplorationMap()
+											.setDestination(TrailierStructureTags.ON_CATACOMBS_EXPLORER_MAPS)
+											.setMapDecoration(RegisterMapDecorationTypes.CATACOMBS)
+											.setZoom((byte)1)
+											.setSkipKnownStructures(false)
+									)
+									.apply(SetNameFunction.setName(Component.translatable("filled_map.trailiertales.catacombs"), SetNameFunction.Target.ITEM_NAME))
+							)
 							.add(LootItem.lootTableItem(RegisterItems.PROTECTION_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD))
