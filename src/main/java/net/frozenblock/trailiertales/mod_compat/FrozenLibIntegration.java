@@ -179,7 +179,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB,
 				RegisterBlocks.CHORAL_END_STONE_BRICK_WALL
 			},
-			RegisterSounds.BRICKS,
+			RegisterSounds.END_STONE_BRICKS,
 			() -> BlockConfig.get().blockSounds.end_stone_bricks
 		);
 

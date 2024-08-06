@@ -424,8 +424,7 @@
       "trailiertales:block/calcite_bricks/step1",
       "trailiertales:block/calcite_bricks/step2",
       "trailiertales:block/calcite_bricks/step3",
-      "trailiertales:block/calcite_bricks/step4",
-      "trailiertales:block/calcite_bricks/step5"
+      "trailiertales:block/calcite_bricks/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -466,6 +465,51 @@
     "subtitle": "subtitles.block.generic.place"
   },
   "block.bricks.step": {
+    "sounds": [
+      "trailiertales:block/bricks/step1",
+      "trailiertales:block/bricks/step2",
+      "trailiertales:block/bricks/step3",
+      "trailiertales:block/bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
+  "block.end_stone_bricks.break": {
+    "sounds": [
+      "trailiertales:block/end_stone_bricks/place1",
+      "trailiertales:block/end_stone_bricks/place2",
+      "trailiertales:block/end_stone_bricks/place3",
+      "trailiertales:block/end_stone_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.end_stone_bricks.fall": {
+    "sounds": [
+      "trailiertales:block/bricks/step1",
+      "trailiertales:block/bricks/step2",
+      "trailiertales:block/bricks/step3",
+      "trailiertales:block/bricks/step4"
+    ]
+  },
+  "block.end_stone_bricks.hit": {
+    "sounds": [
+      "trailiertales:block/end_stone_bricks/place1",
+      "trailiertales:block/end_stone_bricks/place2",
+      "trailiertales:block/end_stone_bricks/place3",
+      "trailiertales:block/end_stone_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.end_stone_bricks.place": {
+    "sounds": [
+      "trailiertales:block/end_stone_bricks/place1",
+      "trailiertales:block/end_stone_bricks/place2",
+      "trailiertales:block/end_stone_bricks/place3",
+      "trailiertales:block/end_stone_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.end_stone_bricks.step": {
     "sounds": [
       "trailiertales:block/bricks/step1",
       "trailiertales:block/bricks/step2",

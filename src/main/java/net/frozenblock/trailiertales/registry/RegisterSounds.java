@@ -42,6 +42,21 @@ public class RegisterSounds {
 		BRICKS_FALL
 	);
 
+	public static final SoundEvent END_STONE_BRICKS_BREAK = register("block.end_stone_bricks.break");
+	public static final SoundEvent END_STONE_BRICKS_STEP = register("block.end_stone_bricks.step");
+	public static final SoundEvent END_STONE_BRICKS_PLACE = register("block.end_stone_bricks.place");
+	public static final SoundEvent END_STONE_BRICKS_HIT = register("block.end_stone_bricks.hit");
+	public static final SoundEvent END_STONE_BRICKS_FALL = register("block.end_stone_bricks.fall");
+	public static final SoundType END_STONE_BRICKS = new SoundType(
+		1F,
+		1.05F,
+		END_STONE_BRICKS_BREAK,
+		END_STONE_BRICKS_STEP,
+		END_STONE_BRICKS_PLACE,
+		END_STONE_BRICKS_HIT,
+		END_STONE_BRICKS_FALL
+	);
+
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");
