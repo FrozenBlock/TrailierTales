@@ -389,8 +389,7 @@
       "trailiertales:block/calcite_bricks/place1",
       "trailiertales:block/calcite_bricks/place2",
       "trailiertales:block/calcite_bricks/place3",
-      "trailiertales:block/calcite_bricks/place4",
-      "trailiertales:block/calcite_bricks/place5"
+      "trailiertales:block/calcite_bricks/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -399,9 +398,7 @@
       "trailiertales:block/calcite_bricks/step1",
       "trailiertales:block/calcite_bricks/step2",
       "trailiertales:block/calcite_bricks/step3",
-      "trailiertales:block/calcite_bricks/step4",
-      "trailiertales:block/calcite_bricks/step5",
-      "trailiertales:block/calcite_bricks/step6"
+      "trailiertales:block/calcite_bricks/step4"
     ]
   },
   "block.calcite_bricks.hit": {
@@ -409,9 +406,7 @@
       "trailiertales:block/calcite_bricks/step1",
       "trailiertales:block/calcite_bricks/step2",
       "trailiertales:block/calcite_bricks/step3",
-      "trailiertales:block/calcite_bricks/step4",
-      "trailiertales:block/calcite_bricks/step5",
-      "trailiertales:block/calcite_bricks/step6"
+      "trailiertales:block/calcite_bricks/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -420,8 +415,7 @@
       "trailiertales:block/calcite_bricks/place1",
       "trailiertales:block/calcite_bricks/place2",
       "trailiertales:block/calcite_bricks/place3",
-      "trailiertales:block/calcite_bricks/place4",
-      "trailiertales:block/calcite_bricks/place5"
+      "trailiertales:block/calcite_bricks/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -431,8 +425,7 @@
       "trailiertales:block/calcite_bricks/step2",
       "trailiertales:block/calcite_bricks/step3",
       "trailiertales:block/calcite_bricks/step4",
-      "trailiertales:block/calcite_bricks/step5",
-      "trailiertales:block/calcite_bricks/step6"
+      "trailiertales:block/calcite_bricks/step5"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
