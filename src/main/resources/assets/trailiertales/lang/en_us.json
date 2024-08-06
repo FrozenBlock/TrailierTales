@@ -171,6 +171,13 @@
   "option.trailiertales.component.title": "Trailier Tales Options",
 
   "option.trailiertales.worldgen": "Worldgen",
+  "option.trailiertales.vegetation": "Vegetation",
+  "tooltip.trailiertales.vegetation": "Contains options related to vegetation.",
+  "option.trailiertales.generate_torchflower": "Torchflowers",
+  "tooltip.trailiertales.generate_torchflower": "Whether Torchflowers should generate in Jungle biomes.",
+  "option.trailiertales.generate_pitcher": "Pitcher Plants",
+  "tooltip.trailiertales.generate_pitcher": "Whether Pitcher Plants should generate in Jungle biomes.",
+
   "option.trailiertales.end_city": "End City",
   "tooltip.trailiertales.end_city": "Contains options for the End City.",
   "option.trailiertales.cracked_end_city": "Cracked Blocks",

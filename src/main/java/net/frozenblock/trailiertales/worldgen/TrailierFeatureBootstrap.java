@@ -36,6 +36,15 @@ public class TrailierFeatureBootstrap {
 		TrailierConstants.id("torchflower")
 	);
 
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PITCHER = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			TrailierConstants.id("pitcher")
+		);
+	public static final ResourceKey<PlacedFeature> PITCHER_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TrailierConstants.id("pitcher")
+	);
+
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
@@ -44,10 +53,23 @@ public class TrailierFeatureBootstrap {
 			TORCHFLOWER,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				4,
+				5,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER))
+				)
+			)
+		);
+
+		register(
+			entries,
+			PITCHER,
+			Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				4,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PITCHER_PLANT))
 				)
 			)
 		);
@@ -61,6 +83,16 @@ public class TrailierFeatureBootstrap {
 			TORCHFLOWER_PLACED,
 			configuredFeatures.getOrThrow(TORCHFLOWER),
 			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			PITCHER_PLACED,
+			configuredFeatures.getOrThrow(PITCHER),
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
