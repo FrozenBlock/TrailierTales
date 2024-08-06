@@ -22,6 +22,26 @@ public final class BlockConfigGui {
 		Config<? extends BlockConfig> configInstance = BlockConfig.INSTANCE;
 		var defaultConfig = BlockConfig.INSTANCE.defaultInstance();
 
+		var suspiciousBlocks = config.suspiciousBlocks;
+		var modifiedSuspiciousBlocks = modifiedConfig.suspiciousBlocks;
+
+		var smoothSuspiciousBlocks = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("smooth_suspicious_blocks"), modifiedSuspiciousBlocks.smooth_animations)
+				.setDefaultValue(defaultConfig.suspiciousBlocks.smooth_animations)
+				.setSaveConsumer(newValue -> suspiciousBlocks.smooth_animations = newValue)
+				.setTooltip(TrailierConstants.tooltip("smooth_suspicious_blocks"))
+				.build(),
+			suspiciousBlocks.getClass(),
+			"smooth_animations",
+			configInstance
+		);
+
+		var suspiciousBlocksCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("suspicious_blocks"),
+			false,
+			TrailierConstants.tooltip("suspicious_blocks"),
+			smoothSuspiciousBlocks
+		);
+
 		var blockSounds = config.blockSounds;
 		var modifiedBlockSounds = modifiedConfig.blockSounds;
 

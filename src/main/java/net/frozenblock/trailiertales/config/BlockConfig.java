@@ -19,11 +19,33 @@ public final class BlockConfig {
 			JsonType.JSON5,
 			null,
 			null
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(BlockConfig syncInstance) {
+				var config = this.config();
+				SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = config.suspiciousBlocks.smooth_animations;
+			}
+		}
 	);
+
+	public static volatile boolean SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = true;
+
+	@CollapsibleObject
+	public final SuspiciousBlocks suspiciousBlocks = new SuspiciousBlocks();
 
 	@CollapsibleObject
 	public final BlockSounds blockSounds = new BlockSounds();
+
+	public static class SuspiciousBlocks {
+		@EntrySyncData(value = "smooth_animations", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean smooth_animations = true;
+	}
 
 	public static class BlockSounds {
 		@EntrySyncData(value = "brick_sounds", behavior = SyncBehavior.UNSYNCABLE)

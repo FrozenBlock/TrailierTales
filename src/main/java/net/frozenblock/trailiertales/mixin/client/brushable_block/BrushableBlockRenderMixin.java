@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.frozenblock.trailiertales.config.BlockConfig;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
@@ -29,7 +30,7 @@ public class BrushableBlockRenderMixin {
 		)
 	)
 	public Comparable<Integer> trailierTales$removeBrushRequirementAndSetItemScale(Comparable<Integer> original) {
-		return 1;
+		return BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS ? 1 : original;
 	}
 
 	@Inject(
@@ -41,10 +42,12 @@ public class BrushableBlockRenderMixin {
 		BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo info,
 		@Share("trailierTales$itemScale") LocalFloatRef itemScale
 	) {
-		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
-		itemScale.set(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
-		if (itemScale.get() <= 0.05F) {
-			info.cancel();
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
+			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+			itemScale.set(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
+			if (itemScale.get() <= 0.05F) {
+				info.cancel();
+			}
 		}
 	}
 
@@ -61,14 +64,26 @@ public class BrushableBlockRenderMixin {
 			)
 		)
 	)
-	public void trailierTales$useSmoothTranslation(PoseStack instance, float f, float g, float h, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
-		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
-		original.call(
-			instance,
-			brushableBlockEntityInterface.trailierTales$getXOffset(partialTick),
-			brushableBlockEntityInterface.trailierTales$getYOffset(partialTick),
-			brushableBlockEntityInterface.trailierTales$getZOffset(partialTick)
-		);
+	public void trailierTales$useSmoothTranslation(
+		PoseStack instance,
+		float f,
+		float g,
+		float h,
+		Operation<Void> original,
+		BrushableBlockEntity brushableBlockEntity,
+		float partialTick
+	) {
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
+			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+			original.call(
+				instance,
+				brushableBlockEntityInterface.trailierTales$getXOffset(partialTick),
+				brushableBlockEntityInterface.trailierTales$getYOffset(partialTick),
+				brushableBlockEntityInterface.trailierTales$getZOffset(partialTick)
+			);
+		} else {
+			original.call(instance, f, g, h);
+		}
 	}
 
 	@WrapOperation(
@@ -85,12 +100,22 @@ public class BrushableBlockRenderMixin {
 			)
 		)
 	)
-	public void trailierTales$useSmoothXAxisRotation(PoseStack instance, Quaternionf quaternionf, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
-		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
-		original.call(
-			instance,
-			Axis.YP.rotationDegrees(brushableBlockEntityInterface.trailierTales$getRotation(partialTick) + 15F)
-		);
+	public void trailierTales$useSmoothXAxisRotation(
+		PoseStack instance,
+		Quaternionf quaternionf,
+		Operation<Void> original,
+		BrushableBlockEntity brushableBlockEntity,
+		float partialTick
+	) {
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
+			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+			original.call(
+				instance,
+				Axis.YP.rotationDegrees(brushableBlockEntityInterface.trailierTales$getRotation(partialTick) + 15F)
+			);
+		} else {
+			original.call(instance, quaternionf);
+		}
 	}
 
 	@WrapOperation(
@@ -100,15 +125,27 @@ public class BrushableBlockRenderMixin {
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V"
 		)
 	)
-	public void trailierTales$useSmoothScale(PoseStack instance, float x, float y, float z, Operation<Void> original, BrushableBlockEntity brushableBlockEntity, float partialTick) {
-		BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
-		float itemScale = brushableBlockEntityInterface.trailierTales$getItemScale(partialTick);
-		original.call(
-			instance,
-			x * itemScale,
-			y * itemScale,
-			z * itemScale
-		);
+	public void trailierTales$useSmoothScale(
+		PoseStack instance,
+		float x,
+		float y,
+		float z,
+		Operation<Void> original,
+		BrushableBlockEntity brushableBlockEntity,
+		float partialTick
+	) {
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
+			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+			float itemScale = brushableBlockEntityInterface.trailierTales$getItemScale(partialTick);
+			original.call(
+				instance,
+				x * itemScale,
+				y * itemScale,
+				z * itemScale
+			);
+		} else {
+			original.call(instance, x, y, z);
+		}
 	}
 
 }

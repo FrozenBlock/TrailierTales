@@ -183,6 +183,11 @@
 
   "option.trailiertales.block": "Block",
 
+  "option.trailiertales.suspicious_blocks": "Suspicious Blocks",
+  "tooltip.trailiertales.suspicious_blocks": "Contains options related to Suspicious Blocks.",
+  "option.trailiertales.smooth_suspicious_blocks": "Smooth Animations",
+  "tooltip.trailiertales.smooth_suspicious_blocks": "Whether Supicious Blocks should have smooth animations.",
+
   "option.trailiertales.block_sounds": "Block Sounds",
   "tooltip.trailiertales.block_sounds": "Contains options related to block sounds.",
   "option.trailiertales.brick_sounds": "Bricks",
