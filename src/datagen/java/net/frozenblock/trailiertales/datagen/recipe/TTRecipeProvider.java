@@ -500,10 +500,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICKS)
 			.requires(Blocks.END_STONE_BRICKS)
-			.requires(Blocks.VINE)
+			.requires(Items.CHORUS_FRUIT)
 			.group("choral_end_stone_bricks")
 			.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
-			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE_BRICKS, Blocks.VINE));
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE_BRICKS, Items.CHORUS_FRUIT));
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
@@ -519,17 +519,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE)
 			.requires(Blocks.END_STONE)
-			.requires(Blocks.VINE)
+			.requires(Items.CHORUS_FRUIT)
 			.group("choral_end_stone")
-			.unlockedBy("has_vine", has(Blocks.VINE))
-			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE, Blocks.VINE));
-
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE)
-			.requires(Blocks.END_STONE)
-			.requires(Blocks.MOSS_BLOCK)
-			.group("choral_end_stone")
-			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE, Blocks.MOSS_BLOCK));
+			.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE, Items.CHORUS_FRUIT));
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_STAIRS, RegisterBlocks.CHORAL_END_STONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_SLAB, RegisterBlocks.CHORAL_END_STONE, 2);

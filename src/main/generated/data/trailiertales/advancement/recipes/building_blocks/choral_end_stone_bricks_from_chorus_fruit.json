@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_moss_block": {
+    "has_chorus_fruit": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:moss_block"
+            "items": "minecraft:chorus_fruit"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:choral_end_stone_from_moss_block"
+        "recipe": "minecraft:choral_end_stone_bricks_from_chorus_fruit"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_moss_block"
+      "has_chorus_fruit"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:choral_end_stone_from_moss_block"
+      "minecraft:choral_end_stone_bricks_from_chorus_fruit"
     ]
   }
 }
