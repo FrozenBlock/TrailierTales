@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.registry;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.config.EntityConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
@@ -113,7 +114,7 @@ public class RegisterLootTables {
 		});
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key)) {
+			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && EntityConfig.get().sniffer.cyan_rose_seeds) {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS));
 				tableBuilder.withPool(pool);
