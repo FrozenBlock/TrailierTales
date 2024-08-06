@@ -37,6 +37,8 @@ public final class MixinsConfig {
 
 	public boolean surveyor = true;
 
+	public boolean datafix = true;
+
 	public static MixinsConfig get() {
 		return INSTANCE.config();
 	}

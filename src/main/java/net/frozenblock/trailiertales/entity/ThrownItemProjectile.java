@@ -19,18 +19,18 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.NotNull;
 
-public class DamagingThrowableItemProjectile extends ThrowableItemProjectile {
+public class ThrownItemProjectile extends ThrowableItemProjectile {
 
-	public DamagingThrowableItemProjectile(@NotNull EntityType<? extends DamagingThrowableItemProjectile> entityType, @NotNull Level level) {
+	public ThrownItemProjectile(@NotNull EntityType<? extends ThrownItemProjectile> entityType, @NotNull Level level) {
 		super(entityType, level);
 	}
 
-	public DamagingThrowableItemProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
-		super(RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE, shooter, level);
+	public ThrownItemProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
+		super(RegisterEntities.THROWN_ITEM_PROJECTILE, shooter, level);
 	}
 
-	public DamagingThrowableItemProjectile(@NotNull Level level, double x, double y, double z) {
-		super(RegisterEntities.DAMAGING_THROWABLE_ITEM_PROJECTILE, x, y, z, level);
+	public ThrownItemProjectile(@NotNull Level level, double x, double y, double z) {
+		super(RegisterEntities.THROWN_ITEM_PROJECTILE, x, y, z, level);
 	}
 
 	@Override

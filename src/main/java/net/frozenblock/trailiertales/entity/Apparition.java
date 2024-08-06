@@ -670,7 +670,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
 				projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
 			} else {
-				DamagingThrowableItemProjectile thrownItem = new DamagingThrowableItemProjectile(this.level(), this);
+				ThrownItemProjectile thrownItem = new ThrownItemProjectile(this.level(), this);
 				thrownItem.setItem(singleItem);
 				projectile = thrownItem;
 			}

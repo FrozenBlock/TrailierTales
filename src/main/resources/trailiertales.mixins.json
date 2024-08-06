@@ -13,9 +13,12 @@
     "common.brushable_block.FallingBlockEntityItemMixin",
     "common.coffin.EntityMixin",
     "common.coffin.LivingEntityMixin",
+    "common.datafix.DataFixersMixin",
+    "common.datafix.V3328Mixin",
+    "common.datafix.V3689Mixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
-    "datagen.common.feature_flag.FeatureFlagsMixin",
-    "common.surveyor.RedStoneWireBlockMixin"
+    "common.surveyor.RedStoneWireBlockMixin",
+    "datagen.common.feature_flag.FeatureFlagsMixin"
   ],
   "client": [
     "client.brush.ItemInHandLayerMixin",

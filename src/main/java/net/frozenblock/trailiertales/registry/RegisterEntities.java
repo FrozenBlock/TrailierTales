@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.entity.DamagingThrowableItemProjectile;
+import net.frozenblock.trailiertales.entity.ThrownItemProjectile;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -20,17 +20,17 @@ public final class RegisterEntities {
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F)
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
-			.build(TrailierConstants.string("apparition")) // id is for datafixers
+			.build(TrailierConstants.string("apparition"))
 	);
 
-	public static final EntityType<DamagingThrowableItemProjectile> DAMAGING_THROWABLE_ITEM_PROJECTILE = register(
-		"damaging_throwable_item_projectile",
-		EntityType.Builder.<DamagingThrowableItemProjectile>of(DamagingThrowableItemProjectile::new, MobCategory.MISC)
+	public static final EntityType<ThrownItemProjectile> THROWN_ITEM_PROJECTILE = register(
+		"thrown_item",
+		EntityType.Builder.<ThrownItemProjectile>of(ThrownItemProjectile::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
-			.build(TrailierConstants.string("damaging_throwable_item_projectile"))
+			.build(TrailierConstants.string("thrown_item"))
 	);
 
 	public static void init() {

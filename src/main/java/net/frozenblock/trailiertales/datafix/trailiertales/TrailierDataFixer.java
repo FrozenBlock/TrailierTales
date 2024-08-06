@@ -12,7 +12,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public class TrailierDataFixer {
-	public static final int DATA_VERSION = 2;
+	public static final int DATA_VERSION = 3;
 
 	private TrailierDataFixer() {
 		throw new UnsupportedOperationException("TrailierDataFixer contains only static declarations.");
@@ -23,7 +23,6 @@ public class TrailierDataFixer {
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
 		Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
-
 		// GRANITE
 		SimpleFixes.addBlockRenameFix(
 			builder,
@@ -240,9 +239,14 @@ public class TrailierDataFixer {
 			schemaV1
 		);
 
-		Schema schemaV2 = builder.addSchema(2, TTV2::new);
-		builder.addFixer(new AddNewChoices(schemaV2, "Added Apparition", References.ENTITY));
-		builder.addFixer(new AddNewChoices(schemaV2, "Added Damaging Throwable Item Projectile", References.ENTITY));
+		Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
+		SimpleFixes.addEntityRenameFix(
+			builder,
+			"Rename damaging_throwable_item_projectile to thrown_item",
+			TrailierConstants.id("damaging_throwable_item_projectile"),
+			TrailierConstants.id("thrown_item"),
+			schemaV3
+		);
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 	}
