@@ -139,21 +139,6 @@ public class RegisterLootTables {
 				tableBuilder.withPool(pool);
 			}
 		});
-
-		TradeOfferHelper.registerVillagerOffers(
-			VillagerProfession.CARTOGRAPHER,
-			3,
-			(factories, rebalanced) -> factories.add(
-				new VillagerTrades.TreasureMapForEmeralds(
-					12,
-					TrailierStructureTags.ON_CATACOMBS_EXPLORER_MAPS,
-					"filled_map.trailiertales.catacombs",
-					RegisterMapDecorationTypes.CATACOMBS,
-					12,
-					10
-				)
-			)
-		);
 	}
 
 	private static @NotNull ResourceKey<LootTable> register(String path) {

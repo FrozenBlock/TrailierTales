@@ -23,6 +23,7 @@ import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.registry.RegisterVillagerTrades;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
 import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
@@ -41,7 +42,7 @@ public class TrailierTales extends FrozenModInitializer {
 	public void onInitialize(String modId, ModContainer container) {
 		TrailierConstants.startMeasuring(this);
 
-		
+
 
 		if (TrailierDatagenConstants.IS_DATAGEN) {
 			TrailierFeatureFlags.init();
@@ -67,6 +68,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterMobEffects.init();
 		RegisterJukeboxSongs.init();
 		RegsiterRuleBlockEntityModifiers.init();
+		RegisterVillagerTrades.init();
 
 		TrailierModIntegrations.init();
 

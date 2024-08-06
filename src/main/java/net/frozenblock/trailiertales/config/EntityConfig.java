@@ -21,6 +21,9 @@ public final class EntityConfig {
 		)
 	);
 
+	@EntrySyncData(value = "villagers_sell_catacombs_map")
+	public boolean villagers_sell_catacombs_map = true;
+
 	@CollapsibleObject
 	public final Sniffer sniffer = new Sniffer();
 

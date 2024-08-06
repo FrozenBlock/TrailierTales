@@ -22,6 +22,20 @@ public final class EntityConfigGui {
 		Config<? extends EntityConfig> configInstance = EntityConfig.INSTANCE;
 		var defaultConfig = EntityConfig.INSTANCE.defaultInstance();
 
+		var villagersSellCatacombsMap = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(TrailierConstants.text("villagers_sell_catacombs_map"), modifiedConfig.villagers_sell_catacombs_map)
+					.setDefaultValue(defaultConfig.villagers_sell_catacombs_map)
+					.setSaveConsumer(newValue -> config.villagers_sell_catacombs_map = newValue)
+					.setTooltip(TrailierConstants.tooltip("villagers_sell_catacombs_map"))
+					.requireRestart()
+					.build(),
+				config.getClass(),
+				"villagers_sell_catacombs_map",
+				configInstance
+			)
+		);
+
 		var sniffer = config.sniffer;
 		var modifiedSniffer = modifiedConfig.sniffer;
 

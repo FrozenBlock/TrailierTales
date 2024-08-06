@@ -212,6 +212,10 @@
   "tooltip.trailiertales.half_brush_effects": "Whether extra particles and a brush sound should play when the Brush is moving backwards.",
 
   "option.trailiertales.entity": "Entity",
+
+  "option.trailiertales.villagers_sell_catacombs_map": "Catacombs Map Trade",
+  "tooltip.trailiertales.villagers_sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
+
   "option.trailiertales.sniffer": "Sniffer",
   "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",
   "option.trailiertales.sniffer_digs_cyan_rose_seeds": "Dig Cyan Rose Seeds",
