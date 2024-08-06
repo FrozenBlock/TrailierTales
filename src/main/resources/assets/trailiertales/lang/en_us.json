@@ -182,8 +182,8 @@
   "option.trailiertales.entity": "Entity",
   "option.trailiertales.sniffer": "Sniffer",
   "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",
-  "option.trailiertales.dig_cyan_rose_seeds": "Dig Cyan Rose Seeds",
-  "tooltip.trailiertales.dig_cyan_rose_seeds": "Whether Sniffers can dig up Cyan Rose Seeds.",
+  "option.trailiertales.sniffer_digs_cyan_rose_seeds": "Dig Cyan Rose Seeds",
+  "tooltip.trailiertales.sniffer_digs_cyan_rose_seeds": "Whether Sniffers can dig up Cyan Rose Seeds.",
   "option.trailiertales.sniffer_spawns_naturally": "Spawning",
   "tooltip.trailiertales.sniffer_spawns_naturally": "Whether SSniffers can spawn in Jungle biomes.",
 
