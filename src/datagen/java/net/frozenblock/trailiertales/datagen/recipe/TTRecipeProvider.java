@@ -1,27 +1,10 @@
-/*
- * Copyright 2024 FrozenBlock
- * This file is part of Wilder Wild.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
- */
-
 package net.frozenblock.trailiertales.datagen.recipe;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -40,6 +23,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput recipeOutput) {
+		generateForEnabledBlockFamilies(recipeOutput, TrailierFeatureFlags.TRAILIER_TALES_FLAG_SET);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RegisterBlocks.SURVEYOR)
 			.define('E', RegisterItems.ECTOPLASM)
 			.define('A', Items.AMETHYST_SHARD)
@@ -96,29 +80,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// GRANITE
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_GRANITE_BRICKS.asItem(), 0.1F, 200)
-			.unlockedBy("has_granite_bricks", has(RegisterBlocks.GRANITE_BRICKS))
-			.save(recipeOutput);
-
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Ingredient.of(RegisterBlocks.GRANITE_BRICK_SLAB))
-			.unlockedBy("has_granite_bricks", has(RegisterBlocks.GRANITE_BRICKS))
-			.unlockedBy("has_chiseled_granite_bricks", has(RegisterBlocks.CHISELED_GRANITE_BRICKS))
-			.unlockedBy("has_granite_brick_slab", has(RegisterBlocks.GRANITE_BRICK_SLAB))
-			.save(recipeOutput);
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, 4)
 			.define('#', Blocks.GRANITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_granite", has(Blocks.GRANITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.GRANITE_BRICKS))
-			.unlockedBy("has_granite_bricks", has(RegisterBlocks.GRANITE_BRICKS))
-			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.GRANITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.GRANITE_BRICKS))
-			.unlockedBy("has_granite_bricks", has(RegisterBlocks.GRANITE_BRICKS))
-			.save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.GRANITE_BRICK_WALL, RegisterBlocks.GRANITE_BRICKS);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Blocks.GRANITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Blocks.POLISHED_GRANITE);
@@ -157,29 +124,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// DIORITE
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.DIORITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_DIORITE_BRICKS.asItem(), 0.1F, 200)
-			.unlockedBy("has_diorite_bricks", has(RegisterBlocks.DIORITE_BRICKS))
-			.save(recipeOutput);
-
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Ingredient.of(RegisterBlocks.DIORITE_BRICK_SLAB))
-			.unlockedBy("has_diorite_bricks", has(RegisterBlocks.DIORITE_BRICKS))
-			.unlockedBy("has_chiseled_diorite_bricks", has(RegisterBlocks.CHISELED_DIORITE_BRICKS))
-			.unlockedBy("has_diorite_brick_slab", has(RegisterBlocks.DIORITE_BRICK_SLAB))
-			.save(recipeOutput);
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, 4)
 			.define('#', Blocks.DIORITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_diorite", has(Blocks.DIORITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.DIORITE_BRICKS))
-			.unlockedBy("has_diorite_bricks", has(RegisterBlocks.DIORITE_BRICKS))
-			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.DIORITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.DIORITE_BRICKS))
-			.unlockedBy("has_diorite_bricks", has(RegisterBlocks.DIORITE_BRICKS))
-			.save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.DIORITE_BRICK_WALL, RegisterBlocks.DIORITE_BRICKS);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Blocks.DIORITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Blocks.POLISHED_DIORITE);
@@ -218,29 +168,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// ANDESITE
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_ANDESITE_BRICKS.asItem(), 0.1F, 200)
-			.unlockedBy("has_andesite_bricks", has(RegisterBlocks.ANDESITE_BRICKS))
-			.save(recipeOutput);
-
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Ingredient.of(RegisterBlocks.ANDESITE_BRICK_SLAB))
-			.unlockedBy("has_andesite_bricks", has(RegisterBlocks.ANDESITE_BRICKS))
-			.unlockedBy("has_chiseled_andesite_bricks", has(RegisterBlocks.CHISELED_ANDESITE_BRICKS))
-			.unlockedBy("has_andesite_brick_slab", has(RegisterBlocks.ANDESITE_BRICK_SLAB))
-			.save(recipeOutput);
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, 4)
 			.define('#', Blocks.ANDESITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_andesite", has(Blocks.ANDESITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.ANDESITE_BRICKS))
-			.unlockedBy("has_andesite_bricks", has(RegisterBlocks.ANDESITE_BRICKS))
-			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.ANDESITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.ANDESITE_BRICKS))
-			.unlockedBy("has_andesite_bricks", has(RegisterBlocks.ANDESITE_BRICKS))
-			.save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.ANDESITE_BRICK_WALL, RegisterBlocks.ANDESITE_BRICKS);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Blocks.ANDESITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Blocks.POLISHED_ANDESITE);
@@ -288,29 +221,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_CALCITE_SLAB, RegisterBlocks.POLISHED_CALCITE, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_CALCITE_STAIRS, RegisterBlocks.POLISHED_CALCITE);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(RegisterBlocks.CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_CALCITE_BRICKS.asItem(), 0.1F, 200)
-			.unlockedBy("has_calcite_bricks", has(RegisterBlocks.CALCITE_BRICKS))
-			.save(recipeOutput);
-
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_CALCITE_BRICKS, Ingredient.of(RegisterBlocks.CALCITE_BRICK_SLAB))
-			.unlockedBy("has_calcite_bricks", has(RegisterBlocks.CALCITE_BRICKS))
-			.unlockedBy("has_chiseled_calcite_bricks", has(RegisterBlocks.CHISELED_CALCITE_BRICKS))
-			.unlockedBy("has_calcite_brick_slab", has(RegisterBlocks.CALCITE_BRICK_SLAB))
-			.save(recipeOutput);
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CALCITE_BRICKS, 4)
 			.define('#', Blocks.CALCITE)
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_calcite", has(Blocks.CALCITE))
 			.save(recipeOutput);
-		slabBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CALCITE_BRICK_SLAB, Ingredient.of(RegisterBlocks.CALCITE_BRICKS))
-			.unlockedBy("has_calcite_bricks", has(RegisterBlocks.CALCITE_BRICKS))
-			.save(recipeOutput);
-		stairBuilder(RegisterBlocks.CALCITE_BRICK_STAIRS, Ingredient.of(RegisterBlocks.CALCITE_BRICKS))
-			.unlockedBy("has_calcite_bricks", has(RegisterBlocks.CALCITE_BRICKS))
-			.save(recipeOutput);
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.CALCITE_BRICK_WALL, RegisterBlocks.CALCITE_BRICKS);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_CALCITE_BRICKS, Blocks.CALCITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_CALCITE_BRICKS, RegisterBlocks.POLISHED_CALCITE);
@@ -514,6 +430,11 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_WALL, RegisterBlocks.CHORAL_END_STONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_WALL, RegisterBlocks.CHORAL_END_STONE_BRICKS);
 
+		// END STONE
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.END_STONE_STAIRS, Blocks.END_STONE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.END_STONE_SLAB, Blocks.END_STONE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.END_STONE_WALL, Blocks.END_STONE);
 
 		// CHORAL END STONE
 
@@ -530,17 +451,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// PURPUR
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.PURPUR_BLOCK), RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CRACKED_PURPUR_BLOCK.asItem(), 0.1F, 200)
-			.unlockedBy("has_purpur_block", has(Blocks.PURPUR_BLOCK))
-			.save(recipeOutput);
-
-		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_PURPUR_BLOCK, Ingredient.of(Blocks.PURPUR_SLAB))
-			.unlockedBy("has_purpur_block", has(Blocks.PURPUR_BLOCK))
-			.unlockedBy("has_chiseled_purpur_block", has(RegisterBlocks.CHISELED_PURPUR_BLOCK))
-			.unlockedBy("has_purpur_slab", has(Blocks.PURPUR_SLAB))
-			.save(recipeOutput);
-
-		wall(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
 

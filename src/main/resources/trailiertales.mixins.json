@@ -14,6 +14,7 @@
     "common.coffin.EntityMixin",
     "common.coffin.LivingEntityMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
+    "common.feature_flag.FeatureFlagsMixin",
     "common.surveyor.RedStoneWireBlockMixin"
   ],
   "client": [

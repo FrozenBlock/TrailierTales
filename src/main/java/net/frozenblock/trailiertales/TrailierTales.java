@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
+import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.datafix.trailiertales.TrailierDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
@@ -39,6 +40,9 @@ public class TrailierTales extends FrozenModInitializer {
 	@Override
 	public void onInitialize(String modId, ModContainer container) {
 		TrailierConstants.startMeasuring(this);
+
+		TrailierFeatureFlags.init();
+		FrozenFeatureFlags.rebuild();
 
 		TrailierDataFixer.applyDataFixes(container);
 		RegisterStructureTypes.init();

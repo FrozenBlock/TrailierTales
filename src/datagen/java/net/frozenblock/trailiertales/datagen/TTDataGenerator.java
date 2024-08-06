@@ -17,20 +17,47 @@ import net.frozenblock.trailiertales.datagen.tag.TTEnchantmentTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTDataGenerator implements DataGeneratorEntrypoint {
+	static final BlockFamily FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
+		.stairs(RegisterBlocks.CALCITE_STAIRS)
+		.slab(RegisterBlocks.CALCITE_SLAB)
+		.wall(RegisterBlocks.CALCITE_WALL)
+		.polished(RegisterBlocks.POLISHED_CALCITE)
+		.getFamily();
+
+	static final BlockFamily FAMILY_END_STONE = BlockFamilies.familyBuilder(Blocks.END_STONE)
+		.stairs(RegisterBlocks.END_STONE_STAIRS)
+		.slab(RegisterBlocks.END_STONE_SLAB)
+		.wall(RegisterBlocks.END_STONE_WALL)
+		.getFamily();
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
+		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.SMOOTH_SANDSTONE_WALL);
+		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, RegisterBlocks.CUT_SANDSTONE_STAIRS);
+		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.CUT_SANDSTONE_WALL);
+
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, RegisterBlocks.CRACKED_PURPUR_BLOCK);
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, RegisterBlocks.CHISELED_PURPUR_BLOCK);
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.PURPUR_WALL);
+		BlockFamilies.PURPUR.generateRecipe = true;
+
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
+
+		pack.
 
 		// ASSETS
 

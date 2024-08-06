@@ -26,7 +26,6 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("decorated_pot")) return config.decorated_pot;
 		if (mixinClassName.contains("haunt")) return config.haunt;
 		if (mixinClassName.contains("surveyor")) return config.surveyor;
-		if (mixinClassName.contains("terrain_adjustment")) return config.terrain_adjustment;
 
 		return true;
 	}

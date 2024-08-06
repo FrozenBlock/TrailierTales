@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
+import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.DamagingThrowableItemProjectile;
@@ -12,13 +13,13 @@ import net.minecraft.world.entity.MobCategory;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterEntities {
-	private RegisterEntities() {}
 
 	public static final EntityType<Apparition> APPARITION = register(
 		"apparition",
 		FabricEntityType.Builder.createMob(Apparition::new, MobCategory.MONSTER, mob -> mob.defaultAttributes(Apparition::createApparitionAttributes))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F)
+			.requiredFeatures(TrailierFeatureFlags.TRAILIER_TALES)
 			.build(TrailierConstants.string("apparition")) // id is for datafixers
 	);
 
@@ -28,10 +29,12 @@ public final class RegisterEntities {
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
+			.requiredFeatures(TrailierFeatureFlags.TRAILIER_TALES)
 			.build(TrailierConstants.string("damaging_throwable_item_projectile"))
 	);
 
-	public static void init() {}
+	public static void init() {
+	}
 
 	@NotNull
 	private static <E extends Entity, T extends EntityType<E>> T register(@NotNull String path, @NotNull T entityType) {

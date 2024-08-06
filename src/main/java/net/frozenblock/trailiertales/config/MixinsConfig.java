@@ -37,8 +37,6 @@ public final class MixinsConfig {
 
 	public boolean surveyor = true;
 
-	public boolean terrain_adjustment = true;
-
 	public static MixinsConfig get() {
 		return INSTANCE.config();
 	}

@@ -1,31 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_chiseled_granite_bricks": {
-      "conditions": {
-        "items": [
-          {
-            "items": "trailiertales:chiseled_granite_bricks"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_granite_brick_slab": {
       "conditions": {
         "items": [
           {
             "items": "trailiertales:granite_brick_slab"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_granite_bricks": {
-      "conditions": {
-        "items": [
-          {
-            "items": "trailiertales:granite_bricks"
           }
         ]
       },
@@ -41,8 +21,6 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_granite_bricks",
-      "has_chiseled_granite_bricks",
       "has_granite_brick_slab"
     ]
   ],

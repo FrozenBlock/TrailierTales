@@ -82,7 +82,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.CUT_SANDSTONE_STAIRS.asItem())
 			.add(RegisterBlocks.CUT_RED_SANDSTONE_STAIRS.asItem())
 			.add(RegisterBlocks.CHORAL_END_STONE_STAIRS.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem());
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem())
+			.add(RegisterBlocks.END_STONE_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
 			.add(RegisterBlocks.GRANITE_BRICK_SLAB.asItem())
@@ -101,7 +102,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem())
 			.add(RegisterBlocks.CHORAL_END_STONE_SLAB.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB.asItem());
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB.asItem())
+			.add(RegisterBlocks.END_STONE_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
 			.add(RegisterBlocks.GRANITE_BRICK_WALL.asItem())
@@ -125,6 +127,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL.asItem())
 			.add(RegisterBlocks.CUT_RED_SANDSTONE_WALL.asItem())
 			.add(RegisterBlocks.CHORAL_END_STONE_WALL.asItem())
+			.add(RegisterBlocks.END_STONE_WALL.asItem())
 			.add(RegisterBlocks.PURPUR_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)

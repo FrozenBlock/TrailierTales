@@ -1,9 +1,9 @@
 accessWidener    v2    named
 
 # Advancement
-accessible    field    net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance    effects    Ljava/util/Optional;
-accessible    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
-mutable    field    net/minecraft/advancements/critereon/MobEffectsPredicate    effectMap    Ljava/util/Map;
+accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
+accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
 
 # Projectile
 accessible method net/minecraft/world/entity/projectile/ProjectileUtil getHitResult (Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/Level;FLnet/minecraft/world/level/ClipContext$Block;)Lnet/minecraft/world/phys/HitResult;
@@ -36,3 +36,5 @@ accessible class net/minecraft/client/gui/Gui$HeartType
 # Other
 accessible method net/minecraft/world/level/block/entity/BlockEntityType$Builder <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
 accessible field net/minecraft/world/item/CreativeModeTabs FUNCTIONAL_BLOCKS Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/data/BlockFamily variants Ljava/util/Map;
+accessible field net/minecraft/data/BlockFamily generateRecipe Z

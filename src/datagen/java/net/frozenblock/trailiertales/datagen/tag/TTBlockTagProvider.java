@@ -109,6 +109,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.CHORAL_END_STONE_STAIRS)
 			.add(RegisterBlocks.CHORAL_END_STONE_SLAB)
 			.add(RegisterBlocks.CHORAL_END_STONE_WALL)
+			.add(RegisterBlocks.END_STONE_STAIRS)
+			.add(RegisterBlocks.END_STONE_SLAB)
+			.add(RegisterBlocks.END_STONE_WALL)
 
 			.add(RegisterBlocks.CRACKED_END_STONE_BRICKS)
 			.add(RegisterBlocks.CHISELED_END_STONE_BRICKS)
@@ -164,7 +167,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.CUT_SANDSTONE_STAIRS)
 			.add(RegisterBlocks.CUT_RED_SANDSTONE_STAIRS)
 			.add(RegisterBlocks.CHORAL_END_STONE_STAIRS)
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS);
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS)
+			.add(RegisterBlocks.END_STONE_STAIRS);
 
 		this.getOrCreateTagBuilder(BlockTags.SLABS)
 			.add(RegisterBlocks.GRANITE_BRICK_SLAB)
@@ -183,7 +187,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
 			.add(RegisterBlocks.CHORAL_END_STONE_SLAB)
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB);
+			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB)
+			.add(RegisterBlocks.END_STONE_SLAB);
 
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
 			.add(RegisterBlocks.GRANITE_BRICK_WALL)
@@ -207,6 +212,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.CUT_RED_SANDSTONE_WALL)
 			.add(RegisterBlocks.CHORAL_END_STONE_WALL)
 			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL)
+			.add(RegisterBlocks.END_STONE_WALL)
 			.add(RegisterBlocks.PURPUR_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.ANCIENT_CITY_REPLACEABLE)
