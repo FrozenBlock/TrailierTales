@@ -548,7 +548,7 @@ public class RegisterBlocks {
 
 		registerBlockAfter(Blocks.END_STONE, "end_stone_stairs", END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(END_STONE_STAIRS, "end_stone_slab", END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(END_STONE_WALL, "end_stone_wall", END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(END_STONE_SLAB, "end_stone_wall", END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(END_STONE_WALL, "choral_end_stone", CHORAL_END_STONE, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CHORAL_END_STONE, "choral_end_stone_stairs", CHORAL_END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
