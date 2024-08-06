@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.datagen.recipe;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
@@ -12,9 +13,13 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class TTRecipeProvider extends FabricRecipeProvider {
 	public TTRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -477,5 +482,20 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("###")
 			.unlockedBy("has_undead_armor_trim_smithing_template", has(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE))
 			.save(recipeOutput);
+	}
+
+	public static void stonecutterResultFromBase(RecipeOutput exporter, RecipeCategory category, ItemLike ingredient, ItemLike result) {
+		stonecutterResultFromBase(exporter, category, ingredient, result, 1);
+	}
+
+	@Contract("_, _ -> new")
+	public static @NotNull String getConversionRecipeName(ItemLike from, ItemLike to) {
+		return TrailierConstants.string(getItemName(from) + "_from_" + getItemName(to));
+	}
+
+	public static void stonecutterResultFromBase(RecipeOutput exporter, RecipeCategory category, ItemLike ingredient, ItemLike result, int count) {
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(result), category, ingredient, count)
+			.unlockedBy(getHasName(result), has(result))
+			.save(exporter, getConversionRecipeName(ingredient, result) + "_stonecutting");
 	}
 }

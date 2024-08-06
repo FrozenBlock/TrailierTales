@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:choral_end_stone_wall_from_choral_end_stone_stonecutting"
+        "recipe": "trailiertales:choral_end_stone_wall_from_choral_end_stone_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:choral_end_stone_wall_from_choral_end_stone_stonecutting"
+      "trailiertales:choral_end_stone_wall_from_choral_end_stone_stonecutting"
     ]
   }
 }
