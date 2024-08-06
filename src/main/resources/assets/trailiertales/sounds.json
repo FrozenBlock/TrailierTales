@@ -451,8 +451,7 @@
       "trailiertales:block/bricks/step1",
       "trailiertales:block/bricks/step2",
       "trailiertales:block/bricks/step3",
-      "trailiertales:block/bricks/step4",
-      "trailiertales:block/bricks/step5"
+      "trailiertales:block/bricks/step4"
     ]
   },
   "block.bricks.hit": {
@@ -478,8 +477,7 @@
       "trailiertales:block/bricks/step1",
       "trailiertales:block/bricks/step2",
       "trailiertales:block/bricks/step3",
-      "trailiertales:block/bricks/step4",
-      "trailiertales:block/bricks/step5"
+      "trailiertales:block/bricks/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
