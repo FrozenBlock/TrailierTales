@@ -25,11 +25,11 @@ public class ConfigGuiBuilder {
 
 		ConfigEntryBuilder entryBuilder = configBuilder.getEntryBuilder();
 
+		var block = configBuilder.getOrCreateCategory(TrailierConstants.text("block"));
+		BlockConfigGui.setupEntries(block, entryBuilder);
+
 		var worldgen = configBuilder.getOrCreateCategory(TrailierConstants.text("worldgen"));
 		WorldgenConfigGui.setupEntries(worldgen, entryBuilder);
-
-		var block = configBuilder.getOrCreateCategory(TrailierConstants.text("block"));
-		BlockConfigGui.setupEntries(worldgen, entryBuilder);
 
 		return configBuilder.build();
 	}
