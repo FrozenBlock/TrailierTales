@@ -22,6 +22,19 @@ public final class ItemConfigGui {
 		Config<? extends ItemConfig> configInstance = ItemConfig.INSTANCE;
 		var defaultConfig = ItemConfig.INSTANCE.defaultInstance();
 
+		var sherdDuplicationRecipe = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(TrailierConstants.text("sherd_duplication_recipe"), modifiedConfig.sherd_duplication_recipe)
+					.setDefaultValue(defaultConfig.sherd_duplication_recipe)
+					.setSaveConsumer(newValue -> config.sherd_duplication_recipe = newValue)
+					.setTooltip(TrailierConstants.tooltip("sherd_duplication_recipe"))
+					.build(),
+				config.getClass(),
+				"sherd_duplication_recipe",
+				configInstance
+			)
+		);
+
 		var brush = config.brush;
 		var modifiedBrush = modifiedConfig.brush;
 

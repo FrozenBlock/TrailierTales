@@ -29,14 +29,19 @@ public final class ItemConfig {
 			@Override
 			public void onSync(ItemConfig syncInstance) {
 				var config = this.config();
+				SHERD_DUPLICATION_RECIPE = config.sherd_duplication_recipe;
 				SMOOTH_BRUSH_ANIMATION = config.brush.smooth_animations;
 				EXTRA_BRUSH_PARTICLES = config.brush.half_brush_effects;
 			}
 		}
 	);
 
+	public static volatile boolean SHERD_DUPLICATION_RECIPE = false;
 	public static volatile boolean SMOOTH_BRUSH_ANIMATION = true;
 	public static volatile boolean EXTRA_BRUSH_PARTICLES = true;
+
+	@EntrySyncData(value = "sherd_duplication_recipe")
+	public boolean sherd_duplication_recipe = false;
 
 	@CollapsibleObject
 	public final Brush brush = new Brush();

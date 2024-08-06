@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.recipe;
 
+import net.frozenblock.trailiertales.config.ItemConfig;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
@@ -20,6 +21,9 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(@NotNull CraftingInput input, Level world) {
+		if (!ItemConfig.SHERD_DUPLICATION_RECIPE) {
+			return false;
+		}
 		if (!this.canCraftInDimensions(input.width(), input.height())) {
 			return false;
 		}
@@ -39,6 +43,9 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override @NotNull
 	public ItemStack assemble(@NotNull CraftingInput input, HolderLookup.Provider provider) {
+		if (!ItemConfig.SHERD_DUPLICATION_RECIPE) {
+			return ItemStack.EMPTY;
+		}
 		for (ItemStack itemStack : input.items()) {
 			if (itemStack.is(ItemTags.DECORATED_POT_SHERDS)) {
 				return new ItemStack(itemStack.getItem(), 2);

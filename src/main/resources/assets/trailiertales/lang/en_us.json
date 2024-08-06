@@ -201,6 +201,9 @@
 
   "option.trailiertales.item": "Item",
 
+  "option.trailiertales.sherd_duplication_recipe": "Sherd Duplication Recipe",
+  "tooltip.trailiertales.sherd_duplication_recipe": "Whether Pottery Sherds can be duplicated using a Brick in the crafting grid.",
+
   "option.trailiertales.brush": "Brush",
   "tooltip.trailiertales.brush": "Contains options related to the Brush.",
   "option.trailiertales.smooth_brush_animations": "Smooth Animations",
