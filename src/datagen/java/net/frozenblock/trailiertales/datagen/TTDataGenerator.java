@@ -17,6 +17,7 @@ import net.frozenblock.trailiertales.datagen.tag.TTEnchantmentTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTStructureTagProvider;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
@@ -74,6 +75,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TTItemTagProvider::new);
 		pack.addProvider(TTEntityTagProvider::new);
 		pack.addProvider(TTGameEventTagProvider::new);
+		pack.addProvider(TTStructureTagProvider::new);
 		pack.addProvider(TTRecipeProvider::new);
 		pack.addProvider(TTAdvancementProvider::new);
 		pack.addProvider(TTEnchantmentTagProvider::new);

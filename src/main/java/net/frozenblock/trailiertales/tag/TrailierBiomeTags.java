@@ -7,7 +7,6 @@ import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierBiomeTags {
-
 	public static final TagKey<Biome> HAS_BADLANDS_RUINS = bind("has_badlands_ruins");
 	public static final TagKey<Biome> HAS_CATACOMBS = bind("has_catacombs");
 	public static final TagKey<Biome> HAS_DESERT_RUINS = bind("has_desert_ruins");
