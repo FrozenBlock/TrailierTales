@@ -44,6 +44,9 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generatePitcher")
 		public boolean generatePitcher = false;
+
+		@EntrySyncData("generateCyanRose")
+		public boolean generateCyanRose = false;
 	}
 
 	public static class EndCity {

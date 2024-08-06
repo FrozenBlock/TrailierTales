@@ -29,6 +29,12 @@ public final class TrailierBiomeModifications {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TrailierFeatureBootstrap.PITCHER_PLACED);
 						}
 					}
+
+					if (WorldgenConfig.get().vegetation.generateCyanRose) {
+						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TrailierFeatureBootstrap.CYAN_ROSE_PLACED);
+						}
+					}
 				})
 			);
 	}

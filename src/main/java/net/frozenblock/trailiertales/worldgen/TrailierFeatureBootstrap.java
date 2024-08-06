@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -45,6 +46,15 @@ public class TrailierFeatureBootstrap {
 		TrailierConstants.id("pitcher")
 	);
 
+	public static final ResourceKey<ConfiguredFeature<?, ?>> CYAN_ROSE = ResourceKey.create
+		(Registries.CONFIGURED_FEATURE,
+			TrailierConstants.id("cyan_rose")
+		);
+	public static final ResourceKey<PlacedFeature> CYAN_ROSE_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TrailierConstants.id("cyan_rose")
+	);
+
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
@@ -73,6 +83,19 @@ public class TrailierFeatureBootstrap {
 				)
 			)
 		);
+
+		register(
+			entries,
+			CYAN_ROSE,
+			Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				20,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.CYAN_ROSE))
+				)
+			)
+		);
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
@@ -92,6 +115,16 @@ public class TrailierFeatureBootstrap {
 			entries,
 			PITCHER_PLACED,
 			configuredFeatures.getOrThrow(PITCHER),
+			RarityFilter.onAverageOnceEvery(6),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			CYAN_ROSE_PLACED,
+			configuredFeatures.getOrThrow(CYAN_ROSE),
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,

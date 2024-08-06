@@ -47,11 +47,22 @@ public final class WorldgenConfigGui {
 			"generatePitcher",
 			configInstance
 		);
+		var generateCyanRose = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("generate_cyan_rose"), modifiedVegetation.generateCyanRose)
+				.setDefaultValue(defaultConfig.vegetation.generateCyanRose)
+				.setSaveConsumer(newValue -> vegetation.generateCyanRose = newValue)
+				.setTooltip(TrailierConstants.tooltip("generate_cyan_rose"))
+				.requireRestart()
+				.build(),
+			vegetation.getClass(),
+			"generateCyanRose",
+			configInstance
+		);
 
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("vegetation"),
 			false,
 			TrailierConstants.tooltip("vegetation"),
-			generateTorchflower, generatePitcher
+			generateTorchflower, generatePitcher, generateCyanRose
 		);
 
 		var endCity = config.endCity;
