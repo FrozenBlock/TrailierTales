@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.frozenblock.trailiertales.config.BlockConfig;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
 import net.frozenblock.trailiertales.registry.RegisterProperties;
@@ -60,18 +61,21 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Override
 	protected ItemInteractionResult useItemOn(@NotNull ItemStack itemStack, @NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
-		ItemStack playerStack = player.getItemInHand(interactionHand);
-		boolean canPlaceIntoBlock = blockState.getValue(RegisterProperties.CAN_PLACE_ITEM) &&
-			playerStack != ItemStack.EMPTY &&
-			playerStack.getItem() != Items.AIR &&
-			!playerStack.is(Items.BRUSH);
-		if (canPlaceIntoBlock) {
-			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
-				((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(playerStack.split(1));
-				return ItemInteractionResult.SUCCESS;
+		if (BlockConfig.get().suspiciousBlocks.place_items) {
+			ItemStack playerStack = player.getItemInHand(interactionHand);
+			boolean canPlaceIntoBlock = blockState.getValue(RegisterProperties.CAN_PLACE_ITEM) &&
+				playerStack != ItemStack.EMPTY &&
+				playerStack.getItem() != Items.AIR &&
+				!playerStack.is(Items.BRUSH);
+			if (canPlaceIntoBlock) {
+				if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
+					((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(playerStack.split(1));
+					return ItemInteractionResult.SUCCESS;
+				}
 			}
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
 	}
 
 	@Override

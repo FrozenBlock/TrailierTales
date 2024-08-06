@@ -45,6 +45,8 @@ public final class BlockConfig {
 	public static class SuspiciousBlocks {
 		@EntrySyncData(value = "smooth_animations", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean smooth_animations = true;
+		@EntrySyncData(value = "place_items")
+		public boolean place_items = true;
 	}
 
 	public static class BlockSounds {

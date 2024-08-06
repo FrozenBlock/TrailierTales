@@ -35,11 +35,21 @@ public final class BlockConfigGui {
 			"smooth_animations",
 			configInstance
 		);
+		var placeItemsInSupiciousBlocks = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("place_items_in_suspicious_blocks"), modifiedSuspiciousBlocks.place_items)
+				.setDefaultValue(defaultConfig.suspiciousBlocks.place_items)
+				.setSaveConsumer(newValue -> suspiciousBlocks.place_items = newValue)
+				.setTooltip(TrailierConstants.tooltip("place_items_in_suspicious_blocks"))
+				.build(),
+			suspiciousBlocks.getClass(),
+			"place_items",
+			configInstance
+		);
 
 		var suspiciousBlocksCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("suspicious_blocks"),
 			false,
 			TrailierConstants.tooltip("suspicious_blocks"),
-			smoothSuspiciousBlocks
+			smoothSuspiciousBlocks, placeItemsInSupiciousBlocks
 		);
 
 		var blockSounds = config.blockSounds;
