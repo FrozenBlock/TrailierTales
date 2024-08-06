@@ -31,7 +31,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 				sherds += 1;
 			} else if (itemStack.is(Items.BRICK)) {
 				bricks += 1;
-			} else if (!itemStack.is(Items.AIR)) {
+			} else if (!itemStack.isEmpty()) {
 				return false;
 			}
 		}
