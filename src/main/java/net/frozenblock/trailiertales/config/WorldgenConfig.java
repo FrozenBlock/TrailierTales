@@ -43,7 +43,7 @@ public final class WorldgenConfig {
 		public boolean generateTorchflower = false;
 
 		@EntrySyncData("generatePitcher")
-		public boolean generatePitcher = true;
+		public boolean generatePitcher = false;
 	}
 
 	public static class EndCity {
