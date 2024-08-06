@@ -24,27 +24,35 @@ public class SherdCopyRecipe extends CustomRecipe {
 		if (!ItemConfig.SHERD_DUPLICATION_RECIPE || !this.canCraftInDimensions(input.width(), input.height())) {
 			return false;
 		}
-		int sherds = 0;
-		int bricks = 0;
-		for (ItemStack itemStack : input.items()) {
-			if (itemStack.is(ItemTags.DECORATED_POT_SHERDS)) {
-				sherds += 1;
-			} else if (itemStack.is(Items.BRICK)) {
-				bricks += 1;
-			} else if (!itemStack.isEmpty()) {
-				return false;
-			}
+		if (input.ingredientCount() != 2) {
+			return false;
+		} else {
+			return input.stackedContents().canCraft(this, null);
 		}
-		return sherds == 1 && bricks == 1;
 	}
 
 	@Override @NotNull
 	public ItemStack assemble(@NotNull CraftingInput input, HolderLookup.Provider provider) {
 		if (ItemConfig.SHERD_DUPLICATION_RECIPE) {
-			for (ItemStack itemStack : input.items()) {
-				if (itemStack.is(ItemTags.DECORATED_POT_SHERDS)) {
-					return new ItemStack(itemStack.getItem(), 2);
+			int bricks = 0;
+			int sherds = 0;
+			ItemStack outputStack = ItemStack.EMPTY;
+			for (int i = 0; i < input.size(); i++) {
+				ItemStack inputStack = input.getItem(i);
+				if (!inputStack.isEmpty()) {
+					if (inputStack.is(ItemTags.DECORATED_POT_SHERDS)) {
+						outputStack = inputStack.copy();
+						outputStack.setCount(2);
+						sherds += 1;
+					} else if (inputStack.is(Items.BRICK)) {
+						bricks += 1;
+					} else {
+						return ItemStack.EMPTY;
+					}
 				}
+			}
+			if (bricks == 1 && sherds == 1 && outputStack != ItemStack.EMPTY) {
+				return outputStack;
 			}
 		}
 		return ItemStack.EMPTY;
