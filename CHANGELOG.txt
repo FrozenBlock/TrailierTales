@@ -214,6 +214,11 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Added Smooth Red Sandstone Wall
     - Added Cut Red Sandstone Stairs
     - Added Cut Red Sandstone Wall
+- Finished the End Stone block family
+    - Added Choral End Stone
+    - Added Choral End Stone Stairs
+    - Added Choral End Stone Slab
+    - Added Choral End Stone Wall
 - Finished the End Stone Bricks block family
     - Added Cracked End Stone Bricks
     - Added Chiseled End Stone Bricks

@@ -335,14 +335,27 @@ public class RegisterBlocks {
 	);
 	public static final Block CUT_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE));
 
-	// ENDSTONE
+	// END STONE
+
+	public static final Block CHORAL_END_STONE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE));
+	public static final Block CHORAL_END_STONE_STAIRS = new StairBlock(
+		CHORAL_END_STONE.defaultBlockState(),
+		BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE)
+	);
+	public static final Block CHORAL_END_STONE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE));
+	public static final Block CHORAL_END_STONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE));
+	public static final BlockFamily FAMILY_CHORAL_END_STONE = BlockFamilies.familyBuilder(CHORAL_END_STONE)
+		.stairs(CHORAL_END_STONE_STAIRS)
+		.slab(CHORAL_END_STONE_SLAB)
+		.wall(CHORAL_END_STONE_WALL)
+		.getFamily();
 
 	public static final Block CRACKED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
 	public static final Block CHISELED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
 	public static final Block CHORAL_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS));
 	public static final Block CHORAL_END_STONE_BRICK_STAIRS = new StairBlock(
 		CHORAL_END_STONE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICK_STAIRS)
+		BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
 	);
 	public static final Block CHORAL_END_STONE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
 	public static final Block CHORAL_END_STONE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
@@ -475,6 +488,11 @@ public class RegisterBlocks {
 		registerBlockAfter(Blocks.SMOOTH_RED_SANDSTONE_SLAB, "smooth_red_sandstone_wall", SMOOTH_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockBefore(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_stairs", CUT_RED_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_wall", CUT_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.END_STONE_BRICK_WALL, "choral_end_stone", CHORAL_END_STONE, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHORAL_END_STONE, "choral_end_stone_stairs", CHORAL_END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHORAL_END_STONE_STAIRS, "choral_end_stone_slab", CHORAL_END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(CHORAL_END_STONE_SLAB, "choral_end_stone_wall", CHORAL_END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.END_STONE_BRICKS, "cracked_end_stone_bricks", CRACKED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.END_STONE_BRICK_WALL, "chiseled_end_stone_bricks", CHISELED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);

@@ -32,6 +32,7 @@ Zhen
       - Haunt effect icon and hotbar textures
       - All new Andesite, Diorite, and Granite variants
       - All new End Stone and End Stone Bricks variants
+      - Choral End Stone
       - Cracked and Mossy Tuff Bricks
       - All new Calcite variants
       - Cracked and Mossy Bricks

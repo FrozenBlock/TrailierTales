@@ -507,9 +507,33 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB, RegisterBlocks.CHORAL_END_STONE, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB, RegisterBlocks.CHORAL_END_STONE_BRICKS, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS, RegisterBlocks.CHORAL_END_STONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS, RegisterBlocks.CHORAL_END_STONE_BRICKS);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_WALL, RegisterBlocks.CHORAL_END_STONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_BRICK_WALL, RegisterBlocks.CHORAL_END_STONE_BRICKS);
+
+
+		// CHORAL END STONE
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE)
+			.requires(Blocks.END_STONE)
+			.requires(Blocks.VINE)
+			.group("choral_end_stone")
+			.unlockedBy("has_vine", has(Blocks.VINE))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE, Blocks.VINE));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE)
+			.requires(Blocks.END_STONE)
+			.requires(Blocks.MOSS_BLOCK)
+			.group("choral_end_stone")
+			.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
+			.save(recipeOutput, getConversionRecipeName(RegisterBlocks.CHORAL_END_STONE, Blocks.MOSS_BLOCK));
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_STAIRS, RegisterBlocks.CHORAL_END_STONE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_SLAB, RegisterBlocks.CHORAL_END_STONE, 2);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHORAL_END_STONE_WALL, RegisterBlocks.CHORAL_END_STONE);
 
 		// PURPUR
 
