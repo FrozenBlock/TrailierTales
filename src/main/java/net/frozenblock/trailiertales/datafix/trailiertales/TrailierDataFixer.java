@@ -3,8 +3,6 @@ package net.frozenblock.trailiertales.datafix.trailiertales;
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.minecraft.util.datafix.fixes.AddNewChoices;
-import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;

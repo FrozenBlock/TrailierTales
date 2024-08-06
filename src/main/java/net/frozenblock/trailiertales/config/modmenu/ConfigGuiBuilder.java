@@ -7,9 +7,11 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.config.BlockConfig;
 import net.frozenblock.trailiertales.config.EntityConfig;
+import net.frozenblock.trailiertales.config.ItemConfig;
 import net.frozenblock.trailiertales.config.WorldgenConfig;
 import net.frozenblock.trailiertales.config.gui.BlockConfigGui;
 import net.frozenblock.trailiertales.config.gui.EntityConfigGui;
+import net.frozenblock.trailiertales.config.gui.ItemConfigGui;
 import net.frozenblock.trailiertales.config.gui.WorldgenConfigGui;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
@@ -24,12 +26,16 @@ public class ConfigGuiBuilder {
 			WorldgenConfig.INSTANCE.save();
 			BlockConfig.INSTANCE.save();
 			EntityConfig.INSTANCE.save();
+			ItemConfig.INSTANCE.save();
 		});
 
 		ConfigEntryBuilder entryBuilder = configBuilder.getEntryBuilder();
 
 		var block = configBuilder.getOrCreateCategory(TrailierConstants.text("block"));
 		BlockConfigGui.setupEntries(block, entryBuilder);
+
+		var item = configBuilder.getOrCreateCategory(TrailierConstants.text("item"));
+		ItemConfigGui.setupEntries(item, entryBuilder);
 
 		var entity = configBuilder.getOrCreateCategory(TrailierConstants.text("entity"));
 		EntityConfigGui.setupEntries(entity, entryBuilder);

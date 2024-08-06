@@ -21,6 +21,7 @@
   ],
   "client": [
     "client.brush.ItemInHandLayerMixin",
+    "client.brush.ItemPropertiesMixin",
     "client.brushable_block.BrushableBlockRenderMixin",
     "client.brushable_block.BrushingCompleteSoundMixin",
     "client.decorated_pot.DecoratedPotPatternsMixin",

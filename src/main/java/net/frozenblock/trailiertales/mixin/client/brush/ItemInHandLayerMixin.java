@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.mixin.client.brush;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.frozenblock.trailiertales.config.ItemConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
@@ -33,7 +34,7 @@ public class ItemInHandLayerMixin{
 		LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext displayContext, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight,
 		CallbackInfo info, boolean isLeftArm
 	) {
-		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0) {
+		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0 && ItemConfig.SMOOTH_BRUSH_ANIMATION) {
 			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;
 			float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaTicks() - Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
 			float brushProgress = remainingTicks + partialTick;
