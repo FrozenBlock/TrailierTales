@@ -18,18 +18,7 @@ public final class WorldgenConfig {
 			JsonType.JSON5,
 			null,
 			null
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
-
-			@Override
-			public void onSync(WorldgenConfig sync) {
-				var config = this.config();
-			}
-		}
+		)
 	);
 
 	@CollapsibleObject

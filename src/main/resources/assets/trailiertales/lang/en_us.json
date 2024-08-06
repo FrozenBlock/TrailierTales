@@ -171,6 +171,7 @@
   "option.trailiertales.component.title": "Trailier Tales Options",
 
   "option.trailiertales.worldgen": "Worldgen",
+
   "option.trailiertales.vegetation": "Vegetation",
   "tooltip.trailiertales.vegetation": "Contains options related to vegetation.",
   "option.trailiertales.generate_torchflower": "Torchflowers",
@@ -187,5 +188,13 @@
   "option.trailiertales.choral_end_city": "Choral Blocks",
   "tooltip.trailiertales.choral_end_city": "Whether End Cities should occasionally generate Choral End Stone Bricks.",
   "option.trailiertales.chiseled_end_city": "Chiseled Blocks",
-  "tooltip.trailiertales.chiseled_end_city": "Whether End Cities should occasionally generate Chiseled Purpur Blocks."
+  "tooltip.trailiertales.chiseled_end_city": "Whether End Cities should occasionally generate Chiseled Purpur Blocks.",
+
+  "option.trailiertales.block": "Blocks",
+  "option.trailiertales.block_sounds": "Block Sounds",
+  "tooltip.trailiertales.block_sounds": "Contains options related to block sounds.",
+  "option.trailiertales.brick_sounds": "Bricks",
+  "tooltip.trailiertales.brick_sounds": "Whether Bricks should use new sounds.",
+  "option.trailiertales.stone_brick_sounds": "Stone Bricks",
+  "tooltip.trailiertales.stone_brick_sounds": "Whether Stone Bricks should use new sounds.\nThis includes bricks from Stone variants."
 }

@@ -15,6 +15,7 @@ import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.config.BlockConfig;
 import net.frozenblock.trailiertales.config.WorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -79,6 +80,22 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
+				Blocks.BRICKS,
+				Blocks.BRICK_STAIRS,
+				Blocks.BRICK_SLAB,
+				Blocks.BRICK_WALL,
+				RegisterBlocks.CRACKED_BRICKS,
+				RegisterBlocks.MOSSY_BRICKS,
+				RegisterBlocks.MOSSY_BRICK_STAIRS,
+				RegisterBlocks.MOSSY_BRICK_SLAB,
+				RegisterBlocks.MOSSY_BRICK_WALL
+			},
+			RegisterSounds.BRICKS,
+			() -> BlockConfig.get().blockSounds.bricks
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
 				Blocks.STONE_BRICKS,
 				Blocks.STONE_BRICK_STAIRS,
 				Blocks.STONE_BRICK_SLAB,
@@ -95,23 +112,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.INFESTED_MOSSY_STONE_BRICKS
 			},
 			RegisterSounds.BRICKS,
-			() -> true
-		);
-
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[]{
-				Blocks.BRICKS,
-				Blocks.BRICK_STAIRS,
-				Blocks.BRICK_SLAB,
-				Blocks.BRICK_WALL,
-				RegisterBlocks.CRACKED_BRICKS,
-				RegisterBlocks.MOSSY_BRICKS,
-				RegisterBlocks.MOSSY_BRICK_STAIRS,
-				RegisterBlocks.MOSSY_BRICK_SLAB,
-				RegisterBlocks.MOSSY_BRICK_WALL
-			},
-			RegisterSounds.BRICKS,
-			() -> true
+			() -> BlockConfig.get().blockSounds.stone_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -128,7 +129,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_GRANITE_BRICK_WALL
 			},
 			RegisterSounds.BRICKS,
-			() -> true
+			() -> BlockConfig.get().blockSounds.stone_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -145,7 +146,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_DIORITE_BRICK_WALL
 			},
 			RegisterSounds.BRICKS,
-			() -> true
+			() -> BlockConfig.get().blockSounds.stone_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -162,7 +163,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_ANDESITE_BRICK_WALL
 			},
 			RegisterSounds.BRICKS,
-			() -> true
+			() -> BlockConfig.get().blockSounds.stone_bricks
 		);
 
 		if (WorldgenConfig.get().endCity.generateCracked) {
