@@ -131,6 +131,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.SHINE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.SHOWER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.SPADE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.VESSEL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(RegisterItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);

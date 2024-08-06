@@ -45,6 +45,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String SHINE_POTTERY_PATTERN_NAME = "shine_pottery_pattern";
 	public static final String SHOWER_POTTERY_PATTERN_NAME = "shower_pottery_pattern";
 	public static final String SPADE_POTTERY_PATTERN_NAME = "spade_pottery_pattern";
+	public static final String VESSEL_POTTERY_PATTERN_NAME = "vessel_pottery_pattern";
 	public static final String WITHER_POTTERY_PATTERN_NAME = "wither_pottery_pattern";
 
 	public static final ResourceKey<DecoratedPotPattern> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BLANK_DECORATED_NAME));
@@ -62,6 +63,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final ResourceKey<DecoratedPotPattern> SHINE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHINE_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> SHOWER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHOWER_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> SPADE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SPADE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> VESSEL_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(VESSEL_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> WITHER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(WITHER_POTTERY_PATTERN_NAME));
 
 	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TrailierConstants.id("coffin_head"), "main");

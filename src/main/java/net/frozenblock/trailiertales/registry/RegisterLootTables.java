@@ -64,7 +64,7 @@ public class RegisterLootTables {
 				// Removed Mourner
 				// Removed Plenty
 				// Added Bait
-				// Added Angler
+				// Added Vessel
 				// Added Incidence
 				return LootTable.lootTable()
 					.withPool(
@@ -72,7 +72,7 @@ public class RegisterLootTables {
 							.setRolls(ConstantValue.exactly(1F))
 							.add(LootItem.lootTableItem(RegisterItems.INCIDENCE_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD))
-							.add(LootItem.lootTableItem(Items.ANGLER_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(RegisterItems.VESSEL_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(RegisterItems.BAIT_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.IRON_AXE))
 							.add(LootItem.lootTableItem(Items.EMERALD).setWeight(2))

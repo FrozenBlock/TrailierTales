@@ -113,6 +113,11 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(RegisterBlocks.CUT_RED_SANDSTONE_STAIRS);
 		this.dropSelf(RegisterBlocks.CUT_RED_SANDSTONE_WALL);
 
+		this.dropSelf(RegisterBlocks.CHORAL_END_STONE);
+		this.dropSelf(RegisterBlocks.CHORAL_END_STONE_STAIRS);
+		this.add(RegisterBlocks.CHORAL_END_STONE_SLAB, this::createSlabItemTable);
+		this.dropSelf(RegisterBlocks.CHORAL_END_STONE_WALL);
+
 		this.dropSelf(RegisterBlocks.CRACKED_END_STONE_BRICKS);
 		this.dropSelf(RegisterBlocks.CHISELED_END_STONE_BRICKS);
 		this.dropSelf(RegisterBlocks.CHORAL_END_STONE_BRICKS);

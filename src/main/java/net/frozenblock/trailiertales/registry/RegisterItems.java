@@ -40,6 +40,7 @@ public class RegisterItems {
 	public static final Item SHINE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item SHOWER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item SPADE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Item VESSEL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 
 	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
@@ -77,7 +78,8 @@ public class RegisterItems {
 		registerItemAfter(Items.SHELTER_POTTERY_SHERD, SHINE_POTTERY_SHERD, "shine_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(SHINE_POTTERY_SHERD, SHOWER_POTTERY_SHERD, "shower_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.SKULL_POTTERY_SHERD, SPADE_POTTERY_SHERD, "spade_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(Items.SNORT_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SNORT_POTTERY_SHERD, VESSEL_POTTERY_SHERD, "vessel_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(VESSEL_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);

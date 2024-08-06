@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "trailiertales:item/vessel_pottery_sherd"
+  }
+}

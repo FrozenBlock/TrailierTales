@@ -56,6 +56,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Added Shine Pottery Sherd, found in Desert Ruins
 - Added Shower Pottery Sherd, found in Jungle Ruins
 - Added Spade Pottery Sherd, found in Desert Pyramids
+- Added Vessel Pottery Sherd, found in Cold Ocean Ruins
 - Added Wither Pottery Sherd, found in Badlands Ruins
 
 ## ARMOR TRIMS
@@ -242,14 +243,14 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Items now smoothly inch out of suspicious blocks
 - Particles are now created when a brush is moving backwards
 - A softer sound is now played when a brush is moving backwards
-- Shelter Pottery Sherd can no longer be found in Warm Ocean Ruins
+- Shelter Pottery Sherds can no longer be found in Warm Ocean Ruins
 - Blade, Mourner, and Plenty Pottery Sherds can no longer be found in Cold Ocean Ruins
 - Burn and Danger Pottery Sherds can no longer be found in Trail Ruins
-- Miner Pottery Sherd can no longer be found in Desert Pyramids
-- Shelter Pottery Sherd can now be found in Savanna Ruins
-- Mourner Pottery Sherd can now be found in Deepslate Ruins
-- Miner Pottery Sherd can not be found in Deepslate Ruins
-- Danger Pottery Sherd can now be found in Desert Ruins
+- Miner Pottery Sherds can no longer be found in Desert Pyramids
+- Shelter Pottery Sherds can now be found in Savanna Ruins
+- Mourner Pottery Sherds can now be found in Deepslate Ruins
+- Miner Pottery Sherds can not be found in Deepslate Ruins
+- Danger Pottery Sherds can now be found in Desert Ruins
 
 ## DECORATED POTS
 - Each time a Decorated Pot wobbles, the next time it wobbles, its animation will be flipped
