@@ -105,7 +105,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			TORCHFLOWER_PLACED,
 			configuredFeatures.getOrThrow(TORCHFLOWER),
-			RarityFilter.onAverageOnceEvery(4),
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
@@ -115,7 +115,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			PITCHER_PLACED,
 			configuredFeatures.getOrThrow(PITCHER),
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
@@ -125,7 +125,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			CYAN_ROSE_PLACED,
 			configuredFeatures.getOrThrow(CYAN_ROSE),
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()

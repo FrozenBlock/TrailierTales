@@ -44,7 +44,7 @@ public final class TrailierBiomeModifications {
 
 					if (EntityConfig.get().sniffer.spawn) {
 						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
-							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 2, 1, 4));
+							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 5, 1, 4));
 						}
 					}
 				})
