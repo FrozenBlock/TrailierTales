@@ -1,9 +1,8 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.TrailierTales;
+import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
@@ -46,7 +45,7 @@ public class RegisterBlocks {
 			.instrument(NoteBlockInstrument.SNARE)
 			.strength(0.25F).sound(SoundType.SUSPICIOUS_SAND)
 			.pushReaction(PushReaction.DESTROY)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
 		Blocks.DIRT,
@@ -57,7 +56,7 @@ public class RegisterBlocks {
 			.strength(0.25F)
 			.sound(RegisterSounds.SUSPICIOUS_DIRT)
 			.pushReaction(PushReaction.DESTROY)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(
 		Blocks.CLAY,
@@ -69,7 +68,7 @@ public class RegisterBlocks {
 			.strength(0.25F)
 			.sound(RegisterSounds.SUSPICIOUS_CLAY)
 			.pushReaction(PushReaction.DESTROY)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final Block SUSPICIOUS_SOUL_SOIL = new NonFallingBrushableBlock(
@@ -82,12 +81,12 @@ public class RegisterBlocks {
 			.strength(0.25F)
 			.sound(SoundType.SUSPICIOUS_SAND)
 			.pushReaction(PushReaction.DESTROY)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CYAN_ROSE = new FlowerBlock(
 		MobEffects.SATURATION,
@@ -99,17 +98,17 @@ public class RegisterBlocks {
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.pushReaction(PushReaction.DESTROY)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block POTTED_CYAN_ROSE = new FlowerPotBlock(
 		CYAN_ROSE,
-		BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).requiredFeatures(TrailierTales.FEATURE_FLAG)
+		BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	// GRANITE
 
 	public static final Block GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GRANITE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG));
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block CHISELED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
 	public static final Block GRANITE_BRICK_STAIRS = new StairBlock(
 		GRANITE_BRICKS.defaultBlockState(),
@@ -142,7 +141,7 @@ public class RegisterBlocks {
 	// DIORITE
 
 	public static final Block DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIORITE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG));
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block DIORITE_BRICK_STAIRS = new StairBlock(
 		DIORITE_BRICKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS)
@@ -174,7 +173,7 @@ public class RegisterBlocks {
 
 	// ANDESITE
 
-	public static final Block ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE).requiredFeatures(TrailierTales.FEATURE_FLAG));
+	public static final Block ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block ANDESITE_BRICK_STAIRS = new StairBlock(
 		ANDESITE_BRICKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(ANDESITE_BRICKS)
@@ -209,16 +208,16 @@ public class RegisterBlocks {
 	public static final Block CALCITE_STAIRS = new StairBlock(
 		Blocks.CALCITE.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CALCITE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TrailierTales.FEATURE_FLAG));
-	public static final Block CALCITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TrailierTales.FEATURE_FLAG));
+	public static final Block CALCITE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Block CALCITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 
-	public static final Block POLISHED_CALCITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TrailierTales.FEATURE_FLAG));
+	public static final Block POLISHED_CALCITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block POLISHED_CALCITE_STAIRS = new StairBlock(
 		Blocks.CALCITE.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block POLISHED_CALCITE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CALCITE));
 	public static final Block POLISHED_CALCITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CALCITE));
@@ -229,7 +228,7 @@ public class RegisterBlocks {
 		.getFamily();
 
 	public static final Block CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 		.sound(RegisterSounds.CALCITE_BRICKS)
 	);
 	public static final Block CALCITE_BRICK_STAIRS = new StairBlock(
@@ -263,8 +262,8 @@ public class RegisterBlocks {
 
 	// TUFF
 
-	public static final Block CRACKED_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TrailierTales.FEATURE_FLAG));
-	public static final Block MOSSY_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TrailierTales.FEATURE_FLAG));
+	public static final Block CRACKED_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Block MOSSY_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block MOSSY_TUFF_BRICK_STAIRS = new StairBlock(
 		MOSSY_TUFF_BRICKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
@@ -279,8 +278,8 @@ public class RegisterBlocks {
 
 	// BRICKS
 
-	public static final Block CRACKED_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TrailierTales.FEATURE_FLAG));
-	public static final Block MOSSY_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TrailierTales.FEATURE_FLAG));
+	public static final Block CRACKED_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Block MOSSY_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block MOSSY_BRICK_STAIRS = new StairBlock(
 		MOSSY_BRICKS.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS)
@@ -296,7 +295,7 @@ public class RegisterBlocks {
 	// MOSSY DEEPSLATE
 
 	public static final Block MOSSY_COBBLED_DEEPSLATE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block MOSSY_COBBLED_DEEPSLATE_STAIRS = new StairBlock(
 		MOSSY_COBBLED_DEEPSLATE.defaultBlockState(),
@@ -311,7 +310,7 @@ public class RegisterBlocks {
 		.getFamily();
 
 	public static final Block MOSSY_DEEPSLATE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block MOSSY_DEEPSLATE_BRICK_STAIRS = new StairBlock(
 		MOSSY_DEEPSLATE_BRICKS.defaultBlockState(),
@@ -326,7 +325,7 @@ public class RegisterBlocks {
 		.getFamily();
 
 	public static final Block MOSSY_DEEPSLATE_TILES = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block MOSSY_DEEPSLATE_TILE_STAIRS = new StairBlock(
 		MOSSY_DEEPSLATE_TILES.defaultBlockState(),
@@ -343,31 +342,31 @@ public class RegisterBlocks {
 	// SANDSTONE
 
 	public static final Block SMOOTH_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final Block CUT_SANDSTONE_STAIRS = new StairBlock(
 		Blocks.CUT_SANDSTONE.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CUT_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	// RED SANDSTONE
 
 	public static final Block SMOOTH_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final Block CUT_RED_SANDSTONE_STAIRS = new StairBlock(
 		Blocks.CUT_RED_SANDSTONE.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CUT_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	// END STONE
@@ -376,11 +375,11 @@ public class RegisterBlocks {
 		Blocks.END_STONE.defaultBlockState(),
 		BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE)
 	);
-	public static final Block END_STONE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TrailierTales.FEATURE_FLAG));
-	public static final Block END_STONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TrailierTales.FEATURE_FLAG));
+	public static final Block END_STONE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Block END_STONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 
 	public static final Block CHORAL_END_STONE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CHORAL_END_STONE_STAIRS = new StairBlock(
 		CHORAL_END_STONE.defaultBlockState(),
@@ -395,13 +394,13 @@ public class RegisterBlocks {
 		.getFamily();
 
 	public static final Block CRACKED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CHISELED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CHORAL_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CHORAL_END_STONE_BRICK_STAIRS = new StairBlock(
 		CHORAL_END_STONE_BRICKS.defaultBlockState(),
@@ -418,13 +417,13 @@ public class RegisterBlocks {
 	// PURPUR
 
 	public static final Block CRACKED_PURPUR_BLOCK = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block PURPUR_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CHISELED_PURPUR_BLOCK = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TrailierTales.FEATURE_FLAG)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final CoffinBlock COFFIN = new CoffinBlock(
@@ -437,7 +436,7 @@ public class RegisterBlocks {
 			.sound(RegisterSounds.COFFIN)
 			.strength(50F)
 			.isViewBlocking(Blocks::never)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final SurveyorBlock SURVEYOR = new SurveyorBlock(
@@ -447,7 +446,7 @@ public class RegisterBlocks {
 			.strength(3F)
 			.requiresCorrectToolForDrops()
 			.isRedstoneConductor(Blocks::never)
-			.requiredFeatures(TrailierTales.FEATURE_FLAG)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static void init() {

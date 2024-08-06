@@ -11,7 +11,6 @@ import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterFeatures;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
@@ -29,12 +28,9 @@ import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.flag.FeatureFlags;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierTales extends FrozenModInitializer {
-	public static final FeatureFlag FEATURE_FLAG = TrailierDatagenConstants.IS_DATAGEN ? TrailierFeatureFlags.TRAILIER_TALES : FeatureFlags.VANILLA;
 
 	public TrailierTales() {
 		super(TrailierConstants.MOD_ID);
@@ -59,7 +55,6 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterMemoryModuleTypes.register();
 		RegisterSensorTypes.register();
 		RegisterRecipies.init();
-		RegisterFeatures.init();
 		TrailierBiomeModifications.init();
 		RegisterLootTables.init();
 		RegisterSounds.init();

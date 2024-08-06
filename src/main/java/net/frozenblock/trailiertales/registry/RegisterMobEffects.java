@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAid;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -15,7 +16,7 @@ public class RegisterMobEffects {
 			MobEffectCategory.HARMFUL,
 			10663385,
 			ApparitionAid.EFFECT_PARTICLE
-		).setBlendDuration(40)
+		).setBlendDuration(40).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static void init() {
