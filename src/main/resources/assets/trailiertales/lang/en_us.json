@@ -203,6 +203,8 @@
   "tooltip.trailiertales.brush": "Contains options related to the Brush.",
   "option.trailiertales.smooth_brush_animations": "Smooth Animations",
   "tooltip.trailiertales.smooth_brush_animations": "Whether the Brush should use a smooth brushing animation in third person.",
+  "option.trailiertales.half_brush_effects": "Half-Brush Effects",
+  "tooltip.trailiertales.half_brush_effects": "Whether extra particles and a brush sound should play when the Brush is moving backwards.\nThis is purely aesthetic.",
 
   "option.trailiertales.entity": "Entity",
   "option.trailiertales.sniffer": "Sniffer",

@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
-    "common.brush.BrushParticleMixin",
+    "common.brush.HalfBrushMixin",
     "common.brush.BrushSoundMixin",
     "common.brushable_block.BlockEntityTypeMixin",
     "common.brushable_block.BrushableBlockEntityMixin",

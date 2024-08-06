@@ -30,11 +30,13 @@ public final class ItemConfig {
 			public void onSync(ItemConfig syncInstance) {
 				var config = this.config();
 				SMOOTH_BRUSH_ANIMATION = config.brush.smooth_animations;
+				EXTRA_BRUSH_PARTICLES = config.brush.half_brush_effects;
 			}
 		}
 	);
 
 	public static volatile boolean SMOOTH_BRUSH_ANIMATION = true;
+	public static volatile boolean EXTRA_BRUSH_PARTICLES = true;
 
 	@CollapsibleObject
 	public final Brush brush = new Brush();
@@ -42,6 +44,8 @@ public final class ItemConfig {
 	public static class Brush {
 		@EntrySyncData(value = "smooth_animations", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean smooth_animations = true;
+		@EntrySyncData(value = "half_brush_effects")
+		public boolean half_brush_effects = true;
 	}
 
 	public static ItemConfig get() {

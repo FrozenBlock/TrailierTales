@@ -1,5 +1,8 @@
 package net.frozenblock.trailiertales.mixin.common.brush;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.frozenblock.trailiertales.config.ItemConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -25,14 +28,14 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BrushItem.class)
-public class BrushParticleMixin {
-
-	@Unique
-	private BlockHitResult trailierTales$blockHitResult;
+public class HalfBrushMixin {
 
 	@ModifyVariable(method = "onUseTick", at = @At("STORE"), ordinal = 0)
-	public BlockHitResult trailierTales$captureBlockHitResult(BlockHitResult blockHitResult) {
-		this.trailierTales$blockHitResult = blockHitResult;
+	public BlockHitResult trailierTales$captureBlockHitResult(
+		BlockHitResult blockHitResult,
+		@Share("trailierTales$blockHitResult")LocalRef<BlockHitResult> trailierHitResult
+	) {
+		trailierHitResult.set(blockHitResult);
 		return blockHitResult;
 	}
 
@@ -44,16 +47,21 @@ public class BrushParticleMixin {
 			shift = At.Shift.AFTER
 		)
 	)
-	public void trailierTales$onUseTick(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info) {
-		this.trailierTales$halfBrush(level, livingEntity2, itemStack, i);
+	public void trailierTales$onUseTick(
+		Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info,
+		@Share("trailierTales$blockHitResult")LocalRef<BlockHitResult> trailierHitResult
+	) {
+		if (ItemConfig.EXTRA_BRUSH_PARTICLES) {
+			this.trailierTales$halfBrush(level, livingEntity2, itemStack, trailierHitResult.get(), i);
+		}
 	}
 
 	@Unique
-	public void trailierTales$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, int i) {
+	public void trailierTales$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, BlockHitResult blockHitResult, int i) {
 		int j = BrushItem.class.cast(this).getUseDuration(itemStack, livingEntity2) - i + 1;
-		if (j % 5 == 0 && j % 10 != 5 && this.trailierTales$blockHitResult != null && livingEntity2 instanceof Player player) {
-			BlockPos blockPos = trailierTales$blockHitResult.getBlockPos();
-			this.trailierTales$spawnOppositeDustParticles(level, this.trailierTales$blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite());
+		if (j % 5 == 0 && j % 10 != 5 && blockHitResult != null && livingEntity2 instanceof Player player) {
+			BlockPos blockPos = blockHitResult.getBlockPos();
+			this.trailierTales$spawnOppositeDustParticles(level, blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0.0f), livingEntity2.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite());
 			level.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.3F, 0.85F);
 		}
 	}

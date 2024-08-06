@@ -35,11 +35,21 @@ public final class ItemConfigGui {
 			"smooth_animations",
 			configInstance
 		);
+		var halfBrushEffects = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("half_brush_effects"), modifiedBrush.half_brush_effects)
+				.setDefaultValue(defaultConfig.brush.half_brush_effects)
+				.setSaveConsumer(newValue -> brush.half_brush_effects = newValue)
+				.setTooltip(TrailierConstants.tooltip("half_brush_effects"))
+				.build(),
+			brush.getClass(),
+			"half_brush_effects",
+			configInstance
+		);
 
 		var brushCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("brush"),
 			false,
 			TrailierConstants.tooltip("brush"),
-			smoothBrushAnimations
+			smoothBrushAnimations, halfBrushEffects
 		);
 	}
 }
