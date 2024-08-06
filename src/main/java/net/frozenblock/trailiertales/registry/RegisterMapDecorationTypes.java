@@ -14,7 +14,7 @@ public class RegisterMapDecorationTypes {
 		"catacombs",
 		"catacombs",
 		true,
-		10663385,
+		3684151,
 		false,
 		true
 	);
