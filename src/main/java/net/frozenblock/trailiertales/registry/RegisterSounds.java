@@ -34,7 +34,7 @@ public class RegisterSounds {
 	public static final SoundEvent BRICKS_FALL = register("block.bricks.fall");
 	public static final SoundType BRICKS = new SoundType(
 		1F,
-		1F,
+		1.05F,
 		BRICKS_BREAK,
 		BRICKS_STEP,
 		BRICKS_PLACE,
