@@ -30,7 +30,6 @@ public final class BlockConfigGui {
 				.setDefaultValue(defaultConfig.blockSounds.bricks)
 				.setSaveConsumer(newValue -> blockSounds.bricks = newValue)
 				.setTooltip(TrailierConstants.tooltip("brick_sounds"))
-				.requireRestart()
 				.build(),
 			blockSounds.getClass(),
 			"brick_sounds",
@@ -41,7 +40,6 @@ public final class BlockConfigGui {
 				.setDefaultValue(defaultConfig.blockSounds.stone_bricks)
 				.setSaveConsumer(newValue -> blockSounds.stone_bricks = newValue)
 				.setTooltip(TrailierConstants.tooltip("stone_brick_sounds"))
-				.requireRestart()
 				.build(),
 			blockSounds.getClass(),
 			"stone_brick_sounds",
