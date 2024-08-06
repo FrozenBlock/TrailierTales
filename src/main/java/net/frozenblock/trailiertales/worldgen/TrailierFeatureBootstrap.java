@@ -53,7 +53,7 @@ public class TrailierFeatureBootstrap {
 			TORCHFLOWER,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				5,
+				12,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER))
@@ -66,7 +66,7 @@ public class TrailierFeatureBootstrap {
 			PITCHER,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				4,
+				6,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PITCHER_PLANT))
