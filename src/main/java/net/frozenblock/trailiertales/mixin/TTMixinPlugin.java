@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.mixin;
 
 import java.util.List;
 import java.util.Set;
+import net.frozenblock.trailiertales.TrailierDatagenConstants;
 import net.frozenblock.trailiertales.config.MixinsConfig;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -26,6 +27,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("decorated_pot")) return config.decorated_pot;
 		if (mixinClassName.contains("haunt")) return config.haunt;
 		if (mixinClassName.contains("surveyor")) return config.surveyor;
+		if (mixinClassName.contains("datagen")) return TrailierDatagenConstants.IS_DATAGEN;
 
 		return true;
 	}

@@ -57,8 +57,6 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
-		pack.
-
 		// ASSETS
 
 		pack.addProvider(TTModelProvider::new);

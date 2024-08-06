@@ -29,9 +29,12 @@ import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlags;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierTales extends FrozenModInitializer {
+	public static final FeatureFlag FEATURE_FLAG = TrailierDatagenConstants.IS_DATAGEN ? TrailierFeatureFlags.TRAILIER_TALES : FeatureFlags.VANILLA;
 
 	public TrailierTales() {
 		super(TrailierConstants.MOD_ID);
@@ -41,8 +44,10 @@ public class TrailierTales extends FrozenModInitializer {
 	public void onInitialize(String modId, ModContainer container) {
 		TrailierConstants.startMeasuring(this);
 
-		TrailierFeatureFlags.init();
-		FrozenFeatureFlags.rebuild();
+		if (TrailierDatagenConstants.IS_DATAGEN) {
+			TrailierFeatureFlags.init();
+			FrozenFeatureFlags.rebuild();
+		}
 
 		TrailierDataFixer.applyDataFixes(container);
 		RegisterStructureTypes.init();

@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.registry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TrailierTales;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.DamagingThrowableItemProjectile;
 import net.minecraft.core.Registry;
@@ -19,7 +20,7 @@ public final class RegisterEntities {
 		FabricEntityType.Builder.createMob(Apparition::new, MobCategory.MONSTER, mob -> mob.defaultAttributes(Apparition::createApparitionAttributes))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F)
-			.requiredFeatures(TrailierFeatureFlags.TRAILIER_TALES)
+			.requiredFeatures(TrailierTales.FEATURE_FLAG)
 			.build(TrailierConstants.string("apparition")) // id is for datafixers
 	);
 
@@ -29,7 +30,7 @@ public final class RegisterEntities {
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(64)
 			.updateInterval(10)
-			.requiredFeatures(TrailierFeatureFlags.TRAILIER_TALES)
+			.requiredFeatures(TrailierTales.FEATURE_FLAG)
 			.build(TrailierConstants.string("damaging_throwable_item_projectile"))
 	);
 

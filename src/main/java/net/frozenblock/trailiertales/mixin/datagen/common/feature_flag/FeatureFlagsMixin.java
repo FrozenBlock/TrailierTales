@@ -1,5 +1,6 @@
-package net.frozenblock.trailiertales.mixin.common.feature_flag;
+package net.frozenblock.trailiertales.mixin.datagen.common.feature_flag;
 
+import net.frozenblock.trailiertales.TrailierDatagenConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
