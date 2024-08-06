@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.config.BlockConfig;
+import net.frozenblock.trailiertales.config.EntityConfig;
 import net.frozenblock.trailiertales.config.WorldgenConfig;
 import net.frozenblock.trailiertales.config.gui.BlockConfigGui;
 import net.frozenblock.trailiertales.config.gui.EntityConfigGui;
@@ -22,6 +23,7 @@ public class ConfigGuiBuilder {
 		configBuilder.setSavingRunnable(() -> {
 			WorldgenConfig.INSTANCE.save();
 			BlockConfig.INSTANCE.save();
+			EntityConfig.INSTANCE.save();
 		});
 
 		ConfigEntryBuilder entryBuilder = configBuilder.getEntryBuilder();
