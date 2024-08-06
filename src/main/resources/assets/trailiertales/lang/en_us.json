@@ -187,6 +187,8 @@
   "tooltip.trailiertales.brick_sounds": "Whether Bricks should use new sounds.",
   "option.trailiertales.stone_brick_sounds": "Stone Bricks",
   "tooltip.trailiertales.stone_brick_sounds": "Whether Stone Bricks should use new sounds.\nThis includes bricks from Stone variants.",
+  "option.trailiertales.ens_stone_brick_sounds": "End Stone Bricks",
+  "tooltip.trailiertales.end_stone_brick_sounds": "Whether End Stone Bricks should use new sounds.",
 
   "option.trailiertales.entity": "Entity",
   "option.trailiertales.sniffer": "Sniffer",

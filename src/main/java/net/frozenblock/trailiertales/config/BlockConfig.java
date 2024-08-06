@@ -30,6 +30,8 @@ public final class BlockConfig {
 		public boolean bricks = true;
 		@EntrySyncData(value = "stone_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean stone_bricks = true;
+		@EntrySyncData(value = "end_stone_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean end_stone_bricks = true;
 	}
 
 	public static BlockConfig get() {

@@ -166,6 +166,23 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> BlockConfig.get().blockSounds.stone_bricks
 		);
 
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.END_STONE_BRICKS,
+				Blocks.END_STONE_BRICK_STAIRS,
+				Blocks.END_STONE_BRICK_SLAB,
+				Blocks.END_STONE_BRICK_WALL,
+				RegisterBlocks.CHISELED_END_STONE_BRICKS,
+				RegisterBlocks.CRACKED_END_STONE_BRICKS,
+				RegisterBlocks.CHORAL_END_STONE_BRICKS,
+				RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS,
+				RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB,
+				RegisterBlocks.CHORAL_END_STONE_BRICK_WALL
+			},
+			RegisterSounds.BRICKS,
+			() -> BlockConfig.get().blockSounds.end_stone_bricks
+		);
+
 		if (WorldgenConfig.get().endCity.generateCracked) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.location(),
