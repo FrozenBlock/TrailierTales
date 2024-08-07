@@ -16,6 +16,7 @@ import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.config.BlockConfig;
+import net.frozenblock.trailiertales.config.MiscConfig;
 import net.frozenblock.trailiertales.config.WorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -220,7 +221,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
-			//if (AmbienceAndMiscConfig.get().modifyAdvancements) {
+			if (MiscConfig.get().modify_advancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, TrailierConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
@@ -266,8 +267,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					default -> {
 					}
 				}
-
-		//	}
+			}
 		});
 	}
 

@@ -256,5 +256,9 @@
   "option.trailiertales.choral_end_city": "Choral Blocks",
   "tooltip.trailiertales.choral_end_city": "Whether End Cities should occasionally generate Choral End Stone Bricks.",
   "option.trailiertales.chiseled_end_city": "Chiseled Blocks",
-  "tooltip.trailiertales.chiseled_end_city": "Whether End Cities should occasionally generate Chiseled Purpur Blocks."
+  "tooltip.trailiertales.chiseled_end_city": "Whether End Cities should occasionally generate Chiseled Purpur Blocks.",
+
+  "option.trailiertales.misc": "Misc & Technical",
+  "option.trailiertales.modify_advancements": "Modify Advancements",
+  "tooltip.trailiertales.modify_advancements": "Whether Vanilla advancements should be modified for Trailier Tales content.\nDisable if you notice any issues related to advancements."
 }
