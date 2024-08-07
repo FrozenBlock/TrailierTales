@@ -1,5 +1,7 @@
 package net.frozenblock.trailiertales.mixin.common.boat;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -117,5 +120,17 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 				info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
 			}
 		}
+	}
+
+	@WrapOperation(
+		method = "controlBoat",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/phys/Vec3;add(DDD)Lnet/minecraft/world/phys/Vec3;"
+		)
+	)
+	public Vec3 trailierTales$bannerSpeedBoost(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
+		double multiplier = !this.trailierTales$getBanner().isEmpty() ? 1.1D : 1D;
+		return original.call(instance, x * multiplier, y * multiplier, z * multiplier);
 	}
 }
