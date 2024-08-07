@@ -30,7 +30,6 @@ public final class WorldgenConfigGui {
 				.setDefaultValue(defaultConfig.ruins.generic)
 				.setSaveConsumer(newValue -> ruins.generic = newValue)
 				.setTooltip(TrailierConstants.tooltip("generic_ruins"))
-				.requireRestart()
 				.build(),
 			ruins.getClass(),
 			"generic",
@@ -41,7 +40,6 @@ public final class WorldgenConfigGui {
 				.setDefaultValue(defaultConfig.ruins.jungle)
 				.setSaveConsumer(newValue -> ruins.jungle = newValue)
 				.setTooltip(TrailierConstants.tooltip("jungle_ruins"))
-				.requireRestart()
 				.build(),
 			ruins.getClass(),
 			"jungle",
@@ -52,7 +50,6 @@ public final class WorldgenConfigGui {
 				.setDefaultValue(defaultConfig.ruins.savanna)
 				.setSaveConsumer(newValue -> ruins.savanna = newValue)
 				.setTooltip(TrailierConstants.tooltip("savanna_ruins"))
-				.requireRestart()
 				.build(),
 			ruins.getClass(),
 			"savanna",
@@ -63,7 +60,6 @@ public final class WorldgenConfigGui {
 				.setDefaultValue(defaultConfig.ruins.desert)
 				.setSaveConsumer(newValue -> ruins.desert = newValue)
 				.setTooltip(TrailierConstants.tooltip("desert_ruins"))
-				.requireRestart()
 				.build(),
 			ruins.getClass(),
 			"desert",
@@ -74,7 +70,6 @@ public final class WorldgenConfigGui {
 				.setDefaultValue(defaultConfig.ruins.badlands)
 				.setSaveConsumer(newValue -> ruins.badlands = newValue)
 				.setTooltip(TrailierConstants.tooltip("badlands_ruins"))
-				.requireRestart()
 				.build(),
 			ruins.getClass(),
 			"badlands",
@@ -85,7 +80,6 @@ public final class WorldgenConfigGui {
 				.setDefaultValue(defaultConfig.ruins.deepslate)
 				.setSaveConsumer(newValue -> ruins.deepslate = newValue)
 				.setTooltip(TrailierConstants.tooltip("deepslate_ruins"))
-				.requireRestart()
 				.build(),
 			ruins.getClass(),
 			"deepslate",
