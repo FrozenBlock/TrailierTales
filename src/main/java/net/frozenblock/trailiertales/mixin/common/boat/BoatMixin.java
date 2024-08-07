@@ -71,7 +71,7 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 		),
 		cancellable = true
 	)
-	public void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
+	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(ItemTags.BANNERS)) {
 			if (!this.level().isClientSide()) {

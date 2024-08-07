@@ -6,6 +6,7 @@
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
     "common.boat.BoatMixin",
+    "common.boat.ChestBoatMixin",
     "common.brush.BrushSoundMixin",
     "common.brush.HalfBrushMixin",
     "common.brushable_block.BlockEntityTypeMixin",
