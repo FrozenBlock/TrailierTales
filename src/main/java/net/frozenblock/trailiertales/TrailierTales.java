@@ -42,8 +42,6 @@ public class TrailierTales extends FrozenModInitializer {
 	public void onInitialize(String modId, ModContainer container) {
 		TrailierConstants.startMeasuring(this);
 
-
-
 		if (TrailierDatagenConstants.IS_DATAGEN) {
 			TrailierFeatureFlags.init();
 			FrozenFeatureFlags.rebuild();
