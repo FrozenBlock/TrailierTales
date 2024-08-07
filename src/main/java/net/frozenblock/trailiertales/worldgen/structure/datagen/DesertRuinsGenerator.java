@@ -1,7 +1,6 @@
 package net.frozenblock.trailiertales.worldgen.structure.datagen;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -16,7 +15,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -28,15 +26,11 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
-import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class DesertRuinsGenerator {
@@ -55,7 +49,7 @@ public class DesertRuinsGenerator {
 					TerrainAdjustment.NONE
 				),
 				RuinsStructure.Type.DESERT,
-				0.9F,
+				1F,
 				UniformInt.of(2, 5),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
@@ -84,6 +78,7 @@ public class DesertRuinsGenerator {
 			new RuleProcessor(
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()),
+					RegisterStructures.archyProcessorRule(Blocks.SAND, Blocks.SUSPICIOUS_SAND, RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.1F),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.CUT_SANDSTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_SANDSTONE.defaultBlockState())
 				)
 			),
@@ -109,8 +104,7 @@ public class DesertRuinsGenerator {
 					)
 				)
 			),
-			desertArchyLootProcessor(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.2F),
-			desertArchyLootProcessorClay(RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
+			RegisterStructures.archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
 			new RuleProcessor(
 				ImmutableList.of(
 					new ProcessorRule(
@@ -119,9 +113,8 @@ public class DesertRuinsGenerator {
 					)
 				)
 			),
-			decoratedPotSherdProcessor(
+			RegisterStructures.decoratedPotSherdProcessor(
 				1F,
-				false,
 				RegisterItems.NEEDLES_POTTERY_SHERD,
 				RegisterItems.SHINE_POTTERY_SHERD,
 				Items.DANGER_POTTERY_SHERD
@@ -129,49 +122,4 @@ public class DesertRuinsGenerator {
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
 	);
-
-	@Contract("_, _ -> new")
-	private static @NotNull RuleProcessor desertArchyLootProcessor(ResourceKey<LootTable> registryKey, float chance) {
-		return new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.SAND, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					Blocks.SUSPICIOUS_SAND.defaultBlockState(),
-					new AppendLoot(registryKey)
-				)
-			)
-		);
-	}
-
-	@Contract("_, _ -> new")
-	private static @NotNull RuleProcessor desertArchyLootProcessorClay(ResourceKey<LootTable> registryKey, float chance) {
-		return new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.CLAY, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
-					new AppendLoot(registryKey)
-				)
-			)
-		);
-	}
-
-	@Contract("_, _, _ -> new")
-	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, boolean defaultToBricks, Item... sherds) {
-		return new BlockStateRespectingRuleProcessor(
-			ImmutableList.of(
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					Blocks.DECORATED_POT,
-					new AppendSherds(chance, defaultToBricks, sherds)
-				)
-			)
-		);
-	}
 }

@@ -6,7 +6,7 @@
     "max_inclusive": 6,
     "min_inclusive": 1
   },
-  "cluster_probability": 0.9,
+  "cluster_probability": 1.0,
   "heightmap": "OCEAN_FLOOR_WG",
   "spawn_overrides": {},
   "step": "surface_structures"

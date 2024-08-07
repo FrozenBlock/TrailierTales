@@ -1,7 +1,6 @@
 package net.frozenblock.trailiertales.worldgen.structure.datagen;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
@@ -16,7 +15,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -29,16 +27,12 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
-import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class BadlandsRuinsGenerator {
@@ -85,7 +79,8 @@ public class BadlandsRuinsGenerator {
 			),
 			new RuleProcessor(
 				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.RED_SAND, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()),
+					RegisterStructures.archyProcessorRule(Blocks.RED_SAND, RegisterBlocks.SUSPICIOUS_RED_SAND, RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY, 0.1F),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.CUT_RED_SANDSTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState())
 				)
 			),
@@ -142,10 +137,8 @@ public class BadlandsRuinsGenerator {
 					)
 				)
 			),
-			badlandsArchy(RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY, 0.2F),
-			decoratedPotSherdProcessor(
+			RegisterStructures.decoratedPotSherdProcessor(
 				1F,
-				false,
 				Items.SKULL_POTTERY_SHERD,
 				Items.HEARTBREAK_POTTERY_SHERD,
 				RegisterItems.WITHER_POTTERY_SHERD,
@@ -154,33 +147,4 @@ public class BadlandsRuinsGenerator {
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
 	);
-
-	private static @NotNull RuleProcessor badlandsArchy(ResourceKey<LootTable> registryKey, float chance) {
-		return new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.RED_SAND, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					RegisterBlocks.SUSPICIOUS_RED_SAND.defaultBlockState(),
-					new AppendLoot(registryKey)
-				)
-			)
-		);
-	}
-
-	@Contract("_, _, _ -> new")
-	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, boolean defaultToBricks, Item... sherds) {
-		return new BlockStateRespectingRuleProcessor(
-			ImmutableList.of(
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					Blocks.DECORATED_POT,
-					new AppendSherds(chance, defaultToBricks, sherds)
-				)
-			)
-		);
-	}
 }

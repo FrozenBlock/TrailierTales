@@ -24,15 +24,11 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.PosAlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
-import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class DeepslateRuinsGenerator {
@@ -106,23 +102,8 @@ public class DeepslateRuinsGenerator {
 					)
 				)
 			),
-			archyLootProcessor(RegisterLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY, 0.2F),
+			RegisterStructures.archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY, 0.2F),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
 	);
-
-	@Contract("_, _ -> new")
-	private static @NotNull RuleProcessor archyLootProcessor(ResourceKey<LootTable> registryKey, float chance) {
-		return new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.GRAVEL, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(),
-					new AppendLoot(registryKey)
-				)
-			)
-		);
-	}
 }
