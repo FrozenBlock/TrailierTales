@@ -28,6 +28,7 @@ public final class MiscConfigGui {
 					.setDefaultValue(defaultConfig.modify_advancements)
 					.setSaveConsumer(newValue -> config.modify_advancements = newValue)
 					.setTooltip(TrailierConstants.tooltip("modify_advancements"))
+					.requireRestart()
 					.build(),
 				config.getClass(),
 				"modify_advancements",
