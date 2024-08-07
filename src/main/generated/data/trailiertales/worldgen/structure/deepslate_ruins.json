@@ -1,7 +1,7 @@
 {
   "type": "trailiertales:ruins",
   "biome_type": "deepslate",
-  "biomes": "#trailiertales:has_deepslate_ruins",
+  "biomes": "#trailiertales:has_structure/deepslate_ruins",
   "cluster_pieces": {
     "max_inclusive": 6,
     "min_inclusive": 3

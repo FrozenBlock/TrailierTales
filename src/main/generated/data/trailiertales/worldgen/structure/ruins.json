@@ -1,7 +1,7 @@
 {
   "type": "trailiertales:ruins",
   "biome_type": "generic",
-  "biomes": "#trailiertales:has_ruins",
+  "biomes": "#trailiertales:has_structure/ruins",
   "cluster_pieces": {
     "max_inclusive": 6,
     "min_inclusive": 1

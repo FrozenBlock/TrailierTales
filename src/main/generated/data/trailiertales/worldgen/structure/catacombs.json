@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#trailiertales:has_catacombs",
+  "biomes": "#trailiertales:has_structure/catacombs",
   "dimension_padding": 6,
   "liquid_settings": "ignore_waterlogging",
   "max_distance_from_center": 96,

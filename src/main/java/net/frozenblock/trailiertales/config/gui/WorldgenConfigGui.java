@@ -22,6 +22,82 @@ public final class WorldgenConfigGui {
 		Config<? extends WorldgenConfig> configInstance = WorldgenConfig.INSTANCE;
 		var defaultConfig = WorldgenConfig.INSTANCE.defaultInstance();
 
+		var ruins = config.ruins;
+		var modifiedRuins = modifiedConfig.ruins;
+
+		var genericRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("generic_ruins"), modifiedRuins.generic)
+				.setDefaultValue(defaultConfig.ruins.generic)
+				.setSaveConsumer(newValue -> ruins.generic = newValue)
+				.setTooltip(TrailierConstants.tooltip("generic_ruins"))
+				.requireRestart()
+				.build(),
+			ruins.getClass(),
+			"generic",
+			configInstance
+		);
+		var jungleRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("jungle_ruins"), modifiedRuins.jungle)
+				.setDefaultValue(defaultConfig.ruins.jungle)
+				.setSaveConsumer(newValue -> ruins.jungle = newValue)
+				.setTooltip(TrailierConstants.tooltip("jungle_ruins"))
+				.requireRestart()
+				.build(),
+			ruins.getClass(),
+			"jungle",
+			configInstance
+		);
+		var savannaRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("savanna_ruins"), modifiedRuins.savanna)
+				.setDefaultValue(defaultConfig.ruins.savanna)
+				.setSaveConsumer(newValue -> ruins.savanna = newValue)
+				.setTooltip(TrailierConstants.tooltip("savanna_ruins"))
+				.requireRestart()
+				.build(),
+			ruins.getClass(),
+			"savanna",
+			configInstance
+		);
+		var desertRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("desert_ruins"), modifiedRuins.desert)
+				.setDefaultValue(defaultConfig.ruins.desert)
+				.setSaveConsumer(newValue -> ruins.desert = newValue)
+				.setTooltip(TrailierConstants.tooltip("desert_ruins"))
+				.requireRestart()
+				.build(),
+			ruins.getClass(),
+			"desert",
+			configInstance
+		);
+		var badlandsRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("badlands_ruins"), modifiedRuins.badlands)
+				.setDefaultValue(defaultConfig.ruins.badlands)
+				.setSaveConsumer(newValue -> ruins.badlands = newValue)
+				.setTooltip(TrailierConstants.tooltip("badlands_ruins"))
+				.requireRestart()
+				.build(),
+			ruins.getClass(),
+			"badlands",
+			configInstance
+		);
+		var deepslateRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("deepslate_ruins"), modifiedRuins.deepslate)
+				.setDefaultValue(defaultConfig.ruins.deepslate)
+				.setSaveConsumer(newValue -> ruins.deepslate = newValue)
+				.setTooltip(TrailierConstants.tooltip("deepslate_ruins"))
+				.requireRestart()
+				.build(),
+			ruins.getClass(),
+			"deepslate",
+			configInstance
+		);
+
+		var ruinsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("ruins"),
+			false,
+			TrailierConstants.tooltip("ruins"),
+			genericRuins, jungleRuins, savannaRuins, desertRuins, badlandsRuins, deepslateRuins
+		);
+
 		var vegetation = config.vegetation;
 		var modifiedVegetation = modifiedConfig.vegetation;
 

@@ -225,6 +225,21 @@
 
   "option.trailiertales.worldgen": "Worldgen",
 
+  "option.trailiertales.ruins": "Ruins",
+  "tooltip.trailiertales.ruins": "Contains options for Ruins structures.",
+  "option.trailiertales.generic_ruins": "Ruins",
+  "tooltip.trailiertales.generic_ruins": "Whether Ruins should generate in Plains and Forest biomes.",
+  "option.trailiertales.jungle_ruins": "Jungle Ruins",
+  "tooltip.trailiertales.jungle_ruins": "Whether Jungle Ruins should generate.",
+  "option.trailiertales.savanna_ruins": "Savanna Ruins",
+  "tooltip.trailiertales.savanna_ruins": "Whether Savanna Ruins should generate.",
+  "option.trailiertales.desert_ruins": "Desert Ruins",
+  "tooltip.trailiertales.desert_ruins": "Whether Desert Ruins should generate.",
+  "option.trailiertales.badlands_ruins": "Badlands Ruins",
+  "tooltip.trailiertales.badlands_ruins": "Whether Badlands Ruins should generate.",
+  "option.trailiertales.deepslate_ruins": "Deepslate Ruins",
+  "tooltip.trailiertales.deepslate_ruins": "Whether Deepslate Ruins should generate in the Deep Dark.",
+
   "option.trailiertales.vegetation": "Vegetation",
   "tooltip.trailiertales.vegetation": "Contains options related to vegetation.",
   "option.trailiertales.generate_torchflower": "Torchflowers",

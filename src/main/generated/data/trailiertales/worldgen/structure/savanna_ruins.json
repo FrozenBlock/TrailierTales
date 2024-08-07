@@ -1,7 +1,7 @@
 {
   "type": "trailiertales:ruins",
   "biome_type": "savanna",
-  "biomes": "#trailiertales:has_savanna_ruins",
+  "biomes": "#trailiertales:has_structure/savanna_ruins",
   "cluster_pieces": {
     "max_inclusive": 5,
     "min_inclusive": 2
