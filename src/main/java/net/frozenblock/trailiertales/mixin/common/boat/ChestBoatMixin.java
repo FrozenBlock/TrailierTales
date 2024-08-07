@@ -30,14 +30,14 @@ public abstract class ChestBoatMixin extends Boat {
 				ItemStack itemStack = player.getItemInHand(hand);
 				if (itemStack.is(ItemTags.BANNERS)) {
 					if (!this.level().isClientSide()) {
-						this.spawnAtLocation(bannerInterface.trailierTales$getBanner());
+						this.spawnAtLocation(bannerInterface.trailierTales$getBanner(), 0.6F);
 						bannerInterface.trailierTales$setBanner(itemStack.split(1));
 						this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 					}
 					info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
 				}
 			} else {
-				this.spawnAtLocation(bannerInterface.trailierTales$getBanner());
+				this.spawnAtLocation(bannerInterface.trailierTales$getBanner(), 0.6F);
 				bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);
 				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 				info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
