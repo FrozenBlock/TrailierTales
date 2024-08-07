@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +51,14 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 			ItemStack stack = bannerInterface.trailierTales$getBanner();
 			if (!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem) {
 				matrices.pushPose();
-				this.trailierTales$boatBannerModel.setupAnim(boat, tickDelta, Mth.lerp(tickDelta, boat.walkDistO, boat.walkDist), boat.tickCount + tickDelta, 0F, 0F);
+				float o;
+				float p;
+				o = bannerInterface.trailierTales$getWalkAnimationState().speed(tickDelta);
+				p = bannerInterface.trailierTales$getWalkAnimationState().position(tickDelta);
+				if (o > 1F) {
+					o = 1F;
+				}
+				this.trailierTales$boatBannerModel.setupAnim(boat, p, o, boat.tickCount + tickDelta, 0F, 0F);
 				this.trailierTales$boatBannerModel.renderToBuffer(matrices, ModelBakery.BANNER_BASE.buffer(vertexConsumers, RenderType::entitySolid), i, OverlayTexture.NO_OVERLAY);
 				this.trailierTales$boatBannerModel.renderFlag(matrices, vertexConsumers, i, OverlayTexture.NO_OVERLAY, bannerItem.getColor(), stack.getComponents().get(DataComponents.BANNER_PATTERNS));
 				matrices.popPose();

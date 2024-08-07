@@ -6,9 +6,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.WalkAnimationState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
@@ -26,6 +28,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BoatMixin extends VehicleEntity implements BoatBannerInterface {
 	@Unique
 	private static final EntityDataAccessor<ItemStack> TRAILIER_TALES$BANNER = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.ITEM_STACK);
+	@Unique
+	private final WalkAnimationState trailierTales$walkAnimation = new WalkAnimationState();
 
 	public BoatMixin(EntityType<?> entityType, Level world) {
 		super(entityType, world);
@@ -48,6 +52,12 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 		this.entityData.set(TRAILIER_TALES$BANNER, stack);
 	}
 
+	@Unique
+	@Override
+	public WalkAnimationState trailierTales$getWalkAnimationState() {
+		return this.trailierTales$walkAnimation;
+	}
+
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
 		if (!this.trailierTales$getBanner().isEmpty()) {
@@ -60,6 +70,23 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 		if (nbt.contains("TrailierTalesBanner", 10)) {
 			this.trailierTales$setBanner(ItemStack.parse(this.registryAccess(), nbt.getCompound("TrailierTalesBanner")).orElse(ItemStack.EMPTY));
 		}
+	}
+
+	@Inject(method = "tick", at = @At("TAIL"))
+	public void trailierTales$tick(CallbackInfo info) {
+		this.trailierTales$calculateEntityAnimation(true);
+	}
+
+	@Unique
+	public void trailierTales$calculateEntityAnimation(boolean flutter) {
+		float f = (float) Mth.length(this.getX() - this.xo, flutter ? this.getY() - this.yo : 0.0, this.getZ() - this.zo);
+		this.trailierTales$updateWalkAnimation(f);
+	}
+
+	@Unique
+	protected void trailierTales$updateWalkAnimation(float limbDistance) {
+		float f = Math.min(limbDistance, 1F);
+		this.trailierTales$walkAnimation.update(f, 0.1F);
 	}
 
 	@Inject(

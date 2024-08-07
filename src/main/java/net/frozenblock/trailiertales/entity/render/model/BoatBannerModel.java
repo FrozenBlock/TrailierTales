@@ -50,9 +50,10 @@ public class BoatBannerModel extends EntityModel<Boat> {
 	}
 
 	@Override
-	public void setupAnim(Boat entity, float limbAngle, float walkDistance, float animationProgress, float headYaw, float headPitch) {
+	public void setupAnim(Boat entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos((Mth.PI * 2F) * animationProgress / 100F)) * Mth.PI;
-		//this.flag.xRot = (Mth.cos(animationProgress * 0.05F) + 1F) * -0.25F;
+		this.flag.xRot -= (limbDistance * (90F / 180F)) * Mth.PI;
+		this.flag.xRot -= (Mth.cos(limbAngle * 0.4F) + 1F) * 0.1F * Math.min(limbDistance * 2F, 1F);
 		this.flag.y = -32F;
 	}
 
