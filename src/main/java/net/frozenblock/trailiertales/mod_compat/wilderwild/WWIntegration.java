@@ -10,10 +10,12 @@ import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.BlockConfig;
+import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
 import net.frozenblock.wilderwild.registry.RegisterBlocks;
 import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
 import net.frozenblock.wilderwild.registry.RegisterProperties;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.ChestBlock;
@@ -41,6 +43,18 @@ public class WWIntegration extends AbstractWWIntegration {
 			Blocks.SUSPICIOUS_GRAVEL,
 			RegisterSounds.SUSPICIOUS_GRAVEL_WW,
 			() -> BlockConfig.get().blockSounds.claySounds
+		);
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[] {
+				net.frozenblock.trailiertales.registry.RegisterBlocks.SMOOTH_SANDSTONE_WALL,
+				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_SANDSTONE_STAIRS,
+				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_SANDSTONE_WALL,
+				net.frozenblock.trailiertales.registry.RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL,
+				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_RED_SANDSTONE_STAIRS,
+				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_RED_SANDSTONE_WALL
+			},
+			RegisterBlockSoundTypes.SANDSTONE,
+			() -> BlockConfig.get().blockSounds.sandstoneSounds
 		);
 
 		StructureProcessorApi.addProcessor(
