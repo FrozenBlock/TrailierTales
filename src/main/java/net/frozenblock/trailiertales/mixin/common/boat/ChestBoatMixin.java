@@ -10,6 +10,7 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,10 +26,20 @@ public abstract class ChestBoatMixin extends Boat {
 	@Inject(method = "interact", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
 		if (player.isSecondaryUseActive() && ChestBoat.class.cast(this) instanceof BoatBannerInterface bannerInterface) {
-			ItemStack itemStack = player.getItemInHand(hand);
-			if (!itemStack.is(ItemTags.BANNERS) && !bannerInterface.trailierTales$getBanner().isEmpty()) {
+			if (bannerInterface.trailierTales$getBanner().isEmpty()) {
+				ItemStack itemStack = player.getItemInHand(hand);
+				if (itemStack.is(ItemTags.BANNERS)) {
+					if (!this.level().isClientSide()) {
+						this.spawnAtLocation(bannerInterface.trailierTales$getBanner());
+						bannerInterface.trailierTales$setBanner(itemStack.split(1));
+						this.gameEvent(GameEvent.ENTITY_INTERACT, player);
+					}
+					info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
+				}
+			} else {
 				this.spawnAtLocation(bannerInterface.trailierTales$getBanner());
 				bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);
+				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 				info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
 			}
 		}

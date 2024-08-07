@@ -99,18 +99,23 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 		cancellable = true
 	)
 	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(ItemTags.BANNERS)) {
-			if (!this.level().isClientSide()) {
+		if (player.isSecondaryUseActive()) {
+			if (this.trailierTales$getBanner().isEmpty()) {
+				ItemStack itemStack = player.getItemInHand(hand);
+				if (itemStack.is(ItemTags.BANNERS)) {
+					if (!this.level().isClientSide()) {
+						this.spawnAtLocation(this.trailierTales$getBanner());
+						this.trailierTales$setBanner(itemStack.split(1));
+						this.gameEvent(GameEvent.ENTITY_INTERACT, player);
+					}
+					info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
+				}
+			} else {
 				this.spawnAtLocation(this.trailierTales$getBanner());
-				this.trailierTales$setBanner(itemStack.split(1));
+				this.trailierTales$setBanner(ItemStack.EMPTY);
 				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
+				info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
 			}
-			info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
-		} else if (player.isSecondaryUseActive() && !this.trailierTales$getBanner().isEmpty()) {
-			this.spawnAtLocation(this.trailierTales$getBanner());
-			this.trailierTales$setBanner(ItemStack.EMPTY);
-			info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
 		}
 	}
 }
