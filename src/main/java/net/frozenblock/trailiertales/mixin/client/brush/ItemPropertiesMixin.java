@@ -1,12 +1,15 @@
 package net.frozenblock.trailiertales.mixin.client.brush;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.config.ItemConfig;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Environment(EnvType.CLIENT)
 @Mixin(ItemProperties.class)
 public class ItemPropertiesMixin {
 

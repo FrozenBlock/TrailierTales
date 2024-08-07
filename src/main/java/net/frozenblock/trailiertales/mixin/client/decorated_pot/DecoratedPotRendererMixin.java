@@ -9,6 +9,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import java.util.Objects;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.impl.DecoratedPotBlockEntityInterface;
 import net.minecraft.client.model.geom.ModelPart;
@@ -30,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(DecoratedPotRenderer.class)
 public class DecoratedPotRendererMixin {
 	@Unique

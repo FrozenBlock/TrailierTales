@@ -1,6 +1,8 @@
 package net.frozenblock.trailiertales.mixin.client.brushable_block;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.AbstractWWIntegration;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
@@ -10,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public class BrushingCompleteSoundMixin {
 

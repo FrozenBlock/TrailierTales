@@ -3,6 +3,8 @@ package net.frozenblock.trailiertales.mixin.client.haunt;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.List;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.effect.client.HauntFogFunction;
 import net.frozenblock.trailiertales.registry.RegisterMobEffects;
 import net.minecraft.client.renderer.FogRenderer;
@@ -17,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
 

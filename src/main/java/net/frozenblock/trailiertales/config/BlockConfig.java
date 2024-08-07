@@ -30,11 +30,13 @@ public final class BlockConfig {
 			public void onSync(BlockConfig syncInstance) {
 				var config = this.config();
 				SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = config.suspiciousBlocks.smooth_animations;
+				SUSPICIOUS_BLOCK_PARTICLES = config.suspiciousBlocks.particle;
 			}
 		}
 	);
 
 	public static volatile boolean SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = true;
+	public static volatile boolean SUSPICIOUS_BLOCK_PARTICLES = false;
 
 	@CollapsibleObject
 	public final SuspiciousBlocks suspiciousBlocks = new SuspiciousBlocks();
@@ -45,6 +47,8 @@ public final class BlockConfig {
 	public static class SuspiciousBlocks {
 		@EntrySyncData(value = "smooth_animations", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean smooth_animations = true;
+		@EntrySyncData(value = "particle", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean particle = false;
 		@EntrySyncData(value = "place_items")
 		public boolean place_items = true;
 	}

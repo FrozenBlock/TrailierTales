@@ -73,7 +73,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 		apparition.setAidAnimProgress(0F);
 	}
 
-	public static final ParticleOptions BUBBLE_PARTICLE = ColorParticleOption.create(RegisterParticles.COLORABLE_BUBBLE, 162F / 255F, 181F/ 255F, 217F / 255F);
+	public static final ParticleOptions BUBBLE_PARTICLE = ColorParticleOption.create(RegisterParticles.GLOWING_BUBBLE, 162F / 255F, 181F/ 255F, 217F / 255F);
 	public static final ParticleOptions EFFECT_PARTICLE = ColorParticleOption.create(RegisterParticles.GLOWING_ENTITY_EFFECT, 162F / 255F, 181F/ 255F, 217F / 255F);
 
 	@Override

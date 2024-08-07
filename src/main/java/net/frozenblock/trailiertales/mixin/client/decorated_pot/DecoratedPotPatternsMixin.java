@@ -3,6 +3,8 @@ package net.frozenblock.trailiertales.mixin.client.decorated_pot;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.registry.RegisterItems;
@@ -17,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(DecoratedPotPatterns.class)
 public class DecoratedPotPatternsMixin {
 

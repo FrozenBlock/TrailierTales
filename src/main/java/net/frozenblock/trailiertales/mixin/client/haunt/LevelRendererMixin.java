@@ -2,6 +2,8 @@ package net.frozenblock.trailiertales.mixin.client.haunt;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.registry.RegisterMobEffects;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.Holder;
@@ -10,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 

@@ -11,9 +11,10 @@ import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegis
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.render.renderer.ApparitionRenderer;
-import net.frozenblock.trailiertales.particle.ColorableBubbleParticle;
+import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
+import net.frozenblock.trailiertales.particle.provider.TrailierParticleProviders;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
@@ -93,8 +94,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
-		particleRegistry.register(RegisterParticles.COLORABLE_BUBBLE, ColorableBubbleParticle.Provider::new);
+		particleRegistry.register(RegisterParticles.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
 		particleRegistry.register(RegisterParticles.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
 		particleRegistry.register(RegisterParticles.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
+		particleRegistry.register(RegisterParticles.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
 	}
 }

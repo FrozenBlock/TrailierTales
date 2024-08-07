@@ -35,6 +35,16 @@ public final class BlockConfigGui {
 			"smooth_animations",
 			configInstance
 		);
+		var suspiciousBlockParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("suspicious_block_particles"), modifiedSuspiciousBlocks.particle)
+				.setDefaultValue(defaultConfig.suspiciousBlocks.particle)
+				.setSaveConsumer(newValue -> suspiciousBlocks.particle = newValue)
+				.setTooltip(TrailierConstants.tooltip("suspicious_block_particles"))
+				.build(),
+			suspiciousBlocks.getClass(),
+			"particle",
+			configInstance
+		);
 		var placeItemsInSupiciousBlocks = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TrailierConstants.text("place_items_in_suspicious_blocks"), modifiedSuspiciousBlocks.place_items)
 				.setDefaultValue(defaultConfig.suspiciousBlocks.place_items)
@@ -49,7 +59,7 @@ public final class BlockConfigGui {
 		var suspiciousBlocksCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("suspicious_blocks"),
 			false,
 			TrailierConstants.tooltip("suspicious_blocks"),
-			smoothSuspiciousBlocks, placeItemsInSupiciousBlocks
+			smoothSuspiciousBlocks, suspiciousBlockParticles, placeItemsInSupiciousBlocks
 		);
 
 		var blockSounds = config.blockSounds;

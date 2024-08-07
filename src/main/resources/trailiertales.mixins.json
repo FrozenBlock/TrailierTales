@@ -5,8 +5,8 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
-    "common.brush.HalfBrushMixin",
     "common.brush.BrushSoundMixin",
+    "common.brush.HalfBrushMixin",
     "common.brushable_block.BlockEntityTypeMixin",
     "common.brushable_block.BrushableBlockEntityMixin",
     "common.brushable_block.BrushableBlockMixin",
@@ -22,6 +22,7 @@
   "client": [
     "client.brush.ItemInHandLayerMixin",
     "client.brush.ItemPropertiesMixin",
+    "client.brushable_block.BrushableBlockMixin",
     "client.brushable_block.BrushableBlockRenderMixin",
     "client.brushable_block.BrushingCompleteSoundMixin",
     "client.decorated_pot.DecoratedPotPatternsMixin",

@@ -28,6 +28,11 @@ accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang
 # Datagen
 accessible field net/minecraft/data/models/BlockModelGenerators$BlockFamilyProvider skipGeneratingModelsFor Ljava/util/Set;
 
+# Particle
+accessible method net/minecraft/client/particle/FlyTowardsPositionParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDZLnet/minecraft/client/particle/Particle$LifetimeAlpha;)V
+accessible method net/minecraft/client/particle/FlyTowardsPositionParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)V
+accessible method net/minecraft/client/particle/SpellParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
+
 # Rendering
 accessible class net/minecraft/client/renderer/FogRenderer$MobEffectFogFunction
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
