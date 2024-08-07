@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
+    "common.boat.BoatMixin",
     "common.brush.BrushSoundMixin",
     "common.brush.HalfBrushMixin",
     "common.brushable_block.BlockEntityTypeMixin",
@@ -20,6 +21,7 @@
     "datagen.common.feature_flag.FeatureFlagsMixin"
   ],
   "client": [
+    "client.boat.BoatRendererMixin",
     "client.brush.ItemInHandLayerMixin",
     "client.brush.ItemPropertiesMixin",
     "client.brushable_block.BrushableBlockMixin",

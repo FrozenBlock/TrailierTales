@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
+import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
 import net.frozenblock.trailiertales.entity.render.renderer.ApparitionRenderer;
 import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
@@ -71,6 +72,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TrailierConstants.id("coffin_foot"), "main");
 	public static final ModelLayerLocation APPARITION = new ModelLayerLocation(TrailierConstants.id("apparition"), "main");
 	public static final ModelLayerLocation APPARITION_OVERLAY = new ModelLayerLocation(TrailierConstants.id("apparition"), "overlay");
+	public static final ModelLayerLocation BOAT_BANNER = new ModelLayerLocation(TrailierConstants.id("boat"), "banner");
 
 	@Override
 	public void onInitializeClient() {
@@ -90,6 +92,8 @@ public class TrailierTalesClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
 
 		EntityRendererRegistry.register(RegisterEntities.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
+
+		EntityModelLayerRegistry.registerModelLayer(BOAT_BANNER, BoatBannerModel::createBodyLayer);
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);

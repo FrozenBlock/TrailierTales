@@ -63,7 +63,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			poseStack.mulPose(Axis.YN.rotation(entity.getItemYRot(partialTick)));
 			poseStack.mulPose(Axis.ZN.rotation(entity.getItemZRot(partialTick)));
 			poseStack.pushPose();
-			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), 1);
+			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, null, 1);
 			poseStack.popPose();
 			poseStack.popPose();
 		}
