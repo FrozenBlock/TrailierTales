@@ -130,7 +130,7 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 		)
 	)
 	public Vec3 trailierTales$bannerSpeedBoost(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
-		double multiplier = !this.trailierTales$getBanner().isEmpty() ? 1.1D : 1D;
+		double multiplier = !this.trailierTales$getBanner().isEmpty() ? 1.15D : 1D;
 		return original.call(instance, x * multiplier, y * multiplier, z * multiplier);
 	}
 }
