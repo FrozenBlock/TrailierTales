@@ -21,9 +21,9 @@ public class TrailierParticleProviders {
 
 		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i) {
 			FlyTowardsPositionParticle flyTowardsPositionParticle = new FlyTowardsPositionParticle(
-				world, d, e, f, g, h, i, true, new Particle.LifetimeAlpha(0F, 0.8F, 0.25F, 1F)
+				world, d, e, f, g, h, i, true, new Particle.LifetimeAlpha(1F, 0F, 0F, 1F)
 			);
-			flyTowardsPositionParticle.scale(1.5F);
+			flyTowardsPositionParticle.scale(1.75F);
 			flyTowardsPositionParticle.pickSprite(this.sprite);
 			return flyTowardsPositionParticle;
 		}
