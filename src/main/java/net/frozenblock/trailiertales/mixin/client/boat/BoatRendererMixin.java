@@ -87,6 +87,7 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 		if (boat instanceof BoatBannerInterface bannerInterface) {
 			ItemStack stack = bannerInterface.trailierTales$getBanner();
 			if (!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem) {
+				Boat.Type type = boatType.get();
 				matrices.pushPose();
 				float o;
 				float p;
@@ -95,14 +96,14 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 				if (o > 1F) {
 					o = 1F;
 				}
-				this.trailierTales$boatBannerModel.setRaft(boatType.get() == Boat.Type.BAMBOO);
+				this.trailierTales$boatBannerModel.setRaft(type == Boat.Type.BAMBOO);
 				this.trailierTales$boatBannerModel.beforeRender(matrices);
 				this.trailierTales$boatBannerModel.setupAnim(boat, p, o, boat.tickCount + tickDelta, 0F, 0F);
 				this.trailierTales$boatBannerModel.renderToBuffer(
 					matrices,
 					vertexConsumers.getBuffer(
 						this.trailierTales$boatBannerModel.renderType(
-							this.trailierTales$boatBannerResources.get(boatType.get())
+							this.trailierTales$boatBannerResources.get(type)
 						)
 					),
 					i,

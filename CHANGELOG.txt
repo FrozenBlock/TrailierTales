@@ -240,7 +240,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Added Chiseled Purpur Block
     - Added Purpur Wall
 
-# BANNER BOATS
+## BANNER BOATS
 - Created by sneaking and using a Banner item on a Boat
     - Banner can be taken off by sneaking and interacting with the Boat a second time
 - Increases the Boat's speed by 20%
