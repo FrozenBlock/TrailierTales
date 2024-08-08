@@ -485,10 +485,10 @@
   },
   "block.polished.fall": {
     "sounds": [
-      "trailiertales:block/bricks/step1",
-      "trailiertales:block/bricks/step2",
-      "trailiertales:block/bricks/step3",
-      "trailiertales:block/bricks/step4"
+      "trailiertales:block/polished/step1",
+      "trailiertales:block/polished/step2",
+      "trailiertales:block/polished/step3",
+      "trailiertales:block/polished/step4"
     ]
   },
   "block.polished.hit": {
@@ -511,10 +511,10 @@
   },
   "block.polished.step": {
     "sounds": [
-      "trailiertales:block/bricks/step1",
-      "trailiertales:block/bricks/step2",
-      "trailiertales:block/bricks/step3",
-      "trailiertales:block/bricks/step4"
+      "trailiertales:block/polished/step1",
+      "trailiertales:block/polished/step2",
+      "trailiertales:block/polished/step3",
+      "trailiertales:block/polished/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -31,12 +32,15 @@ public final class TTModelProvider extends FabricModelProvider {
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
 		generator.createPlant(RegisterBlocks.CYAN_ROSE, RegisterBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
 
+		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
 		generator.family(RegisterBlocks.MOSSY_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_GRANITE_BRICK);
 
+		generator.family(Blocks.POLISHED_DIORITE).generateFor(BlockFamilies.POLISHED_DIORITE);
 		generator.family(RegisterBlocks.DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_DIORITE_BRICK);
 		generator.family(RegisterBlocks.MOSSY_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DIORITE_BRICK);
 
+		generator.family(Blocks.POLISHED_ANDESITE).generateFor(BlockFamilies.POLISHED_ANDESITE);
 		generator.family(RegisterBlocks.ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_ANDESITE_BRICK);
 		generator.family(RegisterBlocks.MOSSY_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_ANDESITE_BRICK);
 
