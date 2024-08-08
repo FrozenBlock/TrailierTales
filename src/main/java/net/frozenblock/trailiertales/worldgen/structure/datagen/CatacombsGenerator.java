@@ -528,7 +528,7 @@ public class CatacombsGenerator {
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
-				96,
+				82,
 				List.of(),
 				new DimensionPadding(6),
 				LiquidSettings.IGNORE_WATERLOGGING
@@ -543,7 +543,7 @@ public class CatacombsGenerator {
 			CATACOMBS_STRUCTURE_SET_KEY,
 			new StructureSet(
 				structure.getOrThrow(CATACOMBS_KEY),
-				new RandomSpreadStructurePlacement(90, 50, RandomSpreadType.LINEAR, 1886497114) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(80, 40, RandomSpreadType.LINEAR, 1886497114) // ancient city salt is 20083232
 			)
 		);
 	}
