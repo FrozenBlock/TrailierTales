@@ -506,45 +506,45 @@
 
   "block.calcite_bricks_alt.break": {
     "sounds": [
-      "trailiertales:block/calcite_bricks/place1",
-      "trailiertales:block/calcite_bricks/place2",
-      "trailiertales:block/calcite_bricks/place3",
-      "trailiertales:block/calcite_bricks/place4"
+      "trailiertales:block/calcite_bricks_alt/place1",
+      "trailiertales:block/calcite_bricks_alt/place2",
+      "trailiertales:block/calcite_bricks_alt/place3",
+      "trailiertales:block/calcite_bricks_alt/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.calcite_bricks_alt.fall": {
     "sounds": [
-      "trailiertales:block/calcite_bricks/step1",
-      "trailiertales:block/calcite_bricks/step2",
-      "trailiertales:block/calcite_bricks/step3",
-      "trailiertales:block/calcite_bricks/step4"
+      "trailiertales:block/calcite_bricks_alt/step1",
+      "trailiertales:block/calcite_bricks_alt/step2",
+      "trailiertales:block/calcite_bricks_alt/step3",
+      "trailiertales:block/calcite_bricks_alt/step4"
     ]
   },
   "block.calcite_bricks_alt.hit": {
     "sounds": [
-      "trailiertales:block/calcite_bricks/step1",
-      "trailiertales:block/calcite_bricks/step2",
-      "trailiertales:block/calcite_bricks/step3",
-      "trailiertales:block/calcite_bricks/step4"
+      "trailiertales:block/calcite_bricks_alt/step1",
+      "trailiertales:block/calcite_bricks_alt/step2",
+      "trailiertales:block/calcite_bricks_alt/step3",
+      "trailiertales:block/calcite_bricks_alt/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.calcite_bricks_alt.place": {
     "sounds": [
-      "trailiertales:block/calcite_bricks/place1",
-      "trailiertales:block/calcite_bricks/place2",
-      "trailiertales:block/calcite_bricks/place3",
-      "trailiertales:block/calcite_bricks/place4"
+      "trailiertales:block/calcite_bricks_alt/place1",
+      "trailiertales:block/calcite_bricks_alt/place2",
+      "trailiertales:block/calcite_bricks_alt/place3",
+      "trailiertales:block/calcite_bricks_alt/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.calcite_bricks_alt.step": {
     "sounds": [
-      "trailiertales:block/calcite_bricks/step1",
-      "trailiertales:block/calcite_bricks/step2",
-      "trailiertales:block/calcite_bricks/step3",
-      "trailiertales:block/calcite_bricks/step4"
+      "trailiertales:block/calcite_bricks_alt/step1",
+      "trailiertales:block/calcite_bricks_alt/step2",
+      "trailiertales:block/calcite_bricks_alt/step3",
+      "trailiertales:block/calcite_bricks_alt/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
