@@ -242,7 +242,9 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_BLACKSTONE_SLAB,
 				Blocks.POLISHED_BLACKSTONE_STAIRS,
 				Blocks.POLISHED_BLACKSTONE_WALL,
-				Blocks.CHISELED_POLISHED_BLACKSTONE
+				Blocks.CHISELED_POLISHED_BLACKSTONE,
+				Blocks.POLISHED_BLACKSTONE_BUTTON,
+				Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE,
 			},
 			RegisterSounds.POLISHED,
 			() -> BlockConfig.get().blockSounds.polished
