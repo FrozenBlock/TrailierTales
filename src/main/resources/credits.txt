@@ -22,6 +22,7 @@ Voxelotl
       - Undead Armor Trim
       - Surveyor
       - Apparition
+      - All Boat Banner Posts
     - Came up with the Undead Armor Trim
 
 Zhen
