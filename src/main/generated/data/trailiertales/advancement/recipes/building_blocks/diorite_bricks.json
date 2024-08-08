@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_diorite": {
+    "has_polished_diorite": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:diorite"
+            "items": "minecraft:polished_diorite"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_diorite"
+      "has_polished_diorite"
     ]
   ],
   "rewards": {

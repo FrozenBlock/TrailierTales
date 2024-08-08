@@ -89,10 +89,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_WALL, Blocks.POLISHED_GRANITE);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, 4)
-			.define('#', Blocks.GRANITE)
+			.define('#', Blocks.POLISHED_GRANITE)
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy("has_granite", has(Blocks.GRANITE))
+			.unlockedBy("has_polished_granite", has(Blocks.POLISHED_GRANITE))
 			.save(recipeOutput);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_GRANITE_BRICKS, Blocks.GRANITE);
@@ -136,10 +136,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_WALL, Blocks.POLISHED_DIORITE);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, 4)
-			.define('#', Blocks.DIORITE)
+			.define('#', Blocks.POLISHED_DIORITE)
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy("has_diorite", has(Blocks.DIORITE))
+			.unlockedBy("has_polished_diorite", has(Blocks.POLISHED_DIORITE))
 			.save(recipeOutput);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_DIORITE_BRICKS, Blocks.DIORITE);
@@ -183,10 +183,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_WALL, Blocks.POLISHED_ANDESITE);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, 4)
-			.define('#', Blocks.ANDESITE)
+			.define('#', Blocks.POLISHED_ANDESITE)
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy("has_andesite", has(Blocks.ANDESITE))
+			.unlockedBy("has_polished_andesite", has(Blocks.POLISHED_ANDESITE))
 			.save(recipeOutput);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_ANDESITE_BRICKS, Blocks.ANDESITE);
