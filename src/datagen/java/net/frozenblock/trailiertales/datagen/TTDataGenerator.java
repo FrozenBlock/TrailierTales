@@ -50,10 +50,18 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, RegisterBlocks.CUT_SANDSTONE_STAIRS);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.CUT_SANDSTONE_WALL);
 
+		BlockFamilies.SMOOTH_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL);
+		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, RegisterBlocks.CUT_RED_SANDSTONE_STAIRS);
+		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.CUT_RED_SANDSTONE_WALL);
+
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, RegisterBlocks.CRACKED_PURPUR_BLOCK);
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, RegisterBlocks.CHISELED_PURPUR_BLOCK);
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.PURPUR_WALL);
 		BlockFamilies.PURPUR.generateRecipe = true;
+
+		BlockFamilies.POLISHED_GRANITE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.POLISHED_GRANITE_WALL);
+		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.POLISHED_DIORITE_WALL);
+		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.POLISHED_ANDESITE_WALL);
 
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();

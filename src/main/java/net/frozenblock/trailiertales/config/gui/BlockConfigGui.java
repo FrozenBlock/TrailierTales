@@ -85,21 +85,21 @@ public final class BlockConfigGui {
 			"stone_brick_sounds",
 			configInstance
 		);
-		var endStoneBrickSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TrailierConstants.text("end_stone_brick_sounds"), modifiedBlockSounds.end_stone_bricks)
-				.setDefaultValue(defaultConfig.blockSounds.end_stone_bricks)
-				.setSaveConsumer(newValue -> blockSounds.end_stone_bricks = newValue)
-				.setTooltip(TrailierConstants.tooltip("end_stone_brick_sounds"))
+		var polishedSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_sounds"), modifiedBlockSounds.polished)
+				.setDefaultValue(defaultConfig.blockSounds.polished)
+				.setSaveConsumer(newValue -> blockSounds.polished = newValue)
+				.setTooltip(TrailierConstants.tooltip("polished_sounds"))
 				.build(),
 			blockSounds.getClass(),
-			"end_stone_brick_sounds",
+			"polished_sounds",
 			configInstance
 		);
 
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("block_sounds"),
 			false,
 			TrailierConstants.tooltip("block_sounds"),
-			brickSounds, stoneBrickSounds, endStoneBrickSounds
+			brickSounds, stoneBrickSounds, polishedSounds
 		);
 	}
 }

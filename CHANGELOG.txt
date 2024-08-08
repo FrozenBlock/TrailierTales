@@ -134,6 +134,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Goes up to level 3
 
 ## BUILDING BLOCKS
+- Added Polished Granite Wall
 - Added Granite Bricks
     - Added Chiseled Granite Bricks
     - Added Cracked Granite Bricks
@@ -144,6 +145,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
         - Added Mossy Granite Brick Stairs
         - Added Mossy Granite Brick Slab
         - Added Mossy Granite Brick Wall
+- Added Polished Diorite Wall
 - Added Diorite Bricks
     - Added Chiseled Diorite Bricks
     - Added Cracked Diorite Bricks
@@ -154,6 +156,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
         - Added Mossy Diorite Brick Stairs
         - Added Mossy Diorite Brick Slab
         - Added Mossy Diorite Brick Wall
+- Added Polished Andesite Wall
 - Added Andesite Bricks
     - Added Chiseled Andesite Bricks
     - Added Cracked Andesite Bricks

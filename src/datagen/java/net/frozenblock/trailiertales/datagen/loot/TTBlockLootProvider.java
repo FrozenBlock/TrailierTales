@@ -27,6 +27,7 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			this.applyExplosionDecay(RegisterBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS))))
 		);
 
+		this.dropSelf(RegisterBlocks.POLISHED_GRANITE_WALL);
 		this.dropSelf(RegisterBlocks.CHISELED_GRANITE_BRICKS);
 		this.dropSelf(RegisterBlocks.GRANITE_BRICKS);
 		this.dropSelf(RegisterBlocks.CRACKED_GRANITE_BRICKS);
@@ -38,6 +39,7 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.MOSSY_GRANITE_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(RegisterBlocks.MOSSY_GRANITE_BRICK_WALL);
 
+		this.dropSelf(RegisterBlocks.POLISHED_DIORITE_WALL);
 		this.dropSelf(RegisterBlocks.CHISELED_DIORITE_BRICKS);
 		this.dropSelf(RegisterBlocks.DIORITE_BRICKS);
 		this.dropSelf(RegisterBlocks.CRACKED_DIORITE_BRICKS);
@@ -49,6 +51,7 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(RegisterBlocks.MOSSY_DIORITE_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(RegisterBlocks.MOSSY_DIORITE_BRICK_WALL);
 
+		this.dropSelf(RegisterBlocks.POLISHED_ANDESITE_WALL);
 		this.dropSelf(RegisterBlocks.CHISELED_ANDESITE_BRICKS);
 		this.dropSelf(RegisterBlocks.ANDESITE_BRICKS);
 		this.dropSelf(RegisterBlocks.CRACKED_ANDESITE_BRICKS);

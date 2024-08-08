@@ -107,6 +107,9 @@ public class RegisterBlocks {
 
 	// GRANITE
 
+	public static final Block POLISHED_GRANITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+
 	public static final Block GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GRANITE)
 		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block CHISELED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
@@ -140,6 +143,9 @@ public class RegisterBlocks {
 
 	// DIORITE
 
+	public static final Block POLISHED_DIORITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+
 	public static final Block DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIORITE)
 		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block DIORITE_BRICK_STAIRS = new StairBlock(
@@ -172,6 +178,9 @@ public class RegisterBlocks {
 		.getFamily();
 
 	// ANDESITE
+
+	public static final Block POLISHED_ANDESITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE)
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 
 	public static final Block ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Block ANDESITE_BRICK_STAIRS = new StairBlock(
@@ -459,6 +468,7 @@ public class RegisterBlocks {
 		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
 		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
 
+		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(GRANITE_BRICKS, "cracked_granite_bricks", CRACKED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CRACKED_GRANITE_BRICKS, "granite_brick_stairs", GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -470,6 +480,7 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_GRANITE_BRICK_STAIRS, "mossy_granite_brick_slab", MOSSY_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_GRANITE_BRICK_SLAB, "mossy_granite_brick_wall", MOSSY_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
+		registerBlockAfter(Blocks.POLISHED_DIORITE_SLAB, "polished_diorite_wall", POLISHED_DIORITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.DIORITE_SLAB, "diorite_bricks", DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(DIORITE_BRICKS, "cracked_diorite_bricks", CRACKED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CRACKED_DIORITE_BRICKS, "diorite_brick_stairs", DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
@@ -481,6 +492,7 @@ public class RegisterBlocks {
 		registerBlockAfter(MOSSY_DIORITE_BRICK_STAIRS, "mossy_diorite_brick_slab", MOSSY_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(MOSSY_DIORITE_BRICK_SLAB, "mossy_diorite_brick_wall", MOSSY_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
+		registerBlockAfter(Blocks.POLISHED_ANDESITE_SLAB, "polished_andesite_wall", POLISHED_ANDESITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.ANDESITE_SLAB, "andesite_bricks", ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(ANDESITE_BRICKS, "cracked_andesite_bricks", CRACKED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(CRACKED_ANDESITE_BRICKS, "andesite_brick_stairs", ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);

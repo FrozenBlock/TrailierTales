@@ -474,16 +474,16 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
-  "block.end_stone_bricks.break": {
+  "block.polished.break": {
     "sounds": [
-      "trailiertales:block/end_stone_bricks/place1",
-      "trailiertales:block/end_stone_bricks/place2",
-      "trailiertales:block/end_stone_bricks/place3",
-      "trailiertales:block/end_stone_bricks/place4"
+      "trailiertales:block/polished/place1",
+      "trailiertales:block/polished/place2",
+      "trailiertales:block/polished/place3",
+      "trailiertales:block/polished/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.end_stone_bricks.fall": {
+  "block.polished.fall": {
     "sounds": [
       "trailiertales:block/bricks/step1",
       "trailiertales:block/bricks/step2",
@@ -491,25 +491,25 @@
       "trailiertales:block/bricks/step4"
     ]
   },
-  "block.end_stone_bricks.hit": {
+  "block.polished.hit": {
     "sounds": [
-      "trailiertales:block/end_stone_bricks/place1",
-      "trailiertales:block/end_stone_bricks/place2",
-      "trailiertales:block/end_stone_bricks/place3",
-      "trailiertales:block/end_stone_bricks/place4"
+      "trailiertales:block/polished/place1",
+      "trailiertales:block/polished/place2",
+      "trailiertales:block/polished/place3",
+      "trailiertales:block/polished/place4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.end_stone_bricks.place": {
+  "block.polished.place": {
     "sounds": [
-      "trailiertales:block/end_stone_bricks/place1",
-      "trailiertales:block/end_stone_bricks/place2",
-      "trailiertales:block/end_stone_bricks/place3",
-      "trailiertales:block/end_stone_bricks/place4"
+      "trailiertales:block/polished/place1",
+      "trailiertales:block/polished/place2",
+      "trailiertales:block/polished/place3",
+      "trailiertales:block/polished/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.end_stone_bricks.step": {
+  "block.polished.step": {
     "sounds": [
       "trailiertales:block/bricks/step1",
       "trailiertales:block/bricks/step2",

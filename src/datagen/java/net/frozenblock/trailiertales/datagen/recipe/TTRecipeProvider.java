@@ -85,6 +85,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// GRANITE
 
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_WALL, Blocks.GRANITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_GRANITE_WALL, Blocks.POLISHED_GRANITE);
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.GRANITE_BRICKS, 4)
 			.define('#', Blocks.GRANITE)
 			.pattern("##")
@@ -129,6 +132,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		// DIORITE
 
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_WALL, Blocks.DIORITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_DIORITE_WALL, Blocks.POLISHED_DIORITE);
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.DIORITE_BRICKS, 4)
 			.define('#', Blocks.DIORITE)
 			.pattern("##")
@@ -172,6 +178,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, RegisterBlocks.MOSSY_DIORITE_BRICK_WALL, RegisterBlocks.MOSSY_DIORITE_BRICKS);
 
 		// ANDESITE
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_WALL, Blocks.ANDESITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.POLISHED_ANDESITE_WALL, Blocks.POLISHED_ANDESITE);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.ANDESITE_BRICKS, 4)
 			.define('#', Blocks.ANDESITE)

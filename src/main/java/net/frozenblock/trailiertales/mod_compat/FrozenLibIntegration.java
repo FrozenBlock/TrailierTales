@@ -180,8 +180,32 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB,
 				RegisterBlocks.CHORAL_END_STONE_BRICK_WALL
 			},
-			RegisterSounds.END_STONE_BRICKS,
-			() -> BlockConfig.get().blockSounds.end_stone_bricks
+			RegisterSounds.BRICKS,
+			() -> BlockConfig.get().blockSounds.bricks
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.POLISHED_ANDESITE,
+				Blocks.POLISHED_ANDESITE_SLAB,
+				Blocks.POLISHED_ANDESITE_STAIRS,
+				RegisterBlocks.POLISHED_ANDESITE_WALL,
+				Blocks.POLISHED_GRANITE,
+				Blocks.POLISHED_GRANITE_SLAB,
+				Blocks.POLISHED_GRANITE_STAIRS,
+				RegisterBlocks.POLISHED_GRANITE_WALL,
+				Blocks.POLISHED_DIORITE,
+				Blocks.POLISHED_DIORITE_SLAB,
+				Blocks.POLISHED_DIORITE_STAIRS,
+				RegisterBlocks.POLISHED_DIORITE_WALL,
+				Blocks.POLISHED_BLACKSTONE,
+				Blocks.POLISHED_BLACKSTONE_SLAB,
+				Blocks.POLISHED_BLACKSTONE_STAIRS,
+				Blocks.POLISHED_BLACKSTONE_WALL,
+				Blocks.CHISELED_POLISHED_BLACKSTONE
+			},
+			RegisterSounds.POLISHED,
+			() -> BlockConfig.get().blockSounds.polished
 		);
 
 		if (WorldgenConfig.get().endCity.generateCracked) {

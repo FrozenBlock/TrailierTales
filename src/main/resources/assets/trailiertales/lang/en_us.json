@@ -54,6 +54,7 @@
   "block.trailiertales.cyan_rose_crop": "Cyan Rose Crop",
   "item.trailiertales.cyan_rose_seeds": "Cyan Rose Seeds",
 
+  "block.trailiertales.polished_granite_wall": "Polished Granite Wall",
   "block.trailiertales.chiseled_granite_bricks": "Chiseled Granite Bricks",
   "block.trailiertales.granite_bricks": "Granite Bricks",
   "block.trailiertales.cracked_granite_bricks": "Cracked Granite Bricks",
@@ -65,6 +66,7 @@
   "block.trailiertales.mossy_granite_brick_slab": "Mossy Granite Brick Slab",
   "block.trailiertales.mossy_granite_brick_wall": "Mossy Granite Brick Wall",
 
+  "block.trailiertales.polished_diorite_wall": "Polished Diorite Wall",
   "block.trailiertales.chiseled_diorite_bricks": "Chiseled Diorite Bricks",
   "block.trailiertales.diorite_bricks": "Diorite Bricks",
   "block.trailiertales.cracked_diorite_bricks": "Cracked Diorite Bricks",
@@ -76,6 +78,7 @@
   "block.trailiertales.mossy_diorite_brick_slab": "Mossy Diorite Brick Slab",
   "block.trailiertales.mossy_diorite_brick_wall": "Mossy Diorite Brick Wall",
 
+  "block.trailiertales.polished_andesite_wall": "Polished Andesite Wall",
   "block.trailiertales.chiseled_andesite_bricks": "Chiseled Andesite Bricks",
   "block.trailiertales.andesite_bricks": "Andesite Bricks",
   "block.trailiertales.cracked_andesite_bricks": "Cracked Andesite Bricks",
@@ -197,9 +200,9 @@
   "option.trailiertales.brick_sounds": "Bricks",
   "tooltip.trailiertales.brick_sounds": "Whether Bricks should use new sounds.",
   "option.trailiertales.stone_brick_sounds": "Stone Bricks",
-  "tooltip.trailiertales.stone_brick_sounds": "Whether Stone Bricks should use new sounds.\nThis includes bricks from Stone variants.",
-  "option.trailiertales.end_stone_brick_sounds": "End Stone Bricks",
-  "tooltip.trailiertales.end_stone_brick_sounds": "Whether End Stone Bricks should use new sounds.",
+  "tooltip.trailiertales.stone_brick_sounds": "Whether Stone Bricks should use new sounds.\nThis includes bricks of Stone variants.",
+  "option.trailiertales.polished_sounds": "Polished Stone Bricks",
+  "tooltip.trailiertales.polished_sounds": "Whether Polished stone blocks should use new sounds.\nThis includes polished versions of Stone variants.",
 
   "option.trailiertales.item": "Item",
 
