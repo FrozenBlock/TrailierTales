@@ -117,6 +117,21 @@ public class RegisterSounds {
 		POLISHED_TUFF_FALL
 	);
 
+	public static final SoundEvent POLISHED_BASALT_BREAK = register("block.polished_basalt.break");
+	public static final SoundEvent POLISHED_BASALT_STEP = register("block.polished_basalt.step");
+	public static final SoundEvent POLISHED_BASALT_PLACE = register("block.polished_basalt.place");
+	public static final SoundEvent POLISHED_BASALT_HIT = register("block.polished_basalt.hit");
+	public static final SoundEvent POLISHED_BASALT_FALL = register("block.polished_basalt.fall");
+	public static final SoundType POLISHED_BASALT = new SoundType(
+		1F,
+		1F,
+		POLISHED_BASALT_BREAK,
+		POLISHED_BASALT_STEP,
+		POLISHED_BASALT_PLACE,
+		POLISHED_BASALT_HIT,
+		POLISHED_BASALT_FALL
+	);
+
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");

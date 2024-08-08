@@ -261,6 +261,14 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> BlockConfig.get().blockSounds.polished
 		);
 
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.POLISHED_BASALT
+			},
+			RegisterSounds.POLISHED_BASALT,
+			() -> BlockConfig.get().blockSounds.polished
+		);
+
 		if (WorldgenConfig.get().endCity.generateCracked) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.location(),

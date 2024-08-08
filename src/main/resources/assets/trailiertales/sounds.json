@@ -603,6 +603,59 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
+  "block.polished_basalt.break": {
+    "sounds": [
+      "trailiertales:block/polished_basalt/break1",
+      "trailiertales:block/polished_basalt/break2",
+      "trailiertales:block/polished_basalt/break3",
+      "trailiertales:block/polished_basalt/break4",
+      "trailiertales:block/polished_basalt/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_basalt.fall": {
+    "sounds": [
+      "trailiertales:block/polished_basalt/step1",
+      "trailiertales:block/polished_basalt/step2",
+      "trailiertales:block/polished_basalt/step3",
+      "trailiertales:block/polished_basalt/step4",
+      "trailiertales:block/polished_basalt/step5",
+      "trailiertales:block/polished_basalt/step6"
+    ]
+  },
+  "block.polished_basalt.hit": {
+    "sounds": [
+      "trailiertales:block/polished_basalt/step1",
+      "trailiertales:block/polished_basalt/step2",
+      "trailiertales:block/polished_basalt/step3",
+      "trailiertales:block/polished_basalt/step4",
+      "trailiertales:block/polished_basalt/step5",
+      "trailiertales:block/polished_basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_basalt.place": {
+    "sounds": [
+      "trailiertales:block/polished_basalt/break1",
+      "trailiertales:block/polished_basalt/break2",
+      "trailiertales:block/polished_basalt/break3",
+      "trailiertales:block/polished_basalt/break4",
+      "trailiertales:block/polished_basalt/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_basalt.step": {
+    "sounds": [
+      "trailiertales:block/polished_basalt/step1",
+      "trailiertales:block/polished_basalt/step2",
+      "trailiertales:block/polished_basalt/step3",
+      "trailiertales:block/polished_basalt/step4",
+      "trailiertales:block/polished_basalt/step5",
+      "trailiertales:block/polished_basalt/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
   "block.bricks.break": {
     "sounds": [
       "trailiertales:block/bricks/place1",
