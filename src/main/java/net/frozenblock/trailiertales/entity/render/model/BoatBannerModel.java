@@ -3,7 +3,6 @@ package net.frozenblock.trailiertales.entity.render.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -15,12 +14,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class BoatBannerModel extends EntityModel<Boat> {
@@ -33,11 +30,6 @@ public class BoatBannerModel extends EntityModel<Boat> {
 		this.flag = root.getChild("flag");
 		this.pole = root.getChild("pole");
 		this.bar = root.getChild("bar");
-	}
-
-	@Contract("_ -> new")
-	public static @NotNull ResourceLocation getTextureLocation(Boat.@NotNull Type type) {
-		return TrailierConstants.id("textures/entity/boat/banner/" + type.getName() + ".png");
 	}
 
 	public static @NotNull LayerDefinition createBodyLayer() {
