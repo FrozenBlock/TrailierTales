@@ -384,6 +384,81 @@
     "subtitle": "subtitles.item.brush.brushing.gravel.complete"
   },
 
+  "block.polished_calcite.break": {
+    "sounds": [
+      {
+        "name": "trailiertales:block/polished_calcite/break1",
+        "volume": 0.9
+      },
+      {
+        "name": "trailiertales:block/polished_calcite/break2",
+        "volume": 0.9
+      },
+      {
+        "name": "trailiertales:block/polished_calcite/break3",
+        "volume": 0.9
+      },
+      {
+        "name": "trailiertales:block/polished_calcite/break4",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_calcite.fall": {
+    "sounds": [
+      "trailiertales:block/polished_calcite/step1",
+      "trailiertales:block/polished_calcite/step2",
+      "trailiertales:block/polished_calcite/step3",
+      "trailiertales:block/polished_calcite/step4",
+      "trailiertales:block/polished_calcite/step5",
+      "trailiertales:block/polished_calcite/step6"
+    ]
+  },
+  "block.polished_calcite.hit": {
+    "sounds": [
+      "trailiertales:block/polished_calcite/step1",
+      "trailiertales:block/polished_calcite/step2",
+      "trailiertales:block/polished_calcite/step3",
+      "trailiertales:block/polished_calcite/step4",
+      "trailiertales:block/polished_calcite/step5",
+      "trailiertales:block/polished_calcite/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_calcite.place": {
+    "sounds": [
+      {
+        "name": "trailiertales:block/polished_calcite/place1",
+        "volume": 0.94
+      },
+      {
+        "name": "trailiertales:block/polished_calcite/place2",
+        "volume": 0.94
+      },
+      {
+        "name": "trailiertales:block/polished_calcite/place3",
+        "volume": 0.94
+      },
+      {
+        "name": "trailiertales:block/polished_calcite/place4",
+        "volume": 0.94
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_calcite.step": {
+    "sounds": [
+      "trailiertales:block/polished_calcite/step1",
+      "trailiertales:block/polished_calcite/step2",
+      "trailiertales:block/polished_calcite/step3",
+      "trailiertales:block/polished_calcite/step4",
+      "trailiertales:block/polished_calcite/step5",
+      "trailiertales:block/polished_calcite/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
   "block.calcite_bricks.break": {
     "sounds": [
       "trailiertales:block/calcite_bricks/place1",
@@ -425,6 +500,105 @@
       "trailiertales:block/calcite_bricks/step2",
       "trailiertales:block/calcite_bricks/step3",
       "trailiertales:block/calcite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
+  "block.calcite_bricks_alt.break": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/place1",
+      "trailiertales:block/calcite_bricks/place2",
+      "trailiertales:block/calcite_bricks/place3",
+      "trailiertales:block/calcite_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.calcite_bricks_alt.fall": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/step1",
+      "trailiertales:block/calcite_bricks/step2",
+      "trailiertales:block/calcite_bricks/step3",
+      "trailiertales:block/calcite_bricks/step4"
+    ]
+  },
+  "block.calcite_bricks_alt.hit": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/step1",
+      "trailiertales:block/calcite_bricks/step2",
+      "trailiertales:block/calcite_bricks/step3",
+      "trailiertales:block/calcite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.calcite_bricks_alt.place": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/place1",
+      "trailiertales:block/calcite_bricks/place2",
+      "trailiertales:block/calcite_bricks/place3",
+      "trailiertales:block/calcite_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.calcite_bricks_alt.step": {
+    "sounds": [
+      "trailiertales:block/calcite_bricks/step1",
+      "trailiertales:block/calcite_bricks/step2",
+      "trailiertales:block/calcite_bricks/step3",
+      "trailiertales:block/calcite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
+  "block.polished_tuff.break": {
+    "sounds": [
+      "trailiertales:block/polished_tuff/break1",
+      "trailiertales:block/polished_tuff/break2",
+      "trailiertales:block/polished_tuff/break3",
+      "trailiertales:block/polished_tuff/break4",
+      "trailiertales:block/polished_tuff/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_tuff.fall": {
+    "sounds": [
+      "trailiertales:block/polished_tuff/step1",
+      "trailiertales:block/polished_tuff/step2",
+      "trailiertales:block/polished_tuff/step3",
+      "trailiertales:block/polished_tuff/step4",
+      "trailiertales:block/polished_tuff/step5",
+      "trailiertales:block/polished_tuff/step6"
+    ]
+  },
+  "block.polished_tuff.hit": {
+    "sounds": [
+      "trailiertales:block/polished_tuff/step1",
+      "trailiertales:block/polished_tuff/step2",
+      "trailiertales:block/polished_tuff/step3",
+      "trailiertales:block/polished_tuff/step4",
+      "trailiertales:block/polished_tuff/step5",
+      "trailiertales:block/polished_tuff/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_tuff.place": {
+    "sounds": [
+      "trailiertales:block/polished_tuff/break1",
+      "trailiertales:block/polished_tuff/break2",
+      "trailiertales:block/polished_tuff/break3",
+      "trailiertales:block/polished_tuff/break4",
+      "trailiertales:block/polished_tuff/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_tuff.step": {
+    "sounds": [
+      "trailiertales:block/polished_tuff/step1",
+      "trailiertales:block/polished_tuff/step2",
+      "trailiertales:block/polished_tuff/step3",
+      "trailiertales:block/polished_tuff/step4",
+      "trailiertales:block/polished_tuff/step5",
+      "trailiertales:block/polished_tuff/step6"
+
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

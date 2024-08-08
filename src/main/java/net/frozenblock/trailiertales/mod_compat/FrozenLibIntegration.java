@@ -81,6 +81,17 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
+				RegisterBlocks.POLISHED_CALCITE,
+				RegisterBlocks.POLISHED_CALCITE_SLAB,
+				RegisterBlocks.POLISHED_CALCITE_WALL,
+				RegisterBlocks.POLISHED_CALCITE_STAIRS,
+			},
+			RegisterSounds.POLISHED_CALCITE,
+			() -> BlockConfig.get().blockSounds.polished
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
 				Blocks.BRICKS,
 				Blocks.BRICK_STAIRS,
 				Blocks.BRICK_SLAB,
@@ -169,6 +180,35 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
+				Blocks.POLISHED_BLACKSTONE_BRICKS,
+				Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS,
+				Blocks.POLISHED_BLACKSTONE_BRICK_SLAB,
+				Blocks.POLISHED_BLACKSTONE_BRICK_WALL,
+				Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS
+			},
+			RegisterSounds.POLISHED_BRICKS,
+			() -> BlockConfig.get().blockSounds.polished_bricks
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				RegisterBlocks.CALCITE_BRICKS,
+				RegisterBlocks.CALCITE_BRICK_STAIRS,
+				RegisterBlocks.CALCITE_BRICK_SLAB,
+				RegisterBlocks.CALCITE_BRICK_WALL,
+				RegisterBlocks.CHISELED_CALCITE_BRICKS,
+				RegisterBlocks.CRACKED_CALCITE_BRICKS,
+				RegisterBlocks.MOSSY_CALCITE_BRICKS,
+				RegisterBlocks.MOSSY_CALCITE_BRICK_STAIRS,
+				RegisterBlocks.MOSSY_CALCITE_BRICK_SLAB,
+				RegisterBlocks.MOSSY_CALCITE_BRICK_WALL
+			},
+			RegisterSounds.CALCITE_BRICKS_ALT,
+			() -> BlockConfig.get().blockSounds.polished_bricks
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
 				Blocks.END_STONE_BRICKS,
 				Blocks.END_STONE_BRICK_STAIRS,
 				Blocks.END_STONE_BRICK_SLAB,
@@ -205,6 +245,17 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.CHISELED_POLISHED_BLACKSTONE
 			},
 			RegisterSounds.POLISHED,
+			() -> BlockConfig.get().blockSounds.polished
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.POLISHED_TUFF,
+				Blocks.POLISHED_TUFF_SLAB,
+				Blocks.POLISHED_TUFF_WALL,
+				Blocks.POLISHED_TUFF_STAIRS,
+			},
+			RegisterSounds.POLISHED_TUFF,
 			() -> BlockConfig.get().blockSounds.polished
 		);
 

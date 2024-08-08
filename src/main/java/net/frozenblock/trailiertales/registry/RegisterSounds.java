@@ -27,6 +27,21 @@ public class RegisterSounds {
 		CALCITE_BRICKS_FALL
 	);
 
+	public static final SoundEvent CALCITE_BRICKS_ALT_BREAK = register("block.calcite_bricks_alt.break");
+	public static final SoundEvent CALCITE_BRICKS_ALT_STEP = register("block.calcite_bricks_alt.step");
+	public static final SoundEvent CALCITE_BRICKS_ALT_PLACE = register("block.calcite_bricks_alt.place");
+	public static final SoundEvent CALCITE_BRICKS_ALT_HIT = register("block.calcite_bricks_alt.hit");
+	public static final SoundEvent CALCITE_BRICKS_ALT_FALL = register("block.calcite_bricks_alt.fall");
+	public static final SoundType CALCITE_BRICKS_ALT = new SoundType(
+		1F,
+		1F,
+		CALCITE_BRICKS_ALT_BREAK,
+		CALCITE_BRICKS_ALT_STEP,
+		CALCITE_BRICKS_ALT_PLACE,
+		CALCITE_BRICKS_ALT_HIT,
+		CALCITE_BRICKS_ALT_FALL
+	);
+
 	public static final SoundEvent BRICKS_BREAK = register("block.bricks.break");
 	public static final SoundEvent BRICKS_STEP = register("block.bricks.step");
 	public static final SoundEvent BRICKS_PLACE = register("block.bricks.place");
@@ -70,6 +85,36 @@ public class RegisterSounds {
 		POLISHED_BRICKS_PLACE,
 		POLISHED_BRICKS_HIT,
 		POLISHED_BRICKS_FALL
+	);
+
+	public static final SoundEvent POLISHED_CALCITE_BREAK = register("block.polished_calcite.break");
+	public static final SoundEvent POLISHED_CALCITE_STEP = register("block.polished_calcite.step");
+	public static final SoundEvent POLISHED_CALCITE_PLACE = register("block.polished_calcite.place");
+	public static final SoundEvent POLISHED_CALCITE_HIT = register("block.polished_calcite.hit");
+	public static final SoundEvent POLISHED_CALCITE_FALL = register("block.polished_calcite.fall");
+	public static final SoundType POLISHED_CALCITE = new SoundType(
+		1F,
+		1F,
+		POLISHED_CALCITE_BREAK,
+		POLISHED_CALCITE_STEP,
+		POLISHED_CALCITE_PLACE,
+		POLISHED_CALCITE_HIT,
+		POLISHED_CALCITE_FALL
+	);
+
+	public static final SoundEvent POLISHED_TUFF_BREAK = register("block.polished_tuff.break");
+	public static final SoundEvent POLISHED_TUFF_STEP = register("block.polished_tuff.step");
+	public static final SoundEvent POLISHED_TUFF_PLACE = register("block.polished_tuff.place");
+	public static final SoundEvent POLISHED_TUFF_HIT = register("block.polished_tuff.hit");
+	public static final SoundEvent POLISHED_TUFF_FALL = register("block.polished_tuff.fall");
+	public static final SoundType POLISHED_TUFF = new SoundType(
+		1F,
+		1F,
+		POLISHED_TUFF_BREAK,
+		POLISHED_TUFF_STEP,
+		POLISHED_TUFF_PLACE,
+		POLISHED_TUFF_HIT,
+		POLISHED_TUFF_FALL
 	);
 
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
