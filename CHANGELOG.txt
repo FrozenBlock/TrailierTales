@@ -130,7 +130,8 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 
 ## REAPING
 - A new enchantment found from Chests in Catacombs
-- Adds an additional 2 xp per level to experience orbs upon a mob's death
+- Increases XP drops from mobs by 20%
+    - An additional 30% is applied per-level past the first
 - Goes up to level 3
 
 ## BUILDING BLOCKS
