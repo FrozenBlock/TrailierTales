@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.registry;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
+import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -16,10 +17,18 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterItems {
+	public static final SpawnEggItem APPARITION_SPAWN_EGG = new SpawnEggItem(
+		RegisterEntities.APPARITION,
+		11712721,
+		10663385,
+		new Item.Properties()
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
 	public static final Item ECTOPLASM = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(RegisterBlocks.CYAN_ROSE_CROP, new Item.Properties()
@@ -60,6 +69,7 @@ public class RegisterItems {
 	);
 
 	public static void init() {
+		registerItemAfter(Items.ALLAY_SPAWN_EGG, APPARITION_SPAWN_EGG, "apparition_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemBefore(Items.MAGMA_CREAM, ECTOPLASM, "ectoplasm", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
