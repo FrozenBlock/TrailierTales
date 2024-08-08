@@ -199,10 +199,12 @@
   "tooltip.trailiertales.block_sounds": "Contains options related to block sounds.",
   "option.trailiertales.brick_sounds": "Bricks",
   "tooltip.trailiertales.brick_sounds": "Whether Bricks should use new sounds.",
-  "option.trailiertales.stone_brick_sounds": "Stone Bricks",
-  "tooltip.trailiertales.stone_brick_sounds": "Whether Stone Bricks should use new sounds.\nThis includes bricks of Stone variants.",
-  "option.trailiertales.polished_sounds": "Polished Stone Bricks",
-  "tooltip.trailiertales.polished_sounds": "Whether Polished stone blocks should use new sounds.\nThis includes polished versions of Stone variants.",
+  "option.trailiertales.unpolished_brick_sounds": "Unpolished Bricks",
+  "tooltip.trailiertales.unpolished_brick_sounds": "Whether unpolished brick blocks should use new sounds.",
+  "option.trailiertales.polished_brick_sounds": "Polished Bricks",
+  "tooltip.trailiertales.polished_brick_sounds": "Whether polished brick blocks should use new sounds.",
+  "option.trailiertales.polished_sounds": "Polished Stone Blocks",
+  "tooltip.trailiertales.polished_sounds": "Whether polished stone blocks should use new sounds.",
 
   "option.trailiertales.item": "Item",
 

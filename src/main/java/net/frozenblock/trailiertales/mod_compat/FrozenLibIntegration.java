@@ -92,7 +92,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_BRICK_WALL
 			},
 			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.bricks
+			() -> BlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -113,7 +113,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.INFESTED_MOSSY_STONE_BRICKS
 			},
 			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.stone_bricks
+			() -> BlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -129,8 +129,8 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_GRANITE_BRICK_SLAB,
 				RegisterBlocks.MOSSY_GRANITE_BRICK_WALL
 			},
-			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.stone_bricks
+			RegisterSounds.POLISHED_BRICKS,
+			() -> BlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -146,8 +146,8 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_DIORITE_BRICK_SLAB,
 				RegisterBlocks.MOSSY_DIORITE_BRICK_WALL
 			},
-			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.stone_bricks
+			RegisterSounds.POLISHED_BRICKS,
+			() -> BlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -163,8 +163,8 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_ANDESITE_BRICK_SLAB,
 				RegisterBlocks.MOSSY_ANDESITE_BRICK_WALL
 			},
-			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.stone_bricks
+			RegisterSounds.POLISHED_BRICKS,
+			() -> BlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -181,7 +181,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.CHORAL_END_STONE_BRICK_WALL
 			},
 			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.bricks
+			() -> BlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(

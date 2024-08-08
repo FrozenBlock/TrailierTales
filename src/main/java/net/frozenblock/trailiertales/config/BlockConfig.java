@@ -54,10 +54,10 @@ public final class BlockConfig {
 	}
 
 	public static class BlockSounds {
-		@EntrySyncData(value = "brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean bricks = true;
-		@EntrySyncData(value = "stone_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean stone_bricks = true;
+		@EntrySyncData(value = "unpolished_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean unpolished_bricks = true;
+		@EntrySyncData(value = "polished_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean polished_bricks = true;
 		@EntrySyncData(value = "polished_sounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean polished = true;
 	}

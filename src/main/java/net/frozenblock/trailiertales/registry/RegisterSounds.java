@@ -57,6 +57,21 @@ public class RegisterSounds {
 		POLISHED_FALL
 	);
 
+	public static final SoundEvent POLISHED_BRICKS_BREAK = register("block.polished_bricks.break");
+	public static final SoundEvent POLISHED_BRICKS_STEP = register("block.polished_bricks.step");
+	public static final SoundEvent POLISHED_BRICKS_PLACE = register("block.polished_bricks.place");
+	public static final SoundEvent POLISHED_BRICKS_HIT = register("block.polished_bricks.hit");
+	public static final SoundEvent POLISHED_BRICKS_FALL = register("block.polished_bricks.fall");
+	public static final SoundType POLISHED_BRICKS = new SoundType(
+		1F,
+		1F,
+		POLISHED_BRICKS_BREAK,
+		POLISHED_BRICKS_STEP,
+		POLISHED_BRICKS_PLACE,
+		POLISHED_BRICKS_HIT,
+		POLISHED_BRICKS_FALL
+	);
+
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");

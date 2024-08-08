@@ -65,24 +65,24 @@ public final class BlockConfigGui {
 		var blockSounds = config.blockSounds;
 		var modifiedBlockSounds = modifiedConfig.blockSounds;
 
-		var brickSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TrailierConstants.text("brick_sounds"), modifiedBlockSounds.bricks)
-				.setDefaultValue(defaultConfig.blockSounds.bricks)
-				.setSaveConsumer(newValue -> blockSounds.bricks = newValue)
-				.setTooltip(TrailierConstants.tooltip("brick_sounds"))
+		var unpolishedBrickSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("unpolished_brick_sounds"), modifiedBlockSounds.unpolished_bricks)
+				.setDefaultValue(defaultConfig.blockSounds.unpolished_bricks)
+				.setSaveConsumer(newValue -> blockSounds.unpolished_bricks = newValue)
+				.setTooltip(TrailierConstants.tooltip("unpolished_brick_sounds"))
 				.build(),
 			blockSounds.getClass(),
-			"brick_sounds",
+			"unpolished_brick_sounds",
 			configInstance
 		);
-		var stoneBrickSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TrailierConstants.text("stone_brick_sounds"), modifiedBlockSounds.stone_bricks)
-				.setDefaultValue(defaultConfig.blockSounds.stone_bricks)
-				.setSaveConsumer(newValue -> blockSounds.stone_bricks = newValue)
-				.setTooltip(TrailierConstants.tooltip("stone_brick_sounds"))
+		var polishedBrickSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_brick_sounds"), modifiedBlockSounds.polished_bricks)
+				.setDefaultValue(defaultConfig.blockSounds.polished_bricks)
+				.setSaveConsumer(newValue -> blockSounds.polished_bricks = newValue)
+				.setTooltip(TrailierConstants.tooltip("polished_brick_sounds"))
 				.build(),
 			blockSounds.getClass(),
-			"stone_brick_sounds",
+			"polished_brick_sounds",
 			configInstance
 		);
 		var polishedSounds = FrozenClothConfig.syncedEntry(
@@ -99,7 +99,7 @@ public final class BlockConfigGui {
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("block_sounds"),
 			false,
 			TrailierConstants.tooltip("block_sounds"),
-			brickSounds, stoneBrickSounds, polishedSounds
+			unpolishedBrickSounds, polishedBrickSounds, polishedSounds
 		);
 	}
 }
