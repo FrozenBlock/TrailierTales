@@ -1,8 +1,11 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
+import com.google.common.collect.Lists;
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import net.frozenblock.trailiertales.config.WorldgenConfig;
@@ -13,7 +16,6 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGener
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -24,10 +26,15 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class RuinsStructure extends Structure {
@@ -110,25 +117,41 @@ public class RuinsStructure extends Structure {
 		if (this.biomeType == Type.BADLANDS && !WorldgenConfig.GENERATE_BADLANDS_RUINS) return Optional.empty();
 		if (this.biomeType == Type.DEEPSLATE && !WorldgenConfig.GENERATE_DEEPSLATE_RUINS) return Optional.empty();
 
-		return getStub(context, collector -> this.generatePieces(collector, context));
-	}
-
-	private @NotNull Optional<Structure.GenerationStub> getStub(
-		Structure.@NotNull GenerationContext context, Consumer<StructurePiecesBuilder> generator
-	) {
 		ChunkPos chunkPos = context.chunkPos();
 		int x = chunkPos.getMiddleBlockX();
 		int z = chunkPos.getMiddleBlockZ();
 		int y = this.getHeight(new BlockPos(x, 0, z), context);
-		return Optional.of(new Structure.GenerationStub(new BlockPos(x, y, z), generator));
+		BlockPos startPos = new BlockPos(x, y, z);
+		return Optional.of(new Structure.GenerationStub(startPos, this.generatePieces(startPos, context)));
 	}
 
-	private void generatePieces(StructurePiecesBuilder collector, Structure.@NotNull GenerationContext context) {
-		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-		mutablePos.set(context.chunkPos().getMinBlockX(), 90, context.chunkPos().getMinBlockZ());
-		mutablePos.set(mutablePos.getX(), this.getHeight(mutablePos, context), mutablePos.getZ());
-		Rotation rotation = Rotation.getRandom(context.random());
-		RuinsPieces.addPieces(context.structureTemplateManager(), mutablePos, rotation, collector, context.random(), this);
+	private Consumer<StructurePiecesBuilder> generatePieces(BlockPos startPos, Structure.@NotNull GenerationContext context) {
+		return structurePiecesBuilder -> {
+			List<RuinsPieces.RuinPiece> list = Lists.newArrayList();
+			int x = startPos.getX();
+			int y = startPos.getY();
+			int z = startPos.getZ();
+			LevelHeightAccessor heightAccessor = context.heightAccessor();
+				AABB box = new AABB(
+					x - 100,
+					Math.max(y - 100, heightAccessor.getMinBuildHeight() + 7),
+					z - 100,
+					x + 100 + 1,
+					Math.min(y + 100 + 1, heightAccessor.getMaxBuildHeight()),
+					z + 100 + 1
+				);
+				RuinsPieces.addPieces(
+					context.structureTemplateManager(),
+					heightAccessor,
+					startPos,
+					Rotation.getRandom(context.random()),
+					context.random(),
+					this,
+					list,
+					Shapes.create(box)
+				);
+				list.forEach(structurePiecesBuilder::addPiece);
+		};
 	}
 
 	@Override

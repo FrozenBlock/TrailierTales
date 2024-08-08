@@ -26,7 +26,7 @@ import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
 import net.frozenblock.trailiertales.registry.RegisterVillagerTrades;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
-import net.frozenblock.trailiertales.worldgen.structure.piece.RuinsPieces;
+import net.frozenblock.trailiertales.worldgen.structure.RuinsPieces;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;

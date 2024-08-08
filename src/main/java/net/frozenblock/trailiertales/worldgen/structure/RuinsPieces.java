@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.worldgen.structure.piece;
+package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
-import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,6 +23,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
@@ -41,6 +41,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -256,15 +260,17 @@ public class RuinsPieces {
 
 	public static void addPieces(
 		StructureTemplateManager structureTemplateManager,
+		LevelHeightAccessor heightAccessor,
 		BlockPos pos,
 		Rotation rotation,
-		StructurePieceAccessor pieces,
 		@NotNull RandomSource random,
-		@NotNull RuinsStructure feature
+		@NotNull RuinsStructure feature,
+		List<RuinsPieces.RuinPiece> pieces,
+		VoxelShape shape
 	) {
 		RuinPiece ruinPiece = addStarterPiece(structureTemplateManager, pos, rotation, pieces, random, feature);
 		if (random.nextFloat() <= feature.clusterProbability) {
-			addClusterRuins(structureTemplateManager, ruinPiece.getBoundingBox(), random, pos, feature, pieces);
+			addClusterRuins(structureTemplateManager, ruinPiece.getBoundingBox(), random, pos, feature, pieces, shape);
 		}
 	}
 
@@ -274,14 +280,15 @@ public class RuinsPieces {
 		RandomSource random,
 		@NotNull BlockPos pos,
 		@NotNull RuinsStructure feature,
-		StructurePieceAccessor pieces
+		@NotNull List<RuinsPieces.RuinPiece> pieces,
+		VoxelShape box
 	) {
 		ObjectArrayList<BoundingBox> boundingBoxes = new ObjectArrayList<>();
 		boundingBoxes.add(boundingBox);
 		int totalPieces = feature.clusterPieces.sample(random);
 		for (int pieceNumber = 0; pieceNumber < totalPieces; pieceNumber++) {
 			Rotation newRotation = Rotation.getRandom(random);
-			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, 7);
+			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, box, 7);
 		}
 	}
 
@@ -290,9 +297,10 @@ public class RuinsPieces {
 		ObjectArrayList<BoundingBox> boundingBoxes,
 		@NotNull BlockPos pos,
 		Rotation rotation,
-		StructurePieceAccessor pieces,
+		@NotNull List<RuinsPieces.RuinPiece> pieces,
 		RandomSource random,
 		@NotNull RuinsStructure feature,
+		VoxelShape box,
 		int maxAttempts
 	) {
 		RuinPiece ruinPiece = null;
@@ -318,7 +326,7 @@ public class RuinsPieces {
 			AtomicBoolean intersected = new AtomicBoolean(false);
 
 			shuffledBoxes.forEach(boundingBox -> {
-				if (boundingBox.intersects(inflatedBox.get())) {
+				if (boundingBox.intersects(inflatedBox.get()) || Shapes.joinIsNotEmpty(box, Shapes.create(AABB.of(inflatedBox.get().inflatedBy(-2))), BooleanOp.ONLY_SECOND)) {
 					intersected.set(true);
 					BlockPos center = boundingBox.getCenter();
 					boolean useXSpan = random.nextBoolean();
@@ -336,13 +344,35 @@ public class RuinsPieces {
 
 			if (!intersected.get()) {
 				ruinPiece = potentialPiece;
-				pieces.addPiece(ruinPiece);
+				pieces.add(ruinPiece);
 				boundingBoxes.add(ruinPiece.getBoundingBox());
 				break;
 			}
 		}
 
 		return ruinPiece;
+	}
+
+	private static @NotNull RuinPiece addStarterPiece(
+		StructureTemplateManager structureTemplateManager,
+		@NotNull BlockPos pos,
+		Rotation rotation,
+		@NotNull List<RuinsPieces.RuinPiece> pieces,
+		RandomSource random,
+		@NotNull RuinsStructure feature
+	) {
+		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
+		RuinPiece piece = new RuinPiece(
+			structureTemplateManager,
+			structureId,
+			pos,
+			rotation,
+			feature.biomeType,
+			feature.heightmap,
+			feature.providedHeight
+		);
+		pieces.add(piece);
+		return piece;
 	}
 
 	private static ResourceLocation getPieceForType(RuinsStructure.Type type, RandomSource random) {
@@ -362,29 +392,6 @@ public class RuinsPieces {
 			return getRandomDeepslateRuin(random);
 		}
 		return getRandomGenericRuin(random);
-	}
-
-	private static @NotNull RuinPiece addStarterPiece(
-		StructureTemplateManager structureTemplateManager,
-		@NotNull BlockPos pos,
-		Rotation rotation,
-		@NotNull StructurePieceAccessor pieces,
-		RandomSource random,
-		@NotNull RuinsStructure feature
-	) {
-		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		RuinPiece piece = new RuinPiece(
-			structureTemplateManager,
-			structureId,
-			mutableBlockPos,
-			rotation,
-			feature.biomeType,
-			feature.heightmap,
-			feature.providedHeight
-		);
-		pieces.addPiece(piece);
-		return piece;
 	}
 
 	public static class RuinPiece extends TemplateStructurePiece {
