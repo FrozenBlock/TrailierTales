@@ -5,21 +5,19 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
+import java.util.Map;
+import java.util.stream.Stream;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
-import net.minecraft.client.model.ListModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -27,14 +25,11 @@ import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.Map;
-import java.util.stream.Stream;
 
 @Environment(EnvType.CLIENT)
 @Mixin(BoatRenderer.class)
@@ -100,16 +95,28 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 				if (o > 1F) {
 					o = 1F;
 				}
+				this.trailierTales$boatBannerModel.setRaft(boatType.get() == Boat.Type.BAMBOO);
+				this.trailierTales$boatBannerModel.beforeRender(matrices);
 				this.trailierTales$boatBannerModel.setupAnim(boat, p, o, boat.tickCount + tickDelta, 0F, 0F);
 				this.trailierTales$boatBannerModel.renderToBuffer(
 					matrices,
-					vertexConsumers.getBuffer(this.trailierTales$boatBannerModel.renderType(
-						this.trailierTales$boatBannerResources.get(boatType.get())
-					)),
+					vertexConsumers.getBuffer(
+						this.trailierTales$boatBannerModel.renderType(
+							this.trailierTales$boatBannerResources.get(boatType.get())
+						)
+					),
 					i,
 					OverlayTexture.NO_OVERLAY
 				);
-				this.trailierTales$boatBannerModel.renderFlag(matrices, vertexConsumers, i, OverlayTexture.NO_OVERLAY, bannerItem.getColor(), stack.getComponents().get(DataComponents.BANNER_PATTERNS));
+				this.trailierTales$boatBannerModel.renderFlag(
+					matrices,
+					vertexConsumers,
+					i,
+					OverlayTexture.NO_OVERLAY,
+					bannerItem.getColor(),
+					stack.getComponents().get(DataComponents.BANNER_PATTERNS)
+				);
+				this.trailierTales$boatBannerModel.afterRender(matrices);
 				matrices.popPose();
 			}
 		}

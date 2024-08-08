@@ -25,6 +25,8 @@ public class BoatBannerModel extends EntityModel<Boat> {
 	private final ModelPart pole;
 	private final ModelPart bar;
 
+	private boolean raft = false;
+
 	public BoatBannerModel(@NotNull ModelPart root) {
 		super();
 		this.flag = root.getChild("flag");
@@ -41,6 +43,10 @@ public class BoatBannerModel extends EntityModel<Boat> {
 		return LayerDefinition.create(meshDefinition, 64, 64);
 	}
 
+	public void setRaft(boolean raft) {
+		this.raft = raft;
+	}
+
 	@Override
 	public void setupAnim(Boat entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos((Mth.PI * 2F) * animationProgress / 100F)) * Mth.PI;
@@ -49,9 +55,13 @@ public class BoatBannerModel extends EntityModel<Boat> {
 		this.flag.y = -32F;
 	}
 
-	private static void setupPoseStack(@NotNull PoseStack matrices) {
+	public void beforeRender(@NotNull PoseStack matrices) {
 		matrices.pushPose();
-		matrices.translate(-0.94F, -0.25F, 0F);
+		matrices.translate(
+			this.raft ? -0.74F : -0.94F,
+			this.raft ? -0.2F : -0.25F,
+			0F
+		);
 
 		float h = -Direction.WEST.toYRot();
 		matrices.mulPose(Axis.YN.rotationDegrees(h));
@@ -62,9 +72,10 @@ public class BoatBannerModel extends EntityModel<Boat> {
 		matrices.scale(0.6666667F, -0.6666667F, -0.6666667F);
 	}
 
-	private static void popPoseStack(@NotNull PoseStack matrices) {
+	public void afterRender(@NotNull PoseStack matrices) {
 		matrices.popPose();
 		matrices.popPose();
+		this.raft = false;
 	}
 
 	public void renderFlag(
@@ -75,16 +86,12 @@ public class BoatBannerModel extends EntityModel<Boat> {
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
 	) {
-		setupPoseStack(matrices);
 		BannerRenderer.renderPatterns(matrices, vertexConsumers, light, overlay, this.flag, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers, false);
-		popPoseStack(matrices);
 	}
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack matrices, VertexConsumer vertexConsumer, int i, int j, int k) {
-		setupPoseStack(matrices);
 		this.pole.render(matrices, vertexConsumer, i, j);
 		this.bar.render(matrices, vertexConsumer, i, j);
-		popPoseStack(matrices);
 	}
 }
