@@ -81,17 +81,6 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
-				RegisterBlocks.POLISHED_CALCITE,
-				RegisterBlocks.POLISHED_CALCITE_SLAB,
-				RegisterBlocks.POLISHED_CALCITE_WALL,
-				RegisterBlocks.POLISHED_CALCITE_STAIRS,
-			},
-			RegisterSounds.POLISHED_CALCITE,
-			() -> BlockConfig.get().blockSounds.polished
-		);
-
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[]{
 				Blocks.BRICKS,
 				Blocks.BRICK_STAIRS,
 				Blocks.BRICK_SLAB,
@@ -192,6 +181,17 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
+				RegisterBlocks.POLISHED_CALCITE,
+				RegisterBlocks.POLISHED_CALCITE_SLAB,
+				RegisterBlocks.POLISHED_CALCITE_WALL,
+				RegisterBlocks.POLISHED_CALCITE_STAIRS,
+			},
+			RegisterSounds.POLISHED_CALCITE,
+			() -> BlockConfig.get().blockSounds.polished_calcite
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
 				RegisterBlocks.CALCITE_BRICKS,
 				RegisterBlocks.CALCITE_BRICK_STAIRS,
 				RegisterBlocks.CALCITE_BRICK_SLAB,
@@ -204,7 +204,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				RegisterBlocks.MOSSY_CALCITE_BRICK_WALL
 			},
 			RegisterSounds.CALCITE_BRICKS_ALT,
-			() -> BlockConfig.get().blockSounds.polished_bricks
+			() -> BlockConfig.get().blockSounds.calcite_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -258,7 +258,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_TUFF_STAIRS,
 			},
 			RegisterSounds.POLISHED_TUFF,
-			() -> BlockConfig.get().blockSounds.polished
+			() -> BlockConfig.get().blockSounds.polished_tuff
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -266,7 +266,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_BASALT
 			},
 			RegisterSounds.POLISHED_BASALT,
-			() -> BlockConfig.get().blockSounds.polished
+			() -> BlockConfig.get().blockSounds.polished_basalt
 		);
 
 		if (WorldgenConfig.get().endCity.generateCracked) {

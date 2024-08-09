@@ -207,6 +207,14 @@
   "tooltip.trailiertales.polished_brick_sounds": "Whether polished brick blocks should use new sounds.",
   "option.trailiertales.polished_sounds": "Polished Stone Blocks",
   "tooltip.trailiertales.polished_sounds": "Whether polished stone blocks should use new sounds.",
+  "option.trailiertales.polished_basalt_sounds": "Polished Basalt",
+  "tooltip.trailiertales.polished_basalt_sounds": "Whether Polished Basalt should use new sounds.",
+  "option.trailiertales.polished_tuff_sounds": "Polished Tuff",
+  "tooltip.trailiertales.polished_tuff_sounds": "Whether Polished Tuff should use new sounds.",
+  "option.trailiertales.polished_calcite_sounds": "Polished Calcite",
+  "tooltip.trailiertales.polished_calcite_sounds": "Whether Polished Calcite should use new sounds.",
+  "option.trailiertales.calcite_bricks_sounds": "Calcite Bricks",
+  "tooltip.trailiertales.calcite_bricks_sounds": "Whether Calcite Bricks should use new sounds.",
 
   "option.trailiertales.item": "Item",
 

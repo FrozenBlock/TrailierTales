@@ -95,11 +95,51 @@ public final class BlockConfigGui {
 			"polished_sounds",
 			configInstance
 		);
+		var polishedBasaltSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_basalt_sounds"), modifiedBlockSounds.polished_basalt)
+				.setDefaultValue(defaultConfig.blockSounds.polished_basalt)
+				.setSaveConsumer(newValue -> blockSounds.polished_basalt = newValue)
+				.setTooltip(TrailierConstants.tooltip("polished_basalt_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"polished_basalt_sounds",
+			configInstance
+		);
+		var polishedTuffSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_tuff_sounds"), modifiedBlockSounds.polished_tuff)
+				.setDefaultValue(defaultConfig.blockSounds.polished_tuff)
+				.setSaveConsumer(newValue -> blockSounds.polished_tuff = newValue)
+				.setTooltip(TrailierConstants.tooltip("polished_tuff_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"polished_tuff_sounds",
+			configInstance
+		);
+		var polishedCalciteSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_calcite_sounds"), modifiedBlockSounds.polished_calcite)
+				.setDefaultValue(defaultConfig.blockSounds.polished_calcite)
+				.setSaveConsumer(newValue -> blockSounds.polished_calcite = newValue)
+				.setTooltip(TrailierConstants.tooltip("polished_calcite_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"polished_calcite_sounds",
+			configInstance
+		);
+		var calciteBricksSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("calcite_bricks_sounds"), modifiedBlockSounds.calcite_bricks)
+				.setDefaultValue(defaultConfig.blockSounds.calcite_bricks)
+				.setSaveConsumer(newValue -> blockSounds.calcite_bricks = newValue)
+				.setTooltip(TrailierConstants.tooltip("calcite_bricks_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"calcite_bricks_sounds",
+			configInstance
+		);
 
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("block_sounds"),
 			false,
 			TrailierConstants.tooltip("block_sounds"),
-			unpolishedBrickSounds, polishedBrickSounds, polishedSounds
+			unpolishedBrickSounds, polishedBrickSounds, polishedSounds, polishedBasaltSounds, polishedTuffSounds, polishedCalciteSounds, calciteBricksSounds
 		);
 	}
 }
