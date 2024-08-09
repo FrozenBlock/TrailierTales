@@ -252,6 +252,17 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
+				Blocks.POLISHED_DEEPSLATE,
+				Blocks.POLISHED_DEEPSLATE_SLAB,
+				Blocks.POLISHED_DEEPSLATE_WALL,
+				Blocks.POLISHED_DEEPSLATE_STAIRS
+			},
+			RegisterSounds.POLISHED_DEEPSLATE,
+			() -> BlockConfig.get().blockSounds.polished_deepslate
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
 				Blocks.POLISHED_TUFF,
 				Blocks.POLISHED_TUFF_SLAB,
 				Blocks.POLISHED_TUFF_WALL,

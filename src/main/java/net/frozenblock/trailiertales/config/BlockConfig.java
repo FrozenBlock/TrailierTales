@@ -62,6 +62,8 @@ public final class BlockConfig {
 		public boolean polished = true;
 		@EntrySyncData(value = "polished_basalt_sounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean polished_basalt = true;
+		@EntrySyncData(value = "polished_deepslate_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean polished_deepslate = true;
 		@EntrySyncData(value = "polished_tuff_sounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean polished_tuff = true;
 		@EntrySyncData(value = "polished_calcite_sounds", behavior = SyncBehavior.UNSYNCABLE)

@@ -791,6 +791,61 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
+  "block.polished_deepslate.break": {
+    "sounds": [
+      "trailiertales:block/polished_deepslate/place1",
+      "trailiertales:block/polished_deepslate/place2",
+      "trailiertales:block/polished_deepslate/place3",
+      "trailiertales:block/polished_deepslate/place4",
+      "trailiertales:block/polished_deepslate/place5",
+      "trailiertales:block/polished_deepslate/place6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_deepslate.fall": {
+    "sounds": [
+      "trailiertales:block/polished_deepslate/step1",
+      "trailiertales:block/polished_deepslate/step2",
+      "trailiertales:block/polished_deepslate/step3",
+      "trailiertales:block/polished_deepslate/step4",
+      "trailiertales:block/polished_deepslate/step5",
+      "trailiertales:block/polished_deepslate/step6"
+    ]
+  },
+  "block.polished_deepslate.hit": {
+    "sounds": [
+      "trailiertales:block/polished_deepslate/step1",
+      "trailiertales:block/polished_deepslate/step2",
+      "trailiertales:block/polished_deepslate/step3",
+      "trailiertales:block/polished_deepslate/step4",
+      "trailiertales:block/polished_deepslate/step5",
+      "trailiertales:block/polished_deepslate/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_deepslate.place": {
+    "sounds": [
+      "trailiertales:block/polished_deepslate/place1",
+      "trailiertales:block/polished_deepslate/place2",
+      "trailiertales:block/polished_deepslate/place3",
+      "trailiertales:block/polished_deepslate/place4",
+      "trailiertales:block/polished_deepslate/place5",
+      "trailiertales:block/polished_deepslate/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_deepslate.step": {
+    "sounds": [
+      "trailiertales:block/polished_deepslate/step1",
+      "trailiertales:block/polished_deepslate/step2",
+      "trailiertales:block/polished_deepslate/step3",
+      "trailiertales:block/polished_deepslate/step4",
+      "trailiertales:block/polished_deepslate/step5",
+      "trailiertales:block/polished_deepslate/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
   "block.coffin.break": {
     "sounds": [
       "trailiertales:block/coffin/place1",

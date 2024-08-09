@@ -132,6 +132,21 @@ public class RegisterSounds {
 		POLISHED_BASALT_FALL
 	);
 
+	public static final SoundEvent POLISHED_DEEPSLATE_BREAK = register("block.polished_deepslate.break");
+	public static final SoundEvent POLISHED_DEEPSLATE_STEP = register("block.polished_deepslate.step");
+	public static final SoundEvent POLISHED_DEEPSLATE_PLACE = register("block.polished_deepslate.place");
+	public static final SoundEvent POLISHED_DEEPSLATE_HIT = register("block.polished_deepslate.hit");
+	public static final SoundEvent POLISHED_DEEPSLATE_FALL = register("block.polished_deepslate.fall");
+	public static final SoundType POLISHED_DEEPSLATE = new SoundType(
+		1F,
+		1F,
+		POLISHED_DEEPSLATE_BREAK,
+		POLISHED_DEEPSLATE_STEP,
+		POLISHED_DEEPSLATE_PLACE,
+		POLISHED_DEEPSLATE_HIT,
+		POLISHED_DEEPSLATE_FALL
+	);
+
 	public static final SoundEvent COFFIN_BREAK = register("block.coffin.break");
 	public static final SoundEvent COFFIN_STEP = register("block.coffin.step");
 	public static final SoundEvent COFFIN_PLACE = register("block.coffin.place");

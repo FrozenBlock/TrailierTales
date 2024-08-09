@@ -209,6 +209,8 @@
   "tooltip.trailiertales.polished_sounds": "Whether polished stone blocks should use new sounds.",
   "option.trailiertales.polished_basalt_sounds": "Polished Basalt",
   "tooltip.trailiertales.polished_basalt_sounds": "Whether Polished Basalt should use new sounds.",
+  "option.trailiertales.polished_deepslate_sounds": "Polished Deepslate",
+  "tooltip.trailiertales.polished_deepslate_sounds": "Whether Polished Deepslate should use new sounds.",
   "option.trailiertales.polished_tuff_sounds": "Polished Tuff",
   "tooltip.trailiertales.polished_tuff_sounds": "Whether Polished Tuff should use new sounds.",
   "option.trailiertales.polished_calcite_sounds": "Polished Calcite",

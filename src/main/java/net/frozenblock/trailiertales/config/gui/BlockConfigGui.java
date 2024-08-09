@@ -105,6 +105,16 @@ public final class BlockConfigGui {
 			"polished_basalt_sounds",
 			configInstance
 		);
+		var polishedDeepslateSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_deepslate_sounds"), modifiedBlockSounds.polished_deepslate)
+				.setDefaultValue(defaultConfig.blockSounds.polished_deepslate)
+				.setSaveConsumer(newValue -> blockSounds.polished_deepslate = newValue)
+				.setTooltip(TrailierConstants.tooltip("polished_deepslate_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"polished_deepslate_sounds",
+			configInstance
+		);
 		var polishedTuffSounds = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TrailierConstants.text("polished_tuff_sounds"), modifiedBlockSounds.polished_tuff)
 				.setDefaultValue(defaultConfig.blockSounds.polished_tuff)
@@ -139,7 +149,8 @@ public final class BlockConfigGui {
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("block_sounds"),
 			false,
 			TrailierConstants.tooltip("block_sounds"),
-			unpolishedBrickSounds, polishedBrickSounds, polishedSounds, polishedBasaltSounds, polishedTuffSounds, polishedCalciteSounds, calciteBricksSounds
+			unpolishedBrickSounds, polishedBrickSounds, polishedSounds, polishedBasaltSounds, polishedDeepslateSounds,
+			polishedTuffSounds, polishedCalciteSounds, calciteBricksSounds
 		);
 	}
 }
