@@ -118,8 +118,7 @@ public class RuinsStructure extends Structure {
 		int z = chunkPos.getMiddleBlockZ();
 		int y = this.getHeight(new BlockPos(x, 0, z), context);
 		BlockPos startPos = new BlockPos(x, y, z);
-		Optional<GenerationStub> optional = Optional.of(new Structure.GenerationStub(startPos, this.generatePieces(startPos, context)));
-		return optional;
+		return Optional.of(new Structure.GenerationStub(startPos, this.generatePieces(startPos, context)));
 	}
 
 	@Contract(pure = true)
