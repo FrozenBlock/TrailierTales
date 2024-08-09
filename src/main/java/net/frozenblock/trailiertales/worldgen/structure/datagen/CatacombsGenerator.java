@@ -507,7 +507,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 25)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 35)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -529,7 +529,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 25)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 35)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
