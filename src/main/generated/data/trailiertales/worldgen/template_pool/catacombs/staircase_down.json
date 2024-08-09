@@ -34,7 +34,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 5
+      "weight": 3
     },
     {
       "element": {
@@ -97,7 +97,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 35
+      "weight": 45
     }
   ],
   "fallback": "minecraft:empty"

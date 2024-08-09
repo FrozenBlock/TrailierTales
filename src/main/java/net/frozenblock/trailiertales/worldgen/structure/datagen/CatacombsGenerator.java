@@ -479,12 +479,12 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
+					Pair.of(StructurePoolElement.empty(), 123),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull")), 50),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull1")), 18),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull2")), 18),
 					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull3")), 6),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4")), 6),
-					Pair.of(StructurePoolElement.empty(), 123)
+					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4")), 6)
 
 				),
 				StructureTemplatePool.Projection.RIGID
@@ -500,14 +500,14 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector1"), corridor), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector2"), corridor), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector3"), corridor), 5),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), corridor), 5),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector7"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 35)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 45)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -522,14 +522,14 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector1"), corridor), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector2"), corridor), 5),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector3"), corridor), 5),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), corridor), 5),
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector4"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector5"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector6"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector7"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 35)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 45)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -731,7 +731,7 @@ public class CatacombsGenerator {
 					new BlockMatchTest(Blocks.SKELETON_SKULL),
 					AlwaysTrueTest.INSTANCE,
 					SimpleWeightedRandomList.<BlockState>builder()
-						.add(Blocks.CAVE_AIR.defaultBlockState(), 20)
+						.add(Blocks.CAVE_AIR.defaultBlockState(), 200)
 						.add(Blocks.SOUL_LANTERN.defaultBlockState(), 6)
 						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 0), 12)
 						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 1), 12)
@@ -789,9 +789,8 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				corridorChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PRIZE_POTTERY_SHERD,
@@ -815,9 +814,8 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				corridorChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PRIZE_POTTERY_SHERD,
@@ -843,9 +841,8 @@ public class CatacombsGenerator {
 				tombChests,
 				rewardChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PRIZE_POTTERY_SHERD,
@@ -870,9 +867,8 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				guaranteedRewardChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PRIZE_POTTERY_SHERD,
 					Items.HEART_POTTERY_SHERD,
@@ -913,9 +909,8 @@ public class CatacombsGenerator {
 				tombChests,
 				rewardChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.ARCHER_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD,
@@ -941,9 +936,8 @@ public class CatacombsGenerator {
 				tombChests,
 				rewardChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.BURN_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
@@ -966,9 +960,8 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				corridorChests,
 				potLootProcessor,
-				decoratedPotSherdProcessor(
+				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
-					false,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PRIZE_POTTERY_SHERD,
@@ -991,21 +984,6 @@ public class CatacombsGenerator {
 					PosAlwaysTrueTest.INSTANCE,
 					Blocks.DECORATED_POT,
 					new AppendLoot(registryKey)
-				)
-			)
-		);
-	}
-
-	@Contract("_, _, _ -> new")
-	private static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, boolean defaultToBricks, Item... sherds) {
-		return new BlockStateRespectingRuleProcessor(
-			ImmutableList.of(
-				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, chance),
-					AlwaysTrueTest.INSTANCE,
-					PosAlwaysTrueTest.INSTANCE,
-					Blocks.DECORATED_POT,
-					new AppendSherds(chance, defaultToBricks, sherds)
 				)
 			)
 		);

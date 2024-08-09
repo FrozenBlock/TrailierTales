@@ -2,6 +2,12 @@
   "elements": [
     {
       "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 123
+    },
+    {
+      "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/decoration/skull",
         "processors": {
@@ -54,12 +60,6 @@
         "projection": "rigid"
       },
       "weight": 6
-    },
-    {
-      "element": {
-        "element_type": "minecraft:empty_pool_element"
-      },
-      "weight": 123
     }
   ],
   "fallback": "minecraft:empty"
