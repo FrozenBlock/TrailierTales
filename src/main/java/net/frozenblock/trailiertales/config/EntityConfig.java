@@ -21,17 +21,30 @@ public final class EntityConfig {
 		)
 	);
 
-	@EntrySyncData(value = "villagers_sell_catacombs_map")
-	public boolean villagers_sell_catacombs_map = true;
-
 	@CollapsibleObject
 	public final Sniffer sniffer = new Sniffer();
+
+	@CollapsibleObject
+	public final Villager villager = new Villager();
+
+	@CollapsibleObject
+	public final ArmorStand armorStand = new ArmorStand();
 
 	public static class Sniffer {
 		@EntrySyncData(value = "dig_cyan_rose_seeds")
 		public boolean cyan_rose_seeds = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
+	}
+
+	public static class Villager {
+		@EntrySyncData(value = "villagers_sell_catacombs_map")
+		public boolean sell_catacombs_map = true;
+	}
+
+	public static class ArmorStand {
+		@EntrySyncData(value = "armor_stand_arms")
+		public boolean armor_stand_arms = true;
 	}
 
 	public static EntityConfig get() {

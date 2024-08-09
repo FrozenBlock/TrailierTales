@@ -22,20 +22,6 @@ public final class EntityConfigGui {
 		Config<? extends EntityConfig> configInstance = EntityConfig.INSTANCE;
 		var defaultConfig = EntityConfig.INSTANCE.defaultInstance();
 
-		var villagersSellCatacombsMap = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(TrailierConstants.text("villagers_sell_catacombs_map"), modifiedConfig.villagers_sell_catacombs_map)
-					.setDefaultValue(defaultConfig.villagers_sell_catacombs_map)
-					.setSaveConsumer(newValue -> config.villagers_sell_catacombs_map = newValue)
-					.setTooltip(TrailierConstants.tooltip("villagers_sell_catacombs_map"))
-					.requireRestart()
-					.build(),
-				config.getClass(),
-				"villagers_sell_catacombs_map",
-				configInstance
-			)
-		);
-
 		var sniffer = config.sniffer;
 		var modifiedSniffer = modifiedConfig.sniffer;
 
@@ -66,6 +52,48 @@ public final class EntityConfigGui {
 			false,
 			TrailierConstants.tooltip("sniffer"),
 			snifferDigsCyanRoseSeeds, spawnSniffer
+		);
+
+		var villager = config.villager;
+		var modifiedVillager = modifiedConfig.villager;
+
+		var villagersSellCatacombsMap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("villagers_sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
+				.setDefaultValue(defaultConfig.villager.sell_catacombs_map)
+				.setSaveConsumer(newValue -> villager.sell_catacombs_map = newValue)
+				.setTooltip(TrailierConstants.tooltip("villagers_sell_catacombs_map"))
+				.requireRestart()
+				.build(),
+			villager.getClass(),
+			"villagers_sell_catacombs_map",
+			configInstance
+		);
+
+		var villagerCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("villager"),
+			false,
+			TrailierConstants.tooltip("villager"),
+			villagersSellCatacombsMap
+		);
+
+		var armorStand = config.armorStand;
+		var modifiedArmorStand = modifiedConfig.armorStand;
+
+		var armorStandArms = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("armor_stand_arms"), modifiedArmorStand.armor_stand_arms)
+				.setDefaultValue(defaultConfig.armorStand.armor_stand_arms)
+				.setSaveConsumer(newValue -> armorStand.armor_stand_arms = newValue)
+				.setTooltip(TrailierConstants.tooltip("armor_stand_arms"))
+				.requireRestart()
+				.build(),
+			armorStand.getClass(),
+			"armor_stand_arms",
+			configInstance
+		);
+
+		var armorStandCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("armor_stand"),
+			false,
+			TrailierConstants.tooltip("armor_stand"),
+			armorStandArms
 		);
 	}
 }

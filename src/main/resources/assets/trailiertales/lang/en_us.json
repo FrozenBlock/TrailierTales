@@ -222,15 +222,22 @@
 
   "option.trailiertales.entity": "Entity",
 
-  "option.trailiertales.villagers_sell_catacombs_map": "Catacombs Map Trade",
-  "tooltip.trailiertales.villagers_sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
-
   "option.trailiertales.sniffer": "Sniffer",
   "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",
   "option.trailiertales.sniffer_digs_cyan_rose_seeds": "Dig Cyan Rose Seeds",
   "tooltip.trailiertales.sniffer_digs_cyan_rose_seeds": "Whether Sniffers can dig up Cyan Rose Seeds.",
   "option.trailiertales.sniffer_spawns_naturally": "Spawning",
   "tooltip.trailiertales.sniffer_spawns_naturally": "Whether Sniffers can spawn in Jungle biomes.",
+
+  "option.trailiertales.villager": "Villager",
+  "tooltip.trailiertales.villager": "Contains options related to the Villager.",
+  "option.trailiertales.villagers_sell_catacombs_map": "Catacombs Map Trade",
+  "tooltip.trailiertales.villagers_sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
+
+  "option.trailiertales.armor_stand": "Armor Stand",
+  "tooltip.trailiertales.armor_stand": "Contains options related to the Armor Stand.",
+  "option.trailiertales.armor_stand_arms": "Arms",
+  "tooltip.trailiertales.armor_stand_arms": "Whether Armor Stands will have their arms enabled by default.",
 
   "option.trailiertales.worldgen": "Worldgen",
 

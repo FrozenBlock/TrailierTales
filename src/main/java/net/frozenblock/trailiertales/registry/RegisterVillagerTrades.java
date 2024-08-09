@@ -8,7 +8,7 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 
 public class RegisterVillagerTrades {
 	public static void init() {
-		if (EntityConfig.get().villagers_sell_catacombs_map) {
+		if (EntityConfig.get().villager.sell_catacombs_map) {
 			TradeOfferHelper.registerVillagerOffers(
 				VillagerProfession.CARTOGRAPHER,
 				3,
