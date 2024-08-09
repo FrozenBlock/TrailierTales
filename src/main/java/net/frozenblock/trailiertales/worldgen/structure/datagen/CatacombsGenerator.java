@@ -67,7 +67,11 @@ import org.jetbrains.annotations.NotNull;
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
 	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
-	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierConstants.string("catacombs/dungeon"));
+	// POOLS
+	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierConstants.string("catacombs/center"));
+	public static final ResourceKey<StructureTemplatePool> CONNECTOR_FALLBACK = Pools.parseKey(TrailierConstants.string("catacombs/corridor_connector_fallback"));
+	public static final ResourceKey<StructureTemplatePool> CORRIDOR_FALLBACK = Pools.parseKey(TrailierConstants.string("catacombs/corridor_fallback"));
+	// PROCESSORS
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_CORRIDOR = createKey("catacombs_corridor");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_CORRIDOR_RARE = createKey("catacombs_corridor_rare");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_SMALL_ROOM = createKey("catacombs_small_room");
@@ -79,6 +83,8 @@ public class CatacombsGenerator {
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
 		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
+		Holder<StructureTemplatePool> connectorFallback = holderGetter.getOrThrow(CONNECTOR_FALLBACK);
+		Holder<StructureTemplatePool> corridorFallback = holderGetter.getOrThrow(CORRIDOR_FALLBACK);
 		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
 		Holder<StructureProcessorList> corridor = structureProcessorGetter.getOrThrow(CATACOMBS_CORRIDOR);
 		Holder<StructureProcessorList> corridorRare = structureProcessorGetter.getOrThrow(CATACOMBS_CORRIDOR_RARE);
@@ -87,6 +93,7 @@ public class CatacombsGenerator {
 		Holder<StructureProcessorList> king = structureProcessorGetter.getOrThrow(CATACOMBS_KING);
 		Holder<StructureProcessorList> archery = structureProcessorGetter.getOrThrow(CATACOMBS_ARCHERY);
 		Holder<StructureProcessorList> lavaTrap = structureProcessorGetter.getOrThrow(CATACOMBS_LAVA_TRAP);
+
 		pool.register(
 			START,
 			new StructureTemplatePool(
@@ -98,11 +105,22 @@ public class CatacombsGenerator {
 			)
 		);
 
+		pool.register(
+			CORRIDOR_FALLBACK,
+			new StructureTemplatePool(
+				empty,
+				ImmutableList.of(
+					Pair.of(StructurePoolElement.single(string("corridor/corridor_fallback"), corridor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
 		RegisterStructures.register(
 			pool,
 			string("corridor"),
 			new StructureTemplatePool(
-				empty,
+				corridorFallback,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.single(string("corridor/corridor1"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/corridor2"), corridor), 3),
@@ -135,11 +153,22 @@ public class CatacombsGenerator {
 			)
 		);
 
+		pool.register(
+			CONNECTOR_FALLBACK,
+			new StructureTemplatePool(
+				empty,
+				ImmutableList.of(
+					Pair.of(StructurePoolElement.single(string("corridor/connector_fallback"), corridor), 1)
+				),
+				StructureTemplatePool.Projection.RIGID
+			)
+		);
+
 		RegisterStructures.register(
 			pool,
 			string("corridor_connector"),
 			new StructureTemplatePool(
-				empty,
+				connectorFallback,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.single(string("corridor/connector1"), corridor), 3),
 					Pair.of(StructurePoolElement.single(string("corridor/connector2"), corridor), 3),
@@ -543,7 +572,7 @@ public class CatacombsGenerator {
 			CATACOMBS_STRUCTURE_SET_KEY,
 			new StructureSet(
 				structure.getOrThrow(CATACOMBS_KEY),
-				new RandomSpreadStructurePlacement(80, 40, RandomSpreadType.LINEAR, 1886497114) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(85, 40, RandomSpreadType.LINEAR, 1886497114) // ancient city salt is 20083232
 			)
 		);
 	}

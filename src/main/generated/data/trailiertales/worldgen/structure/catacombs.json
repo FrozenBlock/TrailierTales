@@ -20,7 +20,7 @@
       "above_bottom": 20
     }
   },
-  "start_pool": "trailiertales:catacombs/dungeon",
+  "start_pool": "trailiertales:catacombs/center",
   "step": "underground_structures",
   "terrain_adaptation": "encapsulate",
   "use_expansion_hack": false

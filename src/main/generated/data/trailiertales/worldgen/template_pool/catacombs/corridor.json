@@ -226,5 +226,5 @@
       "weight": 1
     }
   ],
-  "fallback": "minecraft:empty"
+  "fallback": "trailiertales:catacombs/corridor_fallback"
 }
