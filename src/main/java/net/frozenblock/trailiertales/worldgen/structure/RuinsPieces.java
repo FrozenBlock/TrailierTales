@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
@@ -41,10 +40,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -266,11 +261,11 @@ public class RuinsPieces {
 		@NotNull RandomSource random,
 		@NotNull RuinsStructure feature,
 		List<RuinsPieces.RuinPiece> pieces,
-		VoxelShape shape
+		BoundingBox box
 	) {
 		RuinPiece ruinPiece = addStarterPiece(structureTemplateManager, pos, rotation, pieces, random, feature);
 		if (random.nextFloat() <= feature.clusterProbability) {
-			addClusterRuins(structureTemplateManager, ruinPiece.getBoundingBox(), random, pos, feature, pieces, shape);
+			addClusterRuins(structureTemplateManager, ruinPiece.getBoundingBox(), random, pos, feature, pieces, box);
 		}
 	}
 
@@ -281,7 +276,7 @@ public class RuinsPieces {
 		@NotNull BlockPos pos,
 		@NotNull RuinsStructure feature,
 		@NotNull List<RuinsPieces.RuinPiece> pieces,
-		VoxelShape box
+		BoundingBox box
 	) {
 		ObjectArrayList<BoundingBox> boundingBoxes = new ObjectArrayList<>();
 		boundingBoxes.add(boundingBox);
@@ -300,7 +295,7 @@ public class RuinsPieces {
 		@NotNull List<RuinsPieces.RuinPiece> pieces,
 		RandomSource random,
 		@NotNull RuinsStructure feature,
-		VoxelShape box,
+		BoundingBox box,
 		int maxAttempts
 	) {
 		RuinPiece ruinPiece = null;
@@ -326,7 +321,16 @@ public class RuinsPieces {
 			AtomicBoolean intersected = new AtomicBoolean(false);
 
 			shuffledBoxes.forEach(boundingBox -> {
-				if (boundingBox.intersects(inflatedBox.get()) || Shapes.joinIsNotEmpty(box, Shapes.create(AABB.of(inflatedBox.get().inflatedBy(-2))), BooleanOp.ONLY_SECOND)) {
+				AtomicBoolean withinBox = new AtomicBoolean(true);
+				inflatedBox.get().inflatedBy(-2).forAllCorners(
+					cornerPos -> {
+						if (!box.isInside(cornerPos)) {
+							withinBox.set(false);
+						}
+					}
+				);
+
+				if (boundingBox.intersects(inflatedBox.get()) || !withinBox.get()) {
 					intersected.set(true);
 					BlockPos center = boundingBox.getCenter();
 					boolean useXSpan = random.nextBoolean();
@@ -473,13 +477,14 @@ public class RuinsPieces {
 			ChunkPos chunkPos,
 			BlockPos pos
 		) {
+			int startHeight = this.templatePosition.getY();
 			int i = this.getGenHeight(world, this.templatePosition, random, 5);
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
-			BlockPos blockPos = StructureTemplate.transform(
+			BlockPos endPos = StructureTemplate.transform(
 					new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1), Mirror.NONE, this.placeSettings.getRotation(), BlockPos.ZERO
 				)
 				.offset(this.templatePosition);
-			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, blockPos), this.templatePosition.getZ());
+			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, endPos), this.templatePosition.getZ());
 			ResourceLocation pieceLocation = this.makeTemplateLocation();
 			Integer offset = PIECE_OFFSETS.computeIfPresent(pieceLocation, (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
 			if (offset == null) {
@@ -490,7 +495,12 @@ public class RuinsPieces {
 			}
 
 			this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
-			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox.inflatedBy(100), chunkPos, pos);
+			int yDifference = startHeight - this.templatePosition.getY();
+			this.boundingBox.move(0, yDifference, 0);
+			if (this.boundingBox.minY() <= world.getMinBuildHeight()) {
+				return;
+			}
+			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
 		}
 
 		public int getGenHeight(@NotNull WorldGenLevel world, BlockPos pos, RandomSource random, int providerOffset) {

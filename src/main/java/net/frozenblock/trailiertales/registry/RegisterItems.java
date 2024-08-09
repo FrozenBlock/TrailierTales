@@ -3,7 +3,6 @@ package net.frozenblock.trailiertales.registry;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

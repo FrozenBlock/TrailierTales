@@ -1,7 +1,6 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -26,15 +25,12 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class RuinsStructure extends Structure {
@@ -122,23 +118,25 @@ public class RuinsStructure extends Structure {
 		int z = chunkPos.getMiddleBlockZ();
 		int y = this.getHeight(new BlockPos(x, 0, z), context);
 		BlockPos startPos = new BlockPos(x, y, z);
-		return Optional.of(new Structure.GenerationStub(startPos, this.generatePieces(startPos, context)));
+		Optional<GenerationStub> optional = Optional.of(new Structure.GenerationStub(startPos, this.generatePieces(startPos, context)));
+		return optional;
 	}
 
-	private Consumer<StructurePiecesBuilder> generatePieces(BlockPos startPos, Structure.@NotNull GenerationContext context) {
+	@Contract(pure = true)
+	private @NotNull Consumer<StructurePiecesBuilder> generatePieces(BlockPos startPos, Structure.@NotNull GenerationContext context) {
 		return structurePiecesBuilder -> {
 			List<RuinsPieces.RuinPiece> list = Lists.newArrayList();
 			int x = startPos.getX();
 			int y = startPos.getY();
 			int z = startPos.getZ();
 			LevelHeightAccessor heightAccessor = context.heightAccessor();
-				AABB box = new AABB(
-					x - 100,
-					Math.max(y - 100, heightAccessor.getMinBuildHeight() + 7),
-					z - 100,
-					x + 100 + 1,
-					Math.min(y + 100 + 1, heightAccessor.getMaxBuildHeight()),
-					z + 100 + 1
+				BoundingBox box = new BoundingBox(
+					x - 128,
+					Math.max(y - 128, heightAccessor.getMinBuildHeight() + 7),
+					z - 128,
+					x + 128 + 1,
+					Math.min(y + 128 + 1, heightAccessor.getMaxBuildHeight()),
+					z + 128 + 1
 				);
 				RuinsPieces.addPieces(
 					context.structureTemplateManager(),
@@ -148,7 +146,7 @@ public class RuinsStructure extends Structure {
 					context.random(),
 					this,
 					list,
-					Shapes.create(box)
+					box
 				);
 				list.forEach(structurePiecesBuilder::addPiece);
 		};
