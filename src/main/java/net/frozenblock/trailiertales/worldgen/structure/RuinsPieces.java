@@ -402,6 +402,7 @@ public class RuinsPieces {
 		private final RuinsStructure.Type biomeType;
 		public final Optional<Heightmap.Types> heightmap;
 		private Optional<Integer> providedHeight;
+		private boolean adjustedHeight;
 
 		public RuinPiece(
 			StructureTemplateManager structureTemplateManager,
@@ -417,6 +418,22 @@ public class RuinsPieces {
 			this.providedHeight = providedHeight;
 		}
 
+		public RuinPiece(
+			StructureTemplateManager structureTemplateManager,
+			ResourceLocation structureId,
+			BlockPos pos,
+			Rotation rotation,
+			RuinsStructure.Type biomeType, Optional<Heightmap.Types> heightmap,
+			Optional<Integer> providedHeight,
+			boolean adjustedHeight
+		) {
+			super(RegisterStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
+			this.biomeType = biomeType;
+			this.heightmap = heightmap;
+			this.providedHeight = providedHeight;
+			this.adjustedHeight = adjustedHeight;
+		}
+
 		private RuinPiece(
 			StructureTemplateManager templateManager,
 			CompoundTag nbt, Rotation rotation,
@@ -428,6 +445,21 @@ public class RuinsPieces {
 			this.biomeType = biomeType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
+		}
+
+		private RuinPiece(
+			StructureTemplateManager templateManager,
+			CompoundTag nbt, Rotation rotation,
+			RuinsStructure.Type biomeType,
+			Optional<Heightmap.Types> heightmap,
+			Optional<Integer> providedHeight,
+			boolean adjustedHeight
+		) {
+			super(RegisterStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
+			this.biomeType = biomeType;
+			this.heightmap = heightmap;
+			this.providedHeight = providedHeight;
+			this.adjustedHeight = adjustedHeight;
 		}
 
 		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.@NotNull Type type) {
@@ -451,7 +483,11 @@ public class RuinsPieces {
 			if (nbt.contains("ProvidedHeight")) {
 				providedHeight = nbt.getInt("ProvidedHeight");
 			}
-			return new RuinPiece(templateManager, nbt, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight));
+			boolean adjustedHeight = false;
+			if (nbt.contains("AdjustedHeight")) {
+				adjustedHeight = nbt.getBoolean("AdjustedHeight");
+			}
+			return new RuinPiece(templateManager, nbt, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight), adjustedHeight);
 		}
 
 		@Override
@@ -461,6 +497,7 @@ public class RuinsPieces {
 			nbt.putString("BiomeType", this.biomeType.toString());
 			this.heightmap.ifPresent(types -> nbt.putString("HeightmapType", types.toString()));
 			this.providedHeight.ifPresent(height -> nbt.putInt("ProvidedHeight", height));
+			nbt.putBoolean("AdjustedHeight", this.adjustedHeight);
 		}
 
 		@Override
@@ -477,26 +514,29 @@ public class RuinsPieces {
 			ChunkPos chunkPos,
 			BlockPos pos
 		) {
-			int startHeight = this.templatePosition.getY();
-			int i = this.getGenHeight(world, this.templatePosition, random, 5);
-			this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
-			BlockPos endPos = StructureTemplate.transform(
-					new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1), Mirror.NONE, this.placeSettings.getRotation(), BlockPos.ZERO
-				)
-				.offset(this.templatePosition);
-			this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, endPos), this.templatePosition.getZ());
-			ResourceLocation pieceLocation = this.makeTemplateLocation();
-			Integer offset = PIECE_OFFSETS.computeIfPresent(pieceLocation, (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
-			if (offset == null) {
-				offset = -1;
-			}
-			if (DEEPSLATE_PIECES.contains(pieceLocation)) {
-				offset -=1;
-			}
+			if (!this.adjustedHeight) {
+				this.adjustedHeight = true;
+				int startHeight = this.templatePosition.getY();
+				int i = this.getGenHeight(world, this.templatePosition, random, 5);
+				this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
+				BlockPos endPos = StructureTemplate.transform(
+						new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1), Mirror.NONE, this.placeSettings.getRotation(), BlockPos.ZERO
+					)
+					.offset(this.templatePosition);
+				this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, endPos), this.templatePosition.getZ());
+				ResourceLocation pieceLocation = this.makeTemplateLocation();
+				Integer offset = PIECE_OFFSETS.computeIfPresent(pieceLocation, (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
+				if (offset == null) {
+					offset = -1;
+				}
+				if (DEEPSLATE_PIECES.contains(pieceLocation)) {
+					offset -= 1;
+				}
 
-			this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
-			int yDifference = startHeight - this.templatePosition.getY();
-			this.boundingBox.move(0, yDifference, 0);
+				this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
+				int yDifference = startHeight - this.templatePosition.getY();
+				this.boundingBox.move(0, yDifference, 0);
+			}
 			if (this.boundingBox.minY() <= world.getMinBuildHeight()) {
 				return;
 			}
