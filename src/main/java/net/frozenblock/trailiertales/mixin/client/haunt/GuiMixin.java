@@ -155,6 +155,18 @@ public class GuiMixin {
 		return trailierTales$isHaunted ? (int) maxHealth : health;
 	}
 
+	@ModifyExpressionValue(
+		method = "renderHearts",
+		at = @At(
+			value = "CONSTANT",
+			ordinal = 0,
+			args = "intValue=4"
+		)
+	)
+	private int trailierTales$shakeHearts(int original) {
+		return trailierTales$isHaunted ? Integer.MAX_VALUE : original;
+	}
+
 	@WrapOperation(
 		method = "renderHearts",
 		at = @At(
@@ -229,6 +241,30 @@ public class GuiMixin {
 	)
 	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height) {
 		return !trailierTales$isHaunted;
+	}
+
+	@ModifyExpressionValue(
+		method = "renderFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F",
+			ordinal = 0
+		)
+	)
+	private float trailierTales$shakeHungerA(float original) {
+		return trailierTales$isHaunted ? 0F : original;
+	}
+
+	@ModifyExpressionValue(
+		method = "renderFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/food/FoodData;getFoodLevel()I",
+			ordinal = 0
+		)
+	)
+	private int trailierTales$shakeHungerB(int original) {
+		return trailierTales$isHaunted ? 0 : original;
 	}
 
 	@WrapOperation(
