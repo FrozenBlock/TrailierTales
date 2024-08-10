@@ -2,12 +2,9 @@ package net.frozenblock.trailiertales.worldgen;
 
 import java.util.Arrays;
 import java.util.List;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -142,37 +139,5 @@ public class TrailierFeatureBootstrap {
 
 	private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> resourceKey, F feature, FC featureConfiguration) {
 		FeatureUtils.register(entries, resourceKey, feature, featureConfiguration);
-	}
-
-	public static void bootstrap(FabricDynamicRegistryProvider.Entries entries) {
-		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
-		final var placedFeatures = asLookup(entries.placedFeatures());
-		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
-		final var noises = asLookup(entries.getLookup(Registries.NOISE));
-		final var processorLists = asLookup(entries.getLookup(Registries.PROCESSOR_LIST));
-		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
-		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
-		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
-
-		TrailierConstants.log("Adding finalized configured features to datagen", true);
-		entries.addAll(configuredFeatures);
-		TrailierConstants.log("Adding finalized placed features to datagen", true);
-		entries.addAll(placedFeatures);
-		TrailierConstants.log("Adding finalized biomes to datagen", true);
-		entries.addAll(biomes);
-		TrailierConstants.log("Adding finalized noises to datagen", true);
-		entries.addAll(noises);
-		TrailierConstants.log("Adding finalized processor lists to datagen", true);
-		entries.addAll(processorLists);
-		TrailierConstants.log("Adding finalized template pools to datagen", true);
-		entries.addAll(templatePools);
-		TrailierConstants.log("Adding finalized structures to datagen", true);
-		entries.addAll(structures);
-		TrailierConstants.log("Adding finalized structure sets to datagen", true);
-		entries.addAll(structureSets);
-	}
-
-	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
-		return (HolderLookup.RegistryLookup<T>) getter;
 	}
 }
