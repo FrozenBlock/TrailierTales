@@ -33,10 +33,6 @@
       "required": false
     },
     {
-      "id": "#c:is_underground",
-      "required": false
-    },
-    {
       "id": "#c:is_savanna",
       "required": false
     },
@@ -47,6 +43,8 @@
     {
       "id": "#c:is_snowy_plains",
       "required": false
-    }
+    },
+    "minecraft:dripstone_caves",
+    "minecraft:lush_caves"
   ]
 }

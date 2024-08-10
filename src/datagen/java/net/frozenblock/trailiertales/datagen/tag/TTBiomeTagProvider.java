@@ -35,10 +35,11 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(BiomeTags.IS_FOREST)
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT)
 			.addOptionalTag(ConventionalBiomeTags.IS_SWAMP)
-			.addOptionalTag(ConventionalBiomeTags.IS_UNDERGROUND)
 			.addOptionalTag(ConventionalBiomeTags.IS_SAVANNA)
 			.addOptionalTag(ConventionalBiomeTags.IS_PLAINS)
-			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS);
+			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
+			.add(Biomes.DRIPSTONE_CAVES)
+			.add(Biomes.LUSH_CAVES);
 
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_DESERT_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT);
