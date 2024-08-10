@@ -36,8 +36,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class BadlandsRuinsGenerator {
-	public static final ResourceKey<StructureSet> BADLANDS_RUINS_KEY = RegisterStructures.ofSet("badlands_ruins");
-	private static final ResourceKey<Structure> BADLANDS_RUIN_KEY = RegisterStructures.createKey("badlands_ruins");
+	public static final ResourceKey<StructureSet> BADLANDS_RUINS_KEY = RegisterStructures.ofSet("ruins_badlands");
+	private static final ResourceKey<Structure> BADLANDS_RUIN_KEY = RegisterStructures.createKey("ruins_badlands");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);

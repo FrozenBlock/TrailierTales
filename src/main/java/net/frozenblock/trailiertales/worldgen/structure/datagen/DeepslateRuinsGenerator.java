@@ -32,8 +32,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class DeepslateRuinsGenerator {
-	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = RegisterStructures.ofSet("deepslate_ruins");
-	private static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = RegisterStructures.createKey("deepslate_ruins");
+	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = RegisterStructures.ofSet("ruins_deepslate");
+	private static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = RegisterStructures.createKey("ruins_deepslate");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);

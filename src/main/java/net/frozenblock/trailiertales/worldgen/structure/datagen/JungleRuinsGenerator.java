@@ -35,8 +35,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class JungleRuinsGenerator {
-	public static final ResourceKey<StructureSet> JUNGLE_RUINS_KEY =  RegisterStructures.ofSet("jungle_ruins");
-	private static final ResourceKey<Structure> JUNGLE_RUIN_KEY = RegisterStructures.createKey("jungle_ruins");
+	public static final ResourceKey<StructureSet> JUNGLE_RUINS_KEY =  RegisterStructures.ofSet("ruins_jungle");
+	private static final ResourceKey<Structure> JUNGLE_RUIN_KEY = RegisterStructures.createKey("ruins_jungle");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);

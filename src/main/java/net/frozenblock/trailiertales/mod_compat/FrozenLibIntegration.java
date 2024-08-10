@@ -1,6 +1,8 @@
 package net.frozenblock.trailiertales.mod_compat;
 
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,14 @@ import net.frozenblock.trailiertales.config.WorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
+import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -30,9 +39,11 @@ import net.minecraft.advancements.critereon.EffectsChangedTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.advancements.critereon.LootTableTrigger;
 import net.minecraft.advancements.critereon.MobEffectsPredicate;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
@@ -45,6 +56,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 
 public class FrozenLibIntegration extends ModIntegration {
@@ -341,7 +353,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							))
 						);
 					}
-					case "minecraft:adventure/plant_any_sniffer_seed" -> {
+					case "minecraft:husbandry/plant_any_sniffer_seed" -> {
 						AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
 							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(RegisterBlocks.CYAN_ROSE_CROP).triggerInstance())
 						);
@@ -350,6 +362,14 @@ public class FrozenLibIntegration extends ModIntegration {
 								"trailiertales:cyan_rose"
 							)
 						);
+					}
+					case "minecraft:adventure/salvage_sherd" -> {
+						addLootTableRequirement(advancement, RuinsGenerator.RUINS_KEY.location().toString(), RegisterLootTables.RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location().toString(), RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location().toString(), RegisterLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.location().toString(), RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.location().toString(), RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location().toString(), RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
 					}
 					case "minecraft:nether/all_effects" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
@@ -365,6 +385,34 @@ public class FrozenLibIntegration extends ModIntegration {
 				}
 			}
 		});
+	}
+
+	private static void addLootTableRequirement(Advancement advancement, String criteriaName, ResourceKey<LootTable> lootTable) {
+		AdvancementAPI.addCriteria(
+			advancement,
+			criteriaName, LootTableTrigger.TriggerInstance.lootTableUsed(lootTable)
+		);
+		addLootRequirementToList(advancement, criteriaName);
+	}
+
+	private static void addLootRequirementToList(Advancement advancement, String requirement) {
+		AdvancementAPI.setupRequirements(advancement);
+		List<List<String>> list = new ArrayList<>(advancement.requirements().requirements);
+		if (list.isEmpty()) {
+			list.add(List.of(requirement));
+		} else {
+			for (List<String> requirements : list) {
+				if (!requirements.contains("has_sherd")) {
+					List<String> finalList = new ArrayList<>(requirements);
+					finalList.add(requirement);
+					list.add(Collections.unmodifiableList(finalList));
+					list.remove(requirements);
+					break;
+				}
+			}
+		}
+
+		advancement.requirements().requirements = Collections.unmodifiableList(list);
 	}
 
 	@Environment(EnvType.CLIENT)
