@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -13,10 +13,9 @@ import net.minecraft.world.entity.MobCategory;
 import org.jetbrains.annotations.NotNull;
 
 public final class RegisterEntities {
-
 	public static final EntityType<Apparition> APPARITION = register(
 		"apparition",
-		FabricEntityType.Builder.createMob(Apparition::new, MobCategory.MONSTER, mob -> mob.defaultAttributes(Apparition::createApparitionAttributes))
+		EntityType.Builder.of(Apparition::new, MobCategory.MONSTER)
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F)
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
@@ -34,6 +33,7 @@ public final class RegisterEntities {
 	);
 
 	public static void init() {
+		FabricDefaultAttributeRegistry.register(APPARITION, Apparition.createApparitionAttributes());
 	}
 
 	@NotNull
