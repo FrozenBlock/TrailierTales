@@ -177,6 +177,8 @@
   "subtitles.block.coffin.ambient": "Souls rustle",
   "subtitles.block.coffin.detect_player": "Coffin's aura intensifies",
 
+  "subtitles.event.mob_effect.siege_omen": "Ominous siege looms nearby",
+
   "subtitles.entity.apparition.idle": "Apparition looms",
   "subtitles.entity.apparition.hurt": "Apparition hurts",
   "subtitles.entity.apparition.death": "Apparition dies",

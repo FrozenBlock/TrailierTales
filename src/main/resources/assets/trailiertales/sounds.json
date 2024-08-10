@@ -7,6 +7,12 @@
       }
     ]
   },
+  "event.mob_effect.siege_omen": {
+    "sounds": [
+      "trailiertales:event/mob_effects/siege_omen"
+    ],
+    "subtitle": "subtitles.event.mob_effect.siege_omen"
+  },
 
   "block.suspicious_clay.break": {
     "sounds": [
