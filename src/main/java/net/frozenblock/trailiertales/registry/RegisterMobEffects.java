@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
+import net.frozenblock.trailiertales.effect.TransfiguringMobEffect;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAid;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -11,6 +12,13 @@ import net.minecraft.world.effect.MobEffectCategory;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterMobEffects {
+	public static final Holder<MobEffect> TRANSFIGURATION = register(
+		"transfigure",
+		new TransfiguringMobEffect(
+			MobEffectCategory.BENEFICIAL,
+			10663385
+		).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
 	public static final Holder<MobEffect> HAUNT = register(
 		"haunt",
 		new MobEffect(

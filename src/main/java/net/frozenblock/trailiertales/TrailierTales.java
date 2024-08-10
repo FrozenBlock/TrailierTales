@@ -18,6 +18,7 @@ import net.frozenblock.trailiertales.registry.RegisterMapDecorationTypes;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterMobEffects;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.RegisterPotions;
 import net.frozenblock.trailiertales.registry.RegisterRecipies;
 import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
@@ -64,6 +65,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterParticles.init();
 		RegisterEnchantments.init();
 		RegisterMobEffects.init();
+		RegisterPotions.init();
 		RegisterJukeboxSongs.init();
 		RegsiterRuleBlockEntityModifiers.init();
 		RegisterVillagerTrades.init();
