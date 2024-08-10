@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
+import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
@@ -39,7 +40,9 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_PLAINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
 			.add(Biomes.DRIPSTONE_CAVES)
-			.add(Biomes.LUSH_CAVES);
+			.add(Biomes.LUSH_CAVES)
+			.addOptional(TrailierModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("magmatic_caves"))
+			.addOptional(TrailierModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("frozen_caves"));
 
 		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_DESERT_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT);

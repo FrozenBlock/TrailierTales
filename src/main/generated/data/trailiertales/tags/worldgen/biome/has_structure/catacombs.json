@@ -45,6 +45,14 @@
       "required": false
     },
     "minecraft:dripstone_caves",
-    "minecraft:lush_caves"
+    "minecraft:lush_caves",
+    {
+      "id": "wilderwild:magmatic_caves",
+      "required": false
+    },
+    {
+      "id": "wilderwild:frozen_caves",
+      "required": false
+    }
   ]
 }
