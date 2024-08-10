@@ -15,6 +15,7 @@
     "common.brushable_block.BrushableBlockEntityMixin",
     "common.brushable_block.BrushableBlockMixin",
     "common.brushable_block.FallingBlockEntityItemMixin",
+    "common.camel.SpawnPlacementsMixin",
     "common.coffin.EntityMixin",
     "common.coffin.LivingEntityMixin",
     "common.datafix.DataFixersMixin",

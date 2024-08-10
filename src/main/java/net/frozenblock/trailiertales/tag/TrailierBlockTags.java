@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TrailierBlockTags {
 	public static final TagKey<Block> COFFIN_UNSPAWNABLE_ON = bind("coffin_unspawnable_on");
+	public static final TagKey<Block> CAMEL_SPAWNABLE_ON = bind("camel_spawnable_on");
 
 	@NotNull
 	private static TagKey<Block> bind(@NotNull String path) {

@@ -234,6 +234,10 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS)
 			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILES);
 
+		this.getOrCreateTagBuilder(TrailierBlockTags.CAMEL_SPAWNABLE_ON)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.GRASS_BLOCK);
+
 		this.getOrCreateTagBuilder(TrailierBlockTags.COFFIN_UNSPAWNABLE_ON)
 			.add(Blocks.REDSTONE_WIRE)
 			.add(Blocks.REDSTONE_TORCH)

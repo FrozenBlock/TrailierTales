@@ -16,7 +16,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class TrailierBiomeModifications {
 
 	public static void init() {
-		BiomeModifications.create(TrailierConstants.id("vegetation"))
+		BiomeModifications.create(TrailierConstants.id("sniffer"))
 			.add(
 				ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
@@ -45,6 +45,21 @@ public final class TrailierBiomeModifications {
 					if (EntityConfig.get().sniffer.spawn) {
 						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
 							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 5, 1, 4));
+						}
+					}
+				})
+			);
+
+		BiomeModifications.create(TrailierConstants.id("camel"))
+			.add(
+				ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				((biomeSelectionContext, context) -> {
+					BiomeModificationContext.SpawnSettingsContext spawnSettings = context.getSpawnSettings();
+
+					if (EntityConfig.get().camel.spawn) {
+						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
+							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CAMEL, 1, 1, 1));
 						}
 					}
 				})

@@ -54,6 +54,27 @@ public final class EntityConfigGui {
 			snifferDigsCyanRoseSeeds, spawnSniffer
 		);
 
+		var camel = config.camel;
+		var modifiedCamel = modifiedConfig.camel;
+
+		var spawnCamel = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("camel_spawns_naturally"), modifiedCamel.spawn)
+				.setDefaultValue(defaultConfig.camel.spawn)
+				.setSaveConsumer(newValue -> camel.spawn = newValue)
+				.setTooltip(TrailierConstants.tooltip("camel_spawns_naturally"))
+				.requireRestart()
+				.build(),
+			camel.getClass(),
+			"spawn_camel",
+			configInstance
+		);
+
+		var camelCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("camel"),
+			false,
+			TrailierConstants.tooltip("camel"),
+			spawnCamel
+		);
+
 		var villager = config.villager;
 		var modifiedVillager = modifiedConfig.villager;
 
