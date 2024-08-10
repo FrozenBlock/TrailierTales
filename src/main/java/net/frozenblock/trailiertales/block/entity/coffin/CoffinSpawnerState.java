@@ -17,7 +17,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	ACTIVE("active", 3, true),
 	IRRITATED("irritated", 5, true),
 	AGGRESSIVE("aggressive", 7, true),
-	OMINOUS("ominous", 0, true);
+	OMINOUS("ominous", 7, true);
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;
