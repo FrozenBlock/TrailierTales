@@ -8,6 +8,8 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,8 +36,15 @@ public class EntityCoffinData {
 			return;
 		}
 
-		if (this.getSpawner(level).isEmpty()) {
+		Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
+		if (optionalCoffinSpawner.isEmpty()) {
 			CoffinBlock.onCoffinUntrack(entity);
+		} else if (entity instanceof Mob mob) {
+			if (optionalCoffinSpawner.get().isOminous()) {
+				CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+				Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
+				optionalPlayer.ifPresent(mob::setTarget);
+			}
 		}
 	}
 

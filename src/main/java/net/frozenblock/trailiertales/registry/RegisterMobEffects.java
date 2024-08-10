@@ -11,12 +11,20 @@ import net.minecraft.world.effect.MobEffectCategory;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterMobEffects {
-	public static final Holder<MobEffect> HAUNT = register("haunt",
+	public static final Holder<MobEffect> HAUNT = register(
+		"haunt",
 		new MobEffect(
 			MobEffectCategory.HARMFUL,
 			10663385,
 			ApparitionAid.EFFECT_PARTICLE
 		).setBlendDuration(40).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Holder<MobEffect> SIEGE_OMEN = register(
+		"siege_omen",
+		new MobEffect(MobEffectCategory.NEUTRAL,
+			1484454,
+			RegisterParticles.SIEGE_OMEN
+		).withSoundOnAdded(RegisterSounds.APPLY_EFFECT_SIEGE_OMEN).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static void init() {

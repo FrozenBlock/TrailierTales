@@ -16,8 +16,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false),
 	ACTIVE("active", 3, true),
 	IRRITATED("irritated", 5, true),
-	AGGRESSIVE("aggressive", 7, true);
-
+	AGGRESSIVE("aggressive", 7, true),
+	OMINOUS("ominous", 0, true);
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;
@@ -38,6 +38,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, state, level);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
+			case OMINOUS -> activeTickAndGetNext(this, pos, spawner, state, level);
 		};
 	}
 
@@ -143,12 +144,13 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			case ACTIVE -> CoffinSpawnerState.IRRITATED;
 			case IRRITATED -> CoffinSpawnerState.AGGRESSIVE;
 			case AGGRESSIVE -> CoffinSpawnerState.AGGRESSIVE;
+			case OMINOUS -> CoffinSpawnerState.OMINOUS;
 		};
 	}
 
 	@Contract("_, _ -> new")
 	private static @NotNull ResourceLocation getTexture(String stateName, boolean foot) {
-		return TrailierConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName +".png");
+		return TrailierConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName + ".png");
 	}
 
 	@Override

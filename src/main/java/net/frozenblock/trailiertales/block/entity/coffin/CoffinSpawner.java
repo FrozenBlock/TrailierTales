@@ -65,6 +65,7 @@ public final class CoffinSpawner {
 	private final CoffinSpawnerConfig normalConfig;
 	private final CoffinSpawnerConfig irritatedConfig;
 	private final CoffinSpawnerConfig aggressiveConfig;
+	private final CoffinSpawnerConfig ominousConfig;
 	private final CoffinSpawnerData data;
 	private final int requiredPlayerRange;
 	private final int powerCooldownLength;
@@ -79,6 +80,7 @@ public final class CoffinSpawner {
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("normal_config", CoffinSpawnerConfig.DEFAULT).forGetter(CoffinSpawner::getNormalConfig),
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("irritated_config", CoffinSpawnerConfig.IRRITATED).forGetter(CoffinSpawner::getIrritatedConfig),
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("aggressive_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getAggressiveConfig),
+					CoffinSpawnerConfig.CODEC.optionalFieldOf("ominous_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getOminousConfig),
 					CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
 					Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 12000).forGetter(CoffinSpawner::getPowerCooldownLength),
 					Codec.intRange(1, PLAYER_TRACKING_DISTANCE).optionalFieldOf("required_player_range", PLAYER_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
@@ -87,8 +89,8 @@ public final class CoffinSpawner {
 				)
 				.apply(
 					instance,
-					(config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn) -> new CoffinSpawner(
-						config, config2, config3, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor, this.entitySelector
+					(config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn) -> new CoffinSpawner(
+						config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor, this.entitySelector
 					)
 				)
 		);
@@ -105,6 +107,7 @@ public final class CoffinSpawner {
 			CoffinSpawnerConfig.DEFAULT,
 			CoffinSpawnerConfig.IRRITATED,
 			CoffinSpawnerConfig.AGGRESSIVE,
+			CoffinSpawnerConfig.OMINOUS,
 			new CoffinSpawnerData(),
 			12000,
 			PLAYER_TRACKING_DISTANCE,
@@ -119,6 +122,7 @@ public final class CoffinSpawner {
 		CoffinSpawnerConfig normalConfig,
 		CoffinSpawnerConfig irritatedConfig,
 		CoffinSpawnerConfig aggressiveConfig,
+		CoffinSpawnerConfig ominousConfig,
 		CoffinSpawnerData data,
 		int powerCooldownLength,
 		int requiredPlayerRange,
@@ -130,6 +134,7 @@ public final class CoffinSpawner {
 		this.normalConfig = normalConfig;
 		this.irritatedConfig = irritatedConfig;
 		this.aggressiveConfig = aggressiveConfig;
+		this.ominousConfig = ominousConfig;
 		this.data = data;
 		this.powerCooldownLength = powerCooldownLength;
 		this.requiredPlayerRange = requiredPlayerRange;
@@ -160,6 +165,23 @@ public final class CoffinSpawner {
 	@VisibleForTesting
 	public CoffinSpawnerConfig getAggressiveConfig() {
 		return this.aggressiveConfig;
+	}
+
+	@VisibleForTesting
+	public CoffinSpawnerConfig getOminousConfig() {
+		return this.ominousConfig;
+	}
+
+	public void applyOminous(ServerLevel world) {
+		this.setState(world, CoffinSpawnerState.OMINOUS);
+	}
+
+	public void removeOminous(ServerLevel world) {
+		this.setState(world, CoffinSpawnerState.ACTIVE);
+	}
+
+	public boolean isOminous() {
+		return this.getState() == CoffinSpawnerState.OMINOUS;
 	}
 
 	public CoffinSpawnerData getData() {

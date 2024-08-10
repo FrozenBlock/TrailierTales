@@ -28,6 +28,7 @@ public final class RegisterParticles {
 		"glowing_dust_color_transition", false, particleType -> GlowingDustColorTransitionOptions.CODEC, particleType -> GlowingDustColorTransitionOptions.STREAM_CODEC
 	);
 	public static final SimpleParticleType SUSPICIOUS_CONNECTION = register("suspicious_connection");
+	public static final SimpleParticleType SIEGE_OMEN = register("siege_omen");
 
 	public static void init() {
 		TrailierConstants.log("Registering Particles for Trailier Tales.", TrailierConstants.UNSTABLE_LOGGING);

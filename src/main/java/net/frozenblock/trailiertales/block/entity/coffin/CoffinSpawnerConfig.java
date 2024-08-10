@@ -43,6 +43,16 @@ public record CoffinSpawnerConfig(
 		24,
 		2
 	);
+	public static final CoffinSpawnerConfig OMINOUS = new CoffinSpawnerConfig(
+		6,
+		20F,
+		2F,
+		3F,
+		1F,
+		150,
+		24,
+		2
+	);
 
 	public static final Codec<CoffinSpawnerConfig> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(

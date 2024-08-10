@@ -8,6 +8,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.NotNull;
 
 public class GlowingSpellParticle extends SpellParticle {
@@ -18,6 +19,19 @@ public class GlowingSpellParticle extends SpellParticle {
 	@Override
 	protected int getLightColor(float tint) {
 		return 240;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static class Provider implements ParticleProvider<SimpleParticleType> {
+		private final SpriteSet sprite;
+
+		public Provider(SpriteSet spriteProvider) {
+			this.sprite = spriteProvider;
+		}
+
+		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i) {
+			return new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite);
+		}
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import com.google.common.collect.Sets;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -20,6 +21,7 @@ import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
@@ -27,6 +29,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry.Wrapper;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
@@ -214,8 +219,20 @@ public class CoffinSpawnerData {
 				.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 			this.potentialPlayers.addAll(list);
 
+			if (!coffinSpawner.isOminous() && !list.isEmpty()) {
+				Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
+				optional.ifPresent(pair -> {
+					Player player = pair.getFirst();
+					if (pair.getSecond() == MobEffects.BAD_OMEN) {
+						transformBadOmenIntoSiegeOmen(player);
+					}
+
+					coffinSpawner.applyOminous(world);
+				});
+			}
+
 			List<UUID> detectedList = new ArrayList<>(list);
-			detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !player.hasEffect(RegisterMobEffects.HAUNT));
+			detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(RegisterMobEffects.HAUNT) || player.hasEffect(RegisterMobEffects.SIEGE_OMEN)));
 			for (UUID uuid : this.currentApparitions) {
 				if (world.getEntity(uuid) instanceof Apparition apparition) {
 					LivingEntity target = apparition.getTarget();
@@ -232,6 +249,36 @@ public class CoffinSpawnerData {
 			}
 
 			this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
+		}
+	}
+
+	private static Optional<Pair<Player, Holder<MobEffect>>> findPlayerWithOminousEffect(ServerLevel world, @NotNull List<UUID> list) {
+		Player player = null;
+
+		for (UUID uUID : list) {
+			Player player2 = world.getPlayerByUUID(uUID);
+			if (player2 != null) {
+				Holder<MobEffect> holder = RegisterMobEffects.SIEGE_OMEN;
+				if (player2.hasEffect(holder)) {
+					return Optional.of(Pair.of(player2, holder));
+				}
+
+				if (player2.hasEffect(MobEffects.BAD_OMEN)) {
+					player = player2;
+				}
+			}
+		}
+
+		return Optional.ofNullable(player).map(playerx -> Pair.of(playerx, MobEffects.BAD_OMEN));
+	}
+
+	private static void transformBadOmenIntoSiegeOmen(@NotNull Player player) {
+		MobEffectInstance mobEffectInstance = player.getEffect(MobEffects.BAD_OMEN);
+		if (mobEffectInstance != null) {
+			int i = mobEffectInstance.getAmplifier() + 1;
+			int j = 18000 * i;
+			player.removeEffect(MobEffects.BAD_OMEN);
+			player.addEffect(new MobEffectInstance(RegisterMobEffects.SIEGE_OMEN, j, 0));
 		}
 	}
 

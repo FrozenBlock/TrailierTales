@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 
 @Environment(EnvType.CLIENT)
 public class TrailierTalesClient implements ClientModInitializer {
-
 	public static final String BLANK_DECORATED_NAME = "decorated_pot_blank_side";
 	public static final String BAIT_POTTERY_PATTERN_NAME = "bait_pottery_pattern";
 	public static final String BLOOM_POTTERY_PATTERN_NAME = "bloom_pottery_pattern";
@@ -102,5 +101,6 @@ public class TrailierTalesClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
 		particleRegistry.register(RegisterParticles.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
 		particleRegistry.register(RegisterParticles.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
+		particleRegistry.register(RegisterParticles.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
 	}
 }

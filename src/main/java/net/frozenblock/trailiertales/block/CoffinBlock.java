@@ -69,7 +69,11 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	public CoffinBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(PART, CoffinPart.FOOT).setValue(STATE, CoffinSpawnerState.INACTIVE));
+		this.registerDefaultState(
+			this.stateDefinition.any()
+				.setValue(PART, CoffinPart.FOOT)
+				.setValue(STATE, CoffinSpawnerState.INACTIVE)
+		);
 	}
 
 	@Nullable
