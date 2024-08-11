@@ -292,8 +292,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_lever"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_tomb"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/mob_drop"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/pick_a_lever"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/pick_a_pot"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/pick_a_lever"), tomb), 1),
+					Pair.of(StructurePoolElement.single(string("tomb/pick_a_pot"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle1"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle2"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle3"), tomb), 2),
@@ -504,7 +504,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 65)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/top1"), corridor), 75)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -526,7 +526,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector8"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector9"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/staircase/connector10"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 65)
+					Pair.of(StructurePoolElement.single(string("corridor/staircase/bottom1"), corridor), 75)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -554,7 +554,7 @@ public class CatacombsGenerator {
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
-				88,
+				100,
 				List.of(),
 				new DimensionPadding(6),
 				LiquidSettings.IGNORE_WATERLOGGING

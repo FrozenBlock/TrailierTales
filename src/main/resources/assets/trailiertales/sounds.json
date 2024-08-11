@@ -919,15 +919,15 @@
   "block.coffin.detect_player": {
     "sounds": [
       {
-        "attenuation_distance": 32,
+        "attenuation_distance": 48,
         "name": "trailiertales:block/coffin/detect_player1"
       },
       {
-        "attenuation_distance": 32,
+        "attenuation_distance": 48,
         "name": "trailiertales:block/coffin/detect_player2"
       },
       {
-        "attenuation_distance": 32,
+        "attenuation_distance": 48,
         "name": "trailiertales:block/coffin/detect_player3"
       }
     ],

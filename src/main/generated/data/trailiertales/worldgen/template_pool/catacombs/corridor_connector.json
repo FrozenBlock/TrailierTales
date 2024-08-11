@@ -1060,7 +1060,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 1
     },
     {
       "element": {
@@ -1069,7 +1069,7 @@
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
-      "weight": 2
+      "weight": 1
     },
     {
       "element": {
