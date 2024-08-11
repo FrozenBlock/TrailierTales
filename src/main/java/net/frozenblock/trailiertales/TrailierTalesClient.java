@@ -102,5 +102,6 @@ public class TrailierTalesClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
 		particleRegistry.register(RegisterParticles.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
 		particleRegistry.register(RegisterParticles.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
+		particleRegistry.register(RegisterParticles.TRANSFIGURING, GlowingSpellParticle.Provider::new);
 	}
 }

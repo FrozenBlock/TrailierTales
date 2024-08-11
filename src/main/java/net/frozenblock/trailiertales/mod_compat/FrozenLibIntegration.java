@@ -24,6 +24,7 @@ import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
+import net.frozenblock.trailiertales.registry.RegisterMobEffects;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
@@ -371,12 +372,23 @@ public class FrozenLibIntegration extends ModIntegration {
 						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.location().toString(), RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
 						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location().toString(), RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
 					}
+					case "minecraft:nether/all_potions" -> {
+						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+							map.put(RegisterMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
+							predicate.effectMap = map;
+						}
+					}
 					case "minecraft:nether/all_effects" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(net.frozenblock.trailiertales.registry.RegisterMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(RegisterMobEffects.SIEGE_OMEN, new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
 					}

@@ -4,11 +4,11 @@
 
   "effect.trailiertales.haunt": "Haunt",
   "effect.trailiertales.siege_omen": "Siege Omen",
-  "effect.trailiertales.transfigure": "Transfiguring",
-  "item.minecraft.potion.effect.transfigure": "Potion of Transfiguring",
-  "item.minecraft.splash_potion.effect.transfigure": "Splash Potion of Transfiguring",
-  "item.minecraft.lingering_potion.effect.transfigure": "Lingering Potion of Transfiguring",
-  "item.minecraft.tipped_arrow.effect.transfigure": "Arrow of Transfiguring",
+  "effect.trailiertales.transfiguring": "Transfiguring",
+  "item.minecraft.potion.effect.transfiguring": "Potion of Transfiguring",
+  "item.minecraft.splash_potion.effect.transfiguring": "Splash Potion of Transfiguring",
+  "item.minecraft.lingering_potion.effect.transfiguring": "Lingering Potion of Transfiguring",
+  "item.minecraft.tipped_arrow.effect.transfiguring": "Arrow of Transfiguring",
 
   "enchantment.trailiertales.rebrush": "Rebrush",
   "enchantment.trailiertales.reaping": "Reaping",

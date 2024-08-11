@@ -12,11 +12,11 @@ import net.minecraft.world.effect.MobEffectCategory;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterMobEffects {
-	public static final Holder<MobEffect> TRANSFIGURATION = register(
-		"transfigure",
+	public static final Holder<MobEffect> TRANSFIGURING = register(
+		"transfiguring",
 		new TransfiguringMobEffect(
 			MobEffectCategory.BENEFICIAL,
-			10663385
+			8687789
 		).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Holder<MobEffect> HAUNT = register(

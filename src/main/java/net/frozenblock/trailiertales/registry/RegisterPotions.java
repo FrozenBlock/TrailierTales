@@ -13,14 +13,14 @@ import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterPotions {
-	public static final Holder.Reference<Potion> TRANSIFUGRATION = register(
-		"transfigure", new Potion(new MobEffectInstance(RegisterMobEffects.TRANSFIGURATION, 2700))
+	public static final Holder.Reference<Potion> TRANSFIGURING = register(
+		"transfiguring", new Potion(new MobEffectInstance(RegisterMobEffects.TRANSFIGURING, 3600))
 	);
 
 	public static void init() {
 		FabricBrewingRecipeRegistryBuilder.BUILD.register(boringBuilder -> {
 			if (boringBuilder instanceof FabricBrewingRecipeRegistryBuilder builder) {
-				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.ECTOPLASM), TRANSIFUGRATION);
+				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(RegisterItems.ECTOPLASM), TRANSFIGURING);
 			}
 		});
 	}

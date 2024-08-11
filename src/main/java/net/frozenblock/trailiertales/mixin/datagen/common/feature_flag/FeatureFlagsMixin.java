@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = FeatureFlags.class, priority = 2000)
 public class FeatureFlagsMixin {
-
 	@Final
 	@Shadow
 	@Mutable

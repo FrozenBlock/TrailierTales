@@ -146,6 +146,7 @@ public final class CoffinSpawner {
 
 	public CoffinSpawnerConfig getConfig() {
 		return switch (this.getState()) {
+			case OMINOUS -> this.ominousConfig;
 			case AGGRESSIVE -> this.aggressiveConfig;
 			case INACTIVE -> this.irritatedConfig;
 			default -> this.normalConfig;
@@ -177,7 +178,7 @@ public final class CoffinSpawner {
 	}
 
 	public void removeOminous(ServerLevel world) {
-		this.setState(world, CoffinSpawnerState.ACTIVE);
+		this.setState(world, CoffinSpawnerState.getStateForPower(world, this));
 	}
 
 	public boolean isOminous() {

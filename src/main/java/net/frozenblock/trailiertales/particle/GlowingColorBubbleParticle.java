@@ -61,7 +61,7 @@ public class GlowingColorBubbleParticle extends TextureSheetParticle {
 			this.sprite = spriteSet;
 		}
 
-		public Particle createParticle(ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i) {
+		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i) {
 			Particle particle = new GlowingColorBubbleParticle(world, d, e, f, g, h, i, this.sprite);
 			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			return particle;

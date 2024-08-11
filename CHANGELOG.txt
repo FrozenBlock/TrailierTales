@@ -22,6 +22,8 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Added the Surveyor block
 - Added Catacombs
 - Added Haunt mob effect
+- Added Transfiguring mobb effect
+- Added Siege Omen
 - Added the Coffin block
 - Added Apparition mob
 - Added the Rebrush enchantment
@@ -90,6 +92,17 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Blocks out health, armor, hunger, and air supply stats, becoming either invisible or unreadable to the player
 - Halves the distance sounds can be heard from
 - Coffins can detect any player with this mob effect
+
+## TRANSFIGURING
+- A new mob effect obtained through brewing
+    - Potion is brewed with Ectoplasm and an Awkward Potion
+- Spawns an Apparition upon the effected mob's death
+
+## SIEGE OMEN
+- Triggered when being close to a Coffin with Bad Omen
+- Each nearby Coffin will activate and spawn up to two mobs per-player simultaneously
+    - Spawned mobs will constantly track the closest player
+    - Coffins will have a spawning cooldown of only 150 ticks
 
 ## COFFIN
 - A new block that spawns mobs

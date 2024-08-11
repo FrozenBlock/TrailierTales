@@ -1,6 +1,8 @@
 package net.frozenblock.trailiertales.effect;
 
 import com.google.common.annotations.VisibleForTesting;
+import java.util.ArrayList;
+import java.util.List;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
@@ -13,13 +15,11 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransfiguringMobEffect extends MobEffect {
 
 	public TransfiguringMobEffect(MobEffectCategory type, int color) {
-		super(type, color, RegisterParticles.COFFIN_SOUL);
+		super(type, color, RegisterParticles.TRANSFIGURING);
 	}
 
 	@VisibleForTesting

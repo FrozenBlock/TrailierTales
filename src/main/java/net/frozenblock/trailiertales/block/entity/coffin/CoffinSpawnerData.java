@@ -157,6 +157,10 @@ public class CoffinSpawnerData {
 		return this.currentMobs.isEmpty();
 	}
 
+	public boolean haveAllCurrentApparitionsDied() {
+		return this.currentApparitions.isEmpty();
+	}
+
 	public boolean trackingEntity(@NotNull Entity entity) {
 		return this.currentMobs.contains(entity.getUUID());
 	}
@@ -226,7 +230,6 @@ public class CoffinSpawnerData {
 					if (pair.getSecond() == MobEffects.BAD_OMEN) {
 						transformBadOmenIntoSiegeOmen(player);
 					}
-
 					coffinSpawner.applyOminous(world);
 				});
 			}

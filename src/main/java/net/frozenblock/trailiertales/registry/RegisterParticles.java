@@ -29,6 +29,7 @@ public final class RegisterParticles {
 	);
 	public static final SimpleParticleType SUSPICIOUS_CONNECTION = register("suspicious_connection");
 	public static final SimpleParticleType SIEGE_OMEN = register("siege_omen");
+	public static final SimpleParticleType TRANSFIGURING = register("transfiguring");
 
 	public static void init() {
 		TrailierConstants.log("Registering Particles for Trailier Tales.", TrailierConstants.UNSTABLE_LOGGING);

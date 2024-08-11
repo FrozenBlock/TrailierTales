@@ -13,21 +13,23 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public enum CoffinSpawnerState implements StringRepresentable {
-	INACTIVE("inactive", 0, false),
-	ACTIVE("active", 3, true),
-	IRRITATED("irritated", 5, true),
-	AGGRESSIVE("aggressive", 7, true),
-	OMINOUS("ominous", 7, true);
+	INACTIVE("inactive", 0, false, false),
+	ACTIVE("active", 3, true, false),
+	IRRITATED("irritated", 5, true, false),
+	AGGRESSIVE("aggressive", 7, true, true),
+	OMINOUS("ominous", 7, true, true);
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;
+	private final boolean finalWave;
 	private final ResourceLocation headTexture;
 	private final ResourceLocation footTexture;
 
-	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning) {
+	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning, final boolean finalWave) {
 		this.name = name;
 		this.lightLevel = lightLevel;
 		this.isCapableOfSpawning = isCapableOfSpawning;
+		this.finalWave = finalWave;
 		this.headTexture = getTexture(name, false);
 		this.footTexture = getTexture(name, true);
 	}
@@ -40,6 +42,21 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
 			case OMINOUS -> activeTickAndGetNext(this, pos, spawner, state, level);
 		};
+	}
+
+	protected static CoffinSpawnerState getStateForPower(ServerLevel level, @NotNull CoffinSpawner coffinSpawner) {
+		CoffinSpawnerData coffinSpawnerData = coffinSpawner.getData();
+		if (coffinSpawnerData.detectedAnyPlayers()) {
+			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
+				if (coffinSpawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+					return AGGRESSIVE;
+				} else if (coffinSpawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
+					return IRRITATED;
+				}
+			}
+			return ACTIVE;
+		}
+		return INACTIVE;
 	}
 
 	private static CoffinSpawnerState getInactiveState(
@@ -58,18 +75,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				spawner.spawnApparition(level, pos);
 			}
 
-			if (coffinSpawnerData.detectedAnyPlayers()) {
-				if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
-					if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-						return AGGRESSIVE;
-					} else if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-						return IRRITATED;
-					}
-				}
-				return ACTIVE;
-			}
+			return getStateForPower(level, spawner);
 		}
-		return INACTIVE;
 	}
 
 	private static CoffinSpawnerState activeTickAndGetNext(
@@ -104,8 +111,16 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			if (coffinSpawnerData.hasFinishedSpawningAllMobs(coffinSpawnerConfig, additionalPlayers)) {
 				if (coffinSpawnerData.haveAllCurrentMobsDied()) {
 					coffinSpawnerData.totalMobsSpawned = 0;
-					coffinSpawnerData.nextMobSpawnsAt = 0L;
-					coffinSpawnerData.power = 0;
+					if (coffinSpawnerState.finalWave) {
+						coffinSpawnerData.nextMobSpawnsAt = 0L;
+						coffinSpawnerData.power = 0;
+						coffinSpawnerData.powerCooldownEndsAt = 0L;
+						long cooldownTime = coffinSpawnerState == OMINOUS ? 12000L : 24000L;
+						coffinSpawnerData.nextApparitionSpawnsAt = level.getGameTime() + cooldownTime;
+						if (coffinSpawnerData.haveAllCurrentApparitionsDied()) {
+							return INACTIVE;
+						}
+					}
 				}
 			} else if (coffinSpawnerData.isReadyToSpawnNextMob(level, coffinSpawnerConfig, additionalPlayers)) {
 				spawner.spawnMob(level, pos).ifPresent(uuid -> {
