@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
+import net.frozenblock.trailiertales.tag.TrailierEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -123,7 +124,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 						HitResult hitResult = ProjectileUtil.getHitResult(
 							closestPoint,
 							player,
-							EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible()),
+							EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible() && !entity.getType().is(TrailierEntityTags.SURVEYOR_IGNORES)),
 							surveyorCenterPos.subtract(closestPoint),
 							serverLevel,
 							0F,

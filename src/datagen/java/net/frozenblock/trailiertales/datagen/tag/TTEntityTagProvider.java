@@ -21,10 +21,16 @@ public final class TTEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(TrailierEntityTags.APPARITION_TARGETABLE)
 			.add(EntityType.PLAYER);
 
+		this.getOrCreateTagBuilder(TrailierEntityTags.SURVEYOR_IGNORES)
+			.add(RegisterEntities.APPARITION);
+
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(RegisterEntities.APPARITION);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+			.add(RegisterEntities.APPARITION);
+
+		this.getOrCreateTagBuilder(EntityTypeTags.WITHER_FRIENDS)
 			.add(RegisterEntities.APPARITION);
 	}
 }

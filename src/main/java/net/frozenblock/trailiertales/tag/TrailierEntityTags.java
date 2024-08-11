@@ -7,7 +7,8 @@ import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierEntityTags {
-	public static final TagKey<EntityType<?>> APPARITION_TARGETABLE = bind("apparition_targetable") ;
+	public static final TagKey<EntityType<?>> SURVEYOR_IGNORES = bind("surveyor_ignores") ;
+	public static final TagKey<EntityType<?>> APPARITION_TARGETABLE = bind("apparition_targetable");
 
 	@NotNull
 	private static TagKey<EntityType<?>> bind(@NotNull String path) {

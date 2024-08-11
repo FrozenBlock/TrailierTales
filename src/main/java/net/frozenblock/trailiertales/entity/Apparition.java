@@ -2,7 +2,6 @@ package net.frozenblock.trailiertales.entity;
 
 import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
-import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindDisturbingEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
@@ -10,6 +9,7 @@ import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.mod_compat.FrozenLibIntegration;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.RegisterMobEffects;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.tag.TrailierEntityTags;
 import net.minecraft.core.BlockPos;
@@ -32,6 +32,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
@@ -251,6 +252,14 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			return this.position().distanceTo(Vec3.atCenterOf(globalPos.pos())) >= 58D;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean canBeAffected(@NotNull MobEffectInstance effect) {
+		if (effect.is(RegisterMobEffects.TRANSFIGURING)) {
+			return false;
+		}
+		return super.canBeAffected(effect);
 	}
 
 	@Override
