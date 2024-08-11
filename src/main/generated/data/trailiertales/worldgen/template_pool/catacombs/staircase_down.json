@@ -97,7 +97,7 @@
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
-      "weight": 45
+      "weight": 65
     }
   ],
   "fallback": "minecraft:empty"
