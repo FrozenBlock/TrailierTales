@@ -30,7 +30,7 @@ public record CoffinSpawnerConfig(
 		2F,
 		1F,
 		300,
-		12,
+		6,
 		1
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
@@ -45,12 +45,12 @@ public record CoffinSpawnerConfig(
 	);
 	public static final CoffinSpawnerConfig OMINOUS = new CoffinSpawnerConfig(
 		6,
-		30F,
+		15F,
 		2F,
 		3F,
 		1F,
 		150,
-		0,
+		15,
 		2
 	);
 
