@@ -4,8 +4,10 @@ import com.google.common.annotations.VisibleForTesting;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -44,6 +46,7 @@ public class TransfiguringMobEffect extends MobEffect {
 		Apparition apparition = RegisterEntities.APPARITION.create(world);
 		if (apparition != null) {
 			apparition.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0F);
+			ApparitionAi.rememberHome(apparition, world, BlockPos.containing(x, y, z));
 			world.addFreshEntity(apparition);
 		}
 	}

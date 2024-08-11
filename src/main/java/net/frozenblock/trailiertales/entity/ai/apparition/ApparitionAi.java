@@ -8,6 +8,7 @@ import java.util.Set;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.EntityType;
@@ -36,6 +37,7 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ApparitionAi {
 	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
@@ -151,8 +153,27 @@ public class ApparitionAi {
 	}
 
 	private static boolean shouldGoTowardsHome(@NotNull LivingEntity apparition, @NotNull GlobalPos pos) {
-		Level level = apparition.level();
-		return level.dimension() == pos.dimension() && !((Apparition)apparition).shouldReturnToHome();
+		return ((Apparition)apparition).shouldReturnToHome(pos);
+	}
+
+	public static @Nullable BlockPos getHome(@NotNull Apparition apparition) {
+		Optional<GlobalPos> optional = apparition.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.map(GlobalPos::pos).orElse(null);
+	}
+
+	public static boolean isInHomeDimension(@NotNull Apparition apparition) {
+		Optional<GlobalPos> optional = apparition.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.filter((globalPos) -> globalPos.dimension() == apparition.level().dimension()).isPresent();
+	}
+
+	public static void rememberHome(@NotNull Apparition apparition, @NotNull BlockPos pos) {
+		rememberHome(apparition, apparition.level(), pos);
+	}
+
+	public static void rememberHome(@NotNull Apparition apparition, @NotNull Level level, @NotNull BlockPos pos) {
+		Brain<?> brain = apparition.getBrain();
+		GlobalPos globalPos = GlobalPos.of(level.dimension(), pos);
+		brain.setMemory(MemoryModuleType.HOME, globalPos);
 	}
 
 	@NotNull

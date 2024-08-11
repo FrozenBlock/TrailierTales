@@ -13,6 +13,7 @@ import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.tag.TrailierEntityTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -120,7 +121,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@NotNull
 	public static AttributeSupplier.Builder createApparitionAttributes() {
 		return Mob.createMobAttributes()
-			.add(Attributes.MAX_HEALTH, 20D)
+			.add(Attributes.MAX_HEALTH, 30D)
 			.add(Attributes.FLYING_SPEED, 0.5D)
 			.add(Attributes.MOVEMENT_SPEED, 0.5D)
 			.add(Attributes.ATTACK_DAMAGE, 3D)
@@ -223,7 +224,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public float getWalkTargetValue(BlockPos pos) {
 		Level level = this.level();
 		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
-		float successValue = 20F - level.getRawBrightness(pos, 0);
+		float successValue = 20F - (Math.max(5, level.getRawBrightness(pos, 0) * 0.5F));
 		float punishmentValue = -1F;
 
 		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
@@ -245,14 +246,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return !world.getBlockState(pos).isCollisionShapeFullBlock(world, pos) ? 15F : -0.75F;
 	}
 
-	public boolean shouldReturnToHome() {
-		if (this instanceof EntityCoffinInterface coffinInterface) {
-			if (coffinInterface.trailierTales$getCoffinData() != null) {
-				Optional<CoffinSpawner> optional = coffinInterface.trailierTales$getCoffinData().getSpawner(this.level());
-				if (optional.isPresent()) {
-					return this.position().distanceTo(Vec3.atCenterOf(coffinInterface.trailierTales$getCoffinData().getPos())) >= 58D;
-				}
-			}
+	public boolean shouldReturnToHome(@NotNull GlobalPos globalPos) {
+		if (globalPos.dimension() == this.level().dimension()) {
+			return this.position().distanceTo(Vec3.atCenterOf(globalPos.pos())) >= 58D;
 		}
 		return false;
 	}

@@ -11,6 +11,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.RegisterEntities;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
@@ -373,7 +374,7 @@ public final class CoffinSpawner {
 			);
 		}
 		if (entity instanceof Apparition apparition) {
-			apparition.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(level.dimension(), pos));
+			ApparitionAi.rememberHome(apparition, level, pos);
 		}
 	}
 
