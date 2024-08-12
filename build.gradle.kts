@@ -90,7 +90,8 @@ sourceSets {
             srcDirs("src/main/generated")
             setExcludes(
                 listOf(
-                    "assets/minecraft"
+                    "assets/minecraft/blockstates",
+                    "assets/minecraft/models"
                 )
             )
         }
