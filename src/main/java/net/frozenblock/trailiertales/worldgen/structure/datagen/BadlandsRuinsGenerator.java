@@ -140,7 +140,7 @@ public class BadlandsRuinsGenerator {
 			RegisterStructures.decoratedPotSherdProcessor(
 				1F,
 				Items.SKULL_POTTERY_SHERD,
-				Items.HEARTBREAK_POTTERY_SHERD,
+				Items.BURN_POTTERY_SHERD,
 				RegisterItems.WITHER_POTTERY_SHERD,
 				Items.MINER_POTTERY_SHERD
 			),

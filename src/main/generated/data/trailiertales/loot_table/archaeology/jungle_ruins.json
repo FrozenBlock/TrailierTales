@@ -111,12 +111,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:lumber_pottery_sherd",
+          "name": "trailiertales:bolt_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:explorer_pottery_sherd",
+          "name": "trailiertales:navigator_pottery_sherd",
           "weight": 7
         },
         {

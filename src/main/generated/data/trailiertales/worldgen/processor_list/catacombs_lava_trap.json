@@ -805,7 +805,6 @@
             "default_to_brick": false,
             "sherds": [
               "minecraft:skull_pottery_sherd",
-              "minecraft:burn_pottery_sherd",
               "trailiertales:essence_pottery_sherd",
               "trailiertales:eye_pottery_sherd"
             ]

@@ -58,7 +58,7 @@ public class RegisterLootTables {
 				// Removed Blade
 				// Removed Mourner
 				// Removed Plenty
-				// Added Bait
+				// Added Focus
 				// Added Vessel
 				// Added Incidence
 				return LootTable.lootTable()
@@ -68,7 +68,7 @@ public class RegisterLootTables {
 							.add(LootItem.lootTableItem(RegisterItems.INCIDENCE_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(RegisterItems.VESSEL_POTTERY_SHERD))
-							.add(LootItem.lootTableItem(RegisterItems.BAIT_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(RegisterItems.FOCUS_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.IRON_AXE))
 							.add(LootItem.lootTableItem(Items.EMERALD).setWeight(2))
 							.add(LootItem.lootTableItem(Items.WHEAT).setWeight(2))
@@ -79,6 +79,7 @@ public class RegisterLootTables {
 			} else if (BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE.equals(key)) {
 				// Removed Burn
 				// Removed Danger
+				// Removed Sheaf
 				// Added Protection
 				// Added Catacombs Explorer Map
 				return LootTable.lootTable()
@@ -96,12 +97,11 @@ public class RegisterLootTables {
 									)
 									.apply(SetNameFunction.setName(Component.translatable("filled_map.trailiertales.catacombs"), SetNameFunction.Target.ITEM_NAME))
 							)
-							.add(LootItem.lootTableItem(RegisterItems.PROTECTION_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HOWL_POTTERY_SHERD))
-							.add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(RegisterItems.PROTECTION_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE))
 							.add(LootItem.lootTableItem(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE))
 							.add(LootItem.lootTableItem(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE))

@@ -71,7 +71,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:shine_pottery_sherd",
+          "name": "trailiertales:hump_pottery_sherd",
           "weight": 6
         },
         {
@@ -82,6 +82,11 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:danger_pottery_sherd",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:shine_pottery_sherd",
           "weight": 6
         },
         {

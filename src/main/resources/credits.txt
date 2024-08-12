@@ -39,16 +39,22 @@ Zhen
       - All new Calcite variants
       - Cracked and Mossy Bricks
       - Bait Pottery Sherd/Pattern
+      - Bolt Pottery Sherd/Pattern
+      - Crawl Pottery Sherd/Pattern
       - Cultivator Pottery Sherd/Pattern
       - Essence Pottery Sherd/Pattern
       - Eye Pottery Sherd/Pattern
+      - Focus Pottery Sherd/Pattern
+      - Hump Pottery Sherd/Pattern
       - Incidence Pottery Sherd/Pattern
       - Lumber Pottery Sherd/Pattern
+      - Navigator Pottery Sherd/Pattern
       - Needles Pottery Sherd/Pattern
       - Protection Pottery Sherd/Pattern
       - Shine Pottery Sherd/Pattern
       - Shower Pottery Sherd/Pattern
       - Spade Pottery Sherd/Pattern
+      - Sprout Pottery Sherd/Pattern
       - Transfiguring icon and particle texture
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas

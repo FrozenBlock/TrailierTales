@@ -123,18 +123,24 @@ public final class TTModelProvider extends FabricModelProvider {
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
 		generator.generateFlatItem(RegisterItems.BAIT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.BLOOM_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.BOLT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.BULLSEYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.CRAWL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.CRESCENT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.CULTIVATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.ESSENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.EYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.FOCUS_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.HUMP_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.INCIDENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.LUMBER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.NAVIGATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.NEEDLES_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.PROTECTION_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.SHINE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.SHOWER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.SPADE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.SPROUT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.VESSEL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 

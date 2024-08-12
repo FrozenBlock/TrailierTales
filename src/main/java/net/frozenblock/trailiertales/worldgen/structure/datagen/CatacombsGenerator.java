@@ -936,7 +936,6 @@ public class CatacombsGenerator {
 				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
-					Items.BURN_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
 				),

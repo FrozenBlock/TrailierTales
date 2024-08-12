@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.frozenblock.trailiertales.registry.RegisterLootTables;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
 import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
@@ -139,10 +140,10 @@ public class RuinsGenerator {
 			RegisterStructures.archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.RUINS_ARCHAEOLOGY, 0.4F),
 			RegisterStructures.decoratedPotSherdProcessor(
 				1F,
-				Items.MINER_POTTERY_SHERD,
+				RegisterItems.LUMBER_POTTERY_SHERD,
 				Items.ARCHER_POTTERY_SHERD,
 				Items.BLADE_POTTERY_SHERD,
-				Items.FRIEND_POTTERY_SHERD
+				RegisterItems.SPROUT_POTTERY_SHERD
 			),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
