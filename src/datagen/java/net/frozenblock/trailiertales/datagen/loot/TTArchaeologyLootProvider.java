@@ -257,7 +257,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BIRCH_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(RegisterItems.LUMBER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.PLUME_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(RegisterItems.SPROUT_POTTERY_SHERD).setWeight(7))
 				)
 		);
@@ -317,10 +317,10 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(5))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(7))
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(5))
-						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(RegisterItems.SHED_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.BURN_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(RegisterItems.DROUGHT_POTTERY_SHERD).setWeight(6))
 				)
 		);
 	}

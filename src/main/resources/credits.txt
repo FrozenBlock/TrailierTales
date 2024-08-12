@@ -42,6 +42,7 @@ Zhen
       - Bolt Pottery Sherd/Pattern
       - Crawl Pottery Sherd/Pattern
       - Cultivator Pottery Sherd/Pattern
+      - Drought Pottery Sherd/Pattern
       - Essence Pottery Sherd/Pattern
       - Eye Pottery Sherd/Pattern
       - Focus Pottery Sherd/Pattern
@@ -50,7 +51,9 @@ Zhen
       - Lumber Pottery Sherd/Pattern
       - Navigator Pottery Sherd/Pattern
       - Needles Pottery Sherd/Pattern
+      - Plume Pottery Sherd/Pattern
       - Protection Pottery Sherd/Pattern
+      - Shed Pottery Sherd/Pattern
       - Shine Pottery Sherd/Pattern
       - Shower Pottery Sherd/Pattern
       - Spade Pottery Sherd/Pattern

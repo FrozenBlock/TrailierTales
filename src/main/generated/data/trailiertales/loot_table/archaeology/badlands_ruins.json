@@ -111,7 +111,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:skull_pottery_sherd",
+          "name": "trailiertales:shed_pottery_sherd",
           "weight": 6
         },
         {
@@ -126,7 +126,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:miner_pottery_sherd",
+          "name": "trailiertales:drought_pottery_sherd",
           "weight": 6
         }
       ],

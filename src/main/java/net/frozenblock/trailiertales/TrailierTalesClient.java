@@ -39,6 +39,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String CRAWL_POTTERY_PATTERN_NAME = "crawl_pottery_pattern";
 	public static final String CRESCENT_POTTERY_PATTERN_NAME = "crescent_pottery_pattern";
 	public static final String CULTIVATOR_POTTERY_PATTERN_NAME = "cultivator_pottery_pattern";
+	public static final String DROUGHT_POTTERY_PATTERN_NAME = "drought_pottery_pattern";
 	public static final String ESSENCE_POTTERY_PATTERN_NAME = "essence_pottery_pattern";
 	public static final String EYE_POTTERY_PATTERN_NAME = "eye_pottery_pattern";
 	public static final String FOCUS_POTTERY_PATTERN_NAME = "focus_pottery_pattern";
@@ -47,7 +48,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String LUMBER_POTTERY_PATTERN_NAME = "lumber_pottery_pattern";
 	public static final String NAVIGATOR_POTTERY_PATTERN_NAME = "navigator_pottery_pattern";
 	public static final String NEEDLES_POTTERY_PATTERN_NAME = "needles_pottery_pattern";
+	public static final String PLUME_POTTERY_PATTERN_NAME = "plume_pottery_pattern";
 	public static final String PROTECTION_POTTERY_PATTERN_NAME = "protection_pottery_pattern";
+	public static final String SHED_POTTERY_PATTERN_NAME = "shed_pottery_pattern";
 	public static final String SHINE_POTTERY_PATTERN_NAME = "shine_pottery_pattern";
 	public static final String SHOWER_POTTERY_PATTERN_NAME = "shower_pottery_pattern";
 	public static final String SPADE_POTTERY_PATTERN_NAME = "spade_pottery_pattern";
@@ -63,6 +66,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final ResourceKey<DecoratedPotPattern> CRAWL_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CRAWL_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> CRESCENT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CRESCENT_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> CULTIVATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CULTIVATOR_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> DROUGHT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(DROUGHT_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> ESSENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(ESSENCE_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> EYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(EYE_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> FOCUS_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(FOCUS_POTTERY_PATTERN_NAME));
@@ -71,7 +75,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final ResourceKey<DecoratedPotPattern> LUMBER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(LUMBER_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> NAVIGATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(NAVIGATOR_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> NEEDLES_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(NEEDLES_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> PLUME_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(PLUME_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> PROTECTION_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(PROTECTION_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> SHED_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHED_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> SHINE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHINE_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> SHOWER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHOWER_POTTERY_PATTERN_NAME));
 	public static final ResourceKey<DecoratedPotPattern> SPADE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SPADE_POTTERY_PATTERN_NAME));
