@@ -32,8 +32,11 @@ public final class RegisterEntities {
 			.build(TrailierConstants.string("thrown_item"))
 	);
 
-	public static void init() {
+	static {
 		FabricDefaultAttributeRegistry.register(APPARITION, Apparition.createApparitionAttributes());
+	}
+
+	public static void init() {
 	}
 
 	@NotNull

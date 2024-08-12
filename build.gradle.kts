@@ -54,10 +54,6 @@ val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
 
-val embeddium_version: String by project
-val run_embeddium: String by project
-val shouldRunEmbeddium = run_embeddium == "true"
-
 base {
     archivesName = archives_base_name
 }
@@ -220,11 +216,9 @@ dependencies {
         exclude(group = "com.terraformersmc")
     }
 
-    // Embeddium
-    if (shouldRunEmbeddium)
-        modImplementation("maven.modrinth:embeddium:${embeddium_version}")
-    else
-        modCompileOnly("maven.modrinth:embeddium:${embeddium_version}")
+    // Sodium
+    if (shouldRunSodium)
+        modImplementation("maven.modrinth:sodium:${sodium_version}")
 
     // WorldEdit
     modImplementation("maven.modrinth:worldedit:7.3.4-beta-01")
@@ -238,7 +232,7 @@ tasks {
             "mod_id" to mod_id,
             "version" to version,
             "protocol_version" to protocol_version,
-            "minecraft_version" to "~1.21",
+            "minecraft_version" to "~1.21-",
 
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
