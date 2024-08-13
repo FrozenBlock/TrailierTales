@@ -232,6 +232,8 @@ public class CoffinSpawnerData {
 					}
 					coffinSpawner.applyOminous(world);
 				});
+			} else {
+				coffinSpawner.removeOminous(world);
 			}
 
 			List<UUID> detectedList = new ArrayList<>(list);

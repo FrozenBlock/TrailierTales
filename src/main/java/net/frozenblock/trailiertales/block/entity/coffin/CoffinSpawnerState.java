@@ -44,7 +44,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		};
 	}
 
-	protected static CoffinSpawnerState getStateForPower(ServerLevel level, @NotNull CoffinSpawner coffinSpawner) {
+	static CoffinSpawnerState getStateForPower(ServerLevel level, @NotNull CoffinSpawner coffinSpawner) {
 		CoffinSpawnerData coffinSpawnerData = coffinSpawner.getData();
 		if (coffinSpawnerData.detectedAnyPlayers()) {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
@@ -115,7 +115,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 						coffinSpawnerData.nextMobSpawnsAt = 0L;
 						coffinSpawnerData.power = 0;
 						coffinSpawnerData.powerCooldownEndsAt = 0L;
-						long cooldownTime = coffinSpawnerState == OMINOUS ? 12000L : 24000L;
+						long cooldownTime = 36000L;
 						coffinSpawnerData.nextApparitionSpawnsAt = level.getGameTime() + cooldownTime;
 						if (coffinSpawnerData.haveAllCurrentApparitionsDied()) {
 							return INACTIVE;
