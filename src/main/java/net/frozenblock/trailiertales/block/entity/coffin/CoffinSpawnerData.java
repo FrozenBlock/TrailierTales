@@ -223,15 +223,15 @@ public class CoffinSpawnerData {
 				.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 			this.potentialPlayers.addAll(list);
 
-			if (!coffinSpawner.isOminous() && !list.isEmpty()) {
-				Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
-				optional.ifPresent(pair -> {
-					Player player = pair.getFirst();
+			Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
+			if (optional.isPresent()) {
+				if (coffinSpawner.isOminous()) {
+					Pair<Player, Holder<MobEffect>> pair = optional.get();
 					if (pair.getSecond() == MobEffects.BAD_OMEN) {
-						transformBadOmenIntoSiegeOmen(player);
+						transformBadOmenIntoSiegeOmen(pair.getFirst());
 					}
 					coffinSpawner.applyOminous(world);
-				});
+				}
 			} else {
 				coffinSpawner.removeOminous(world);
 			}
