@@ -58,7 +58,7 @@ public class LumibloomBlock extends MultifaceBlock implements BonemealableBlock 
 
 	@Override
 	protected boolean canBeReplaced(BlockState state, @NotNull BlockPlaceContext context) {
-		return !context.getItemInHand().is(this.asItem()) || super.canBeReplaced(state, context);
+		return context.getItemInHand().is(this.asItem()) && super.canBeReplaced(state, context);
 	}
 
 	@Override
