@@ -24,12 +24,12 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -122,7 +122,7 @@ public class RegisterBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MANEDROP = new DoublePlantBlock(
+	public static final Block MANEDROP = new TallFlowerBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
