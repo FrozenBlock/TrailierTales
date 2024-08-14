@@ -153,7 +153,7 @@ public class TrailierFeatureBootstrap {
 		register(
 			entries,
 			MANEDROP_PLACED,
-			configuredFeatures.getOrThrow(PITCHER),
+			configuredFeatures.getOrThrow(MANEDROP),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,

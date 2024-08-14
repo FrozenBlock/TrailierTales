@@ -61,7 +61,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.WITHER_POTTERY_SHERD);
 
 		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
-			.add(RegisterItems.CYAN_ROSE_SEEDS);
+			.add(RegisterItems.CYAN_ROSE_SEEDS)
+			.add(RegisterItems.MANEDROP_GERM);
 
 		this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD)
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
@@ -70,7 +71,14 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterItems.CYAN_ROSE_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
-			.add(RegisterItems.CYAN_ROSE_SEEDS);
+			.add(RegisterItems.CYAN_ROSE_SEEDS)
+			.add(RegisterItems.MANEDROP_GERM);
+
+		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
+			.add(RegisterBlocks.CYAN_ROSE.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)
+			.add(RegisterBlocks.MANEDROP.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
 			.add(RegisterBlocks.GRANITE_BRICK_STAIRS.asItem())
