@@ -21,6 +21,7 @@ public class DataFixersMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/datafixers/DataFixerBuilder;addSchema(ILjava/util/function/BiFunction;)Lcom/mojang/datafixers/schemas/Schema;",
+			remap = false,
 			ordinal = 0
 		),
 		slice = @Slice(
