@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
+import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.config.EntityConfig;
@@ -131,14 +132,12 @@ public class RegisterLootTables {
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && EntityConfig.get().sniffer.cyan_rose_seeds) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS));
-				tableBuilder.withPool(pool);
+				((FabricLootTableBuilder)tableBuilder)
+					.modifyPools(builder -> builder.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS)));
 			}
 			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && EntityConfig.get().sniffer.manedrop_germs) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(RegisterItems.MANEDROP_GERM));
-				tableBuilder.withPool(pool);
+				((FabricLootTableBuilder)tableBuilder)
+					.modifyPools(builder -> builder.add(LootItem.lootTableItem(RegisterItems.MANEDROP_GERM)));
 			}
 		});
 	}
