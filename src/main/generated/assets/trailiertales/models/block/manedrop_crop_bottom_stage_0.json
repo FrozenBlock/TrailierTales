@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "trailiertales:block/manedrop_crop_bottom_stage_0"
+  }
+}

@@ -128,11 +128,22 @@ public final class WorldgenConfigGui {
 			"generateCyanRose",
 			configInstance
 		);
+		var generateManedrop = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("generate_manedrop"), modifiedVegetation.generateManedrop)
+				.setDefaultValue(defaultConfig.vegetation.generateManedrop)
+				.setSaveConsumer(newValue -> vegetation.generateManedrop = newValue)
+				.setTooltip(TrailierConstants.tooltip("generate_manedrop"))
+				.requireRestart()
+				.build(),
+			vegetation.getClass(),
+			"generateManedrop",
+			configInstance
+		);
 
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("vegetation"),
 			false,
 			TrailierConstants.tooltip("vegetation"),
-			generateTorchflower, generatePitcher, generateCyanRose
+			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop
 		);
 
 		var endCity = config.endCity;

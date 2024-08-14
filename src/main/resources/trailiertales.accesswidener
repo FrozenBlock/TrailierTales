@@ -18,6 +18,10 @@ accessible class net/minecraft/world/entity/SpawnPlacements$Data
 accessible method net/minecraft/world/item/BrushItem$DustParticlesDelta <init> (DDD)V
 accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
 
+# Crop
+accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F
+accessible method net/minecraft/world/level/block/CropBlock hasSufficientLight (Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+
 # Worldgen
 accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
 accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment <init> (Ljava/lang/String;ILjava/lang/String;)V

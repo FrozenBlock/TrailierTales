@@ -83,6 +83,9 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateCyanRose")
 		public boolean generateCyanRose = false;
+
+		@EntrySyncData("generateManedrop")
+		public boolean generateManedrop = false;
 	}
 
 	public static class EndCity {

@@ -25,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class TrailierFeatureBootstrap {
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
+	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
 			TrailierConstants.id("torchflower")
 	);
 	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(
@@ -34,8 +34,8 @@ public class TrailierFeatureBootstrap {
 		TrailierConstants.id("torchflower")
 	);
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PITCHER = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PITCHER = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
 			TrailierConstants.id("pitcher")
 		);
 	public static final ResourceKey<PlacedFeature> PITCHER_PLACED = ResourceKey.create(
@@ -43,13 +43,22 @@ public class TrailierFeatureBootstrap {
 		TrailierConstants.id("pitcher")
 	);
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> CYAN_ROSE = ResourceKey.create
-		(Registries.CONFIGURED_FEATURE,
+	public static final ResourceKey<ConfiguredFeature<?, ?>> CYAN_ROSE = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
 			TrailierConstants.id("cyan_rose")
 		);
 	public static final ResourceKey<PlacedFeature> CYAN_ROSE_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
 		TrailierConstants.id("cyan_rose")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> MANEDROP = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
+			TrailierConstants.id("manedrop")
+		);
+	public static final ResourceKey<PlacedFeature> MANEDROP_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TrailierConstants.id("manedrop")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -93,6 +102,19 @@ public class TrailierFeatureBootstrap {
 				)
 			)
 		);
+
+		register(
+			entries,
+			MANEDROP,
+			Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				10,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.MANEDROP))
+				)
+			)
+		);
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
@@ -122,6 +144,16 @@ public class TrailierFeatureBootstrap {
 			entries,
 			CYAN_ROSE_PLACED,
 			configuredFeatures.getOrThrow(CYAN_ROSE),
+			RarityFilter.onAverageOnceEvery(7),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			MANEDROP_PLACED,
+			configuredFeatures.getOrThrow(PITCHER),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,

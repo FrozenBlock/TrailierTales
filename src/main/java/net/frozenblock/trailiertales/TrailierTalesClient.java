@@ -100,6 +100,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE, RenderType.cutout());
 		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE_CROP, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(RegisterBlocks.MANEDROP, RenderType.cutout());
+		renderLayerRegistry.putBlock(RegisterBlocks.MANEDROP_CROP, RenderType.cutout());
+
 		BlockEntityRenderers.register(RegisterBlockEntities.COFFIN, CoffinRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinRenderer::createHeadLayer);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinRenderer::createFootLayer);

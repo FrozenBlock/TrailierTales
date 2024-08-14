@@ -135,6 +135,11 @@ public class RegisterLootTables {
 					.add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS));
 				tableBuilder.withPool(pool);
 			}
+			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && EntityConfig.get().sniffer.manedrop_germs) {
+				LootPool.Builder pool = LootPool.lootPool()
+					.add(LootItem.lootTableItem(RegisterItems.MANEDROP_GERM));
+				tableBuilder.withPool(pool);
+			}
 		});
 	}
 

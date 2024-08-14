@@ -19,6 +19,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Added Suspicious Clay
 - Added Suspicious Dirt
 - Added Cyan Roses
+- Added Manedrops
 - Added the Surveyor block
 - Added Catacombs
 - Added Haunt mob effect
@@ -65,9 +66,13 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 ## ARMOR TRIMS
 - Added Undead Armor Trim, found in Catacombs
 
-## Cyan Roses
+## CYAN ROSE
 - Sniffers can now dig up Cyan Rose Seeds
-- Seeds can be planted, growing into the Cyan Rose plant
+- Seeds can be planted, growing into the Cyan Rose flower
+
+## MANEDROP
+- Sniffers can now dig up Manedrop Germs
+- Germs can be planted, and grow into the Manedrop flower
 
 ## SURVEYOR
 - A new redstone component that detects a player in its line of sight

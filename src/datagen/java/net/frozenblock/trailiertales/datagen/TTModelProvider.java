@@ -4,11 +4,16 @@ import java.util.Optional;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.PropertyDispatch;
+import net.minecraft.data.models.blockstates.Variant;
+import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
@@ -18,11 +23,11 @@ import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTModelProvider extends FabricModelProvider {
-	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -31,6 +36,9 @@ public final class TTModelProvider extends FabricModelProvider {
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
 		generator.createPlant(RegisterBlocks.CYAN_ROSE, RegisterBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
+
+		createManedropCrop(generator);
+		generator.createDoublePlant(RegisterBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
 
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
@@ -150,11 +158,53 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(RegisterItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
-		COFFIN_INVENTORY.create(ModelLocationUtils.getModelLocation(RegisterBlocks.COFFIN.asItem()), TextureMapping.particle(Blocks.DEEPSLATE_BRICKS), generator.output);
 	}
 
-	@Contract("_, _ -> new")
-	private static @NotNull ModelTemplate createItem(String itemModelLocation, TextureSlot... requiredSlots) {
-		return new ModelTemplate(Optional.of(TrailierConstants.id("item/" + itemModelLocation)), Optional.empty(), requiredSlots);
+	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
+		Block block = RegisterBlocks.MANEDROP_CROP;
+		generator.createSimpleFlatItemModel(block.asItem());
+		PropertyDispatch propertyDispatch = PropertyDispatch.properties(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
+			return switch (half) {
+				case UPPER -> {
+					if (age < ManedropCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TrailierConstants.id("block/manedrop_crop_top_empty")
+						);
+					} else if (age == ManedropCropBlock.MAX_AGE) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TrailierConstants.id("block/manedrop_top")
+						);
+					} else {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+								TrailierConstants.id("block/manedrop_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TrailierConstants.id("block/manedrop_crop_top_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+				case LOWER -> {
+					if (age == ManedropCropBlock.MAX_AGE) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TrailierConstants.id("block/manedrop_bottom")
+						);
+					} else {
+						yield Variant.variant().with(VariantProperties.MODEL,
+							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+								TrailierConstants.id("block/manedrop_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TrailierConstants.id("block/manedrop_crop_bottom_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+			};
+		});
+		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
 	}
 }

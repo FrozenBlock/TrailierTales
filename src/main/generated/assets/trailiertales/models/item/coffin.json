@@ -1,6 +1,0 @@
-{
-  "parent": "trailiertales:item/template_coffin",
-  "textures": {
-    "particle": "minecraft:block/deepslate_bricks"
-  }
-}

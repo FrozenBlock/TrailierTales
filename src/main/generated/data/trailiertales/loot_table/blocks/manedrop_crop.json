@@ -1,0 +1,59 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "block": "trailiertales:manedrop_crop",
+                "condition": "minecraft:block_state_property",
+                "properties": {
+                  "age": "3"
+                }
+              }
+            },
+            {
+              "block": "trailiertales:manedrop_crop",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "trailiertales:manedrop_germ"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "trailiertales:manedrop_crop",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "3"
+              }
+            },
+            {
+              "block": "trailiertales:manedrop_crop",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "trailiertales:manedrop"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

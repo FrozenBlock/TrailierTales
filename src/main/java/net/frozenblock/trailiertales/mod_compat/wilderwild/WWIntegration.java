@@ -34,6 +34,14 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[] {
+				net.frozenblock.trailiertales.registry.RegisterBlocks.CYAN_ROSE,
+				net.frozenblock.trailiertales.registry.RegisterBlocks.MANEDROP
+			},
+			RegisterBlockSoundTypes.FLOWER,
+			() -> BlockConfig.get().blockSounds.flowerSounds
+		);
 		BlockSoundGroupOverwrites.addBlock(
 			net.frozenblock.trailiertales.registry.RegisterBlocks.SUSPICIOUS_CLAY,
 			RegisterSounds.SUSPICIOUS_CLAY_WW,

@@ -36,6 +36,8 @@ public final class EntityConfig {
 	public static class Sniffer {
 		@EntrySyncData(value = "dig_cyan_rose_seeds")
 		public boolean cyan_rose_seeds = true;
+		@EntrySyncData(value = "dig_manedrop_germs")
+		public boolean manedrop_germs = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
 	}

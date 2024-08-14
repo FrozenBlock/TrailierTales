@@ -3,12 +3,17 @@ package net.frozenblock.trailiertales.datagen.loot;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
@@ -25,6 +30,57 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(
 			RegisterBlocks.CYAN_ROSE_CROP,
 			this.applyExplosionDecay(RegisterBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.CYAN_ROSE_SEEDS))))
+		);
+		this.add(
+			RegisterBlocks.MANEDROP_CROP,
+			this.applyExplosionDecay(
+				RegisterBlocks.MANEDROP_CROP,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(RegisterItems.MANEDROP_GERM)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.MANEDROP_CROP)
+										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE))
+											.invert()
+									)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.MANEDROP_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+							.add(
+								LootItem.lootTableItem(RegisterBlocks.MANEDROP)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.MANEDROP_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE))
+									)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.MANEDROP_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+					)
+			)
+		);
+
+		this.add(
+			RegisterBlocks.MANEDROP,
+			this.applyExplosionDecay(
+				RegisterBlocks.MANEDROP,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(RegisterBlocks.MANEDROP)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(RegisterBlocks.MANEDROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+					)
+			)
 		);
 
 		this.dropSelf(RegisterBlocks.POLISHED_GRANITE_WALL);

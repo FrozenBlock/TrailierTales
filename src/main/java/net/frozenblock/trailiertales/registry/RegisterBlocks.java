@@ -5,6 +5,7 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
+import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -85,7 +87,13 @@ public class RegisterBlocks {
 	);
 
 	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
-		BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.CROP)
+			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block CYAN_ROSE = new FlowerBlock(
@@ -103,6 +111,27 @@ public class RegisterBlocks {
 	public static final Block POTTED_CYAN_ROSE = new FlowerPotBlock(
 		CYAN_ROSE,
 		BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block MANEDROP_CROP = new ManedropCropBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.instabreak()
+			.sound(SoundType.CROP)
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MANEDROP = new DoublePlantBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.ignitedByLava()
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
 	// GRANITE
@@ -467,6 +496,9 @@ public class RegisterBlocks {
 		registerBlockAfter(Blocks.TORCHFLOWER, "cyan_rose", CYAN_ROSE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
 		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
+
+		registerBlockAfter(Blocks.PITCHER_PLANT, "manedrop", MANEDROP, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("manedrop_crop", MANEDROP_CROP);
 
 		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);

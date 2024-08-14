@@ -30,6 +30,7 @@ Zhen
     - Texture Artist:
       - Suspicious Dirt
       - Cyan Rose
+      - Manedrop
       - Ectoplasm
       - Haunt effect icon and hotbar textures
       - All new Andesite, Diorite, and Granite variants
