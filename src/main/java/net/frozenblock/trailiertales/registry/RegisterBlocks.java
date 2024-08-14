@@ -5,6 +5,7 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
+import net.frozenblock.trailiertales.block.LumibloomBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.GlowLichenBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -129,6 +131,19 @@ public class RegisterBlocks {
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.ignitedByLava()
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block LUMIBLOOM = new LumibloomBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.instabreak()
+			.randomTicks()
+			.strength(0.2F)
+			.sound(SoundType.VINE)
 			.ignitedByLava()
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
@@ -499,6 +514,8 @@ public class RegisterBlocks {
 
 		registerBlockAfter(Blocks.PITCHER_PLANT, "manedrop", MANEDROP, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("manedrop_crop", MANEDROP_CROP);
+
+		registerBlockAfter(Blocks.GLOW_LICHEN, "lumibloom", LUMIBLOOM, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);

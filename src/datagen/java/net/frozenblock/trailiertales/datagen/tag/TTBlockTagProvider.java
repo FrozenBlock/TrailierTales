@@ -141,6 +141,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
 			.add(RegisterBlocks.MANEDROP);
 
+		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
+			.add(RegisterBlocks.LUMIBLOOM);
+
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
 			.add(RegisterBlocks.POTTED_CYAN_ROSE);
 
@@ -151,7 +154,11 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND)
 			.add(RegisterBlocks.CYAN_ROSE_CROP)
 			.add(RegisterBlocks.CYAN_ROSE)
-			.add(RegisterBlocks.MANEDROP_CROP);
+			.add(RegisterBlocks.MANEDROP_CROP)
+			.add(RegisterBlocks.LUMIBLOOM);
+
+		this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
+			.add(RegisterBlocks.LUMIBLOOM);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
 			.add(RegisterBlocks.GRANITE_BRICK_STAIRS)

@@ -80,6 +80,9 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)
 			.add(RegisterBlocks.MANEDROP.asItem());
 
+		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
+			.add(RegisterBlocks.LUMIBLOOM.asItem());
+
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
 			.add(RegisterBlocks.GRANITE_BRICK_STAIRS.asItem())
 			.add(RegisterBlocks.MOSSY_GRANITE_BRICK_STAIRS.asItem())

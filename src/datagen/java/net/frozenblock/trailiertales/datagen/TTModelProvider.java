@@ -1,21 +1,24 @@
 package net.frozenblock.trailiertales.datagen;
 
-import java.util.Optional;
+import java.util.function.Function;
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.block.LumibloomBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.minecraft.Util;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.blockstates.Condition;
+import net.minecraft.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
@@ -24,7 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jetbrains.annotations.Contract;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTModelProvider extends FabricModelProvider {
@@ -39,6 +42,8 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		createManedropCrop(generator);
 		generator.createDoublePlant(RegisterBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
+
+		createLumibloom(generator);
 
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
@@ -206,5 +211,33 @@ public final class TTModelProvider extends FabricModelProvider {
 			};
 		});
 		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
+	}
+
+	private static void createLumibloom(@NotNull BlockModelGenerators generator) {
+		Block block = RegisterBlocks.LUMIBLOOM;
+		generator.createSimpleFlatItemModel(block);
+		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
+
+		ResourceLocation firstModel = TrailierConstants.id("block/lumibloom_stage_0");
+		ResourceLocation secondModel = TrailierConstants.id("block/lumibloom_stage_1");
+		ResourceLocation thirdModel = TrailierConstants.id("block/lumibloom_stage_2");
+		Condition.TerminalCondition terminalCondition = Util.make(
+			Condition.condition(), terminalConditionx -> BlockModelGenerators.MULTIFACE_GENERATOR.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
+				terminalConditionx.term(booleanPropertyx, false);
+			})
+		);
+
+		for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : BlockModelGenerators.MULTIFACE_GENERATOR) {
+			BooleanProperty booleanProperty = pair.getFirst();
+			Function<ResourceLocation, Variant> function = pair.getSecond();
+			if (block.defaultBlockState().hasProperty(booleanProperty)) {
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(LumibloomBlock.AGE, 0), function.apply(firstModel));
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(LumibloomBlock.AGE, 1), function.apply(secondModel));
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(LumibloomBlock.AGE, 2), function.apply(thirdModel));
+				multiPartGenerator.with(terminalCondition, function.apply(firstModel));
+			}
+		}
+
+		generator.blockStateOutput.accept(multiPartGenerator);
 	}
 }

@@ -1,0 +1,38 @@
+{
+	"parent": "trailiertales:block/lumibloom_stage_1",
+	"ambientocclusion": false,
+	"textures": {
+		"lumibloom_inner": "trailiertales:block/lumibloom_flowers_inner"
+	},
+	"elements": [
+		{
+			"name": "inner_top",
+			"from": [0, 0, 0.1],
+			"to": [16, 16, 0.1],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 8, 0]},
+			"faces": {
+				"north": {"uv": [16, 16, 0, 0], "texture": "#lumibloom_inner"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#lumibloom_inner"}
+			}
+		},
+		{
+			"name": "inner_bottom",
+			"from": [0, 0, 0.1],
+			"to": [16, 16, 0.1],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [0, 8, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#lumibloom_inner"},
+				"south": {"uv": [0, 16, 16, 0], "texture": "#lumibloom_inner"}
+			}
+		},
+    {
+      "name": "plane",
+      "from": [ 0, 0, 0.1 ],
+      "to": [ 16, 16, 0.1 ],
+      "faces": {
+        "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#lumibloom" },
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#lumibloom" }
+      }
+    }
+	]
+}
