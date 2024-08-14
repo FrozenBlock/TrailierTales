@@ -76,8 +76,7 @@ public class LumibloomBlock extends MultifaceBlock implements BonemealableBlock 
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-		if (!this.isMaxAge(state)) return true;
-		return !this.isMaxSpreadAge(state) && Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, world, pos, direction.getOpposite()));
+		return !this.isMaxAge(state) || Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, world, pos, direction.getOpposite()));
 	}
 
 	@Override
