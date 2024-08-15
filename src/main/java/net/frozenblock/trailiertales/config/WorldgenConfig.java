@@ -86,6 +86,9 @@ public final class WorldgenConfig {
 
 		@EntrySyncData("generateManedrop")
 		public boolean generateManedrop = false;
+
+		@EntrySyncData("generateDawntrail")
+		public boolean generateDawntrail = false;
 	}
 
 	public static class EndCity {

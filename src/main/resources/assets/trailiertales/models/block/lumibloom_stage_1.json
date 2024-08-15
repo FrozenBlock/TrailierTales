@@ -1,8 +1,0 @@
-{
-  "parent": "trailiertales:block/lumibloom_stage_0",
-  "ambientocclusion": false,
-  "textures": {
-    "particle": "trailiertales:block/lumibloom_flowers",
-    "lumibloom": "trailiertales:block/lumibloom_flowers"
-  }
-}

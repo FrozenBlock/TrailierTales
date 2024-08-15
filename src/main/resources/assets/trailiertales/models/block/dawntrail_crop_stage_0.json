@@ -1,0 +1,29 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+    "particle": "trailiertales:block/dawntrail",
+    "cross": "trailiertales:block/dawntrail_crop_stage_0"
+  },
+	"elements": [
+		{
+			"name": "cross",
+			"from": [0, 7.9, 0],
+			"to": [16, 7.9, 16],
+			"rotation": {"angle": 0, "axis": "x", "origin": [0, 8, 8]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#cross"},
+				"down": {"uv": [16, 0, 0, 16], "texture": "#cross"}
+			}
+		},
+		{
+			"name": "cross",
+			"from": [8.1, 0, 0],
+			"to": [8.1, 16, 16],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [16, 0, 0, 16], "rotation": 270, "texture": "#cross"},
+				"west": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#cross"}
+			}
+		}
+	]
+}

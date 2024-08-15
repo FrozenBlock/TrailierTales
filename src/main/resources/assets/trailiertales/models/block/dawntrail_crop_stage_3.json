@@ -1,0 +1,50 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+    "particle": "trailiertales:block/dawntrail",
+		"bend_a": "trailiertales:block/dawntrail_crop_stage_1",
+    "bend_c": "trailiertales:block/dawntrail_crop_stage_2"
+  },
+	"elements": [
+		{
+			"name": "bend_top_a",
+			"from": [0, 10.9, -1],
+			"to": [16, 10.9, 15],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [0, 11, 7]},
+			"faces": {
+				"up": {"uv": [16, 0, 0, 16], "rotation": 180, "texture": "#bend_a"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bend_a"}
+			}
+		},
+		{
+			"name": "bend_top_c",
+			"from": [0, 7, 3.1],
+			"to": [16, 23, 3.1],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 15, 3]},
+			"faces": {
+				"north": {"uv": [16, 0, 0, 16], "texture": "#bend_c"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#bend_c"}
+			}
+		},
+		{
+			"name": "bend_bottom_a",
+			"from": [0, 5.1, -1],
+			"to": [16, 5.1, 15],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 5, 7]},
+			"faces": {
+				"up": {"uv": [16, 16, 0, 0], "texture": "#bend_a"},
+				"down": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#bend_a"}
+			}
+		},
+		{
+			"name": "bend_bottom_c",
+			"from": [0, -7, 3.1],
+			"to": [16, 9, 3.1],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [0, 1, 3]},
+			"faces": {
+				"north": {"uv": [16, 0, 0, 16], "rotation": 180, "texture": "#bend_c"},
+				"south": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#bend_c"}
+			}
+		}
+	]
+}

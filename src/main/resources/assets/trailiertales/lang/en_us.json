@@ -73,7 +73,9 @@
   "block.trailiertales.manedrop": "Manedrop",
   "block.trailiertales.manedrop_crop": "Manedrop Crop",
   "item.trailiertales.manedrop_germ": "Manedrop Germ",
-  "block.trailiertales.lumibloom": "Lumibloom",
+  "block.trailiertales.dawntrail": "Dawntrail",
+  "block.trailiertales.dawntrail_crop": "Dawntrail Crop",
+  "item.trailiertales.dawntrail_seeds": "Dawntrail Seeds",
 
   "block.trailiertales.polished_granite_wall": "Polished Granite Wall",
   "block.trailiertales.chiseled_granite_bricks": "Chiseled Granite Bricks",
@@ -191,6 +193,8 @@
   "subtitles.item.brush.brushing.soul_soil": "Brushing Soul Soil",
   "subtitles.item.brush.brushing.soul_soil.complete": "Brushing Soul Soil completed",
 
+  "subtitles.block.dawntrail.pick": "Dawntrail picked",
+
   "subtitles.block.coffin.spawn_mob": "Coffin spawns a mob",
   "subtitles.block.coffin.ambient": "Souls rustle",
   "subtitles.block.coffin.detect_player": "Coffin's aura intensifies",
@@ -259,6 +263,8 @@
   "tooltip.trailiertales.sniffer_digs_cyan_rose_seeds": "Whether Sniffers can dig up Cyan Rose Seeds.",
   "option.trailiertales.sniffer_digs_manedrop_germs": "Dig Manedrop Germs",
   "tooltip.trailiertales.sniffer_digs_manedrop_germs": "Whether Sniffers can dig up Manedrop Germs.",
+  "option.trailiertales.sniffer_digs_dawntrail_seeds": "Dig Dawntrail Seeds",
+  "tooltip.trailiertales.sniffer_digs_dawntrail_seeds": "Whether Sniffers can dig up Dawntrail Seeds.",
   "option.trailiertales.sniffer_spawns_naturally": "Spawning",
   "tooltip.trailiertales.sniffer_spawns_naturally": "Whether Sniffers can spawn in Jungle biomes.",
 
@@ -304,6 +310,8 @@
   "tooltip.trailiertales.generate_cyan_rose": "Whether Cyan Roses should generate in Jungle biomes.",
   "option.trailiertales.generate_manedrop": "Manedrops",
   "tooltip.trailiertales.generate_manedrop": "Whether Manedrops should generate in Jungle biomes.",
+  "option.trailiertales.generate_dawntrial": "Dawntrails",
+  "tooltip.trailiertales.generate_dawntrial": "Whether Dawntrails should generate in Jungle biomes.",
 
   "option.trailiertales.end_city": "End City",
   "tooltip.trailiertales.end_city": "Contains options for the End City.",

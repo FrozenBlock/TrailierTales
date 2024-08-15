@@ -1,11 +1,16 @@
 package net.frozenblock.trailiertales.datagen;
 
-import java.util.function.Function;
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import java.util.List;
+import java.util.function.Function;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.block.LumibloomBlock;
+import net.frozenblock.trailiertales.block.DawntrailBlock;
+import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterItems;
@@ -28,9 +33,35 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTModelProvider extends FabricModelProvider {
+	public static final List<Pair<BooleanProperty, Function<ResourceLocation, Variant>>> MULTIFACE_GENERATOR_NO_UV_LOCK = List.of(
+		Pair.of(BlockStateProperties.NORTH, model -> Variant.variant().with(VariantProperties.MODEL, model)),
+		Pair.of(
+			BlockStateProperties.EAST,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+		),
+		Pair.of(
+			BlockStateProperties.SOUTH,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+		),
+		Pair.of(
+			BlockStateProperties.WEST,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+		),
+		Pair.of(
+			BlockStateProperties.UP,
+			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+		),
+		Pair.of(
+			BlockStateProperties.DOWN,
+			resourceLocation -> Variant.variant()
+				.with(VariantProperties.MODEL, resourceLocation)
+				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+		)
+	);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -43,7 +74,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		createManedropCrop(generator);
 		generator.createDoublePlant(RegisterBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
 
-		createLumibloom(generator);
+		createDawntrailCrop(generator);
+		createDawntrail(generator);
 
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
@@ -162,6 +194,7 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		generator.generateFlatItem(RegisterItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(RegisterItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(RegisterItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
 	}
 
@@ -213,31 +246,47 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
 	}
 
-	private static void createLumibloom(@NotNull BlockModelGenerators generator) {
-		Block block = RegisterBlocks.LUMIBLOOM;
+	private static void createDawntrail(@NotNull BlockModelGenerators generator) {
+		Block block = RegisterBlocks.DAWNTRAIL;
 		generator.createSimpleFlatItemModel(block);
 		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
 
-		ResourceLocation firstModel = TrailierConstants.id("block/lumibloom_stage_0");
-		ResourceLocation secondModel = TrailierConstants.id("block/lumibloom_stage_1");
-		ResourceLocation thirdModel = TrailierConstants.id("block/lumibloom_stage_2");
+		ResourceLocation firstModel = TrailierConstants.id("block/dawntrail_stage_0");
+		ResourceLocation secondModel = TrailierConstants.id("block/dawntrail_stage_1");
+		ResourceLocation thirdModel = TrailierConstants.id("block/dawntrail_stage_2");
 		Condition.TerminalCondition terminalCondition = Util.make(
-			Condition.condition(), terminalConditionx -> BlockModelGenerators.MULTIFACE_GENERATOR.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
+			Condition.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
 				terminalConditionx.term(booleanPropertyx, false);
 			})
 		);
 
-		for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : BlockModelGenerators.MULTIFACE_GENERATOR) {
+		for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : MULTIFACE_GENERATOR_NO_UV_LOCK) {
 			BooleanProperty booleanProperty = pair.getFirst();
 			Function<ResourceLocation, Variant> function = pair.getSecond();
 			if (block.defaultBlockState().hasProperty(booleanProperty)) {
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(LumibloomBlock.AGE, 0), function.apply(firstModel));
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(LumibloomBlock.AGE, 1), function.apply(secondModel));
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(LumibloomBlock.AGE, 2), function.apply(thirdModel));
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 0), function.apply(firstModel));
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 1), function.apply(secondModel));
+				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 2), function.apply(thirdModel));
 				multiPartGenerator.with(terminalCondition, function.apply(firstModel));
 			}
 		}
 
 		generator.blockStateOutput.accept(multiPartGenerator);
+	}
+
+	private static void createDawntrailCrop(@NotNull BlockModelGenerators generator) {
+		Block crop = RegisterBlocks.DAWNTRAIL_CROP;
+		IntegerProperty ageProperty = DawntrailCropBlock.AGE;
+		Int2ObjectMap<ResourceLocation> int2ObjectMap = new Int2ObjectOpenHashMap<>();
+		PropertyDispatch propertyDispatch = PropertyDispatch.property(ageProperty)
+			.generate(
+				age -> {
+					ResourceLocation resourceLocation = int2ObjectMap.computeIfAbsent(
+						age, (Int2ObjectFunction<? extends ResourceLocation>)(key -> TrailierConstants.id("block/dawntrail_crop_stage_" + Math.min(age, 3)))
+					);
+					return Variant.variant().with(VariantProperties.MODEL, resourceLocation).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90);
+				}
+				);
+		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(crop).with(propertyDispatch));
 	}
 }

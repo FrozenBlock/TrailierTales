@@ -139,11 +139,22 @@ public final class WorldgenConfigGui {
 			"generateManedrop",
 			configInstance
 		);
+		var generateDawntrail = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("generate_dawntrail"), modifiedVegetation.generateDawntrail)
+				.setDefaultValue(defaultConfig.vegetation.generateDawntrail)
+				.setSaveConsumer(newValue -> vegetation.generateDawntrail = newValue)
+				.setTooltip(TrailierConstants.tooltip("generate_dawntrail"))
+				.requireRestart()
+				.build(),
+			vegetation.getClass(),
+			"generateDawntrail",
+			configInstance
+		);
 
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("vegetation"),
 			false,
 			TrailierConstants.tooltip("vegetation"),
-			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop
+			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateDawntrail
 		);
 
 		var endCity = config.endCity;

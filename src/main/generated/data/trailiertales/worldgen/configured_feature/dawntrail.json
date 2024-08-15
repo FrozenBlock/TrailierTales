@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:multiface_growth",
+  "config": {
+    "block": "trailiertales:dawntrail",
+    "can_be_placed_on": [
+      "minecraft:dirt",
+      "minecraft:grass_block",
+      "minecraft:podzol",
+      "minecraft:jungle_log",
+      "minecraft:jungle_leaves"
+    ],
+    "can_place_on_ceiling": true,
+    "can_place_on_floor": true,
+    "can_place_on_wall": true,
+    "chance_of_spreading": 0.9,
+    "search_range": 20
+  }
+}

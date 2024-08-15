@@ -38,6 +38,8 @@ public final class EntityConfig {
 		public boolean cyan_rose_seeds = true;
 		@EntrySyncData(value = "dig_manedrop_germs")
 		public boolean manedrop_germs = true;
+		@EntrySyncData(value = "dig_dawntrail_seeds")
+		public boolean dawntrail_seeds = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
 	}

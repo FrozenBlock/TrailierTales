@@ -21,6 +21,7 @@
     "common.coffin.LivingEntityMixin",
     "common.datafix.DataFixersMixin",
     "common.datafix.V3689Mixin",
+    "common.dawntrail.ShearsDispenseItemBehaviorMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin"

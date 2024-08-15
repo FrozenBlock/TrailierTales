@@ -5,7 +5,8 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
-import net.frozenblock.trailiertales.block.LumibloomBlock;
+import net.frozenblock.trailiertales.block.DawntrailBlock;
+import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
@@ -135,7 +136,17 @@ public class RegisterBlocks {
 			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block LUMIBLOOM = new LumibloomBlock(
+	public static final Block DAWNTRAIL_CROP = new DawntrailCropBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.CROP)
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block DAWNTRAIL = new DawntrailBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -514,7 +525,8 @@ public class RegisterBlocks {
 		registerBlockAfter(Blocks.PITCHER_PLANT, "manedrop", MANEDROP, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("manedrop_crop", MANEDROP_CROP);
 
-		registerBlockAfter(Blocks.GLOW_LICHEN, "lumibloom", LUMIBLOOM, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.GLOW_LICHEN, "dawntrail", DAWNTRAIL, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("dawntrail_crop", DAWNTRAIL_CROP);
 
 		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);

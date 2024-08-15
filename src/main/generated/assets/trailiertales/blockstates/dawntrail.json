@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0"
+        "model": "trailiertales:block/dawntrail_stage_0"
       },
       "when": {
         "age": "0",
@@ -11,7 +11,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_1"
+        "model": "trailiertales:block/dawntrail_stage_1"
       },
       "when": {
         "age": "1",
@@ -20,7 +20,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_2"
+        "model": "trailiertales:block/dawntrail_stage_2"
       },
       "when": {
         "age": "2",
@@ -29,7 +29,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0"
+        "model": "trailiertales:block/dawntrail_stage_0"
       },
       "when": {
         "down": "false",
@@ -42,8 +42,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "y": 90
       },
       "when": {
@@ -53,8 +52,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_1",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_1",
         "y": 90
       },
       "when": {
@@ -64,8 +62,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_2",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_2",
         "y": 90
       },
       "when": {
@@ -75,8 +72,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "y": 90
       },
       "when": {
@@ -90,8 +86,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "y": 180
       },
       "when": {
@@ -101,8 +96,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_1",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_1",
         "y": 180
       },
       "when": {
@@ -112,8 +106,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_2",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_2",
         "y": 180
       },
       "when": {
@@ -123,8 +116,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "y": 180
       },
       "when": {
@@ -138,8 +130,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "y": 270
       },
       "when": {
@@ -149,8 +140,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_1",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_1",
         "y": 270
       },
       "when": {
@@ -160,8 +150,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_2",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_2",
         "y": 270
       },
       "when": {
@@ -171,8 +160,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "y": 270
       },
       "when": {
@@ -186,8 +174,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "x": 270
       },
       "when": {
@@ -197,8 +184,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_1",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_1",
         "x": 270
       },
       "when": {
@@ -208,8 +194,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_2",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_2",
         "x": 270
       },
       "when": {
@@ -219,8 +204,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "x": 270
       },
       "when": {
@@ -234,8 +218,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "x": 90
       },
       "when": {
@@ -245,8 +228,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_1",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_1",
         "x": 90
       },
       "when": {
@@ -256,8 +238,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_2",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_2",
         "x": 90
       },
       "when": {
@@ -267,8 +248,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/lumibloom_stage_0",
-        "uvlock": true,
+        "model": "trailiertales:block/dawntrail_stage_0",
         "x": 90
       },
       "when": {

@@ -36,6 +36,9 @@ public class RegisterItems {
 	public static final Item MANEDROP_GERM = new ItemNameBlockItem(RegisterBlocks.MANEDROP_CROP, new Item.Properties()
 		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
 	);
+	public static final Item DAWNTRAIL_SEEDS = new ItemNameBlockItem(RegisterBlocks.DAWNTRAIL_CROP, new Item.Properties()
+		.requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG)
+	);
 
 	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
@@ -84,6 +87,7 @@ public class RegisterItems {
 		registerItemBefore(Items.MAGMA_CREAM, ECTOPLASM, "ectoplasm", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(CYAN_ROSE_SEEDS, DAWNTRAIL_SEEDS, "dawntrail_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.PITCHER_POD, MANEDROP_GERM, "manedrop_germ", CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerItemBefore(Items.BLADE_POTTERY_SHERD, BAIT_POTTERY_SHERD, "bait_pottery_sherd", CreativeModeTabs.INGREDIENTS);

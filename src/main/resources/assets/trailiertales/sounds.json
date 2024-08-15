@@ -852,6 +852,16 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
+  "block.dawntrail.pick": {
+    "sounds": [
+      {
+        "name": "block.sweet_berry_bush.pick_berries",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.dawntrail.pick"
+  },
+
   "block.coffin.break": {
     "sounds": [
       "trailiertales:block/coffin/place1",

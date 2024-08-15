@@ -47,6 +47,17 @@ public final class EntityConfigGui {
 			"dig_manedrop_germs",
 			configInstance
 		);
+		var sniffersDigDawntrailSeeds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TrailierConstants.text("sniffer_digs_dawntrail_seeds"), modifiedSniffer.dawntrail_seeds)
+				.setDefaultValue(defaultConfig.sniffer.dawntrail_seeds)
+				.setSaveConsumer(newValue -> sniffer.dawntrail_seeds = newValue)
+				.setTooltip(TrailierConstants.tooltip("sniffer_digs_dawntrail_seeds"))
+				.requireRestart()
+				.build(),
+			sniffer.getClass(),
+			"dig_dawntrail_seeds",
+			configInstance
+		);
 		var spawnSniffer = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TrailierConstants.text("sniffer_spawns_naturally"), modifiedSniffer.spawn)
 				.setDefaultValue(defaultConfig.sniffer.spawn)
@@ -62,7 +73,7 @@ public final class EntityConfigGui {
 		var snifferCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TrailierConstants.text("sniffer"),
 			false,
 			TrailierConstants.tooltip("sniffer"),
-			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, spawnSniffer
+			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, sniffersDigDawntrailSeeds, spawnSniffer
 		);
 
 		var camel = config.camel;

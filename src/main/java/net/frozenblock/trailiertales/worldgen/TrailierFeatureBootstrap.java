@@ -5,22 +5,30 @@ import java.util.List;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierFeatureBootstrap {
@@ -59,6 +67,15 @@ public class TrailierFeatureBootstrap {
 	public static final ResourceKey<PlacedFeature> MANEDROP_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
 		TrailierConstants.id("manedrop")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> DAWNTRAIL = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
+		TrailierConstants.id("dawntrail")
+	);
+	public static final ResourceKey<PlacedFeature> DAWNTRAIL_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TrailierConstants.id("dawntrail")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -115,6 +132,28 @@ public class TrailierFeatureBootstrap {
 				)
 			)
 		);
+
+		register(
+			entries,
+			DAWNTRAIL,
+			Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+				(MultifaceBlock)RegisterBlocks.DAWNTRAIL,
+				20,
+				true,
+				true,
+				true,
+				0.9F,
+				HolderSet.direct(
+					Block::builtInRegistryHolder,
+					Blocks.DIRT,
+					Blocks.GRASS_BLOCK,
+					Blocks.PODZOL,
+					Blocks.JUNGLE_LOG,
+					Blocks.JUNGLE_LEAVES
+				)
+			)
+		);
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
@@ -157,6 +196,17 @@ public class TrailierFeatureBootstrap {
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			DAWNTRAIL_PLACED,
+			configuredFeatures.getOrThrow(DAWNTRAIL),
+			CountPlacement.of(UniformInt.of(104, 157)),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			InSquarePlacement.spread(),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, -6, 64),
 			BiomeFilter.biome()
 		);
 	}

@@ -87,7 +87,11 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			)
 		);
 
-		this.add(RegisterBlocks.LUMIBLOOM, this::createMultifaceBlockDrops);
+		this.add(RegisterBlocks.DAWNTRAIL, this::createMultifaceBlockDrops);
+		this.add(
+			RegisterBlocks.DAWNTRAIL,
+			this.applyExplosionDecay(RegisterBlocks.DAWNTRAIL_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.DAWNTRAIL_SEEDS))))
+		);
 
 		this.dropSelf(RegisterBlocks.POLISHED_GRANITE_WALL);
 		this.dropSelf(RegisterBlocks.CHISELED_GRANITE_BRICKS);

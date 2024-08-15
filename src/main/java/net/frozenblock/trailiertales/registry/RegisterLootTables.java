@@ -139,6 +139,10 @@ public class RegisterLootTables {
 				((FabricLootTableBuilder)tableBuilder)
 					.modifyPools(builder -> builder.add(LootItem.lootTableItem(RegisterItems.MANEDROP_GERM)));
 			}
+			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && EntityConfig.get().sniffer.dawntrail_seeds) {
+				((FabricLootTableBuilder)tableBuilder)
+					.modifyPools(builder -> builder.add(LootItem.lootTableItem(RegisterItems.DAWNTRAIL_SEEDS)));
+			}
 		});
 	}
 
