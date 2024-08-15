@@ -21,13 +21,18 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 		MixinsConfig config = MixinsConfig.get();
 
+		if (mixinClassName.contains("armor_stand.")) return config.armor_stand;
+		if (mixinClassName.contains("boat.")) return config.boat;
 		if (mixinClassName.contains("brush.")) return config.brush;
 		if (mixinClassName.contains("brushable_block.")) return config.brushable_block;
+		if (mixinClassName.contains("camel.")) return config.camel;
 		if (mixinClassName.contains("coffin.")) return config.coffin;
+		if (mixinClassName.contains("datafix.")) return config.datafix;
+		if (mixinClassName.contains("dawntrail.")) return config.dawntrail;
 		if (mixinClassName.contains("decorated_pot.")) return config.decorated_pot;
 		if (mixinClassName.contains("haunt.")) return config.haunt;
 		if (mixinClassName.contains("surveyor.")) return config.surveyor;
-		if (mixinClassName.contains("datafix.")) return config.datafix;
+
 		if (mixinClassName.contains("datagen.")) return TrailierDatagenConstants.IS_DATAGEN;
 
 		return true;

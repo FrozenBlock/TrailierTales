@@ -24,11 +24,21 @@ public final class MixinsConfig {
 		)
 	);
 
+	public boolean armor_stand = true;
+
+	public boolean boat = true;
+
 	public boolean brush = true;
 
 	public boolean brushable_block = true;
 
+	public boolean camel = true;
+
 	public boolean coffin = true;
+
+	public boolean datafix = true;
+
+	public boolean dawntrail = true;
 
 	public boolean decorated_pot = true;
 
@@ -36,8 +46,6 @@ public final class MixinsConfig {
 	public boolean haunt = true;
 
 	public boolean surveyor = true;
-
-	public boolean datafix = true;
 
 	public static MixinsConfig get() {
 		return INSTANCE.config();
