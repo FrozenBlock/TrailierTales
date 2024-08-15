@@ -86,7 +86,7 @@ public class TrailierFeatureBootstrap {
 			TORCHFLOWER,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				20,
+				18,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER))
@@ -99,7 +99,7 @@ public class TrailierFeatureBootstrap {
 			PITCHER,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				13,
+				10,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PITCHER_PLANT))
@@ -112,7 +112,7 @@ public class TrailierFeatureBootstrap {
 			CYAN_ROSE,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				20,
+				15,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(RegisterBlocks.CYAN_ROSE))
@@ -163,7 +163,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			TORCHFLOWER_PLACED,
 			configuredFeatures.getOrThrow(TORCHFLOWER),
-			RarityFilter.onAverageOnceEvery(5),
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
@@ -173,7 +173,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			PITCHER_PLACED,
 			configuredFeatures.getOrThrow(PITCHER),
-			RarityFilter.onAverageOnceEvery(7),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
@@ -183,7 +183,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			CYAN_ROSE_PLACED,
 			configuredFeatures.getOrThrow(CYAN_ROSE),
-			RarityFilter.onAverageOnceEvery(7),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()
@@ -203,7 +203,7 @@ public class TrailierFeatureBootstrap {
 			entries,
 			DAWNTRAIL_PLACED,
 			configuredFeatures.getOrThrow(DAWNTRAIL),
-			CountPlacement.of(UniformInt.of(104, 157)),
+			CountPlacement.of(UniformInt.of(52, 90)),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			InSquarePlacement.spread(),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, -6, 64),
