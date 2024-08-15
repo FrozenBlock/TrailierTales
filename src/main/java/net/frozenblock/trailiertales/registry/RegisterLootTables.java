@@ -80,7 +80,6 @@ public class RegisterLootTables {
 			} else if (BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE.equals(key)) {
 				// Removed Burn
 				// Removed Danger
-				// Removed Sheaf
 				// Added Protection
 				// Added Catacombs Explorer Map
 				return LootTable.lootTable()
@@ -98,11 +97,12 @@ public class RegisterLootTables {
 									)
 									.apply(SetNameFunction.setName(Component.translatable("filled_map.trailiertales.catacombs"), SetNameFunction.Target.ITEM_NAME))
 							)
+							.add(LootItem.lootTableItem(RegisterItems.PROTECTION_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HOWL_POTTERY_SHERD))
-							.add(LootItem.lootTableItem(RegisterItems.PROTECTION_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE))
 							.add(LootItem.lootTableItem(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE))
 							.add(LootItem.lootTableItem(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE))
@@ -115,11 +115,11 @@ public class RegisterLootTables {
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1.0F))
+							.setRolls(ConstantValue.exactly(1F))
 							.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(RegisterItems.SPADE_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD))
-							.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD)) //PLEASE REPLACE
 							.add(LootItem.lootTableItem(Items.DIAMOND))
 							.add(LootItem.lootTableItem(Items.TNT))
 							.add(LootItem.lootTableItem(Items.GUNPOWDER))

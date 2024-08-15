@@ -101,12 +101,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:crawl_pottery_sherd",
+          "name": "trailiertales:illuminator_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:crescent_pottery_sherd",
+          "name": "trailiertales:height_pottery_sherd",
           "weight": 7
         }
       ],

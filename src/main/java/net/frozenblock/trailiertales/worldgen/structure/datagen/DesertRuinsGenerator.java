@@ -115,9 +115,10 @@ public class DesertRuinsGenerator {
 			),
 			RegisterStructures.decoratedPotSherdProcessor(
 				1F,
+				RegisterItems.HUMP_POTTERY_SHERD,
 				RegisterItems.NEEDLES_POTTERY_SHERD,
-				RegisterItems.SHINE_POTTERY_SHERD,
-				Items.DANGER_POTTERY_SHERD
+				Items.DANGER_POTTERY_SHERD,
+				RegisterItems.SHINE_POTTERY_SHERD
 			),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)

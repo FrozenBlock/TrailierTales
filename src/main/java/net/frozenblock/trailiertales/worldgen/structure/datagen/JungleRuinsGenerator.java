@@ -140,8 +140,8 @@ public class JungleRuinsGenerator {
 			RegisterStructures.archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY, 0.4F),
 			RegisterStructures.decoratedPotSherdProcessor(
 				1F,
-				RegisterItems.LUMBER_POTTERY_SHERD,
-				Items.EXPLORER_POTTERY_SHERD,
+				RegisterItems.BOLT_POTTERY_SHERD,
+				RegisterItems.NAVIGATOR_POTTERY_SHERD,
 				RegisterItems.BLOOM_POTTERY_SHERD,
 				RegisterItems.SHOWER_POTTERY_SHERD
 			),

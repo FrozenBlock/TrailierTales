@@ -799,7 +799,6 @@
             "default_to_brick": false,
             "sherds": [
               "minecraft:skull_pottery_sherd",
-              "minecraft:archer_pottery_sherd",
               "trailiertales:bullseye_pottery_sherd",
               "trailiertales:bullseye_pottery_sherd",
               "trailiertales:essence_pottery_sherd",

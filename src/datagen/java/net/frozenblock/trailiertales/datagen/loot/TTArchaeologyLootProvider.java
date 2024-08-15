@@ -35,8 +35,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
-						.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(8))
@@ -64,8 +64,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
-						.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.BULLSEYE_POTTERY_SHERD).setWeight(3))
@@ -93,8 +93,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
-						.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
@@ -217,9 +217,9 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.LEAD).setWeight(10))
 						.add(LootItem.lootTableItem(Items.ACACIA_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.FOCUS_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.CULTIVATOR_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.CRAWL_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.CLUCK_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.PLUME_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.SHELTER_POTTERY_SHERD).setWeight(7))
 				)
 		);
@@ -257,7 +257,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BIRCH_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(RegisterItems.LUMBER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.PLUME_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.CULTIVATOR_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(RegisterItems.SPROUT_POTTERY_SHERD).setWeight(7))
 				)
 		);
@@ -286,8 +286,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(3))
 						.add(LootItem.lootTableItem(Items.MOURNER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.CRAWL_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.ILLUMINATOR_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(RegisterItems.HEIGHT_POTTERY_SHERD).setWeight(7))
 				)
 		);
 

@@ -809,8 +809,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
-					Items.PRIZE_POTTERY_SHERD,
-					Items.HEART_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					RegisterItems.CRESCENT_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
 				),
@@ -834,8 +834,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
-					Items.PRIZE_POTTERY_SHERD,
-					Items.HEART_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					RegisterItems.CRESCENT_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
 				),
@@ -861,8 +861,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
-					Items.PRIZE_POTTERY_SHERD,
-					Items.HEART_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					RegisterItems.CRESCENT_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
 				),
@@ -886,8 +886,8 @@ public class CatacombsGenerator {
 				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
-					Items.PRIZE_POTTERY_SHERD,
-					Items.HEART_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					RegisterItems.CRESCENT_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
 				),
@@ -928,7 +928,6 @@ public class CatacombsGenerator {
 				RegisterStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
-					Items.ARCHER_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD,
 					RegisterItems.BULLSEYE_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
@@ -979,8 +978,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
-					Items.PRIZE_POTTERY_SHERD,
-					Items.HEART_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					RegisterItems.CRESCENT_POTTERY_SHERD,
 					RegisterItems.ESSENCE_POTTERY_SHERD,
 					RegisterItems.EYE_POTTERY_SHERD
 				),

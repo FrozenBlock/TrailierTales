@@ -116,17 +116,17 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:sheaf_pottery_sherd",
+          "name": "trailiertales:crawl_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:focus_pottery_sherd",
+          "name": "trailiertales:cluck_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:cultivator_pottery_sherd",
+          "name": "trailiertales:plume_pottery_sherd",
           "weight": 7
         },
         {
