@@ -89,7 +89,7 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 
 		this.add(RegisterBlocks.DAWNTRAIL, this::createMultifaceBlockDrops);
 		this.add(
-			RegisterBlocks.DAWNTRAIL,
+			RegisterBlocks.DAWNTRAIL_CROP,
 			this.applyExplosionDecay(RegisterBlocks.DAWNTRAIL_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(RegisterItems.DAWNTRAIL_SEEDS))))
 		);
 

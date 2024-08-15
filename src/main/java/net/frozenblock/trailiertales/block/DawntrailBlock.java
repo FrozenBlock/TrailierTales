@@ -162,7 +162,7 @@ public class DawntrailBlock extends MultifaceBlock implements BonemealableBlock 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 		ItemStack seeds = new ItemStack(RegisterItems.DAWNTRAIL_SEEDS);
-		seeds.setCount(6 - availableFaces(state).size());
+		seeds.setCount(availableFaces(state).size());
 		popResource(level, pos, seeds);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		level.playSound(null, pos, RegisterSounds.DAWNTRAIL_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
