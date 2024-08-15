@@ -8,6 +8,8 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
+import net.frozenblock.lib.menu.api.Panoramas;
+import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
@@ -27,6 +29,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 
 @Environment(EnvType.CLIENT)
@@ -99,6 +102,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		SplashTextAPI.addSplashLocation(TrailierConstants.id("texts/splashes.txt"));
+		addPanorama("catacombs");
+
 		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.COFFIN, RegisterBlockEntities.COFFIN);
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
@@ -133,5 +139,10 @@ public class TrailierTalesClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
 		particleRegistry.register(RegisterParticles.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
 		particleRegistry.register(RegisterParticles.TRANSFIGURING, GlowingSpellParticle.Provider::new);
+	}
+
+	private static void addPanorama(String panoramaName) {
+		ResourceLocation panoramaLocation = TrailierConstants.id("textures/gui/title/" + panoramaName + "/panorama");
+		Panoramas.addPanorama(panoramaLocation);
 	}
 }

@@ -1,10 +1,12 @@
 package net.frozenblock.trailiertales;
 
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
+import net.frozenblock.trailiertales.config.MiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TrailierDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
@@ -28,6 +30,7 @@ import net.frozenblock.trailiertales.registry.RegisterVillagerTrades;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsPieces;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -71,6 +74,13 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterVillagerTrades.init();
 
 		TrailierModIntegrations.init();
+
+		ResourceManagerHelper.registerBuiltinResourcePack(
+			TrailierConstants.id("trailier_main_menu"),
+			container, Component.literal("Trailier Main Menu"),
+			MiscConfig.get().titleResourcePackEnabled ?
+				ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
+		);
 
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

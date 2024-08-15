@@ -4,6 +4,7 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import net.frozenblock.trailiertales.TrailierConstants;
 
@@ -22,6 +23,9 @@ public final class MiscConfig {
 
 	@EntrySyncData(value = "modify_advancements")
 	public boolean modify_advancements = true;
+
+	@EntrySyncData(value = "titleResourcePackEnabled", behavior = SyncBehavior.UNSYNCABLE)
+	public boolean titleResourcePackEnabled = true;
 
 	public static MiscConfig get() {
 		return get(false);

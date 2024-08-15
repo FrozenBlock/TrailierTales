@@ -35,5 +35,19 @@ public final class MiscConfigGui {
 				configInstance
 			)
 		);
+
+		var titleResourcePackEnabled = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(TrailierConstants.text("title_resource_pack_enabled"), modifiedConfig.titleResourcePackEnabled)
+					.setDefaultValue(defaultConfig.titleResourcePackEnabled)
+					.setSaveConsumer(newValue -> config.titleResourcePackEnabled = newValue)
+					.setTooltip(TrailierConstants.tooltip("title_resource_pack_enabled"))
+					.requireRestart()
+					.build(),
+				config.getClass(),
+				"titleResourcePackEnabled",
+				configInstance
+			)
+		);
 	}
 }
