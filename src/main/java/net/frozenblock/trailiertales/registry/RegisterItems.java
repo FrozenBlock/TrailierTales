@@ -44,6 +44,7 @@ public class RegisterItems {
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item BOLT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Item CLUCK_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item CRAWL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item CRESCENT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item CULTIVATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
@@ -51,7 +52,9 @@ public class RegisterItems {
 	public static final Item ESSENCE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item EYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item FOCUS_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Item HEIGHT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item HUMP_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
+	public static final Item ILLUMINATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item INCIDENCE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item LUMBER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 	public static final Item NAVIGATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
@@ -94,15 +97,18 @@ public class RegisterItems {
 		registerItemAfter(Items.BLADE_POTTERY_SHERD, BLOOM_POTTERY_SHERD, "bloom_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(BLOOM_POTTERY_SHERD, BOLT_POTTERY_SHERD, "bolt_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemBefore(Items.DANGER_POTTERY_SHERD, CRAWL_POTTERY_SHERD, "crawl_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.DANGER_POTTERY_SHERD, CLUCK_POTTERY_SHERD, "cluck_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(CLUCK_POTTERY_SHERD, CRAWL_POTTERY_SHERD, "crawl_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(CRAWL_POTTERY_SHERD, CRESCENT_POTTERY_SHERD, "crescent_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(CRESCENT_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.DANGER_POTTERY_SHERD, DROUGHT_POTTERY_SHERD, "drought_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.EXPLORER_POTTERY_SHERD, ESSENCE_POTTERY_SHERD, "essence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.EXPLORER_POTTERY_SHERD, EYE_POTTERY_SHERD, "eye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.FLOW_POTTERY_SHERD, FOCUS_POTTERY_SHERD, "focus_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.HOWL_POTTERY_SHERD, HEIGHT_POTTERY_SHERD, "height_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.HOWL_POTTERY_SHERD, HUMP_POTTERY_SHERD, "hump_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(HUMP_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(HUMP_POTTERY_SHERD, ILLUMINATOR_POTTERY_SHERD, "illuminator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(ILLUMINATOR_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemBefore(Items.MINER_POTTERY_SHERD, LUMBER_POTTERY_SHERD, "lumber_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.MOURNER_POTTERY_SHERD, NAVIGATOR_POTTERY_SHERD, "navigator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(NAVIGATOR_POTTERY_SHERD, NEEDLES_POTTERY_SHERD, "needles_pottery_sherd", CreativeModeTabs.INGREDIENTS);

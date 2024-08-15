@@ -36,6 +36,7 @@ public class DecoratedPotPatternsMixin {
 		newMap.put(RegisterItems.BLOOM_POTTERY_SHERD, TrailierTalesClient.BLOOM_POTTERY_PATTERN);
 		newMap.put(RegisterItems.BOLT_POTTERY_SHERD, TrailierTalesClient.BOLT_POTTERY_PATTERN);
 		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
+		newMap.put(RegisterItems.CLUCK_POTTERY_SHERD, TrailierTalesClient.CLUCK_POTTERY_PATTERN);
 		newMap.put(RegisterItems.CRAWL_POTTERY_SHERD, TrailierTalesClient.CRAWL_POTTERY_PATTERN);
 		newMap.put(RegisterItems.CRESCENT_POTTERY_SHERD, TrailierTalesClient.CRESCENT_POTTERY_PATTERN);
 		newMap.put(RegisterItems.CULTIVATOR_POTTERY_SHERD, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN);
@@ -43,7 +44,9 @@ public class DecoratedPotPatternsMixin {
 		newMap.put(RegisterItems.ESSENCE_POTTERY_SHERD, TrailierTalesClient.ESSENCE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.EYE_POTTERY_SHERD, TrailierTalesClient.EYE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.FOCUS_POTTERY_SHERD, TrailierTalesClient.FOCUS_POTTERY_PATTERN);
+		newMap.put(RegisterItems.HEIGHT_POTTERY_SHERD, TrailierTalesClient.HEIGHT_POTTERY_PATTERN);
 		newMap.put(RegisterItems.HUMP_POTTERY_SHERD, TrailierTalesClient.HUMP_POTTERY_PATTERN);
+		newMap.put(RegisterItems.ILLUMINATOR_POTTERY_SHERD, TrailierTalesClient.ILLUMINATOR_POTTERY_PATTERN);
 		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
 		newMap.put(RegisterItems.LUMBER_POTTERY_SHERD, TrailierTalesClient.LUMBER_POTTERY_PATTERN);
 		newMap.put(RegisterItems.NAVIGATOR_POTTERY_SHERD, TrailierTalesClient.NAVIGATOR_POTTERY_PATTERN);
@@ -67,6 +70,7 @@ public class DecoratedPotPatternsMixin {
 		trailierTales$register(registry, TrailierTalesClient.BLOOM_POTTERY_PATTERN, TrailierTalesClient.BLOOM_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.BOLT_POTTERY_PATTERN, TrailierTalesClient.BOLT_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.CLUCK_POTTERY_PATTERN, TrailierTalesClient.CLUCK_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.CRAWL_POTTERY_PATTERN, TrailierTalesClient.CRAWL_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.CRESCENT_POTTERY_PATTERN, TrailierTalesClient.CRESCENT_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN_NAME);
@@ -74,7 +78,9 @@ public class DecoratedPotPatternsMixin {
 		trailierTales$register(registry, TrailierTalesClient.ESSENCE_POTTERY_PATTERN, TrailierTalesClient.ESSENCE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.EYE_POTTERY_PATTERN, TrailierTalesClient.EYE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.FOCUS_POTTERY_PATTERN, TrailierTalesClient.FOCUS_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.HEIGHT_POTTERY_PATTERN, TrailierTalesClient.HEIGHT_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.HUMP_POTTERY_PATTERN, TrailierTalesClient.HUMP_POTTERY_PATTERN_NAME);
+		trailierTales$register(registry, TrailierTalesClient.ILLUMINATOR_POTTERY_PATTERN, TrailierTalesClient.ILLUMINATOR_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.LUMBER_POTTERY_PATTERN, TrailierTalesClient.LUMBER_POTTERY_PATTERN_NAME);
 		trailierTales$register(registry, TrailierTalesClient.NAVIGATOR_POTTERY_PATTERN, TrailierTalesClient.NAVIGATOR_POTTERY_PATTERN_NAME);

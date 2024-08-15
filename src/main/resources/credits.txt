@@ -41,13 +41,16 @@ Zhen
       - Cracked and Mossy Bricks
       - Bait Pottery Sherd/Pattern
       - Bolt Pottery Sherd/Pattern
+      - Cluck Pottery Sherd/Pattern
       - Crawl Pottery Sherd/Pattern
       - Cultivator Pottery Sherd/Pattern
       - Drought Pottery Sherd/Pattern
       - Essence Pottery Sherd/Pattern
       - Eye Pottery Sherd/Pattern
       - Focus Pottery Sherd/Pattern
+      - Height Pottery Sherd/Pattern
       - Hump Pottery Sherd/Pattern
+      - Illuminator Pottery Sherd/Pattern
       - Incidence Pottery Sherd/Pattern
       - Lumber Pottery Sherd/Pattern
       - Navigator Pottery Sherd/Pattern
