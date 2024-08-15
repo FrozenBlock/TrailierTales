@@ -318,7 +318,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Plenty Pottery Sherd -> Catacombs
     - Plume Pottery Sherd -> Savanna Ruins
     - Prize Pottery Sherd -> Desert Pyramid (No Change)
-    - Protection Pottery Sherd -> Trail Ruis
+    - Protection Pottery Sherd -> Trail Ruins
     - Sheaf Pottery Sherd -> Trail Ruins (No Change)
     - Shed Pottery Sherd -> Badlands Ruins
     - Shelter Pottery Sherd -> Savanna Ruins
