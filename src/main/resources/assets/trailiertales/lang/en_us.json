@@ -310,8 +310,8 @@
   "tooltip.trailiertales.generate_cyan_rose": "Whether Cyan Roses should generate in Jungle biomes.",
   "option.trailiertales.generate_manedrop": "Manedrops",
   "tooltip.trailiertales.generate_manedrop": "Whether Manedrops should generate in Jungle biomes.",
-  "option.trailiertales.generate_dawntrial": "Dawntrails",
-  "tooltip.trailiertales.generate_dawntrial": "Whether Dawntrails should generate in Jungle biomes.",
+  "option.trailiertales.generate_dawntrail": "Dawntrails",
+  "tooltip.trailiertales.generate_dawntrail": "Whether Dawntrails should generate in Jungle biomes.",
 
   "option.trailiertales.end_city": "End City",
   "tooltip.trailiertales.end_city": "Contains options for the End City.",
