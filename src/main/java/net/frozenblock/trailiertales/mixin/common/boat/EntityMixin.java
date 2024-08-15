@@ -20,7 +20,7 @@ public class EntityMixin {
 	public AABB trailierTales$extendBannerBoatRenderBox(AABB original) {
 		if (Entity.class.cast(this) instanceof BoatBannerInterface bannerInterface) {
 			if (!bannerInterface.trailierTales$getBanner().isEmpty()) {
-				return original.inflate(1D, 0D, 1D).expandTowards(0D, 2.5D, 0D);
+				return original.inflate(1D, 0D, 1D).expandTowards(0D, 2D, 0D);
 			}
 		}
 		return original;
