@@ -343,4 +343,4 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Wither Pottery Sherd -> Badlands Ruins
 
 ## DECORATED POTS
-- Each time a Decorated Pot wobbles, the next time it wobbles, its animation will be flipped
+- Decorated Pots' wobble animations now flip on consecutive triggers
