@@ -559,7 +559,7 @@ public class CatacombsGenerator {
 				),
 				templatePool.getOrThrow(START),
 				Optional.empty(),
-				20,
+				18,
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
