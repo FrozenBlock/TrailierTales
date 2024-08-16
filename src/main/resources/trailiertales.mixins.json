@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
+    "common.candlestuff",
     "common.armor_stand.ArmorStandMixin",
     "common.boat.BoatMixin",
     "common.boat.ChestBoatMixin",
