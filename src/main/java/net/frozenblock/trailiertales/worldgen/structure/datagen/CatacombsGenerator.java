@@ -245,6 +245,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("corridor/ladder/top_cap"), corridor), 3),
 
 					Pair.of(StructurePoolElement.single(string("corridor/rail_and_poison"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/lever_waterfall"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("corridor/free_chest"), tomb), 2),
 
 					Pair.of(StructurePoolElement.single(string("tomb/archery"), archery), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/basement_hallway"), tomb), 2),
@@ -261,6 +263,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/courtyard2"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/cradle"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/cramped"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/crypt"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle1"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle2"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle3"), tomb), 1),
@@ -270,6 +273,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb2"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb3"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb4"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb5"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb6"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/flood"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/gallery"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/gravel_trap1"), tomb), 2),
@@ -278,6 +283,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_lever"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_room"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_tomb"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/jailhouse"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/king"), king), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/large_corridor"), king), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/lava_trap"), lavaTrap), 2),
@@ -292,6 +298,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle3"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle4"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/ramp"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/ritual"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/ruined_path_dripstone"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/ruins"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/secret_room"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/shoot_the_target"), tomb), 2),
@@ -315,6 +323,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars3"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars4"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/three_story"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/treasure"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/two_chest_doors"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/two_story"), tomb), 2),
 
@@ -419,7 +428,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 75),
+					Pair.of(StructurePoolElement.empty(), 30),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 1),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 1),
@@ -481,26 +490,8 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 17),
+					Pair.of(StructurePoolElement.empty(), 30),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1)
-				),
-				StructureTemplatePool.Projection.RIGID
-			)
-		);
-
-		RegisterStructures.register(
-			pool,
-			string("tomb_decoration_wall"),
-			new StructureTemplatePool(
-				empty,
-				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 123),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull")), 50),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull1")), 18),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull2")), 18),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull3")), 6),
-					Pair.of(StructurePoolElement.single(string("corridor/decoration/skull4")), 6)
-
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
