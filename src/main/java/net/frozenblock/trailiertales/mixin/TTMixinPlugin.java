@@ -4,34 +4,40 @@ import java.util.List;
 import java.util.Set;
 import net.frozenblock.trailiertales.TrailierDatagenConstants;
 import net.frozenblock.trailiertales.config.MixinsConfig;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class TTMixinPlugin implements IMixinConfigPlugin {
-	@Override
-	public void onLoad(String mixinPackage) {}
+	private MixinsConfig mixinsConfig;
 
 	@Override
-	public String getRefMapperConfig() {
+	public void onLoad(String mixinPackage) {
+		this.mixinsConfig = MixinsConfig.get();
+	}
+
+	@Contract(pure = true)
+	@Override
+	public @Nullable String getRefMapperConfig() {
 		return null;
 	}
 
 	@Override
-	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		MixinsConfig config = MixinsConfig.get();
-
-		if (mixinClassName.contains("armor_stand.")) return config.armor_stand;
-		if (mixinClassName.contains("boat.")) return config.boat;
-		if (mixinClassName.contains("brush.")) return config.brush;
-		if (mixinClassName.contains("brushable_block.")) return config.brushable_block;
-		if (mixinClassName.contains("camel.")) return config.camel;
-		if (mixinClassName.contains("coffin.")) return config.coffin;
-		if (mixinClassName.contains("datafix.")) return config.datafix;
-		if (mixinClassName.contains("dawntrail.")) return config.dawntrail;
-		if (mixinClassName.contains("decorated_pot.")) return config.decorated_pot;
-		if (mixinClassName.contains("haunt.")) return config.haunt;
-		if (mixinClassName.contains("surveyor.")) return config.surveyor;
+	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
+		if (mixinClassName.contains("armor_stand.")) return this.mixinsConfig.armor_stand;
+		if (mixinClassName.contains("boat.")) return this.mixinsConfig.boat;
+		if (mixinClassName.contains("brush.")) return this.mixinsConfig.brush;
+		if (mixinClassName.contains("brushable_block.")) return this.mixinsConfig.brushable_block;
+		if (mixinClassName.contains("camel.")) return this.mixinsConfig.camel;
+		if (mixinClassName.contains("coffin.")) return this.mixinsConfig.coffin;
+		if (mixinClassName.contains("datafix.")) return this.mixinsConfig.datafix;
+		if (mixinClassName.contains("dawntrail.")) return this.mixinsConfig.dawntrail;
+		if (mixinClassName.contains("decorated_pot.")) return this.mixinsConfig.decorated_pot;
+		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
+		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
 
 		if (mixinClassName.contains("datagen.")) return TrailierDatagenConstants.IS_DATAGEN;
 
@@ -41,8 +47,9 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 
+	@Contract(pure = true)
 	@Override
-	public List<String> getMixins() {
+	public @Nullable List<String> getMixins() {
 		return null;
 	}
 
