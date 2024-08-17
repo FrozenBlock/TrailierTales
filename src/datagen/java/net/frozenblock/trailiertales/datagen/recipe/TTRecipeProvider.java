@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.datagen.recipe;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.trailiertales.TrailierConstants;
@@ -14,6 +15,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -469,6 +471,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, RegisterBlocks.CHISELED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
 
+
+		smithingTrims().forEach(trimTemplate -> trimSmithing(recipeOutput, trimTemplate.template(), trimTemplate.id()));
 		// DESOLATION SMITHING TEMPLATE
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
@@ -507,5 +511,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(result), category, ingredient, count)
 			.unlockedBy(getHasName(result), has(result))
 			.save(exporter, getConversionRecipeName(ingredient, result) + "_stonecutting");
+	}
+
+	private static Stream<VanillaRecipeProvider.TrimTemplate> smithingTrims() {
+		return Stream.of(
+				RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE,
+				RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE,
+				RegisterItems.ZHEN_ARMOR_TRIM_SMITHING_TEMPLATE
+			)
+			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, TrailierConstants.id(getItemName(item) + "_smithing_trim")));
 	}
 }

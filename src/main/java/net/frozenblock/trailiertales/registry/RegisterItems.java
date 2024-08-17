@@ -5,7 +5,6 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.TrailierFeatureFlags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -70,11 +69,15 @@ public class RegisterItems {
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TrailierFeatureFlags.FEATURE_FLAG));
 
 	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		ResourceKey.create(Registries.TRIM_PATTERN, TrailierConstants.id("desolation")),
+		RegisterTrimPatterns.DESOLATION,
 		TrailierFeatureFlags.FEATURE_FLAG
 	);
 	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		ResourceKey.create(Registries.TRIM_PATTERN, TrailierConstants.id("undead")),
+		RegisterTrimPatterns.UNDEAD,
+		TrailierFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item ZHEN_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		RegisterTrimPatterns.ZHEN,
 		TrailierFeatureFlags.FEATURE_FLAG
 	);
 
@@ -124,6 +127,7 @@ public class RegisterItems {
 
 		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, ZHEN_ARMOR_TRIM_SMITHING_TEMPLATE, "zhen_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 

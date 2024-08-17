@@ -26,6 +26,7 @@ import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
 import net.frozenblock.trailiertales.registry.RegisterSounds;
 import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
 import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.registry.RegisterTrimPatterns;
 import net.frozenblock.trailiertales.registry.RegisterVillagerTrades;
 import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
 import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
@@ -58,6 +59,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterBlocks.init();
 		RegisterBlockEntities.register();
 		RegisterItems.init();
+		RegisterTrimPatterns.init();
 		RegisterEntities.init();
 		RegisterMemoryModuleTypes.register();
 		RegisterSensorTypes.register();

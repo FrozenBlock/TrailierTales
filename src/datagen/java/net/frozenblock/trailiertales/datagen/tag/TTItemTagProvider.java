@@ -1,6 +1,5 @@
 package net.frozenblock.trailiertales.datagen.tag;
 
-import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -14,6 +13,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
 
 public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
@@ -156,8 +156,9 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(RegisterBlocks.PURPUR_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE.asItem())
-			.add(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.asItem());
+			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(RegisterItems.ZHEN_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TrailierItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);

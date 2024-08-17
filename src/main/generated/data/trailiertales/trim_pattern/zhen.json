@@ -1,0 +1,8 @@
+{
+  "asset_id": "trailiertales:zhen",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.trailiertales.zhen"
+  },
+  "template_item": "trailiertales:zhen_armor_trim_smithing_template"
+}

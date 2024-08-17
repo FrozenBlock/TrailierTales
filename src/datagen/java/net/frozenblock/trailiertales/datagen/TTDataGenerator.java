@@ -22,6 +22,7 @@ import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
 import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
 import net.frozenblock.trailiertales.registry.RegisterStructures;
+import net.frozenblock.trailiertales.registry.RegisterTrimPatterns;
 import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -101,6 +102,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
 		registryBuilder.add(Registries.ENCHANTMENT, RegisterEnchantments::bootstrap);
 		registryBuilder.add(Registries.JUKEBOX_SONG, RegisterJukeboxSongs::bootstrap);
+		registryBuilder.add(Registries.TRIM_PATTERN, RegisterTrimPatterns::bootstrap);
 	}
 
 }
