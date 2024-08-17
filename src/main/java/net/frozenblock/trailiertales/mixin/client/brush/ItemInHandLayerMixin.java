@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.mixin.client.brush;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
@@ -18,7 +19,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ItemInHandLayer.class)
@@ -30,12 +30,18 @@ public class ItemInHandLayerMixin{
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V",
 			shift = At.Shift.AFTER
-		),
-		locals = LocalCapture.CAPTURE_FAILHARD
+		)
 	)
 	void trailierTales$injectBrushAnim(
-		LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext displayContext, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight,
-		CallbackInfo info, boolean isLeftArm
+		LivingEntity livingEntity,
+		ItemStack itemStack,
+		ItemDisplayContext displayContext,
+		HumanoidArm arm,
+		PoseStack poseStack,
+		MultiBufferSource buffer,
+		int packedLight,
+		CallbackInfo info,
+		@Local(ordinal = 0) boolean isLeftArm
 	) {
 		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0 && ItemConfig.SMOOTH_BRUSH_ANIMATION) {
 			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;

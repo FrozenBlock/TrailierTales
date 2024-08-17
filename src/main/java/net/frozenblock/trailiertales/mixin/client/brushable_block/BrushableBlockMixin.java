@@ -7,6 +7,7 @@ import net.frozenblock.trailiertales.config.BlockConfig;
 import net.frozenblock.trailiertales.registry.RegisterParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -40,9 +41,16 @@ public class BrushableBlockMixin {
 	@Unique
 	private static void trailierTales$emitConnectionParticlesForPlayer(@NotNull Level world, BlockPos pos, RandomSource random) {
 		Player player = Minecraft.getInstance().player;
-		if (player != null && player.getMainHandItem().is(Items.BRUSH)) {
+		if (player != null && player.isHolding(Items.BRUSH)) {
 			Vec3 vec3 = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
 			if (Math.sqrt(player.distanceToSqr(vec3)) < random.nextDouble() * (player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) * 1.5D)) {
+				BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+				for (Direction direction : Direction.values()) {
+					if (world.getBlockState(mutableBlockPos.set(pos).move(direction)).isAir()) {
+						break;
+					}
+					return;
+				}
 				Vec3 vec32 = vec3.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
 				Vec3 vec33 = vec32.offsetRandom(random, 1F);
 				world.addParticle(RegisterParticles.SUSPICIOUS_CONNECTION, vec3.x(), vec3.y(), vec3.z(), vec33.x(), vec33.y(), vec33.z());

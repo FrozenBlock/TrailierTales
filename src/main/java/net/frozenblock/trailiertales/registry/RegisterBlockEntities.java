@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
@@ -17,6 +18,11 @@ public class RegisterBlockEntities {
 
 	public static void register() {
 		TrailierConstants.log("Registering BlockEntities for Trailier Tales.", TrailierConstants.UNSTABLE_LOGGING);
+
+		FabricBlockEntityType fabricBrushableBlock = (FabricBlockEntityType) BlockEntityType.BRUSHABLE_BLOCK;
+		fabricBrushableBlock.addSupportedBlock(RegisterBlocks.SUSPICIOUS_DIRT);
+		fabricBrushableBlock.addSupportedBlock(RegisterBlocks.SUSPICIOUS_CLAY);
+		fabricBrushableBlock.addSupportedBlock(RegisterBlocks.SUSPICIOUS_RED_SAND);
 	}
 
 	@NotNull

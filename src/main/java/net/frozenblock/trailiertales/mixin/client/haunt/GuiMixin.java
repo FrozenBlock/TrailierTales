@@ -17,6 +17,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -84,9 +85,9 @@ public class GuiMixin {
 	)
 	private double trailierTales$captureMaxHealthAttribute(
 		double original,
-		@Share("trailierTales$maxHealthAttribute") LocalDoubleRef doubleRef
+		@Share("trailierTales$maxHealthAttribute") LocalDoubleRef maxHealthAttribute
 	) {
-		doubleRef.set(original);
+		maxHealthAttribute.set(original);
 		return original;
 	}
 
@@ -105,9 +106,9 @@ public class GuiMixin {
 		)
 	)
 	private int trailierTales$lerpBackHealth(
-		int original, @Share("trailierTales$maxHealthAttribute") LocalDoubleRef doubleRef
+		int original, @Share("trailierTales$maxHealthAttribute") LocalDoubleRef maxHealthAttribute
 	) {
-		return (int) Mth.lerp(trailierTales$getHauntProgress(), original, doubleRef.get());
+		return (int) Mth.lerp(trailierTales$getHauntProgress(), original, maxHealthAttribute.get());
 	}
 
 	@ModifyExpressionValue(
@@ -185,7 +186,7 @@ public class GuiMixin {
 		Gui instance, GuiGraphics graphics, Gui.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, Operation<Void> original
 	) {
 		if (trailierTales$isHaunted) {
-			this.trailierTales$forceRenderHeart(graphics, TRAILIER_TALES$HEART_HAUNT, x, y);
+			this.trailierTales$renderHauntedHeart(graphics, x, y);
 		} else {
 			original.call(instance, graphics, type, x, y, hardcore, blinking, half);
 		}
@@ -340,9 +341,9 @@ public class GuiMixin {
 	}
 
 	@Unique
-	private void trailierTales$forceRenderHeart(GuiGraphics graphics, ResourceLocation texture, int x, int y) {
+	private void trailierTales$renderHauntedHeart(@NotNull GuiGraphics graphics, int x, int y) {
 		RenderSystem.enableBlend();
-		graphics.blitSprite(texture, x, y, 9, 9);
+		graphics.blitSprite(TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
 		RenderSystem.disableBlend();
 	}
 }

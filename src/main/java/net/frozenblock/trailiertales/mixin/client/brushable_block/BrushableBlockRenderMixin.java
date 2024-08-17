@@ -45,8 +45,7 @@ public class BrushableBlockRenderMixin {
 		BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo info,
 		@Share("trailierTales$itemScale") LocalFloatRef itemScale
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
-			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			itemScale.set(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
 			if (itemScale.get() <= 0.05F) {
 				info.cancel();
@@ -76,8 +75,7 @@ public class BrushableBlockRenderMixin {
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
-			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			original.call(
 				instance,
 				brushableBlockEntityInterface.trailierTales$getXOffset(partialTick),
@@ -110,8 +108,7 @@ public class BrushableBlockRenderMixin {
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
-			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			original.call(
 				instance,
 				Axis.YP.rotationDegrees(brushableBlockEntityInterface.trailierTales$getRotation(partialTick) + 15F)
@@ -137,8 +134,7 @@ public class BrushableBlockRenderMixin {
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS) {
-			BrushableBlockEntityInterface brushableBlockEntityInterface = (BrushableBlockEntityInterface) brushableBlockEntity;
+		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			float itemScale = brushableBlockEntityInterface.trailierTales$getItemScale(partialTick);
 			original.call(
 				instance,

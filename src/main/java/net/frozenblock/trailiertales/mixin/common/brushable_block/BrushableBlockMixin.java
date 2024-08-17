@@ -47,20 +47,21 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		super(properties);
 	}
 
-	@Inject(
-		method = "<init>",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/BrushableBlock;registerDefaultState(Lnet/minecraft/world/level/block/state/BlockState;)V",
-			shift = At.Shift.AFTER
-		)
-	)
+	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
 		this.registerDefaultState(this.defaultBlockState().setValue(RegisterProperties.CAN_PLACE_ITEM, false));
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(@NotNull ItemStack itemStack, @NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
+	protected ItemInteractionResult useItemOn(
+		@NotNull ItemStack itemStack,
+		@NotNull BlockState blockState,
+		@NotNull Level level,
+		@NotNull BlockPos blockPos,
+		@NotNull Player player,
+		@NotNull InteractionHand interactionHand,
+		@NotNull BlockHitResult blockHitResult
+	) {
 		if (BlockConfig.get().suspiciousBlocks.place_items) {
 			ItemStack playerStack = player.getItemInHand(interactionHand);
 			boolean canPlaceIntoBlock = blockState.getValue(RegisterProperties.CAN_PLACE_ITEM) &&
@@ -83,7 +84,11 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		if (blockState.is(blockState2.getBlock())) {
 			return;
 		}
-		if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity && ((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$hasCustomItem()) {
+		if (
+			level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity
+			&& brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface
+			&& brushableBlockEntityInterface.trailierTales$hasCustomItem()
+		) {
 			Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), brushableBlockEntity.getItem());
 		}
 		super.onRemove(blockState, level, blockPos, blockState2, bl);
@@ -92,7 +97,15 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
-		return BaseEntityBlock.createTickerHelper(blockEntityType, BlockEntityType.BRUSHABLE_BLOCK, (worldx, pos, statex, blockEntity) -> ((BrushableBlockEntityInterface) blockEntity).trailierTales$tick());
+		return BaseEntityBlock.createTickerHelper(
+			blockEntityType,
+			BlockEntityType.BRUSHABLE_BLOCK,
+			(worldx, pos, statex, blockEntity) -> {
+				if (blockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
+					brushableBlockEntityInterface.trailierTales$tick();
+				}
+			}
+		);
 	}
 
 	@WrapOperation(
@@ -110,8 +123,10 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	) {
 		original.call(brushableBlockEntity);
 		blockEntityRef.set(brushableBlockEntity);
-		if ((((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$hasCustomItem() ||
-				(state.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && state.getValue(RegisterProperties.CAN_PLACE_ITEM)))
+		if (
+			brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&
+				(brushableBlockEntityInterface.trailierTales$hasCustomItem() ||
+					(state.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && state.getValue(RegisterProperties.CAN_PLACE_ITEM)))
 		) {
 			hasCustomItem.set(true);
 		}
@@ -150,14 +165,14 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
 		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
 	) {
-		if (hasCustomItem.get()) {
-			((FallingBlockEntityInterface) original).trailierTales$setItem(itemStack.get());
+		if (hasCustomItem.get() && original instanceof FallingBlockEntityInterface fallingBlockEntityInterface) {
+			fallingBlockEntityInterface.trailierTales$setItem(itemStack.get());
 		}
 		return original;
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
-	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
+	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		builder.add(RegisterProperties.CAN_PLACE_ITEM);
 	}
 
