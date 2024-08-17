@@ -66,7 +66,6 @@
   "block.trailiertales.suspicious_red_sand": "Suspicious Red Sand",
   "block.trailiertales.suspicious_dirt": "Suspicious Dirt",
   "block.trailiertales.suspicious_clay": "Suspicious Clay",
-  "block.trailiertales.suspicious_soul_soil": "Suspicious Soul Soil",
 
   "block.trailiertales.coffin": "Coffin",
   "block.trailiertales.surveyor": "Surveyor",
@@ -195,8 +194,6 @@
   "subtitles.item.brush.brushing.clay.complete": "Brushing Clay completed",
   "subtitles.item.brush.brushing.dirt": "Brushing Dirt",
   "subtitles.item.brush.brushing.dirt.complete": "Brushing Dirt completed",
-  "subtitles.item.brush.brushing.soul_soil": "Brushing Soul Soil",
-  "subtitles.item.brush.brushing.soul_soil.complete": "Brushing Soul Soil completed",
 
   "subtitles.block.dawntrail.pick": "Dawntrail picked",
 

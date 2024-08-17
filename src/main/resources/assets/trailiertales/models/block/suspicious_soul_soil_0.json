@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "trailiertales:block/suspicious_soul_soil_0"
-  }
-}
