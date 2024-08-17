@@ -2,19 +2,13 @@ package net.frozenblock.trailiertales.mixin;
 
 import java.util.List;
 import java.util.Set;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.trailiertales.TrailierDatagenConstants;
 import net.frozenblock.trailiertales.config.MixinsConfig;
 import org.objectweb.asm.tree.ClassNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class TTMixinPlugin implements IMixinConfigPlugin {
-	private final Logger logger = LoggerFactory.getLogger("Trailier Tales");
-
 	@Override
 	public void onLoad(String mixinPackage) {}
 
@@ -26,11 +20,6 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 		MixinsConfig config = MixinsConfig.get();
-
-		if (mixinClassName.contains("client.") && FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) {
-			this.logger.warn("Mixin '{}' attempted to load in a server environment, disabling.", mixinClassName);
-			return false;
-		}
 
 		if (mixinClassName.contains("armor_stand.")) return config.armor_stand;
 		if (mixinClassName.contains("boat.")) return config.boat;
