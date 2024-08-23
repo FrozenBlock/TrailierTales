@@ -127,7 +127,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.add(RegisterBlocks.SUSPICIOUS_RED_SAND)
 			.add(RegisterBlocks.SUSPICIOUS_DIRT)
-			.add(RegisterBlocks.SUSPICIOUS_CLAY);
+			.add(RegisterBlocks.SUSPICIOUS_CLAY)
+			.add(RegisterBlocks.SUSPICIOUS_SOUL_SOIL);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
 			.add(RegisterBlocks.SUSPICIOUS_RED_SAND);
@@ -147,6 +148,12 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND)
 			.add(RegisterBlocks.CYAN_ROSE_CROP)
 			.add(RegisterBlocks.CYAN_ROSE);
+
+		this.getOrCreateTagBuilder(BlockTags.SOUL_SPEED_BLOCKS)
+			.add(RegisterBlocks.SUSPICIOUS_SOUL_SOIL);
+
+		this.getOrCreateTagBuilder(BlockTags.SOUL_FIRE_BASE_BLOCKS)
+			.add(RegisterBlocks.SUSPICIOUS_SOUL_SOIL);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
 			.add(RegisterBlocks.GRANITE_BRICK_STAIRS)
