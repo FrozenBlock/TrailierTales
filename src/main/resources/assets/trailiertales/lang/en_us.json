@@ -49,11 +49,13 @@
 
   "item.trailiertales.desolation_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.undead_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.zhen_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.matrix_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.geode_armor_trim_smithing_template": "Smithing Template",
 
   "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
-  "trim_pattern.trailiertales.zhen": "Zhen Armor Trim",
+  "trim_pattern.trailiertales.matrix": "Matrix Armor Trim",
+  "trim_pattern.trailiertales.geode": "Geode Armor Trim",
 
   "item.trailiertales.music_disc_fausse_vie": "Music Disc",
   "item.trailiertales.music_disc_fausse_vie.desc": "Zhen - Fausse Vie",

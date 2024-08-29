@@ -1,0 +1,8 @@
+{
+  "asset_id": "trailiertales:geode",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.trailiertales.geode"
+  },
+  "template_item": "trailiertales:gode_armor_trim_smithing_template"
+}

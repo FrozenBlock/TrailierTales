@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "trailiertales:zhen_armor_trim_smithing_template"
+            "items": "trailiertales:matrix_armor_trim_smithing_template"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:zhen_armor_trim_smithing_template_smithing_trim"
+        "recipe": "trailiertales:matrix_armor_trim_smithing_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:zhen_armor_trim_smithing_template_smithing_trim"
+      "trailiertales:matrix_armor_trim_smithing_template_smithing_trim"
     ]
   }
 }

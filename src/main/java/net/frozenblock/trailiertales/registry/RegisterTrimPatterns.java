@@ -11,7 +11,8 @@ import org.jetbrains.annotations.NotNull;
 public class RegisterTrimPatterns {
 	public static final ResourceKey<TrimPattern> DESOLATION = create("desolation");
 	public static final ResourceKey<TrimPattern> UNDEAD = create("undead");
-	public static final ResourceKey<TrimPattern> ZHEN = create("zhen");
+	public static final ResourceKey<TrimPattern> MATRIX = create("matrix");
+	public static final ResourceKey<TrimPattern> GEODE = create("geode");
 
 	public static void init() {
 	}
@@ -23,6 +24,7 @@ public class RegisterTrimPatterns {
 	public static void bootstrap(BootstrapContext<TrimPattern> context) {
 		TrimPatterns.register(context, RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION);
 		TrimPatterns.register(context, RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD);
-		TrimPatterns.register(context, RegisterItems.ZHEN_ARMOR_TRIM_SMITHING_TEMPLATE, ZHEN);
+		TrimPatterns.register(context, RegisterItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX);
+		TrimPatterns.register(context, RegisterItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE);
 	}
 }
