@@ -81,7 +81,7 @@ public class RegisterItems {
 		TrailierFeatureFlags.FEATURE_FLAG
 	);
 	public static final Item GEODE_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		RegisterTrimPatterns.MATRIX,
+		RegisterTrimPatterns.GEODE,
 		TrailierFeatureFlags.FEATURE_FLAG
 	);
 
@@ -132,7 +132,7 @@ public class RegisterItems {
 		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, "matrix_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "gode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
