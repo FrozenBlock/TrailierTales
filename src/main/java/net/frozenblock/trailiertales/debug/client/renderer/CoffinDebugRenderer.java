@@ -3,12 +3,13 @@ package net.frozenblock.trailiertales.debug.client.renderer;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import java.util.Map;
+import java.util.UUID;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
+import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -27,10 +28,10 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	private static final int TEXT_COLOR = FastColor.ARGB32.color(255, 255, 255, 255);
 	private final Minecraft minecraft;
 	private final IntArrayList scheduledRemovals = new IntArrayList();
-	private final Map<Integer, Pair<Vec3, Vec3>> connections = Maps.newHashMap();
-	private final Map<Integer, Integer> tickCounts = Maps.newHashMap();
+	private final Map<Integer, EntityCoffinData> connections = Maps.newHashMap();
 	@Nullable
 	private Integer lastLookedAtId;
+	private long gameTime;
 
 	public CoffinDebugRenderer(Minecraft client) {
 		this.minecraft = client;
@@ -43,18 +44,11 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 			Entity entity = this.minecraft.level.getEntity(id);
 			return entity == null || entity.isRemoved();
 		});
-
-		this.tickCounts.entrySet().removeIf(entry -> {
-			int id = entry.getKey();
-			if (scheduledRemovals.contains(id)) return true;
-			Entity entity = this.minecraft.level.getEntity(id);
-			return entity == null || entity.isRemoved();
-		});
 	}
 
-	public void addConnection(int entityId, int tickCount, Vec3 vec3, Vec3 target) {
-		this.connections.put(entityId, Pair.of(vec3, target));
-		this.tickCounts.put(entityId, tickCount);
+	public void addConnection(int entityId, BlockPos coffinPos, long lastInteractionTime, long gameTime) {
+		this.connections.put(entityId, new EntityCoffinData(coffinPos, UUID.randomUUID(), lastInteractionTime));
+		this.gameTime = gameTime;
 	}
 
 	public void scheduleRemoval(int entityId) {
@@ -64,7 +58,6 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	@Override
 	public void clear() {
 		this.connections.clear();
-		this.tickCounts.clear();
 		this.scheduledRemovals.clear();
 		this.lastLookedAtId = null;
 	}
@@ -78,27 +71,36 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 			this.updateLastLookedAtUuid();
 		}
 
-		for (Map.Entry<Integer, Pair<Vec3, Vec3>> connectionInfo : this.connections.entrySet()) {
-			Pair<Vec3, Vec3> connection = connectionInfo.getValue();
+		for (Map.Entry<Integer, EntityCoffinData> connectionInfo : this.connections.entrySet()) {
+			EntityCoffinData coffinData = connectionInfo.getValue();
 			boolean selected = false;
 			Integer id = connectionInfo.getKey();
-			if (id != null && id.equals(this.lastLookedAtId)) {
-				selected = true;
-				highlightPos(matrices, vertexConsumers, BlockPos.containing(connection.getSecond()));
+			if (id != null) {
 				Entity entity = this.minecraft.level.getEntity(id);
 				if (entity != null) {
-					Vec3 entityTextPos = entity.getEyePosition(DebugRenderManager.PARTIAL_TICK);
-					renderTextOverPos(matrices, vertexConsumers, entity.getDisplayName().getString(), entityTextPos, 3, TEXT_COLOR);
-					renderTextOverPos(matrices, vertexConsumers, "TickCount: " + this.tickCounts.get(id), entityTextPos, 2, TEXT_COLOR);
+					if (id.equals(this.lastLookedAtId)) {
+						selected = true;
+						highlightPos(matrices, vertexConsumers, coffinData.getPos());
+						Vec3 entityTextPos = entity.getEyePosition(DebugRenderManager.PARTIAL_TICK);
+						renderTextOverPos(matrices, vertexConsumers, entity.getDisplayName().getString(), entityTextPos, 3, TEXT_COLOR);
+						renderTextOverPos(
+							matrices,
+							vertexConsumers,
+							"Last Interaction: " + (this.gameTime - coffinData.lastInteraction()),
+							entityTextPos,
+							2,
+							TEXT_COLOR
+						);
+					}
+					drawLine(
+						matrices,
+						vertexConsumers,
+						cameraX, cameraY, cameraZ,
+						entity.getEyePosition(DebugRenderManager.PARTIAL_TICK), Vec3.atCenterOf(coffinData.getPos()),
+						selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR
+					);
 				}
 			}
-			drawLine(
-				matrices,
-				vertexConsumers,
-				cameraX, cameraY, cameraZ,
-				connection.getFirst(), connection.getSecond(),
-				selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR
-			);
 		}
 	}
 

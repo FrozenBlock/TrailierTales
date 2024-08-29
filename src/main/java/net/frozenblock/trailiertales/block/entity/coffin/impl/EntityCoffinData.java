@@ -11,6 +11,7 @@ import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.VisibleForDebug;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -21,10 +22,12 @@ import org.jetbrains.annotations.Nullable;
 public class EntityCoffinData {
 	private final BlockPos pos;
 	private final UUID coffinUUID;
+	private long lastInteractionAt;
 
-	public EntityCoffinData(BlockPos pos, UUID coffinUUID) {
+	public EntityCoffinData(BlockPos pos, UUID coffinUUID, long lastInteractionAt) {
 		this.pos = pos;
 		this.coffinUUID = coffinUUID;
+		this.lastInteractionAt = lastInteractionAt;
 	}
 
 	public BlockPos getPos() {
@@ -47,7 +50,7 @@ public class EntityCoffinData {
 			if (FrozenLibConfig.IS_DEBUG && level instanceof ServerLevel serverLevel) {
 				FrozenNetworking.sendPacketToAllPlayers(
 					serverLevel,
-					new CoffinDebugPacket(entity.getId(), entity.tickCount, entity.getEyePosition(), this.pos.getCenter())
+					new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, serverLevel.getGameTime())
 				);
 			}
 			if (entity instanceof Mob mob) {
@@ -71,12 +74,31 @@ public class EntityCoffinData {
 		return Optional.empty();
 	}
 
+	@VisibleForDebug
+	public Optional<CoffinSpawner> getSpawnerIgnoringUUID(@NotNull Level level) {
+		if (level.isLoaded(this.getPos())) {
+			if (level.getBlockEntity(this.getPos()) instanceof CoffinBlockEntity coffinBlockEntity) {
+				return Optional.of(coffinBlockEntity.getCoffinSpawner());
+			}
+		}
+		return Optional.empty();
+	}
+
+	public long lastInteraction() {
+		return this.lastInteractionAt;
+	}
+
+	public void updateLastInteraction(long newTime) {
+		this.lastInteractionAt = newTime;
+	}
+
 	public void saveCompoundTag(@NotNull CompoundTag tag) {
 		CompoundTag coffinDataTag = new CompoundTag();
 		coffinDataTag.putInt("X", this.pos.getX());
 		coffinDataTag.putInt("Y", this.pos.getY());
 		coffinDataTag.putInt("Z", this.pos.getZ());
 		coffinDataTag.putUUID("CoffinUUID", this.coffinUUID);
+		coffinDataTag.putLong("LastInteractionAt", this.lastInteractionAt);
 		tag.put("TrailierTales_CoffinData", coffinDataTag);
 	}
 
@@ -89,7 +111,8 @@ public class EntityCoffinData {
 				coffinDataTag.getInt("Z")
 			);
 			UUID coffinUUID = coffinDataTag.getUUID("CoffinUUID");
-			return new EntityCoffinData(pos, coffinUUID);
+			long lastInteractionAt = coffinDataTag.getLong("LastInteractionAt");
+			return new EntityCoffinData(pos, coffinUUID, lastInteractionAt);
 		}
 		return null;
 	}

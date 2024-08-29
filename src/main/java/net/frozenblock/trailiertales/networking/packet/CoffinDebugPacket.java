@@ -1,13 +1,13 @@
 package net.frozenblock.trailiertales.networking.packet;
 
 import net.frozenblock.trailiertales.TrailierConstants;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public record CoffinDebugPacket(Integer entityId, Integer tickCount, Vec3 entityPos, Vec3 coffinPos) implements CustomPacketPayload {
+public record CoffinDebugPacket(int entityId, long lastInteractionTime, BlockPos coffinPos, long gameTime) implements CustomPacketPayload {
 	public static final Type<CoffinDebugPacket> PACKET_TYPE = new Type<>(
 		TrailierConstants.id("debug_coffin")
 	);
@@ -15,14 +15,14 @@ public record CoffinDebugPacket(Integer entityId, Integer tickCount, Vec3 entity
 	public static final StreamCodec<FriendlyByteBuf, CoffinDebugPacket> CODEC = StreamCodec.ofMember(CoffinDebugPacket::write, CoffinDebugPacket::new);
 
 	public CoffinDebugPacket(@NotNull FriendlyByteBuf buf) {
-		this(buf.readVarInt(), buf.readInt(), buf.readVec3(), buf.readVec3());
+		this(buf.readVarInt(), buf.readLong(), buf.readBlockPos(), buf.readLong());
 	}
 
 	public void write(@NotNull FriendlyByteBuf buf) {
 		buf.writeVarInt(this.entityId);
-		buf.writeInt(this.tickCount);
-		buf.writeVec3(this.entityPos);
-		buf.writeVec3(this.coffinPos);
+		buf.writeLong(this.lastInteractionTime);
+		buf.writeBlockPos(this.coffinPos);
+		buf.writeLong(this.gameTime);
 	}
 
 	@NotNull

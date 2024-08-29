@@ -368,7 +368,7 @@ public final class CoffinSpawner {
 		}
 		if (entity instanceof EntityCoffinInterface entityInterface) {
 			entityInterface.trailierTales$setCoffinData(
-				new EntityCoffinData(pos, this.uuid)
+				new EntityCoffinData(pos, this.uuid, level.getGameTime())
 			);
 		}
 		if (entity instanceof Apparition apparition) {
