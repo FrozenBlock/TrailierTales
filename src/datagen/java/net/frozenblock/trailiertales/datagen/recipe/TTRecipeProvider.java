@@ -517,7 +517,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		return Stream.of(
 				RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE,
 				RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE,
-				RegisterItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE
+				RegisterItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE,
+				RegisterItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE
 			)
 			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, TrailierConstants.id(getItemName(item) + "_smithing_trim")));
 	}
