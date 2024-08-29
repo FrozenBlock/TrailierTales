@@ -251,7 +251,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		if (entity instanceof EntityCoffinInterface entityInterface) {
 			entityInterface.trailierTales$setCoffinData(null);
 		}
-		if (entity instanceof Apparition apparition) {
+		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem();
 			apparition.spawnAnim();
 			apparition.discard();
