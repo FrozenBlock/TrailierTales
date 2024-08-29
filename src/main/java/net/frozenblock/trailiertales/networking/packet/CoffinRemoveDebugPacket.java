@@ -4,7 +4,6 @@ import net.frozenblock.trailiertales.TrailierConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public record CoffinRemoveDebugPacket(Integer entityId) implements CustomPacketPayload {

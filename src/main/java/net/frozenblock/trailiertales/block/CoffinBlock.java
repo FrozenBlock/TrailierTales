@@ -3,6 +3,8 @@ package net.frozenblock.trailiertales.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
+import net.frozenblock.lib.networking.FrozenNetworking;
 import net.frozenblock.trailiertales.TrailierConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
@@ -10,6 +12,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterf
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -231,6 +234,13 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	public static void onCoffinUntrack(@Nullable Entity entity) {
+		if (FrozenLibConfig.IS_DEBUG && entity.level() instanceof ServerLevel serverLevel) {
+			FrozenNetworking.sendPacketToAllPlayers(
+				serverLevel,
+				new CoffinRemoveDebugPacket(entity.getId())
+			);
+		}
+
 		if (entity instanceof LivingEntity livingEntity) {
 			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
 			if (followRange != null) {
