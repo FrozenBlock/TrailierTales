@@ -7,6 +7,7 @@ import net.frozenblock.lib.networking.FrozenNetworking;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
+import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -44,8 +45,9 @@ public class EntityCoffinData {
 		}
 
 		long gameTime = level.getGameTime();
+		boolean canUntrackFromTime = (gameTime - this.lastInteractionAt) > 2400 && !(entity instanceof Apparition);
 		Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
-		if (optionalCoffinSpawner.isEmpty() || (gameTime - this.lastInteractionAt) > 2400) {
+		if (optionalCoffinSpawner.isEmpty() || canUntrackFromTime) {
 			CoffinBlock.onCoffinUntrack(entity, true);
 		} else {
 			if (FrozenLibConfig.IS_DEBUG && level instanceof ServerLevel serverLevel) {
