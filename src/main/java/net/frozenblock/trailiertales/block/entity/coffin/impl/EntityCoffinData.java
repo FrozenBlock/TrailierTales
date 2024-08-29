@@ -40,27 +40,25 @@ public class EntityCoffinData {
 	}
 
 	public void tick(LivingEntity entity, @NotNull Level level) {
-		if (level.isClientSide()) {
-			return;
-		}
-
-		long gameTime = level.getGameTime();
-		boolean canUntrackFromTime = (gameTime - this.lastInteractionAt) > 2400 && !(entity instanceof Apparition);
-		Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
-		if (optionalCoffinSpawner.isEmpty() || canUntrackFromTime) {
-			CoffinBlock.onCoffinUntrack(entity, true);
-		} else {
-			if (FrozenLibConfig.IS_DEBUG && level instanceof ServerLevel serverLevel) {
-				FrozenNetworking.sendPacketToAllPlayers(
-					serverLevel,
-					new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, gameTime)
-				);
-			}
-			if (entity instanceof Mob mob) {
-				if (optionalCoffinSpawner.get().isOminous()) {
-					CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
-					Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
-					optionalPlayer.ifPresent(mob::setTarget);
+		if (level instanceof ServerLevel serverLevel) {
+			long gameTime = level.getGameTime();
+			boolean canUntrackFromTime = (gameTime - this.lastInteractionAt) > 2400 && !(entity instanceof Apparition);
+			Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
+			if (optionalCoffinSpawner.isEmpty() || canUntrackFromTime) {
+				CoffinBlock.onCoffinUntrack(entity, true);
+			} else {
+				if (FrozenLibConfig.IS_DEBUG) {
+					FrozenNetworking.sendPacketToAllPlayers(
+						serverLevel,
+						new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, gameTime)
+					);
+				}
+				if (entity instanceof Mob mob) {
+					if (optionalCoffinSpawner.get().isOminous()) {
+						CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+						Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
+						optionalPlayer.ifPresent(mob::setTarget);
+					}
 				}
 			}
 		}
