@@ -2,11 +2,15 @@ package net.frozenblock.trailiertales.block.entity.coffin.impl;
 
 import java.util.Optional;
 import java.util.UUID;
+import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
+import net.frozenblock.lib.networking.FrozenNetworking;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
+import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -39,11 +43,19 @@ public class EntityCoffinData {
 		Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
 		if (optionalCoffinSpawner.isEmpty()) {
 			CoffinBlock.onCoffinUntrack(entity);
-		} else if (entity instanceof Mob mob) {
-			if (optionalCoffinSpawner.get().isOminous()) {
-				CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
-				Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
-				optionalPlayer.ifPresent(mob::setTarget);
+		} else {
+			if (FrozenLibConfig.IS_DEBUG && level instanceof ServerLevel serverLevel) {
+				FrozenNetworking.sendPacketToAllPlayers(
+					serverLevel,
+					new CoffinDebugPacket(entity.getId(), entity.getEyePosition(), this.pos.getCenter())
+				);
+			}
+			if (entity instanceof Mob mob) {
+				if (optionalCoffinSpawner.get().isOminous()) {
+					CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+					Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
+					optionalPlayer.ifPresent(mob::setTarget);
+				}
 			}
 		}
 	}

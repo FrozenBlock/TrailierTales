@@ -4,16 +4,21 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
+import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
+import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.Panoramas;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.trailiertales.block.render.CoffinRenderer;
+import net.frozenblock.trailiertales.debug.client.renderer.CoffinDebugRenderer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
 import net.frozenblock.trailiertales.entity.render.renderer.ApparitionRenderer;
+import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
@@ -139,6 +144,18 @@ public class TrailierTalesClient implements ClientModInitializer {
 		particleRegistry.register(RegisterParticles.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
 		particleRegistry.register(RegisterParticles.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
 		particleRegistry.register(RegisterParticles.TRANSFIGURING, GlowingSpellParticle.Provider::new);
+
+		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
+			CoffinDebugRenderer coffinDebugRenderer = new CoffinDebugRenderer(client);
+
+			ClientPlayNetworking.registerGlobalReceiver(CoffinDebugPacket.PACKET_TYPE, (packet, ctx) -> {
+				coffinDebugRenderer.addConnection(packet.entityId(), packet.entityPos(), packet.coffinPos());
+			});
+
+			DebugRenderManager.addClearRunnable(coffinDebugRenderer::clear);
+
+			DebugRenderManager.registerRenderer(TrailierConstants.id("coffin"), coffinDebugRenderer::render);
+		});
 	}
 
 	private static void addPanorama(String panoramaName) {

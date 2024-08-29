@@ -9,6 +9,7 @@ import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.config.MiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TrailierDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
+import net.frozenblock.trailiertales.networking.TrailierNetworking;
 import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
 import net.frozenblock.trailiertales.registry.RegisterBlocks;
 import net.frozenblock.trailiertales.registry.RegisterEnchantments;
@@ -74,6 +75,7 @@ public class TrailierTales extends FrozenModInitializer {
 		RegisterJukeboxSongs.init();
 		RegsiterRuleBlockEntityModifiers.init();
 		RegisterVillagerTrades.init();
+		TrailierNetworking.init();
 
 		TrailierModIntegrations.init();
 
