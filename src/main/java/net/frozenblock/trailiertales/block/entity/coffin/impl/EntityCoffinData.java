@@ -47,7 +47,7 @@ public class EntityCoffinData {
 			if (FrozenLibConfig.IS_DEBUG && level instanceof ServerLevel serverLevel) {
 				FrozenNetworking.sendPacketToAllPlayers(
 					serverLevel,
-					new CoffinDebugPacket(entity.getId(), entity.getEyePosition(), this.pos.getCenter())
+					new CoffinDebugPacket(entity.getId(), entity.tickCount, entity.getEyePosition(), this.pos.getCenter())
 				);
 			}
 			if (entity instanceof Mob mob) {

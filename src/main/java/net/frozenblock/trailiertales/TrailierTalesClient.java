@@ -150,7 +150,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 			CoffinDebugRenderer coffinDebugRenderer = new CoffinDebugRenderer(client);
 
 			ClientPlayNetworking.registerGlobalReceiver(CoffinDebugPacket.PACKET_TYPE, (packet, ctx) -> {
-				coffinDebugRenderer.addConnection(packet.entityId(), packet.entityPos(), packet.coffinPos());
+				coffinDebugRenderer.addConnection(packet.entityId(), packet.tickCount(), packet.entityPos(), packet.coffinPos());
 			});
 
 			ClientPlayNetworking.registerGlobalReceiver(CoffinRemoveDebugPacket.PACKET_TYPE, (packet, ctx) -> {
