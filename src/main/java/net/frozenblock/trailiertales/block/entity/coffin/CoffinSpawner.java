@@ -340,7 +340,7 @@ public final class CoffinSpawner {
 				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
 				double playerRange = this.getRequiredPlayerRange();
 				double chance = playerRange - distance;
-				chance = (0.0006D / playerRange) * chance;
+				chance = (0.0003D / playerRange) * chance;
 				return level.getRandom().nextDouble() < chance;
 			}
 		}
