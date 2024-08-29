@@ -76,8 +76,10 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	public void trailierTales$onHurtPlayer(
 		EntityHurtPlayerTrigger instance, ServerPlayer player, DamageSource source, float dealt, float taken, boolean blocked, Operation<Void> original
 	) {
-		if (this.trailierTales$entityCoffinData != null) {
-			this.trailierTales$entityCoffinData.updateLastInteraction(LivingEntity.class.cast(this).level().getGameTime());
+		Entity entity = source.getEntity();
+		if (entity == null) entity = source.getDirectEntity();
+		if (entity instanceof EntityCoffinInterface coffinInterface && coffinInterface.trailierTales$getCoffinData() != null) {
+			coffinInterface.trailierTales$getCoffinData().updateLastInteraction(entity.level().getGameTime());
 		}
 		original.call(instance, player, source, dealt, taken, blocked);
 	}
