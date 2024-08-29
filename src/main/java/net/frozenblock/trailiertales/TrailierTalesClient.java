@@ -19,6 +19,7 @@ import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
 import net.frozenblock.trailiertales.entity.render.renderer.ApparitionRenderer;
 import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
+import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
@@ -150,6 +151,10 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 			ClientPlayNetworking.registerGlobalReceiver(CoffinDebugPacket.PACKET_TYPE, (packet, ctx) -> {
 				coffinDebugRenderer.addConnection(packet.entityId(), packet.entityPos(), packet.coffinPos());
+			});
+
+			ClientPlayNetworking.registerGlobalReceiver(CoffinRemoveDebugPacket.PACKET_TYPE, (packet, ctx) -> {
+				coffinDebugRenderer.scheduleRemoval(packet.entityId());
 			});
 
 			DebugRenderManager.addClearRunnable(coffinDebugRenderer::clear);

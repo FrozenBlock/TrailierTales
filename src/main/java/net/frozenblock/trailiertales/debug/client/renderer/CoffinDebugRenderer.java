@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import java.util.Map;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,7 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	private static final int SELECTED_CONNECTION_COLOR = FastColor.ARGB32.color(255, 255, 50, 255);
 	private static final int TEXT_COLOR = FastColor.ARGB32.color(255, 255, 255, 255);
 	private final Minecraft minecraft;
+	private final IntArrayList scheduledRemovals = new IntArrayList();
 	private final Map<Integer, Pair<Vec3, Vec3>> connections = Maps.newHashMap();
 	@Nullable
 	private Integer lastLookedAtId;
@@ -34,7 +36,9 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 
 	private void clearRemovedEntities() {
 		this.connections.entrySet().removeIf(entry -> {
-			Entity entity = this.minecraft.level.getEntity(entry.getKey());
+			int id = entry.getKey();
+			if (scheduledRemovals.contains(id)) return true;
+			Entity entity = this.minecraft.level.getEntity(id);
 			return entity == null || entity.isRemoved();
 		});
 	}
@@ -43,15 +47,21 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		this.connections.put(entityId, Pair.of(vec3, target));
 	}
 
+	public void scheduleRemoval(int entityId) {
+		scheduledRemovals.add(entityId);
+	}
+
 	@Override
 	public void clear() {
 		this.connections.clear();
+		this.scheduledRemovals.clear();
 		this.lastLookedAtId = null;
 	}
 
 	@Override
 	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ) {
 		this.clearRemovedEntities();
+		this.scheduledRemovals.removeIf(id -> true);
 
 		if (!this.minecraft.player.isSpectator()) {
 			this.updateLastLookedAtUuid();
