@@ -1,8 +1,8 @@
 package net.frozenblock.trailiertales.mixin.common.coffin;
 
-import java.util.Optional;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import java.util.Optional;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;

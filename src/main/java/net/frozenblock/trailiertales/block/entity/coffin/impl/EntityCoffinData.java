@@ -43,14 +43,15 @@ public class EntityCoffinData {
 			return;
 		}
 
+		long gameTime = level.getGameTime();
 		Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
-		if (optionalCoffinSpawner.isEmpty()) {
-			CoffinBlock.onCoffinUntrack(entity);
+		if (optionalCoffinSpawner.isEmpty() || (gameTime - this.lastInteractionAt) > 2400) {
+			CoffinBlock.onCoffinUntrack(entity, true);
 		} else {
 			if (FrozenLibConfig.IS_DEBUG && level instanceof ServerLevel serverLevel) {
 				FrozenNetworking.sendPacketToAllPlayers(
 					serverLevel,
-					new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, serverLevel.getGameTime())
+					new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, gameTime)
 				);
 			}
 			if (entity instanceof Mob mob) {

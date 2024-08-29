@@ -23,6 +23,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -233,7 +234,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		Spawner.appendHoverText(stack, tooltip, "SpawnData");
 	}
 
-	public static void onCoffinUntrack(@Nullable Entity entity) {
+	public static void onCoffinUntrack(@Nullable Entity entity, boolean remove) {
 		if (FrozenLibConfig.IS_DEBUG && entity != null && !entity.isRemoved() && entity.level() instanceof ServerLevel serverLevel) {
 			FrozenNetworking.sendPacketToAllPlayers(
 				serverLevel,
@@ -252,7 +253,11 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		}
 		if (entity instanceof Apparition apparition) {
 			apparition.dropItem();
+			apparition.spawnAnim();
 			apparition.discard();
+		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
+			mob.spawnAnim();
+			mob.discard();
 		}
 	}
 
