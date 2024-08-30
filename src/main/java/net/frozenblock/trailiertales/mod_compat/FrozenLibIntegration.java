@@ -81,7 +81,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						double x = scaledDistance * differenceInPoses.x * 0.3D;
 						double y = scaledDistance * differenceInPoses.y * 0.3D;
 						double z = scaledDistance * differenceInPoses.z * 0.3D;
-						Vec3 windVec = (new Vec3(x, y, z)).scale(1.0);
+						Vec3 windVec = new Vec3(x, y, z);
 						return new WindDisturbance.DisturbanceResult(strengthFromDistance, 6D - distance, windVec);
 					}
 				}
