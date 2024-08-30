@@ -8,6 +8,9 @@ mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap
 # Projectile
 accessible method net/minecraft/world/entity/projectile/ProjectileUtil getHitResult (Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/Level;FLnet/minecraft/world/level/ClipContext$Block;)Lnet/minecraft/world/phys/HitResult;
 
+# Entity
+accessible method net/minecraft/world/entity/LivingEntity makePoofParticles ()V
+
 # Mob Effect
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;ILnet/minecraft/core/particles/ParticleOptions;)V
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V

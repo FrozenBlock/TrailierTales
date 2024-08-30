@@ -253,10 +253,10 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		}
 		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem();
-			apparition.spawnAnim();
+			apparition.level().broadcastEntityEvent(apparition, (byte)60);
 			apparition.discard();
 		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
-			mob.spawnAnim();
+			mob.level().broadcastEntityEvent(mob, (byte)60);
 			mob.discard();
 		}
 	}
