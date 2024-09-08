@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import java.util.function.BiFunction;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.AddNewChoices;
 import net.minecraft.util.datafix.fixes.References;
@@ -33,10 +33,10 @@ public class DataFixersMixin {
 	)
 	private static Schema trailierTales$addFixers3689(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
 		Schema schema = original.call(builder, version, factory);
-		builder.addFixer(new AddNewChoices(schema, TrailierConstants.string("coffin"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, TrailierConstants.string("surveyor"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, TrailierConstants.string("apparition"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, TrailierConstants.string("thrown_item"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, TTConstants.string("coffin"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, TTConstants.string("surveyor"), References.BLOCK_ENTITY));
+		builder.addFixer(new AddNewChoices(schema, TTConstants.string("apparition"), References.ENTITY));
+		builder.addFixer(new AddNewChoices(schema, TTConstants.string("thrown_item"), References.ENTITY));
 		return schema;
 	}
 

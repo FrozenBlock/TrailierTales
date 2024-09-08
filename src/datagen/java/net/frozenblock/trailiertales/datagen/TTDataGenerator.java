@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.datagen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTArchaeologyLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTBlockLootProvider;
@@ -18,12 +18,12 @@ import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTStructureTagProvider;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterEnchantments;
-import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
-import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.registry.RegisterTrimPatterns;
-import net.frozenblock.trailiertales.worldgen.TrailierFeatureBootstrap;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTEnchantments;
+import net.frozenblock.trailiertales.registry.TTJukeboxSongs;
+import net.frozenblock.trailiertales.registry.TTStructures;
+import net.frozenblock.trailiertales.registry.TTTrimPatterns;
+import net.frozenblock.trailiertales.worldgen.TTFeatureBootstrap;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
@@ -33,36 +33,36 @@ import org.jetbrains.annotations.NotNull;
 
 public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	static final BlockFamily FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
-		.stairs(RegisterBlocks.CALCITE_STAIRS)
-		.slab(RegisterBlocks.CALCITE_SLAB)
-		.wall(RegisterBlocks.CALCITE_WALL)
-		.polished(RegisterBlocks.POLISHED_CALCITE)
+		.stairs(TTBlocks.CALCITE_STAIRS)
+		.slab(TTBlocks.CALCITE_SLAB)
+		.wall(TTBlocks.CALCITE_WALL)
+		.polished(TTBlocks.POLISHED_CALCITE)
 		.getFamily();
 
 	static final BlockFamily FAMILY_END_STONE = BlockFamilies.familyBuilder(Blocks.END_STONE)
-		.stairs(RegisterBlocks.END_STONE_STAIRS)
-		.slab(RegisterBlocks.END_STONE_SLAB)
-		.wall(RegisterBlocks.END_STONE_WALL)
+		.stairs(TTBlocks.END_STONE_STAIRS)
+		.slab(TTBlocks.END_STONE_SLAB)
+		.wall(TTBlocks.END_STONE_WALL)
 		.getFamily();
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
-		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.SMOOTH_SANDSTONE_WALL);
-		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, RegisterBlocks.CUT_SANDSTONE_STAIRS);
-		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.CUT_SANDSTONE_WALL);
+		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_SANDSTONE_WALL);
+		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_SANDSTONE_STAIRS);
+		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_SANDSTONE_WALL);
 
-		BlockFamilies.SMOOTH_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL);
-		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, RegisterBlocks.CUT_RED_SANDSTONE_STAIRS);
-		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.CUT_RED_SANDSTONE_WALL);
+		BlockFamilies.SMOOTH_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_RED_SANDSTONE_WALL);
+		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_RED_SANDSTONE_STAIRS);
+		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_RED_SANDSTONE_WALL);
 
-		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, RegisterBlocks.CRACKED_PURPUR_BLOCK);
-		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, RegisterBlocks.CHISELED_PURPUR_BLOCK);
-		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.PURPUR_WALL);
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, TTBlocks.CRACKED_PURPUR_BLOCK);
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, TTBlocks.CHISELED_PURPUR_BLOCK);
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, TTBlocks.PURPUR_WALL);
 		BlockFamilies.PURPUR.generateRecipe = true;
 
-		BlockFamilies.POLISHED_GRANITE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.POLISHED_GRANITE_WALL);
-		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.POLISHED_DIORITE_WALL);
-		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, RegisterBlocks.POLISHED_ANDESITE_WALL);
+		BlockFamilies.POLISHED_GRANITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_GRANITE_WALL);
+		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_DIORITE_WALL);
+		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_ANDESITE_WALL);
 
 		FrozenFeatureFlags.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
@@ -92,17 +92,17 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
-		TrailierConstants.log("Building datagen registries for Trailier Tales", TrailierConstants.UNSTABLE_LOGGING);
+		TTConstants.log("Building datagen registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
 
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, TrailierFeatureBootstrap::bootstrapConfigured);
-		registryBuilder.add(Registries.PLACED_FEATURE, TrailierFeatureBootstrap::bootstrapPlaced);
-		registryBuilder.add(Registries.PROCESSOR_LIST, RegisterStructures::bootstrapProcessor);
-		registryBuilder.add(Registries.TEMPLATE_POOL, RegisterStructures::bootstrapTemplatePool);
-		registryBuilder.add(Registries.STRUCTURE, RegisterStructures::bootstrap);
-		registryBuilder.add(Registries.STRUCTURE_SET, RegisterStructures::bootstrapStructureSet);
-		registryBuilder.add(Registries.ENCHANTMENT, RegisterEnchantments::bootstrap);
-		registryBuilder.add(Registries.JUKEBOX_SONG, RegisterJukeboxSongs::bootstrap);
-		registryBuilder.add(Registries.TRIM_PATTERN, RegisterTrimPatterns::bootstrap);
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, TTFeatureBootstrap::bootstrapConfigured);
+		registryBuilder.add(Registries.PLACED_FEATURE, TTFeatureBootstrap::bootstrapPlaced);
+		registryBuilder.add(Registries.PROCESSOR_LIST, TTStructures::bootstrapProcessor);
+		registryBuilder.add(Registries.TEMPLATE_POOL, TTStructures::bootstrapTemplatePool);
+		registryBuilder.add(Registries.STRUCTURE, TTStructures::bootstrap);
+		registryBuilder.add(Registries.STRUCTURE_SET, TTStructures::bootstrapStructureSet);
+		registryBuilder.add(Registries.ENCHANTMENT, TTEnchantments::bootstrap);
+		registryBuilder.add(Registries.JUKEBOX_SONG, TTJukeboxSongs::bootstrap);
+		registryBuilder.add(Registries.TRIM_PATTERN, TTTrimPatterns::bootstrap);
 	}
 
 }

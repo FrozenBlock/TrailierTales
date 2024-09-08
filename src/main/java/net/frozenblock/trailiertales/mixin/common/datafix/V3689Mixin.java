@@ -7,7 +7,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 import java.util.Map;
 import java.util.function.Supplier;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V3689;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +28,7 @@ public class V3689Mixin {
 		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
-			TrailierConstants.string("coffin"),
+			TTConstants.string("coffin"),
 			() -> DSL.optionalFields(
 				"spawn_potentials",
 				DSL.list(DSL.fields("data", DSL.fields("entity", References.ENTITY_TREE.in(schema)))),
@@ -38,7 +38,7 @@ public class V3689Mixin {
 		);
 		schema.register(
 			map,
-			TrailierConstants.string("surveyor"),
+			TTConstants.string("surveyor"),
 			DSL::remainder
 		);
 		return map;
@@ -56,12 +56,12 @@ public class V3689Mixin {
 		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
-			TrailierConstants.string("apparition"),
+			TTConstants.string("apparition"),
 			(string) -> DSL.optionalFields("Inventory", References.ITEM_STACK.in(schema))
 		);
 		schema.register(
 			map,
-			TrailierConstants.string("thrown_item"),
+			TTConstants.string("thrown_item"),
 			(string) -> DSL.optionalFields("Item", References.ITEM_STACK.in(schema))
 		);
 		return map;

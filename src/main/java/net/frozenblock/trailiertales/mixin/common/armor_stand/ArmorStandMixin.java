@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.mixin.common.armor_stand;
 
-import net.frozenblock.trailiertales.config.EntityConfig;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,7 +32,7 @@ public class ArmorStandMixin {
 		)
 	)
 	public void trailierTales$enableArms(Args args) {
-		if (EntityConfig.get().armorStand.armor_stand_arms) {
+		if (TTEntityConfig.get().armorStand.armor_stand_arms) {
 			args.set(1, this.setBit((byte) 0, 4, true));
 		}
 	}

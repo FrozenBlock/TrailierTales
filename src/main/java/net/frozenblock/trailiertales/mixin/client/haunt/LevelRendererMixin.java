@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
@@ -25,7 +25,7 @@ public class LevelRendererMixin {
 		)
 	)
 	private boolean trailierTales$doesMobEffectBlockSky(LivingEntity instance, Holder<MobEffect> effect, Operation<Boolean> original) {
-		return original.call(instance, effect) || original.call(instance, RegisterMobEffects.HAUNT);
+		return original.call(instance, effect) || original.call(instance, TTMobEffects.HAUNT);
 	}
 
 }

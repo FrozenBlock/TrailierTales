@@ -4,17 +4,17 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.config.BlockConfig;
-import net.frozenblock.trailiertales.config.EntityConfig;
-import net.frozenblock.trailiertales.config.ItemConfig;
-import net.frozenblock.trailiertales.config.MiscConfig;
-import net.frozenblock.trailiertales.config.WorldgenConfig;
-import net.frozenblock.trailiertales.config.gui.BlockConfigGui;
-import net.frozenblock.trailiertales.config.gui.EntityConfigGui;
-import net.frozenblock.trailiertales.config.gui.ItemConfigGui;
-import net.frozenblock.trailiertales.config.gui.MiscConfigGui;
-import net.frozenblock.trailiertales.config.gui.WorldgenConfigGui;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
+import net.frozenblock.trailiertales.config.TTItemConfig;
+import net.frozenblock.trailiertales.config.TTMiscConfig;
+import net.frozenblock.trailiertales.config.TTWorldgenConfig;
+import net.frozenblock.trailiertales.config.gui.TTBlockConfigGui;
+import net.frozenblock.trailiertales.config.gui.TTEntityConfigGui;
+import net.frozenblock.trailiertales.config.gui.TTItemConfigGui;
+import net.frozenblock.trailiertales.config.gui.TTMiscConfigGui;
+import net.frozenblock.trailiertales.config.gui.TTWorldgenConfigGui;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,32 +22,32 @@ import org.jetbrains.annotations.NotNull;
 public class ConfigGuiBuilder {
 
 	public static Screen buildScreen(@NotNull Screen parent) {
-		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TrailierConstants.text("component.title"));
+		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TTConstants.text("component.title"));
 
 		configBuilder.setSavingRunnable(() -> {
-			WorldgenConfig.INSTANCE.save();
-			BlockConfig.INSTANCE.save();
-			EntityConfig.INSTANCE.save();
-			ItemConfig.INSTANCE.save();
-			MiscConfig.INSTANCE.save();
+			TTWorldgenConfig.INSTANCE.save();
+			TTBlockConfig.INSTANCE.save();
+			TTEntityConfig.INSTANCE.save();
+			TTItemConfig.INSTANCE.save();
+			TTMiscConfig.INSTANCE.save();
 		});
 
 		ConfigEntryBuilder entryBuilder = configBuilder.getEntryBuilder();
 
-		var block = configBuilder.getOrCreateCategory(TrailierConstants.text("block"));
-		BlockConfigGui.setupEntries(block, entryBuilder);
+		var block = configBuilder.getOrCreateCategory(TTConstants.text("block"));
+		TTBlockConfigGui.setupEntries(block, entryBuilder);
 
-		var item = configBuilder.getOrCreateCategory(TrailierConstants.text("item"));
-		ItemConfigGui.setupEntries(item, entryBuilder);
+		var item = configBuilder.getOrCreateCategory(TTConstants.text("item"));
+		TTItemConfigGui.setupEntries(item, entryBuilder);
 
-		var entity = configBuilder.getOrCreateCategory(TrailierConstants.text("entity"));
-		EntityConfigGui.setupEntries(entity, entryBuilder);
+		var entity = configBuilder.getOrCreateCategory(TTConstants.text("entity"));
+		TTEntityConfigGui.setupEntries(entity, entryBuilder);
 
-		var worldgen = configBuilder.getOrCreateCategory(TrailierConstants.text("worldgen"));
-		WorldgenConfigGui.setupEntries(worldgen, entryBuilder);
+		var worldgen = configBuilder.getOrCreateCategory(TTConstants.text("worldgen"));
+		TTWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
 
-		var misc = configBuilder.getOrCreateCategory(TrailierConstants.text("misc"));
-		MiscConfigGui.setupEntries(misc, entryBuilder);
+		var misc = configBuilder.getOrCreateCategory(TTConstants.text("misc"));
+		TTMiscConfigGui.setupEntries(misc, entryBuilder);
 
 		return configBuilder.build();
 	}

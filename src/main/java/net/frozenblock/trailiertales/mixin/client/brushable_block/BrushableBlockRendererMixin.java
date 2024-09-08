@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.config.BlockConfig;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
@@ -33,7 +33,7 @@ public class BrushableBlockRendererMixin {
 		)
 	)
 	public Comparable<Integer> trailierTales$removeBrushRequirementAndSetItemScale(Comparable<Integer> original) {
-		return BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS ? 1 : original;
+		return TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS ? 1 : original;
 	}
 
 	@Inject(
@@ -45,7 +45,7 @@ public class BrushableBlockRendererMixin {
 		BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo info,
 		@Share("trailierTales$itemScale") LocalFloatRef itemScale
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			itemScale.set(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
 			if (itemScale.get() <= 0.05F) {
 				info.cancel();
@@ -75,7 +75,7 @@ public class BrushableBlockRendererMixin {
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			original.call(
 				instance,
 				brushableBlockEntityInterface.trailierTales$getXOffset(partialTick),
@@ -108,7 +108,7 @@ public class BrushableBlockRendererMixin {
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			original.call(
 				instance,
 				Axis.YP.rotationDegrees(brushableBlockEntityInterface.trailierTales$getRotation(partialTick) + 15F)
@@ -134,7 +134,7 @@ public class BrushableBlockRendererMixin {
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
 	) {
-		if (BlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			float itemScale = brushableBlockEntityInterface.trailierTales$getItemScale(partialTick);
 			original.call(
 				instance,

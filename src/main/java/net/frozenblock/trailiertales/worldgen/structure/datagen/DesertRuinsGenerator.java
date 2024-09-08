@@ -3,11 +3,11 @@ package net.frozenblock.trailiertales.worldgen.structure.datagen;
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTStructures;
+import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -34,8 +34,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class DesertRuinsGenerator {
-	public static final ResourceKey<StructureSet> DESERT_RUINS_KEY = RegisterStructures.ofSet("ruins_desert");
-	private static final ResourceKey<Structure> DESERT_RUIN_KEY = RegisterStructures.createKey("ruins_desert");
+	public static final ResourceKey<StructureSet> DESERT_RUINS_KEY = TTStructures.ofSet("ruins_desert");
+	private static final ResourceKey<Structure> DESERT_RUIN_KEY = TTStructures.createKey("ruins_desert");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
@@ -43,8 +43,8 @@ public class DesertRuinsGenerator {
 		context.register(
 			DESERT_RUIN_KEY,
 			new RuinsStructure(
-				RegisterStructures.structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_DESERT_RUINS),
+				TTStructures.structure(
+					holderGetter.getOrThrow(TTBiomeTags.HAS_DESERT_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.NONE
 				),
@@ -78,7 +78,7 @@ public class DesertRuinsGenerator {
 			new RuleProcessor(
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.SAND, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.SANDSTONE.defaultBlockState()),
-					RegisterStructures.archyProcessorRule(Blocks.SAND, Blocks.SUSPICIOUS_SAND, RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.1F),
+					TTStructures.archyProcessorRule(Blocks.SAND, Blocks.SUSPICIOUS_SAND, TTLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.1F),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.CUT_SANDSTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_SANDSTONE.defaultBlockState())
 				)
 			),
@@ -104,7 +104,7 @@ public class DesertRuinsGenerator {
 					)
 				)
 			),
-			RegisterStructures.archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
+			TTStructures.archyLootProcessor(Blocks.CLAY, TTBlocks.SUSPICIOUS_CLAY, TTLootTables.DESERT_RUINS_ARCHAEOLOGY, 0.3F),
 			new RuleProcessor(
 				ImmutableList.of(
 					new ProcessorRule(
@@ -113,12 +113,12 @@ public class DesertRuinsGenerator {
 					)
 				)
 			),
-			RegisterStructures.decoratedPotSherdProcessor(
+			TTStructures.decoratedPotSherdProcessor(
 				1F,
-				RegisterItems.HUMP_POTTERY_SHERD,
-				RegisterItems.NEEDLES_POTTERY_SHERD,
+				TTItems.HUMP_POTTERY_SHERD,
+				TTItems.NEEDLES_POTTERY_SHERD,
 				Items.DANGER_POTTERY_SHERD,
-				RegisterItems.SHINE_POTTERY_SHERD
+				TTItems.SHINE_POTTERY_SHERD
 			),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)

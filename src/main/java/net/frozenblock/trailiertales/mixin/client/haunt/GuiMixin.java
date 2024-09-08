@@ -9,8 +9,8 @@ import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,15 +32,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 public class GuiMixin {
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$HEART_HAUNT = TrailierConstants.id("hud/heart/haunt");
+	private static final ResourceLocation TRAILIER_TALES$HEART_HAUNT = TTConstants.id("hud/heart/haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT = TrailierConstants.id("hud/armor_full_haunt");
+	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT = TTConstants.id("hud/armor_full_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$ARMOR_HALF_HAUNT = TrailierConstants.id("hud/armor_half_haunt");
+	private static final ResourceLocation TRAILIER_TALES$ARMOR_HALF_HAUNT = TTConstants.id("hud/armor_half_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$FOOD_HAUNT = TrailierConstants.id("hud/food_haunt");
+	private static final ResourceLocation TRAILIER_TALES$FOOD_HAUNT = TTConstants.id("hud/food_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$AIR_HAUNT = TrailierConstants.id("hud/air_haunt");
+	private static final ResourceLocation TRAILIER_TALES$AIR_HAUNT = TTConstants.id("hud/air_haunt");
 
 	@Unique
 	private static boolean trailierTales$isHaunted;
@@ -62,7 +62,7 @@ public class GuiMixin {
 	)
 	private void trailierTales$setHauntedInfo(CallbackInfo info) {
 		Player player = this.minecraft.player;
-		trailierTales$isHaunted = player.hasEffect(RegisterMobEffects.HAUNT);
+		trailierTales$isHaunted = player.hasEffect(TTMobEffects.HAUNT);
 		if (trailierTales$isHaunted) {
 			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
 		} else {

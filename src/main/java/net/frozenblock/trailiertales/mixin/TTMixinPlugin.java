@@ -2,8 +2,8 @@ package net.frozenblock.trailiertales.mixin;
 
 import java.util.List;
 import java.util.Set;
-import net.frozenblock.trailiertales.TrailierDatagenConstants;
-import net.frozenblock.trailiertales.config.MixinsConfig;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
+import net.frozenblock.trailiertales.config.TTMixinsConfig;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class TTMixinPlugin implements IMixinConfigPlugin {
-	private MixinsConfig mixinsConfig;
+	private TTMixinsConfig mixinsConfig;
 
 	@Override
 	public void onLoad(String mixinPackage) {
-		this.mixinsConfig = MixinsConfig.get();
+		this.mixinsConfig = TTMixinsConfig.get();
 	}
 
 	@Contract(pure = true)
@@ -39,7 +39,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
 
-		if (mixinClassName.contains("datagen.")) return TrailierDatagenConstants.IS_DATAGEN;
+		if (mixinClassName.contains("datagen.")) return TTPreLoadConstants.IS_DATAGEN;
 
 		return true;
 	}

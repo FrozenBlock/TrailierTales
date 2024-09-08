@@ -3,11 +3,11 @@ package net.frozenblock.trailiertales.worldgen.structure.datagen;
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTStructures;
+import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -36,8 +36,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class BadlandsRuinsGenerator {
-	public static final ResourceKey<StructureSet> BADLANDS_RUINS_KEY = RegisterStructures.ofSet("ruins_badlands");
-	private static final ResourceKey<Structure> BADLANDS_RUIN_KEY = RegisterStructures.createKey("ruins_badlands");
+	public static final ResourceKey<StructureSet> BADLANDS_RUINS_KEY = TTStructures.ofSet("ruins_badlands");
+	private static final ResourceKey<Structure> BADLANDS_RUIN_KEY = TTStructures.createKey("ruins_badlands");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
@@ -45,8 +45,8 @@ public class BadlandsRuinsGenerator {
 		context.register(
 			BADLANDS_RUIN_KEY,
 			new RuinsStructure(
-				RegisterStructures.structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_BADLANDS_RUINS),
+				TTStructures.structure(
+					holderGetter.getOrThrow(TTBiomeTags.HAS_BADLANDS_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.NONE
 				),
@@ -80,7 +80,7 @@ public class BadlandsRuinsGenerator {
 			new RuleProcessor(
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.RED_SAND, 0.075F), AlwaysTrueTest.INSTANCE, Blocks.RED_SANDSTONE.defaultBlockState()),
-					RegisterStructures.archyProcessorRule(Blocks.RED_SAND, RegisterBlocks.SUSPICIOUS_RED_SAND, RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY, 0.1F),
+					TTStructures.archyProcessorRule(Blocks.RED_SAND, TTBlocks.SUSPICIOUS_RED_SAND, TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY, 0.1F),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.CUT_RED_SANDSTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState())
 				)
 			),
@@ -137,12 +137,12 @@ public class BadlandsRuinsGenerator {
 					)
 				)
 			),
-			RegisterStructures.decoratedPotSherdProcessor(
+			TTStructures.decoratedPotSherdProcessor(
 				1F,
-				RegisterItems.SHED_POTTERY_SHERD,
+				TTItems.SHED_POTTERY_SHERD,
 				Items.BURN_POTTERY_SHERD,
-				RegisterItems.WITHER_POTTERY_SHERD,
-				RegisterItems.DROUGHT_POTTERY_SHERD
+				TTItems.WITHER_POTTERY_SHERD,
+				TTItems.DROUGHT_POTTERY_SHERD
 			),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)

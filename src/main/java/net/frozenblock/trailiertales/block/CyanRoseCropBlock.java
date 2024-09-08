@@ -1,8 +1,8 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -65,13 +65,13 @@ public class CyanRoseCropBlock extends CropBlock {
 	@Override
 	@NotNull
 	protected ItemLike getBaseSeedId() {
-		return RegisterItems.CYAN_ROSE_SEEDS;
+		return TTItems.CYAN_ROSE_SEEDS;
 	}
 
 	@Override
 	@NotNull
 	public BlockState getStateForAge(int age) {
-		return age == MAX_AGE ? RegisterBlocks.CYAN_ROSE.defaultBlockState() : super.getStateForAge(age);
+		return age == MAX_AGE ? TTBlocks.CYAN_ROSE.defaultBlockState() : super.getStateForAge(age);
 	}
 
 	@Override

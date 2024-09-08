@@ -4,9 +4,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.frozenblock.trailiertales.registry.RegisterEnchantments;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
+import net.frozenblock.trailiertales.registry.TTEnchantments;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -40,7 +40,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 		HolderLookup.Provider registries = registryLookup.join();
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_CORRIDOR,
+			TTLootTables.CATACOMBS_CORRIDOR,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -73,7 +73,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_TOMB,
+			TTLootTables.CATACOMBS_TOMB,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -85,7 +85,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
 								.setWeight(2).setQuality(Rarity.EPIC.ordinal())
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
-									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH),
+									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH),
 									ConstantValue.exactly(1.0F)
 								))
 						)
@@ -130,19 +130,19 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_TOMB_REWARD,
+			TTLootTables.CATACOMBS_TOMB_REWARD,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
-						.add(LootItem.lootTableItem(RegisterItems.MUSIC_DISC_FAUSSE_VIE).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(
 							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
 								.setWeight(3)
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
-									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH),
+									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH),
 									ConstantValue.exactly(1F)
 								))
 						)
@@ -150,7 +150,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
 								.setWeight(3)
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
-									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REAPING),
+									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REAPING),
 									ConstantValue.exactly(1F)
 								))
 						)
@@ -201,8 +201,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
-						.add(LootItem.lootTableItem(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
 						.add(EmptyLootItem.emptyItem().setWeight(18))
 				)
 				.withPool(
@@ -235,7 +235,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_DECORATED_POT,
+			TTLootTables.CATACOMBS_DECORATED_POT,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

@@ -7,8 +7,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import net.frozenblock.trailiertales.config.WorldgenConfig;
-import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
+import net.frozenblock.trailiertales.config.TTWorldgenConfig;
+import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
@@ -106,12 +106,12 @@ public class RuinsStructure extends Structure {
 
 	@Override
 	public @NotNull Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-		if (this.biomeType == Type.GENERIC && !WorldgenConfig.GENERATE_GENERIC_RUINS) return Optional.empty();
-		if (this.biomeType == Type.JUNGLE && !WorldgenConfig.GENERATE_JUNGLE_RUINS) return Optional.empty();
-		if (this.biomeType == Type.SAVANNA && !WorldgenConfig.GENERATE_SAVANNA_RUINS) return Optional.empty();
-		if (this.biomeType == Type.DESERT && !WorldgenConfig.GENERATE_DESERT_RUINS) return Optional.empty();
-		if (this.biomeType == Type.BADLANDS && !WorldgenConfig.GENERATE_BADLANDS_RUINS) return Optional.empty();
-		if (this.biomeType == Type.DEEPSLATE && !WorldgenConfig.GENERATE_DEEPSLATE_RUINS) return Optional.empty();
+		if (this.biomeType == Type.GENERIC && !TTWorldgenConfig.GENERATE_GENERIC_RUINS) return Optional.empty();
+		if (this.biomeType == Type.JUNGLE && !TTWorldgenConfig.GENERATE_JUNGLE_RUINS) return Optional.empty();
+		if (this.biomeType == Type.SAVANNA && !TTWorldgenConfig.GENERATE_SAVANNA_RUINS) return Optional.empty();
+		if (this.biomeType == Type.DESERT && !TTWorldgenConfig.GENERATE_DESERT_RUINS) return Optional.empty();
+		if (this.biomeType == Type.BADLANDS && !TTWorldgenConfig.GENERATE_BADLANDS_RUINS) return Optional.empty();
+		if (this.biomeType == Type.DEEPSLATE && !TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS) return Optional.empty();
 
 		ChunkPos chunkPos = context.chunkPos();
 		int x = chunkPos.getMiddleBlockX();
@@ -153,7 +153,7 @@ public class RuinsStructure extends Structure {
 
 	@Override
 	public @NotNull StructureType<?> type() {
-		return RegisterStructureTypes.RUINS;
+		return TTStructureTypes.RUINS;
 	}
 
 	public enum Type implements StringRepresentable {

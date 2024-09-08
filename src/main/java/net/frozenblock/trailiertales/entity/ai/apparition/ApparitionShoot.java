@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,11 +22,11 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		super(
 			ImmutableMap.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
-				RegisterMemoryModuleTypes.SEE_TIME, MemoryStatus.REGISTERED,
-				RegisterMemoryModuleTypes.STRAFING_CLOCKWISE, MemoryStatus.REGISTERED,
-				RegisterMemoryModuleTypes.STRAFING_BACKWARDS, MemoryStatus.REGISTERED,
-				RegisterMemoryModuleTypes.STRAFING_TIME, MemoryStatus.REGISTERED,
-				RegisterMemoryModuleTypes.CHARGING_TICKS, MemoryStatus.REGISTERED
+				TTMemoryModuleTypes.SEE_TIME, MemoryStatus.REGISTERED,
+				TTMemoryModuleTypes.STRAFING_CLOCKWISE, MemoryStatus.REGISTERED,
+				TTMemoryModuleTypes.STRAFING_BACKWARDS, MemoryStatus.REGISTERED,
+				TTMemoryModuleTypes.STRAFING_TIME, MemoryStatus.REGISTERED,
+				TTMemoryModuleTypes.CHARGING_TICKS, MemoryStatus.REGISTERED
 			),
 			240
 		);
@@ -46,7 +46,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
-		apparition.playSound(RegisterSounds.APPARITION_HOLDING_ITEM, apparition.getSoundVolume(), apparition.getVoicePitch());
+		apparition.playSound(TTSounds.APPARITION_HOLDING_ITEM, apparition.getSoundVolume(), apparition.getVoicePitch());
 		apparition.setAggressive(true);
 		apparition.setPoltergeistAnimProgress(1F);
 	}
@@ -55,11 +55,11 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	protected void stop(ServerLevel world, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
 		apparition.setAggressive(false);
-		brain.eraseMemory(RegisterMemoryModuleTypes.SEE_TIME);
-		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE);
-		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS);
-		brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_TIME);
-		brain.eraseMemory(RegisterMemoryModuleTypes.CHARGING_TICKS);
+		brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
+		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE);
+		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS);
+		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME);
+		brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS);
 		apparition.setPoltergeistAnimProgress(0F);
 		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 300);
 	}
@@ -72,65 +72,65 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		if (livingEntity != null) {
 			double distance = apparition.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
 			boolean lineOfSight = apparition.getSensing().hasLineOfSight(livingEntity);
-			boolean hasSeen = brain.hasMemoryValue(RegisterMemoryModuleTypes.SEE_TIME);
+			boolean hasSeen = brain.hasMemoryValue(TTMemoryModuleTypes.SEE_TIME);
 			if (lineOfSight != hasSeen) {
-				brain.eraseMemory(RegisterMemoryModuleTypes.SEE_TIME);
+				brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
 			}
 
-			int seeTime = brain.getMemory(RegisterMemoryModuleTypes.SEE_TIME).orElse(0);
+			int seeTime = brain.getMemory(TTMemoryModuleTypes.SEE_TIME).orElse(0);
 			if (lineOfSight) {
 				seeTime += 1;
 			} else {
 				seeTime -= 1;
 			}
-			brain.setMemory(RegisterMemoryModuleTypes.SEE_TIME, seeTime);
+			brain.setMemory(TTMemoryModuleTypes.SEE_TIME, seeTime);
 
-			int strafeTime = brain.getMemory(RegisterMemoryModuleTypes.STRAFING_TIME).orElse(-1);
+			int strafeTime = brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME).orElse(-1);
 			if (!(distance > 256D) && seeTime >= 20) {
 				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
 				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 				apparition.getNavigation().stop();
 				strafeTime += 1;
-				brain.setMemory(RegisterMemoryModuleTypes.STRAFING_TIME, strafeTime);
+				brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME, strafeTime);
 			} else {
 				apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
 				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
 				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-				brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_TIME);
+				brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME);
 			}
 
-			if (brain.getMemory(RegisterMemoryModuleTypes.STRAFING_TIME).orElse(0) >= 20) {
+			if (brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME).orElse(0) >= 20) {
 				if (apparition.getRandom().nextFloat() < 0.3F) {
-					brain.getMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE)
+					brain.getMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE)
 						.ifPresentOrElse(
-							unit -> brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE),
-							() -> brain.setMemory(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE, Unit.INSTANCE)
+							unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE),
+							() -> brain.setMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE, Unit.INSTANCE)
 						);
-					brain.eraseMemory(RegisterMemoryModuleTypes.CHARGING_TICKS);
+					brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS);
 				}
 
 				if (apparition.getRandom().nextFloat() < 0.3F) {
-					brain.getMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS)
+					brain.getMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS)
 						.ifPresentOrElse(
-							unit -> brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS),
-							() -> brain.setMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE)
+							unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS),
+							() -> brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE)
 						);
 				}
 
 				strafeTime = 0;
-				brain.setMemory(RegisterMemoryModuleTypes.STRAFING_TIME, strafeTime);
+				brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME, strafeTime);
 			}
 
 			if (strafeTime > -1) {
 				if (distance > 256D * 0.75F) {
-					brain.eraseMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS);
+					brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS);
 				} else if (distance < 256D * 0.25F) {
-					brain.setMemory(RegisterMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE);
+					brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE);
 				}
 
 				apparition.getMoveControl().strafe(
-					brain.hasMemoryValue(RegisterMemoryModuleTypes.STRAFING_BACKWARDS) ? -0.5F : 0.5F,
-					brain.hasMemoryValue(RegisterMemoryModuleTypes.STRAFING_CLOCKWISE) ? 0.5F : -0.5F
+					brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_BACKWARDS) ? -0.5F : 0.5F,
+					brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_CLOCKWISE) ? 0.5F : -0.5F
 				);
 				if (apparition.getControlledVehicle() instanceof Mob mob) {
 					brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
@@ -144,7 +144,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 				apparition.getLookControl().setLookAt(livingEntity, 30F, 30F);
 			}
 
-			int chargingTicks = brain.getMemory(RegisterMemoryModuleTypes.CHARGING_TICKS).orElse(0);
+			int chargingTicks = brain.getMemory(TTMemoryModuleTypes.CHARGING_TICKS).orElse(0);
 			if (chargingTicks > 0) {
 				if (!lineOfSight && seeTime < -60) {
 					chargingTicks = 0;
@@ -158,7 +158,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 			} else if (seeTime >= -60) {
 				chargingTicks++;
 			}
-			brain.setMemory(RegisterMemoryModuleTypes.CHARGING_TICKS, chargingTicks);
+			brain.setMemory(TTMemoryModuleTypes.CHARGING_TICKS, chargingTicks);
 		}
 	}
 

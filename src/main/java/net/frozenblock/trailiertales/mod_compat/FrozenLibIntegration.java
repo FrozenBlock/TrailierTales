@@ -16,16 +16,13 @@ import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.config.BlockConfig;
-import net.frozenblock.trailiertales.config.MiscConfig;
-import net.frozenblock.trailiertales.config.WorldgenConfig;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.config.TTMiscConfig;
+import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.*;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
@@ -98,14 +95,14 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.BRICK_STAIRS,
 				Blocks.BRICK_SLAB,
 				Blocks.BRICK_WALL,
-				RegisterBlocks.CRACKED_BRICKS,
-				RegisterBlocks.MOSSY_BRICKS,
-				RegisterBlocks.MOSSY_BRICK_STAIRS,
-				RegisterBlocks.MOSSY_BRICK_SLAB,
-				RegisterBlocks.MOSSY_BRICK_WALL
+				TTBlocks.CRACKED_BRICKS,
+				TTBlocks.MOSSY_BRICKS,
+				TTBlocks.MOSSY_BRICK_STAIRS,
+				TTBlocks.MOSSY_BRICK_SLAB,
+				TTBlocks.MOSSY_BRICK_WALL
 			},
-			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.unpolished_bricks
+			TTSounds.BRICKS,
+			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -125,59 +122,59 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.INFESTED_CRACKED_STONE_BRICKS,
 				Blocks.INFESTED_MOSSY_STONE_BRICKS
 			},
-			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.unpolished_bricks
+			TTSounds.BRICKS,
+			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
-				RegisterBlocks.GRANITE_BRICKS,
-				RegisterBlocks.GRANITE_BRICK_STAIRS,
-				RegisterBlocks.GRANITE_BRICK_SLAB,
-				RegisterBlocks.GRANITE_BRICK_WALL,
-				RegisterBlocks.CHISELED_GRANITE_BRICKS,
-				RegisterBlocks.CRACKED_GRANITE_BRICKS,
-				RegisterBlocks.MOSSY_GRANITE_BRICKS,
-				RegisterBlocks.MOSSY_GRANITE_BRICK_STAIRS,
-				RegisterBlocks.MOSSY_GRANITE_BRICK_SLAB,
-				RegisterBlocks.MOSSY_GRANITE_BRICK_WALL
+				TTBlocks.GRANITE_BRICKS,
+				TTBlocks.GRANITE_BRICK_STAIRS,
+				TTBlocks.GRANITE_BRICK_SLAB,
+				TTBlocks.GRANITE_BRICK_WALL,
+				TTBlocks.CHISELED_GRANITE_BRICKS,
+				TTBlocks.CRACKED_GRANITE_BRICKS,
+				TTBlocks.MOSSY_GRANITE_BRICKS,
+				TTBlocks.MOSSY_GRANITE_BRICK_STAIRS,
+				TTBlocks.MOSSY_GRANITE_BRICK_SLAB,
+				TTBlocks.MOSSY_GRANITE_BRICK_WALL
 			},
-			RegisterSounds.POLISHED_BRICKS,
-			() -> BlockConfig.get().blockSounds.polished_bricks
+			TTSounds.POLISHED_BRICKS,
+			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
-				RegisterBlocks.DIORITE_BRICKS,
-				RegisterBlocks.DIORITE_BRICK_STAIRS,
-				RegisterBlocks.DIORITE_BRICK_SLAB,
-				RegisterBlocks.DIORITE_BRICK_WALL,
-				RegisterBlocks.CHISELED_DIORITE_BRICKS,
-				RegisterBlocks.CRACKED_DIORITE_BRICKS,
-				RegisterBlocks.MOSSY_DIORITE_BRICKS,
-				RegisterBlocks.MOSSY_DIORITE_BRICK_STAIRS,
-				RegisterBlocks.MOSSY_DIORITE_BRICK_SLAB,
-				RegisterBlocks.MOSSY_DIORITE_BRICK_WALL
+				TTBlocks.DIORITE_BRICKS,
+				TTBlocks.DIORITE_BRICK_STAIRS,
+				TTBlocks.DIORITE_BRICK_SLAB,
+				TTBlocks.DIORITE_BRICK_WALL,
+				TTBlocks.CHISELED_DIORITE_BRICKS,
+				TTBlocks.CRACKED_DIORITE_BRICKS,
+				TTBlocks.MOSSY_DIORITE_BRICKS,
+				TTBlocks.MOSSY_DIORITE_BRICK_STAIRS,
+				TTBlocks.MOSSY_DIORITE_BRICK_SLAB,
+				TTBlocks.MOSSY_DIORITE_BRICK_WALL
 			},
-			RegisterSounds.POLISHED_BRICKS,
-			() -> BlockConfig.get().blockSounds.polished_bricks
+			TTSounds.POLISHED_BRICKS,
+			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
-				RegisterBlocks.ANDESITE_BRICKS,
-				RegisterBlocks.ANDESITE_BRICK_STAIRS,
-				RegisterBlocks.ANDESITE_BRICK_SLAB,
-				RegisterBlocks.ANDESITE_BRICK_WALL,
-				RegisterBlocks.CHISELED_ANDESITE_BRICKS,
-				RegisterBlocks.CRACKED_ANDESITE_BRICKS,
-				RegisterBlocks.MOSSY_ANDESITE_BRICKS,
-				RegisterBlocks.MOSSY_ANDESITE_BRICK_STAIRS,
-				RegisterBlocks.MOSSY_ANDESITE_BRICK_SLAB,
-				RegisterBlocks.MOSSY_ANDESITE_BRICK_WALL
+				TTBlocks.ANDESITE_BRICKS,
+				TTBlocks.ANDESITE_BRICK_STAIRS,
+				TTBlocks.ANDESITE_BRICK_SLAB,
+				TTBlocks.ANDESITE_BRICK_WALL,
+				TTBlocks.CHISELED_ANDESITE_BRICKS,
+				TTBlocks.CRACKED_ANDESITE_BRICKS,
+				TTBlocks.MOSSY_ANDESITE_BRICKS,
+				TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS,
+				TTBlocks.MOSSY_ANDESITE_BRICK_SLAB,
+				TTBlocks.MOSSY_ANDESITE_BRICK_WALL
 			},
-			RegisterSounds.POLISHED_BRICKS,
-			() -> BlockConfig.get().blockSounds.polished_bricks
+			TTSounds.POLISHED_BRICKS,
+			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -188,36 +185,36 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_BLACKSTONE_BRICK_WALL,
 				Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS
 			},
-			RegisterSounds.POLISHED_BRICKS,
-			() -> BlockConfig.get().blockSounds.polished_bricks
+			TTSounds.POLISHED_BRICKS,
+			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
-				RegisterBlocks.POLISHED_CALCITE,
-				RegisterBlocks.POLISHED_CALCITE_SLAB,
-				RegisterBlocks.POLISHED_CALCITE_WALL,
-				RegisterBlocks.POLISHED_CALCITE_STAIRS,
+				TTBlocks.POLISHED_CALCITE,
+				TTBlocks.POLISHED_CALCITE_SLAB,
+				TTBlocks.POLISHED_CALCITE_WALL,
+				TTBlocks.POLISHED_CALCITE_STAIRS,
 			},
-			RegisterSounds.POLISHED_CALCITE,
-			() -> BlockConfig.get().blockSounds.polished_calcite
+			TTSounds.POLISHED_CALCITE,
+			() -> TTBlockConfig.get().blockSounds.polished_calcite
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
-				RegisterBlocks.CALCITE_BRICKS,
-				RegisterBlocks.CALCITE_BRICK_STAIRS,
-				RegisterBlocks.CALCITE_BRICK_SLAB,
-				RegisterBlocks.CALCITE_BRICK_WALL,
-				RegisterBlocks.CHISELED_CALCITE_BRICKS,
-				RegisterBlocks.CRACKED_CALCITE_BRICKS,
-				RegisterBlocks.MOSSY_CALCITE_BRICKS,
-				RegisterBlocks.MOSSY_CALCITE_BRICK_STAIRS,
-				RegisterBlocks.MOSSY_CALCITE_BRICK_SLAB,
-				RegisterBlocks.MOSSY_CALCITE_BRICK_WALL
+				TTBlocks.CALCITE_BRICKS,
+				TTBlocks.CALCITE_BRICK_STAIRS,
+				TTBlocks.CALCITE_BRICK_SLAB,
+				TTBlocks.CALCITE_BRICK_WALL,
+				TTBlocks.CHISELED_CALCITE_BRICKS,
+				TTBlocks.CRACKED_CALCITE_BRICKS,
+				TTBlocks.MOSSY_CALCITE_BRICKS,
+				TTBlocks.MOSSY_CALCITE_BRICK_STAIRS,
+				TTBlocks.MOSSY_CALCITE_BRICK_SLAB,
+				TTBlocks.MOSSY_CALCITE_BRICK_WALL
 			},
-			RegisterSounds.CALCITE_BRICKS_ALT,
-			() -> BlockConfig.get().blockSounds.calcite_bricks
+			TTSounds.CALCITE_BRICKS_ALT,
+			() -> TTBlockConfig.get().blockSounds.calcite_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -226,15 +223,15 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.END_STONE_BRICK_STAIRS,
 				Blocks.END_STONE_BRICK_SLAB,
 				Blocks.END_STONE_BRICK_WALL,
-				RegisterBlocks.CHISELED_END_STONE_BRICKS,
-				RegisterBlocks.CRACKED_END_STONE_BRICKS,
-				RegisterBlocks.CHORAL_END_STONE_BRICKS,
-				RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS,
-				RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB,
-				RegisterBlocks.CHORAL_END_STONE_BRICK_WALL
+				TTBlocks.CHISELED_END_STONE_BRICKS,
+				TTBlocks.CRACKED_END_STONE_BRICKS,
+				TTBlocks.CHORAL_END_STONE_BRICKS,
+				TTBlocks.CHORAL_END_STONE_BRICK_STAIRS,
+				TTBlocks.CHORAL_END_STONE_BRICK_SLAB,
+				TTBlocks.CHORAL_END_STONE_BRICK_WALL
 			},
-			RegisterSounds.BRICKS,
-			() -> BlockConfig.get().blockSounds.unpolished_bricks
+			TTSounds.BRICKS,
+			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -242,15 +239,15 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_ANDESITE,
 				Blocks.POLISHED_ANDESITE_SLAB,
 				Blocks.POLISHED_ANDESITE_STAIRS,
-				RegisterBlocks.POLISHED_ANDESITE_WALL,
+				TTBlocks.POLISHED_ANDESITE_WALL,
 				Blocks.POLISHED_GRANITE,
 				Blocks.POLISHED_GRANITE_SLAB,
 				Blocks.POLISHED_GRANITE_STAIRS,
-				RegisterBlocks.POLISHED_GRANITE_WALL,
+				TTBlocks.POLISHED_GRANITE_WALL,
 				Blocks.POLISHED_DIORITE,
 				Blocks.POLISHED_DIORITE_SLAB,
 				Blocks.POLISHED_DIORITE_STAIRS,
-				RegisterBlocks.POLISHED_DIORITE_WALL,
+				TTBlocks.POLISHED_DIORITE_WALL,
 				Blocks.POLISHED_BLACKSTONE,
 				Blocks.POLISHED_BLACKSTONE_SLAB,
 				Blocks.POLISHED_BLACKSTONE_STAIRS,
@@ -259,8 +256,8 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_BLACKSTONE_BUTTON,
 				Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE,
 			},
-			RegisterSounds.POLISHED,
-			() -> BlockConfig.get().blockSounds.polished
+			TTSounds.POLISHED,
+			() -> TTBlockConfig.get().blockSounds.polished
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -270,8 +267,8 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_DEEPSLATE_WALL,
 				Blocks.POLISHED_DEEPSLATE_STAIRS
 			},
-			RegisterSounds.POLISHED_DEEPSLATE,
-			() -> BlockConfig.get().blockSounds.polished_deepslate
+			TTSounds.POLISHED_DEEPSLATE,
+			() -> TTBlockConfig.get().blockSounds.polished_deepslate
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -281,48 +278,48 @@ public class FrozenLibIntegration extends ModIntegration {
 				Blocks.POLISHED_TUFF_WALL,
 				Blocks.POLISHED_TUFF_STAIRS,
 			},
-			RegisterSounds.POLISHED_TUFF,
-			() -> BlockConfig.get().blockSounds.polished_tuff
+			TTSounds.POLISHED_TUFF,
+			() -> TTBlockConfig.get().blockSounds.polished_tuff
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
 				Blocks.POLISHED_BASALT
 			},
-			RegisterSounds.POLISHED_BASALT,
-			() -> BlockConfig.get().blockSounds.polished_basalt
+			TTSounds.POLISHED_BASALT,
+			() -> TTBlockConfig.get().blockSounds.polished_basalt
 		);
 
-		if (WorldgenConfig.get().endCity.generateCracked) {
+		if (TTWorldgenConfig.get().endCity.generateCracked) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.location(),
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.PURPUR_BLOCK, 0.2F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CRACKED_PURPUR_BLOCK.defaultBlockState())
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.PURPUR_BLOCK, 0.2F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_PURPUR_BLOCK.defaultBlockState())
 					)
 				)
 			);
 		}
 
-		if (WorldgenConfig.get().endCity.generateChoral) {
+		if (TTWorldgenConfig.get().endCity.generateChoral) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.location(),
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
+						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, TTBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
 					)
 				)
 			);
 		}
 
-		if (WorldgenConfig.get().endCity.generateChiseled) {
+		if (TTWorldgenConfig.get().endCity.generateChiseled) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.location(),
 				new RuleProcessor(
 					ImmutableList.of(
-						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState()),
-						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 0.4F), AlwaysTrueTest.INSTANCE, RegisterBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState())
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, TTBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState()),
+						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 0.4F), AlwaysTrueTest.INSTANCE, TTBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState())
 					)
 				)
 			);
@@ -330,33 +327,33 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			Advancement advancement = holder.value();
-			if (MiscConfig.get().modify_advancements) {
+			if (TTMiscConfig.get().modify_advancements) {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/kill_a_mob" -> {
-						AdvancementAPI.addCriteria(advancement, TrailierConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.APPARITION)).triggerInstance())
+						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntities.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
-								TrailierConstants.string("apparition")
+								TTConstants.string("apparition")
 							)
 						);
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
-						AdvancementAPI.addCriteria(advancement, TrailierConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(RegisterEntities.APPARITION)).triggerInstance())
+						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntities.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
 								List.of(
-									TrailierConstants.string("apparition")
+									TTConstants.string("apparition")
 								)
 							))
 						);
 					}
 					case "minecraft:husbandry/plant_any_sniffer_seed" -> {
 						AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(RegisterBlocks.CYAN_ROSE_CROP).triggerInstance())
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.CYAN_ROSE_CROP).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -365,19 +362,19 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 					case "minecraft:adventure/salvage_sherd" -> {
-						addLootTableRequirement(advancement, RuinsGenerator.RUINS_KEY.location().toString(), RegisterLootTables.RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location().toString(), RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location().toString(), RegisterLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.location().toString(), RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.location().toString(), RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location().toString(), RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, RuinsGenerator.RUINS_KEY.location().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.location().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.location().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
 					}
 					case "minecraft:nether/all_potions" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(RegisterMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
 					}
@@ -386,9 +383,9 @@ public class FrozenLibIntegration extends ModIntegration {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(RegisterMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
-							map.put(RegisterMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
-							map.put(RegisterMobEffects.SIEGE_OMEN, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(TTMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(TTMobEffects.SIEGE_OMEN, new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;
 						}
 					}

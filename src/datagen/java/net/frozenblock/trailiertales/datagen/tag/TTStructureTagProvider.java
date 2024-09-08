@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.frozenblock.trailiertales.tag.TrailierStructureTags;
+import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.StructureTagsProvider;
@@ -16,7 +16,7 @@ public final class TTStructureTagProvider extends StructureTagsProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.tag(TrailierStructureTags.ON_CATACOMBS_EXPLORER_MAPS)
+		this.tag(TTStructureTags.ON_CATACOMBS_EXPLORER_MAPS)
 			.add(CatacombsGenerator.CATACOMBS_KEY);
 
 	}

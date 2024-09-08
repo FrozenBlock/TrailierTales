@@ -1,9 +1,9 @@
 package net.frozenblock.trailiertales.mixin.common.brush;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
+import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.AbstractWWIntegration;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BrushItem;
@@ -21,11 +21,11 @@ public class BrushSoundMixin {
 		)
 	)
 	public SoundEvent trailierTales$newBrushSounds(SoundEvent original) {
-		AbstractWWIntegration wwIntegration = TrailierModIntegrations.WILDER_WILD_INTEGRATION.getIntegration();
+		AbstractWWIntegration wwIntegration = TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration();
 		if (original == SoundEvents.BRUSH_GRAVEL && wwIntegration.newGravelSounds()) {
-			return RegisterSounds.BRUSH_GRAVEL_WW;
-		} else if (original == RegisterSounds.BRUSH_CLAY && wwIntegration.newClaySounds()) {
-			return RegisterSounds.BRUSH_CLAY_WW;
+			return TTSounds.BRUSH_GRAVEL_WW;
+		} else if (original == TTSounds.BRUSH_CLAY && wwIntegration.newClaySounds()) {
+			return TTSounds.BRUSH_CLAY_WW;
 		}
 		return original;
 	}

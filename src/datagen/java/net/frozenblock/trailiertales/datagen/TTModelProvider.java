@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.Util;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -69,69 +69,69 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.createPlant(RegisterBlocks.CYAN_ROSE, RegisterBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
 
 		createManedropCrop(generator);
-		generator.createDoublePlant(RegisterBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlant(TTBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
 
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
 
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
-		generator.family(RegisterBlocks.GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_GRANITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_GRANITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_GRANITE_BRICK);
+		generator.family(TTBlocks.GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_GRANITE_BRICK);
+		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_GRANITE_BRICK);
 
 		generator.family(Blocks.POLISHED_DIORITE).generateFor(BlockFamilies.POLISHED_DIORITE);
-		generator.family(RegisterBlocks.DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_DIORITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_DIORITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DIORITE_BRICK);
+		generator.family(TTBlocks.DIORITE_BRICKS).generateFor(TTBlocks.FAMILY_DIORITE_BRICK);
+		generator.family(TTBlocks.MOSSY_DIORITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_DIORITE_BRICK);
 
 		generator.family(Blocks.POLISHED_ANDESITE).generateFor(BlockFamilies.POLISHED_ANDESITE);
-		generator.family(RegisterBlocks.ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_ANDESITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_ANDESITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_ANDESITE_BRICK);
+		generator.family(TTBlocks.ANDESITE_BRICKS).generateFor(TTBlocks.FAMILY_ANDESITE_BRICK);
+		generator.family(TTBlocks.MOSSY_ANDESITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_ANDESITE_BRICK);
 
 		BlockModelGenerators.BlockFamilyProvider calciteFamily = generator.family(Blocks.CALCITE);
 		calciteFamily.skipGeneratingModelsFor.add(Blocks.CALCITE);
 		calciteFamily.generateFor(TTDataGenerator.FAMILY_CALCITE);
-		generator.family(RegisterBlocks.POLISHED_CALCITE).generateFor(RegisterBlocks.FAMILY_POLISHED_CALCITE);
-		BlockModelGenerators.BlockFamilyProvider calciteBricksFamily = generator.family(RegisterBlocks.CALCITE_BRICKS);
-		calciteBricksFamily.skipGeneratingModelsFor.add(RegisterBlocks.CHISELED_CALCITE_BRICKS);
-		calciteBricksFamily.generateFor(RegisterBlocks.FAMILY_CALCITE_BRICK);
-		generator.family(RegisterBlocks.MOSSY_CALCITE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_CALCITE_BRICK);
-		generator.createTrivialBlock(RegisterBlocks.CHISELED_CALCITE_BRICKS, TexturedModel.COLUMN_WITH_WALL);
+		generator.family(TTBlocks.POLISHED_CALCITE).generateFor(TTBlocks.FAMILY_POLISHED_CALCITE);
+		BlockModelGenerators.BlockFamilyProvider calciteBricksFamily = generator.family(TTBlocks.CALCITE_BRICKS);
+		calciteBricksFamily.skipGeneratingModelsFor.add(TTBlocks.CHISELED_CALCITE_BRICKS);
+		calciteBricksFamily.generateFor(TTBlocks.FAMILY_CALCITE_BRICK);
+		generator.family(TTBlocks.MOSSY_CALCITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_CALCITE_BRICK);
+		generator.createTrivialBlock(TTBlocks.CHISELED_CALCITE_BRICKS, TexturedModel.COLUMN_WITH_WALL);
 
-		generator.createTrivialCube(RegisterBlocks.CRACKED_TUFF_BRICKS);
-		generator.family(RegisterBlocks.MOSSY_TUFF_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_TUFF_BRICKS);
+		generator.createTrivialCube(TTBlocks.CRACKED_TUFF_BRICKS);
+		generator.family(TTBlocks.MOSSY_TUFF_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_TUFF_BRICKS);
 
-		generator.createTrivialCube(RegisterBlocks.CRACKED_BRICKS);
-		generator.family(RegisterBlocks.MOSSY_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_BRICKS);
+		generator.createTrivialCube(TTBlocks.CRACKED_BRICKS);
+		generator.family(TTBlocks.MOSSY_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_BRICKS);
 
-		generator.family(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(RegisterBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
-		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
-		generator.family(RegisterBlocks.MOSSY_DEEPSLATE_TILES).generateFor(RegisterBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
+		generator.family(TTBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(TTBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
+		generator.family(TTBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
+		generator.family(TTBlocks.MOSSY_DEEPSLATE_TILES).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
 
-		this.wallSmooth(generator, RegisterBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SANDSTONE);
-		this.stairs(generator, RegisterBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE);
-		this.wall(generator, RegisterBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
+		this.wallSmooth(generator, TTBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SANDSTONE);
+		this.stairs(generator, TTBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE);
+		this.wall(generator, TTBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
 
-		this.wallSmooth(generator, RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.RED_SANDSTONE);
-		this.stairs(generator, RegisterBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
-		this.wall(generator, RegisterBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
+		this.wallSmooth(generator, TTBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.RED_SANDSTONE);
+		this.stairs(generator, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
+		this.wall(generator, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
 
 		BlockModelGenerators.BlockFamilyProvider endStoneFamily = generator.family(Blocks.END_STONE);
 		endStoneFamily.skipGeneratingModelsFor.add(Blocks.END_STONE);
 		endStoneFamily.generateFor(TTDataGenerator.FAMILY_END_STONE);
-		generator.family(RegisterBlocks.CHORAL_END_STONE).generateFor(RegisterBlocks.FAMILY_CHORAL_END_STONE);
-		generator.createTrivialCube(RegisterBlocks.CRACKED_END_STONE_BRICKS);
-		generator.createTrivialCube(RegisterBlocks.CHISELED_END_STONE_BRICKS);
-		generator.family(RegisterBlocks.CHORAL_END_STONE_BRICKS).generateFor(RegisterBlocks.FAMILY_CHORAL_END_STONE_BRICKS);
+		generator.family(TTBlocks.CHORAL_END_STONE).generateFor(TTBlocks.FAMILY_CHORAL_END_STONE);
+		generator.createTrivialCube(TTBlocks.CRACKED_END_STONE_BRICKS);
+		generator.createTrivialCube(TTBlocks.CHISELED_END_STONE_BRICKS);
+		generator.family(TTBlocks.CHORAL_END_STONE_BRICKS).generateFor(TTBlocks.FAMILY_CHORAL_END_STONE_BRICKS);
 
-		generator.createTrivialCube(RegisterBlocks.CRACKED_PURPUR_BLOCK);
-		generator.createTrivialCube(RegisterBlocks.CHISELED_PURPUR_BLOCK);
-		this.wall(generator, RegisterBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
+		generator.createTrivialCube(TTBlocks.CRACKED_PURPUR_BLOCK);
+		generator.createTrivialCube(TTBlocks.CHISELED_PURPUR_BLOCK);
+		this.wall(generator, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 
-		generator.blockEntityModels(TrailierConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
+		generator.blockEntityModels(TTConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
 			.createWithoutBlockItem(
-				RegisterBlocks.COFFIN
+				TTBlocks.COFFIN
 			);
 	}
 
@@ -166,43 +166,43 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
-		generator.generateFlatItem(RegisterItems.BAIT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.BLOOM_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.BOLT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.BULLSEYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CLUCK_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CRAWL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CRESCENT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CULTIVATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.DROUGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.ESSENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.EYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.FOCUS_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.HEIGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.HUMP_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.ILLUMINATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.INCIDENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.LUMBER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.NAVIGATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.NEEDLES_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.PLUME_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.PROTECTION_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.SHED_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.SHINE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.SHOWER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.SPADE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.SPROUT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.VESSEL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BAIT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BLOOM_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BOLT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BULLSEYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CLUCK_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CRAWL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CRESCENT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CULTIVATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.DROUGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ESSENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.EYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.FOCUS_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.HEIGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.HUMP_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ILLUMINATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.INCIDENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.LUMBER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.NAVIGATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.NEEDLES_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.PLUME_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.PROTECTION_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SHED_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SHINE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SHOWER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SPADE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SPROUT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.VESSEL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(RegisterItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(RegisterItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
 	}
 
 	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
-		Block block = RegisterBlocks.MANEDROP_CROP;
+		Block block = TTBlocks.MANEDROP_CROP;
 		generator.createSimpleFlatItemModel(block.asItem());
 		PropertyDispatch propertyDispatch = PropertyDispatch.properties(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
@@ -210,19 +210,19 @@ public final class TTModelProvider extends FabricModelProvider {
 					if (age < ManedropCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TrailierConstants.id("block/manedrop_crop_top_empty")
+							TTConstants.id("block/manedrop_crop_top_empty")
 						);
 					} else if (age == ManedropCropBlock.MAX_AGE) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TrailierConstants.id("block/manedrop_top")
+							TTConstants.id("block/manedrop_top")
 						);
 					} else {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
 							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
-								TrailierConstants.id("block/manedrop_crop_top_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TrailierConstants.id("block/manedrop_crop_top_stage_" + age)),
+								TTConstants.id("block/manedrop_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_top_stage_" + age)),
 								generator.modelOutput
 							)
 						);
@@ -232,13 +232,13 @@ public final class TTModelProvider extends FabricModelProvider {
 					if (age == ManedropCropBlock.MAX_AGE) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TrailierConstants.id("block/manedrop_bottom")
+							TTConstants.id("block/manedrop_bottom")
 						);
 					} else {
 						yield Variant.variant().with(VariantProperties.MODEL,
 							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
-								TrailierConstants.id("block/manedrop_crop_bottom_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TrailierConstants.id("block/manedrop_crop_bottom_stage_" + age)),
+								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
 								generator.modelOutput
 							)
 						);
@@ -250,13 +250,13 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createDawntrail(@NotNull BlockModelGenerators generator) {
-		Block block = RegisterBlocks.DAWNTRAIL;
+		Block block = TTBlocks.DAWNTRAIL;
 		generator.createSimpleFlatItemModel(block);
 		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
 
-		ResourceLocation firstModel = TrailierConstants.id("block/dawntrail_stage_0");
-		ResourceLocation secondModel = TrailierConstants.id("block/dawntrail_stage_1");
-		ResourceLocation thirdModel = TrailierConstants.id("block/dawntrail_stage_2");
+		ResourceLocation firstModel = TTConstants.id("block/dawntrail_stage_0");
+		ResourceLocation secondModel = TTConstants.id("block/dawntrail_stage_1");
+		ResourceLocation thirdModel = TTConstants.id("block/dawntrail_stage_2");
 		Condition.TerminalCondition terminalCondition = Util.make(
 			Condition.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
 				terminalConditionx.term(booleanPropertyx, false);
@@ -278,14 +278,14 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createDawntrailCrop(@NotNull BlockModelGenerators generator) {
-		Block crop = RegisterBlocks.DAWNTRAIL_CROP;
+		Block crop = TTBlocks.DAWNTRAIL_CROP;
 		IntegerProperty ageProperty = DawntrailCropBlock.AGE;
 		Int2ObjectMap<ResourceLocation> int2ObjectMap = new Int2ObjectOpenHashMap<>();
 		PropertyDispatch propertyDispatch = PropertyDispatch.property(ageProperty)
 			.generate(
 				age -> {
 					ResourceLocation resourceLocation = int2ObjectMap.computeIfAbsent(
-						age, (Int2ObjectFunction<? extends ResourceLocation>)(key -> TrailierConstants.id("block/dawntrail_crop_stage_" + Math.min(age, 3)))
+						age, (Int2ObjectFunction<? extends ResourceLocation>)(key -> TTConstants.id("block/dawntrail_crop_stage_" + Math.min(age, 3)))
 					);
 					return Variant.variant().with(VariantProperties.MODEL, resourceLocation).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90);
 				}

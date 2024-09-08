@@ -12,10 +12,10 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterf
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
-import net.frozenblock.trailiertales.tag.TrailierBlockTags;
+import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -282,7 +282,7 @@ public final class CoffinSpawner {
 							return Optional.empty();
 						}
 
-						if (level.getBlockState(blockPos).is(TrailierBlockTags.COFFIN_UNSPAWNABLE_ON)) {
+						if (level.getBlockState(blockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) {
 							return Optional.empty();
 						}
 
@@ -312,7 +312,7 @@ public final class CoffinSpawner {
 								level.playSound(
 									null,
 									entity,
-									RegisterSounds.COFFIN_SPAWN_MOB,
+									TTSounds.COFFIN_SPAWN_MOB,
 									SoundSource.BLOCKS,
 									1F,
 									(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F
@@ -348,7 +348,7 @@ public final class CoffinSpawner {
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
-		Apparition apparition = RegisterEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
+		Apparition apparition = TTEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
 				apparition.hiddenTicks = 500;
@@ -403,7 +403,7 @@ public final class CoffinSpawner {
 				IntArrayList newList = new IntArrayList();
 				this.data.soulsToSpawn.forEach(spawnTime -> {
 					if (spawnTime <= 0) {
-						CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL_ENTER, 4, 0D, direction, pos, 0.35D);
+						CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, direction, pos, 0.35D);
 						this.addPower(1, world);
 					} else {
 						newList.add(spawnTime - 1);

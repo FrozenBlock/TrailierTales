@@ -6,7 +6,8 @@ import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.BlockConfig;
@@ -36,30 +37,30 @@ public class WWIntegration extends AbstractWWIntegration {
 	public void init() {
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[] {
-				net.frozenblock.trailiertales.registry.RegisterBlocks.CYAN_ROSE,
-				net.frozenblock.trailiertales.registry.RegisterBlocks.MANEDROP
+				TTBlocks.CYAN_ROSE,
+				TTBlocks.MANEDROP
 			},
 			RegisterBlockSoundTypes.FLOWER,
 			() -> BlockConfig.get().blockSounds.flowerSounds
 		);
 		BlockSoundGroupOverwrites.addBlock(
-			net.frozenblock.trailiertales.registry.RegisterBlocks.SUSPICIOUS_CLAY,
-			RegisterSounds.SUSPICIOUS_CLAY_WW,
+			TTBlocks.SUSPICIOUS_CLAY,
+			TTSounds.SUSPICIOUS_CLAY_WW,
 			() -> BlockConfig.get().blockSounds.claySounds
 		);
 		BlockSoundGroupOverwrites.addBlock(
 			Blocks.SUSPICIOUS_GRAVEL,
-			RegisterSounds.SUSPICIOUS_GRAVEL_WW,
+			TTSounds.SUSPICIOUS_GRAVEL_WW,
 			() -> BlockConfig.get().blockSounds.claySounds
 		);
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[] {
-				net.frozenblock.trailiertales.registry.RegisterBlocks.SMOOTH_SANDSTONE_WALL,
-				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_SANDSTONE_STAIRS,
-				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_SANDSTONE_WALL,
-				net.frozenblock.trailiertales.registry.RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL,
-				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_RED_SANDSTONE_STAIRS,
-				net.frozenblock.trailiertales.registry.RegisterBlocks.CUT_RED_SANDSTONE_WALL
+				TTBlocks.SMOOTH_SANDSTONE_WALL,
+				TTBlocks.CUT_SANDSTONE_STAIRS,
+				TTBlocks.CUT_SANDSTONE_WALL,
+				TTBlocks.SMOOTH_RED_SANDSTONE_WALL,
+				TTBlocks.CUT_RED_SANDSTONE_STAIRS,
+				TTBlocks.CUT_RED_SANDSTONE_WALL
 			},
 			RegisterBlockSoundTypes.SANDSTONE,
 			() -> BlockConfig.get().blockSounds.sandstoneSounds

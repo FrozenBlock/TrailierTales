@@ -9,12 +9,12 @@ import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorR
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.WeightedProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.WeightedRuleProcessor;
-import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTStructures;
+import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.frozenblock.trailiertales.worldgen.processor.CoffinProcessor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -62,12 +62,12 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 
 public class CatacombsGenerator {
-	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  RegisterStructures.ofSet("catacombs");
-	public static final ResourceKey<Structure> CATACOMBS_KEY = RegisterStructures.createKey("catacombs");
+	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  TTStructures.ofSet("catacombs");
+	public static final ResourceKey<Structure> CATACOMBS_KEY = TTStructures.createKey("catacombs");
 	// POOLS
-	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TrailierConstants.string("catacombs/center"));
-	public static final ResourceKey<StructureTemplatePool> CONNECTOR_FALLBACK = Pools.parseKey(TrailierConstants.string("catacombs/corridor_connector_fallback"));
-	public static final ResourceKey<StructureTemplatePool> CORRIDOR_FALLBACK = Pools.parseKey(TrailierConstants.string("catacombs/corridor_fallback"));
+	public static final ResourceKey<StructureTemplatePool> START = Pools.parseKey(TTConstants.string("catacombs/center"));
+	public static final ResourceKey<StructureTemplatePool> CONNECTOR_FALLBACK = Pools.parseKey(TTConstants.string("catacombs/corridor_connector_fallback"));
+	public static final ResourceKey<StructureTemplatePool> CORRIDOR_FALLBACK = Pools.parseKey(TTConstants.string("catacombs/corridor_fallback"));
 	// PROCESSORS
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_CORRIDOR = createKey("catacombs_corridor");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_CORRIDOR_RARE = createKey("catacombs_corridor_rare");
@@ -113,7 +113,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("corridor"),
 			new StructureTemplatePool(
@@ -161,7 +161,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("corridor_connector"),
 			new StructureTemplatePool(
@@ -337,7 +337,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("corridor/ladder_bottom"),
 			new StructureTemplatePool(
@@ -353,7 +353,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("corridor/ladder_top"),
 			new StructureTemplatePool(
@@ -369,7 +369,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("small_room"),
 			new StructureTemplatePool(
@@ -422,7 +422,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("decoration/chain"),
 			new StructureTemplatePool(
@@ -439,7 +439,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("decoration/chain_4"),
 			new StructureTemplatePool(
@@ -455,7 +455,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("decoration/chain_3"),
 			new StructureTemplatePool(
@@ -470,7 +470,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("decoration/chain_2"),
 			new StructureTemplatePool(
@@ -484,7 +484,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("decoration/chain_1"),
 			new StructureTemplatePool(
@@ -497,7 +497,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("staircase_up"),
 			new StructureTemplatePool(
@@ -519,7 +519,7 @@ public class CatacombsGenerator {
 			)
 		);
 
-		RegisterStructures.register(
+		TTStructures.register(
 			pool,
 			string("staircase_down"),
 			new StructureTemplatePool(
@@ -549,8 +549,8 @@ public class CatacombsGenerator {
 		context.register(
 			CATACOMBS_KEY,
 			new JigsawStructure(
-				RegisterStructures.structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_CATACOMBS),
+				TTStructures.structure(
+					holderGetter.getOrThrow(TTBiomeTags.HAS_CATACOMBS),
 					Map.of(
 						MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, MobSpawnSettings.EMPTY_MOB_LIST)
 					),
@@ -586,12 +586,12 @@ public class CatacombsGenerator {
 	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
 		final RuleProcessor baseProcessor = new RuleProcessor(
 			ImmutableList.of(
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLED_DEEPSLATE, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_COBBLED_DEEPSLATE.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLED_DEEPSLATE, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_COBBLED_DEEPSLATE.defaultBlockState()),
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICKS, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_BRICKS.defaultBlockState()),
 
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.3F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState()),
-				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILES.defaultBlockState()),
+				new ProcessorRule(new RandomBlockMatchTest(Blocks.DEEPSLATE_TILES, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_TILES.defaultBlockState()),
 
 				new ProcessorRule(
 					new RandomBlockMatchTest(Blocks.GRAVEL, 0.425F),
@@ -679,22 +679,22 @@ public class CatacombsGenerator {
 		final BlockStateRespectingRuleProcessor blockStateRespectingRuleProcessor = new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS
+					new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_STAIRS, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS
 				),
 				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_STAIRS, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS
+					new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_STAIRS, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS
 				),
 				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_WALL, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL
+					new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_WALL, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL
 				),
 				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_WALL, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL
+					new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_WALL, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL
 				),
 				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB
+					new RandomBlockMatchTest(Blocks.DEEPSLATE_BRICK_SLAB, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB
 				),
 				new BlockStateRespectingProcessorRule(
-					new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.15F), AlwaysTrueTest.INSTANCE, RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB
+					new RandomBlockMatchTest(Blocks.DEEPSLATE_TILE_SLAB, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB
 				)
 			)
 		);
@@ -767,15 +767,15 @@ public class CatacombsGenerator {
 			)
 		);
 
-		final BlockStateRespectingRuleProcessor potLootProcessor = catacombsPotLootProcessor(RegisterLootTables.CATACOMBS_DECORATED_POT);
-		final RuleProcessor tombArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.0775F);
-		final RuleProcessor corridorArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.0775F);
-		final RuleProcessor corridorRareArchy = catacombsArchy(false, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.0775F);
-		final RuleProcessor corridorRareClayArchy = catacombsArchy(true, RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.65F);
-		final BlockStateRespectingRuleProcessor corridorChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_CORRIDOR);
-		final BlockStateRespectingRuleProcessor tombChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_TOMB);
-		final BlockStateRespectingRuleProcessor rewardChests = chestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD, 0.375F);
-		final BlockStateRespectingRuleProcessor guaranteedRewardChests = guaranteedChestProcessor(RegisterLootTables.CATACOMBS_TOMB_REWARD);
+		final BlockStateRespectingRuleProcessor potLootProcessor = catacombsPotLootProcessor(TTLootTables.CATACOMBS_DECORATED_POT);
+		final RuleProcessor tombArchy = catacombsArchy(false, TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB, 0.0775F);
+		final RuleProcessor corridorArchy = catacombsArchy(false, TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR, 0.0775F);
+		final RuleProcessor corridorRareArchy = catacombsArchy(false, TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.0775F);
+		final RuleProcessor corridorRareClayArchy = catacombsArchy(true, TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE, 0.65F);
+		final BlockStateRespectingRuleProcessor corridorChests = guaranteedChestProcessor(TTLootTables.CATACOMBS_CORRIDOR);
+		final BlockStateRespectingRuleProcessor tombChests = guaranteedChestProcessor(TTLootTables.CATACOMBS_TOMB);
+		final BlockStateRespectingRuleProcessor rewardChests = chestProcessor(TTLootTables.CATACOMBS_TOMB_REWARD, 0.375F);
+		final BlockStateRespectingRuleProcessor guaranteedRewardChests = guaranteedChestProcessor(TTLootTables.CATACOMBS_TOMB_REWARD);
 
 		final BlockStateRespectingRuleProcessor zombieSkeletonCoffinProcessor = coffinProcessor(EntityType.ZOMBIE, EntityType.SKELETON);
 		final BlockStateRespectingRuleProcessor skeletonCoffinProcessor = coffinProcessor(EntityType.SKELETON);
@@ -792,14 +792,14 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				corridorChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					RegisterItems.CRESCENT_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.CRESCENT_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -817,14 +817,14 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				corridorChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					RegisterItems.CRESCENT_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.CRESCENT_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -844,14 +844,14 @@ public class CatacombsGenerator {
 				tombChests,
 				rewardChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					RegisterItems.CRESCENT_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.CRESCENT_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -870,13 +870,13 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				guaranteedRewardChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					RegisterItems.CRESCENT_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.CRESCENT_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -912,13 +912,13 @@ public class CatacombsGenerator {
 				tombChests,
 				rewardChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
-					RegisterItems.BULLSEYE_POTTERY_SHERD,
-					RegisterItems.BULLSEYE_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.BULLSEYE_POTTERY_SHERD,
+					TTItems.BULLSEYE_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -938,11 +938,11 @@ public class CatacombsGenerator {
 				tombChests,
 				rewardChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -961,14 +961,14 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				corridorChests,
 				potLootProcessor,
-				RegisterStructures.decoratedPotSherdProcessor(
+				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					RegisterItems.CRESCENT_POTTERY_SHERD,
-					RegisterItems.ESSENCE_POTTERY_SHERD,
-					RegisterItems.EYE_POTTERY_SHERD
+					TTItems.CRESCENT_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
@@ -997,7 +997,7 @@ public class CatacombsGenerator {
 					new RandomBlockMatchTest(!clay ? Blocks.GRAVEL : Blocks.CLAY, chance),
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
-					!clay ? Blocks.SUSPICIOUS_GRAVEL.defaultBlockState() : RegisterBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
+					!clay ? Blocks.SUSPICIOUS_GRAVEL.defaultBlockState() : TTBlocks.SUSPICIOUS_CLAY.defaultBlockState(),
 					new AppendLoot(lootTable)
 				)
 			)
@@ -1008,10 +1008,10 @@ public class CatacombsGenerator {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
-					new BlockMatchTest(RegisterBlocks.COFFIN),
+					new BlockMatchTest(TTBlocks.COFFIN),
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
-					RegisterBlocks.COFFIN,
+					TTBlocks.COFFIN,
 					new CoffinProcessor(true, entities)
 				)
 			)
@@ -1047,12 +1047,12 @@ public class CatacombsGenerator {
 	}
 
 	private static @NotNull String string(String name) {
-		return TrailierConstants.string("catacombs/" + name);
+		return TTConstants.string("catacombs/" + name);
 	}
 
 	@NotNull
 	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
-		return ResourceKey.create(Registries.PROCESSOR_LIST, TrailierConstants.id(string));
+		return ResourceKey.create(Registries.PROCESSOR_LIST, TTConstants.id(string));
 	}
 
 	@NotNull

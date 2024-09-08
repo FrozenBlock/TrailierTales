@@ -1,10 +1,10 @@
 package net.frozenblock.trailiertales.worldgen.structure.datagen;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTStructures;
+import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -30,8 +30,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class SavannaRuinsGenerator {
-	public static final ResourceKey<StructureSet> SAVANNA_RUINS_KEY =  RegisterStructures.ofSet("ruins_savanna");
-	private static final ResourceKey<Structure> SAVANNA_RUIN_KEY = RegisterStructures.createKey("ruins_savanna");
+	public static final ResourceKey<StructureSet> SAVANNA_RUINS_KEY =  TTStructures.ofSet("ruins_savanna");
+	private static final ResourceKey<Structure> SAVANNA_RUIN_KEY = TTStructures.createKey("ruins_savanna");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
@@ -39,8 +39,8 @@ public class SavannaRuinsGenerator {
 		context.register(
 			SAVANNA_RUIN_KEY,
 			new RuinsStructure(
-				RegisterStructures.structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_SAVANNA_RUINS),
+				TTStructures.structure(
+					holderGetter.getOrThrow(TTBiomeTags.HAS_SAVANNA_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.NONE
 				),
@@ -70,13 +70,13 @@ public class SavannaRuinsGenerator {
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
-					RegisterStructures.archyProcessorRule(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.2F),
+					TTStructures.archyProcessorRule(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.2F),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.75F), AlwaysTrueTest.INSTANCE, Blocks.PACKED_MUD.defaultBlockState())
 				)
 			),
-			RegisterStructures.archyLootProcessor(Blocks.DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.05F),
-			RegisterStructures.archyLootProcessor(Blocks.COARSE_DIRT, RegisterBlocks.SUSPICIOUS_DIRT, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.05F),
-			RegisterStructures.archyLootProcessor(Blocks.CLAY, RegisterBlocks.SUSPICIOUS_CLAY, RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.4F),
+			TTStructures.archyLootProcessor(Blocks.DIRT, TTBlocks.SUSPICIOUS_DIRT, TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.05F),
+			TTStructures.archyLootProcessor(Blocks.COARSE_DIRT, TTBlocks.SUSPICIOUS_DIRT, TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.05F),
+			TTStructures.archyLootProcessor(Blocks.CLAY, TTBlocks.SUSPICIOUS_CLAY, TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.4F),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
 	);

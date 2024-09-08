@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -140,7 +140,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 
 	private static boolean canGrowInto(@NotNull LevelReader world, BlockPos pos) {
 		BlockState blockState = world.getBlockState(pos);
-		return blockState.isAir() || blockState.is(RegisterBlocks.MANEDROP_CROP);
+		return blockState.isAir() || blockState.is(TTBlocks.MANEDROP_CROP);
 	}
 
 	private static boolean sufficientLight(LevelReader world, BlockPos pos) {
@@ -148,7 +148,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	private static boolean isLower(@NotNull BlockState state) {
-		return state.is(RegisterBlocks.MANEDROP_CROP) && state.getValue(HALF) == DoubleBlockHalf.LOWER;
+		return state.is(TTBlocks.MANEDROP_CROP) && state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 
 	private static boolean isDouble(int age) {

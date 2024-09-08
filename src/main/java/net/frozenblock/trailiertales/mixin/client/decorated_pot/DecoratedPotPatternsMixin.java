@@ -5,9 +5,9 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
@@ -32,34 +32,34 @@ public class DecoratedPotPatternsMixin {
 	private static Map<Item, ResourceKey<DecoratedPotPattern>> trailierTales$addNewSherds(Map<Item, ResourceKey<DecoratedPotPattern>> original) {
 		Object2ObjectLinkedOpenHashMap<Item, ResourceKey<DecoratedPotPattern>> newMap = new Object2ObjectLinkedOpenHashMap<>();
 		newMap.putAll(original);
-		newMap.put(RegisterItems.BAIT_POTTERY_SHERD, TrailierTalesClient.BAIT_POTTERY_PATTERN);
-		newMap.put(RegisterItems.BLOOM_POTTERY_SHERD, TrailierTalesClient.BLOOM_POTTERY_PATTERN);
-		newMap.put(RegisterItems.BOLT_POTTERY_SHERD, TrailierTalesClient.BOLT_POTTERY_PATTERN);
-		newMap.put(RegisterItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.CLUCK_POTTERY_SHERD, TrailierTalesClient.CLUCK_POTTERY_PATTERN);
-		newMap.put(RegisterItems.CRAWL_POTTERY_SHERD, TrailierTalesClient.CRAWL_POTTERY_PATTERN);
-		newMap.put(RegisterItems.CRESCENT_POTTERY_SHERD, TrailierTalesClient.CRESCENT_POTTERY_PATTERN);
-		newMap.put(RegisterItems.CULTIVATOR_POTTERY_SHERD, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN);
-		newMap.put(RegisterItems.DROUGHT_POTTERY_SHERD, TrailierTalesClient.DROUGHT_POTTERY_PATTERN);
-		newMap.put(RegisterItems.ESSENCE_POTTERY_SHERD, TrailierTalesClient.ESSENCE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.EYE_POTTERY_SHERD, TrailierTalesClient.EYE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.FOCUS_POTTERY_SHERD, TrailierTalesClient.FOCUS_POTTERY_PATTERN);
-		newMap.put(RegisterItems.HEIGHT_POTTERY_SHERD, TrailierTalesClient.HEIGHT_POTTERY_PATTERN);
-		newMap.put(RegisterItems.HUMP_POTTERY_SHERD, TrailierTalesClient.HUMP_POTTERY_PATTERN);
-		newMap.put(RegisterItems.ILLUMINATOR_POTTERY_SHERD, TrailierTalesClient.ILLUMINATOR_POTTERY_PATTERN);
-		newMap.put(RegisterItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.LUMBER_POTTERY_SHERD, TrailierTalesClient.LUMBER_POTTERY_PATTERN);
-		newMap.put(RegisterItems.NAVIGATOR_POTTERY_SHERD, TrailierTalesClient.NAVIGATOR_POTTERY_PATTERN);
-		newMap.put(RegisterItems.NEEDLES_POTTERY_SHERD, TrailierTalesClient.NEEDLES_POTTERY_PATTERN);
-		newMap.put(RegisterItems.PLUME_POTTERY_SHERD, TrailierTalesClient.PLUME_POTTERY_PATTERN);
-		newMap.put(RegisterItems.PROTECTION_POTTERY_SHERD, TrailierTalesClient.PROTECTION_POTTERY_PATTERN);
-		newMap.put(RegisterItems.SHED_POTTERY_SHERD, TrailierTalesClient.SHED_POTTERY_PATTERN);
-		newMap.put(RegisterItems.SHINE_POTTERY_SHERD, TrailierTalesClient.SHINE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.SHOWER_POTTERY_SHERD, TrailierTalesClient.SHOWER_POTTERY_PATTERN);
-		newMap.put(RegisterItems.SPADE_POTTERY_SHERD, TrailierTalesClient.SPADE_POTTERY_PATTERN);
-		newMap.put(RegisterItems.SPROUT_POTTERY_SHERD, TrailierTalesClient.SPROUT_POTTERY_PATTERN);
-		newMap.put(RegisterItems.VESSEL_POTTERY_SHERD, TrailierTalesClient.VESSEL_POTTERY_PATTERN);
-		newMap.put(RegisterItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
+		newMap.put(TTItems.BAIT_POTTERY_SHERD, TrailierTalesClient.BAIT_POTTERY_PATTERN);
+		newMap.put(TTItems.BLOOM_POTTERY_SHERD, TrailierTalesClient.BLOOM_POTTERY_PATTERN);
+		newMap.put(TTItems.BOLT_POTTERY_SHERD, TrailierTalesClient.BOLT_POTTERY_PATTERN);
+		newMap.put(TTItems.BULLSEYE_POTTERY_SHERD, TrailierTalesClient.BULLSEYE_POTTERY_PATTERN);
+		newMap.put(TTItems.CLUCK_POTTERY_SHERD, TrailierTalesClient.CLUCK_POTTERY_PATTERN);
+		newMap.put(TTItems.CRAWL_POTTERY_SHERD, TrailierTalesClient.CRAWL_POTTERY_PATTERN);
+		newMap.put(TTItems.CRESCENT_POTTERY_SHERD, TrailierTalesClient.CRESCENT_POTTERY_PATTERN);
+		newMap.put(TTItems.CULTIVATOR_POTTERY_SHERD, TrailierTalesClient.CULTIVATOR_POTTERY_PATTERN);
+		newMap.put(TTItems.DROUGHT_POTTERY_SHERD, TrailierTalesClient.DROUGHT_POTTERY_PATTERN);
+		newMap.put(TTItems.ESSENCE_POTTERY_SHERD, TrailierTalesClient.ESSENCE_POTTERY_PATTERN);
+		newMap.put(TTItems.EYE_POTTERY_SHERD, TrailierTalesClient.EYE_POTTERY_PATTERN);
+		newMap.put(TTItems.FOCUS_POTTERY_SHERD, TrailierTalesClient.FOCUS_POTTERY_PATTERN);
+		newMap.put(TTItems.HEIGHT_POTTERY_SHERD, TrailierTalesClient.HEIGHT_POTTERY_PATTERN);
+		newMap.put(TTItems.HUMP_POTTERY_SHERD, TrailierTalesClient.HUMP_POTTERY_PATTERN);
+		newMap.put(TTItems.ILLUMINATOR_POTTERY_SHERD, TrailierTalesClient.ILLUMINATOR_POTTERY_PATTERN);
+		newMap.put(TTItems.INCIDENCE_POTTERY_SHERD, TrailierTalesClient.INCIDENCE_POTTERY_PATTERN);
+		newMap.put(TTItems.LUMBER_POTTERY_SHERD, TrailierTalesClient.LUMBER_POTTERY_PATTERN);
+		newMap.put(TTItems.NAVIGATOR_POTTERY_SHERD, TrailierTalesClient.NAVIGATOR_POTTERY_PATTERN);
+		newMap.put(TTItems.NEEDLES_POTTERY_SHERD, TrailierTalesClient.NEEDLES_POTTERY_PATTERN);
+		newMap.put(TTItems.PLUME_POTTERY_SHERD, TrailierTalesClient.PLUME_POTTERY_PATTERN);
+		newMap.put(TTItems.PROTECTION_POTTERY_SHERD, TrailierTalesClient.PROTECTION_POTTERY_PATTERN);
+		newMap.put(TTItems.SHED_POTTERY_SHERD, TrailierTalesClient.SHED_POTTERY_PATTERN);
+		newMap.put(TTItems.SHINE_POTTERY_SHERD, TrailierTalesClient.SHINE_POTTERY_PATTERN);
+		newMap.put(TTItems.SHOWER_POTTERY_SHERD, TrailierTalesClient.SHOWER_POTTERY_PATTERN);
+		newMap.put(TTItems.SPADE_POTTERY_SHERD, TrailierTalesClient.SPADE_POTTERY_PATTERN);
+		newMap.put(TTItems.SPROUT_POTTERY_SHERD, TrailierTalesClient.SPROUT_POTTERY_PATTERN);
+		newMap.put(TTItems.VESSEL_POTTERY_SHERD, TrailierTalesClient.VESSEL_POTTERY_PATTERN);
+		newMap.put(TTItems.WITHER_POTTERY_SHERD, TrailierTalesClient.WITHER_POTTERY_PATTERN);
 		return Map.copyOf(newMap);
 	}
 
@@ -98,7 +98,7 @@ public class DecoratedPotPatternsMixin {
 
 	@Unique
 	private static void trailierTales$register(Registry<DecoratedPotPattern> registry, ResourceKey<DecoratedPotPattern> registryKey, String path) {
-		Registry.register(registry, registryKey, new DecoratedPotPattern(TrailierConstants.id(path)));
+		Registry.register(registry, registryKey, new DecoratedPotPattern(TTConstants.id(path)));
 	}
 
 }

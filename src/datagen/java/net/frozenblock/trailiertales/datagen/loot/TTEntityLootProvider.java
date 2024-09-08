@@ -4,8 +4,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -31,13 +31,13 @@ public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
 		HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
-			RegisterEntities.APPARITION.getDefaultLootTable(),
+			TTEntities.APPARITION.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(RegisterItems.ECTOPLASM)
+							LootItem.lootTableItem(TTItems.ECTOPLASM)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)

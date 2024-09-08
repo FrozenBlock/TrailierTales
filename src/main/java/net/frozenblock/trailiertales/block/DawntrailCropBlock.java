@@ -1,8 +1,8 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -67,14 +67,14 @@ public class DawntrailCropBlock extends CropBlock {
 	@Override
 	@NotNull
 	protected ItemLike getBaseSeedId() {
-		return RegisterItems.DAWNTRAIL_SEEDS;
+		return TTItems.DAWNTRAIL_SEEDS;
 	}
 
 	@Override
 	@NotNull
 	public BlockState getStateForAge(int age) {
 		return age == MAX_AGE ?
-			RegisterBlocks.DAWNTRAIL.defaultBlockState().setValue(DawntrailBlock.getFaceProperty(Direction.DOWN), true).setValue(DawntrailBlock.AGE, DawntrailBlock.MAX_AGE)
+			TTBlocks.DAWNTRAIL.defaultBlockState().setValue(DawntrailBlock.getFaceProperty(Direction.DOWN), true).setValue(DawntrailBlock.AGE, DawntrailBlock.MAX_AGE)
 			:
 			super.getStateForAge(age);
 	}

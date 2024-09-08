@@ -2,9 +2,9 @@ package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
-import net.frozenblock.trailiertales.registry.RegisterEnchantments;
-import net.frozenblock.trailiertales.registry.RegisterProperties;
+import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -139,7 +139,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	public void trailierTales$rebrushA(long ticks, Player player, Direction direction, CallbackInfoReturnable<Boolean> info) {
 		if (!this.trailierTales$hasCustomItem) {
 			ItemStack stack = player.getUseItem();
-			int rebrushLevel = stack.getEnchantments().getLevel(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(RegisterEnchantments.REBRUSH));
+			int rebrushLevel = stack.getEnchantments().getLevel(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
 			if (rebrushLevel > 0) {
 				float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;
 				if (player.getRandom().nextFloat() < rebrushChance) {
@@ -212,11 +212,11 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		if (level != null && !level.isClientSide) {
 			BlockPos blockPos = brushableBlockEntity.getBlockPos();
 			BlockState blockState = level.getBlockState(blockPos);
-			if (blockState.hasProperty(RegisterProperties.CAN_PLACE_ITEM)) {
-				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(RegisterProperties.CAN_PLACE_ITEM);
+			if (blockState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) {
+				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(TTBlockStateProperties.CAN_PLACE_ITEM);
 				boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
 				if (canPlaceItemProperty != canPlaceItem) {
-					level.setBlock(blockPos, blockState.setValue(RegisterProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_CLIENTS);
+					level.setBlock(blockPos, blockState.setValue(TTBlockStateProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_CLIENTS);
 				}
 			}
 			if (this.trailierTales$storedLootTable == null && this.lootTable != null) {

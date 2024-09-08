@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.mixin.common.surveyor;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +28,7 @@ public class RedStoneWireBlockMixin {
 		)
 	)
 	private static boolean trailierTales$shouldConnectTo(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || instance.is(RegisterBlocks.SURVEYOR);
+		return original.call(instance, block) || instance.is(TTBlocks.SURVEYOR);
 	}
 
 }

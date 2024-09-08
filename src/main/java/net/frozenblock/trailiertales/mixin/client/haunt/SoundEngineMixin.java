@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.mixin.client.haunt;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +23,7 @@ public class SoundEngineMixin {
 	)
 	public int modifyAttenuationDistance(int original) {
 		Player player = Minecraft.getInstance().player;
-		if (player != null && player.hasEffect(RegisterMobEffects.HAUNT)) {
+		if (player != null && player.hasEffect(TTMobEffects.HAUNT)) {
 			return (int) (original * 0.5F);
 		}
 		return original;

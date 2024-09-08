@@ -7,7 +7,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.advancements.critereon.EntityHurtPlayerTrigger;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.core.particles.ParticleTypes;
@@ -95,7 +95,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 					CoffinSpawnerData spawnerData = coffinSpawner.getData();
 					if (spawnerData.trackingEntity(livingEntity)) {
 						Vec3 pos = livingEntity.getEyePosition();
-						serverLevel.sendParticles(RegisterParticles.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
+						serverLevel.sendParticles(TTParticleTypes.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
 						serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
 						double distance = livingEntity.distanceToSqr(pos);
 						coffinSpawner.addSoulParticle(40 + (int)(distance * 1.25D));

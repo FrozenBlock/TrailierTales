@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.Optional;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -165,7 +165,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	@Contract("_, _ -> new")
 	private static @NotNull ResourceLocation getTexture(String stateName, boolean foot) {
-		return TrailierConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName + ".png");
+		return TTConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName + ".png");
 	}
 
 	@Override

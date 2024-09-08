@@ -16,9 +16,9 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -235,7 +235,7 @@ public class CoffinSpawnerData {
 			}
 
 			List<UUID> detectedList = new ArrayList<>(list);
-			detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(RegisterMobEffects.HAUNT) || player.hasEffect(RegisterMobEffects.SIEGE_OMEN)));
+			detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
 			for (UUID uuid : this.currentApparitions) {
 				if (world.getEntity(uuid) instanceof Apparition apparition) {
 					LivingEntity target = apparition.getTarget();
@@ -247,8 +247,8 @@ public class CoffinSpawnerData {
 
 			if (this.detectedPlayers.addAll(detectedList)) {
 				RandomSource randomSource = world.random;
-				CoffinBlock.spawnParticlesFrom(world, RegisterParticles.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
-				world.playSound(null, pos, RegisterSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
+				CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
+				world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
 			}
 
 			this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
@@ -261,7 +261,7 @@ public class CoffinSpawnerData {
 		for (UUID uUID : list) {
 			Player player2 = world.getPlayerByUUID(uUID);
 			if (player2 != null) {
-				Holder<MobEffect> holder = RegisterMobEffects.SIEGE_OMEN;
+				Holder<MobEffect> holder = TTMobEffects.SIEGE_OMEN;
 				if (player2.hasEffect(holder)) {
 					return Optional.of(Pair.of(player2, holder));
 				}
@@ -281,7 +281,7 @@ public class CoffinSpawnerData {
 			int i = mobEffectInstance.getAmplifier() + 1;
 			int j = 18000 * i;
 			player.removeEffect(MobEffects.BAD_OMEN);
-			player.addEffect(new MobEffectInstance(RegisterMobEffects.SIEGE_OMEN, j, 0));
+			player.addEffect(new MobEffectInstance(TTMobEffects.SIEGE_OMEN, j, 0));
 		}
 	}
 

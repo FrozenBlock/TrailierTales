@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.frozenblock.trailiertales.registry.RegisterEnchantments;
+import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EnchantmentTags;
@@ -25,6 +25,6 @@ public final class TTEnchantmentTagProvider extends FabricTagProvider.Enchantmen
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(EnchantmentTags.TREASURE)
-			.add(RegisterEnchantments.REBRUSH);
+			.add(TTEnchantments.REBRUSH);
 	}
 }

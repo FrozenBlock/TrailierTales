@@ -6,31 +6,31 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
-import net.frozenblock.trailiertales.config.MiscConfig;
-import net.frozenblock.trailiertales.datafix.trailiertales.TrailierDataFixer;
-import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
+import net.frozenblock.trailiertales.config.TTMiscConfig;
+import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
+import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.networking.TrailierNetworking;
-import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterEnchantments;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterJukeboxSongs;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterMapDecorationTypes;
-import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
-import net.frozenblock.trailiertales.registry.RegisterPotions;
-import net.frozenblock.trailiertales.registry.RegisterRecipies;
-import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
-import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
-import net.frozenblock.trailiertales.registry.RegisterStructureTypes;
-import net.frozenblock.trailiertales.registry.RegisterTrimPatterns;
-import net.frozenblock.trailiertales.registry.RegisterVillagerTrades;
-import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
-import net.frozenblock.trailiertales.worldgen.TrailierBiomeModifications;
+import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTEnchantments;
+import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTJukeboxSongs;
+import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTMapDecorationTypes;
+import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.frozenblock.trailiertales.registry.TTPotions;
+import net.frozenblock.trailiertales.registry.TTRecipeTypes;
+import net.frozenblock.trailiertales.registry.TTSensorTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.frozenblock.trailiertales.registry.TTStructurePieceTypes;
+import net.frozenblock.trailiertales.registry.TTStructureTypes;
+import net.frozenblock.trailiertales.registry.TTTrimPatterns;
+import net.frozenblock.trailiertales.registry.TTVillagerTrades;
+import net.frozenblock.trailiertales.registry.TTRuleBlockEntityModifiers;
+import net.frozenblock.trailiertales.worldgen.TTBiomeModifications;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsPieces;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -41,55 +41,55 @@ import org.jetbrains.annotations.NotNull;
 public class TrailierTales extends FrozenModInitializer {
 
 	public TrailierTales() {
-		super(TrailierConstants.MOD_ID);
+		super(TTConstants.MOD_ID);
 	}
 
 	@Override
 	public void onInitialize(String modId, ModContainer container) {
-		TrailierConstants.startMeasuring(this);
+		TTConstants.startMeasuring(this);
 
-		if (TrailierDatagenConstants.IS_DATAGEN) {
-			TrailierFeatureFlags.init();
+		if (TTPreLoadConstants.IS_DATAGEN) {
+			TTFeatureFlags.init();
 			FrozenFeatureFlags.rebuild();
 		}
 
-		TrailierDataFixer.applyDataFixes(container);
-		RegisterStructureTypes.init();
-		RegisterStructurePieceTypes.init();
-		RegisterMapDecorationTypes.init();
-		RegisterBlocks.init();
-		RegisterBlockEntities.register();
-		RegisterItems.init();
-		RegisterTrimPatterns.init();
-		RegisterEntities.init();
-		RegisterMemoryModuleTypes.register();
-		RegisterSensorTypes.register();
-		RegisterRecipies.init();
-		TrailierBiomeModifications.init();
-		RegisterLootTables.init();
-		RegisterSounds.init();
-		RegisterParticles.init();
-		RegisterEnchantments.init();
-		RegisterMobEffects.init();
-		RegisterPotions.init();
-		RegisterJukeboxSongs.init();
-		RegsiterRuleBlockEntityModifiers.init();
-		RegisterVillagerTrades.init();
+		TTDataFixer.applyDataFixes(container);
+		TTStructureTypes.init();
+		TTStructurePieceTypes.init();
+		TTMapDecorationTypes.init();
+		TTBlocks.init();
+		TTBlockEntities.register();
+		TTItems.init();
+		TTTrimPatterns.init();
+		TTEntities.init();
+		TTMemoryModuleTypes.register();
+		TTSensorTypes.register();
+		TTRecipeTypes.init();
+		TTBiomeModifications.init();
+		TTLootTables.init();
+		TTSounds.init();
+		TTParticleTypes.init();
+		TTEnchantments.init();
+		TTMobEffects.init();
+		TTPotions.init();
+		TTJukeboxSongs.init();
+		TTRuleBlockEntityModifiers.init();
+		TTVillagerTrades.init();
 		TrailierNetworking.init();
 
-		TrailierModIntegrations.init();
+		TTModIntegrations.init();
 
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			TrailierConstants.id("trailier_main_menu"),
+			TTConstants.id("trailier_main_menu"),
 			container, Component.literal("Trailier Main Menu"),
-			MiscConfig.get().titleResourcePackEnabled ?
+			TTMiscConfig.get().titleResourcePackEnabled ?
 				ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
 		);
 
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
-				return TrailierConstants.id("ruins_structure_piece_loader");
+				return TTConstants.id("ruins_structure_piece_loader");
 			}
 
 			@Override
@@ -98,6 +98,6 @@ public class TrailierTales extends FrozenModInitializer {
 			}
 		});
 
-		TrailierConstants.stopMeasuring(this);
+		TTConstants.stopMeasuring(this);
 	}
 }

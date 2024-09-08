@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.particle.options;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ScalableParticleOptionsBase;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -49,6 +49,6 @@ public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBa
 
 	@Override
 	public @NotNull ParticleType<GlowingDustColorTransitionOptions> getType() {
-		return RegisterParticles.GLOWING_DUST_COLOR_TRANSITION;
+		return TTParticleTypes.GLOWING_DUST_COLOR_TRANSITION;
 	}
 }

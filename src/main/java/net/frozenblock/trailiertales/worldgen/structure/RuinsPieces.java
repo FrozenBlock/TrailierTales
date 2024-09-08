@@ -10,8 +10,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import net.frozenblock.trailiertales.TrailierConstants;
-import net.frozenblock.trailiertales.registry.RegisterStructurePieceTypes;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.registry.TTStructurePieceTypes;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -77,32 +77,32 @@ public class RuinsPieces {
 	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
 		clearPieceLists();
 
-		GENERIC_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("surface")));
-		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
-		GENERIC_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("buried")));
-		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createGenericRuinPath("five_from_top")));
+		GENERIC_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("surface")));
+		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
+		GENERIC_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("buried")));
+		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("five_from_top")));
 
-		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("surface")));
-		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
-		SAVANNA_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createSavannaRuinPath("buried")));
+		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("surface")));
+		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
+		SAVANNA_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("buried")));
 
-		JUNGLE_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("surface")));
-		JUNGLE_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("mostly_buried")));
-		JUNGLE_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("buried")));
-		JUNGLE_SEVEN_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createJungleRuinPath("seven_from_top")));
+		JUNGLE_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("surface")));
+		JUNGLE_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("mostly_buried")));
+		JUNGLE_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("buried")));
+		JUNGLE_SEVEN_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("seven_from_top")));
 
-		DESERT_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("surface")));
-		DESERT_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("mostly_buried")));
-		DESERT_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("buried")));
-		DESERT_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("four_from_top")));
-		DESERT_SIX_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createDesertRuinPath("six_from_top")));
+		DESERT_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("surface")));
+		DESERT_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("mostly_buried")));
+		DESERT_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("buried")));
+		DESERT_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("four_from_top")));
+		DESERT_SIX_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("six_from_top")));
 
-		BADLANDS_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("surface")));
-		BADLANDS_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("mostly_buried")));
-		BADLANDS_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("buried")));
-		BADLANDS_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, createBadlandsRuinPath("five_from_top")));
+		BADLANDS_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("surface")));
+		BADLANDS_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("mostly_buried")));
+		BADLANDS_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("buried")));
+		BADLANDS_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("five_from_top")));
 
-		DEEPSLATE_PIECES.addAll(getLoadedPieces(resourceManager, TrailierConstants.MOD_ID, "ruins/deepslate"));
+		DEEPSLATE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, "ruins/deepslate"));
 
 		fillInPieceOffsets();
 	}
@@ -412,7 +412,7 @@ public class RuinsPieces {
 			RuinsStructure.Type biomeType, Optional<Heightmap.Types> heightmap,
 			Optional<Integer> providedHeight
 		) {
-			super(RegisterStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
+			super(TTStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
 			this.biomeType = biomeType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
@@ -427,7 +427,7 @@ public class RuinsPieces {
 			Optional<Integer> providedHeight,
 			boolean adjustedHeight
 		) {
-			super(RegisterStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
+			super(TTStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
 			this.biomeType = biomeType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
@@ -441,7 +441,7 @@ public class RuinsPieces {
 			Optional<Heightmap.Types> heightmap,
 			Optional<Integer> providedHeight
 		) {
-			super(RegisterStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
+			super(TTStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
 			this.biomeType = biomeType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
@@ -455,7 +455,7 @@ public class RuinsPieces {
 			Optional<Integer> providedHeight,
 			boolean adjustedHeight
 		) {
-			super(RegisterStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
+			super(TTStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
 			this.biomeType = biomeType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;

@@ -8,10 +8,10 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterf
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.mod_compat.FrozenLibIntegration;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
-import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
-import net.frozenblock.trailiertales.tag.TrailierEntityTags;
+import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -143,7 +143,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
-		this.getBrain().setMemoryWithExpiry(RegisterMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 100L);
+		this.getBrain().setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 100L);
 		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
 
@@ -256,7 +256,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean canBeAffected(@NotNull MobEffectInstance effect) {
-		if (effect.is(RegisterMobEffects.TRANSFIGURING)) {
+		if (effect.is(TTMobEffects.TRANSFIGURING)) {
 			return false;
 		}
 		return super.canBeAffected(effect);
@@ -363,17 +363,17 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return RegisterSounds.APPARITION_IDLE;
+		return TTSounds.APPARITION_IDLE;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return RegisterSounds.APPARITION_HURT;
+		return TTSounds.APPARITION_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return RegisterSounds.APPARITION_DEATH;
+		return TTSounds.APPARITION_DEATH;
 	}
 
 	@Override
@@ -601,7 +601,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public boolean isAiding() {
-		return this.getBrain().hasMemoryValue(RegisterMemoryModuleTypes.AIDING_TIME);
+		return this.getBrain().hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -635,7 +635,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
-			&& entity.getType().is(TrailierEntityTags.APPARITION_TARGETABLE)
+			&& entity.getType().is(TTEntityTags.APPARITION_TARGETABLE)
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
@@ -687,7 +687,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			double zDifference = target.getZ() - this.getZ();
 			double yAdjustment = Math.sqrt(xDifference * xDifference + zDifference * zDifference) * 0.2F;
 			projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
-			this.playSound(RegisterSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+			this.playSound(TTSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			this.level().addFreshEntity(projectile);
 		}
 	}

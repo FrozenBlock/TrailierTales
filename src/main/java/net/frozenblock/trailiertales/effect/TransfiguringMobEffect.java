@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class TransfiguringMobEffect extends MobEffect {
 
 	public TransfiguringMobEffect(MobEffectCategory type, int color) {
-		super(type, color, RegisterParticles.TRANSFIGURING);
+		super(type, color, TTParticleTypes.TRANSFIGURING);
 	}
 
 	@VisibleForTesting
@@ -43,7 +43,7 @@ public class TransfiguringMobEffect extends MobEffect {
 	}
 
 	private void spawnApparitionOffspring(Level world, double x, double y, double z) {
-		Apparition apparition = RegisterEntities.APPARITION.create(world);
+		Apparition apparition = TTEntities.APPARITION.create(world);
 		if (apparition != null) {
 			apparition.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0F);
 			ApparitionAi.rememberHome(apparition, world, BlockPos.containing(x, y, z));
@@ -59,7 +59,7 @@ public class TransfiguringMobEffect extends MobEffect {
 		static @NotNull NearbyApparitions closeTo(LivingEntity entity) {
 			return i -> {
 				List<Apparition> list = new ArrayList<>();
-				entity.level().getEntities(RegisterEntities.APPARITION, entity.getBoundingBox().inflate(3D), apparition -> apparition != entity, list, i);
+				entity.level().getEntities(TTEntities.APPARITION, entity.getBoundingBox().inflate(3D), apparition -> apparition != entity, list, i);
 				return list.size();
 			};
 		}

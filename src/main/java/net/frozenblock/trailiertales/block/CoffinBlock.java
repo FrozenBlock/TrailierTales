@@ -5,15 +5,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.networking.FrozenNetworking;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
-import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
+import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
-import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -61,10 +61,10 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public static final MapCodec<CoffinBlock> CODEC = RecordCodecBuilder.mapCodec(
 		color -> color.group(propertiesCodec()).apply(color, CoffinBlock::new)
 	);
-	public static final EnumProperty<CoffinPart> PART = TrailierBlockStateProperties.COFFIN_PART;
-	public static final EnumProperty<CoffinSpawnerState> STATE = TrailierBlockStateProperties.COFFIN_STATE;
+	public static final EnumProperty<CoffinPart> PART = TTBlockStateProperties.COFFIN_PART;
+	public static final EnumProperty<CoffinSpawnerState> STATE = TTBlockStateProperties.COFFIN_STATE;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
-	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TrailierConstants.id("coffin_follow_range");
+	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TTConstants.id("coffin_follow_range");
 
 	@Override
 	public @NotNull MapCodec<CoffinBlock> codec() {
@@ -195,12 +195,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		return level instanceof ServerLevel serverLevel
 			? createTickerHelper(
 			blockEntityType,
-			RegisterBlockEntities.COFFIN,
+			TTBlockEntities.COFFIN,
 			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
 				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: createTickerHelper(
 			blockEntityType,
-			RegisterBlockEntities.COFFIN,
+			TTBlockEntities.COFFIN,
 			(world, pos, statex, coffin) -> coffin
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}

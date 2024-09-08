@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
@@ -53,7 +53,7 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 	@Contract("_ -> new")
 	@Unique
 	private static @NotNull ResourceLocation trailierTales$getBannerBaseTextureLocation(Boat.@NotNull Type type) {
-		return TrailierConstants.id("textures/entity/boat_banner_base/" + type.getName() + ".png");
+		return TTConstants.id("textures/entity/boat_banner_base/" + type.getName() + ".png");
 	}
 
 	@ModifyExpressionValue(

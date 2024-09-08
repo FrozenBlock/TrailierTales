@@ -6,10 +6,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.frozenblock.trailiertales.config.BlockConfig;
+import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
-import net.frozenblock.trailiertales.registry.RegisterProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -49,7 +49,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
-		this.registerDefaultState(this.defaultBlockState().setValue(RegisterProperties.CAN_PLACE_ITEM, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(TTBlockStateProperties.CAN_PLACE_ITEM, false));
 	}
 
 	@Override
@@ -62,9 +62,9 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		@NotNull InteractionHand interactionHand,
 		@NotNull BlockHitResult blockHitResult
 	) {
-		if (BlockConfig.get().suspiciousBlocks.place_items) {
+		if (TTBlockConfig.get().suspiciousBlocks.place_items) {
 			ItemStack playerStack = player.getItemInHand(interactionHand);
-			boolean canPlaceIntoBlock = blockState.getValue(RegisterProperties.CAN_PLACE_ITEM) &&
+			boolean canPlaceIntoBlock = blockState.getValue(TTBlockStateProperties.CAN_PLACE_ITEM) &&
 				playerStack != ItemStack.EMPTY &&
 				playerStack.getItem() != Items.AIR &&
 				!playerStack.is(Items.BRUSH);
@@ -126,7 +126,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		if (
 			brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&
 				(brushableBlockEntityInterface.trailierTales$hasCustomItem() ||
-					(state.hasProperty(RegisterProperties.CAN_PLACE_ITEM) && state.getValue(RegisterProperties.CAN_PLACE_ITEM)))
+					(state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM)))
 		) {
 			hasCustomItem.set(true);
 		}
@@ -173,7 +173,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(RegisterProperties.CAN_PLACE_ITEM);
+		builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
 	}
 
 }

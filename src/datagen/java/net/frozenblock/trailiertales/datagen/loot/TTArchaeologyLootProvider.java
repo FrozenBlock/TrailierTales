@@ -4,8 +4,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
@@ -30,15 +30,15 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		HolderLookup.Provider registries = registryLookup.join();
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR,
+			TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(8))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(3))
 						.add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(5))
@@ -59,16 +59,16 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE,
+			TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.BULLSEYE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.BULLSEYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(4))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(2))
@@ -88,15 +88,15 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.CATACOMBS_ARCHAEOLOGY_TOMB,
+			TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.CRESCENT_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.ESSENCE_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(RegisterItems.EYE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(4))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
@@ -118,7 +118,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.DESERT_RUINS_ARCHAEOLOGY,
+			TTLootTables.DESERT_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -135,16 +135,16 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.CLAY).setWeight(7))
 						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
-						.add(LootItem.lootTableItem(RegisterItems.HUMP_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(RegisterItems.NEEDLES_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.HUMP_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.NEEDLES_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(RegisterItems.SHINE_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.SHINE_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE))
 				)
 		);
 
 		registry.accept(
-			RegisterLootTables.FOSSIL_ARCHAEOLOGY,
+			TTLootTables.FOSSIL_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -157,7 +157,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 		);
 
 		registry.accept(
-			RegisterLootTables.JUNGLE_RUINS_ARCHAEOLOGY,
+			TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -182,16 +182,16 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
 						.add(LootItem.lootTableItem(Items.JUNGLE_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(RegisterItems.BOLT_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.NAVIGATOR_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.BLOOM_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.SHOWER_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.BOLT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.NAVIGATOR_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.BLOOM_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.SHOWER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE))
 				)
 		);
 
 		registry.accept(
-			RegisterLootTables.SAVANNA_RUINS_ARCHAEOLOGY,
+			TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -217,15 +217,15 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.LEAD).setWeight(10))
 						.add(LootItem.lootTableItem(Items.ACACIA_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
-						.add(LootItem.lootTableItem(RegisterItems.CRAWL_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.CLUCK_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.PLUME_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.CRAWL_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.CLUCK_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.PLUME_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.SHELTER_POTTERY_SHERD).setWeight(7))
 				)
 		);
 
 		registry.accept(
-			RegisterLootTables.RUINS_ARCHAEOLOGY,
+			TTLootTables.RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -256,14 +256,14 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.BIRCH_HANGING_SIGN).setWeight(10))
 						.add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.LUMBER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.CULTIVATOR_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.SPROUT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.LUMBER_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.CULTIVATOR_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.SPROUT_POTTERY_SHERD).setWeight(7))
 				)
 		);
 
 		registry.accept(
-			RegisterLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY,
+			TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -286,13 +286,13 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(3))
 						.add(LootItem.lootTableItem(Items.MOURNER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.ILLUMINATOR_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(RegisterItems.HEIGHT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.ILLUMINATOR_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.HEIGHT_POTTERY_SHERD).setWeight(7))
 				)
 		);
 
 		registry.accept(
-			RegisterLootTables.BADLANDS_RUINS_ARCHAEOLOGY,
+			TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -317,10 +317,10 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(5))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(7))
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(5))
-						.add(LootItem.lootTableItem(RegisterItems.SHED_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.SHED_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.BURN_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(RegisterItems.WITHER_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(RegisterItems.DROUGHT_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.WITHER_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.DROUGHT_POTTERY_SHERD).setWeight(6))
 				)
 		);
 	}

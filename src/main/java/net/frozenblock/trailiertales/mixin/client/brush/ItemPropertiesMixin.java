@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.mixin.client.brush;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.config.ItemConfig;
+import net.frozenblock.trailiertales.config.TTItemConfig;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ public class ItemPropertiesMixin {
 		)
 	)
 	private static ItemStack trailierTales$useSmoothBrushingAnim(ItemStack original) {
-		if (ItemConfig.SMOOTH_BRUSH_ANIMATION) {
+		if (TTItemConfig.SMOOTH_BRUSH_ANIMATION) {
 			return ItemStack.EMPTY;
 		}
 		return original;

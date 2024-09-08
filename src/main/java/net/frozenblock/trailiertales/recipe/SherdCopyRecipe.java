@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.recipe;
 
-import net.frozenblock.trailiertales.config.ItemConfig;
-import net.frozenblock.trailiertales.registry.RegisterRecipies;
+import net.frozenblock.trailiertales.config.TTItemConfig;
+import net.frozenblock.trailiertales.registry.TTRecipeTypes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +21,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(@NotNull CraftingInput input, Level world) {
-		if (!ItemConfig.SHERD_DUPLICATION_RECIPE || !this.canCraftInDimensions(input.width(), input.height())) {
+		if (!TTItemConfig.SHERD_DUPLICATION_RECIPE || !this.canCraftInDimensions(input.width(), input.height())) {
 			return false;
 		}
 		if (input.ingredientCount() != 2) {
@@ -33,7 +33,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override @NotNull
 	public ItemStack assemble(@NotNull CraftingInput input, HolderLookup.Provider provider) {
-		if (ItemConfig.SHERD_DUPLICATION_RECIPE) {
+		if (TTItemConfig.SHERD_DUPLICATION_RECIPE) {
 			int bricks = 0;
 			int sherds = 0;
 			ItemStack outputStack = ItemStack.EMPTY;
@@ -65,7 +65,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 
 	@Override @NotNull
 	public RecipeSerializer<?> getSerializer() {
-		return RegisterRecipies.SHERD_COPY_RECIPE;
+		return TTRecipeTypes.SHERD_COPY_RECIPE;
 	}
 }
 

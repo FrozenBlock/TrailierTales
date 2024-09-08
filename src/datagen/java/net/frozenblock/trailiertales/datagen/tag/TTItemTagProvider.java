@@ -3,9 +3,9 @@ package net.frozenblock.trailiertales.datagen.tag;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.tag.TrailierItemTags;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.tag.TTItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -29,139 +29,139 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(ConventionalItemTags.MUSIC_DISCS)
-			.add(RegisterItems.MUSIC_DISC_FAUSSE_VIE);
+			.add(TTItems.MUSIC_DISC_FAUSSE_VIE);
 
 		this.getOrCreateTagBuilder(ItemTags.SAND)
-			.add(RegisterBlocks.SUSPICIOUS_RED_SAND.asItem());
+			.add(TTBlocks.SUSPICIOUS_RED_SAND.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS)
-			.add(RegisterItems.BAIT_POTTERY_SHERD)
-			.add(RegisterItems.BLOOM_POTTERY_SHERD)
-			.add(RegisterItems.BOLT_POTTERY_SHERD)
-			.add(RegisterItems.BULLSEYE_POTTERY_SHERD)
-			.add(RegisterItems.CLUCK_POTTERY_SHERD)
-			.add(RegisterItems.CRAWL_POTTERY_SHERD)
-			.add(RegisterItems.CRESCENT_POTTERY_SHERD)
-			.add(RegisterItems.CULTIVATOR_POTTERY_SHERD)
-			.add(RegisterItems.ESSENCE_POTTERY_SHERD)
-			.add(RegisterItems.EYE_POTTERY_SHERD)
-			.add(RegisterItems.FOCUS_POTTERY_SHERD)
-			.add(RegisterItems.HEIGHT_POTTERY_SHERD)
-			.add(RegisterItems.HUMP_POTTERY_SHERD)
-			.add(RegisterItems.ILLUMINATOR_POTTERY_SHERD)
-			.add(RegisterItems.INCIDENCE_POTTERY_SHERD)
-			.add(RegisterItems.LUMBER_POTTERY_SHERD)
-			.add(RegisterItems.NAVIGATOR_POTTERY_SHERD)
-			.add(RegisterItems.NEEDLES_POTTERY_SHERD)
-			.add(RegisterItems.PLUME_POTTERY_SHERD)
-			.add(RegisterItems.PROTECTION_POTTERY_SHERD)
-			.add(RegisterItems.SHED_POTTERY_SHERD)
-			.add(RegisterItems.SHINE_POTTERY_SHERD)
-			.add(RegisterItems.SHOWER_POTTERY_SHERD)
-			.add(RegisterItems.SPADE_POTTERY_SHERD)
-			.add(RegisterItems.SPROUT_POTTERY_SHERD)
-			.add(RegisterItems.VESSEL_POTTERY_SHERD)
-			.add(RegisterItems.WITHER_POTTERY_SHERD);
+			.add(TTItems.BAIT_POTTERY_SHERD)
+			.add(TTItems.BLOOM_POTTERY_SHERD)
+			.add(TTItems.BOLT_POTTERY_SHERD)
+			.add(TTItems.BULLSEYE_POTTERY_SHERD)
+			.add(TTItems.CLUCK_POTTERY_SHERD)
+			.add(TTItems.CRAWL_POTTERY_SHERD)
+			.add(TTItems.CRESCENT_POTTERY_SHERD)
+			.add(TTItems.CULTIVATOR_POTTERY_SHERD)
+			.add(TTItems.ESSENCE_POTTERY_SHERD)
+			.add(TTItems.EYE_POTTERY_SHERD)
+			.add(TTItems.FOCUS_POTTERY_SHERD)
+			.add(TTItems.HEIGHT_POTTERY_SHERD)
+			.add(TTItems.HUMP_POTTERY_SHERD)
+			.add(TTItems.ILLUMINATOR_POTTERY_SHERD)
+			.add(TTItems.INCIDENCE_POTTERY_SHERD)
+			.add(TTItems.LUMBER_POTTERY_SHERD)
+			.add(TTItems.NAVIGATOR_POTTERY_SHERD)
+			.add(TTItems.NEEDLES_POTTERY_SHERD)
+			.add(TTItems.PLUME_POTTERY_SHERD)
+			.add(TTItems.PROTECTION_POTTERY_SHERD)
+			.add(TTItems.SHED_POTTERY_SHERD)
+			.add(TTItems.SHINE_POTTERY_SHERD)
+			.add(TTItems.SHOWER_POTTERY_SHERD)
+			.add(TTItems.SPADE_POTTERY_SHERD)
+			.add(TTItems.SPROUT_POTTERY_SHERD)
+			.add(TTItems.VESSEL_POTTERY_SHERD)
+			.add(TTItems.WITHER_POTTERY_SHERD);
 
 		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
-			.add(RegisterItems.CYAN_ROSE_SEEDS)
-			.add(RegisterItems.MANEDROP_GERM)
-			.add(RegisterItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.MANEDROP_GERM)
+			.add(TTItems.DAWNTRAIL_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD)
-			.add(RegisterItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.PARROT_FOOD)
-			.add(RegisterItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
-			.add(RegisterItems.CYAN_ROSE_SEEDS)
-			.add(RegisterItems.MANEDROP_GERM)
-			.add(RegisterItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.MANEDROP_GERM)
+			.add(TTItems.DAWNTRAIL_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
-			.add(RegisterBlocks.CYAN_ROSE.asItem());
+			.add(TTBlocks.CYAN_ROSE.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)
-			.add(RegisterBlocks.MANEDROP.asItem());
+			.add(TTBlocks.MANEDROP.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
-			.add(RegisterBlocks.DAWNTRAIL.asItem());
+			.add(TTBlocks.DAWNTRAIL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
-			.add(RegisterBlocks.GRANITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_GRANITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.DIORITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_DIORITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.ANDESITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_ANDESITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.CALCITE_STAIRS.asItem())
-			.add(RegisterBlocks.POLISHED_CALCITE_STAIRS.asItem())
-			.add(RegisterBlocks.CALCITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_CALCITE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_TUFF_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem())
-			.add(RegisterBlocks.CUT_SANDSTONE_STAIRS.asItem())
-			.add(RegisterBlocks.CUT_RED_SANDSTONE_STAIRS.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_STAIRS.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem())
-			.add(RegisterBlocks.END_STONE_STAIRS.asItem());
+			.add(TTBlocks.GRANITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_GRANITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.DIORITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_DIORITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.ANDESITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.CALCITE_STAIRS.asItem())
+			.add(TTBlocks.POLISHED_CALCITE_STAIRS.asItem())
+			.add(TTBlocks.CALCITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_CALCITE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_TUFF_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem())
+			.add(TTBlocks.CUT_SANDSTONE_STAIRS.asItem())
+			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS.asItem())
+			.add(TTBlocks.CHORAL_END_STONE_STAIRS.asItem())
+			.add(TTBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem())
+			.add(TTBlocks.END_STONE_STAIRS.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SLABS)
-			.add(RegisterBlocks.GRANITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_GRANITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.DIORITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_DIORITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.ANDESITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_ANDESITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.CALCITE_SLAB.asItem())
-			.add(RegisterBlocks.POLISHED_CALCITE_SLAB.asItem())
-			.add(RegisterBlocks.CALCITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_CALCITE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_TUFF_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_SLAB.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_SLAB.asItem())
-			.add(RegisterBlocks.END_STONE_SLAB.asItem());
+			.add(TTBlocks.GRANITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_GRANITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.DIORITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_DIORITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.ANDESITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_ANDESITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.CALCITE_SLAB.asItem())
+			.add(TTBlocks.POLISHED_CALCITE_SLAB.asItem())
+			.add(TTBlocks.CALCITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_CALCITE_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_TUFF_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.asItem())
+			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
+			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem())
+			.add(TTBlocks.CHORAL_END_STONE_SLAB.asItem())
+			.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB.asItem())
+			.add(TTBlocks.END_STONE_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
-			.add(RegisterBlocks.GRANITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_GRANITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.DIORITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_DIORITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.ANDESITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.CALCITE_WALL.asItem())
-			.add(RegisterBlocks.POLISHED_CALCITE_WALL.asItem())
-			.add(RegisterBlocks.CALCITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_CALCITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_ANDESITE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_TUFF_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_BRICK_WALL.asItem())
-			.add(RegisterBlocks.SMOOTH_SANDSTONE_WALL.asItem())
-			.add(RegisterBlocks.CUT_SANDSTONE_WALL.asItem())
-			.add(RegisterBlocks.SMOOTH_RED_SANDSTONE_WALL.asItem())
-			.add(RegisterBlocks.CUT_RED_SANDSTONE_WALL.asItem())
-			.add(RegisterBlocks.CHORAL_END_STONE_WALL.asItem())
-			.add(RegisterBlocks.END_STONE_WALL.asItem())
-			.add(RegisterBlocks.PURPUR_WALL.asItem());
+			.add(TTBlocks.GRANITE_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL.asItem())
+			.add(TTBlocks.DIORITE_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_DIORITE_BRICK_WALL.asItem())
+			.add(TTBlocks.ANDESITE_BRICK_WALL.asItem())
+			.add(TTBlocks.CALCITE_WALL.asItem())
+			.add(TTBlocks.POLISHED_CALCITE_WALL.asItem())
+			.add(TTBlocks.CALCITE_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_CALCITE_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_ANDESITE_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_TUFF_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
+			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
+			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem())
+			.add(TTBlocks.CHORAL_END_STONE_BRICK_WALL.asItem())
+			.add(TTBlocks.SMOOTH_SANDSTONE_WALL.asItem())
+			.add(TTBlocks.CUT_SANDSTONE_WALL.asItem())
+			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL.asItem())
+			.add(TTBlocks.CUT_RED_SANDSTONE_WALL.asItem())
+			.add(TTBlocks.CHORAL_END_STONE_WALL.asItem())
+			.add(TTBlocks.END_STONE_WALL.asItem())
+			.add(TTBlocks.PURPUR_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-			.add(RegisterItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(RegisterItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(RegisterItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(RegisterItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE);
+			.add(TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
-		this.getOrCreateTagBuilder(TrailierItemTags.BRUSH_ENCHANTABLE)
+		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);
 
 		this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)

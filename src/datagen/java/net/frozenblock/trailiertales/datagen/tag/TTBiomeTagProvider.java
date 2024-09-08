@@ -4,8 +4,8 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
-import net.frozenblock.trailiertales.mod_compat.TrailierModIntegrations;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
+import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
@@ -22,12 +22,12 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_BADLANDS_RUINS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_BADLANDS_RUINS)
 			.add(Biomes.BADLANDS)
 			.add(Biomes.WOODED_BADLANDS)
 			.add(Biomes.ERODED_BADLANDS);
 
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_CATACOMBS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_CATACOMBS)
 			.addOptionalTag(BiomeTags.IS_OCEAN)
 			.addOptionalTag(BiomeTags.IS_MOUNTAIN)
 			.addOptionalTag(BiomeTags.IS_HILL)
@@ -41,23 +41,23 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
 			.add(Biomes.DRIPSTONE_CAVES)
 			.add(Biomes.LUSH_CAVES)
-			.addOptional(TrailierModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("magmatic_caves"))
-			.addOptional(TrailierModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("frozen_caves"));
+			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("magmatic_caves"))
+			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("frozen_caves"));
 
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_DESERT_RUINS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_DESERT_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT);
 
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_SAVANNA_RUINS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_SAVANNA_RUINS)
 			.add(Biomes.SAVANNA)
 			.add(Biomes.SAVANNA_PLATEAU);
 
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_JUNGLE_RUINS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_JUNGLE_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_JUNGLE);
 
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_DEEPSLATE_RUINS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_DEEPSLATE_RUINS)
 			.add(Biomes.DEEP_DARK);
 
-		this.getOrCreateTagBuilder(TrailierBiomeTags.HAS_RUINS)
+		this.getOrCreateTagBuilder(TTBiomeTags.HAS_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_PLAINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_FOREST)

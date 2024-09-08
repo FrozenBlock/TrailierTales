@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.networking.packet;
 
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record CoffinDebugPacket(int entityId, long lastInteractionTime, BlockPos coffinPos, long gameTime) implements CustomPacketPayload {
 	public static final Type<CoffinDebugPacket> PACKET_TYPE = new Type<>(
-		TrailierConstants.id("debug_coffin")
+		TTConstants.id("debug_coffin")
 	);
 
 	public static final StreamCodec<FriendlyByteBuf, CoffinDebugPacket> CODEC = StreamCodec.ofMember(CoffinDebugPacket::write, CoffinDebugPacket::new);

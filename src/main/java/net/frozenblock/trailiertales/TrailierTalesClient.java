@@ -24,10 +24,10 @@ import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
 import net.frozenblock.trailiertales.particle.provider.TrailierParticleProviders;
-import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.RenderType;
@@ -70,81 +70,81 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public static final String VESSEL_POTTERY_PATTERN_NAME = "vessel_pottery_pattern";
 	public static final String WITHER_POTTERY_PATTERN_NAME = "wither_pottery_pattern";
 
-	public static final ResourceKey<DecoratedPotPattern> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BLANK_DECORATED_NAME));
-	public static final ResourceKey<DecoratedPotPattern> BAIT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BAIT_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> BLOOM_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BLOOM_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> BOLT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BOLT_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> BULLSEYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(BULLSEYE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> CLUCK_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CLUCK_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> CRAWL_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CRAWL_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> CRESCENT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CRESCENT_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> CULTIVATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(CULTIVATOR_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> DROUGHT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(DROUGHT_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> ESSENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(ESSENCE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> EYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(EYE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> FOCUS_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(FOCUS_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> HEIGHT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(HEIGHT_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> HUMP_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(HUMP_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> ILLUMINATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(ILLUMINATOR_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> INCIDENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(INCIDENCE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> LUMBER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(LUMBER_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> NAVIGATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(NAVIGATOR_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> NEEDLES_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(NEEDLES_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> PLUME_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(PLUME_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> PROTECTION_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(PROTECTION_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> SHED_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHED_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> SHINE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHINE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> SHOWER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SHOWER_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> SPADE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SPADE_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> SPROUT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(SPROUT_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> VESSEL_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(VESSEL_POTTERY_PATTERN_NAME));
-	public static final ResourceKey<DecoratedPotPattern> WITHER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TrailierConstants.id(WITHER_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BLANK_DECORATED = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(BLANK_DECORATED_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BAIT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(BAIT_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BLOOM_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(BLOOM_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BOLT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(BOLT_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> BULLSEYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(BULLSEYE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> CLUCK_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(CLUCK_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> CRAWL_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(CRAWL_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> CRESCENT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(CRESCENT_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> CULTIVATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(CULTIVATOR_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> DROUGHT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(DROUGHT_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> ESSENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(ESSENCE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> EYE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(EYE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> FOCUS_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(FOCUS_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> HEIGHT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(HEIGHT_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> HUMP_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(HUMP_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> ILLUMINATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(ILLUMINATOR_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> INCIDENCE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(INCIDENCE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> LUMBER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(LUMBER_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> NAVIGATOR_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(NAVIGATOR_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> NEEDLES_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(NEEDLES_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> PLUME_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(PLUME_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> PROTECTION_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(PROTECTION_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> SHED_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(SHED_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> SHINE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(SHINE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> SHOWER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(SHOWER_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> SPADE_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(SPADE_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> SPROUT_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(SPROUT_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> VESSEL_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(VESSEL_POTTERY_PATTERN_NAME));
+	public static final ResourceKey<DecoratedPotPattern> WITHER_POTTERY_PATTERN = ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(WITHER_POTTERY_PATTERN_NAME));
 
-	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TrailierConstants.id("coffin_head"), "main");
-	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TrailierConstants.id("coffin_foot"), "main");
-	public static final ModelLayerLocation APPARITION = new ModelLayerLocation(TrailierConstants.id("apparition"), "main");
-	public static final ModelLayerLocation APPARITION_OVERLAY = new ModelLayerLocation(TrailierConstants.id("apparition"), "overlay");
-	public static final ModelLayerLocation BOAT_BANNER = new ModelLayerLocation(TrailierConstants.id("boat"), "banner");
+	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TTConstants.id("coffin_head"), "main");
+	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TTConstants.id("coffin_foot"), "main");
+	public static final ModelLayerLocation APPARITION = new ModelLayerLocation(TTConstants.id("apparition"), "main");
+	public static final ModelLayerLocation APPARITION_OVERLAY = new ModelLayerLocation(TTConstants.id("apparition"), "overlay");
+	public static final ModelLayerLocation BOAT_BANNER = new ModelLayerLocation(TTConstants.id("boat"), "banner");
 
 	@Override
 	public void onInitializeClient() {
-		SplashTextAPI.addSplashLocation(TrailierConstants.id("texts/splashes.txt"));
+		SplashTextAPI.addSplashLocation(TTConstants.id("texts/splashes.txt"));
 		addPanorama("catacombs");
 
-		BlockEntityWithoutLevelRendererRegistry.register(RegisterBlocks.COFFIN, RegisterBlockEntities.COFFIN);
+		BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntities.COFFIN);
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
-		renderLayerRegistry.putBlock(RegisterBlocks.POTTED_CYAN_ROSE, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.CYAN_ROSE_CROP, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.POTTED_CYAN_ROSE, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.CYAN_ROSE, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.CYAN_ROSE_CROP, RenderType.cutout());
 
-		renderLayerRegistry.putBlock(RegisterBlocks.MANEDROP, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.MANEDROP_CROP, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.MANEDROP, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.MANEDROP_CROP, RenderType.cutout());
 
-		renderLayerRegistry.putBlock(RegisterBlocks.DAWNTRAIL, RenderType.cutout());
-		renderLayerRegistry.putBlock(RegisterBlocks.DAWNTRAIL_CROP, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL_CROP, RenderType.cutout());
 
-		BlockEntityRenderers.register(RegisterBlockEntities.COFFIN, CoffinRenderer::new);
+		BlockEntityRenderers.register(TTBlockEntities.COFFIN, CoffinRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinRenderer::createHeadLayer);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinRenderer::createFootLayer);
 
-		EntityRendererRegistry.register(RegisterEntities.APPARITION, ApparitionRenderer::new);
+		EntityRendererRegistry.register(TTEntities.APPARITION, ApparitionRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
 
-		EntityRendererRegistry.register(RegisterEntities.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(TTEntities.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(BOAT_BANNER, BoatBannerModel::createBodyLayer);
 
 		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
-		particleRegistry.register(RegisterParticles.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
-		particleRegistry.register(RegisterParticles.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
-		particleRegistry.register(RegisterParticles.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
-		particleRegistry.register(RegisterParticles.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
-		particleRegistry.register(RegisterParticles.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
-		particleRegistry.register(RegisterParticles.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
-		particleRegistry.register(RegisterParticles.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
-		particleRegistry.register(RegisterParticles.TRANSFIGURING, GlowingSpellParticle.Provider::new);
+		particleRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
+		particleRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
+		particleRegistry.register(TTParticleTypes.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
+		particleRegistry.register(TTParticleTypes.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
+		particleRegistry.register(TTParticleTypes.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
+		particleRegistry.register(TTParticleTypes.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
+		particleRegistry.register(TTParticleTypes.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
+		particleRegistry.register(TTParticleTypes.TRANSFIGURING, GlowingSpellParticle.Provider::new);
 
 		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
 			CoffinDebugRenderer coffinDebugRenderer = new CoffinDebugRenderer(client);
@@ -159,12 +159,12 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 			DebugRenderManager.addClearRunnable(coffinDebugRenderer::clear);
 
-			DebugRenderManager.registerRenderer(TrailierConstants.id("coffin"), coffinDebugRenderer::render);
+			DebugRenderManager.registerRenderer(TTConstants.id("coffin"), coffinDebugRenderer::render);
 		});
 	}
 
 	private static void addPanorama(String panoramaName) {
-		ResourceLocation panoramaLocation = TrailierConstants.id("textures/gui/title/" + panoramaName + "/panorama");
+		ResourceLocation panoramaLocation = TTConstants.id("textures/gui/title/" + panoramaName + "/panorama");
 		Panoramas.addPanorama(panoramaLocation);
 	}
 }

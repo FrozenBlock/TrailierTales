@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
-import net.frozenblock.trailiertales.registry.RegsiterRuleBlockEntityModifiers;
+import net.frozenblock.trailiertales.registry.TTRuleBlockEntityModifiers;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -70,6 +70,6 @@ public class CoffinProcessor implements RuleBlockEntityModifier {
 
 	@Override
 	public @NotNull RuleBlockEntityModifierType<?> getType() {
-		return RegsiterRuleBlockEntityModifiers.COFFIN_PROCESSOR;
+		return TTRuleBlockEntityModifiers.COFFIN_PROCESSOR;
 	}
 }

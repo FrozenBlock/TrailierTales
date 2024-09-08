@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.mixin.common.dawntrail;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
-import net.frozenblock.trailiertales.registry.RegisterBlocks;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +31,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean trailierTales$tryShearDawntrail(@NotNull ServerLevel level, BlockPos pos) {
 		BlockState blockState = level.getBlockState(pos);
-		if (blockState.getBlock() == RegisterBlocks.DAWNTRAIL && DawntrailBlock.isMaxAge(blockState)) {
+		if (blockState.getBlock() == TTBlocks.DAWNTRAIL && DawntrailBlock.isMaxAge(blockState)) {
 			DawntrailBlock.shear(level, pos, blockState, null);
 			return true;
 		}

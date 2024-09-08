@@ -1,7 +1,7 @@
 package net.frozenblock.trailiertales.mixin.common.brush;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.trailiertales.config.ItemConfig;
+import net.frozenblock.trailiertales.config.TTItemConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -40,7 +40,7 @@ public class HalfBrushMixin {
 		Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info,
 		@Local(ordinal = 0) BlockHitResult hitResult
 	) {
-		if (ItemConfig.EXTRA_BRUSH_PARTICLES) {
+		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) {
 			this.trailierTales$halfBrush(level, livingEntity2, itemStack, hitResult, i);
 		}
 	}

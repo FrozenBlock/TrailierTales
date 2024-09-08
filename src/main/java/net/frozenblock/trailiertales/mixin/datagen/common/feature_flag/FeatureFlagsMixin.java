@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.mixin.datagen.common.feature_flag;
 
-import net.frozenblock.trailiertales.TrailierFeatureFlags;
+import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import org.spongepowered.asm.mixin.Final;
@@ -20,6 +20,6 @@ public class FeatureFlagsMixin {
 
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void trailierTales$modifyDefaultSet(CallbackInfo info) {
-		DEFAULT_FLAGS = DEFAULT_FLAGS.join(TrailierFeatureFlags.TRAILIER_TALES_FLAG_SET);
+		DEFAULT_FLAGS = DEFAULT_FLAGS.join(TTFeatureFlags.TRAILIER_TALES_FLAG_SET);
 	}
 }

@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.mixin.client.brushable_block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
-import net.frozenblock.trailiertales.config.BlockConfig;
-import net.frozenblock.trailiertales.registry.RegisterParticles;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +29,7 @@ public class BrushableBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$animateTick(BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (world.isClientSide && BlockConfig.SUSPICIOUS_BLOCK_PARTICLES) {
+		if (world.isClientSide && TTBlockConfig.SUSPICIOUS_BLOCK_PARTICLES) {
 			trailierTales$emitConnectionParticlesForPlayer(world, pos, random);
 		}
 
@@ -53,7 +53,7 @@ public class BrushableBlockMixin {
 				}
 				Vec3 vec32 = vec3.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
 				Vec3 vec33 = vec32.offsetRandom(random, 1F);
-				world.addParticle(RegisterParticles.SUSPICIOUS_CONNECTION, vec3.x(), vec3.y(), vec3.z(), vec33.x(), vec33.y(), vec33.z());
+				world.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION, vec3.x(), vec3.y(), vec3.z(), vec33.x(), vec33.y(), vec33.z());
 			}
 		}
 	}

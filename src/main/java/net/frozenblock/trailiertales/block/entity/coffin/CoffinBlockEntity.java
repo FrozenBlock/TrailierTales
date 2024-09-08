@@ -3,9 +3,9 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import com.mojang.logging.LogUtils;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
-import net.frozenblock.trailiertales.block.impl.TrailierBlockStateProperties;
-import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
+import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -33,7 +33,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	private float openProgress;
 
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
-		super(RegisterBlockEntities.COFFIN, pos, state);
+		super(TTBlockEntities.COFFIN, pos, state);
 		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
 		this.coffinSpawner = new CoffinSpawner(this, entitySelector);
 	}
@@ -50,7 +50,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 			nbt.put("ominous_config", compoundTag.merge(nbt.getCompound("ominous_config")));
 		}
 
-		if (this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
+		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
 			this.coffinSpawner.codec().parse(NbtOps.INSTANCE, nbt).resultOrPartial(LOGGER::error).ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
 		}
 	}
@@ -58,7 +58,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	@Override
 	protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
 		super.saveAdditional(nbt, lookupProvider);
-		if (this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
+		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
 			this.coffinSpawner
 				.codec()
 				.encodeStart(NbtOps.INSTANCE, this.coffinSpawner)
@@ -79,7 +79,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 			if (coffinSpawnerState.isCapableOfSpawning()) {
 				RandomSource randomSource = world.getRandom();
 				if (randomSource.nextFloat() <= 0.0175F) {
-					world.playLocalSound(pos, RegisterSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.05F, randomSource.nextFloat() + 0.5F, false);
+					world.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.05F, randomSource.nextFloat() + 0.5F, false);
 				}
 			}
 		}
@@ -131,15 +131,15 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 
 	@Override
 	public CoffinSpawnerState getState() {
-		return !this.getBlockState().hasProperty(TrailierBlockStateProperties.COFFIN_STATE)
+		return !this.getBlockState().hasProperty(TTBlockStateProperties.COFFIN_STATE)
 			? CoffinSpawnerState.INACTIVE
-			: this.getBlockState().getValue(TrailierBlockStateProperties.COFFIN_STATE);
+			: this.getBlockState().getValue(TTBlockStateProperties.COFFIN_STATE);
 	}
 
 	@Override
 	public void setState(@NotNull Level level, CoffinSpawnerState state) {
 		this.setChanged();
-		level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(TrailierBlockStateProperties.COFFIN_STATE, state));
+		level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(TTBlockStateProperties.COFFIN_STATE, state));
 	}
 
 	@Override

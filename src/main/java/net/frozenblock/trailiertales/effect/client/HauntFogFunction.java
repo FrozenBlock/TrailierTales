@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.effect.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
@@ -16,7 +16,7 @@ public class HauntFogFunction implements FogRenderer.MobEffectFogFunction {
 
 	@Override
 	public @NotNull Holder<MobEffect> getMobEffect() {
-		return RegisterMobEffects.HAUNT;
+		return TTMobEffects.HAUNT;
 	}
 
 	@Override

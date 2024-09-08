@@ -6,7 +6,7 @@ import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.effect.client.HauntFogFunction;
-import net.frozenblock.trailiertales.registry.RegisterMobEffects;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
@@ -42,7 +42,7 @@ public class FogRendererMixin {
 		)
 	)
 	private static boolean trailierTales$setupColor(LivingEntity instance, Holder<MobEffect> effect, Operation<Boolean> original) {
-		return original.call(instance, effect) || original.call(instance, RegisterMobEffects.HAUNT);
+		return original.call(instance, effect) || original.call(instance, TTMobEffects.HAUNT);
 	}
 
 	@Inject(method = "<clinit>", at = @At("TAIL"))

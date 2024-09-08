@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import net.frozenblock.trailiertales.tag.TrailierEntityTags;
+import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,7 +22,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	private boolean isHostileTarget(@NotNull LivingEntity entity) {
-		return entity.getType().is(TrailierEntityTags.APPARITION_TARGETABLE);
+		return entity.getType().is(TTEntityTags.APPARITION_TARGETABLE);
 	}
 
 	private boolean isClose(LivingEntity apparition, @NotNull LivingEntity target) {

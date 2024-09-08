@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -20,7 +20,7 @@ public class ApparitionSpecificSensor extends Sensor<LivingEntity> {
 	@Override
 	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(RegisterMemoryModuleTypes.NEARBY_APPARITIONS, MemoryModuleType.NEAREST_LIVING_ENTITIES);
+		return ImmutableSet.of(TTMemoryModuleTypes.NEARBY_APPARITIONS, MemoryModuleType.NEAREST_LIVING_ENTITIES);
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class ApparitionSpecificSensor extends Sensor<LivingEntity> {
 				apparitions.add(apparition);
 			}
 		}
-		brain.setMemory(RegisterMemoryModuleTypes.NEARBY_APPARITIONS, apparitions);
+		brain.setMemory(TTMemoryModuleTypes.NEARBY_APPARITIONS, apparitions);
 	}
 }

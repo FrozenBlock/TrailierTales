@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.config.ItemConfig;
+import net.frozenblock.trailiertales.config.TTItemConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
@@ -43,7 +43,7 @@ public class ItemInHandLayerMixin{
 		CallbackInfo info,
 		@Local(ordinal = 0) boolean isLeftArm
 	) {
-		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0 && ItemConfig.SMOOTH_BRUSH_ANIMATION) {
+		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0 && TTItemConfig.SMOOTH_BRUSH_ANIMATION) {
 			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;
 			float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaTicks() - Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
 			float brushProgress = remainingTicks + partialTick;

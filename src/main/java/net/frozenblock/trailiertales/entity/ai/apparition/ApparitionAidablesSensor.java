@@ -9,8 +9,8 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterEntities;
-import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,8 +27,8 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 	@Override
 	public @NotNull Set<MemoryModuleType<?>> requires() {
 		return Set.of(
-			RegisterMemoryModuleTypes.NEARBY_AIDABLES,
-			RegisterMemoryModuleTypes.NEAREST_AIDABLE
+			TTMemoryModuleTypes.NEARBY_AIDABLES,
+			TTMemoryModuleTypes.NEAREST_AIDABLE
 		);
 	}
 
@@ -42,14 +42,14 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		if (
 			entity instanceof Mob mob
 				&& newTarget != null
-				&& mob.getType() != RegisterEntities.APPARITION
+				&& mob.getType() != TTEntities.APPARITION
 				&& !mob.getType().getCategory().isFriendly()
 				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
 				&& !takenUUIDs.contains(mob.getUUID())
 		) {
 			Brain<Apparition> brain = apparition.getBrain();
-			if (brain.hasMemoryValue(RegisterMemoryModuleTypes.AIDING_TIME)) {
-				Optional<List<UUID>> trackingUUIDs = brain.getMemory(RegisterMemoryModuleTypes.AIDING_ENTITIES);
+			if (brain.hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME)) {
+				Optional<List<UUID>> trackingUUIDs = brain.getMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
 				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) {
 					return false;
 				}
@@ -77,7 +77,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 			world.getAllEntities().forEach(
 				entity -> {
 					if (entity instanceof Apparition otherApparition && otherApparition != apparition) {
-						otherApparition.getBrain().getMemory(RegisterMemoryModuleTypes.AIDING_ENTITIES).ifPresent(takenUUIDs::addAll);
+						otherApparition.getBrain().getMemory(TTMemoryModuleTypes.AIDING_ENTITIES).ifPresent(takenUUIDs::addAll);
 					}
 				}
 			);
@@ -90,16 +90,16 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				livingEntity2 -> isMatchingEntity(apparition, livingEntity2, takenUUIDs)
 			);
 			list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
-			brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, list);
-			brain.setMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
+			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, list);
+			brain.setMemory(TTMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
 		} else {
-			brain.setMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
-			brain.eraseMemory(RegisterMemoryModuleTypes.NEAREST_AIDABLE);
+			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
+			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE);
 		}
 	}
 
 	private Optional<LivingEntity> getNearestEntity(@NotNull Apparition apparition) {
-		return apparition.getBrain().getMemory(RegisterMemoryModuleTypes.NEARBY_AIDABLES)
+		return apparition.getBrain().getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES)
 			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> true));
 	}
 

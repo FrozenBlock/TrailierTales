@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.RegisterMemoryModuleTypes;
-import net.frozenblock.trailiertales.registry.RegisterSensorTypes;
+import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
+import net.frozenblock.trailiertales.registry.TTSensorTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.EntityType;
@@ -42,11 +42,11 @@ public class ApparitionAi {
 	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
-		RegisterSensorTypes.APPARITION_PLAYER_SENSOR,
-		RegisterSensorTypes.APPARITION_ATTACKABLES_SENSOR,
-		RegisterSensorTypes.APPARITION_SPECIFIC_SENSOR,
-		RegisterSensorTypes.APPARITION_NEAREST_ITEM_SENSOR,
-		RegisterSensorTypes.APPARITION_AIDABLES_SENSOR
+		TTSensorTypes.APPARITION_PLAYER_SENSOR,
+		TTSensorTypes.APPARITION_ATTACKABLES_SENSOR,
+		TTSensorTypes.APPARITION_SPECIFIC_SENSOR,
+		TTSensorTypes.APPARITION_NEAREST_ITEM_SENSOR,
+		TTSensorTypes.APPARITION_AIDABLES_SENSOR
 	);
 
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
@@ -63,21 +63,21 @@ public class ApparitionAi {
 		MemoryModuleType.NEAREST_PLAYERS,
 		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
 		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		RegisterMemoryModuleTypes.NEARBY_APPARITIONS,
+		TTMemoryModuleTypes.NEARBY_APPARITIONS,
 		MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS,
 		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
-		RegisterMemoryModuleTypes.AID_COOLDOWN,
-		RegisterMemoryModuleTypes.AIDING_TIME,
-		RegisterMemoryModuleTypes.NEARBY_AIDABLES,
-		RegisterMemoryModuleTypes.NEAREST_AIDABLE,
-		RegisterMemoryModuleTypes.SEE_TIME,
-		RegisterMemoryModuleTypes.STRAFING_CLOCKWISE,
-		RegisterMemoryModuleTypes.STRAFING_BACKWARDS,
-		RegisterMemoryModuleTypes.STRAFING_TIME,
-		RegisterMemoryModuleTypes.CHARGING_TICKS,
+		TTMemoryModuleTypes.AID_COOLDOWN,
+		TTMemoryModuleTypes.AIDING_TIME,
+		TTMemoryModuleTypes.NEARBY_AIDABLES,
+		TTMemoryModuleTypes.NEAREST_AIDABLE,
+		TTMemoryModuleTypes.SEE_TIME,
+		TTMemoryModuleTypes.STRAFING_CLOCKWISE,
+		TTMemoryModuleTypes.STRAFING_BACKWARDS,
+		TTMemoryModuleTypes.STRAFING_TIME,
+		TTMemoryModuleTypes.CHARGING_TICKS,
 		MemoryModuleType.HOME,
-		RegisterMemoryModuleTypes.HAUNTING_TICKS,
-		RegisterMemoryModuleTypes.AIDING_ENTITIES
+		TTMemoryModuleTypes.HAUNTING_TICKS,
+		TTMemoryModuleTypes.AIDING_ENTITIES
 	);
 
 	@Contract("_, _ -> param2")
@@ -99,7 +99,7 @@ public class ApparitionAi {
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				new CountDownCooldownTicks(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS),
-				new CountDownCooldownTicks(RegisterMemoryModuleTypes.AIDING_TIME),
+				new CountDownCooldownTicks(TTMemoryModuleTypes.AIDING_TIME),
 				new ApparitionHaunt()
 			)
 		);

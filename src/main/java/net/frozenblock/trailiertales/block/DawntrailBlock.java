@@ -1,8 +1,8 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.trailiertales.registry.RegisterItems;
-import net.frozenblock.trailiertales.registry.RegisterSounds;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -142,11 +142,11 @@ public class DawntrailBlock extends MultifaceBlock implements BonemealableBlock 
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-		ItemStack seeds = new ItemStack(RegisterItems.DAWNTRAIL_SEEDS);
+		ItemStack seeds = new ItemStack(TTItems.DAWNTRAIL_SEEDS);
 		seeds.setCount(availableFaces(state).size());
 		popResource(level, pos, seeds);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-		level.playSound(null, pos, RegisterSounds.DAWNTRAIL_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+		level.playSound(null, pos, TTSounds.DAWNTRAIL_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 	}
 

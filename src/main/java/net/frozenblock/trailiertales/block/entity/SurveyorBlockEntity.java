@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.block.entity;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
-import net.frozenblock.trailiertales.registry.RegisterBlockEntities;
-import net.frozenblock.trailiertales.tag.TrailierEntityTags;
+import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -29,7 +29,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 	private int lastDetectionPower;
 
 	public SurveyorBlockEntity(BlockPos pos, BlockState state) {
-		super(RegisterBlockEntities.SURVEYOR, pos, state);
+		super(TTBlockEntities.SURVEYOR, pos, state);
 	}
 
 	private static Vec3 chooseClosestPos(@NotNull Vec3 origin, Vec3 posA, Vec3 posB) {
@@ -124,7 +124,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 						HitResult hitResult = ProjectileUtil.getHitResult(
 							closestPoint,
 							player,
-							EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible() && !entity.getType().is(TrailierEntityTags.SURVEYOR_IGNORES)),
+							EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible() && !entity.getType().is(TTEntityTags.SURVEYOR_IGNORES)),
 							surveyorCenterPos.subtract(closestPoint),
 							serverLevel,
 							0F,

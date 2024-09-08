@@ -3,9 +3,9 @@ package net.frozenblock.trailiertales.worldgen.structure.datagen;
 import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
-import net.frozenblock.trailiertales.registry.RegisterLootTables;
-import net.frozenblock.trailiertales.registry.RegisterStructures;
-import net.frozenblock.trailiertales.tag.TrailierBiomeTags;
+import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTStructures;
+import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -32,8 +32,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import org.jetbrains.annotations.NotNull;
 
 public class DeepslateRuinsGenerator {
-	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = RegisterStructures.ofSet("ruins_deepslate");
-	private static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = RegisterStructures.createKey("ruins_deepslate");
+	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = TTStructures.ofSet("ruins_deepslate");
+	private static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = TTStructures.createKey("ruins_deepslate");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
@@ -41,8 +41,8 @@ public class DeepslateRuinsGenerator {
 		context.register(
 			DEEPSLATE_RUIN_KEY,
 			new RuinsStructure(
-				RegisterStructures.structure(
-					holderGetter.getOrThrow(TrailierBiomeTags.HAS_DEEPSLATE_RUINS),
+				TTStructures.structure(
+					holderGetter.getOrThrow(TTBiomeTags.HAS_DEEPSLATE_RUINS),
 					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
 					TerrainAdjustment.BEARD_THIN
 				),
@@ -102,7 +102,7 @@ public class DeepslateRuinsGenerator {
 					)
 				)
 			),
-			RegisterStructures.archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, RegisterLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY, 0.2F),
+			TTStructures.archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY, 0.2F),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)
 	);

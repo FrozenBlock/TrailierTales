@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.datagen;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.frozenblock.trailiertales.TrailierConstants;
+import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -36,21 +36,21 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
 		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
 
-		TrailierConstants.log("Adding finalized configured features to datagen", true);
+		TTConstants.log("Adding finalized configured features to datagen", true);
 		entries.addAll(configuredFeatures);
-		TrailierConstants.log("Adding finalized placed features to datagen", true);
+		TTConstants.log("Adding finalized placed features to datagen", true);
 		entries.addAll(placedFeatures);
-		TrailierConstants.log("Adding finalized biomes to datagen", true);
+		TTConstants.log("Adding finalized biomes to datagen", true);
 		entries.addAll(biomes);
-		TrailierConstants.log("Adding finalized noises to datagen", true);
+		TTConstants.log("Adding finalized noises to datagen", true);
 		entries.addAll(noises);
-		TrailierConstants.log("Adding finalized processor lists to datagen", true);
+		TTConstants.log("Adding finalized processor lists to datagen", true);
 		entries.addAll(processorLists);
-		TrailierConstants.log("Adding finalized template pools to datagen", true);
+		TTConstants.log("Adding finalized template pools to datagen", true);
 		entries.addAll(templatePools);
-		TrailierConstants.log("Adding finalized structures to datagen", true);
+		TTConstants.log("Adding finalized structures to datagen", true);
 		entries.addAll(structures);
-		TrailierConstants.log("Adding finalized structure sets to datagen", true);
+		TTConstants.log("Adding finalized structure sets to datagen", true);
 		entries.addAll(structureSets);
 	}
 
