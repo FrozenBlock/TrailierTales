@@ -244,7 +244,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		}
 
 		if (entity != null) {
-			entity.playSound(TTSounds.COFFIN_VANISH_MOB, 1F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
+			entity.playSound(TTSounds.COFFIN_VANISH_MOB, 0.5F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
 		}
 
 		if (entity instanceof LivingEntity livingEntity) {
