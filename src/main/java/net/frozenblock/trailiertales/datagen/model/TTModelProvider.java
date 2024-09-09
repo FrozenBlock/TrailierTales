@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.datagen;
+package net.frozenblock.trailiertales.datagen.model;
 
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
@@ -12,6 +12,7 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
+import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.Util;

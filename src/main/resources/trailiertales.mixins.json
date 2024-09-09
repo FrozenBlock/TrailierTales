@@ -32,7 +32,6 @@
     "client.brushable_block.BrushableBlockMixin",
     "client.brushable_block.BrushableBlockRendererMixin",
     "client.brushable_block.BrushingCompleteSoundMixin",
-    "client.decorated_pot.DecoratedPotPatternsMixin",
     "client.decorated_pot.DecoratedPotRendererMixin",
     "client.haunt.FogRendererMixin",
     "client.haunt.GuiMixin",

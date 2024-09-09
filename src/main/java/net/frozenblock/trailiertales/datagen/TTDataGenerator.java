@@ -4,11 +4,13 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTArchaeologyLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTBlockLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTChestLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTEntityLootProvider;
+import net.frozenblock.trailiertales.datagen.model.TTModelProvider;
 import net.frozenblock.trailiertales.datagen.recipe.TTRecipeProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTBiomeTagProvider;
 import net.frozenblock.trailiertales.datagen.tag.TTBlockTagProvider;
@@ -32,21 +34,29 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTDataGenerator implements DataGeneratorEntrypoint {
-	static final BlockFamily FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
-		.stairs(TTBlocks.CALCITE_STAIRS)
-		.slab(TTBlocks.CALCITE_SLAB)
-		.wall(TTBlocks.CALCITE_WALL)
-		.polished(TTBlocks.POLISHED_CALCITE)
-		.getFamily();
+	public static BlockFamily FAMILY_CALCITE;
+	public static BlockFamily FAMILY_END_STONE;
 
-	static final BlockFamily FAMILY_END_STONE = BlockFamilies.familyBuilder(Blocks.END_STONE)
-		.stairs(TTBlocks.END_STONE_STAIRS)
-		.slab(TTBlocks.END_STONE_SLAB)
-		.wall(TTBlocks.END_STONE_WALL)
-		.getFamily();
+	static {
+		if (TTPreLoadConstants.IS_DATAGEN) {
+			FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
+				.stairs(TTBlocks.CALCITE_STAIRS)
+				.slab(TTBlocks.CALCITE_SLAB)
+				.wall(TTBlocks.CALCITE_WALL)
+				.polished(TTBlocks.POLISHED_CALCITE)
+				.getFamily();
+
+			FAMILY_END_STONE = BlockFamilies.familyBuilder(Blocks.END_STONE)
+				.stairs(TTBlocks.END_STONE_STAIRS)
+				.slab(TTBlocks.END_STONE_SLAB)
+				.wall(TTBlocks.END_STONE_WALL)
+				.getFamily();
+		}
+	}
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
+		if (!TTPreLoadConstants.IS_DATAGEN) return;
 		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_SANDSTONE_WALL);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_SANDSTONE_STAIRS);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_SANDSTONE_WALL);
@@ -92,6 +102,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
+		if (!TTPreLoadConstants.IS_DATAGEN) return;
 		TTConstants.log("Building datagen registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, TTFeatureBootstrap::bootstrapConfigured);

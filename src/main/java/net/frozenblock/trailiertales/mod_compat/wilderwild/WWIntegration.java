@@ -6,8 +6,8 @@ import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
-import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.BlockConfig;

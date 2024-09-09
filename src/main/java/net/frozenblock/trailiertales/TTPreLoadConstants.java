@@ -7,7 +7,7 @@ public class TTPreLoadConstants {
 	private static boolean isDatagen() {
 		boolean isDatagen = false;
 		try {
-			Class.forName("net.frozenblock.trailiertales.datagen.TTDataGenerator", false, TTPreLoadConstants.class.getClassLoader());
+			Class.forName("net.frozenblock.trailiertales.datagen.TTDatagenModule", false, TTPreLoadConstants.class.getClassLoader());
 			isDatagen = true;
 		} catch (ClassNotFoundException ignored) {}
 

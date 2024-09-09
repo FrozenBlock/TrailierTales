@@ -35,6 +35,9 @@
     ],
     "fabric-datagen": [
       "net.frozenblock.trailiertales.datagen.TTDataGenerator"
+    ],
+    "frozenlib:decorated_pot_patterns": [
+      "net.frozenblock.trailiertales.sherd.TTDecoratedPotPatternRegistry"
     ]
   },
   "mixins": [

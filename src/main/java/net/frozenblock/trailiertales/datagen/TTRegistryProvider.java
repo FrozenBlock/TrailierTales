@@ -26,7 +26,7 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		bootstrap(entries);
 	}
 
-	public static void bootstrap(FabricDynamicRegistryProvider.@NotNull Entries entries) {
+	public static void bootstrap(@NotNull Entries entries) {
 		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
 		final var placedFeatures = asLookup(entries.placedFeatures());
 		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
