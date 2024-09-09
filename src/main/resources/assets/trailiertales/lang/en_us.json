@@ -201,8 +201,10 @@
   "subtitles.block.dawntrail.pick": "Dawntrail picked",
 
   "subtitles.block.coffin.spawn_mob": "Coffin spawns a mob",
+  "subtitles.block.coffin.vanish_mob": "Mob dissapears",
   "subtitles.block.coffin.ambient": "Souls rustle",
-  "subtitles.block.coffin.detect_player": "Coffin's aura intensifies",
+  "subtitles.block.coffin.detect_player": "Coffin empowers",
+  "subtitles.block.coffin.increase_power": "Coffin's aura intensifies",
 
   "subtitles.event.mob_effect.siege_omen": "Ominous siege looms nearby",
 

@@ -943,6 +943,31 @@
     ],
     "subtitle": "subtitles.block.coffin.detect_player"
   },
+  "block.coffin.increase_power": {
+    "sounds": [
+      {
+        "attenuation_distance": 48,
+        "name": "trailiertales:block/coffin/power1"
+      },
+      {
+        "attenuation_distance": 48,
+        "name": "trailiertales:block/coffin/power2"
+      },
+      {
+        "attenuation_distance": 48,
+        "name": "trailiertales:block/coffin/power3"
+      },
+      {
+        "attenuation_distance": 48,
+        "name": "trailiertales:block/coffin/power4"
+      },
+      {
+        "attenuation_distance": 48,
+        "name": "trailiertales:block/coffin/power5"
+      }
+    ],
+    "subtitle": "subtitles.block.coffin.increase_power"
+  },
   "block.coffin.spawn_mob": {
     "sounds": [
       "trailiertales:block/coffin/spawn1",
@@ -950,6 +975,16 @@
       "trailiertales:block/coffin/spawn3"
     ],
     "subtitle": "subtitles.block.coffin.spawn_mob"
+  },
+  "block.coffin.vanish_mob": {
+    "sounds": [
+      "trailiertales:block/coffin/vanish1",
+      "trailiertales:block/coffin/vanish2",
+      "trailiertales:block/coffin/vanish3",
+      "trailiertales:block/coffin/vanish4",
+      "trailiertales:block/coffin/vanish5"
+    ],
+    "subtitle": "subtitles.block.coffin.vanish_mob"
   },
   "entity.apparition.idle": {
     "sounds": [

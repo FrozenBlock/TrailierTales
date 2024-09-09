@@ -14,6 +14,7 @@ import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -240,6 +241,10 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 				serverLevel,
 				new CoffinRemoveDebugPacket(entity.getId())
 			);
+		}
+
+		if (entity != null) {
+			entity.playSound(TTSounds.COFFIN_VANISH_MOB, 1F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
 		}
 
 		if (entity instanceof LivingEntity livingEntity) {

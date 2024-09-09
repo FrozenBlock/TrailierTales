@@ -3,10 +3,12 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import java.util.Optional;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
@@ -105,6 +107,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
 				coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getAggressiveConfig().powerForNextLevel() : coffinSpawnerData.power;
+				level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.random.nextFloat() * 0.2F));
 				return coffinSpawnerState.getNextPowerState();
 			}
 
