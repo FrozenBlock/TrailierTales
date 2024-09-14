@@ -10,11 +10,10 @@ import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
-import net.frozenblock.wilderwild.config.BlockConfig;
-import net.frozenblock.wilderwild.registry.RegisterBlockSoundTypes;
-import net.frozenblock.wilderwild.registry.RegisterBlocks;
-import static net.frozenblock.wilderwild.registry.RegisterBlocks.*;
-import net.frozenblock.wilderwild.registry.RegisterProperties;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -40,18 +39,18 @@ public class WWIntegration extends AbstractWWIntegration {
 				TTBlocks.CYAN_ROSE,
 				TTBlocks.MANEDROP
 			},
-			RegisterBlockSoundTypes.FLOWER,
-			() -> BlockConfig.get().blockSounds.flowerSounds
+			WWSoundTypes.FLOWER,
+			() -> WWBlockConfig.get().blockSounds.flowerSounds
 		);
 		BlockSoundGroupOverwrites.addBlock(
 			TTBlocks.SUSPICIOUS_CLAY,
 			TTSounds.SUSPICIOUS_CLAY_WW,
-			() -> BlockConfig.get().blockSounds.claySounds
+			() -> WWBlockConfig.get().blockSounds.claySounds
 		);
 		BlockSoundGroupOverwrites.addBlock(
 			Blocks.SUSPICIOUS_GRAVEL,
 			TTSounds.SUSPICIOUS_GRAVEL_WW,
-			() -> BlockConfig.get().blockSounds.claySounds
+			() -> WWBlockConfig.get().blockSounds.claySounds
 		);
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[] {
@@ -62,16 +61,16 @@ public class WWIntegration extends AbstractWWIntegration {
 				TTBlocks.CUT_RED_SANDSTONE_STAIRS,
 				TTBlocks.CUT_RED_SANDSTONE_WALL
 			},
-			RegisterBlockSoundTypes.SANDSTONE,
-			() -> BlockConfig.get().blockSounds.sandstoneSounds
+			WWSoundTypes.SANDSTONE,
+			() -> WWBlockConfig.get().blockSounds.sandstoneSounds
 		);
 
 		StructureProcessorApi.addProcessor(
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
 			new RuleProcessor(
 				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, CRACKED_MUD_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICKS.defaultBlockState())
+					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICKS.defaultBlockState())
 				)
 			)
 		);
@@ -79,9 +78,9 @@ public class WWIntegration extends AbstractWWIntegration {
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
-					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_STAIRS),
-					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_SLAB),
-					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, MOSSY_MUD_BRICK_WALL)
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_SLAB),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_WALL)
 				)
 			)
 		);
@@ -91,53 +90,53 @@ public class WWIntegration extends AbstractWWIntegration {
 				List.of(
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState()),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
 					),
 					new ProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, RegisterBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(RegisterProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
 					)
 				)
 			)
@@ -146,11 +145,11 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public boolean newClaySounds() {
-		return BlockConfig.get().blockSounds.claySounds;
+		return WWBlockConfig.get().blockSounds.claySounds;
 	}
 
 	@Override
 	public boolean newGravelSounds() {
-		return BlockConfig.get().blockSounds.gravelSounds;
+		return WWBlockConfig.get().blockSounds.gravelSounds;
 	}
 }
