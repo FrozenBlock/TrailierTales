@@ -24,7 +24,6 @@ Voxelotl
       - Apparition
       - All Boat Banner Posts
       - Siege Omen icon and particle texture
-    - Came up with the Undead Armor Trim
 
 Zhen
     - Texture Artist:
@@ -64,7 +63,8 @@ Zhen
       - Sprout Pottery Sherd/Pattern
       - Transfiguring icon and particle texture
       - Overgrowth Armor Trim
-      -
+      - Matrix Armor Trim
+      - Geode Armor Trim
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
