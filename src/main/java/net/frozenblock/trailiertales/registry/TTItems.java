@@ -85,6 +85,10 @@ public class TTItems {
 		TTTrimPatterns.GEODE,
 		TTFeatureFlags.FEATURE_FLAG
 	);
+	public static final Item OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.OVERGROWTH,
+		TTFeatureFlags.FEATURE_FLAG
+	);
 
 	public static final Item MUSIC_DISC_FAUSSE_VIE = new Item(new Item.Properties()
 		.stacksTo(1)
@@ -134,6 +138,7 @@ public class TTItems {
 		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, "matrix_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, "overgrowth_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}

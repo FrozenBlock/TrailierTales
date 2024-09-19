@@ -518,7 +518,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE
+				TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE,
+				TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE
 			)
 			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, TTConstants.id(getItemName(item) + "_smithing_trim")));
 	}

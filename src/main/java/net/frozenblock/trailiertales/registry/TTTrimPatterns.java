@@ -13,6 +13,7 @@ public class TTTrimPatterns {
 	public static final ResourceKey<TrimPattern> UNDEAD = create("undead");
 	public static final ResourceKey<TrimPattern> MATRIX = create("matrix");
 	public static final ResourceKey<TrimPattern> GEODE = create("geode");
+	public static final ResourceKey<TrimPattern> OVERGROWTH = create("overgrowth");
 
 	public static void init() {
 	}
@@ -26,5 +27,6 @@ public class TTTrimPatterns {
 		TrimPatterns.register(context, TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD);
 		TrimPatterns.register(context, TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX);
 		TrimPatterns.register(context, TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE);
+		TrimPatterns.register(context, TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH);
 	}
 }

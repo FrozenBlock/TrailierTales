@@ -10,7 +10,9 @@
         "trailiertales:trims/models/armor/matrix",
         "trailiertales:trims/models/armor/matrix_leggings",
         "trailiertales:trims/models/armor/geode",
-        "trailiertales:trims/models/armor/geode_leggings"
+        "trailiertales:trims/models/armor/geode_leggings",
+        "trailiertales:trims/models/armor/overgrowth",
+        "trailiertales:trims/models/armor/overgrowth_leggings"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {

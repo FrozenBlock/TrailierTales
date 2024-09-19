@@ -63,6 +63,8 @@ Zhen
       - Spade Pottery Sherd/Pattern
       - Sprout Pottery Sherd/Pattern
       - Transfiguring icon and particle texture
+      - Overgrowth Armor Trim
+      -
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment

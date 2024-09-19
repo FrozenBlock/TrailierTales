@@ -56,7 +56,6 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
-		if (!TTPreLoadConstants.IS_DATAGEN) return;
 		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_SANDSTONE_WALL);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_SANDSTONE_STAIRS);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_SANDSTONE_WALL);
@@ -79,7 +78,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 		// ASSETS
 
-		pack.addProvider(TTModelProvider::new);
+		if (TTPreLoadConstants.IS_DATAGEN) pack.addProvider(TTModelProvider::new);
 
 		// DATA
 
@@ -102,7 +101,6 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
-		if (!TTPreLoadConstants.IS_DATAGEN) return;
 		TTConstants.log("Building datagen registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, TTFeatureBootstrap::bootstrapConfigured);

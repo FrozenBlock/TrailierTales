@@ -159,7 +159,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE);
+			.add(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);
