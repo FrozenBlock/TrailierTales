@@ -4,12 +4,12 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.armortrim.TrimPattern;
-import net.minecraft.world.item.armortrim.TrimPatterns;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
+import net.minecraft.world.item.equipment.trim.TrimPatterns;
 import org.jetbrains.annotations.NotNull;
 
 public class TTTrimPatterns {
-	public static final ResourceKey<TrimPattern> DESOLATION = create("desolation");
+	public static final ResourceKey<net.minecraft.world.item.equipment.trim.TrimPattern> DESOLATION = create("desolation");
 	public static final ResourceKey<TrimPattern> UNDEAD = create("undead");
 	public static final ResourceKey<TrimPattern> MATRIX = create("matrix");
 	public static final ResourceKey<TrimPattern> GEODE = create("geode");

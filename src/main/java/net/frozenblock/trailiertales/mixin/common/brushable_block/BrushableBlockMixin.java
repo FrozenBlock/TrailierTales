@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +53,8 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(
+	@NotNull
+	protected InteractionResult useItemOn(
 		@NotNull ItemStack itemStack,
 		@NotNull BlockState blockState,
 		@NotNull Level level,
@@ -71,10 +72,10 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 			if (canPlaceIntoBlock) {
 				if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
 					((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(playerStack.split(1));
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 			}
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		}
 		return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
 	}
@@ -112,16 +113,16 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset()V"
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset(Lnet/minecraft/server/level/ServerLevel;)V"
 		)
 	)
 	public void trailierTales$setHasCustomItemForFalling(
-		BrushableBlockEntity brushableBlockEntity, Operation<Void> original,
+		BrushableBlockEntity brushableBlockEntity, ServerLevel level, Operation<Void> original,
 		BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random,
 		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem
 	) {
-		original.call(brushableBlockEntity);
+		original.call(brushableBlockEntity, level);
 		blockEntityRef.set(brushableBlockEntity);
 		if (
 			brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&

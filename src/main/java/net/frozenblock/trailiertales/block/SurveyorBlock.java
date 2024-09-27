@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +31,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	public static final MapCodec<SurveyorBlock> CODEC = RecordCodecBuilder.mapCodec(
 		color -> color.group(propertiesCodec()).apply(color, SurveyorBlock::new)
 	);
-	public static final DirectionProperty FACING = DirectionalBlock.FACING;
+	public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
 	@Override

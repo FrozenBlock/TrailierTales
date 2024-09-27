@@ -30,7 +30,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -237,7 +237,7 @@ public final class CoffinSpawner {
 		return this.entitySelector;
 	}
 
-	public boolean canSpawnInLevel(@NotNull Level level) {
+	public boolean canSpawnInLevel(@NotNull ServerLevel level) {
 		return level.getDifficulty() != Difficulty.PEACEFUL && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
 	}
 
@@ -266,7 +266,7 @@ public final class CoffinSpawner {
 					return Optional.empty();
 				} else {
 					BlockPos blockPos = BlockPos.containing(vec3);
-					if (!SpawnPlacements.checkSpawnRules(optional.get(), level, MobSpawnType.TRIAL_SPAWNER, blockPos, level.getRandom())) {
+					if (!SpawnPlacements.checkSpawnRules(optional.get(), level, EntitySpawnReason.TRIAL_SPAWNER, blockPos, level.getRandom())) {
 						return Optional.empty();
 					} else {
 						if (spawnData.getCustomSpawnRules().isPresent()) {
@@ -286,7 +286,7 @@ public final class CoffinSpawner {
 							return Optional.empty();
 						}
 
-						Entity entity = EntityType.loadEntityRecursive(compoundTag, level, entityx -> {
+						Entity entity = EntityType.loadEntityRecursive(compoundTag, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
 							entityx.moveTo(d, e, f, randomSource.nextFloat() * 360F, 0F);
 							return entityx;
 						});
@@ -300,7 +300,7 @@ public final class CoffinSpawner {
 
 								boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id", 8);
 								if (bl) {
-									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.TRIAL_SPAWNER, null);
+									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
 								}
 
 								spawnData.getEquipment().ifPresent(mob::equip);
@@ -348,7 +348,7 @@ public final class CoffinSpawner {
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
-		Apparition apparition = TTEntities.APPARITION.create(level, null, pos, MobSpawnType.TRIAL_SPAWNER, true, false);
+		Apparition apparition = TTEntities.APPARITION.create(level, null, pos, EntitySpawnReason.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
 				apparition.hiddenTicks = 500;
@@ -463,7 +463,7 @@ public final class CoffinSpawner {
 	}
 
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
-		Structure structure = structureManager.registryAccess().registryOrThrow(Registries.STRUCTURE).get(CatacombsGenerator.CATACOMBS_KEY);
+		Structure structure = structureManager.registryAccess().lookupOrThrow(Registries.STRUCTURE).getValue(CatacombsGenerator.CATACOMBS_KEY);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
 	}
 

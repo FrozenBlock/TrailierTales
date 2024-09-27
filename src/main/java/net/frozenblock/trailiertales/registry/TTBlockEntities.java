@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class TTBlockEntities {
 
@@ -27,6 +29,6 @@ public class TTBlockEntities {
 
 	@NotNull
 	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, @NotNull BlockEntityType.BlockEntitySupplier<T> factory, @NotNull Block... blocks) {
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, TTConstants.id(path), BlockEntityType.Builder.of(factory, blocks).build(null));
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, TTConstants.id(path), new BlockEntityType<>(factory, Arrays.stream(blocks).collect(Collectors.toSet())));
 	}
 }

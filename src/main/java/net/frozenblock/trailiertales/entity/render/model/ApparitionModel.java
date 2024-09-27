@@ -20,7 +20,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -148,15 +148,15 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
 		this.onlyDrawSelectedParts();
-		int innerTransparency = FastColor.ARGB32.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
+		int innerTransparency = ARGB.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
 		if (innerTransparency != 0) {
 			this.inner.render(poseStack, buffer, 15728640, packedOverlay, innerTransparency);
 		}
-		int outlineTransparency = FastColor.ARGB32.colorFromFloat(this.outlineTransparency * this.flicker, 1F, 1F, 1F);
+		int outlineTransparency = ARGB.colorFromFloat(this.outlineTransparency * this.flicker, 1F, 1F, 1F);
 		if (outlineTransparency != 0) {
 			this.outline.render(poseStack, buffer, 15728640, packedOverlay, outlineTransparency);
 		}
-		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
+		int outerTransparency = ARGB.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
 		if (outerTransparency != 0) {
 			this.outer.render(poseStack, buffer, 15728640, packedOverlay, outerTransparency);
 		}

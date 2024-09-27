@@ -22,7 +22,7 @@ public class NonFallingBrushableBlock extends BrushableBlock {
 	public void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
 		BlockEntity blockEntity = serverLevel.getBlockEntity(blockPos);
 		if (blockEntity instanceof BrushableBlockEntity brushableBlockEntity) {
-			brushableBlockEntity.checkReset();
+			brushableBlockEntity.checkReset(serverLevel);
 		}
 	}
 }
