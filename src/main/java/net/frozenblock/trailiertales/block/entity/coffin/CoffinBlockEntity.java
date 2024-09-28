@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,7 +33,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	private float openProgress;
 
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
-		super(TTBlockEntities.COFFIN, pos, state);
+		super(TTBlockEntityTypes.COFFIN, pos, state);
 		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
 		this.coffinSpawner = new CoffinSpawner(this, entitySelector);
 	}

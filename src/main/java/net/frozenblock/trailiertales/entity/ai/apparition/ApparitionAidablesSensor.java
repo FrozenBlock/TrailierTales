@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -42,7 +42,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		if (
 			entity instanceof Mob mob
 				&& newTarget != null
-				&& mob.getType() != TTEntities.APPARITION
+				&& mob.getType() != TTEntityTypes.APPARITION
 				&& !mob.getType().getCategory().isFriendly()
 				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
 				&& !takenUUIDs.contains(mob.getUUID())

@@ -2,6 +2,8 @@ package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import net.frozenblock.lib.config.api.instance.ConfigModification;
+import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
@@ -151,5 +153,10 @@ public class WWIntegration extends AbstractWWIntegration {
 	@Override
 	public boolean newGravelSounds() {
 		return WWBlockConfig.get().blockSounds.gravelSounds;
+	}
+
+	@Override
+	public void disableSnowloggingInDatagen() {
+		ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 	}
 }

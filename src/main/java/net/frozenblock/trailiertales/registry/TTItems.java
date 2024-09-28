@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = new SpawnEggItem(
-		TTEntities.APPARITION,
+		TTEntityTypes.APPARITION,
 		11712721,
 		10663385,
 		new Item.Properties()

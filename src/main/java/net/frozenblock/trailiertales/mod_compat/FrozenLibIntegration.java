@@ -22,7 +22,7 @@ import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTSounds;
@@ -346,7 +346,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntities.APPARITION)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntityTypes.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -356,7 +356,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntities.APPARITION)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntityTypes.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(

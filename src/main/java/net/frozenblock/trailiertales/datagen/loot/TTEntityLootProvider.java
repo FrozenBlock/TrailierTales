@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -31,7 +31,7 @@ public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
 		HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
-			TTEntities.APPARITION.getDefaultLootTable(),
+			TTEntityTypes.APPARITION.getDefaultLootTable(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

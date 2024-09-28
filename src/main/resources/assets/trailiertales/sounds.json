@@ -1052,5 +1052,15 @@
       "minecraft:random/bow"
     ],
     "subtitle": "subtitles.entity.apparition.throw"
+  },
+  "entity.apparition.vanish": {
+    "sounds": [
+      "trailiertales:block/coffin/vanish1",
+      "trailiertales:block/coffin/vanish2",
+      "trailiertales:block/coffin/vanish3",
+      "trailiertales:block/coffin/vanish4",
+      "trailiertales:block/coffin/vanish5"
+    ],
+    "subtitle": "subtitles.entity.apparition.vanish"
   }
 }

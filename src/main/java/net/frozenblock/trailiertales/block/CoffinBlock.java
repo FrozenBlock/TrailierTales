@@ -7,13 +7,14 @@ import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.networking.FrozenNetworking;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -196,12 +197,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		return level instanceof ServerLevel serverLevel
 			? createTickerHelper(
 			blockEntityType,
-			TTBlockEntities.COFFIN,
+			TTBlockEntityTypes.COFFIN,
 			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
 				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: createTickerHelper(
 			blockEntityType,
-			TTBlockEntities.COFFIN,
+			TTBlockEntityTypes.COFFIN,
 			(world, pos, statex, coffin) -> coffin
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}
@@ -235,7 +236,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		Spawner.appendHoverText(stack, tooltip, "SpawnData");
 	}
 
-	public static void onCoffinUntrack(@Nullable Entity entity, boolean remove) {
+	public static void onCoffinUntrack(@Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
 		if (FrozenLibConfig.IS_DEBUG && entity != null && !entity.isRemoved() && entity.level() instanceof ServerLevel serverLevel) {
 			FrozenNetworking.sendPacketToAllPlayers(
 				serverLevel,
@@ -244,22 +245,27 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		}
 
 		if (entity != null) {
-			entity.playSound(TTSounds.COFFIN_VANISH_MOB, 0.5F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
+			entity.playSound(TTSounds.COFFIN_VANISH_MOB, 0.8F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
 		}
 
 		if (entity instanceof LivingEntity livingEntity) {
 			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
-			if (followRange != null) {
-				followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
-			}
+			if (followRange != null) followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
 		}
+
 		if (entity instanceof EntityCoffinInterface entityInterface) {
 			entityInterface.trailierTales$setCoffinData(null);
 		}
+
+		if (remove && coffinSpawner != null) {
+			coffinSpawner.onEntityRemoved(entity);
+		}
+
 		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem();
 			apparition.level().broadcastEntityEvent(apparition, (byte)60);
 			apparition.discard();
+			apparition.dropPreservedEquipment();
 		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
 			mob.level().broadcastEntityEvent(mob, (byte)60);
 			mob.discard();

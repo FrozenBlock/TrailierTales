@@ -14,4 +14,8 @@ public class NoOpWWIntegration extends AbstractWWIntegration {
 	public boolean newGravelSounds() {
 		return false;
 	}
+
+	@Override
+	public void disableSnowloggingInDatagen() {
+	}
 }

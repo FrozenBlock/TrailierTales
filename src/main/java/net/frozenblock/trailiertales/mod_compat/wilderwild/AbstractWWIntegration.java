@@ -15,4 +15,6 @@ public abstract class AbstractWWIntegration extends ModIntegration {
 	abstract public boolean newClaySounds();
 
 	abstract public boolean newGravelSounds();
+
+	abstract public void disableSnowloggingInDatagen();
 }

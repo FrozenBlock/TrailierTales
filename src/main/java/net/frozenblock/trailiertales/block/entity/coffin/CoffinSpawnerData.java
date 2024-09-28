@@ -140,6 +140,7 @@ public class CoffinSpawnerData {
 		this.power = 0;
 		this.nextMobSpawnsAt = 0L;
 		this.powerCooldownEndsAt = 0L;
+		this.nextApparitionSpawnsAt = 0L;
 		this.currentMobs.clear();
 		this.currentApparitions.clear();
 	}

@@ -176,6 +176,7 @@ public class TTSounds {
 	public static final SoundEvent APPARITION_HOLDING_ITEM = register("entity.apparition.holding_item");
 	public static final SoundEvent APPARITION_HAUNT = register("entity.apparition.haunt");
 	public static final SoundEvent APPARITION_THROW = register("entity.apparition.throw");
+	public static final SoundEvent APPARITION_VANISH = register("entity.apparition.vanish");
 
 	public static final SoundEvent SUSPICIOUS_DIRT_BREAK = register("block.suspicious_dirt.break");
 	public static final SoundEvent SUSPICIOUS_DIRT_STEP = register("block.suspicious_dirt.step");

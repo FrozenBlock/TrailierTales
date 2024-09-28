@@ -12,7 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import org.jetbrains.annotations.NotNull;
 
-public final class TTEntities {
+public final class TTEntityTypes {
 	public static final EntityType<Apparition> APPARITION = register(
 		"apparition",
 		EntityType.Builder.of(Apparition::new, MobCategory.MONSTER)

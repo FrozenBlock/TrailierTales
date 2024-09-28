@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.entity;
 
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -26,11 +26,11 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	public ThrownItemProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
-		super(TTEntities.THROWN_ITEM_PROJECTILE, shooter, level);
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, shooter, level);
 	}
 
 	public ThrownItemProjectile(@NotNull Level level, double x, double y, double z) {
-		super(TTEntities.THROWN_ITEM_PROJECTILE, x, y, z, level);
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, x, y, z, level);
 	}
 
 	@Override

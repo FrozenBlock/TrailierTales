@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -133,7 +133,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel
-			? createTickerHelper(blockEntityType, TTBlockEntities.SURVEYOR, (unusedWorld, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
+			? createTickerHelper(blockEntityType, TTBlockEntityTypes.SURVEYOR, (unusedWorld, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
 			: null;
 	}
 }

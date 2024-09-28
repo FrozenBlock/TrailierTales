@@ -131,6 +131,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Each nearby Coffin will activate and spawn up to two mobs per-player simultaneously
     - Spawned mobs will constantly track the closest player
     - Coffins will have a spawning cooldown of only 150 ticks
+    - Coffins will also be able to spawn two Apparitions
 
 ## COFFIN
 - A new block that spawns mobs
@@ -149,9 +150,9 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
         - The amount of simultaneous spawned mobs per extra player increases to one
     - Irritated
         - The highest strength triggered at a power of 12
-        - Can spawn two Apparitions instead of one
         - 200 ticks between spawns
     - A Coffin's power will reset after 12000 ticks, or 10 minutes
+- If all spawned mobs from each stage are defeated in a timely manner, the Coffin will remain inactive for the next 30 minutes
 
 ## APPARITION
 - A new mysterious mob that spawns from Coffins
