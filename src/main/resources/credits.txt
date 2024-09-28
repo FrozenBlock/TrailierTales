@@ -52,6 +52,7 @@ Zhen
       - Illuminator Pottery Sherd/Pattern
       - Incidence Pottery Sherd/Pattern
       - Lumber Pottery Sherd/Pattern
+      - Omen Pottery Sherd/Pattern
       - Navigator Pottery Sherd/Pattern
       - Needles Pottery Sherd/Pattern
       - Plume Pottery Sherd/Pattern
@@ -69,9 +70,6 @@ Zhen
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
     - Made the Fausse Vie music disc
-
-Rebel459
-    - Implemented and made textures for the Desolation Armor Trim
 
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks

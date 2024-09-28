@@ -65,6 +65,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Added Lumber Pottery Sherd
 - Added Navigator Pottery Sherd
 - Added Needles Pottery Sherd
+- Added Omen Pottery Sherd
 - Added Plume Pottery Sherd
 - Added Protection Pottery Sherd
 - Added Shed Pottery Sherd
@@ -261,6 +262,8 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Added Smooth Red Sandstone Wall
     - Added Cut Red Sandstone Stairs
     - Added Cut Red Sandstone Wall
+- Added Prismarine Brick Wall
+- Added Dark Prismarine Wall
 - Finished the End Stone block family
     - Added End Stone Stairs
     - Added End Stone Slab
@@ -345,3 +348,14 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 
 ## DECORATED POTS
 - Decorated Pots' wobble animations now flip on consecutive triggers
+
+## END CITIES
+- Choral End Stone Bricks will now generate
+- Cracked End Stone Bricks will now generate
+- Chiseled Purpur Blocks will now generate
+
+## ARMOR STANDS
+- Armor Stands now have their arms enabled by default
+
+## CAMELS
+- Now rarely spawn in Desert biomes

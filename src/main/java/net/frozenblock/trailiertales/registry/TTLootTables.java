@@ -133,17 +133,19 @@ public class TTLootTables {
 		});
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && TTEntityConfig.get().sniffer.cyan_rose_seeds) {
-				((FabricLootTableBuilder)tableBuilder)
-					.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS)));
-			}
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && TTEntityConfig.get().sniffer.manedrop_germs) {
-				((FabricLootTableBuilder)tableBuilder)
-					.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
-			}
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key) && TTEntityConfig.get().sniffer.dawntrail_seeds) {
-				((FabricLootTableBuilder)tableBuilder)
-					.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
+			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key)) {
+				if (TTEntityConfig.get().sniffer.cyan_rose_seeds) {
+					((FabricLootTableBuilder) tableBuilder)
+						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS)));
+				}
+				if (TTEntityConfig.get().sniffer.manedrop_germs) {
+					((FabricLootTableBuilder) tableBuilder)
+						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
+				}
+				if (TTEntityConfig.get().sniffer.dawntrail_seeds) {
+					((FabricLootTableBuilder) tableBuilder)
+						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
+				}
 			}
 		});
 	}
