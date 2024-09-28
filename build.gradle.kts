@@ -204,7 +204,7 @@ dependencies {
 
     // Wilder Wild
     if (local_wilderwild)
-        modCompileOnly(project(":WilderWild", configuration = "namedElements"))
+        modCompileOnly(project(":WilderWild", configuration = "intermediary"))
     else
         modCompileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
 
