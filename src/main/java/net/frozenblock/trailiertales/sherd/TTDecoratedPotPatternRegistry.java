@@ -32,6 +32,7 @@ public class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistr
 		register(registry, "lumber");
 		register(registry, "navigator");
 		register(registry, "needles");
+		register(registry, "omen");
 		register(registry, "plume");
 		register(registry, "protection");
 		register(registry, "shed");

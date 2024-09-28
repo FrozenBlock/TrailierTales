@@ -559,7 +559,7 @@ public class CatacombsGenerator {
 				),
 				templatePool.getOrThrow(START),
 				Optional.empty(),
-				18,
+				14,
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
@@ -578,7 +578,7 @@ public class CatacombsGenerator {
 			CATACOMBS_STRUCTURE_SET_KEY,
 			new StructureSet(
 				structure.getOrThrow(CATACOMBS_KEY),
-				new RandomSpreadStructurePlacement(85, 40, RandomSpreadType.LINEAR, 1886497114) // ancient city salt is 20083232
+				new RandomSpreadStructurePlacement(65, 30, RandomSpreadType.LINEAR, 1886497114)
 			)
 		);
 	}
@@ -796,8 +796,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
+					TTItems.OMEN_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					TTItems.CRESCENT_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
 				),
@@ -821,8 +821,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
+					TTItems.OMEN_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					TTItems.CRESCENT_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
 				),
@@ -848,8 +848,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
+					TTItems.OMEN_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					TTItems.CRESCENT_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
 				),
@@ -873,8 +873,8 @@ public class CatacombsGenerator {
 				TTStructures.decoratedPotSherdProcessor(
 					1F,
 					Items.SKULL_POTTERY_SHERD,
+					TTItems.OMEN_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					TTItems.CRESCENT_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
 				),
@@ -965,8 +965,8 @@ public class CatacombsGenerator {
 					1F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
+					TTItems.OMEN_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
-					TTItems.CRESCENT_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
 				),

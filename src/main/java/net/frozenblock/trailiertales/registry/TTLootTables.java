@@ -81,6 +81,7 @@ public class TTLootTables {
 				// Removed Burn
 				// Removed Danger
 				// Added Protection
+				// Added Crescent
 				// Added Catacombs Explorer Map
 				return LootTable.lootTable()
 					.withPool(
@@ -103,6 +104,7 @@ public class TTLootTables {
 							.add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.HOWL_POTTERY_SHERD))
+							.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE))
 							.add(LootItem.lootTableItem(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE))
 							.add(LootItem.lootTableItem(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE))

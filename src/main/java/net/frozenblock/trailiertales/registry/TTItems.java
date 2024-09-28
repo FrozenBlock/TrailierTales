@@ -59,6 +59,7 @@ public class TTItems {
 	public static final Item LUMBER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item NAVIGATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item NEEDLES_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item OMEN_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item PLUME_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item PROTECTION_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item SHED_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -124,6 +125,7 @@ public class TTItems {
 		registerSherdBefore(Items.MINER_POTTERY_SHERD, LUMBER_POTTERY_SHERD, "lumber_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.MOURNER_POTTERY_SHERD, NAVIGATOR_POTTERY_SHERD, "navigator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(NAVIGATOR_POTTERY_SHERD, NEEDLES_POTTERY_SHERD, "needles_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.PLENTY_POTTERY_SHERD, OMEN_POTTERY_SHERD, "omen_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.PLENTY_POTTERY_SHERD, PLUME_POTTERY_SHERD, "plume_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.PRIZE_POTTERY_SHERD, PROTECTION_POTTERY_SHERD, "protection_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.SHEAF_POTTERY_SHERD, SHED_POTTERY_SHERD, "shed_pottery_sherd", CreativeModeTabs.INGREDIENTS);

@@ -35,8 +35,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
+						.add(LootItem.lootTableItem(TTItems.OMEN_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(8))
@@ -64,8 +64,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
+						.add(LootItem.lootTableItem(TTItems.OMEN_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.BULLSEYE_POTTERY_SHERD).setWeight(3))
@@ -93,8 +93,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
+						.add(LootItem.lootTableItem(TTItems.OMEN_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
-						.add(LootItem.lootTableItem(TTItems.CRESCENT_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))

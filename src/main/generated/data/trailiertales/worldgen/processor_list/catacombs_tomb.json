@@ -744,8 +744,8 @@
             "sherds": [
               "minecraft:skull_pottery_sherd",
               "minecraft:skull_pottery_sherd",
+              "trailiertales:omen_pottery_sherd",
               "minecraft:plenty_pottery_sherd",
-              "trailiertales:crescent_pottery_sherd",
               "trailiertales:essence_pottery_sherd",
               "trailiertales:eye_pottery_sherd"
             ]

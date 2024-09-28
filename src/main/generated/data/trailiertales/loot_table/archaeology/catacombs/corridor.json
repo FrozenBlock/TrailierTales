@@ -11,12 +11,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:plenty_pottery_sherd",
+          "name": "trailiertales:omen_pottery_sherd",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:crescent_pottery_sherd",
+          "name": "minecraft:plenty_pottery_sherd",
           "weight": 3
         },
         {

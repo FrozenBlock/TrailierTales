@@ -306,7 +306,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Burn Pottery Sherd -> Badlands Ruins
     - Cluck Pottery Sherd -> Savanna Ruins
     - Crawl Pottery Sherd -> Savanna Ruins
-    - Crescent Pottery Sherd -> Catacombs
+    - Crescent Pottery Sherd -> Trail Ruins
     - Cultivator Pottery Sherd -> Ruins
     - Danger Pottery Sherd -> Desert Ruins
     - Drought Pottery Sherd -> Badlands Ruins
@@ -326,6 +326,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Mourner Pottery Sherd -> Deepslate Ruins
     - Navigator Pottery Sherd -> Jungle Ruins
     - Needles Pottery Sherd -> Desert Ruins
+    - Omen Pottery Sherd -> Catacombs
     - Plenty Pottery Sherd -> Catacombs
     - Plume Pottery Sherd -> Savanna Ruins
     - Prize Pottery Sherd -> Desert Pyramid (No Change)
