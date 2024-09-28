@@ -419,6 +419,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.SMOOTH_RED_SANDSTONE);
 
+		// PRISMARINE
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.PRISMARINE_BRICK_WALL, Blocks.PRISMARINE_BRICKS);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.DARK_PRISMARINE_WALL, Blocks.DARK_PRISMARINE);
+
 		// END STONE BRICKS
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.END_STONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_END_STONE_BRICKS.asItem(), 0.1F, 200)
@@ -471,8 +477,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
 
+		// ARMOR TRIMS
 
 		smithingTrims().forEach(trimTemplate -> trimSmithing(recipeOutput, trimTemplate.template(), trimTemplate.id()));
+
 		// DESOLATION SMITHING TEMPLATE
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)

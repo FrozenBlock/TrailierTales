@@ -118,6 +118,10 @@ public final class TTModelProvider extends FabricModelProvider {
 		this.stairs(generator, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
 		this.wall(generator, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
 
+		this.wall(generator, TTBlocks.PRISMARINE_BRICK_WALL, Blocks.PRISMARINE_BRICKS);
+
+		this.wall(generator, TTBlocks.DARK_PRISMARINE_WALL, Blocks.DARK_PRISMARINE);
+
 		BlockModelGenerators.BlockFamilyProvider endStoneFamily = generator.family(Blocks.END_STONE);
 		endStoneFamily.skipGeneratingModelsFor.add(Blocks.END_STONE);
 		endStoneFamily.generateFor(TTDataGenerator.FAMILY_END_STONE);

@@ -64,6 +64,10 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_RED_SANDSTONE_STAIRS);
 		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_RED_SANDSTONE_WALL);
 
+		BlockFamilies.PRISMARINE_BRICKS.variants.put(BlockFamily.Variant.WALL, TTBlocks.PRISMARINE_BRICK_WALL);
+
+		BlockFamilies.DARK_PRISMARINE.variants.put(BlockFamily.Variant.WALL, TTBlocks.DARK_PRISMARINE_WALL);
+
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, TTBlocks.CRACKED_PURPUR_BLOCK);
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, TTBlocks.CHISELED_PURPUR_BLOCK);
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, TTBlocks.PURPUR_WALL);

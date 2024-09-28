@@ -182,6 +182,17 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
+				Blocks.PRISMARINE_BRICKS,
+				Blocks.PRISMARINE_BRICK_STAIRS,
+				Blocks.PRISMARINE_BRICK_SLAB,
+				TTBlocks.PRISMARINE_BRICK_WALL,
+			},
+			TTSounds.BRICKS,
+			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
 				Blocks.POLISHED_BLACKSTONE_BRICKS,
 				Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS,
 				Blocks.POLISHED_BLACKSTONE_BRICK_SLAB,

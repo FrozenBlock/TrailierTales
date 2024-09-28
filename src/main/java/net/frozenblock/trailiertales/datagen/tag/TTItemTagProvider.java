@@ -152,6 +152,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.CUT_SANDSTONE_WALL.asItem())
 			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL.asItem())
 			.add(TTBlocks.CUT_RED_SANDSTONE_WALL.asItem())
+			.add(TTBlocks.PRISMARINE_BRICK_WALL.asItem())
+			.add(TTBlocks.DARK_PRISMARINE_WALL.asItem())
 			.add(TTBlocks.CHORAL_END_STONE_WALL.asItem())
 			.add(TTBlocks.END_STONE_WALL.asItem())
 			.add(TTBlocks.PURPUR_WALL.asItem());
