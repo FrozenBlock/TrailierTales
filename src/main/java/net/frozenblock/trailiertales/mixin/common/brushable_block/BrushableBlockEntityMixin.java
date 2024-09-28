@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
@@ -86,8 +87,9 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Shadow
 	private int brushCount;
 
+	@Contract(pure = true)
 	@Unique
-	private static float[] trailierTales$translations(@NotNull Direction direction, int i) {
+	private static float @NotNull [] trailierTales$translations(@NotNull Direction direction, int i) {
 		float[] fs = new float[]{0.5F, 0F, 0.5F};
 		float f = (float) i / 9F;
 		switch (direction) {
@@ -118,8 +120,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
 	public void trailierTales$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.trailierTales$saveNBT(compoundTag);
-		if (this.trailierTales$rebrushed)
-			compoundTag.putBoolean("Rebrushed", this.trailierTales$rebrushed);
+		if (this.trailierTales$rebrushed) compoundTag.putBoolean("Rebrushed", this.trailierTales$rebrushed);
 		if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
 			compoundTag.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.location().toString());
 		}
@@ -276,15 +277,15 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		if (this.trailierTales$prevZLerp != 0.5F)
 			compoundTag.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
 
-		if (this.trailierTales$rotation != 0F)
+		if (Math.abs(this.trailierTales$rotation) > 0.1F)
 			compoundTag.putFloat("Rotation", this.trailierTales$rotation);
-		if (this.trailierTales$prevRotation != 0F)
+		if (Math.abs(this.trailierTales$prevRotation) > 0.1F)
 			compoundTag.putFloat("PrevRotation", this.trailierTales$prevRotation);
-		if (this.trailierTales$targetItemScale != 0F)
+		if (Math.abs(this.trailierTales$targetItemScale) > 0.1F)
 			compoundTag.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
-		if (this.trailierTales$itemScale != 0F)
+		if (Math.abs(this.trailierTales$itemScale) > 0.1F)
 			compoundTag.putFloat("ItemScale", this.trailierTales$itemScale);
-		if (this.trailierTales$prevItemScale != 0F)
+		if (Math.abs(this.trailierTales$prevItemScale) > 0.1F)
 			compoundTag.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
 		if (this.trailierTales$hasCustomItem)
 			compoundTag.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
