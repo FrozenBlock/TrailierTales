@@ -146,13 +146,13 @@ public class TTItems {
 		registerSherdAfter(SPROUT_POTTERY_SHERD, VESSEL_POTTERY_SHERD, "vessel_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(VESSEL_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 
-		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, "matrix_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, "overgrowth_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, "martyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, "zephyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, COT_ARMOR_TRIM_SMITHING_TEMPLATE, "cot_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, "overgrowth_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, "zephyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, "martyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, COT_ARMOR_TRIM_SMITHING_TEMPLATE, "cot_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
