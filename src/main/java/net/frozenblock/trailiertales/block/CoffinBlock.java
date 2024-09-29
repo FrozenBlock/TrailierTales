@@ -257,15 +257,14 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			entityInterface.trailierTales$setCoffinData(null);
 		}
 
-		if (remove && coffinSpawner != null) {
-			coffinSpawner.onEntityRemoved(entity);
-		}
-
 		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem();
 			apparition.level().broadcastEntityEvent(apparition, (byte)60);
 			apparition.discard();
 			apparition.dropPreservedEquipment();
+			if (coffinSpawner != null) {
+				coffinSpawner.onApparitionRemovedOrKilled(entity.level());
+			}
 		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
 			mob.level().broadcastEntityEvent(mob, (byte)60);
 			mob.discard();

@@ -166,6 +166,10 @@ public class CoffinSpawnerData {
 		return this.currentMobs.contains(entity.getUUID());
 	}
 
+	public boolean trackingApparition(@NotNull Entity entity) {
+		return this.currentApparitions.contains(entity.getUUID());
+	}
+
 	public int getPower() {
 		return this.power;
 	}

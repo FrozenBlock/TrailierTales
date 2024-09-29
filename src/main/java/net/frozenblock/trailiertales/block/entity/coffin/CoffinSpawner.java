@@ -467,8 +467,8 @@ public final class CoffinSpawner {
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
 	}
 
-	public void onEntityRemoved(@NotNull Entity entity) {
-		if (entity.level() instanceof ServerLevel serverLevel && entity instanceof Apparition) {
+	public void onApparitionRemovedOrKilled(@NotNull Level level) {
+		if (level instanceof ServerLevel serverLevel) {
 			this.data.nextApparitionSpawnsAt = serverLevel.getGameTime() + this.getConfig().ticksBetweenApparitionSpawn();
 		}
 	}
