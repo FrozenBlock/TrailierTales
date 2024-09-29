@@ -139,7 +139,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(TTItems.NEEDLES_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.SHINE_POTTERY_SHERD).setWeight(6))
-						.add(LootItem.lootTableItem(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE))
+						.add(LootItem.lootTableItem(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
 				)
 		);
 
@@ -186,7 +186,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(TTItems.NAVIGATOR_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.BLOOM_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.SHOWER_POTTERY_SHERD).setWeight(7))
-						.add(LootItem.lootTableItem(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE))
+						.add(LootItem.lootTableItem(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
 				)
 		);
 
@@ -221,6 +221,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(TTItems.CLUCK_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.PLUME_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(Items.SHELTER_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
 				)
 		);
 
@@ -288,6 +289,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.ILLUMINATOR_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.HEIGHT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
 				)
 		);
 
@@ -321,6 +323,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BURN_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.WITHER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.DROUGHT_POTTERY_SHERD).setWeight(6))
+						.add(LootItem.lootTableItem(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
 				)
 		);
 	}

@@ -49,17 +49,22 @@
   "item.trailiertales.vessel_pottery_sherd": "Vessel Pottery Sherd",
   "item.trailiertales.wither_pottery_sherd": "Wither Pottery Sherd",
 
-  "item.trailiertales.desolation_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.undead_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.matrix_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.geode_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.overgrowth_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.martyr_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.zephyr_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.cot_armor_trim_smithing_template": "Smithing Template",
 
   "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
   "trim_pattern.trailiertales.matrix": "Matrix Armor Trim",
   "trim_pattern.trailiertales.geode": "Geode Armor Trim",
   "trim_pattern.trailiertales.overgrowth": "Overgrowth Armor Trim",
+  "trim_pattern.trailiertales.martyr": "Martyr Armor Trim",
+  "trim_pattern.trailiertales.zephyr": "Zephyr Armor Trim",
+  "trim_pattern.trailiertales.cot": "Cot Armor Trim",
 
   "item.trailiertales.music_disc_fausse_vie": "Music Disc",
   "item.trailiertales.music_disc_fausse_vie.desc": "Zhen - Fausse Vie",

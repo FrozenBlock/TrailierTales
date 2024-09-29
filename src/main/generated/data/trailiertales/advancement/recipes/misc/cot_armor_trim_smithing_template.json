@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_smithing_trim_template": {
+    "has_cot_armor_trim_smithing_template": {
       "conditions": {
         "items": [
           {
-            "items": "trailiertales:desolation_armor_trim_smithing_template"
+            "items": "trailiertales:cot_armor_trim_smithing_template"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:desolation_armor_trim_smithing_template_smithing_trim"
+        "recipe": "trailiertales:cot_armor_trim_smithing_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_smithing_trim_template"
+      "has_cot_armor_trim_smithing_template"
     ]
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:desolation_armor_trim_smithing_template_smithing_trim"
+      "trailiertales:cot_armor_trim_smithing_template"
     ]
   }
 }

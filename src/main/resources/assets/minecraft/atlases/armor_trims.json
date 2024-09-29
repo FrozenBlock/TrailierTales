@@ -3,8 +3,6 @@
     {
       "type": "paletted_permutations",
       "textures": [
-        "trailiertales:trims/models/armor/desolation",
-        "trailiertales:trims/models/armor/desolation_leggings",
         "trailiertales:trims/models/armor/undead",
         "trailiertales:trims/models/armor/undead_leggings",
         "trailiertales:trims/models/armor/matrix",
@@ -12,7 +10,13 @@
         "trailiertales:trims/models/armor/geode",
         "trailiertales:trims/models/armor/geode_leggings",
         "trailiertales:trims/models/armor/overgrowth",
-        "trailiertales:trims/models/armor/overgrowth_leggings"
+        "trailiertales:trims/models/armor/overgrowth_leggings",
+        "trailiertales:trims/models/armor/martyr",
+        "trailiertales:trims/models/armor/martyr_leggings",
+        "trailiertales:trims/models/armor/zephyr",
+        "trailiertales:trims/models/armor/zephyr_leggings",
+        "trailiertales:trims/models/armor/cot",
+        "trailiertales:trims/models/armor/cot_leggings"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {

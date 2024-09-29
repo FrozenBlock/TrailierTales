@@ -128,6 +128,11 @@
           "type": "minecraft:item",
           "name": "trailiertales:drought_pottery_sherd",
           "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:martyr_armor_trim_smithing_template",
+          "weight": 2
         }
       ],
       "rolls": 1.0

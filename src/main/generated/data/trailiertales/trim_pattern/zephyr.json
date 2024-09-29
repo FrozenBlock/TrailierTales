@@ -1,0 +1,8 @@
+{
+  "asset_id": "trailiertales:zephyr",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.trailiertales.zephyr"
+  },
+  "template_item": "trailiertales:zephyr_armor_trim_smithing_template"
+}

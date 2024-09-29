@@ -78,6 +78,12 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 
 ## ARMOR TRIMS
 - Added Undead Armor Trim, found in Catacombs
+- Added Matrix Armor Trim, found in Catacombs
+- Added Martyr Armor Trim, found in Badlands Ruins
+- Added Zephyr Armor Trim, found in Desert Ruins
+- Added Cot Armor Trim, found in Savanna Ruins
+- Added Overgrowth Armor Trim, found in Jungle Ruins
+- Added Geode Armor Trim, found in Deepslate Ruins
 
 ## CYAN ROSE
 - Sniffers can now dig up Cyan Rose Seeds
@@ -349,7 +355,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Wither Pottery Sherd -> Badlands Ruins
 
 ## DECORATED POTS
-- Decorated Pots' wobble animations now flip on consecutive triggers
+- The wobbling animation now mirrors each time it plays
 
 ## END CITIES
 - Choral End Stone Bricks will now generate

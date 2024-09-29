@@ -71,10 +71,6 @@ public class TTItems {
 	public static final Item VESSEL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 
-	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.DESOLATION,
-		TTFeatureFlags.FEATURE_FLAG
-	);
 	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		TTTrimPatterns.UNDEAD,
 		TTFeatureFlags.FEATURE_FLAG
@@ -89,6 +85,18 @@ public class TTItems {
 	);
 	public static final Item OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		TTTrimPatterns.OVERGROWTH,
+		TTFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.MARTYR,
+		TTFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.ZEPHYR,
+		TTFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item COT_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.COT,
 		TTFeatureFlags.FEATURE_FLAG
 	);
 
@@ -138,11 +146,13 @@ public class TTItems {
 		registerSherdAfter(SPROUT_POTTERY_SHERD, VESSEL_POTTERY_SHERD, "vessel_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(VESSEL_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 
-		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, "matrix_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, "overgrowth_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, "martyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, "zephyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, COT_ARMOR_TRIM_SMITHING_TEMPLATE, "cot_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}

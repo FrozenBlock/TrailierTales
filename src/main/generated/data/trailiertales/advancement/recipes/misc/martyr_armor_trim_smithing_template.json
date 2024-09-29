@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_desolation_armor_trim_smithing_template": {
+    "has_martyr_armor_trim_smithing_template": {
       "conditions": {
         "items": [
           {
-            "items": "trailiertales:desolation_armor_trim_smithing_template"
+            "items": "trailiertales:martyr_armor_trim_smithing_template"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:desolation_armor_trim_smithing_template"
+        "recipe": "trailiertales:martyr_armor_trim_smithing_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_desolation_armor_trim_smithing_template"
+      "has_martyr_armor_trim_smithing_template"
     ]
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:desolation_armor_trim_smithing_template"
+      "trailiertales:martyr_armor_trim_smithing_template"
     ]
   }
 }
