@@ -131,6 +131,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - A new mob effect obtained through brewing
     - Potion is brewed with Ectoplasm and an Awkward Potion
 - Spawns an Apparition upon the effected mob's death
+    - If used on an Apparition, vanquishes it
 
 ## SIEGE OMEN
 - Triggered when being close to a Coffin with Bad Omen
