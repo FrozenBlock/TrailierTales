@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.sherd;
+package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.impl.sherd.DecoratedPotPatternRegistryEntrypoint;
 import net.frozenblock.trailiertales.TTConstants;
@@ -17,6 +17,7 @@ public class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistr
 		register(registry, "bloom");
 		register(registry, "bolt");
 		register(registry, "bullseye");
+		register(registry, "carrier");
 		register(registry, "cluck");
 		register(registry, "crawl");
 		register(registry, "crescent");

@@ -22,6 +22,7 @@
   "item.trailiertales.bloom_pottery_sherd": "Bloom Pottery Sherd",
   "item.trailiertales.bolt_pottery_sherd": "Bolt Pottery Sherd",
   "item.trailiertales.bullseye_pottery_sherd": "Bullseye Pottery Sherd",
+  "item.trailiertales.carrier_pottery_sherd": "Carrier Pottery Sherd",
   "item.trailiertales.cluck_pottery_sherd": "Cluck Pottery Sherd",
   "item.trailiertales.crawl_pottery_sherd": "Crawl Pottery Sherd",
   "item.trailiertales.crescent_pottery_sherd": "Crescent Pottery Sherd",
@@ -222,6 +223,7 @@
   "subtitles.entity.apparition.holding_item": "Apparition grabs item",
   "subtitles.entity.apparition.haunt": "Apparition haunts",
   "subtitles.entity.apparition.throw": "Apparition thrusts item",
+  "subtitles.entity.apparition.vanish": "Apparition vanquished",
 
   "option.trailiertales.component.title": "Trailier Tales Options",
 

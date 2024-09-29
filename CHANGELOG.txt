@@ -300,7 +300,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Revamped the distribution of pottery sherds
     - Angler Pottery Sherd -> Warm Ocean Ruins (No Change)
     - Archer Pottery Sherd -> Desert Pyramid (No Change)
-    - Arms Up Pottery Sherd -> Desert Well (No Change)
+    - Arms Up Pottery Sherd -> Desert Pyramid
     - Bait Pottery Sherd -> Warm Ocean Ruins
     - Blade Pottery Sherd -> Ruins
     - Bloom Pottery Sherd -> Jungle Ruins
@@ -308,6 +308,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Brewer Pottery Sherd -> Desert Well (No Change)
     - Bullseye Pottery Sherd -> Catacombs
     - Burn Pottery Sherd -> Badlands Ruins
+    - Carrier Pottery Sherd -> Desert Well
     - Cluck Pottery Sherd -> Savanna Ruins
     - Crawl Pottery Sherd -> Savanna Ruins
     - Crescent Pottery Sherd -> Trail Ruins
@@ -342,7 +343,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Shower Pottery Sherd -> Jungle Ruins
     - Spade Pottery Sherd -> Desert Pyramid
     - Sprout Pottery Sherd - Ruins
-    - Skull Pottery Sherd -> Catacombs (DESERT PYRAMID NEEDS REPLACEMENT)
+    - Skull Pottery Sherd -> Catacombs
     - Snort Pottery Sherd -> Warm Ocean Ruins (No Change)
     - Vessel Pottery Sherd -> Cold Ocean Ruins
     - Wither Pottery Sherd -> Badlands Ruins

@@ -1,7 +1,10 @@
 
 package net.frozenblock.trailiertales;
 
-import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
+import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.lib.config.api.instance.ConfigModification;
+import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 
 public class TTPreLoadConstants {
 	public static final boolean IS_DATAGEN;
@@ -18,8 +21,8 @@ public class TTPreLoadConstants {
 
 	static {
 		IS_DATAGEN = isDatagen();
-		if (IS_DATAGEN) {
-			TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().disableSnowloggingInDatagen();
+		if (IS_DATAGEN && FabricLoader.getInstance().isModLoaded("wilderwild")) {
+			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
 		}
 	}
 }

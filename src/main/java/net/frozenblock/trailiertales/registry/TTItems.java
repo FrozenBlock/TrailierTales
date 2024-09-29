@@ -44,6 +44,7 @@ public class TTItems {
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BOLT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item CARRIER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CLUCK_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CRAWL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CRESCENT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -110,7 +111,8 @@ public class TTItems {
 		registerSherdAfter(Items.BLADE_POTTERY_SHERD, BLOOM_POTTERY_SHERD, "bloom_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(BLOOM_POTTERY_SHERD, BOLT_POTTERY_SHERD, "bolt_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerSherdBefore(Items.DANGER_POTTERY_SHERD, CLUCK_POTTERY_SHERD, "cluck_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.DANGER_POTTERY_SHERD, CARRIER_POTTERY_SHERD, "carrier_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdAfter(CARRIER_POTTERY_SHERD, CLUCK_POTTERY_SHERD, "cluck_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdBefore(CLUCK_POTTERY_SHERD, CRAWL_POTTERY_SHERD, "crawl_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(CRAWL_POTTERY_SHERD, CRESCENT_POTTERY_SHERD, "crescent_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(CRESCENT_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);

@@ -15,7 +15,4 @@ public class NoOpWWIntegration extends AbstractWWIntegration {
 		return false;
 	}
 
-	@Override
-	public void disableSnowloggingInDatagen() {
-	}
 }
