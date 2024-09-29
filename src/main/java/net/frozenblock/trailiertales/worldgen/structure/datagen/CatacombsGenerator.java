@@ -559,7 +559,7 @@ public class CatacombsGenerator {
 				),
 				templatePool.getOrThrow(START),
 				Optional.empty(),
-				14,
+				16,
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
@@ -578,7 +578,7 @@ public class CatacombsGenerator {
 			CATACOMBS_STRUCTURE_SET_KEY,
 			new StructureSet(
 				structure.getOrThrow(CATACOMBS_KEY),
-				new RandomSpreadStructurePlacement(65, 30, RandomSpreadType.LINEAR, 1886497114)
+				new RandomSpreadStructurePlacement(65, 35, RandomSpreadType.LINEAR, 1886497114)
 			)
 		);
 	}
