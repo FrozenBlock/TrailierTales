@@ -1,15 +1,15 @@
 
 package net.frozenblock.trailiertales;
 
-import net.fabricmc.loader.api.FabricLoader;
-import java.util.Arrays;
+import java.nio.file.Path;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class TTPreLoadConstants {
-	public static final boolean IS_DATAGEN = isDatagen();
+	public static final String MOD_ID = "trailiertales";
 
-	private static boolean isDatagen() {
-		return Arrays.stream(
-			FabricLoader.getInstance().getLaunchArguments(true)
-		).toList().stream().anyMatch(string -> string.contains("datagen"));
+	@Contract(pure = true)
+	public static @NotNull Path configPath(String name, boolean json5) {
+		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
 }

@@ -2,9 +2,9 @@ package net.frozenblock.trailiertales.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTArchaeologyLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTBlockLootProvider;
@@ -38,7 +38,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public static BlockFamily FAMILY_END_STONE;
 
 	static {
-		if (TTPreLoadConstants.IS_DATAGEN) {
+		if (FrozenBools.IS_DATAGEN) {
 			FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
 				.stairs(TTBlocks.CALCITE_STAIRS)
 				.slab(TTBlocks.CALCITE_SLAB)
@@ -82,7 +82,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 		// ASSETS
 
-		if (TTPreLoadConstants.IS_DATAGEN) pack.addProvider(TTModelProvider::new);
+		if (FrozenBools.IS_DATAGEN) pack.addProvider(TTModelProvider::new);
 
 		// DATA
 
