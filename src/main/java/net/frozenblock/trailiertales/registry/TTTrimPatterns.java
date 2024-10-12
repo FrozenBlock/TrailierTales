@@ -16,6 +16,7 @@ public class TTTrimPatterns {
 	public static final ResourceKey<TrimPattern> MARTYR = create("martyr");
 	public static final ResourceKey<TrimPattern> ZEPHYR = create("zephyr");
 	public static final ResourceKey<TrimPattern> COT = create("cot");
+
 	public static void init() {
 	}
 

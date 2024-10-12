@@ -44,6 +44,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.CRAWL_POTTERY_SHERD)
 			.add(TTItems.CRESCENT_POTTERY_SHERD)
 			.add(TTItems.CULTIVATOR_POTTERY_SHERD)
+			.add(TTItems.DROUGHT_POTTERY_SHERD)
 			.add(TTItems.ESSENCE_POTTERY_SHERD)
 			.add(TTItems.EYE_POTTERY_SHERD)
 			.add(TTItems.FOCUS_POTTERY_SHERD)
