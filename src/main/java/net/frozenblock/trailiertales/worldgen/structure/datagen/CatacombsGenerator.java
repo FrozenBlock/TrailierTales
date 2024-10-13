@@ -328,7 +328,6 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/two_story"), tomb), 2),
 
 					Pair.of(StructurePoolElement.single(string("corridor/small_gallery"), corridor), 1),
-					Pair.of(StructurePoolElement.single(string("corridor/surveyor_timing"), corridor), 1),
 
 					Pair.of(StructurePoolElement.single(string("corridor/connector_dripstone_trap"), corridor), 4),
 					Pair.of(StructurePoolElement.single(string("corridor/connector_lava_trap"), corridor), 4)
@@ -658,15 +657,15 @@ public class CatacombsGenerator {
 		final RuleProcessor potProcessor = new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.25F),
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.35F),
 					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
 				),
 				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.25F),
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.275F),
 					AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4)
 				),
 				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.25F),
+					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.275F),
 					AlwaysTrueTest.INSTANCE, Blocks.POTTED_DEAD_BUSH.defaultBlockState()
 				),
 				new ProcessorRule(
@@ -793,7 +792,7 @@ public class CatacombsGenerator {
 				corridorChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.OMEN_POTTERY_SHERD,
@@ -818,7 +817,7 @@ public class CatacombsGenerator {
 				corridorChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.OMEN_POTTERY_SHERD,
@@ -845,7 +844,7 @@ public class CatacombsGenerator {
 				rewardChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.OMEN_POTTERY_SHERD,
@@ -871,7 +870,7 @@ public class CatacombsGenerator {
 				guaranteedRewardChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.OMEN_POTTERY_SHERD,
 					Items.PLENTY_POTTERY_SHERD,
@@ -913,7 +912,7 @@ public class CatacombsGenerator {
 				rewardChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.BULLSEYE_POTTERY_SHERD,
 					TTItems.BULLSEYE_POTTERY_SHERD,
@@ -939,7 +938,7 @@ public class CatacombsGenerator {
 				rewardChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
@@ -962,7 +961,7 @@ public class CatacombsGenerator {
 				corridorChests,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
-					1F,
+					0.5F,
 					Items.SKULL_POTTERY_SHERD,
 					Items.SKULL_POTTERY_SHERD,
 					TTItems.OMEN_POTTERY_SHERD,
