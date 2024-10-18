@@ -38,6 +38,7 @@ Zhen
       - Cracked and Mossy Tuff Bricks
       - All new Calcite variants
       - Cracked and Mossy Bricks
+      - Dawntrail name and textures
       - Bait Pottery Sherd/Pattern
       - Bolt Pottery Sherd/Pattern
       - Cluck Pottery Sherd/Pattern
