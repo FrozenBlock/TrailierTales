@@ -18,6 +18,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -604,7 +605,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE
 			)
-			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, TTConstants.id(RecipeProvider.getItemName(item) + "_smithing_trim")));
+			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, ResourceKey.create(Registries.RECIPE, TTConstants.id(RecipeProvider.getItemName(item) + "_smithing_trim"))));
 	}
 
 	@Override

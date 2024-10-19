@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "trailiertales:andesite_brick_slab"
-    }
+    "#": "trailiertales:andesite_brick_slab"
   },
   "pattern": [
     "#",

@@ -209,10 +209,10 @@ dependencies {
         modCompileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
 
     // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:$modmenu_version")
+    modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
@@ -222,7 +222,7 @@ dependencies {
         modImplementation("maven.modrinth:sodium:${sodium_version}")
 
     // WorldEdit
-    modImplementation("maven.modrinth:worldedit:7.3.4-beta-01")
+    modCompileOnly("maven.modrinth:worldedit:7.3.4-beta-01")
 
     "datagenImplementation"(sourceSets.main.get().output)
 }

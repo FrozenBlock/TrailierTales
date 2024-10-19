@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "trailiertales:mossy_andesite_bricks"
-  },
+  "ingredient": "trailiertales:mossy_andesite_bricks",
   "result": {
     "count": 1,
     "id": "trailiertales:mossy_andesite_brick_stairs"

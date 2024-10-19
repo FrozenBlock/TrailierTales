@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:chiseled_purpur_block_from_purpur_block_stonecutting"
+        "recipe": "minecraft:chiseled_purpur_block_from_purpur_block_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:chiseled_purpur_block_from_purpur_block_stonecutting"
+      "minecraft:chiseled_purpur_block_from_purpur_block_stonecutting"
     ]
   }
 }

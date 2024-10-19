@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:andesite_brick_stairs_from_polished_andesite_stonecutting"
+        "recipe": "minecraft:andesite_brick_stairs_from_polished_andesite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:andesite_brick_stairs_from_polished_andesite_stonecutting"
+      "minecraft:andesite_brick_stairs_from_polished_andesite_stonecutting"
     ]
   }
 }

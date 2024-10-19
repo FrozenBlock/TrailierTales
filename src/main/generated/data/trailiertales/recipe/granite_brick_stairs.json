@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "trailiertales:granite_bricks"
-    }
+    "#": "trailiertales:granite_bricks"
   },
   "pattern": [
     "#  ",

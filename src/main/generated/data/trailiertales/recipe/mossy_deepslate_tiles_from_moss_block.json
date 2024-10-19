@@ -3,12 +3,8 @@
   "category": "building",
   "group": "mossy_deepslate_tiles",
   "ingredients": [
-    {
-      "item": "minecraft:deepslate_tiles"
-    },
-    {
-      "item": "minecraft:moss_block"
-    }
+    "minecraft:deepslate_tiles",
+    "minecraft:moss_block"
   ],
   "result": {
     "count": 1,

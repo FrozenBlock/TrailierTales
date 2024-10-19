@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "trailiertales:calcite_bricks"
-  },
+  "ingredient": "trailiertales:calcite_bricks",
   "result": {
     "count": 1,
     "id": "trailiertales:calcite_brick_wall"

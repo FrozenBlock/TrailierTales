@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "trailiertales:mossy_deepslate_tiles"
-    }
+    "#": "trailiertales:mossy_deepslate_tiles"
   },
   "pattern": [
     "###"

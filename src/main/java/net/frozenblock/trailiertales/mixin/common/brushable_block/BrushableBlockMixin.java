@@ -37,7 +37,8 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
-		this.registerDefaultState(this.defaultBlockState().setValue(TTBlockStateProperties.CAN_PLACE_ITEM, false));
+		if (TTBlockConfig.get().suspiciousBlocks.place_items)
+			this.registerDefaultState(this.defaultBlockState().setValue(TTBlockStateProperties.CAN_PLACE_ITEM, false));
 	}
 
 	@WrapOperation(

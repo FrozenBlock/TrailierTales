@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "trailiertales:granite_bricks"
-  },
+  "ingredient": "trailiertales:granite_bricks",
   "result": {
     "count": 1,
     "id": "trailiertales:granite_brick_stairs"

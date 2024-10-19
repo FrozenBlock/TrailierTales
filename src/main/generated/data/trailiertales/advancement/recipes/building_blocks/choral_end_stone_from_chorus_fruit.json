@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:choral_end_stone_from_chorus_fruit"
+        "recipe": "minecraft:choral_end_stone_from_chorus_fruit"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:choral_end_stone_from_chorus_fruit"
+      "minecraft:choral_end_stone_from_chorus_fruit"
     ]
   }
 }

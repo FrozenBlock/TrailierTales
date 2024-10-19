@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:smooth_sandstone_wall_from_smooth_sandstone_stonecutting"
+        "recipe": "minecraft:smooth_sandstone_wall_from_smooth_sandstone_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:smooth_sandstone_wall_from_smooth_sandstone_stonecutting"
+      "minecraft:smooth_sandstone_wall_from_smooth_sandstone_stonecutting"
     ]
   }
 }

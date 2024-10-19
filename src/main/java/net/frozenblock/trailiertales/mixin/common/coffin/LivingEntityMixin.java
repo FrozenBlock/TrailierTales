@@ -51,7 +51,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	}
 
 	@WrapOperation(
-		method = "hurt",
+		method = "hurtServer",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/advancements/critereon/PlayerHurtEntityTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
@@ -67,7 +67,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	}
 
 	@WrapOperation(
-		method = "hurt",
+		method = "hurtServer",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/advancements/critereon/EntityHurtPlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
@@ -111,9 +111,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		method = "baseTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getProfiler()Lnet/minecraft/util/profiling/ProfilerFiller;",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
+			target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V"
 		),
 		slice = @Slice(
 			from = @At(

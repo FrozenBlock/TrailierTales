@@ -8,7 +8,7 @@
     "common.armor_stand.ArmorStandMixin",
     "common.boat.AbstractChestBoatMixin",
     "common.boat.AbstractBoatMixin",
-    "common.boat.EntityMixin",
+    "common.boat.EntityRendererMixin",
     "common.boat.VehicleEntityMixin",
     "common.brush.BrushSoundMixin",
     "common.brush.HalfBrushMixin",

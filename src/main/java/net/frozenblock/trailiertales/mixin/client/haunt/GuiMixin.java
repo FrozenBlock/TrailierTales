@@ -297,10 +297,10 @@ public class GuiMixin {
 	}
 
 	@WrapOperation(
-		method = "renderPlayerHealth",
+		method = "renderAirBubbles",
 		at = @At(
 			value = "INVOKE",
-			target = "Ljava/lang/Math;min(II)I"
+			target = "Ljava/lang/Math;clamp(JII)I"
 		),
 		slice = @Slice(
 			from = @At(
@@ -309,8 +309,8 @@ public class GuiMixin {
 			)
 		)
 	)
-	private int trailierTales$hideAirSupply(int airSupply, int maxAirSupply, Operation<Integer> original) {
-		int finalSupply = original.call(airSupply, maxAirSupply);
+	private int trailierTales$hideAirSupply(long airSupply, int noSupply, int maxAirSupply, Operation<Integer> original) {
+		int finalSupply = original.call(airSupply, noSupply, maxAirSupply);
 		if (trailierTales$isHaunted) {
 			if (finalSupply != maxAirSupply) {
 				return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
@@ -320,7 +320,7 @@ public class GuiMixin {
 	}
 
 	@WrapOperation(
-		method = "renderPlayerHealth",
+		method = "renderAirBubbles",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V"

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:chiseled_end_stone_bricks_from_end_stone_bricks_stonecutting"
+        "recipe": "minecraft:chiseled_end_stone_bricks_from_end_stone_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:chiseled_end_stone_bricks_from_end_stone_bricks_stonecutting"
+      "minecraft:chiseled_end_stone_bricks_from_end_stone_bricks_stonecutting"
     ]
   }
 }

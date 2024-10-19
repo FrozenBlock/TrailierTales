@@ -4,7 +4,6 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.sherd.SherdRegistry;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
-import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +23,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
-import static net.minecraft.world.item.Items.registerBlock;
 
 public class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = register("apparition_spawn_egg",
@@ -44,25 +42,19 @@ public class TTItems {
 	);
 
 	public static final Item CYAN_ROSE_SEEDS = register("cyan_rose_seeds",
-		properties -> createBlockItemWithCustomItemName(
-			TTBlocks.CYAN_ROSE_CROP,
-			new Properties()
-				.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-		)
+		createBlockItemWithCustomItemName(TTBlocks.CYAN_ROSE_CROP),
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Item MANEDROP_GERM = register("manedrop_germ",
-		properties -> createBlockItemWithCustomItemName(
-			TTBlocks.MANEDROP_CROP,
-			new Properties()
-				.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-		)
+		createBlockItemWithCustomItemName(TTBlocks.MANEDROP_CROP),
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Item DAWNTRAIL_SEEDS = register("dawntrail_seeds",
-		properties -> createBlockItemWithCustomItemName(
-			TTBlocks.DAWNTRAIL_CROP,
-			new Properties()
-				.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-		)
+		createBlockItemWithCustomItemName(TTBlocks.DAWNTRAIL_CROP),
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final Item BAIT_POTTERY_SHERD = register("bait_pottery_sherd",
@@ -353,15 +345,11 @@ public class TTItems {
 	}
 
 	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
-		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, WWConstants.id(name)), function, properties);
+		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name)), function, properties);
 	}
 
-	private static Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
-		return properties -> createBlockItemWithCustomItemName(block, properties);
-	}
-
-	private static Item createBlockItemWithCustomItemName(Block block, Properties properties) {
-		return new BlockItem(block, properties.useItemDescriptionPrefix());
+	public static Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
+		return properties -> new BlockItem(block, properties.useItemDescriptionPrefix());
 	}
 
 	@SafeVarargs

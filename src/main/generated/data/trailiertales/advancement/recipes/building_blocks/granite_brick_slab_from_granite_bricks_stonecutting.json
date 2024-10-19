@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:granite_brick_slab_from_granite_bricks_stonecutting"
+        "recipe": "minecraft:granite_brick_slab_from_granite_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "trailiertales:granite_brick_slab_from_granite_bricks_stonecutting"
+      "minecraft:granite_brick_slab_from_granite_bricks_stonecutting"
     ]
   }
 }

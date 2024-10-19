@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.impl.client.AbstractBoatRendererInterface;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.client.renderer.entity.AbstractBoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RaftRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +18,7 @@ public class RaftRendererMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, CallbackInfo info) {
-		if (BoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface) {
+		if (AbstractBoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface) {
 			abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
 				modelLayerLocation.model().withPath((string) -> {
 					string = string.substring(Math.max(0, string.indexOf("/")));

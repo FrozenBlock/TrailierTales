@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -133,13 +134,12 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		method = "brush",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;brushingCompleted(Lnet/minecraft/world/entity/player/Player;)V",
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;brushingCompleted(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V",
 			shift = At.Shift.BEFORE
 		)
 	)
-	public void trailierTales$rebrushA(long ticks, Player player, Direction direction, CallbackInfoReturnable<Boolean> info) {
+	public void trailierTales$rebrushA(long ticks, ServerLevel level, Player player, Direction direction, ItemStack stack, CallbackInfoReturnable<Boolean> info) {
 		if (!this.trailierTales$hasCustomItem) {
-			ItemStack stack = player.getUseItem();
 			int rebrushLevel = stack.getEnchantments().getLevel(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
 			if (rebrushLevel > 0) {
 				float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;

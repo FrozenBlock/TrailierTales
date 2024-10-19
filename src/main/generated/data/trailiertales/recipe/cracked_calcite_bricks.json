@@ -3,9 +3,7 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "trailiertales:calcite_bricks"
-  },
+  "ingredient": "trailiertales:calcite_bricks",
   "result": {
     "id": "trailiertales:cracked_calcite_bricks"
   }

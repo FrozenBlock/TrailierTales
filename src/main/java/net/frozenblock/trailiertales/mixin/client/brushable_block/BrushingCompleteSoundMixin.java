@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.AbstractWWIntegration;
 import net.frozenblock.trailiertales.registry.TTSounds;
+import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LevelRenderer.class)
+@Mixin(LevelEventHandler.class)
 public class BrushingCompleteSoundMixin {
 
 	@ModifyExpressionValue(

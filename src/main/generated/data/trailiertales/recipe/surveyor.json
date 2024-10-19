@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": {
-      "item": "minecraft:cobblestone"
-    },
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "E": {
-      "item": "trailiertales:ectoplasm"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "#": "minecraft:cobblestone",
+    "A": "minecraft:amethyst_shard",
+    "E": "trailiertales:ectoplasm",
+    "R": "minecraft:redstone"
   },
   "pattern": [
     "###",
