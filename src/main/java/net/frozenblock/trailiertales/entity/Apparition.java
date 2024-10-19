@@ -359,11 +359,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
+	@NotNull
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return TTSounds.APPARITION_HURT;
 	}
 
 	@Override
+	@NotNull
 	protected SoundEvent getDeathSound() {
 		return TTSounds.APPARITION_DEATH;
 	}
@@ -616,7 +618,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		DebugPackets.sendEntityBrain(this);
 	}
 
-	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()

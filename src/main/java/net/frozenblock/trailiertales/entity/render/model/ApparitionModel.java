@@ -24,16 +24,16 @@ import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ApparitionModel<T extends ApparitionRenderState> extends EntityModel<T> {
+public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	private final ModelPart root;
 	public final ModelPart core;
 	public final ModelPart inner;
 	public final ModelPart outline;
 	public final ModelPart outer;
-	private final AlphaFunction<T> innerAlphaFunction;
-	private final AlphaFunction<T> outlineAlphaFunction;
-	private final AlphaFunction<T> outerAlphaFunction;
-	private final DrawSelector<T, ApparitionModel<T>> drawSelector;
+	private final AlphaFunction<ApparitionRenderState> innerAlphaFunction;
+	private final AlphaFunction<ApparitionRenderState> outlineAlphaFunction;
+	private final AlphaFunction<ApparitionRenderState> outerAlphaFunction;
+	private final DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector;
 	private final List<ModelPart> modelParts;
 	private final List<ModelPart> coreParts;
 	private final List<ModelPart> outerParts;
@@ -47,9 +47,9 @@ public class ApparitionModel<T extends ApparitionRenderState> extends EntityMode
 		this(
 			FrozenRenderType::apparitionOuterCull,
 			root,
-			Apparition::getInnerTransparency,
-			Apparition::getOutlineTransparency,
-			Apparition::getOuterTransparency,
+			renderState -> renderState.innerTransparency,
+			renderState -> renderState.outlineTransparency,
+			renderState -> renderState.outlineTransparency,
 			ApparitionModel::getParts
 		);
 	}
@@ -57,12 +57,12 @@ public class ApparitionModel<T extends ApparitionRenderState> extends EntityMode
 	public ApparitionModel(
 		Function<ResourceLocation, RenderType> function,
 		@NotNull ModelPart root,
-		AlphaFunction<T> innerAlpha,
-		AlphaFunction<T> outlineAlpha,
-		AlphaFunction<T> outerAlpha,
-		DrawSelector<T, ApparitionModel<T>> drawSelector
+		AlphaFunction<ApparitionRenderState> innerAlpha,
+		AlphaFunction<ApparitionRenderState> outlineAlpha,
+		AlphaFunction<ApparitionRenderState> outerAlpha,
+		DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector
 	) {
-		super(function);
+		super(root, function);
 		this.root = root;
 		this.core = root.getChild("core");
 		this.inner = this.core.getChild("inner");
@@ -110,14 +110,19 @@ public class ApparitionModel<T extends ApparitionRenderState> extends EntityMode
 	}
 
 	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.root;
-	}
+	public void setupAnim(ApparitionRenderState renderState) {
+		float limbAngle = renderState.walkAnimationPos;
+		float limbDistance = renderState.walkAnimationSpeed;
+		float headYaw = renderState.yRot;
+		float headPitch = renderState.xRot;
+		this.innerTransparency = this.innerAlphaFunction.apply(renderState);
+		this.outlineTransparency = this.outlineAlphaFunction.apply(renderState);
+		this.outerTransparency = this.outerAlphaFunction.apply(renderState);
+		this.flicker = renderState.flicker;
+		this.outer.yRot = renderState.itemYRot;
+		this.outer.zRot = renderState.itemZRot;
 
-	@Override
-	public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		animationProgress = animationProgress + (limbAngle * 3.5F);
+		float animationProgress = renderState.ageInTicks + (limbAngle * 3.5F);
 		this.core.yRot = headYaw * ((float) Math.PI / 180F);
 		this.core.xRot = headPitch * ((float) Math.PI / 180F);
 
@@ -132,16 +137,6 @@ public class ApparitionModel<T extends ApparitionRenderState> extends EntityMode
 		this.outer.xScale = squash;
 		this.outer.zScale = squash;
 		this.outer.yScale = -sinIdle + 1;
-	}
-
-	@Override
-	public void prepareMobModel(@NotNull T renderState, float limbAngle, float limbDistance, float tickDelta) {
-		this.innerTransparency = this.innerAlphaFunction.apply(renderState, tickDelta);
-		this.outlineTransparency = this.outlineAlphaFunction.apply(renderState, tickDelta);
-		this.outerTransparency = this.outerAlphaFunction.apply(renderState, tickDelta);
-		this.flicker = renderState.getFlicker(tickDelta);
-		this.outer.yRot = renderState.getItemYRot(tickDelta);
-		this.outer.zRot = renderState.getItemZRot(tickDelta);
 	}
 
 	@Override
@@ -177,7 +172,7 @@ public class ApparitionModel<T extends ApparitionRenderState> extends EntityMode
 
 	@Environment(EnvType.CLIENT)
 	public interface AlphaFunction<T extends ApparitionRenderState> {
-		float apply(T apparition, float tickDelta);
+		float apply(T apparition);
 	}
 
 	@Environment(EnvType.CLIENT)

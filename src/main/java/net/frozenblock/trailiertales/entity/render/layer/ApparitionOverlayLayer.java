@@ -16,22 +16,22 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class ApparitionOverlayLayer<T extends ApparitionRenderState> extends RenderLayer<T, ApparitionModel<T>> {
+public class ApparitionOverlayLayer extends RenderLayer<ApparitionRenderState, ApparitionModel> {
 	private final RenderType renderType;
-	private final ApparitionModel<T> model;
+	private final ApparitionModel model;
 
 	public ApparitionOverlayLayer(
 		EntityRendererProvider.@NotNull Context context,
-		RenderLayerParent<T, ApparitionModel<T>> renderLayerParent,
-		ApparitionModel.AlphaFunction<T> innerAlphaFunction,
-		ApparitionModel.AlphaFunction<T> outlineAlphaFunction,
-		ApparitionModel.AlphaFunction<T> outerAlphaFunction,
-		ApparitionModel.DrawSelector<T, ApparitionModel<T>> drawSelector,
+		RenderLayerParent<ApparitionRenderState, ApparitionModel> renderLayerParent,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> innerAlphaFunction,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> outlineAlphaFunction,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> outerAlphaFunction,
+		ApparitionModel.DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector,
 		ResourceLocation texture,
 		boolean cull
 	) {
 		super(renderLayerParent);
-		this.model = new ApparitionModel<>(
+		this.model = new ApparitionModel(
 			cull ? FrozenRenderType::apparitionOuterCull : FrozenRenderType::apparitionOuter,
 			context.bakeLayer(TrailierTalesClient.APPARITION_OVERLAY),
 			innerAlphaFunction,
@@ -47,17 +47,16 @@ public class ApparitionOverlayLayer<T extends ApparitionRenderState> extends Ren
 		PoseStack matrices,
 		@NotNull MultiBufferSource vertexConsumers,
 		int light,
-		T renderState,
+		ApparitionRenderState renderState,
 		float partialTick,
 		float color
 	) {
-		this.model.prepareMobModel(renderState, renderState.walkAnimationPos, renderState.walkAnimationSpeed, partialTick);
 		this.model.setupAnim(renderState);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.renderType);
 		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(renderState, 0F));
 	}
 
-	private int getOverlay(@NotNull T renderState, float whiteOverlayProgress) {
+	private int getOverlay(@NotNull ApparitionRenderState renderState, float whiteOverlayProgress) {
 		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(renderState.hurtTime > 0 || renderState.deathTime > 0));
 	}
 }
