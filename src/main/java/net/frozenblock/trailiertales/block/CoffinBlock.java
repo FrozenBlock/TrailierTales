@@ -93,7 +93,16 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(@NotNull BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState state,
+		LevelReader level,
+		ScheduledTickAccess tickAccess,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
+	) {
 		if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
 			boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
 			return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)

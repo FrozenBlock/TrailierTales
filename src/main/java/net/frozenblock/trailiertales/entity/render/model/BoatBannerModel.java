@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.entity.render.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -11,16 +12,17 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
+import net.minecraft.client.renderer.entity.state.BoatRenderState;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import org.jetbrains.annotations.NotNull;
 
-public class BoatBannerModel extends EntityModel<Boat> {
+public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	private final ModelPart flag;
 	private final ModelPart pole;
 	private final ModelPart bar;
@@ -28,7 +30,7 @@ public class BoatBannerModel extends EntityModel<Boat> {
 	private boolean raft = false;
 
 	public BoatBannerModel(@NotNull ModelPart root) {
-		super();
+		super(root, RenderType::entitySolid);
 		this.flag = root.getChild("flag");
 		this.pole = root.getChild("pole");
 		this.bar = root.getChild("bar");
@@ -48,11 +50,14 @@ public class BoatBannerModel extends EntityModel<Boat> {
 	}
 
 	@Override
-	public void setupAnim(Boat entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos((Mth.PI * 2F) * animationProgress / 100F)) * Mth.PI;
-		this.flag.xRot -= (limbDistance * (90F / 180F)) * Mth.PI;
-		this.flag.xRot -= (Mth.cos(limbAngle * 0.4F) + 1F) * 0.1F * Math.min(limbDistance * 2F, 1F);
-		this.flag.y = -32F;
+	public void setupAnim(BoatRenderState renderState) {
+		super.setupAnim(renderState);
+		if (renderState instanceof BoatRenderStateInterface boatRenderStateInterface) {
+			this.flag.xRot = (-0.0125F + 0.01F * Mth.cos((Mth.PI * 2F) * renderState.ageInTicks / 100F)) * Mth.PI;
+			this.flag.xRot -= (boatRenderStateInterface.trailierTales$getWalkAnimationSpeed() * (90F / 180F)) * Mth.PI;
+			this.flag.xRot -= (Mth.cos(boatRenderStateInterface.trailierTales$getWalkAnimationPos() * 0.4F) + 1F) * 0.1F * Math.min(boatRenderStateInterface.trailierTales$getWalkAnimationSpeed() * 2F, 1F);
+			this.flag.y = -32F;
+		}
 	}
 
 	public void beforeRender(@NotNull PoseStack matrices) {
@@ -79,14 +84,14 @@ public class BoatBannerModel extends EntityModel<Boat> {
 	}
 
 	public void renderFlag(
-		@NotNull PoseStack matrices,
-		MultiBufferSource vertexConsumers,
+		@NotNull PoseStack poseStack,
+		MultiBufferSource multiBufferSource,
 		int light,
 		int overlay,
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
 	) {
-		BannerRenderer.renderPatterns(matrices, vertexConsumers, light, overlay, this.flag, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers, false);
+		BannerRenderer.renderPatterns(poseStack, multiBufferSource, light, overlay, this.flag, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers);
 	}
 
 	@Override
