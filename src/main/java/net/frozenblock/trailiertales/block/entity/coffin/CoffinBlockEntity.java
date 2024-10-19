@@ -72,15 +72,13 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 			return;
 		}
 
-		if (this.getCoffinSpawner().canSpawnInLevel(world)) {
-			CoffinSpawnerState coffinSpawnerState = this.getState();
-			//coffinSpawnerState.emitParticles(world, pos, ominous);
+		CoffinSpawnerState coffinSpawnerState = this.getState();
+		//coffinSpawnerState.emitParticles(world, pos, ominous);
 
-			if (coffinSpawnerState.isCapableOfSpawning()) {
-				RandomSource randomSource = world.getRandom();
-				if (randomSource.nextFloat() <= 0.0175F) {
-					world.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.05F, randomSource.nextFloat() + 0.5F, false);
-				}
+		if (coffinSpawnerState.isCapableOfSpawning()) {
+			RandomSource randomSource = world.getRandom();
+			if (randomSource.nextFloat() <= 0.0175F) {
+				world.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.05F, randomSource.nextFloat() + 0.5F, false);
 			}
 		}
 
