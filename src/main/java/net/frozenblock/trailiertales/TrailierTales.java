@@ -47,8 +47,6 @@ public class TrailierTales extends FrozenModInitializer {
 
 	@Override
 	public void onInitialize(String modId, ModContainer container) {
-		TTConstants.startMeasuring(this);
-
 		if (FrozenBools.IS_DATAGEN) {
 			TTFeatureFlags.init();
 			FrozenFeatureFlags.rebuild();
@@ -98,7 +96,5 @@ public class TrailierTales extends FrozenModInitializer {
 				RuinsPieces.reloadPiecesFromDirectories(resourceManager);
 			}
 		});
-
-		TTConstants.stopMeasuring(this);
 	}
 }
