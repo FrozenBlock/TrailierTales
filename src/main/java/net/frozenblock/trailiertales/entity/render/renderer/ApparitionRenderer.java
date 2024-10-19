@@ -9,6 +9,7 @@ import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.render.layer.ApparitionOverlayLayer;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
+import net.frozenblock.trailiertales.entity.render.renderer.state.ApparitionRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -21,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<Apparition>> {
+public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRenderState, ApparitionModel<Apparition>> {
 	private final ItemRenderer itemRenderer;
 	private float itemYaw;
 

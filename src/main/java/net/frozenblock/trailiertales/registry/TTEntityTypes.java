@@ -7,6 +7,8 @@ import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ThrownItemProjectile;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -19,7 +21,7 @@ public final class TTEntityTypes {
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-			.build(TTConstants.string("apparition"))
+			.build(ResourceKey.create(Registries.ENTITY_TYPE, TTConstants.id("apparition")))
 	);
 
 	public static final EntityType<ThrownItemProjectile> THROWN_ITEM_PROJECTILE = register(
@@ -29,7 +31,7 @@ public final class TTEntityTypes {
 			.clientTrackingRange(64)
 			.updateInterval(10)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-			.build(TTConstants.string("thrown_item"))
+			.build(ResourceKey.create(Registries.ENTITY_TYPE, TTConstants.id("thrown_item")))
 	);
 
 	static {

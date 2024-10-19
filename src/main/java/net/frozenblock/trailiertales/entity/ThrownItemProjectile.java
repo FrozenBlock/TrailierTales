@@ -13,6 +13,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -25,12 +26,12 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 		super(entityType, level);
 	}
 
-	public ThrownItemProjectile(@NotNull Level level, @NotNull LivingEntity shooter) {
-		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, shooter, level);
+	public ThrownItemProjectile(@NotNull Level level, LivingEntity shooter, ItemStack stack) {
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, shooter, level, stack);
 	}
 
-	public ThrownItemProjectile(@NotNull Level level, double x, double y, double z) {
-		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, x, y, z, level);
+	public ThrownItemProjectile(double x, double y, double z, Level level, @NotNull ItemStack stack) {
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, x, y, z, level, stack);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.mixin.common.boat;
 
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,13 +21,13 @@ public abstract class VehicleEntityMixin extends Entity  {
 		super(variant, world);
 	}
 
-	@Inject(method = "destroy(Lnet/minecraft/world/damagesource/DamageSource;)V", at = @At("HEAD"))
-	public void trailierTales$destroy(DamageSource damageSource, CallbackInfo info) {
+	@Inject(method = "destroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V", at = @At("HEAD"))
+	public void trailierTales$destroy(ServerLevel level, DamageSource damageSource, CallbackInfo info) {
 		if (VehicleEntity.class.cast(this) instanceof BoatBannerInterface bannerInterface) {
-			if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+			if (level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
 				ItemStack itemStack = bannerInterface.trailierTales$getBanner();
 				bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);
-				this.spawnAtLocation(itemStack);
+				this.spawnAtLocation(level, itemStack);
 			}
 		}
 	}

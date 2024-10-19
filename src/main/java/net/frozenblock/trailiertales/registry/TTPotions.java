@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TTPotions {
 	public static final Holder.Reference<Potion> TRANSFIGURING = register(
-		"transfiguring", new Potion(new MobEffectInstance(TTMobEffects.TRANSFIGURING, 3600))
+		"transfiguring", new Potion("transfiguring", new MobEffectInstance(TTMobEffects.TRANSFIGURING, 3600))
 	);
 
 	public static void init() {

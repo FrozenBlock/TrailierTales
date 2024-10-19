@@ -392,20 +392,20 @@ public final class CoffinSpawner {
 		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
 	}
 
-	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || world.isClientSide) {
+	public void tickServer(ServerLevel level, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
+		if (part == CoffinPart.HEAD) {
 			return;
 		}
 
-		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(world, pos);
+		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(level, pos);
 		if (coffinOrientation != null) {
-			this.getState().emitParticles(world, pos, coffinOrientation);
+			this.getState().emitParticles(level, pos, coffinOrientation);
 			if (!this.data.soulsToSpawn.isEmpty()) {
 				IntArrayList newList = new IntArrayList();
 				this.data.soulsToSpawn.forEach(spawnTime -> {
 					if (spawnTime <= 0) {
-						CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, coffinOrientation, pos, 0.35D);
-						this.addPower(1, world);
+						CoffinBlock.spawnParticlesFrom(level, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, coffinOrientation, pos, 0.35D);
+						this.addPower(1, level);
 					} else {
 						newList.add(spawnTime - 1);
 					}
@@ -416,35 +416,35 @@ public final class CoffinSpawner {
 		}
 
 		this.data.currentMobs.removeIf(uiid -> {
-			Entity entity = world.getEntity(uiid);
-			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
+			Entity entity = level.getEntity(uiid);
+			boolean shouldUntrack = shouldMobBeUntracked(level, pos, entity);
 			if (shouldUntrack) {
-				CoffinBlock.onCoffinUntrack(entity, this, false);
+				CoffinBlock.onCoffinUntrack(level, entity, this, false);
 			}
 			return shouldUntrack;
 		});
 
 		this.data.currentApparitions.removeIf(uiid -> {
-			Entity entity = world.getEntity(uiid);
-			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
+			Entity entity = level.getEntity(uiid);
+			boolean shouldUntrack = shouldMobBeUntracked(level, pos, entity);
 			if (shouldUntrack) {
-				CoffinBlock.onCoffinUntrack(entity, this, true);
+				CoffinBlock.onCoffinUntrack(level, entity, this, true);
 			}
 			return shouldUntrack;
 		});
 
 		CoffinSpawnerState currentState = this.getState();
-		if (!this.canSpawnInLevel(world)) {
+		if (!this.canSpawnInLevel(level)) {
 			if (currentState.isCapableOfSpawning()) {
-				this.setState(world, CoffinSpawnerState.INACTIVE);
+				this.setState(level, CoffinSpawnerState.INACTIVE);
 			}
 		} else {
-			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, world);
+			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, level);
 			if (nextState != currentState) {
-				this.setState(world, nextState);
+				this.setState(level, nextState);
 			}
 		}
-		this.updateAttemptingToSpawn(world);
+		this.updateAttemptingToSpawn(level);
 	}
 
 	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, UUID uuid) {

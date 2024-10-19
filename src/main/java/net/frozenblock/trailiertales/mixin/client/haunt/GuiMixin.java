@@ -14,6 +14,7 @@ import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 @Mixin(Gui.class)
@@ -229,18 +231,18 @@ public class GuiMixin {
 		method = "renderFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
-				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
+				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V",
 				ordinal = 0,
 				shift = At.Shift.AFTER
 			)
 		)
 	)
-	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height) {
+	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, Function<ResourceLocation, RenderType> renderType, ResourceLocation texture, int x, int y, int width, int height) {
 		return !trailierTales$isHaunted;
 	}
 
@@ -272,14 +274,14 @@ public class GuiMixin {
 		method = "renderFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V",
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V",
 			ordinal = 0
 		)
 	)
-	private void trailierTales$hauntedHunger(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
-		original.call(instance, texture, x, y, width, height);
+	private void trailierTales$hauntedHunger(GuiGraphics instance, Function<ResourceLocation, RenderType> renderType, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+		original.call(instance, renderType, texture, x, y, width, height);
 		if (trailierTales$isHaunted) {
-			original.call(instance, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
+			original.call(instance, renderType, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
 		}
 	}
 
@@ -321,7 +323,7 @@ public class GuiMixin {
 		method = "renderPlayerHealth",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V"
 		),
 		slice = @Slice(
 			from = @At(
@@ -330,9 +332,9 @@ public class GuiMixin {
 			)
 		)
 	)
-	private void trailierTales$hauntedAirSupply(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+	private void trailierTales$hauntedAirSupply(GuiGraphics instance, Function<ResourceLocation, RenderType> renderType, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
 		texture = trailierTales$isHaunted ? TRAILIER_TALES$AIR_HAUNT : texture;
-		original.call(instance, texture, x, y, width, height);
+		original.call(instance, renderType, texture, x, y, width, height);
 	}
 
 	@Unique
@@ -343,7 +345,7 @@ public class GuiMixin {
 	@Unique
 	private void trailierTales$renderHauntedHeart(@NotNull GuiGraphics graphics, int x, int y) {
 		RenderSystem.enableBlend();
-		graphics.blitSprite(TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
+		graphics.blitSprite(RenderType::guiTextured, TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
 		RenderSystem.disableBlend();
 	}
 }

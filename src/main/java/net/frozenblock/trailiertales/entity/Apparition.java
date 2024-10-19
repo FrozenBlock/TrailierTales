@@ -27,6 +27,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
@@ -152,8 +154,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean isInvulnerableTo(DamageSource damageSource) {
-		return super.isInvulnerableTo(damageSource) || this.isHiding();
+	public boolean isInvulnerableTo(ServerLevel level, DamageSource damageSource) {
+		return super.isInvulnerableTo(level, damageSource) || this.isHiding();
 	}
 
 	@Override
@@ -284,26 +286,26 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.getBrain().checkMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryStatus.VALUE_PRESENT);
 	}
 
-	public boolean wantsToPickUp(@NotNull ItemEntity itemEntity) {
-		return this.wantsToPickUp(itemEntity.getItem()) && this.getTarget() != null;
+	public boolean wantsToPickUp(ServerLevel level, @NotNull ItemEntity item) {
+		return this.wantsToPickUp(level, item.getItem()) && this.getTarget() != null;
 	}
 
 	@Override
-	public boolean wantsToPickUp(ItemStack stack) {
+	public boolean wantsToPickUp(ServerLevel level, ItemStack stack) {
 		return this.inventory.getItems().getFirst().isEmpty();
 	}
 
 	@Override
-	protected void pickUpItem(@NotNull ItemEntity item) {
+	protected void pickUpItem(ServerLevel level, ItemEntity item) {
 		ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
 		this.level().addFreshEntity(newItemEntity);
-		InventoryCarrier.pickUpItem(this, this, newItemEntity);
+		InventoryCarrier.pickUpItem(level, this, this, newItemEntity);
 	}
 
 	@Override
-	protected void dropEquipment() {
-		super.dropEquipment();
-		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
+	protected void dropEquipment(ServerLevel level) {
+		super.dropEquipment(level);
+		this.inventory.removeAllItems().forEach(it -> this.spawnAtLocation(level, it));
 	}
 
 	public float getInnerTransparency() {
@@ -435,7 +437,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
 		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
 			if (source.getDirectEntity() instanceof Projectile projectile) {
 				if (projectile instanceof AbstractArrow abstractArrow) {
@@ -449,14 +451,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				}
 			}
 		}
-		boolean bl = super.hurt(source, amount);
-		if (this.level().isClientSide) {
-			return false;
-		}
-		if (bl) {
-			if (source.getEntity() instanceof LivingEntity livingEntity) {
-				ApparitionAi.wasHurtBy(this, livingEntity);
-			}
+		boolean bl = super.hurtServer(level, source, amount);
+		if (bl && source.getEntity() instanceof LivingEntity livingEntity) {
+			ApparitionAi.wasHurtBy(level, this, livingEntity);
 		}
 		return bl;
 	}
@@ -602,14 +599,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected void customServerAiStep() {
-		this.level().getProfiler().push("apparitionBrain");
-		this.getBrain().tick((ServerLevel) this.level(), this);
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("apparitionActivityUpdate");
+	protected void customServerAiStep(ServerLevel level) {
+		ProfilerFiller profiler = Profiler.get();
+		profiler.push("apparitionBrain");
+		this.getBrain().tick(level, this);
+		profiler.pop();
+		profiler.push("apparitionActivityUpdate");
 		ApparitionAi.updateActivity(this);
-		this.level().getProfiler().pop();
-		super.customServerAiStep();
+		profiler.pop();
+		super.customServerAiStep(level);
 	}
 
 	@Override
@@ -619,7 +617,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Contract("null->false")
-	public boolean canTargetEntity(@Nullable Entity entity) {
+	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
@@ -665,9 +663,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
 				projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
 			} else {
-				ThrownItemProjectile thrownItem = new ThrownItemProjectile(this.level(), this);
-				thrownItem.setItem(singleItem);
-				projectile = thrownItem;
+				projectile = new ThrownItemProjectile(this.level(), this, singleItem);
 			}
 			projectile.setOwner(this);
 

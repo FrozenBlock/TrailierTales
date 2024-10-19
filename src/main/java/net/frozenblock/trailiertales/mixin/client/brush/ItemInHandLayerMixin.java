@@ -7,14 +7,19 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.config.TTItemConfig;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ItemInHandLayer.class)
-public class ItemInHandLayerMixin{
+public class ItemInHandLayerMixin<S extends LivingEntityRenderState, M extends EntityModel<S> & ArmedModel> {
 
 	@Inject(
 		method = "renderArmWithItem",
@@ -33,7 +38,8 @@ public class ItemInHandLayerMixin{
 		)
 	)
 	void trailierTales$injectBrushAnim(
-		LivingEntity livingEntity,
+		S livingEntity,
+		@Nullable BakedModel bakedModel,
 		ItemStack itemStack,
 		ItemDisplayContext displayContext,
 		HumanoidArm arm,
@@ -45,7 +51,7 @@ public class ItemInHandLayerMixin{
 	) {
 		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0 && TTItemConfig.SMOOTH_BRUSH_ANIMATION) {
 			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;
-			float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaTicks() - Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
+			float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaTicks() - Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false);
 			float brushProgress = remainingTicks + partialTick;
 			float brushRoll = Mth.cos(
 				(brushProgress * Mth.PI)

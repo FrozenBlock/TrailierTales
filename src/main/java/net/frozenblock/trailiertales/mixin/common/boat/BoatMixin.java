@@ -111,13 +111,13 @@ public abstract class BoatMixin extends VehicleEntity implements BoatBannerInter
 						this.trailierTales$setBanner(itemStack.split(1));
 						this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 					}
-					info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
+					info.setReturnValue(InteractionResult.SUCCESS);
 				}
 			} else {
 				this.spawnAtLocation(this.trailierTales$getBanner(), 0.6F);
 				this.trailierTales$setBanner(ItemStack.EMPTY);
 				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
-				info.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
+				info.setReturnValue(InteractionResult.SUCCESS);
 			}
 		}
 	}

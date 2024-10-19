@@ -10,8 +10,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.lib.entity.impl.client.rendering.ModelPartInvertInterface;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.entity.render.renderer.state.ApparitionRenderState;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -24,7 +24,7 @@ import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> {
+public class ApparitionModel<T extends ApparitionRenderState> extends EntityModel<T> {
 	private final ModelPart root;
 	public final ModelPart core;
 	public final ModelPart inner;
@@ -135,13 +135,13 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
-		this.innerTransparency = this.innerAlphaFunction.apply(entity, tickDelta);
-		this.outlineTransparency = this.outlineAlphaFunction.apply(entity, tickDelta);
-		this.outerTransparency = this.outerAlphaFunction.apply(entity, tickDelta);
-		this.flicker = entity.getFlicker(tickDelta);
-		this.outer.yRot = entity.getItemYRot(tickDelta);
-		this.outer.zRot = entity.getItemZRot(tickDelta);
+	public void prepareMobModel(@NotNull T renderState, float limbAngle, float limbDistance, float tickDelta) {
+		this.innerTransparency = this.innerAlphaFunction.apply(renderState, tickDelta);
+		this.outlineTransparency = this.outlineAlphaFunction.apply(renderState, tickDelta);
+		this.outerTransparency = this.outerAlphaFunction.apply(renderState, tickDelta);
+		this.flicker = renderState.getFlicker(tickDelta);
+		this.outer.yRot = renderState.getItemYRot(tickDelta);
+		this.outer.zRot = renderState.getItemZRot(tickDelta);
 	}
 
 	@Override
@@ -176,12 +176,12 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 
 	@Environment(EnvType.CLIENT)
-	public interface AlphaFunction<T extends Apparition> {
+	public interface AlphaFunction<T extends ApparitionRenderState> {
 		float apply(T apparition, float tickDelta);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public interface DrawSelector<T extends Apparition, M extends EntityModel<T>> {
+	public interface DrawSelector<T extends ApparitionRenderState, M extends EntityModel<T>> {
 		List<ModelPart> getPartsToDraw(M entityModel);
 	}
 }

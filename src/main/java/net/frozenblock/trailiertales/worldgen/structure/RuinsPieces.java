@@ -538,7 +538,7 @@ public class RuinsPieces {
 				int yDifference = startHeight - this.templatePosition.getY();
 				this.boundingBox.move(0, yDifference, 0);
 			}
-			if (this.boundingBox.minY() <= world.getMinBuildHeight()) {
+			if (this.boundingBox.minY() <= world.getMinY()) {
 				return;
 			}
 			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
@@ -566,7 +566,7 @@ public class RuinsPieces {
 				BlockState blockState = world.getBlockState(mutableBlockPos);
 
 				for (FluidState fluidState = world.getFluidState(mutableBlockPos);
-					 (blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > world.getMinBuildHeight() + 1;
+					 (blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > world.getMinY() + 1;
 					 fluidState = world.getFluidState(mutableBlockPos)
 				) {
 					mutableBlockPos.set(m, --o, n);

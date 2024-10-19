@@ -6,6 +6,7 @@ import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
+import net.frozenblock.trailiertales.entity.render.renderer.state.ApparitionRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,7 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T, ApparitionModel<T>> {
+public class ApparitionOverlayLayer<T extends ApparitionRenderState> extends RenderLayer<T, ApparitionModel<T>> {
 	private final RenderType renderType;
 	private final ApparitionModel<T> model;
 
@@ -46,21 +47,17 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		PoseStack matrices,
 		@NotNull MultiBufferSource vertexConsumers,
 		int light,
-		T entity,
-		float limbAngle,
-		float limbDistance,
-		float tickDelta,
-		float animationProgress,
-		float headYaw,
-		float headPitch
+		T renderState,
+		float partialTick,
+		float color
 	) {
-		this.model.prepareMobModel(entity, limbAngle, limbDistance, tickDelta);
-		this.model.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		this.model.prepareMobModel(renderState, renderState.walkAnimationPos, renderState.walkAnimationSpeed, partialTick);
+		this.model.setupAnim(renderState);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.renderType);
-		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(entity, 0F));
+		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(renderState, 0F));
 	}
 
-	private int getOverlay(@NotNull T entity, float whiteOverlayProgress) {
-		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(entity.hurtTime > 0 || entity.deathTime > 0));
+	private int getOverlay(@NotNull T renderState, float whiteOverlayProgress) {
+		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(renderState.hurtTime > 0 || renderState.deathTime > 0));
 	}
 }

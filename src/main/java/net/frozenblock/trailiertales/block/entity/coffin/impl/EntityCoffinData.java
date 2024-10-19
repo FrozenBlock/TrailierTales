@@ -45,7 +45,7 @@ public class EntityCoffinData {
 			boolean canUntrackFromTime = (gameTime - this.lastInteractionAt) > 1800 && !(entity instanceof Apparition);
 			Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
 			if (optionalCoffinSpawner.isEmpty() || canUntrackFromTime) {
-				CoffinBlock.onCoffinUntrack(entity, null, true);
+				CoffinBlock.onCoffinUntrack(serverLevel, entity, null, true);
 			} else {
 				if (FrozenLibConfig.IS_DEBUG) {
 					FrozenNetworking.sendPacketToAllPlayers(
