@@ -9,6 +9,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -37,6 +38,11 @@ public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBa
 		super(scale);
 		this.fromColor = fromColor;
 		this.toColor = toColor;
+	}
+
+	@Contract("_, _ -> new")
+	public static @NotNull GlowingDustColorTransitionOptions ofSingleColor(Vector3f color, float scale) {
+		return new GlowingDustColorTransitionOptions(color, color, scale);
 	}
 
 	public Vector3f getFromColor() {

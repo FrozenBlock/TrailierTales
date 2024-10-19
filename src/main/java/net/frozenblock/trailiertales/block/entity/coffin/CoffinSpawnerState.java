@@ -3,9 +3,12 @@ package net.frozenblock.trailiertales.block.entity.coffin;
 import java.util.Optional;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -13,25 +16,28 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 public enum CoffinSpawnerState implements StringRepresentable {
-	INACTIVE("inactive", 0, false, false),
-	ACTIVE("active", 3, true, false),
-	IRRITATED("irritated", 5, true, false),
-	AGGRESSIVE("aggressive", 7, true, true),
-	OMINOUS("ominous", 7, true, true);
+	INACTIVE("inactive", 0, false, false, Optional.empty()),
+	ACTIVE("active", 3, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(137F / 255F, 176F / 255F, 244F / 255F), 1F))),
+	IRRITATED("irritated", 5, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(184F / 255F, 149F / 255F, 219F / 255F), 1F))),
+	AGGRESSIVE("aggressive", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(224F / 255F, 130F / 255F, 130F / 255F), 1F))),
+	OMINOUS("ominous", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(222F / 255F, 64F / 255F, 88F / 255F), 1F)));
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;
 	private final boolean finalWave;
+	private final Optional<ParticleOptions> emitParticle;
 	private final ResourceLocation headTexture;
 	private final ResourceLocation footTexture;
 
-	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning, final boolean finalWave) {
+	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning, final boolean finalWave, Optional<ParticleOptions> emitParticle) {
 		this.name = name;
 		this.lightLevel = lightLevel;
 		this.isCapableOfSpawning = isCapableOfSpawning;
 		this.finalWave = finalWave;
+		this.emitParticle = emitParticle;
 		this.headTexture = getTexture(name, false);
 		this.footTexture = getTexture(name, true);
 	}
@@ -140,6 +146,22 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		return coffinSpawnerState;
 	}
 
+	public void emitParticles(ServerLevel level, BlockPos pos, Direction coffinOrientation) {
+		this.getParticleOptionsForState().ifPresent(particleOptions -> {
+			if (level.random.nextFloat() <= 0.05F) {
+				CoffinBlock.spawnParticlesFrom(
+					level,
+					particleOptions,
+					level.random.nextInt(1, 2),
+					0.5D,
+					coffinOrientation,
+					pos,
+					1D
+				);
+			}
+		});
+	}
+
 	public int getLightLevel() {
 		return lightLevel;
 	}
@@ -164,6 +186,10 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			case AGGRESSIVE -> CoffinSpawnerState.AGGRESSIVE;
 			case OMINOUS -> CoffinSpawnerState.OMINOUS;
 		};
+	}
+
+	public Optional<ParticleOptions> getParticleOptionsForState() {
+		return this.emitParticle;
 	}
 
 	@Contract("_, _ -> new")
