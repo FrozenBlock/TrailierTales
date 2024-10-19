@@ -76,8 +76,8 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	public void trailierTales$extractRenderState(AbstractBoat abstractBoat, BoatRenderState boatRenderState, float f, CallbackInfo info) {
 		if (abstractBoat instanceof BoatBannerInterface bannerInterface && boatRenderState instanceof BoatRenderStateInterface boatRenderStateInterface) {
 			WalkAnimationState walkAnimationState = bannerInterface.trailierTales$getWalkAnimationState();
-			boatRenderStateInterface.trailierTales$setWalkAnimationPos(walkAnimationState.position());
-			boatRenderStateInterface.trailierTales$setWalkAnimationSpeed(walkAnimationState.speed());
+			boatRenderStateInterface.trailierTales$setWalkAnimationPos(walkAnimationState.position(f));
+			boatRenderStateInterface.trailierTales$setWalkAnimationSpeed(walkAnimationState.speed(f));
 			boatRenderStateInterface.trailierTales$setBanner(bannerInterface.trailierTales$getBanner());
 		}
 	}
