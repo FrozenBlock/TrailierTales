@@ -68,7 +68,7 @@ public class TransfiguringMobEffect extends MobEffect {
 	}
 
 	private void spawnApparitionOffspring(ServerLevel level, double x, double y, double z) {
-		Apparition apparition = SPAWNED_ENTITY_TYPE.create(level, EntitySpawnReason.BREEDING);
+		Apparition apparition = SPAWNED_ENTITY_TYPE.create(level, EntitySpawnReason.TRIAL_SPAWNER);
 		if (apparition != null) {
 			apparition.moveTo(x, y, z, level.getRandom().nextFloat() * 360F, 0F);
 			ApparitionAi.rememberHome(apparition, level, BlockPos.containing(x, y, z));
