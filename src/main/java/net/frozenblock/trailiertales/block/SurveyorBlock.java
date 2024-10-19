@@ -24,6 +24,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -72,8 +74,9 @@ public class SurveyorBlock extends BaseEntityBlock {
 	protected void updateNeighborsInFront(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		Direction direction = state.getValue(FACING);
 		BlockPos blockPos = pos.relative(direction.getOpposite());
-		level.neighborChanged(blockPos, this, pos);
-		level.updateNeighborsAtExceptFromFacing(blockPos, this, direction);
+		Orientation orientation = ExperimentalRedstoneUtils.initialOrientation(level, direction.getOpposite(), null);
+		level.neighborChanged(blockPos, this, orientation);
+		level.updateNeighborsAtExceptFromFacing(blockPos, this, direction, orientation);
 	}
 
 	@Override
