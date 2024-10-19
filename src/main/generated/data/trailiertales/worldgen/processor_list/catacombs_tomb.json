@@ -248,7 +248,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.25
+            "probability": 0.35
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -261,7 +261,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.25
+            "probability": 0.275
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -279,7 +279,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.25
+            "probability": 0.275
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -739,13 +739,13 @@
         {
           "block_entity_modifier": {
             "type": "frozenlib:append_sherds",
-            "chance_per_slot": 1.0,
+            "chance_per_slot": 0.5,
             "default_to_brick": false,
             "sherds": [
               "minecraft:skull_pottery_sherd",
               "minecraft:skull_pottery_sherd",
+              "trailiertales:omen_pottery_sherd",
               "minecraft:plenty_pottery_sherd",
-              "trailiertales:crescent_pottery_sherd",
               "trailiertales:essence_pottery_sherd",
               "trailiertales:eye_pottery_sherd"
             ]
@@ -753,7 +753,7 @@
           "input_predicate": {
             "block": "minecraft:decorated_pot",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 1.0
+            "probability": 0.5
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"

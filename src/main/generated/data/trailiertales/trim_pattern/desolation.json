@@ -1,8 +1,0 @@
-{
-  "asset_id": "trailiertales:desolation",
-  "decal": false,
-  "description": {
-    "translate": "trim_pattern.trailiertales.desolation"
-  },
-  "template_item": "trailiertales:desolation_armor_trim_smithing_template"
-}

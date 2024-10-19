@@ -22,11 +22,12 @@ import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
@@ -178,6 +179,17 @@ public class FrozenLibIntegration extends ModIntegration {
 			},
 			TTSounds.POLISHED_BRICKS,
 			() -> TTBlockConfig.get().blockSounds.polished_bricks
+		);
+
+		BlockSoundGroupOverwrites.addBlocks(
+			new Block[]{
+				Blocks.PRISMARINE_BRICKS,
+				Blocks.PRISMARINE_BRICK_STAIRS,
+				Blocks.PRISMARINE_BRICK_SLAB,
+				TTBlocks.PRISMARINE_BRICK_WALL,
+			},
+			TTSounds.BRICKS,
+			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
 		BlockSoundGroupOverwrites.addBlocks(
@@ -334,7 +346,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				switch (holder.id().toString()) {
 					case "minecraft:adventure/kill_a_mob" -> {
 						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntities.APPARITION)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntityTypes.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
@@ -344,7 +356,7 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntities.APPARITION)).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(TTEntityTypes.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
@@ -358,9 +370,17 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
 							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.CYAN_ROSE_CROP).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "trailiertales:manedrop", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.MANEDROP_CROP).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "trailiertales:dawntrail", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.DAWNTRAIL_CROP).triggerInstance())
+						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
-								"trailiertales:cyan_rose"
+								"trailiertales:cyan_rose",
+								"trailiertales:manedrop",
+								"trailiertales:dawntrail"
 							)
 						);
 					}
@@ -371,6 +391,9 @@ public class FrozenLibIntegration extends ModIntegration {
 						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.location().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
 						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.location().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
 						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.location().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB);
+						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.location().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE);
+						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.location().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR);
 					}
 					case "minecraft:nether/all_potions" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {

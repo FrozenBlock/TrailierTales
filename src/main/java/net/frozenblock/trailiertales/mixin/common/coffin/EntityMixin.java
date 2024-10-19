@@ -13,7 +13,7 @@ public class EntityMixin {
 
 	@Inject(method = "changeDimension", at = @At(value = "HEAD"))
 	public void trailierTales$changeDimension(DimensionTransition dimensionTransition, CallbackInfoReturnable<Entity> info) {
-		CoffinBlock.onCoffinUntrack(Entity.class.cast(this), true);
+		CoffinBlock.onCoffinUntrack(Entity.class.cast(this), null, true);
 	}
 
 }

@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -19,6 +22,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TransfiguringMobEffect extends MobEffect {
+	public static final EntityType<Apparition> SPAWNED_ENTITY_TYPE = TTEntityTypes.APPARITION;
 
 	public TransfiguringMobEffect(MobEffectCategory type, int color) {
 		super(type, color, TTParticleTypes.TRANSFIGURING);
@@ -30,8 +34,28 @@ public class TransfiguringMobEffect extends MobEffect {
 	}
 
 	@Override
+	public void onEffectAdded(LivingEntity entity, int amplifier) {
+		super.onEffectAdded(entity, amplifier);
+		if (entity instanceof Apparition apparition) {
+			entity.level().broadcastEntityEvent(entity, (byte) 60);
+			entity.level().playSound(
+				null,
+				entity.getX(),
+				entity.getEyeY(),
+				entity.getZ(),
+				TTSounds.APPARITION_VANISH,
+				SoundSource.HOSTILE,
+				0.6F,
+				0.9F + (entity.level().random.nextFloat() * 0.2F)
+			);
+			apparition.dropItem();
+			entity.remove(Entity.RemovalReason.DISCARDED);
+		}
+	}
+
+	@Override
 	public void onMobRemoved(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
-		if (reason == Entity.RemovalReason.KILLED) {
+		if (reason == Entity.RemovalReason.KILLED && entity.getType() != SPAWNED_ENTITY_TYPE) {
 			Level level = entity.level();
 			int j = level.getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
 			int k = numberOfApparitionsToSpawn(j, NearbyApparitions.closeTo(entity));
@@ -43,7 +67,7 @@ public class TransfiguringMobEffect extends MobEffect {
 	}
 
 	private void spawnApparitionOffspring(Level world, double x, double y, double z) {
-		Apparition apparition = TTEntities.APPARITION.create(world);
+		Apparition apparition = SPAWNED_ENTITY_TYPE.create(world);
 		if (apparition != null) {
 			apparition.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0F);
 			ApparitionAi.rememberHome(apparition, world, BlockPos.containing(x, y, z));
@@ -59,7 +83,7 @@ public class TransfiguringMobEffect extends MobEffect {
 		static @NotNull NearbyApparitions closeTo(LivingEntity entity) {
 			return i -> {
 				List<Apparition> list = new ArrayList<>();
-				entity.level().getEntities(TTEntities.APPARITION, entity.getBoundingBox().inflate(3D), apparition -> apparition != entity, list, i);
+				entity.level().getEntities(TTEntityTypes.APPARITION, entity.getBoundingBox().inflate(3D), apparition -> apparition != entity, list, i);
 				return list.size();
 			};
 		}

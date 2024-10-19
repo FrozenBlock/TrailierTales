@@ -6,7 +6,7 @@ import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import static net.frozenblock.trailiertales.TTConstants.MOD_ID;
-import static net.frozenblock.trailiertales.TTConstants.configPath;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -16,7 +16,7 @@ public final class TTMixinsConfig {
 		new JsonConfig<>(
 			MOD_ID,
 			TTMixinsConfig.class,
-			configPath("mixins", true),
+			TTPreLoadConstants.configPath("mixins", true),
 			JsonType.JSON5,
 			false,
 			null,

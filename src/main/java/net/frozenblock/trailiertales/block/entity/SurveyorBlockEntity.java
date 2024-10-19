@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.block.entity;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +29,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 	private int lastDetectionPower;
 
 	public SurveyorBlockEntity(BlockPos pos, BlockState state) {
-		super(TTBlockEntities.SURVEYOR, pos, state);
+		super(TTBlockEntityTypes.SURVEYOR, pos, state);
 	}
 
 	private static Vec3 chooseClosestPos(@NotNull Vec3 origin, Vec3 posA, Vec3 posB) {

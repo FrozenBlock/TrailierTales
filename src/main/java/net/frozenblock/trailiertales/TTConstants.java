@@ -1,7 +1,6 @@
 package net.frozenblock.trailiertales;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.nio.file.Path;
 import java.util.Map;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
@@ -16,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TTConstants {
-	public static final String MOD_ID = "trailiertales";
+	public static final String MOD_ID = TTPreLoadConstants.MOD_ID;
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final ModContainer MOD_CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
 	// MEASURING
@@ -108,10 +107,5 @@ public class TTConstants {
 	@Contract(value = "_ -> new", pure = true)
 	public static @NotNull Component tooltip(String key) {
 		return Component.translatable("tooltip." + MOD_ID + "." + key);
-	}
-
-	@Contract(pure = true)
-	public static @NotNull Path configPath(String name, boolean json5) {
-		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
 }

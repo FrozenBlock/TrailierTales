@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
@@ -22,15 +22,15 @@ public final class TTEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.PLAYER);
 
 		this.getOrCreateTagBuilder(TTEntityTags.SURVEYOR_IGNORES)
-			.add(TTEntities.APPARITION);
+			.add(TTEntityTypes.APPARITION);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
-			.add(TTEntities.APPARITION);
+			.add(TTEntityTypes.APPARITION);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
-			.add(TTEntities.APPARITION);
+			.add(TTEntityTypes.APPARITION);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.WITHER_FRIENDS)
-			.add(TTEntities.APPARITION);
+			.add(TTEntityTypes.APPARITION);
 	}
 }

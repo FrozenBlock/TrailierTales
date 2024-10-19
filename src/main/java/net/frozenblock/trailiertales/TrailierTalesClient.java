@@ -24,9 +24,9 @@ import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
 import net.frozenblock.trailiertales.particle.provider.TrailierParticleProviders;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.particle.SoulParticle;
@@ -48,7 +48,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 		SplashTextAPI.addSplashLocation(TTConstants.id("texts/splashes.txt"));
 		addPanorama("catacombs");
 
-		BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntities.COFFIN);
+		BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntityTypes.COFFIN);
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
 		renderLayerRegistry.putBlock(TTBlocks.POTTED_CYAN_ROSE, RenderType.cutout());
@@ -61,15 +61,15 @@ public class TrailierTalesClient implements ClientModInitializer {
 		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL_CROP, RenderType.cutout());
 
-		BlockEntityRenderers.register(TTBlockEntities.COFFIN, CoffinRenderer::new);
+		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN, CoffinRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinRenderer::createHeadLayer);
 		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinRenderer::createFootLayer);
 
-		EntityRendererRegistry.register(TTEntities.APPARITION, ApparitionRenderer::new);
+		EntityRendererRegistry.register(TTEntityTypes.APPARITION, ApparitionRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
 
-		EntityRendererRegistry.register(TTEntities.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(TTEntityTypes.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(BOAT_BANNER, BoatBannerModel::createBodyLayer);
 

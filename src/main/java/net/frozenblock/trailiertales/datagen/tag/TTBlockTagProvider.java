@@ -105,6 +105,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CUT_RED_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS)
 
+			.add(TTBlocks.PRISMARINE_BRICK_WALL)
+			.add(TTBlocks.DARK_PRISMARINE_WALL)
+
 			.add(TTBlocks.CHORAL_END_STONE)
 			.add(TTBlocks.CHORAL_END_STONE_STAIRS)
 			.add(TTBlocks.CHORAL_END_STONE_SLAB)
@@ -224,6 +227,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CUT_SANDSTONE_WALL)
 			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_RED_SANDSTONE_WALL)
+			.add(TTBlocks.PRISMARINE_BRICK_WALL)
+			.add(TTBlocks.DARK_PRISMARINE_WALL)
 			.add(TTBlocks.CHORAL_END_STONE_WALL)
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_WALL)
 			.add(TTBlocks.END_STONE_WALL)

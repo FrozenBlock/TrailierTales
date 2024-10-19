@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = new SpawnEggItem(
-		TTEntities.APPARITION,
+		TTEntityTypes.APPARITION,
 		11712721,
 		10663385,
 		new Item.Properties()
@@ -44,6 +44,7 @@ public class TTItems {
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BOLT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item CARRIER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CLUCK_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CRAWL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CRESCENT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -59,6 +60,7 @@ public class TTItems {
 	public static final Item LUMBER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item NAVIGATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item NEEDLES_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item OMEN_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item PLUME_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item PROTECTION_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item SHED_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -69,10 +71,6 @@ public class TTItems {
 	public static final Item VESSEL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 
-	public static final Item DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.DESOLATION,
-		TTFeatureFlags.FEATURE_FLAG
-	);
 	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		TTTrimPatterns.UNDEAD,
 		TTFeatureFlags.FEATURE_FLAG
@@ -87,6 +85,18 @@ public class TTItems {
 	);
 	public static final Item OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
 		TTTrimPatterns.OVERGROWTH,
+		TTFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.MARTYR,
+		TTFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.ZEPHYR,
+		TTFeatureFlags.FEATURE_FLAG
+	);
+	public static final Item COT_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.COT,
 		TTFeatureFlags.FEATURE_FLAG
 	);
 
@@ -109,7 +119,8 @@ public class TTItems {
 		registerSherdAfter(Items.BLADE_POTTERY_SHERD, BLOOM_POTTERY_SHERD, "bloom_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(BLOOM_POTTERY_SHERD, BOLT_POTTERY_SHERD, "bolt_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdBefore(Items.BURN_POTTERY_SHERD, BULLSEYE_POTTERY_SHERD, "bullseye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerSherdBefore(Items.DANGER_POTTERY_SHERD, CLUCK_POTTERY_SHERD, "cluck_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.DANGER_POTTERY_SHERD, CARRIER_POTTERY_SHERD, "carrier_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdAfter(CARRIER_POTTERY_SHERD, CLUCK_POTTERY_SHERD, "cluck_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdBefore(CLUCK_POTTERY_SHERD, CRAWL_POTTERY_SHERD, "crawl_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(CRAWL_POTTERY_SHERD, CRESCENT_POTTERY_SHERD, "crescent_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(CRESCENT_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
@@ -124,6 +135,7 @@ public class TTItems {
 		registerSherdBefore(Items.MINER_POTTERY_SHERD, LUMBER_POTTERY_SHERD, "lumber_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.MOURNER_POTTERY_SHERD, NAVIGATOR_POTTERY_SHERD, "navigator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(NAVIGATOR_POTTERY_SHERD, NEEDLES_POTTERY_SHERD, "needles_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.PLENTY_POTTERY_SHERD, OMEN_POTTERY_SHERD, "omen_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.PLENTY_POTTERY_SHERD, PLUME_POTTERY_SHERD, "plume_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.PRIZE_POTTERY_SHERD, PROTECTION_POTTERY_SHERD, "protection_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.SHEAF_POTTERY_SHERD, SHED_POTTERY_SHERD, "shed_pottery_sherd", CreativeModeTabs.INGREDIENTS);
@@ -134,11 +146,13 @@ public class TTItems {
 		registerSherdAfter(SPROUT_POTTERY_SHERD, VESSEL_POTTERY_SHERD, "vessel_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(VESSEL_POTTERY_SHERD, WITHER_POTTERY_SHERD, "wither_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 
-		registerItemAfter(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, "desolation_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, "undead_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, "matrix_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
-		registerItemAfter(GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, "overgrowth_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, "geode_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemBefore(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, "overgrowth_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, "zephyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, "martyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, COT_ARMOR_TRIM_SMITHING_TEMPLATE, "cot_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
@@ -198,7 +212,7 @@ public class TTItems {
 
 	@SafeVarargs
 	private static void registerSherdAfter(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		registerItemAfter(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
+		registerSherdAfter(comparedItem, item, path, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}
 
 	@SafeVarargs

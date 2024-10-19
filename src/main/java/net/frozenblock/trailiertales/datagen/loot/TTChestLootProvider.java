@@ -201,7 +201,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
 						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
 						.add(EmptyLootItem.emptyItem().setWeight(18))
 				)

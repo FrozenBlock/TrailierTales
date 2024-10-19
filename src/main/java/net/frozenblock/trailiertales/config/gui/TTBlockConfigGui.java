@@ -49,6 +49,7 @@ public final class TTBlockConfigGui {
 			entryBuilder.startBooleanToggle(TTConstants.text("place_items_in_suspicious_blocks"), modifiedSuspiciousBlocks.place_items)
 				.setDefaultValue(defaultConfig.suspiciousBlocks.place_items)
 				.setSaveConsumer(newValue -> suspiciousBlocks.place_items = newValue)
+				.requireRestart()
 				.setTooltip(TTConstants.tooltip("place_items_in_suspicious_blocks"))
 				.build(),
 			suspiciousBlocks.getClass(),

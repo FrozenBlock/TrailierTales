@@ -65,6 +65,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Added Lumber Pottery Sherd
 - Added Navigator Pottery Sherd
 - Added Needles Pottery Sherd
+- Added Omen Pottery Sherd
 - Added Plume Pottery Sherd
 - Added Protection Pottery Sherd
 - Added Shed Pottery Sherd
@@ -77,6 +78,12 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 
 ## ARMOR TRIMS
 - Added Undead Armor Trim, found in Catacombs
+- Added Matrix Armor Trim, found in Catacombs
+- Added Martyr Armor Trim, found in Badlands Ruins
+- Added Zephyr Armor Trim, found in Desert Ruins
+- Added Cot Armor Trim, found in Savanna Ruins
+- Added Overgrowth Armor Trim, found in Jungle Ruins
+- Added Geode Armor Trim, found in Deepslate Ruins
 
 ## CYAN ROSE
 - Sniffers can now dig up Cyan Rose Seeds
@@ -124,12 +131,14 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - A new mob effect obtained through brewing
     - Potion is brewed with Ectoplasm and an Awkward Potion
 - Spawns an Apparition upon the effected mob's death
+    - If used on an Apparition, vanquishes it
 
 ## SIEGE OMEN
 - Triggered when being close to a Coffin with Bad Omen
 - Each nearby Coffin will activate and spawn up to two mobs per-player simultaneously
     - Spawned mobs will constantly track the closest player
     - Coffins will have a spawning cooldown of only 150 ticks
+    - Coffins will also be able to spawn two Apparitions
 
 ## COFFIN
 - A new block that spawns mobs
@@ -148,9 +157,9 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
         - The amount of simultaneous spawned mobs per extra player increases to one
     - Irritated
         - The highest strength triggered at a power of 12
-        - Can spawn two Apparitions instead of one
         - 200 ticks between spawns
     - A Coffin's power will reset after 12000 ticks, or 10 minutes
+- If all spawned mobs from each stage are defeated in a timely manner, the Coffin will remain inactive for the next 30 minutes
 
 ## APPARITION
 - A new mysterious mob that spawns from Coffins
@@ -261,6 +270,8 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Added Smooth Red Sandstone Wall
     - Added Cut Red Sandstone Stairs
     - Added Cut Red Sandstone Wall
+- Added Prismarine Brick Wall
+- Added Dark Prismarine Wall
 - Finished the End Stone block family
     - Added End Stone Stairs
     - Added End Stone Slab
@@ -296,7 +307,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
 - Revamped the distribution of pottery sherds
     - Angler Pottery Sherd -> Warm Ocean Ruins (No Change)
     - Archer Pottery Sherd -> Desert Pyramid (No Change)
-    - Arms Up Pottery Sherd -> Desert Well (No Change)
+    - Arms Up Pottery Sherd -> Desert Pyramid
     - Bait Pottery Sherd -> Warm Ocean Ruins
     - Blade Pottery Sherd -> Ruins
     - Bloom Pottery Sherd -> Jungle Ruins
@@ -304,9 +315,10 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Brewer Pottery Sherd -> Desert Well (No Change)
     - Bullseye Pottery Sherd -> Catacombs
     - Burn Pottery Sherd -> Badlands Ruins
+    - Carrier Pottery Sherd -> Desert Well
     - Cluck Pottery Sherd -> Savanna Ruins
     - Crawl Pottery Sherd -> Savanna Ruins
-    - Crescent Pottery Sherd -> Catacombs
+    - Crescent Pottery Sherd -> Trail Ruins
     - Cultivator Pottery Sherd -> Ruins
     - Danger Pottery Sherd -> Desert Ruins
     - Drought Pottery Sherd -> Badlands Ruins
@@ -326,6 +338,7 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Mourner Pottery Sherd -> Deepslate Ruins
     - Navigator Pottery Sherd -> Jungle Ruins
     - Needles Pottery Sherd -> Desert Ruins
+    - Omen Pottery Sherd -> Catacombs
     - Plenty Pottery Sherd -> Catacombs
     - Plume Pottery Sherd -> Savanna Ruins
     - Prize Pottery Sherd -> Desert Pyramid (No Change)
@@ -337,10 +350,21 @@ Do not use this mod in attempt to harass Mojang. They are hard workers and know 
     - Shower Pottery Sherd -> Jungle Ruins
     - Spade Pottery Sherd -> Desert Pyramid
     - Sprout Pottery Sherd - Ruins
-    - Skull Pottery Sherd -> Catacombs (DESERT PYRAMID NEEDS REPLACEMENT)
+    - Skull Pottery Sherd -> Catacombs
     - Snort Pottery Sherd -> Warm Ocean Ruins (No Change)
     - Vessel Pottery Sherd -> Cold Ocean Ruins
     - Wither Pottery Sherd -> Badlands Ruins
 
 ## DECORATED POTS
-- Decorated Pots' wobble animations now flip on consecutive triggers
+- The wobbling animation now mirrors each time it plays
+
+## END CITIES
+- Choral End Stone Bricks will now generate
+- Cracked End Stone Bricks will now generate
+- Chiseled Purpur Blocks will now generate
+
+## ARMOR STANDS
+- Armor Stands now have their arms enabled by default
+
+## CAMELS
+- Now rarely spawn in Desert biomes

@@ -131,7 +131,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wild_armor_trim_smithing_template"
+          "name": "trailiertales:overgrowth_armor_trim_smithing_template",
+          "weight": 2
         }
       ],
       "rolls": 1.0

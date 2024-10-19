@@ -22,6 +22,7 @@
   "item.trailiertales.bloom_pottery_sherd": "Bloom Pottery Sherd",
   "item.trailiertales.bolt_pottery_sherd": "Bolt Pottery Sherd",
   "item.trailiertales.bullseye_pottery_sherd": "Bullseye Pottery Sherd",
+  "item.trailiertales.carrier_pottery_sherd": "Carrier Pottery Sherd",
   "item.trailiertales.cluck_pottery_sherd": "Cluck Pottery Sherd",
   "item.trailiertales.crawl_pottery_sherd": "Crawl Pottery Sherd",
   "item.trailiertales.crescent_pottery_sherd": "Crescent Pottery Sherd",
@@ -37,6 +38,7 @@
   "item.trailiertales.lumber_pottery_sherd": "Lumber Pottery Sherd",
   "item.trailiertales.navigator_pottery_sherd": "Navigator Pottery Sherd",
   "item.trailiertales.needles_pottery_sherd": "Needles Pottery Sherd",
+  "item.trailiertales.omen_pottery_sherd": "Omen Pottery Sherd",
   "item.trailiertales.plume_pottery_sherd": "Plume Pottery Sherd",
   "item.trailiertales.protection_pottery_sherd": "Protection Pottery Sherd",
   "item.trailiertales.shed_pottery_sherd": "Shed Pottery Sherd",
@@ -47,17 +49,22 @@
   "item.trailiertales.vessel_pottery_sherd": "Vessel Pottery Sherd",
   "item.trailiertales.wither_pottery_sherd": "Wither Pottery Sherd",
 
-  "item.trailiertales.desolation_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.undead_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.matrix_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.geode_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.overgrowth_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.martyr_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.zephyr_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.cot_armor_trim_smithing_template": "Smithing Template",
 
   "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
   "trim_pattern.trailiertales.matrix": "Matrix Armor Trim",
   "trim_pattern.trailiertales.geode": "Geode Armor Trim",
   "trim_pattern.trailiertales.overgrowth": "Overgrowth Armor Trim",
+  "trim_pattern.trailiertales.martyr": "Martyr Armor Trim",
+  "trim_pattern.trailiertales.zephyr": "Zephyr Armor Trim",
+  "trim_pattern.trailiertales.cot": "Cot Armor Trim",
 
   "item.trailiertales.music_disc_fausse_vie": "Music Disc",
   "item.trailiertales.music_disc_fausse_vie.desc": "Zhen - Fausse Vie",
@@ -175,6 +182,10 @@
   "block.trailiertales.cut_red_sandstone_stairs": "Cut Red Sandstone Stairs",
   "block.trailiertales.cut_red_sandstone_wall": "Cut Red Sandstone Wall",
 
+  "block.trailiertales.prismarine_brick_wall": "Prismarine Brick Wall",
+
+  "block.trailiertales.dark_prismarine_wall": "Dark Prismarine Wall",
+
   "block.trailiertales.end_stone_stairs": "End Stone Stairs",
   "block.trailiertales.end_stone_slab": "End Stone Slab",
   "block.trailiertales.end_stone_wall": "End Stone Wall",
@@ -217,6 +228,7 @@
   "subtitles.entity.apparition.holding_item": "Apparition grabs item",
   "subtitles.entity.apparition.haunt": "Apparition haunts",
   "subtitles.entity.apparition.throw": "Apparition thrusts item",
+  "subtitles.entity.apparition.vanish": "Apparition vanquished",
 
   "option.trailiertales.component.title": "Trailier Tales Options",
 

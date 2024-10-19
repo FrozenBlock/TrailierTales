@@ -4,16 +4,17 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.networking.TrailierNetworking;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTJukeboxSongs;
 import net.frozenblock.trailiertales.registry.TTLootTables;
@@ -48,7 +49,7 @@ public class TrailierTales extends FrozenModInitializer {
 	public void onInitialize(String modId, ModContainer container) {
 		TTConstants.startMeasuring(this);
 
-		if (TTPreLoadConstants.IS_DATAGEN) {
+		if (FrozenBools.IS_DATAGEN) {
 			TTFeatureFlags.init();
 			FrozenFeatureFlags.rebuild();
 		}
@@ -58,10 +59,10 @@ public class TrailierTales extends FrozenModInitializer {
 		TTStructurePieceTypes.init();
 		TTMapDecorationTypes.init();
 		TTBlocks.init();
-		TTBlockEntities.register();
+		TTBlockEntityTypes.register();
 		TTItems.init();
 		TTTrimPatterns.init();
-		TTEntities.init();
+		TTEntityTypes.init();
 		TTMemoryModuleTypes.register();
 		TTSensorTypes.register();
 		TTRecipeTypes.init();

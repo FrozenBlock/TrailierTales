@@ -39,10 +39,12 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.BLOOM_POTTERY_SHERD)
 			.add(TTItems.BOLT_POTTERY_SHERD)
 			.add(TTItems.BULLSEYE_POTTERY_SHERD)
+			.add(TTItems.CARRIER_POTTERY_SHERD)
 			.add(TTItems.CLUCK_POTTERY_SHERD)
 			.add(TTItems.CRAWL_POTTERY_SHERD)
 			.add(TTItems.CRESCENT_POTTERY_SHERD)
 			.add(TTItems.CULTIVATOR_POTTERY_SHERD)
+			.add(TTItems.DROUGHT_POTTERY_SHERD)
 			.add(TTItems.ESSENCE_POTTERY_SHERD)
 			.add(TTItems.EYE_POTTERY_SHERD)
 			.add(TTItems.FOCUS_POTTERY_SHERD)
@@ -53,6 +55,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.LUMBER_POTTERY_SHERD)
 			.add(TTItems.NAVIGATOR_POTTERY_SHERD)
 			.add(TTItems.NEEDLES_POTTERY_SHERD)
+			.add(TTItems.OMEN_POTTERY_SHERD)
 			.add(TTItems.PLUME_POTTERY_SHERD)
 			.add(TTItems.PROTECTION_POTTERY_SHERD)
 			.add(TTItems.SHED_POTTERY_SHERD)
@@ -151,16 +154,20 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.CUT_SANDSTONE_WALL.asItem())
 			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL.asItem())
 			.add(TTBlocks.CUT_RED_SANDSTONE_WALL.asItem())
+			.add(TTBlocks.PRISMARINE_BRICK_WALL.asItem())
+			.add(TTBlocks.DARK_PRISMARINE_WALL.asItem())
 			.add(TTBlocks.CHORAL_END_STONE_WALL.asItem())
 			.add(TTBlocks.END_STONE_WALL.asItem())
 			.add(TTBlocks.PURPUR_WALL.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-			.add(TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE);
+			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);

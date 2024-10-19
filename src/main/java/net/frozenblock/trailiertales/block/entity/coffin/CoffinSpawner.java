@@ -12,7 +12,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterf
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
-import net.frozenblock.trailiertales.registry.TTEntities;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
@@ -348,10 +348,10 @@ public final class CoffinSpawner {
 	}
 
 	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
-		Apparition apparition = TTEntities.APPARITION.create(level, null, pos, EntitySpawnReason.TRIAL_SPAWNER, true, false);
+		Apparition apparition = TTEntityTypes.APPARITION.create(level, null, pos, EntitySpawnReason.TRIAL_SPAWNER, true, false);
 		if (apparition != null) {
 			if (level.addFreshEntity(apparition)) {
-				apparition.hiddenTicks = 500;
+				apparition.hiddenTicks = 100;
 				this.appendCoffinSpawnAttributes(apparition, level, pos, true);
 				this.data.nextApparitionSpawnsAt = level.getGameTime() + 1000L;
 				this.data.currentApparitions.add(apparition.getUUID());
@@ -418,7 +418,7 @@ public final class CoffinSpawner {
 			Entity entity = world.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
-				CoffinBlock.onCoffinUntrack(entity, false);
+				CoffinBlock.onCoffinUntrack(entity, this, false);
 			}
 			return shouldUntrack;
 		});
@@ -427,7 +427,7 @@ public final class CoffinSpawner {
 			Entity entity = world.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
 			if (shouldUntrack) {
-				CoffinBlock.onCoffinUntrack(entity, true);
+				CoffinBlock.onCoffinUntrack(entity, this, true);
 			}
 			return shouldUntrack;
 		});
@@ -465,6 +465,12 @@ public final class CoffinSpawner {
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
 		Structure structure = structureManager.registryAccess().lookupOrThrow(Registries.STRUCTURE).getValue(CatacombsGenerator.CATACOMBS_KEY);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
+	}
+
+	public void onApparitionRemovedOrKilled(@NotNull Level level) {
+		if (level instanceof ServerLevel serverLevel) {
+			this.data.nextApparitionSpawnsAt = serverLevel.getGameTime() + this.getConfig().ticksBetweenApparitionSpawn();
+		}
 	}
 
 	public interface StateAccessor {

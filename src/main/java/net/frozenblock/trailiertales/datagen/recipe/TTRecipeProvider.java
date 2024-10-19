@@ -419,6 +419,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.SMOOTH_RED_SANDSTONE);
 
+		// PRISMARINE
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.PRISMARINE_BRICK_WALL, Blocks.PRISMARINE_BRICKS);
+
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.DARK_PRISMARINE_WALL, Blocks.DARK_PRISMARINE);
+
 		// END STONE BRICKS
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.END_STONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_END_STONE_BRICKS.asItem(), 0.1F, 200)
@@ -471,19 +477,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
 
+		// ARMOR TRIMS
 
 		smithingTrims().forEach(trimTemplate -> trimSmithing(recipeOutput, trimTemplate.template(), trimTemplate.id()));
-		// DESOLATION SMITHING TEMPLATE
-
-			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
-			.define('#', Items.DIAMOND)
-			.define('C', Blocks.STONE_BRICKS)
-			.define('S', TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.pattern("#S#")
-			.pattern("#C#")
-			.pattern("###")
-			.unlockedBy("has_desolation_armor_trim_smithing_template", has(TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE))
-			.save(recipeOutput);
 
 		// UNDEAD SMITHING TEMPLATE
 
@@ -495,6 +491,78 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("#C#")
 			.pattern("###")
 			.unlockedBy("has_undead_armor_trim_smithing_template", has(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// MATRIX SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.DEEPSLATE_BRICKS)
+			.define('S', TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_matrix_armor_trim_smithing_template", has(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// GEODE SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.SMOOTH_BASALT)
+			.define('S', TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_geode_armor_trim_smithing_template", has(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// OVERGROWTH SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.MOSSY_COBBLESTONE)
+			.define('S', TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_overgrowth_armor_trim_smithing_template", has(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// MARTYR SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.RED_SANDSTONE)
+			.define('S', TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_martyr_armor_trim_smithing_template", has(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// ZEPHYR SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.SMOOTH_SANDSTONE)
+			.define('S', TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_zephyr_armor_trim_smithing_template", has(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
+
+		// COT SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.MUD_BRICKS)
+			.define('S', TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_cot_armor_trim_smithing_template", has(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE))
 			.save(recipeOutput);
 	}
 
@@ -515,11 +583,13 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 	private static Stream<VanillaRecipeProvider.TrimTemplate> smithingTrims() {
 		return Stream.of(
-				TTItems.DESOLATION_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE
+				TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE,
+				TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE,
+				TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE,
+				TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE
 			)
 			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, TTConstants.id(getItemName(item) + "_smithing_trim")));
 	}

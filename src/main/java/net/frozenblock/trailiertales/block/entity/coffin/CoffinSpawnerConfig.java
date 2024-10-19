@@ -11,7 +11,8 @@ public record CoffinSpawnerConfig(
 	float simultaneousMobsAddedPerPlayer,
 	int ticksBetweenSpawn,
 	int powerForNextLevel,
-	int maxApparitions
+	int maxApparitions,
+	int ticksBetweenApparitionSpawn
 ) {
 	public static final CoffinSpawnerConfig DEFAULT = new CoffinSpawnerConfig(
 		4,
@@ -21,7 +22,8 @@ public record CoffinSpawnerConfig(
 		0F,
 		400,
 		4,
-		1
+		1,
+		1200
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		5,
@@ -31,7 +33,8 @@ public record CoffinSpawnerConfig(
 		1F,
 		300,
 		6,
-		1
+		1,
+		900
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		6,
@@ -41,7 +44,8 @@ public record CoffinSpawnerConfig(
 		1F,
 		200,
 		10,
-		2
+		1,
+		700
 	);
 	public static final CoffinSpawnerConfig OMINOUS = new CoffinSpawnerConfig(
 		6,
@@ -51,13 +55,18 @@ public record CoffinSpawnerConfig(
 		1F,
 		150,
 		15,
-		2
+		2,
+		500
 	);
 
 	public static final Codec<CoffinSpawnerConfig> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-				Codec.intRange(1, 128).lenientOptionalFieldOf("spawn_range", DEFAULT.spawnRange).forGetter(CoffinSpawnerConfig::spawnRange),
-				Codec.floatRange(0F, Float.MAX_VALUE).lenientOptionalFieldOf("total_mobs", DEFAULT.totalMobs).forGetter(CoffinSpawnerConfig::totalMobs),
+				Codec.intRange(1, 128)
+					.lenientOptionalFieldOf("spawn_range", DEFAULT.spawnRange)
+					.forGetter(CoffinSpawnerConfig::spawnRange),
+				Codec.floatRange(0F, Float.MAX_VALUE)
+					.lenientOptionalFieldOf("total_mobs", DEFAULT.totalMobs)
+					.forGetter(CoffinSpawnerConfig::totalMobs),
 				Codec.floatRange(0F, Float.MAX_VALUE)
 					.lenientOptionalFieldOf("simultaneous_mobs", DEFAULT.simultaneousMobs)
 					.forGetter(CoffinSpawnerConfig::simultaneousMobs),
@@ -75,7 +84,10 @@ public record CoffinSpawnerConfig(
 					.forGetter(CoffinSpawnerConfig::powerForNextLevel),
 				Codec.intRange(0, Integer.MAX_VALUE)
 					.lenientOptionalFieldOf("max_apparitions", DEFAULT.maxApparitions)
-					.forGetter(CoffinSpawnerConfig::maxApparitions)
+					.forGetter(CoffinSpawnerConfig::maxApparitions),
+				Codec.intRange(800, Integer.MAX_VALUE)
+					.lenientOptionalFieldOf("ticks_between_apparition_spawn", DEFAULT.ticksBetweenApparitionSpawn)
+					.forGetter(CoffinSpawnerConfig::ticksBetweenApparitionSpawn)
 			)
 			.apply(instance, CoffinSpawnerConfig::new)
 	);

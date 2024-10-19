@@ -14,27 +14,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -50,63 +38,6 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties, CallbackInfo info) {
 		this.registerDefaultState(this.defaultBlockState().setValue(TTBlockStateProperties.CAN_PLACE_ITEM, false));
-	}
-
-	@Override
-	@NotNull
-	protected InteractionResult useItemOn(
-		@NotNull ItemStack itemStack,
-		@NotNull BlockState blockState,
-		@NotNull Level level,
-		@NotNull BlockPos blockPos,
-		@NotNull Player player,
-		@NotNull InteractionHand interactionHand,
-		@NotNull BlockHitResult blockHitResult
-	) {
-		if (TTBlockConfig.get().suspiciousBlocks.place_items) {
-			ItemStack playerStack = player.getItemInHand(interactionHand);
-			boolean canPlaceIntoBlock = blockState.getValue(TTBlockStateProperties.CAN_PLACE_ITEM) &&
-				playerStack != ItemStack.EMPTY &&
-				playerStack.getItem() != Items.AIR &&
-				!playerStack.is(Items.BRUSH);
-			if (canPlaceIntoBlock) {
-				if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
-					((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(playerStack.split(1));
-					return InteractionResult.SUCCESS;
-				}
-			}
-			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		}
-		return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
-	}
-
-	@Override
-	public void onRemove(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState2, boolean bl) {
-		if (blockState.is(blockState2.getBlock())) {
-			return;
-		}
-		if (
-			level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity
-			&& brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface
-			&& brushableBlockEntityInterface.trailierTales$hasCustomItem()
-		) {
-			Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), brushableBlockEntity.getItem());
-		}
-		super.onRemove(blockState, level, blockPos, blockState2, bl);
-	}
-
-	@Nullable
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
-		return BaseEntityBlock.createTickerHelper(
-			blockEntityType,
-			BlockEntityType.BRUSHABLE_BLOCK,
-			(worldx, pos, statex, blockEntity) -> {
-				if (blockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
-					brushableBlockEntityInterface.trailierTales$tick();
-				}
-			}
-		);
 	}
 
 	@WrapOperation(
@@ -174,7 +105,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
+		if (TTBlockConfig.get().suspiciousBlocks.place_items) builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
 	}
 
 }

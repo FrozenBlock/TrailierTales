@@ -10,7 +10,7 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
-import net.frozenblock.trailiertales.registry.TTBlockEntities;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -84,7 +84,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 
 			BlockState blockState = blockEntity.getBlockState();
 			DoubleBlockCombiner.NeighborCombineResult<? extends CoffinBlockEntity> neighborCombineResult = DoubleBlockCombiner.combineWithNeigbour(
-				TTBlockEntities.COFFIN,
+				TTBlockEntityTypes.COFFIN,
 				CoffinBlock::getBlockType,
 				CoffinBlock::getConnectedDirection,
 				CoffinBlock.FACING,

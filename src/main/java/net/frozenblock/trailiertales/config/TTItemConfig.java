@@ -8,6 +8,7 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTItemConfig {
 
@@ -15,7 +16,7 @@ public final class TTItemConfig {
 		new JsonConfig<>(
 			TTConstants.MOD_ID,
 			TTItemConfig.class,
-			TTConstants.configPath("item", true),
+			TTPreLoadConstants.configPath("item", true),
 			JsonType.JSON5,
 			null,
 			null

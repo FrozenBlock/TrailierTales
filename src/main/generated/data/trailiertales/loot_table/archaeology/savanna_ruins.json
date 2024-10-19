@@ -133,6 +133,11 @@
           "type": "minecraft:item",
           "name": "minecraft:shelter_pottery_sherd",
           "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:cot_armor_trim_smithing_template",
+          "weight": 2
         }
       ],
       "rolls": 1.0

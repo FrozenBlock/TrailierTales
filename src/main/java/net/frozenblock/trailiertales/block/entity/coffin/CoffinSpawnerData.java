@@ -140,6 +140,7 @@ public class CoffinSpawnerData {
 		this.power = 0;
 		this.nextMobSpawnsAt = 0L;
 		this.powerCooldownEndsAt = 0L;
+		this.nextApparitionSpawnsAt = 0L;
 		this.currentMobs.clear();
 		this.currentApparitions.clear();
 	}
@@ -163,6 +164,10 @@ public class CoffinSpawnerData {
 
 	public boolean trackingEntity(@NotNull Entity entity) {
 		return this.currentMobs.contains(entity.getUUID());
+	}
+
+	public boolean trackingApparition(@NotNull Entity entity) {
+		return this.currentApparitions.contains(entity.getUUID());
 	}
 
 	public int getPower() {

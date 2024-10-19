@@ -419,6 +419,15 @@ public class TTBlocks {
 		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	// PRISMARINE
+
+	public static final Block PRISMARINE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE_BRICKS)
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block DARK_PRISMARINE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_PRISMARINE)
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 	// END STONE
 
 	public static final Block END_STONE_STAIRS = new StairBlock(
@@ -605,6 +614,9 @@ public class TTBlocks {
 		registerBlockAfter(Blocks.SMOOTH_RED_SANDSTONE_SLAB, "smooth_red_sandstone_wall", SMOOTH_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockBefore(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_stairs", CUT_RED_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_wall", CUT_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+
+		registerBlockAfter(Blocks.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", PRISMARINE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Blocks.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", DARK_PRISMARINE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.END_STONE, "end_stone_stairs", END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(END_STONE_STAIRS, "end_stone_slab", END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
