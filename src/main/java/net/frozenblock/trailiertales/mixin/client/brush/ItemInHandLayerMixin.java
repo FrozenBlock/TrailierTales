@@ -28,7 +28,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(ItemInHandLayer.class)
 public class ItemInHandLayerMixin<S extends LivingEntityRenderState, M extends EntityModel<S> & ArmedModel> {
-
+	// TODO: reimplement smooth brush animation
+/*
 	@Inject(
 		method = "renderArmWithItem",
 		at = @At(
@@ -65,5 +66,5 @@ public class ItemInHandLayerMixin<S extends LivingEntityRenderState, M extends E
 			}
 		}
 	}
-
+*/
 }
