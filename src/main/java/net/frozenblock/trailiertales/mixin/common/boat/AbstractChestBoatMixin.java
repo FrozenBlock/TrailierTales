@@ -29,7 +29,7 @@ public abstract class AbstractChestBoatMixin extends AbstractBoat {
 
 	@Inject(method = "interact", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
-		if (player.isSecondaryUseActive() && ChestBoat.class.cast(this) instanceof BoatBannerInterface bannerInterface) {
+		if (player.isSecondaryUseActive() && AbstractChestBoat.class.cast(this) instanceof BoatBannerInterface bannerInterface) {
 			if (bannerInterface.trailierTales$getBanner().isEmpty()) {
 				ItemStack itemStack = player.getItemInHand(hand);
 				if (itemStack.is(ItemTags.BANNERS)) {
