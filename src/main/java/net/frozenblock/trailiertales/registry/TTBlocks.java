@@ -453,14 +453,28 @@ public class TTBlocks {
 
 	// TUFF
 
-	public static final Block CRACKED_TUFF_BRICKS = new Block(Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_TUFF_BRICKS = new Block(Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_TUFF_BRICK_STAIRS = new StairBlock(
-		MOSSY_TUFF_BRICKS.defaultBlockState(),
+	public static final Block CRACKED_TUFF_BRICKS = register("cracked_tuff_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.TUFF_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MOSSY_TUFF_BRICKS = register("mossy_tuff_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.TUFF_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MOSSY_TUFF_BRICK_STAIRS = register("mossy_tuff_brick_stairs",
+		properties -> new StairBlock(MOSSY_TUFF_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
 	);
-	public static final Block MOSSY_TUFF_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
-	public static final Block MOSSY_TUFF_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
+	public static final Block MOSSY_TUFF_BRICK_SLAB = register("mossy_tuff_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
+	);
+	public static final Block MOSSY_TUFF_BRICK_WALL = register("mossy_tuff_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_TUFF_BRICKS = BlockFamilies.familyBuilder(MOSSY_TUFF_BRICKS)
 		.stairs(MOSSY_TUFF_BRICK_STAIRS)
 		.slab(MOSSY_TUFF_BRICK_SLAB)
@@ -469,14 +483,28 @@ public class TTBlocks {
 
 	// BRICKS
 
-	public static final Block CRACKED_BRICKS = new Block(Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_BRICKS = new Block(Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_BRICK_STAIRS = new StairBlock(
-		MOSSY_BRICKS.defaultBlockState(),
+	public static final Block CRACKED_BRICKS = register("cracked_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MOSSY_BRICKS = register("mossy_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MOSSY_BRICK_STAIRS = register("mossy_brick_stairs",
+		properties -> new StairBlock(MOSSY_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_BRICKS)
 	);
-	public static final Block MOSSY_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_BRICKS));
-	public static final Block MOSSY_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_BRICKS));
+	public static final Block MOSSY_BRICK_SLAB = register("mossy_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_BRICKS)
+	);
+	public static final Block MOSSY_BRICK_WALL = register("mossy_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_BRICKS = BlockFamilies.familyBuilder(MOSSY_BRICKS)
 		.stairs(MOSSY_BRICK_STAIRS)
 		.slab(MOSSY_BRICK_SLAB)
@@ -485,45 +513,69 @@ public class TTBlocks {
 
 	// MOSSY DEEPSLATE
 
-	public static final Block MOSSY_COBBLED_DEEPSLATE = new Block(Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block MOSSY_COBBLED_DEEPSLATE = register("mossy_cobbled_deepslate",
+		Block::new,
+		Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_COBBLED_DEEPSLATE_STAIRS = new StairBlock(
-		MOSSY_COBBLED_DEEPSLATE.defaultBlockState(),
+	public static final Block MOSSY_COBBLED_DEEPSLATE_STAIRS = register("mossy_cobbled_deepslate_stairs",
+		properties -> new StairBlock(MOSSY_COBBLED_DEEPSLATE.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
 	);
-	public static final Block MOSSY_COBBLED_DEEPSLATE_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE));
-	public static final Block MOSSY_COBBLED_DEEPSLATE_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE));
+	public static final Block MOSSY_COBBLED_DEEPSLATE_SLAB = register("mossy_cobbled_deepslate_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
+	);
+	public static final Block MOSSY_COBBLED_DEEPSLATE_WALL = register("mossy_cobbled_deepslate_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
+	);
 	public static final BlockFamily FAMILY_MOSSY_COBBLED_DEEPSLATE = BlockFamilies.familyBuilder(MOSSY_COBBLED_DEEPSLATE)
 		.stairs(MOSSY_COBBLED_DEEPSLATE_STAIRS)
 		.slab(MOSSY_COBBLED_DEEPSLATE_SLAB)
 		.wall(MOSSY_COBBLED_DEEPSLATE_WALL)
 		.getFamily();
 
-	public static final Block MOSSY_DEEPSLATE_BRICKS = new Block(Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block MOSSY_DEEPSLATE_BRICKS = register("mossy_deepslate_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_DEEPSLATE_BRICK_STAIRS = new StairBlock(
-		MOSSY_DEEPSLATE_BRICKS.defaultBlockState(),
+	public static final Block MOSSY_DEEPSLATE_BRICK_STAIRS = register("mossy_deepslate_brick_stairs",
+		properties -> new StairBlock(MOSSY_DEEPSLATE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
 	);
-	public static final Block MOSSY_DEEPSLATE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS));
-	public static final Block MOSSY_DEEPSLATE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS));
+	public static final Block MOSSY_DEEPSLATE_BRICK_SLAB = register("mossy_deepslate_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
+	);
+	public static final Block MOSSY_DEEPSLATE_BRICK_WALL = register("mossy_deepslate_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_DEEPSLATE_BRICKS = BlockFamilies.familyBuilder(MOSSY_DEEPSLATE_BRICKS)
 		.stairs(MOSSY_DEEPSLATE_BRICK_STAIRS)
 		.slab(MOSSY_DEEPSLATE_BRICK_SLAB)
 		.wall(MOSSY_DEEPSLATE_BRICK_WALL)
 		.getFamily();
 
-	public static final Block MOSSY_DEEPSLATE_TILES = new Block(Properties.ofFullCopy(Blocks.DEEPSLATE_TILES)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block MOSSY_DEEPSLATE_TILES = register("mossy_deepslate_tiles",
+		Block::new,
+		Properties.ofFullCopy(Blocks.DEEPSLATE_TILES)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_DEEPSLATE_TILE_STAIRS = new StairBlock(
-		MOSSY_DEEPSLATE_TILES.defaultBlockState(),
+	public static final Block MOSSY_DEEPSLATE_TILE_STAIRS = register("mossy_deepslate_tile_stairs",
+		properties -> new StairBlock(MOSSY_DEEPSLATE_TILES.defaultBlockState(), properties),
 		Properties.ofFullCopy(Blocks.DEEPSLATE_TILE_STAIRS)
 	);
-	public static final Block MOSSY_DEEPSLATE_TILE_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES));
-	public static final Block MOSSY_DEEPSLATE_TILE_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES));
+	public static final Block MOSSY_DEEPSLATE_TILE_SLAB = register("mossy_deepslate_tile_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES)
+	);
+	public static final Block MOSSY_DEEPSLATE_TILE_WALL = register("mossy_deepslate_tile_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES)
+	);
 	public static final BlockFamily FAMILY_MOSSY_DEEPSLATE_TILES = BlockFamilies.familyBuilder(MOSSY_DEEPSLATE_TILES)
 		.stairs(MOSSY_DEEPSLATE_TILE_STAIRS)
 		.slab(MOSSY_DEEPSLATE_TILE_SLAB)
@@ -532,82 +584,121 @@ public class TTBlocks {
 
 	// SANDSTONE
 
-	public static final Block SMOOTH_SANDSTONE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block SMOOTH_SANDSTONE_WALL = register("smooth_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block CUT_SANDSTONE_STAIRS = new StairBlock(
-		Blocks.CUT_SANDSTONE.defaultBlockState(),
+	public static final Block CUT_SANDSTONE_STAIRS = register("cut_sandstone_stairs",
+		properties -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), properties),
 		Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CUT_SANDSTONE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CUT_SANDSTONE_WALL = register("cut_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	// RED SANDSTONE
 
-	public static final Block SMOOTH_RED_SANDSTONE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block SMOOTH_RED_SANDSTONE_WALL = register("smooth_red_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block CUT_RED_SANDSTONE_STAIRS = new StairBlock(
-		Blocks.CUT_RED_SANDSTONE.defaultBlockState(),
+	public static final Block CUT_RED_SANDSTONE_STAIRS = register("cut_red_sandstone_stairs",
+		properties -> new StairBlock(Blocks.CUT_RED_SANDSTONE.defaultBlockState(), properties),
 		Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CUT_RED_SANDSTONE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CUT_RED_SANDSTONE_WALL = register("cut_red_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	// PRISMARINE
 
-	public static final Block PRISMARINE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(Blocks.PRISMARINE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block PRISMARINE_BRICK_WALL = register("prismarine_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.PRISMARINE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block DARK_PRISMARINE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.DARK_PRISMARINE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block DARK_PRISMARINE_WALL = register("dark_prismarine_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.DARK_PRISMARINE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	// END STONE
 
-	public static final Block END_STONE_STAIRS = new StairBlock(
-		Blocks.END_STONE.defaultBlockState(),
+	public static final Block END_STONE_STAIRS = register("end_stone_stairs",
+		properties -> new StairBlock(Blocks.END_STONE.defaultBlockState(), properties),
 		Properties.ofFullCopy(Blocks.END_STONE)
 	);
-	public static final Block END_STONE_SLAB = new SlabBlock(Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block END_STONE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-
-	public static final Block CHORAL_END_STONE = new Block(Properties.ofFullCopy(Blocks.END_STONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block END_STONE_SLAB = register("end_stone_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(Blocks.END_STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHORAL_END_STONE_STAIRS = new StairBlock(
-		CHORAL_END_STONE.defaultBlockState(),
+	public static final Block END_STONE_WALL = register("end_stone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.END_STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block CHORAL_END_STONE = register("choral_end_stone",
+		Block::new,
+		Properties.ofFullCopy(Blocks.END_STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CHORAL_END_STONE_STAIRS = register("choral_end_stone_stairs",
+		properties -> new StairBlock(CHORAL_END_STONE.defaultBlockState(), properties),
 		Properties.ofFullCopy(CHORAL_END_STONE)
 	);
-	public static final Block CHORAL_END_STONE_SLAB = new SlabBlock(Properties.ofFullCopy(CHORAL_END_STONE));
-	public static final Block CHORAL_END_STONE_WALL = new WallBlock(Properties.ofFullCopy(CHORAL_END_STONE));
+	public static final Block CHORAL_END_STONE_SLAB = register("choral_end_stone_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE)
+	);
+	public static final Block CHORAL_END_STONE_WALL = register("choral_end_stone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE)
+	);
 	public static final BlockFamily FAMILY_CHORAL_END_STONE = BlockFamilies.familyBuilder(CHORAL_END_STONE)
 		.stairs(CHORAL_END_STONE_STAIRS)
 		.slab(CHORAL_END_STONE_SLAB)
 		.wall(CHORAL_END_STONE_WALL)
 		.getFamily();
 
-	public static final Block CRACKED_END_STONE_BRICKS = new Block(Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CRACKED_END_STONE_BRICKS = register("cracked_end_stone_bricks",
+		Block::new,Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHISELED_END_STONE_BRICKS = new Block(Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHISELED_END_STONE_BRICKS = register("chiseled_end_stone_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHORAL_END_STONE_BRICKS = new Block(Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHORAL_END_STONE_BRICKS = register("choral_end_stone_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHORAL_END_STONE_BRICK_STAIRS = new StairBlock(
-		CHORAL_END_STONE_BRICKS.defaultBlockState(),
+	public static final Block CHORAL_END_STONE_BRICK_STAIRS = register("choral_end_stone_brick_stairs",
+		properties -> new StairBlock(CHORAL_END_STONE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
 	);
-	public static final Block CHORAL_END_STONE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
-	public static final Block CHORAL_END_STONE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
+	public static final Block CHORAL_END_STONE_BRICK_SLAB = register("choral_end_stone_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
+	);
+	public static final Block CHORAL_END_STONE_BRICK_WALL = register("choral_end_stone_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_CHORAL_END_STONE_BRICKS = BlockFamilies.familyBuilder(CHORAL_END_STONE_BRICKS)
 		.stairs(CHORAL_END_STONE_BRICK_STAIRS)
 		.slab(CHORAL_END_STONE_BRICK_SLAB)
@@ -616,17 +707,24 @@ public class TTBlocks {
 
 	// PURPUR
 
-	public static final Block CRACKED_PURPUR_BLOCK = new Block(Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CRACKED_PURPUR_BLOCK = register("cracked_purpur_block",
+		Block::new,
+		Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block PURPUR_WALL = new WallBlock(Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block PURPUR_WALL = register("purpur_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHISELED_PURPUR_BLOCK = new Block(Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHISELED_PURPUR_BLOCK = register("chiseled_purpur_block",
+		Block::new,
+		Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final CoffinBlock COFFIN = new CoffinBlock(
+	public static final CoffinBlock COFFIN = register("coffin",
+		CoffinBlock::new,
 		Properties.of()
 			.mapColor(MapColor.DEEPSLATE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
@@ -639,7 +737,8 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final SurveyorBlock SURVEYOR = new SurveyorBlock(
+	public static final SurveyorBlock SURVEYOR = register("surveyor",
+		SurveyorBlock::new,
 		Properties.of()
 			.mapColor(MapColor.STONE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
