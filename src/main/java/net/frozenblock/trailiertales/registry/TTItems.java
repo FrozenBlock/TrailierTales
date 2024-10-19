@@ -4,107 +4,298 @@ import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.lib.item.api.sherd.SherdRegistry;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.Function;
+import static net.minecraft.world.item.Items.registerBlock;
 
 public class TTItems {
-	public static final SpawnEggItem APPARITION_SPAWN_EGG = new SpawnEggItem(
-		TTEntityTypes.APPARITION,
-		11712721,
-		10663385,
-		new Item.Properties()
+	public static final SpawnEggItem APPARITION_SPAWN_EGG = register("apparition_spawn_egg",
+		properties -> new SpawnEggItem(
+			TTEntityTypes.APPARITION,
+			11712721,
+			10663385,
+			properties
+		),
+		new Properties()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item ECTOPLASM = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-
-	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(TTBlocks.CYAN_ROSE_CROP, new Item.Properties()
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-	);
-	public static final Item MANEDROP_GERM = new ItemNameBlockItem(TTBlocks.MANEDROP_CROP, new Item.Properties()
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-	);
-	public static final Item DAWNTRAIL_SEEDS = new ItemNameBlockItem(TTBlocks.DAWNTRAIL_CROP, new Item.Properties()
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Item ECTOPLASM = register("ectoplasm",
+		Item::new,
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item BOLT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item BULLSEYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item CARRIER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item CLUCK_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item CRAWL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item CRESCENT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item CULTIVATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item DROUGHT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item ESSENCE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item EYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item FOCUS_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item HEIGHT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item HUMP_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item ILLUMINATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item INCIDENCE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item LUMBER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item NAVIGATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item NEEDLES_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item OMEN_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item PLUME_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item PROTECTION_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item SHED_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item SHINE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item SHOWER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item SPADE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item SPROUT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item VESSEL_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Item WITHER_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-
-	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.UNDEAD,
-		TTFeatureFlags.FEATURE_FLAG
+	public static final Item CYAN_ROSE_SEEDS = register("cyan_rose_seeds",
+		properties -> createBlockItemWithCustomItemName(
+			TTBlocks.CYAN_ROSE_CROP,
+			new Properties()
+				.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+		)
 	);
-	public static final Item MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.MATRIX,
-		TTFeatureFlags.FEATURE_FLAG
+	public static final Item MANEDROP_GERM = register("manedrop_germ",
+		properties -> createBlockItemWithCustomItemName(
+			TTBlocks.MANEDROP_CROP,
+			new Properties()
+				.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+		)
 	);
-	public static final Item GEODE_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.GEODE,
-		TTFeatureFlags.FEATURE_FLAG
-	);
-	public static final Item OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.OVERGROWTH,
-		TTFeatureFlags.FEATURE_FLAG
-	);
-	public static final Item MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.MARTYR,
-		TTFeatureFlags.FEATURE_FLAG
-	);
-	public static final Item ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.ZEPHYR,
-		TTFeatureFlags.FEATURE_FLAG
-	);
-	public static final Item COT_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.COT,
-		TTFeatureFlags.FEATURE_FLAG
+	public static final Item DAWNTRAIL_SEEDS = register("dawntrail_seeds",
+		properties -> createBlockItemWithCustomItemName(
+			TTBlocks.DAWNTRAIL_CROP,
+			new Properties()
+				.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+		)
 	);
 
-	public static final Item MUSIC_DISC_FAUSSE_VIE = new Item(new Item.Properties()
-		.stacksTo(1)
-		.rarity(Rarity.RARE)
-		.jukeboxPlayable(TTJukeboxSongs.FAUSSE_VIE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Item BAIT_POTTERY_SHERD = register("bait_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item BLOOM_POTTERY_SHERD = register("bloom_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item BOLT_POTTERY_SHERD = register("bolt_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item BULLSEYE_POTTERY_SHERD = register("bullseye_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item CARRIER_POTTERY_SHERD = register("carrier_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item CLUCK_POTTERY_SHERD = register("cluck_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item CRAWL_POTTERY_SHERD = register("crawl_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item CRESCENT_POTTERY_SHERD = register("crescent_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item CULTIVATOR_POTTERY_SHERD = register("cultivator_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item DROUGHT_POTTERY_SHERD = register("drought_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item ESSENCE_POTTERY_SHERD = register("essence_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item EYE_POTTERY_SHERD = register("eye_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item FOCUS_POTTERY_SHERD = register("focus_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item HEIGHT_POTTERY_SHERD = register("height_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item HUMP_POTTERY_SHERD = register("hump_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item ILLUMINATOR_POTTERY_SHERD = register("illuminator_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item INCIDENCE_POTTERY_SHERD = register("incidence_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item LUMBER_POTTERY_SHERD = register("lumber_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item NAVIGATOR_POTTERY_SHERD = register("navigator_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item NEEDLES_POTTERY_SHERD = register("needles_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item OMEN_POTTERY_SHERD = register("omen_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item PLUME_POTTERY_SHERD = register("plume_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item PROTECTION_POTTERY_SHERD = register("protection_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item SHED_POTTERY_SHERD = register("shed_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item SHINE_POTTERY_SHERD = register("shine_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item SHOWER_POTTERY_SHERD = register("shower_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item SPADE_POTTERY_SHERD = register("spade_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item SPROUT_POTTERY_SHERD = register("sprout_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item VESSEL_POTTERY_SHERD = register("vessel_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item WITHER_POTTERY_SHERD = register("wither_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Item UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = register("undead_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE = register("matrix_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item GEODE_ARMOR_TRIM_SMITHING_TEMPLATE = register("geode_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE = register("overgrowth_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE = register("martyr_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE = register("zephyr_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item COT_ARMOR_TRIM_SMITHING_TEMPLATE = register("cot_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Item MUSIC_DISC_FAUSSE_VIE = register("music_disc_fausse_vie",
+		Item::new,
+		new Properties()
+			.stacksTo(1)
+			.rarity(Rarity.RARE)
+			.jukeboxPlayable(TTJukeboxSongs.FAUSSE_VIE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static void init() {
@@ -157,15 +348,31 @@ public class TTItems {
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
+	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Properties, Item> function) {
+		return register(name, function, new Properties());
+	}
+
+	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
+		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, WWConstants.id(name)), function, properties);
+	}
+
+	private static Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
+		return properties -> createBlockItemWithCustomItemName(block, properties);
+	}
+
+	private static Item createBlockItemWithCustomItemName(Block block, Properties properties) {
+		return new BlockItem(block, properties.useItemDescriptionPrefix());
+	}
+
 	@SafeVarargs
 	private static void registerInstrumentBefore(@NotNull Item comparedItem, @NotNull Item instrument, @NotNull String path, @NotNull TagKey<Instrument> tagKey, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(instrument, path);
+		//actualRegister(instrument, path);
 		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, tabVisibility, tabs);
 	}
 
 	@SafeVarargs
 	private static void registerItem(@NotNull Item item, @NotNull String path, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(item, path);
+		//actualRegister(item, path);
 		FrozenCreativeTabs.add(item, tabs);
 	}
 
@@ -176,7 +383,7 @@ public class TTItems {
 
 	@SafeVarargs
 	private static void registerItemBefore(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(item, path);
+		//actualRegister(item, path);
 		FrozenCreativeTabs.addBefore(comparedItem, item, tabVisibility, tabs);
 	}
 
@@ -187,7 +394,7 @@ public class TTItems {
 
 	@SafeVarargs
 	private static void registerItemAfter(@NotNull ItemLike comparedItem, @NotNull Item item, @NotNull String path, @NotNull CreativeModeTab.TabVisibility tabVisibility, @NotNull ResourceKey<CreativeModeTab>... tabs) {
-		actualRegister(item, path);
+		//actualRegister(item, path);
 		FrozenCreativeTabs.addAfter(comparedItem, item, tabVisibility, tabs);
 	}
 
@@ -222,9 +429,7 @@ public class TTItems {
 	}
 
 	private static void actualRegisterSherd(@NotNull Item item, @NotNull String path) {
-		if (actualRegister(item, path)) {
-			SherdRegistry.register(item, TTConstants.id(path.replace("sherd", "pattern")));
-		}
+		SherdRegistry.register(item, TTConstants.id(path.replace("sherd", "pattern")));
 	}
 
 }
