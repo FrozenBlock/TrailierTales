@@ -5,7 +5,7 @@ Make sure to clear after release
 Put changelog here:
 -----------------
 # Minecraft: Java Edition - Trailier Tales
-After the Wilder Update controversy passed, Trails & Tales came along and effectively accomplished the same thing. Although it didn't overpromise, it felt as though it had under-delivered on the content side of things.
+After the Wild Update controversy passed, Trails & Tales came along and effectively accomplished the same thing. Although it didn't overpromise, it felt as though it had under-delivered on the content side of things.
 We're back once again to hopefully remedy this, with Trailier Tales!
 
 **DISCLAIMER**
