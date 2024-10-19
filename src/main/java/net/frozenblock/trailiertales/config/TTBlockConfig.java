@@ -51,7 +51,7 @@ public final class TTBlockConfig {
 		@EntrySyncData(value = "particle", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean particle = false;
 		@EntrySyncData(value = "place_items")
-		public boolean place_items = true;
+		public boolean place_items = false;
 	}
 
 	public static class BlockSounds {
