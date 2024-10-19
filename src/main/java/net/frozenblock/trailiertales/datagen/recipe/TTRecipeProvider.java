@@ -33,6 +33,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
+	@NotNull
 	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
 		return new RecipeProvider(registryLookup, exporter) {
 			@Override
