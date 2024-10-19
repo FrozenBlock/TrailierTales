@@ -11,7 +11,6 @@ import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
-import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -649,7 +648,7 @@ public class TTBlocks {
 	}
 
 	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
-		ResourceLocation id = WWConstants.id(path);
+		ResourceLocation id = TTConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
