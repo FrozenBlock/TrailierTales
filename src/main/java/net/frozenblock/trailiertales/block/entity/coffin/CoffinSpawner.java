@@ -397,13 +397,14 @@ public final class CoffinSpawner {
 			return;
 		}
 
-		Direction direction = CoffinBlock.getCoffinOrientation(world, pos);
-		if (direction != null) {
+		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(world, pos);
+		if (coffinOrientation != null) {
+			this.getState().emitParticles(world, pos, coffinOrientation);
 			if (!this.data.soulsToSpawn.isEmpty()) {
 				IntArrayList newList = new IntArrayList();
 				this.data.soulsToSpawn.forEach(spawnTime -> {
 					if (spawnTime <= 0) {
-						CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, direction, pos, 0.35D);
+						CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, coffinOrientation, pos, 0.35D);
 						this.addPower(1, world);
 					} else {
 						newList.add(spawnTime - 1);

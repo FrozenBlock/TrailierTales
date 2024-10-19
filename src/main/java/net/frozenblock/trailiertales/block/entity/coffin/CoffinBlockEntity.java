@@ -73,7 +73,6 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		}
 
 		CoffinSpawnerState coffinSpawnerState = this.getState();
-		//coffinSpawnerState.emitParticles(world, pos, ominous);
 
 		if (coffinSpawnerState.isCapableOfSpawning()) {
 			RandomSource randomSource = world.getRandom();
