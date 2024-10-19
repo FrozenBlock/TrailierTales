@@ -45,10 +45,13 @@ import java.util.function.Function;
 
 public class TTBlocks {
 
-	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(
-		Blocks.RED_SAND,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED,
+	public static final Block SUSPICIOUS_RED_SAND = register("suspicious_red_sand",
+		properties -> new BrushableBlock(
+			Blocks.RED_SAND,
+			SoundEvents.BRUSH_SAND,
+			SoundEvents.BRUSH_SAND_COMPLETED,
+			properties
+		),
 		Properties.of()
 			.mapColor(MapColor.COLOR_ORANGE)
 			.instrument(NoteBlockInstrument.SNARE)
@@ -56,10 +59,13 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
-		Blocks.DIRT,
-		TTSounds.BRUSH_DIRT,
-		TTSounds.BRUSH_DIRT_COMPLETED,
+	public static final Block SUSPICIOUS_DIRT = register("suspicious_dirt",
+		properties -> new NonFallingBrushableBlock(
+			Blocks.DIRT,
+			TTSounds.BRUSH_DIRT,
+			TTSounds.BRUSH_DIRT_COMPLETED,
+			properties
+		),
 		Properties.of()
 			.mapColor(MapColor.DIRT)
 			.strength(0.25F)
@@ -67,10 +73,13 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(
-		Blocks.CLAY,
-		TTSounds.BRUSH_CLAY,
-		TTSounds.BRUSH_CLAY_COMPLETED,
+	public static final Block SUSPICIOUS_CLAY = register("suspicious_clay",
+		properties -> new NonFallingBrushableBlock(
+			Blocks.CLAY,
+			TTSounds.BRUSH_CLAY,
+			TTSounds.BRUSH_CLAY_COMPLETED,
+			properties
+		),
 		Properties.of()
 			.mapColor(MapColor.CLAY)
 			.instrument(NoteBlockInstrument.FLUTE)
@@ -80,7 +89,8 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
+	public static final Block CYAN_ROSE_CROP = register("cyan_rose_crop",
+		CyanRoseCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -90,9 +100,8 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CYAN_ROSE = new FlowerBlock(
-		MobEffects.SATURATION,
-		0.5F,
+	public static final Block CYAN_ROSE = register("cyan_rose",
+		properties -> new FlowerBlock(MobEffects.SATURATION, 0.5F, properties),
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -102,12 +111,13 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block POTTED_CYAN_ROSE = new FlowerPotBlock(
-		CYAN_ROSE,
-		Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block POTTED_CYAN_ROSE = register("potted_cyan_rose",
+		properties -> new FlowerPotBlock(CYAN_ROSE, properties),
+		Blocks.flowerPotProperties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block MANEDROP_CROP = new ManedropCropBlock(
+	public static final Block MANEDROP_CROP = register("manedrop_crop",
+		ManedropCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -116,7 +126,8 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MANEDROP = new TallFlowerBlock(
+	public static final Block MANEDROP = register("manedrop",
+		TallFlowerBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -128,7 +139,8 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block DAWNTRAIL_CROP = new DawntrailCropBlock(
+	public static final Block DAWNTRAIL_CROP = register("dawntrail_crop",
+		DawntrailCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -138,7 +150,8 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block DAWNTRAIL = new DawntrailBlock(
+	public static final Block DAWNTRAIL = register("dawntrail",
+		DawntrailBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -153,19 +166,37 @@ public class TTBlocks {
 
 	// GRANITE
 
-	public static final Block POLISHED_GRANITE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.POLISHED_GRANITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Block POLISHED_GRANITE_WALL = register("polished_granite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.POLISHED_GRANITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
-	public static final Block GRANITE_BRICKS = new Block(Properties.ofFullCopy(Blocks.GRANITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block CHISELED_GRANITE_BRICKS = new Block(Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block GRANITE_BRICK_STAIRS = new StairBlock(
-		GRANITE_BRICKS.defaultBlockState(),
+	public static final Block GRANITE_BRICKS = register("granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.GRANITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CHISELED_GRANITE_BRICKS = register("chiseled_granite_bricks",
+		Block::new,
 		Properties.ofFullCopy(GRANITE_BRICKS)
 	);
-	public static final Block GRANITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block GRANITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block CRACKED_GRANITE_BRICKS = new Block(Properties.ofFullCopy(GRANITE_BRICKS));
+	public static final Block GRANITE_BRICK_STAIRS = register("granite_brick_stairs",
+		properties -> new StairBlock(GRANITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block GRANITE_BRICK_SLAB = register("granite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block GRANITE_BRICK_WALL = register("granite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block CRACKED_GRANITE_BRICKS = register("cracked_granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_GRANITE_BRICK = BlockFamilies.familyBuilder(GRANITE_BRICKS)
 		.stairs(GRANITE_BRICK_STAIRS)
 		.slab(GRANITE_BRICK_SLAB)
@@ -174,13 +205,22 @@ public class TTBlocks {
 		.chiseled(CHISELED_GRANITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_GRANITE_BRICKS = new Block(Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block MOSSY_GRANITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_GRANITE_BRICKS.defaultBlockState(),
+	public static final Block MOSSY_GRANITE_BRICKS = register("mossy_granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block MOSSY_GRANITE_BRICK_STAIRS = register("mossy_granite_brick_stairs",
+		properties -> new StairBlock(MOSSY_GRANITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
 	);
-	public static final Block MOSSY_GRANITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_GRANITE_BRICKS));
-	public static final Block MOSSY_GRANITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_GRANITE_BRICKS));
+	public static final Block MOSSY_GRANITE_BRICK_SLAB = register("mossy_granite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
+	);
+	public static final Block MOSSY_GRANITE_BRICK_WALL = register("mossy_granite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_GRANITE_BRICK = BlockFamilies.familyBuilder(MOSSY_GRANITE_BRICKS)
 		.stairs(MOSSY_GRANITE_BRICK_STAIRS)
 		.slab(MOSSY_GRANITE_BRICK_SLAB)
@@ -189,19 +229,37 @@ public class TTBlocks {
 
 	// DIORITE
 
-	public static final Block POLISHED_DIORITE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.POLISHED_DIORITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Block POLISHED_DIORITE_WALL = register("polished_diorite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.POLISHED_DIORITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
-	public static final Block DIORITE_BRICKS = new Block(Properties.ofFullCopy(Blocks.DIORITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block DIORITE_BRICK_STAIRS = new StairBlock(
-		DIORITE_BRICKS.defaultBlockState(),
+	public static final Block DIORITE_BRICKS = register("diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.DIORITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block DIORITE_BRICK_STAIRS = register("diorite_brick_stairs",
+		properties -> new StairBlock(DIORITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(DIORITE_BRICKS)
 	);
-	public static final Block DIORITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block DIORITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block CRACKED_DIORITE_BRICKS = new Block(Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block CHISELED_DIORITE_BRICKS = new Block(Properties.ofFullCopy(DIORITE_BRICKS));
+	public static final Block DIORITE_BRICK_SLAB = register("diorite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block DIORITE_BRICK_WALL = register("diorite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block CRACKED_DIORITE_BRICKS = register("cracked_diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block CHISELED_DIORITE_BRICKS = register("chiseled_diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_DIORITE_BRICK = BlockFamilies.familyBuilder(DIORITE_BRICKS)
 		.stairs(DIORITE_BRICK_STAIRS)
 		.slab(DIORITE_BRICK_SLAB)
@@ -210,13 +268,22 @@ public class TTBlocks {
 		.chiseled(CHISELED_DIORITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_DIORITE_BRICKS = new Block(Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block MOSSY_DIORITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_DIORITE_BRICKS.defaultBlockState(),
+	public static final Block MOSSY_DIORITE_BRICKS = register("mossy_diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block MOSSY_DIORITE_BRICK_STAIRS = register("mossy_diorite_brick_stairs",
+		properties -> new StairBlock(MOSSY_DIORITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
 	);
-	public static final Block MOSSY_DIORITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_DIORITE_BRICKS));
-	public static final Block MOSSY_DIORITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_DIORITE_BRICKS));
+	public static final Block MOSSY_DIORITE_BRICK_SLAB = register("mossy_diorite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
+	);
+	public static final Block MOSSY_DIORITE_BRICK_WALL = register("mossy_diorite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_DIORITE_BRICK = BlockFamilies.familyBuilder(MOSSY_DIORITE_BRICKS)
 		.stairs(MOSSY_DIORITE_BRICK_STAIRS)
 		.slab(MOSSY_DIORITE_BRICK_SLAB)
