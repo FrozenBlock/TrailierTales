@@ -10,7 +10,7 @@ import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
-import net.frozenblock.trailiertales.networking.TrailierNetworking;
+import net.frozenblock.trailiertales.networking.TTNetworking;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
@@ -76,7 +76,7 @@ public class TrailierTales extends FrozenModInitializer {
 		TTJukeboxSongs.init();
 		TTRuleBlockEntityModifiers.init();
 		TTVillagerTrades.init();
-		TrailierNetworking.init();
+		TTNetworking.init();
 
 		TTModIntegrations.init();
 
