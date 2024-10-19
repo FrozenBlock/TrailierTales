@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractBoat.class)
 public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBannerInterface {
 	@Unique
-	private static final EntityDataAccessor<ItemStack> TRAILIER_TALES$BANNER = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.ITEM_STACK);
+	private static final EntityDataAccessor<ItemStack> TRAILIER_TALES$BANNER = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.ITEM_STACK);
 	@Unique
 	private final WalkAnimationState trailierTales$walkAnimation = new WalkAnimationState();
 
