@@ -292,18 +292,37 @@ public class TTBlocks {
 
 	// ANDESITE
 
-	public static final Block POLISHED_ANDESITE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.POLISHED_ANDESITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Block POLISHED_ANDESITE_WALL = register("polished_andesite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.POLISHED_ANDESITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
-	public static final Block ANDESITE_BRICKS = new Block(Properties.ofFullCopy(Blocks.ANDESITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block ANDESITE_BRICK_STAIRS = new StairBlock(
-		ANDESITE_BRICKS.defaultBlockState(),
+	public static final Block ANDESITE_BRICKS = register("andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.ANDESITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block ANDESITE_BRICK_STAIRS = register("andesite_brick_stairs",
+		properties -> new StairBlock(ANDESITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(ANDESITE_BRICKS)
 	);
-	public static final Block ANDESITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(ANDESITE_BRICKS));
-	public static final Block ANDESITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(ANDESITE_BRICKS));
-	public static final Block CRACKED_ANDESITE_BRICKS = new Block(Properties.ofFullCopy(ANDESITE_BRICKS));
-	public static final Block CHISELED_ANDESITE_BRICKS = new Block(Properties.ofFullCopy(ANDESITE_BRICKS));
+	public static final Block ANDESITE_BRICK_SLAB = register("andesite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block ANDESITE_BRICK_WALL = register("andesite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block CRACKED_ANDESITE_BRICKS = register("cracked_andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block CHISELED_ANDESITE_BRICKS = register("chiseled_andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_ANDESITE_BRICK = BlockFamilies.familyBuilder(ANDESITE_BRICKS)
 		.stairs(ANDESITE_BRICK_STAIRS)
 		.slab(ANDESITE_BRICK_SLAB)
@@ -312,13 +331,22 @@ public class TTBlocks {
 		.chiseled(CHISELED_ANDESITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_ANDESITE_BRICKS = new Block(Properties.ofFullCopy(Blocks.ANDESITE));
-	public static final Block MOSSY_ANDESITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_ANDESITE_BRICKS.defaultBlockState(),
+	public static final Block MOSSY_ANDESITE_BRICKS = register("mossy_andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.ANDESITE)
+	);
+	public static final Block MOSSY_ANDESITE_BRICK_STAIRS = register("mossy_andesite_brick_stairs",
+		properties -> new StairBlock(MOSSY_ANDESITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
 	);
-	public static final Block MOSSY_ANDESITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS));
-	public static final Block MOSSY_ANDESITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS));
+	public static final Block MOSSY_ANDESITE_BRICK_SLAB = register("mossy_andesite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
+	);
+	public static final Block MOSSY_ANDESITE_BRICK_WALL = register("mossy_andesite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_ANDESITE_BRICK = BlockFamilies.familyBuilder(MOSSY_ANDESITE_BRICKS)
 		.stairs(MOSSY_ANDESITE_BRICK_STAIRS)
 		.slab(MOSSY_ANDESITE_BRICK_SLAB)
@@ -327,40 +355,72 @@ public class TTBlocks {
 
 	// CALCITE
 
-	public static final Block CALCITE_STAIRS = new StairBlock(
-		Blocks.CALCITE.defaultBlockState(),
+	public static final Block CALCITE_STAIRS = register("calcite_stairs",
+		properties -> new StairBlock(Blocks.CALCITE.defaultBlockState(), properties),
 		Properties.ofFullCopy(Blocks.CALCITE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CALCITE_SLAB = new SlabBlock(Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block CALCITE_WALL = new WallBlock(Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Block CALCITE_SLAB = register("calcite_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CALCITE_WALL = register("calcite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
-	public static final Block POLISHED_CALCITE = new Block(Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block POLISHED_CALCITE_STAIRS = new StairBlock(
-		Blocks.CALCITE.defaultBlockState(),
+	public static final Block POLISHED_CALCITE = register("polished_calcite",
+		Block::new,
 		Properties.ofFullCopy(Blocks.CALCITE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block POLISHED_CALCITE_SLAB = new SlabBlock(Properties.ofFullCopy(POLISHED_CALCITE));
-	public static final Block POLISHED_CALCITE_WALL = new WallBlock(Properties.ofFullCopy(POLISHED_CALCITE));
+	public static final Block POLISHED_CALCITE_STAIRS = register("polished_calcite_stairs",
+		properties -> new StairBlock(Blocks.CALCITE.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block POLISHED_CALCITE_SLAB = register("polished_calcite_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(POLISHED_CALCITE)
+	);
+	public static final Block POLISHED_CALCITE_WALL = register("polished_calcite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(POLISHED_CALCITE)
+	);
 	public static final BlockFamily FAMILY_POLISHED_CALCITE = BlockFamilies.familyBuilder(POLISHED_CALCITE)
 		.stairs(POLISHED_CALCITE_STAIRS)
 		.slab(POLISHED_CALCITE_SLAB)
 		.wall(POLISHED_CALCITE_WALL)
 		.getFamily();
 
-	public static final Block CALCITE_BRICKS = new Block(Properties.ofFullCopy(Blocks.CALCITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-		.sound(TTSounds.CALCITE_BRICKS)
+	public static final Block CALCITE_BRICKS = register("calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+			.sound(TTSounds.CALCITE_BRICKS)
 	);
-	public static final Block CALCITE_BRICK_STAIRS = new StairBlock(
-		CALCITE_BRICKS.defaultBlockState(),
+	public static final Block CALCITE_BRICK_STAIRS = register("calcite_brick_stairs",
+		properties -> new StairBlock(CALCITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(CALCITE_BRICKS)
 	);
-	public static final Block CALCITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CALCITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CRACKED_CALCITE_BRICKS = new Block(Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CHISELED_CALCITE_BRICKS = new Block(Properties.ofFullCopy(CALCITE_BRICKS));
+	public static final Block CALCITE_BRICK_SLAB = register("calcite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block CALCITE_BRICK_WALL = register("calcite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block CRACKED_CALCITE_BRICKS = register("cracked_calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block CHISELED_CALCITE_BRICKS = register("chiseled_calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_CALCITE_BRICK = BlockFamilies.familyBuilder(CALCITE_BRICKS)
 		.stairs(CALCITE_BRICK_STAIRS)
 		.slab(CALCITE_BRICK_SLAB)
@@ -369,13 +429,22 @@ public class TTBlocks {
 		.chiseled(CHISELED_CALCITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_CALCITE_BRICKS = new Block(Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block MOSSY_CALCITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_CALCITE_BRICKS.defaultBlockState(),
+	public static final Block MOSSY_CALCITE_BRICKS = register("mossy_calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block MOSSY_CALCITE_BRICK_STAIRS = register("mossy_calcite_brick_stairs",
+		properties -> new StairBlock(MOSSY_CALCITE_BRICKS.defaultBlockState(), properties),
 		Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
 	);
-	public static final Block MOSSY_CALCITE_BRICK_SLAB = new SlabBlock(Properties.ofFullCopy(MOSSY_CALCITE_BRICKS));
-	public static final Block MOSSY_CALCITE_BRICK_WALL = new WallBlock(Properties.ofFullCopy(MOSSY_CALCITE_BRICKS));
+	public static final Block MOSSY_CALCITE_BRICK_SLAB = register("mossy_calcite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
+	);
+	public static final Block MOSSY_CALCITE_BRICK_WALL = register("mossy_calcite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_CALCITE_BRICK = BlockFamilies.familyBuilder(MOSSY_CALCITE_BRICKS)
 		.stairs(MOSSY_CALCITE_BRICK_STAIRS)
 		.slab(MOSSY_CALCITE_BRICK_SLAB)
