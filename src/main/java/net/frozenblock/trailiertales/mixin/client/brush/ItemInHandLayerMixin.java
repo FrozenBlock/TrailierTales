@@ -11,11 +11,12 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,8 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(ItemInHandLayer.class)
 public class ItemInHandLayerMixin<S extends LivingEntityRenderState, M extends EntityModel<S> & ArmedModel> {
-	// TODO: reimplement smooth brush animation
-/*
+
 	@Inject(
 		method = "renderArmWithItem",
 		at = @At(
@@ -39,32 +39,37 @@ public class ItemInHandLayerMixin<S extends LivingEntityRenderState, M extends E
 		)
 	)
 	void trailierTales$injectBrushAnim(
-		S livingEntity,
+		S renderState,
 		@Nullable BakedModel bakedModel,
 		ItemStack itemStack,
 		ItemDisplayContext displayContext,
-		HumanoidArm arm,
+		HumanoidArm humanoidArm,
 		PoseStack poseStack,
 		MultiBufferSource buffer,
 		int packedLight,
 		CallbackInfo info,
 		@Local(ordinal = 0) boolean isLeftArm
 	) {
-		if (itemStack.is(Items.BRUSH) && livingEntity.getUseItem() == itemStack && livingEntity.swingTime == 0 && TTItemConfig.SMOOTH_BRUSH_ANIMATION) {
-			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;
-			float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaTicks() - Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false);
-			float brushProgress = remainingTicks + partialTick;
-			float brushRoll = Mth.cos(
-				(brushProgress * Mth.PI)
-					/ 5F
-			) * 1.2F;
+		if (renderState instanceof HumanoidRenderState humanoidRenderState) {
+			InteractionHand interactionHand = humanoidArm == humanoidRenderState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+			if (
+				humanoidRenderState.isUsingItem
+				&& humanoidRenderState.useItemHand == interactionHand
+				&& humanoidRenderState.attackTime < 1.0E-5F
+				&& itemStack.is(Items.BRUSH)
+				&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
+			) {
+				float remainingTicks = humanoidRenderState.ticksUsingItem + 1F;
+				float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
+				float brushProgress = remainingTicks + partialTick;
+				float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;
 
-			if (isLeftArm) {
-				poseStack.mulPose(Axis.ZP.rotation(brushRoll));
-			} else {
-				poseStack.mulPose(Axis.ZN.rotation(brushRoll));
+				if (isLeftArm) {
+					poseStack.mulPose(Axis.ZP.rotation(brushRoll));
+				} else {
+					poseStack.mulPose(Axis.ZN.rotation(brushRoll));
+				}
 			}
 		}
 	}
-*/
 }
