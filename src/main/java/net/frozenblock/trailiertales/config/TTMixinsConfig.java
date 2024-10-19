@@ -42,10 +42,10 @@ public final class TTMixinsConfig {
 
 	public boolean decorated_pot = true;
 
+	public boolean surveyor = true;
+
 	@Comment("Client only")
 	public boolean haunt = true;
-
-	public boolean surveyor = true;
 
 	public static TTMixinsConfig get() {
 		return INSTANCE.config();
