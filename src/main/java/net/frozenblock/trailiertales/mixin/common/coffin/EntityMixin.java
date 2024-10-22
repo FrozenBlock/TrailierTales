@@ -17,8 +17,8 @@ public class EntityMixin {
 		CoffinBlock.onCoffinUntrack(Entity.class.cast(this), null, true);
 	}
 
-	@Inject(method = "canChangeDimensions", at = @At("HEAD"), cancellable = true)
-	public void trailierTales$canChangeDimensions(CallbackInfoReturnable<Boolean> info) {
+	@Inject(method = "canUsePortal", at = @At("HEAD"), cancellable = true)
+	public void trailierTales$canUsePortal(CallbackInfoReturnable<Boolean> info) {
 		if (Entity.class.cast(this) instanceof EntityCoffinInterface entityCoffinInterface) {
 			if (entityCoffinInterface.trailierTales$getCoffinData() != null) {
 				info.setReturnValue(false);
