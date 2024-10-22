@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
@@ -28,7 +29,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 @Mixin(Gui.class)

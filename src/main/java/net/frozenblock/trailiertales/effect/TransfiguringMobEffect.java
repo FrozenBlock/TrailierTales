@@ -19,7 +19,6 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

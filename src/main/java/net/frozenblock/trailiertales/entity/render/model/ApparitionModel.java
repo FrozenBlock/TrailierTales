@@ -9,7 +9,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.lib.entity.impl.client.rendering.ModelPartInvertInterface;
-import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.render.renderer.state.ApparitionRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;

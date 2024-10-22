@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales.registry;
 
-import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import java.util.function.Function;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
@@ -20,12 +20,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
@@ -41,7 +36,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import java.util.function.Function;
 
 public class TTBlocks {
 
@@ -749,137 +743,6 @@ public class TTBlocks {
 	);
 
 	public static void init() {
-		TTConstants.log("Registering Blocks for Trailier Tales.", TTConstants.UNSTABLE_LOGGING);
-
-		registerBlockAfter(Blocks.SUSPICIOUS_SAND, "suspicious_red_sand", SUSPICIOUS_RED_SAND, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockAfter(SUSPICIOUS_RED_SAND, "suspicious_dirt",SUSPICIOUS_DIRT, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockAfter(SUSPICIOUS_DIRT, "suspicious_clay", SUSPICIOUS_CLAY, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-
-		registerBlockAfter(Blocks.TORCHFLOWER, "cyan_rose", CYAN_ROSE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
-		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
-
-		registerBlockAfter(Blocks.PITCHER_PLANT, "manedrop", MANEDROP, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("manedrop_crop", MANEDROP_CROP);
-
-		registerBlockAfter(Blocks.GLOW_LICHEN, "dawntrail", DAWNTRAIL, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("dawntrail_crop", DAWNTRAIL_CROP);
-
-		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICKS, "cracked_granite_bricks", CRACKED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_GRANITE_BRICKS, "granite_brick_stairs", GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_STAIRS, "granite_brick_slab", GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_SLAB, "granite_brick_wall", GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_WALL, "chiseled_granite_bricks", CHISELED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_GRANITE_BRICKS, "mossy_granite_bricks", MOSSY_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_GRANITE_BRICKS, "mossy_granite_brick_stairs", MOSSY_GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_GRANITE_BRICK_STAIRS, "mossy_granite_brick_slab", MOSSY_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_GRANITE_BRICK_SLAB, "mossy_granite_brick_wall", MOSSY_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.POLISHED_DIORITE_SLAB, "polished_diorite_wall", POLISHED_DIORITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.DIORITE_SLAB, "diorite_bricks", DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICKS, "cracked_diorite_bricks", CRACKED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_DIORITE_BRICKS, "diorite_brick_stairs", DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_STAIRS, "diorite_brick_slab", DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_SLAB, "diorite_brick_wall", DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_WALL, "chiseled_diorite_bricks", CHISELED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_DIORITE_BRICKS, "mossy_diorite_bricks", MOSSY_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DIORITE_BRICKS, "mossy_diorite_brick_stairs", MOSSY_DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DIORITE_BRICK_STAIRS, "mossy_diorite_brick_slab", MOSSY_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DIORITE_BRICK_SLAB, "mossy_diorite_brick_wall", MOSSY_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.POLISHED_ANDESITE_SLAB, "polished_andesite_wall", POLISHED_ANDESITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.ANDESITE_SLAB, "andesite_bricks", ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICKS, "cracked_andesite_bricks", CRACKED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_ANDESITE_BRICKS, "andesite_brick_stairs", ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_STAIRS, "andesite_brick_slab", ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_SLAB, "andesite_brick_wall", ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_WALL, "chiseled_andesite_bricks", CHISELED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_ANDESITE_BRICKS, "mossy_andesite_bricks", MOSSY_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_ANDESITE_BRICKS, "mossy_andesite_brick_stairs", MOSSY_ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_ANDESITE_BRICK_STAIRS, "mossy_andesite_brick_slab", MOSSY_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_ANDESITE_BRICK_SLAB, "mossy_andesite_brick_wall", MOSSY_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		FrozenCreativeTabs.addBefore(Blocks.DEEPSLATE, Blocks.CALCITE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CALCITE, "calcite_stairs", CALCITE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_STAIRS, "calcite_slab", CALCITE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_SLAB, "calcite_wall", CALCITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_WALL, "polished_calcite", POLISHED_CALCITE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE, "polished_calcite_stairs", POLISHED_CALCITE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE_STAIRS, "polished_calcite_slab", POLISHED_CALCITE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE_SLAB, "polished_calcite_wall", POLISHED_CALCITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE_WALL, "calcite_bricks", CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICKS, "cracked_calcite_bricks", CRACKED_CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_CALCITE_BRICKS, "calcite_brick_stairs", CALCITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICK_STAIRS, "calcite_brick_slab", CALCITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICK_SLAB, "calcite_brick_wall", CALCITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICK_WALL, "chiseled_calcite_bricks", CHISELED_CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_CALCITE_BRICKS, "mossy_calcite_bricks", MOSSY_CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_CALCITE_BRICKS, "mossy_calcite_brick_stairs", MOSSY_CALCITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_CALCITE_BRICK_STAIRS, "mossy_calcite_brick_slab", MOSSY_CALCITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_CALCITE_BRICK_SLAB, "mossy_calcite_brick_wall", MOSSY_CALCITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.TUFF_BRICKS, "cracked_tuff_bricks", CRACKED_TUFF_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CHISELED_TUFF_BRICKS, "mossy_tuff_bricks", MOSSY_TUFF_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_TUFF_BRICKS, "mossy_tuff_brick_stairs", MOSSY_TUFF_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_TUFF_BRICK_STAIRS, "mossy_tuff_brick_slab", MOSSY_TUFF_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_TUFF_BRICK_SLAB, "mossy_tuff_brick_wall", MOSSY_TUFF_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.BRICKS, "cracked_bricks", CRACKED_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.BRICK_WALL, "mossy_bricks", MOSSY_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_BRICKS, "mossy_brick_stairs", MOSSY_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_BRICK_STAIRS, "mossy_brick_slab", MOSSY_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_BRICK_SLAB, "mossy_brick_wall", MOSSY_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE_STAIRS, "mossy_cobbled_deepslate_slab", MOSSY_COBBLED_DEEPSLATE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE_SLAB, "mossy_cobbled_deepslate_wall", MOSSY_COBBLED_DEEPSLATE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.DEEPSLATE_BRICK_WALL, "mossy_deepslate_bricks", MOSSY_DEEPSLATE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_BRICKS, "mossy_deepslate_brick_stairs", MOSSY_DEEPSLATE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_BRICK_STAIRS, "mossy_deepslate_brick_slab", MOSSY_DEEPSLATE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_BRICK_SLAB, "mossy_deepslate_brick_wall", MOSSY_DEEPSLATE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.DEEPSLATE_TILE_WALL, "mossy_deepslate_tiles", MOSSY_DEEPSLATE_TILES, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_deepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.SMOOTH_SANDSTONE_SLAB, "smooth_sandstone_wall", SMOOTH_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(Blocks.CUT_SANDSTONE_SLAB, "cut_sandstone_stairs", CUT_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CUT_SANDSTONE_SLAB, "cut_sandstone_wall", CUT_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.SMOOTH_RED_SANDSTONE_SLAB, "smooth_red_sandstone_wall", SMOOTH_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_stairs", CUT_RED_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_wall", CUT_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", PRISMARINE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", DARK_PRISMARINE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.END_STONE, "end_stone_stairs", END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(END_STONE_STAIRS, "end_stone_slab", END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(END_STONE_SLAB, "end_stone_wall", END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(END_STONE_WALL, "choral_end_stone", CHORAL_END_STONE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE, "choral_end_stone_stairs", CHORAL_END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_STAIRS, "choral_end_stone_slab", CHORAL_END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_SLAB, "choral_end_stone_wall", CHORAL_END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.END_STONE_BRICKS, "cracked_end_stone_bricks", CRACKED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.END_STONE_BRICK_WALL, "chiseled_end_stone_bricks", CHISELED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_END_STONE_BRICKS, "choral_end_stone_bricks", CHORAL_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_BRICKS, "choral_end_stone_brick_stairs", CHORAL_END_STONE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_BRICK_STAIRS, "choral_end_stone_brick_slab", CHORAL_END_STONE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_BRICK_SLAB, "choral_end_stone_brick_wall", CHORAL_END_STONE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.PURPUR_BLOCK, "cracked_purpur_block", CRACKED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.PURPUR_SLAB, "purpur_wall", PURPUR_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PURPUR_WALL, "chiseled_purpur_block", CHISELED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
 	}
 
 	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
@@ -902,51 +765,6 @@ public class TTBlocks {
 
 	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, ResourceLocation id) {
 		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
-	}
-
-	private static void registerBlock(String path, Block block) {
-		//actualRegisterBlock(path, block);
-	}
-
-	@SafeVarargs
-	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-		//actualRegisterBlock(path, block);
-	}
-
-	@SafeVarargs
-	private static void registerBlockAfter(ItemLike comparedItem, String path, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemAfter(comparedItem, path, block, tabs);
-		//actualRegisterBlock(path, block);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
-		//actualRegisterBlockItem(path, block);
-		FrozenCreativeTabs.addBefore(comparedItem, block, tabVisibility, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemAfter(ItemLike comparedItem, String name, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemAfter(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemAfter(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility visibility, ResourceKey<CreativeModeTab>... tabs) {
-		//actualRegisterBlockItem(path, block);
-		FrozenCreativeTabs.addAfter(comparedItem, block, visibility, tabs);
-	}
-
-	private static void actualRegisterBlock(String path, Block block) {
-		if (BuiltInRegistries.BLOCK.getOptional(TTConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.BLOCK, TTConstants.id(path), block);
-		}
-	}
-
-	private static void actualRegisterBlockItem(String path, Block block) {
-		if (BuiltInRegistries.ITEM.getOptional(TTConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, TTConstants.id(path), new BlockItem(block, new Item.Properties()));
-		}
 	}
 
 }

@@ -3,9 +3,9 @@ package net.frozenblock.trailiertales.entity.spawn;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
 

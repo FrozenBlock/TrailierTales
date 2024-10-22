@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.render.renderer.state.ApparitionRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;

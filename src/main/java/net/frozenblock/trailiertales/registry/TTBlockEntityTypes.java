@@ -1,5 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
@@ -10,8 +12,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class TTBlockEntityTypes {
 

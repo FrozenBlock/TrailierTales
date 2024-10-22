@@ -16,7 +16,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.WalkAnimationState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractBoat;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
