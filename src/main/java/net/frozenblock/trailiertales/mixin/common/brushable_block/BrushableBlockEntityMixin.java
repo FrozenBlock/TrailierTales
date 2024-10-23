@@ -214,10 +214,11 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			BlockPos blockPos = brushableBlockEntity.getBlockPos();
 			BlockState blockState = level.getBlockState(blockPos);
 			if (blockState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) {
-				boolean canPlaceItemProperty = level.getBlockState(blockPos).getValue(TTBlockStateProperties.CAN_PLACE_ITEM);
+				BlockState worldState = level.getBlockState(blockPos);
+				boolean canPlaceItemProperty = worldState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && worldState.getValue(TTBlockStateProperties.CAN_PLACE_ITEM);
 				boolean canPlaceItem = this.item.isEmpty() && this.lootTable == null;
 				if (canPlaceItemProperty != canPlaceItem) {
-					level.setBlock(blockPos, blockState.setValue(TTBlockStateProperties.CAN_PLACE_ITEM, canPlaceItem), BrushableBlockMixin.UPDATE_CLIENTS);
+					level.setBlock(blockPos, blockState.setValue(TTBlockStateProperties.CAN_PLACE_ITEM, canPlaceItem), Block.UPDATE_CLIENTS);
 				}
 			}
 			if (this.trailierTales$storedLootTable == null && this.lootTable != null) {
