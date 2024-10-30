@@ -43,6 +43,7 @@ accessible method net/minecraft/client/particle/FlyTowardsPositionParticle <init
 accessible method net/minecraft/client/particle/SpellParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 
 # Rendering
+extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V
 accessible class net/minecraft/client/renderer/FogRenderer$MobEffectFogFunction
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible class net/minecraft/client/gui/Gui$HeartType
