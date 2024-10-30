@@ -415,6 +415,17 @@ public final class CoffinSpawner {
 			}
 		}
 
+		Direction connectedDirection = CoffinBlock.getConnectedDirection(state);
+		if (connectedDirection != null) {
+			BlockPos connectedPos = pos.relative(connectedDirection);
+			if (world.isLoaded(connectedPos)) {
+				if (coffinOrientation == null || !(world.getBlockEntity(connectedPos) instanceof CoffinBlockEntity)) {
+					world.destroyBlock(pos, false);
+					return;
+				}
+			}
+		}
+
 		this.data.currentMobs.removeIf(uiid -> {
 			Entity entity = level.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(level, pos, entity);

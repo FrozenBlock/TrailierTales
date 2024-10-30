@@ -109,9 +109,9 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				spawner.spawnApparition(level, pos);
 			}
 
-			if (!coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
+			if (!coffinSpawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
-				coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getAggressiveConfig().powerForNextLevel() : coffinSpawnerData.power;
+				coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getConfig().powerForNextLevel() : coffinSpawnerData.power;
 				level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.random.nextFloat() * 0.2F));
 				return coffinSpawnerState.getNextPowerState();
 			}
@@ -155,7 +155,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 					0.5D,
 					coffinOrientation,
 					pos,
-					1D
+					0.5D
 				);
 			}
 		});

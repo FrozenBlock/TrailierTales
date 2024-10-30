@@ -5,25 +5,7 @@ wigglewoggle - Builder
     - Generic, Savanna, Desert, and Jungle ruins
 
 Soro335
-    - Came up with Badlands Fort designs
-
-Voxelotl
-    - Texture Artist:
-      - Suspicious Clay
-      - Cracked and Chiseled Purpur Blocks
-      - Mossy Cobbled Deepslate
-      - Mossy Deepslate Bricks
-      - Mossy Deepslate Tiles
-      - Bloom Pottery Sherd/Pattern
-      - Bullseye Pottery Sherd/Pattern
-      - Crescent Pottery Sherd/Pattern
-      - Wither Pottery Sherd/Pattern
-      - Coffin
-      - Undead Armor Trim
-      - Surveyor
-      - Apparition
-      - All Boat Banner Posts
-      - Siege Omen icon and particle texture
+    - Came up with initial Badlands Fort designs
 
 Zhen
     - Texture Artist:
@@ -74,6 +56,26 @@ Zhen
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
     - Made the Fausse Vie music disc
+
+Voxelotl
+    - Texture Artist:
+      - Suspicious Clay
+      - Cracked and Chiseled Purpur Blocks
+      - Mossy Cobbled Deepslate
+      - Mossy Deepslate Bricks
+      - Mossy Deepslate Tiles
+      - Bloom Pottery Sherd/Pattern
+      - Bullseye Pottery Sherd/Pattern
+      - Crescent Pottery Sherd/Pattern
+      - Wither Pottery Sherd/Pattern
+      - Coffin
+      - Undead Armor Trim
+      - Surveyor
+      - Apparition
+      - All Boat Banner Posts
+      - Siege Omen icon and particle texture
+      - Fixed the Chiseled Andesite texture
+      - Fixed the Chiseled Diorite texture
 
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks

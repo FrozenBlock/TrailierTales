@@ -5,6 +5,7 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +13,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -85,10 +87,13 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		float lidIncrement = this.coffinSpawner.isAttemptingToSpawnMob() ? 0.0155F : -0.03F;
 		this.openProgress = Mth.clamp(this.openProgress + lidIncrement, 0F, 1F);
 
-		Direction facing = CoffinBlock.getCoffinOrientation(world, pos);
-		if (facing != null && world.getBlockEntity(pos.relative(facing)) instanceof CoffinBlockEntity coffinBlockEntity) {
-			coffinBlockEntity.previousOpenProgress = this.previousOpenProgress;
-			coffinBlockEntity.openProgress = this.openProgress;
+		Direction connectedDirection = CoffinBlock.getConnectedDirection(this.getBlockState());
+		if (connectedDirection != null) {
+			BlockPos connectedPos = pos.relative(connectedDirection);
+			if (world.isLoaded(connectedPos) && world.getBlockEntity(connectedPos) instanceof CoffinBlockEntity coffinBlockEntity) {
+				coffinBlockEntity.previousOpenProgress = this.previousOpenProgress;
+				coffinBlockEntity.openProgress = this.openProgress;
+			}
 		}
 	}
 
@@ -119,6 +124,31 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 			}
 		}
 		coffinSpawner.getData().setEntityId(entityType, this.level, random, pos);
+
+		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
+		if (coffinOrientation != null && this.level instanceof ServerLevel serverLevel) {
+			BlockPos finalPos = pos;
+			CoffinSpawnerState.ACTIVE.getParticleOptionsForState().ifPresent(particleOptions ->
+				CoffinBlock.spawnParticlesFrom(
+					serverLevel,
+					particleOptions,
+					level.random.nextInt(1, 5),
+					0.5D,
+					coffinOrientation,
+					finalPos,
+					0.5D
+				)
+			);
+			CoffinBlock.spawnParticlesFrom(
+				serverLevel,
+				TTParticleTypes.COFFIN_SOUL_ENTER,
+				level.random.nextInt(1, 2),
+				0D,
+				coffinOrientation,
+				finalPos,
+				0.5D
+			);
+		}
 		this.setChanged();
 	}
 
