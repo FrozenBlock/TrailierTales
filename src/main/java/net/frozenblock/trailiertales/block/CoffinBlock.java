@@ -36,8 +36,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.Spawner;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -90,7 +90,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	@Override
 	protected @NotNull BlockState updateShape(@NotNull BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-		if (direction == getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
+		if (direction == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
 			boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
 			return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
 				? isThisFoot ? state : state.setValue(STATE, neighborState.getValue(STATE))
@@ -100,8 +100,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		}
 	}
 
-	private static Direction getNeighbourDirection(CoffinPart part, Direction direction) {
+	private static Direction getConnectedDirection(CoffinPart part, Direction direction) {
 		return part == CoffinPart.FOOT ? direction : direction.getOpposite();
+	}
+
+	public static Direction getConnectedDirection(@NotNull BlockState state) {
+		return getConnectedDirection(state.getValue(PART), state.getValue(FACING));
 	}
 
 	@Override
@@ -109,7 +113,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		if (!level.isClientSide && player.isCreative()) {
 			CoffinPart coffinPart = state.getValue(PART);
 			if (coffinPart == CoffinPart.FOOT) {
-				BlockPos blockPos = pos.relative(getNeighbourDirection(coffinPart, state.getValue(FACING)));
+				BlockPos blockPos = pos.relative(getConnectedDirection(coffinPart, state.getValue(FACING)));
 				BlockState blockState = level.getBlockState(blockPos);
 				if (blockState.is(this) && blockState.getValue(PART) == CoffinPart.HEAD) {
 					level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 35);
@@ -142,11 +146,6 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			case WEST -> SHAPE;
 			default -> SHAPE;
 		};
-	}
-
-	public static Direction getConnectedDirection(@NotNull BlockState state) {
-		Direction direction = state.getValue(FACING);
-		return state.getValue(PART) == CoffinPart.HEAD ? direction.getOpposite() : direction;
 	}
 
 	public static DoubleBlockCombiner.BlockType getBlockType(@NotNull BlockState state) {
@@ -195,39 +194,16 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel
-			? createTickerHelper(
+			? BaseEntityBlock.createTickerHelper(
 			blockEntityType,
 			TTBlockEntityTypes.COFFIN,
 			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
 				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
-			: createTickerHelper(
+			: BaseEntityBlock.createTickerHelper(
 			blockEntityType,
 			TTBlockEntityTypes.COFFIN,
 			(world, pos, statex, coffin) -> coffin
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
-	}
-
-	public static boolean isCoffinBlockedAt(Direction direction, @NotNull BlockGetter level, BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
-		direction = state.getValue(PART) == CoffinPart.HEAD ? direction.getOpposite() : direction;
-		return isCoffinHalfBlockedAt(level, pos) || isCoffinHalfBlockedAt(level, pos.relative(direction));
-	}
-
-	private static boolean isCoffinHalfBlockedAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
-		BlockPos blockPos = pos.above();
-		return level.getBlockState(blockPos).isRedstoneConductor(level, blockPos);
-	}
-
-	private static int getLightLevel(@NotNull Level level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		int finalLight = 0;
-		for (Direction direction : Direction.values()) {
-			mutableBlockPos.move(direction);
-			int newLight = level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
-			finalLight = Math.max(finalLight, newLight);
-			mutableBlockPos.move(direction, -1);
-		}
-		return finalLight;
 	}
 
 	@Override
@@ -271,14 +247,6 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "SameParameterValue"})
-	@Nullable
-	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
-		BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
-	) {
-		return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
-	}
-
 	public static void spawnParticlesFrom(
 		@NotNull ServerLevel world,
 		ParticleOptions particleOptions,
@@ -295,8 +263,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		double stepZ = coffinOrientation.getStepZ();
 		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
 		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
-		double xOffset = Math.abs(stepX * spread);
-		double zOffset = Math.abs(stepZ * spread);
+		double xOffset = Math.max(0.5D, Math.abs(stepX)) * spread;
+		double zOffset = Math.max(0.5D, Math.abs(stepZ)) * spread;
 		world.sendParticles(
 			particleOptions,
 			pos.getX() + relativeX,
