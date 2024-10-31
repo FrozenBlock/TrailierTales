@@ -2,10 +2,13 @@
   "values": [
     "trailiertales:granite_brick_wall",
     "trailiertales:mossy_granite_brick_wall",
+    "trailiertales:polished_granite_wall",
     "trailiertales:diorite_brick_wall",
     "trailiertales:mossy_diorite_brick_wall",
+    "trailiertales:polished_diorite_wall",
     "trailiertales:andesite_brick_wall",
     "trailiertales:mossy_andesite_brick_wall",
+    "trailiertales:polished_andesite_wall",
     "trailiertales:calcite_wall",
     "trailiertales:polished_calcite_wall",
     "trailiertales:calcite_brick_wall",

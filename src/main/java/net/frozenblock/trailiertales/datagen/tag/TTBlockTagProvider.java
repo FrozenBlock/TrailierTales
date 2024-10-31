@@ -31,6 +31,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL)
+			.add(TTBlocks.POLISHED_GRANITE_WALL)
 
 			.add(TTBlocks.CHISELED_DIORITE_BRICKS)
 			.add(TTBlocks.DIORITE_BRICKS)
@@ -42,6 +43,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_DIORITE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_DIORITE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_DIORITE_BRICK_WALL)
+			.add(TTBlocks.POLISHED_DIORITE_WALL)
 
 			.add(TTBlocks.CHISELED_ANDESITE_BRICKS)
 			.add(TTBlocks.ANDESITE_BRICKS)
@@ -53,6 +55,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_ANDESITE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_ANDESITE_BRICK_WALL)
+			.add(TTBlocks.POLISHED_ANDESITE_WALL)
 
 			.add(TTBlocks.CALCITE_STAIRS)
 			.add(TTBlocks.CALCITE_SLAB)
@@ -210,10 +213,13 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
 			.add(TTBlocks.GRANITE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL)
+			.add(TTBlocks.POLISHED_GRANITE_WALL)
 			.add(TTBlocks.DIORITE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_DIORITE_BRICK_WALL)
+			.add(TTBlocks.POLISHED_DIORITE_WALL)
 			.add(TTBlocks.ANDESITE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_ANDESITE_BRICK_WALL)
+			.add(TTBlocks.POLISHED_ANDESITE_WALL)
 			.add(TTBlocks.CALCITE_WALL)
 			.add(TTBlocks.POLISHED_CALCITE_WALL)
 			.add(TTBlocks.CALCITE_BRICK_WALL)
