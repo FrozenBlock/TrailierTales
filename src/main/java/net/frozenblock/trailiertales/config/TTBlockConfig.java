@@ -55,21 +55,21 @@ public final class TTBlockConfig {
 	}
 
 	public static class BlockSounds {
-		@EntrySyncData(value = "unpolished_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("unpolished_brick_sounds")
 		public boolean unpolished_bricks = true;
-		@EntrySyncData(value = "polished_brick_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("polished_brick_sounds")
 		public boolean polished_bricks = true;
-		@EntrySyncData(value = "polished_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("polished_sounds")
 		public boolean polished = true;
-		@EntrySyncData(value = "polished_basalt_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("polished_basalt_sounds")
 		public boolean polished_basalt = true;
-		@EntrySyncData(value = "polished_deepslate_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("polished_deepslate_sounds")
 		public boolean polished_deepslate = true;
-		@EntrySyncData(value = "polished_tuff_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("polished_tuff_sounds")
 		public boolean polished_tuff = true;
-		@EntrySyncData(value = "polished_calcite_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("polished_calcite_sounds")
 		public boolean polished_calcite = true;
-		@EntrySyncData(value = "calcite_bricks_sounds", behavior = SyncBehavior.UNSYNCABLE)
+		@EntrySyncData("calcite_bricks_sounds")
 		public boolean calcite_bricks = true;
 	}
 
