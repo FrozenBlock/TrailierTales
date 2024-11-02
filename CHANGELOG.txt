@@ -4,5 +4,4 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
-- Fixed a few wall blocks not connecting.
-- Fixed Armor Trim textures being broken on 1.21.2+.
+- Updated embedded FrozenLib.
