@@ -4,4 +4,4 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
-- Updated embedded FrozenLib.
+- Likely fixed a duplication bug with the Surveyor.
