@@ -4,5 +4,4 @@ Make sure to clear after release
 
 Put changelog here:
 -----------------
-- Updated embedded FrozenLib to significantly improve performance.
-- Upgraded Trailier Tales' structure NBT.
+- Likely fixed a duplication bug with the Surveyor.
