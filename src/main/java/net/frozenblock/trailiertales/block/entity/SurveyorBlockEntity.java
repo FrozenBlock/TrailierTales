@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.block.entity;
 
 import java.util.List;
 import java.util.Optional;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
@@ -72,6 +73,8 @@ public class SurveyorBlockEntity extends BlockEntity {
 	}
 
 	public void tickServer(ServerLevel serverLevel, BlockPos pos, BlockState state) {
+		if (TTPreLoadConstants.STRUCTURE_BUILDING_MODE) return;
+
 		if (this.detectionCooldown <= 0) {
 			this.detectionCooldown = 2;
 

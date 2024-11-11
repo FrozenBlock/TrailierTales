@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales.mixin;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.config.TTMixinsConfig;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
 
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
-
+		if (mixinClassName.contains("structure_building.")) return TTPreLoadConstants.STRUCTURE_BUILDING_MODE;
 		return true;
 	}
 

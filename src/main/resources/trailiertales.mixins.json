@@ -25,7 +25,8 @@
     "common.dawntrail.ShearsDispenseItemBehaviorMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
     "common.surveyor.RedStoneWireBlockMixin",
-    "datagen.common.feature_flag.FeatureFlagsMixin"
+    "datagen.common.feature_flag.FeatureFlagsMixin",
+    "structure_building.common.CandleBlockMixin"
   ],
   "client": [
     "client.boat.BoatRendererMixin",
