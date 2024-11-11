@@ -90,7 +90,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	@Override
 	protected int getSignal(@NotNull BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		if (TTPreLoadConstants.STRUCTURE_BUILDING_MODE) return 0;
-		
+
 		return state.getValue(POWERED) && state.getValue(FACING) == direction ? 15 : 0;
 	}
 
