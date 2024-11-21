@@ -19,7 +19,6 @@
           "output_state": {
             "Name": "minecraft:suspicious_gravel",
             "Properties": {
-              "can_place_item": "false",
               "dusted": "0"
             }
           }
@@ -45,7 +44,6 @@
           "output_state": {
             "Name": "trailiertales:suspicious_clay",
             "Properties": {
-              "can_place_item": "false",
               "dusted": "0"
             }
           }
