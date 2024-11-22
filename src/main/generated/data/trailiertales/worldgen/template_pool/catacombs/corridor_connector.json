@@ -759,7 +759,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/chapel",
+        "location": "trailiertales:catacombs/tomb/chappel",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -769,15 +769,6 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/collapsed",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/collapsed_mob_drop",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -1029,15 +1020,6 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/huge_fall",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/jailhouse",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
@@ -1119,53 +1101,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/layered_mob_drop",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/maze",
         "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/maze_mob_drop",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/maze_rooms",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/mineshaft",
-        "processors": "trailiertales:catacombs_mineshaft",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/mob_delivery",
-        "processors": "trailiertales:catacombs_mineshaft",
         "projection": "rigid"
       },
       "weight": 2
@@ -1255,15 +1192,6 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/ramp",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/ramp_mob_drop",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -1462,15 +1390,6 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/statue",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/statue_waterfalls",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },

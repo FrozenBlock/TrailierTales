@@ -76,7 +76,6 @@ public class CatacombsGenerator {
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_KING = createKey("catacombs_king");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_ARCHERY = createKey("catacombs_archery");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_LAVA_TRAP = createKey("catacombs_lava_trap");
-	public static final ResourceKey<StructureProcessorList> CATACOMBS_MINESHAFT = createKey("catacombs_mineshaft");
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -91,7 +90,6 @@ public class CatacombsGenerator {
 		Holder<StructureProcessorList> king = structureProcessorGetter.getOrThrow(CATACOMBS_KING);
 		Holder<StructureProcessorList> archery = structureProcessorGetter.getOrThrow(CATACOMBS_ARCHERY);
 		Holder<StructureProcessorList> lavaTrap = structureProcessorGetter.getOrThrow(CATACOMBS_LAVA_TRAP);
-		Holder<StructureProcessorList> mineshaft = structureProcessorGetter.getOrThrow(CATACOMBS_MINESHAFT);
 
 		pool.register(
 			START,
@@ -261,9 +259,8 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/buried2"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/buried_alive"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/chapel"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/chappel"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/collapsed"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/collapsed_mob_drop"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/construction"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/courtyard1"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/courtyard2"), tomb), 2),
@@ -291,7 +288,6 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_lever"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_room"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/hidden_tomb"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/huge_fall"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/jailhouse"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/jailhouse_mob_drop"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/king"), king), 2),
@@ -301,12 +297,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/layered1"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/layered2"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/layered3"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/layered_mob_drop"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/maze"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/maze_mob_drop"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/maze_rooms"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/mineshaft"), mineshaft), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/mob_delivery"), mineshaft), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/mob_drop"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/pick_a_lever"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/pick_a_pot"), tomb), 1),
@@ -317,7 +308,6 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle3"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/puzzle4"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/ramp"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/ramp_mob_drop"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/ritual"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/ruined_path_dripstone"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/ruins"), tomb), 2),
@@ -340,7 +330,6 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/small_fancy_tomb10"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/small_split_sides"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/statue"), tomb), 2),
-					Pair.of(StructurePoolElement.single(string("tomb/statue_waterfalls"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/surveyor_blockade"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars1"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/tall_pillars2"), tomb), 1),
@@ -703,23 +692,6 @@ public class CatacombsGenerator {
 			)
 		);
 
-		final RuleProcessor barrelRespectingPotProcessor = new RuleProcessor(
-			ImmutableList.of(
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.35F),
-					AlwaysTrueTest.INSTANCE, Blocks.CAVE_AIR.defaultBlockState()
-				),
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.275F),
-					AlwaysTrueTest.INSTANCE, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4)
-				),
-				new ProcessorRule(
-					new RandomBlockMatchTest(Blocks.DECORATED_POT, 0.275F),
-					AlwaysTrueTest.INSTANCE, Blocks.POTTED_DEAD_BUSH.defaultBlockState()
-				)
-			)
-		);
-
 		final BlockStateRespectingRuleProcessor blockStateRespectingRuleProcessor = new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -985,33 +957,6 @@ public class CatacombsGenerator {
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
 					Items.SKULL_POTTERY_SHERD,
-					TTItems.ESSENCE_POTTERY_SHERD,
-					TTItems.EYE_POTTERY_SHERD
-				),
-				permanentSkullProcessor,
-				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
-			)
-		);
-
-		register(
-			context,
-			CATACOMBS_MINESHAFT,
-			ImmutableList.of(
-				tombArchy,
-				zombieSkeletonCoffinProcessor,
-				tombDecorationProcessor,
-				barrelRespectingPotProcessor,
-				baseProcessor,
-				blockStateRespectingRuleProcessor,
-				tombChests,
-				rewardChests,
-				potLootProcessor,
-				TTStructures.decoratedPotSherdProcessor(
-					0.5F,
-					Items.SKULL_POTTERY_SHERD,
-					Items.SKULL_POTTERY_SHERD,
-					TTItems.OMEN_POTTERY_SHERD,
-					Items.PLENTY_POTTERY_SHERD,
 					TTItems.ESSENCE_POTTERY_SHERD,
 					TTItems.EYE_POTTERY_SHERD
 				),
