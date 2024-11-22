@@ -78,6 +78,14 @@ public class TTConstants {
 		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
+	public static @NotNull ResourceLocation idOrDefault(String path, String fallback) {
+		try {
+			return id(path);
+		} catch (IllegalArgumentException ignored) {
+			return id(fallback);
+		}
+	}
+
 	@Contract("_ -> new")
 	public static @NotNull ResourceLocation vanillaId(String path) {
 		return ResourceLocation.withDefaultNamespace(path);

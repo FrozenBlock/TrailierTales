@@ -126,6 +126,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB)
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_WALL)
 
+			.add(TTBlocks.CRACKED_PURPUR_BLOCK)
+			.add(TTBlocks.CHISELED_PURPUR_BLOCK)
 			.add(TTBlocks.PURPUR_WALL)
 
 			.add(TTBlocks.SURVEYOR);

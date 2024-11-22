@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -91,6 +92,8 @@ public class SurveyorBlock extends BaseEntityBlock {
 
 	@Override
 	protected int getSignal(@NotNull BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+		if (TTPreLoadConstants.STRUCTURE_BUILDING_MODE) return 0;
+
 		return state.getValue(POWERED) && state.getValue(FACING) == direction ? 15 : 0;
 	}
 
