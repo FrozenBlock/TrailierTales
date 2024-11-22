@@ -44,6 +44,9 @@ public final class TTMixinsConfig {
 
 	public boolean surveyor = true;
 
+	@Comment("Required for a structure gen bugfix related to rail rotation")
+	public boolean rail = true;
+
 	@Comment("Client only")
 	public boolean haunt = true;
 

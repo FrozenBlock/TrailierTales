@@ -39,6 +39,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("decorated_pot.")) return this.mixinsConfig.decorated_pot;
 		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
+		if (mixinClassName.contains("rail.")) return this.mixinsConfig.rail;
 
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
 		if (mixinClassName.contains("structure_building.")) return TTPreLoadConstants.STRUCTURE_BUILDING_MODE;
