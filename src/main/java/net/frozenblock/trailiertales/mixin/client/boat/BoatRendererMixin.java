@@ -53,7 +53,10 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 	@Contract("_ -> new")
 	@Unique
 	private static @NotNull ResourceLocation trailierTales$getBannerBaseTextureLocation(Boat.@NotNull Type type) {
-		return TTConstants.id("textures/entity/boat_banner_base/" + type.getName() + ".png");
+		return TTConstants.idOrDefault(
+			"textures/entity/boat_banner_base/" + type.getName() + ".png",
+			"textures/entity/boat_banner_base/oak.png"
+		);
 	}
 
 	@ModifyExpressionValue(
