@@ -83,13 +83,12 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.DAWNTRAIL_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
-			.add(TTBlocks.CYAN_ROSE.asItem());
-
-		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP.asItem());
-
-		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
+			.add(TTBlocks.CYAN_ROSE.asItem())
 			.add(TTBlocks.DAWNTRAIL.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.BEE_FOOD)
+			.add(TTBlocks.MANEDROP.asItem())
+			.add(TTBlocks.CYAN_ROSE.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
 			.add(TTBlocks.GRANITE_BRICK_STAIRS.asItem())
@@ -159,15 +158,6 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.CHORAL_END_STONE_WALL.asItem())
 			.add(TTBlocks.END_STONE_WALL.asItem())
 			.add(TTBlocks.PURPUR_WALL.asItem());
-
-		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-			.add(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);

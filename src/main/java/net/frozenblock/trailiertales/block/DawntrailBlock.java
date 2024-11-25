@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DawntrailBlock extends MultifaceBlock implements BonemealableBlock {
+public class DawntrailBlock extends MultifaceSpreadeableBlock implements BonemealableBlock {
 	public static final MapCodec<DawntrailBlock> CODEC = simpleCodec(DawntrailBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;

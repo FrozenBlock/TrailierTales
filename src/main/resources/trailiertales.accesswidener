@@ -35,7 +35,8 @@ accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment
 accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
 
 # Datagen
-accessible field net/minecraft/data/models/BlockModelGenerators$BlockFamilyProvider skipGeneratingModelsFor Ljava/util/Set;
+accessible field net/minecraft/client/data/models/BlockModelGenerators$BlockFamilyProvider skipGeneratingModelsFor Ljava/util/Set;
+accessible class net/minecraft/client/data/models/BlockModelGenerators$PlantType
 
 # Particle
 accessible method net/minecraft/client/particle/FlyTowardsPositionParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDZLnet/minecraft/client/particle/Particle$LifetimeAlpha;)V

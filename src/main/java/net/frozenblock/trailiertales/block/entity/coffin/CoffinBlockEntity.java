@@ -108,11 +108,6 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	}
 
 	@Override
-	public boolean onlyOpCanSetNbt() {
-		return true;
-	}
-
-	@Override
 	public void setEntityId(EntityType<?> entityType, RandomSource random) {
 		BlockPos pos = this.getBlockPos();
 		CoffinSpawner coffinSpawner = this.getCoffinSpawner();

@@ -20,8 +20,6 @@ public class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = register("apparition_spawn_egg",
 		properties -> new SpawnEggItem(
 			TTEntityTypes.APPARITION,
-			11712721,
-			10663385,
 			properties
 		),
 		new Properties()

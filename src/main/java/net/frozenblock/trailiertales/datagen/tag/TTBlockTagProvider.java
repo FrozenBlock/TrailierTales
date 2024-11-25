@@ -146,8 +146,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE);
 
-		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP);
+		this.getOrCreateTagBuilder(BlockTags.BEE_ATTRACTIVE)
+			.add(TTBlocks.MANEDROP)
+			.add(TTBlocks.CYAN_ROSE);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(TTBlocks.DAWNTRAIL);

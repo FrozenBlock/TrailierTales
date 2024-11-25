@@ -136,7 +136,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level);
 		flyingPathNavigation.setCanFloat(false);
 		flyingPathNavigation.setCanOpenDoors(false);
-		flyingPathNavigation.setCanPassDoors(true);
+		flyingPathNavigation.getNodeEvaluator().setCanPassDoors(true);
 		return flyingPathNavigation;
 	}
 

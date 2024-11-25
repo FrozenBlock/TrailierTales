@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.Panoramas;
@@ -48,7 +47,8 @@ public class TrailierTalesClient implements ClientModInitializer {
 		SplashTextAPI.addSplashLocation(TTConstants.id("texts/splashes.txt"));
 		addPanorama("catacombs");
 
-		BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntityTypes.COFFIN);
+		// TODO
+		//BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntityTypes.COFFIN);
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
 		renderLayerRegistry.putBlock(TTBlocks.POTTED_CYAN_ROSE, RenderType.cutout());

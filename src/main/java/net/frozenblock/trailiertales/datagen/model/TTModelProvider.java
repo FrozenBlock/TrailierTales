@@ -6,8 +6,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.List;
 import java.util.function.Function;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
@@ -17,18 +17,18 @@ import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.Util;
 import net.minecraft.data.BlockFamilies;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.blockstates.Condition;
-import net.minecraft.data.models.blockstates.MultiPartGenerator;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.PropertyDispatch;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.Condition;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.blockstates.Variant;
+import net.minecraft.client.data.models.blockstates.VariantProperties;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -70,10 +70,10 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.createPlant(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createManedropCrop(generator);
-		generator.createDoublePlant(TTBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlant(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
@@ -134,10 +134,12 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(TTBlocks.CHISELED_PURPUR_BLOCK);
 		this.wall(generator, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 
+		/*
 		generator.blockEntityModels(TTConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
 			.createWithoutBlockItem(
 				TTBlocks.COFFIN
 			);
+		 */
 	}
 
 	public void wallSmooth(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
@@ -147,7 +149,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
 		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
-		generator.delegateItemModel(wallBlock, resourceLocation4);
+		generator.registerSimpleItemModel(wallBlock, resourceLocation4);
 	}
 
 	public void wall(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
@@ -157,7 +159,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
 		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
-		generator.delegateItemModel(wallBlock, resourceLocation4);
+		generator.registerSimpleItemModel(wallBlock, resourceLocation4);
 	}
 
 	public void stairs(@NotNull BlockModelGenerators generator, Block stairsBlock, Block originalBlock) {
@@ -166,7 +168,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, mapping, generator.modelOutput);
 		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, mapping, generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, resourceLocation, resourceLocation2, resourceLocation3));
-		generator.delegateItemModel(stairsBlock, resourceLocation2);
+		generator.registerSimpleItemModel(stairsBlock, resourceLocation2);
 	}
 
 	@Override
@@ -214,11 +216,13 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
+
+		generator.generateSpawnEgg(TTItems.APPARITION_SPAWN_EGG, 11712721, 10663385);
 	}
 
 	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.MANEDROP_CROP;
-		generator.createSimpleFlatItemModel(block.asItem());
+		generator.registerSimpleFlatItemModel(block);
 		PropertyDispatch propertyDispatch = PropertyDispatch.properties(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
 				case UPPER -> {
@@ -235,7 +239,7 @@ public final class TTModelProvider extends FabricModelProvider {
 					} else {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
 								TTConstants.id("block/manedrop_crop_top_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_top_stage_" + age)),
 								generator.modelOutput
@@ -251,7 +255,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						);
 					} else {
 						yield Variant.variant().with(VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
 								generator.modelOutput
@@ -266,7 +270,7 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	private static void createDawntrail(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.DAWNTRAIL;
-		generator.createSimpleFlatItemModel(block);
+		generator.registerSimpleFlatItemModel(block);
 		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
 
 		ResourceLocation firstModel = TTConstants.id("block/dawntrail_stage_0");

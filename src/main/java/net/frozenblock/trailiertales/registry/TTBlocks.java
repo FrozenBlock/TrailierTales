@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -144,7 +145,7 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block DAWNTRAIL = register("dawntrail",
+	public static final MultifaceSpreadeableBlock DAWNTRAIL = register("dawntrail",
 		DawntrailBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)

@@ -138,7 +138,7 @@ public class TTFeatureBootstrap {
 			DAWNTRAIL,
 			Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				(MultifaceBlock) TTBlocks.DAWNTRAIL,
+				TTBlocks.DAWNTRAIL,
 				20,
 				true,
 				true,
