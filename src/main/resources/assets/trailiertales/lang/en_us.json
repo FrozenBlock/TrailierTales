@@ -11,7 +11,9 @@
   "item.minecraft.tipped_arrow.effect.transfiguring": "Arrow of Transfiguring",
 
   "enchantment.trailiertales.rebrush": "Rebrush",
+  "enchantment.trailiertales.rebrush.desc": "Chance to keep uncovering loot from suspicious blocks.",
   "enchantment.trailiertales.reaping": "Reaping",
+  "enchantment.trailiertales.reaping.desc": "Victims drop more XP on death.",
 
   "item.trailiertales.apparition_spawn_egg": "Apparition Spawn Egg",
 
