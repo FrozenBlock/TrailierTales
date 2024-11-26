@@ -852,6 +852,54 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
+  "block.polished_resin.break": {
+    "sounds": [
+      "trailiertales:block/polished_resin/place1",
+      "trailiertales:block/polished_resin/place2",
+      "trailiertales:block/polished_resin/place3",
+      "trailiertales:block/polished_resin/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_resin.fall": {
+    "sounds": [
+      "trailiertales:block/polished_resin/step1",
+      "trailiertales:block/polished_resin/step2",
+      "trailiertales:block/polished_resin/step3",
+      "trailiertales:block/polished_resin/step4",
+      "trailiertales:block/polished_resin/step5"
+    ]
+  },
+  "block.polished_resin.hit": {
+    "sounds": [
+      "trailiertales:block/polished_resin/step1",
+      "trailiertales:block/polished_resin/step2",
+      "trailiertales:block/polished_resin/step3",
+      "trailiertales:block/polished_resin/step4",
+      "trailiertales:block/polished_resin/step5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_resin.place": {
+    "sounds": [
+      "trailiertales:block/polished_resin/place1",
+      "trailiertales:block/polished_resin/place2",
+      "trailiertales:block/polished_resin/place3",
+      "trailiertales:block/polished_resin/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_resin.step": {
+    "sounds": [
+      "trailiertales:block/polished_resin/step1",
+      "trailiertales:block/polished_resin/step2",
+      "trailiertales:block/polished_resin/step3",
+      "trailiertales:block/polished_resin/step4",
+      "trailiertales:block/polished_resin/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+
   "block.dawntrail.pick": {
     "sounds": [
       {

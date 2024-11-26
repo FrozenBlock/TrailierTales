@@ -541,6 +541,7 @@ public class TTBlocks {
 		.slab(PALE_MOSSY_RESIN_BRICK_SLAB)
 		.wall(PALE_MOSSY_RESIN_BRICK_WALL)
 		.getFamily();
+
 	// MOSSY DEEPSLATE
 
 	public static final Block MOSSY_COBBLED_DEEPSLATE = register("mossy_cobbled_deepslate",

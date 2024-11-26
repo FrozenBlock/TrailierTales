@@ -278,6 +278,12 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished
 		);
 
+		BlockSoundGroupOverwrites.addBlock(
+			TTBlocks.POLISHED_RESIN_BLOCK,
+			TTSounds.POLISHED_RESIN,
+			() -> TTBlockConfig.get().blockSounds.polished
+		);
+
 		BlockSoundGroupOverwrites.addBlocks(
 			new Block[]{
 				Blocks.POLISHED_DEEPSLATE,

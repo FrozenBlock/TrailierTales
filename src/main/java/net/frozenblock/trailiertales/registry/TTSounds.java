@@ -89,6 +89,21 @@ public class TTSounds {
 		POLISHED_BRICKS_FALL
 	);
 
+	public static final SoundEvent POLISHED_RESIN_BREAK = register("block.polished_resin.break");
+	public static final SoundEvent POLISHED_RESIN_STEP = register("block.polished_resin.step");
+	public static final SoundEvent POLISHED_RESIN_PLACE = register("block.polished_resin.place");
+	public static final SoundEvent POLISHED_RESIN_HIT = register("block.polished_resin.hit");
+	public static final SoundEvent POLISHED_RESIN_FALL = register("block.polished_resin.fall");
+	public static final SoundType POLISHED_RESIN = new SoundType(
+		1F,
+		1F,
+		POLISHED_RESIN_BREAK,
+		POLISHED_RESIN_STEP,
+		POLISHED_RESIN_PLACE,
+		POLISHED_RESIN_HIT,
+		POLISHED_RESIN_FALL
+	);
+
 	public static final SoundEvent POLISHED_CALCITE_BREAK = register("block.polished_calcite.break");
 	public static final SoundEvent POLISHED_CALCITE_STEP = register("block.polished_calcite.step");
 	public static final SoundEvent POLISHED_CALCITE_PLACE = register("block.polished_calcite.place");

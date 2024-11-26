@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "trailiertales:block/pale_mossy_resin_brick_wall"
+    "model": "trailiertales:block/pale_mossy_resin_brick_wall_inventory"
   }
 }

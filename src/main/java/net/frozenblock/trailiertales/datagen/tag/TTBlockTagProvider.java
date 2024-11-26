@@ -87,6 +87,12 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_BRICK_WALL)
 
+			.add(TTBlocks.CRACKED_RESIN_BRICKS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICKS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL)
+
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
