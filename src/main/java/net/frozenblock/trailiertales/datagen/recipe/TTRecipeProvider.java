@@ -14,17 +14,15 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TTRecipeProvider extends FabricRecipeProvider {
+	public static boolean GENERATING_TT_RECIPES = false;
 
 	public TTRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
@@ -36,6 +34,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		return new RecipeProvider(registryLookup, exporter) {
 			@Override
 			public void buildRecipes() {
+				GENERATING_TT_RECIPES = true;
 				HolderLookup.Provider registries = this.registries;
 				RecipeOutput output = this.output;
 
@@ -575,23 +574,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("###")
 					.unlockedBy("has_cot_armor_trim_smithing_template", has(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE))
 					.save(output);
+
+				GENERATING_TT_RECIPES = false;
 			}
 		};
-	}
-
-	public static void stonecutterResultFromBase(RecipeProvider provider, RecipeOutput output, RecipeCategory category, ItemLike ingredient, ItemLike result) {
-		stonecutterResultFromBase(provider, output, category, ingredient, result, 1);
-	}
-
-	@Contract("_, _ -> new")
-	public static @NotNull String getConversionRecipeName(ItemLike from, ItemLike to) {
-		return TTConstants.string(RecipeProvider.getItemName(from) + "_from_" + RecipeProvider.getItemName(to));
-	}
-
-	public static void stonecutterResultFromBase(RecipeProvider provider, RecipeOutput output, RecipeCategory category, ItemLike ingredient, ItemLike result, int count) {
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(result), category, ingredient, count)
-			.unlockedBy(provider.getHasName(result), provider.has(result))
-			.save(output, getConversionRecipeName(ingredient, result) + "_stonecutting");
 	}
 
 	private static Stream<VanillaRecipeProvider.TrimTemplate> smithingTrims() {

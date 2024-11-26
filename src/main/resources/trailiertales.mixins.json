@@ -6,8 +6,8 @@
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
     "common.armor_stand.ArmorStandMixin",
-    "common.boat.AbstractChestBoatMixin",
     "common.boat.AbstractBoatMixin",
+    "common.boat.AbstractChestBoatMixin",
     "common.boat.EntityRendererMixin",
     "common.boat.VehicleEntityMixin",
     "common.brush.BrushSoundMixin",
@@ -27,6 +27,7 @@
     "common.rail.RailStructureRotationFix",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",
+    "datagen.common.recipe.RecipeBuilderMixin",
     "structure_building.common.CandleBlockMixin"
   ],
   "client": [
