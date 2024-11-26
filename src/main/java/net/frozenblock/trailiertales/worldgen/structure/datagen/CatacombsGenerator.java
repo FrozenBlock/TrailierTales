@@ -472,7 +472,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 65),
+					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 2),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 3),
@@ -489,7 +489,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 65),
+					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 2),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 4),
@@ -505,7 +505,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 65),
+					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 4),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 4),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 4)
@@ -520,7 +520,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 65),
+					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 6),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 6)
 				),
@@ -534,7 +534,7 @@ public class CatacombsGenerator {
 			new StructureTemplatePool(
 				empty,
 				ImmutableList.of(
-					Pair.of(StructurePoolElement.empty(), 65),
+					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 12)
 				),
 				StructureTemplatePool.Projection.RIGID
