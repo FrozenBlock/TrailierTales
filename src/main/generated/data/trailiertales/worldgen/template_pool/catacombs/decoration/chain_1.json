@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:empty_pool_element"
       },
-      "weight": 60
+      "weight": 75
     },
     {
       "element": {
@@ -15,7 +15,7 @@
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 12
     }
   ],
   "fallback": "minecraft:empty"
