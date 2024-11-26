@@ -3,7 +3,6 @@ package net.frozenblock.trailiertales.mixin.datagen.common.recipe;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.datagen.recipe.TTRecipeProvider;
 import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
