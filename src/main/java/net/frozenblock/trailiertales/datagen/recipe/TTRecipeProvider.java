@@ -339,6 +339,32 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_STAIRS, TTBlocks.MOSSY_BRICKS);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_WALL, TTBlocks.MOSSY_BRICKS);
 
+				// RESIN
+
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_BLOCK, Blocks.RESIN_BLOCK);
+
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.RESIN_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_RESIN_BRICKS.asItem(), 0.1F, 200)
+					.unlockedBy("has_resin_bricks", has(Blocks.RESIN_BRICKS))
+					.save(output);
+
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICKS)
+					.requires(Blocks.RESIN_BRICKS)
+					.requires(Blocks.PALE_HANGING_MOSS)
+					.group("pale_mossy_resin_bricks")
+					.unlockedBy("has_pale_hanging_moss", has(Blocks.PALE_HANGING_MOSS))
+					.save(output, getConversionRecipeName(TTBlocks.PALE_MOSSY_RESIN_BRICKS, Blocks.PALE_HANGING_MOSS));
+
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICKS)
+					.requires(Blocks.RESIN_BRICKS)
+					.requires(Blocks.PALE_MOSS_BLOCK)
+					.group("pale_mossy_resin_bricks")
+					.unlockedBy("has_pale_moss_block", has(Blocks.PALE_MOSS_BLOCK))
+					.save(output, getConversionRecipeName(TTBlocks.PALE_MOSSY_RESIN_BRICKS, Blocks.PALE_MOSS_BLOCK));
+
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB, TTBlocks.PALE_MOSSY_RESIN_BRICKS, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
+
 				// MOSSY COBBLED DEEPSLATE
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_COBBLED_DEEPSLATE)

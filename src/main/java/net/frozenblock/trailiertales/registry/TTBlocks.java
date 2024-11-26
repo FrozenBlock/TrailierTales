@@ -506,6 +506,41 @@ public class TTBlocks {
 		.wall(MOSSY_BRICK_WALL)
 		.getFamily();
 
+	// RESIN
+	public static final Block POLISHED_RESIN_BLOCK = register("polished_resin_block",
+		Block::new,
+		Properties.ofFullCopy(Blocks.RESIN_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block CRACKED_RESIN_BRICKS = register("cracked_resin_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.RESIN_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block PALE_MOSSY_RESIN_BRICKS = register("pale_mossy_resin_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.RESIN_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block PALE_MOSSY_RESIN_BRICK_STAIRS = register("pale_mossy_resin_brick_stairs",
+		properties -> new StairBlock(PALE_MOSSY_RESIN_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(PALE_MOSSY_RESIN_BRICKS)
+	);
+	public static final Block PALE_MOSSY_RESIN_BRICK_SLAB = register("pale_mossy_resin_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(PALE_MOSSY_RESIN_BRICKS)
+	);
+	public static final Block PALE_MOSSY_RESIN_BRICK_WALL = register("pale_mossy_resin_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(PALE_MOSSY_RESIN_BRICKS)
+	);
+	public static final BlockFamily FAMILY_PALE_MOSSY_RESIN_BRICKS = BlockFamilies.familyBuilder(PALE_MOSSY_RESIN_BRICKS)
+		.stairs(PALE_MOSSY_RESIN_BRICK_STAIRS)
+		.slab(PALE_MOSSY_RESIN_BRICK_SLAB)
+		.wall(PALE_MOSSY_RESIN_BRICK_WALL)
+		.getFamily();
 	// MOSSY DEEPSLATE
 
 	public static final Block MOSSY_COBBLED_DEEPSLATE = register("mossy_cobbled_deepslate",

@@ -85,6 +85,13 @@ public class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_BRICK_STAIRS, TTBlocks.MOSSY_BRICK_SLAB);
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_BRICK_SLAB, TTBlocks.MOSSY_BRICK_WALL);
 
+		addAfterInBuildingBlocks(Blocks.RESIN_BLOCK, TTBlocks.POLISHED_RESIN_BLOCK);
+		addAfterInBuildingBlocks(Blocks.RESIN_BRICKS, TTBlocks.CRACKED_RESIN_BRICKS);
+		addAfterInBuildingBlocks(Blocks.RESIN_BRICK_WALL, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.PALE_MOSSY_RESIN_BRICKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS);
+		addAfterInBuildingBlocks(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS, TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB);
+		addAfterInBuildingBlocks(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB, TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL);
+
 		addAfterInBuildingBlocks(Blocks.COBBLED_DEEPSLATE_WALL, TTBlocks.MOSSY_COBBLED_DEEPSLATE);
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_COBBLED_DEEPSLATE, TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS, TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB);
