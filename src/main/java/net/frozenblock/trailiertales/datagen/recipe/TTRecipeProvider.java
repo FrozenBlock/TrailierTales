@@ -231,12 +231,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_SLAB, Blocks.CALCITE, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_STAIRS, Blocks.CALCITE);
-		stonecutterResultFromBase(recipeOutput, RecipeCategory.DECORATIONS, TTBlocks.CALCITE_WALL, Blocks.CALCITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_WALL, Blocks.CALCITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE, Blocks.CALCITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_SLAB, Blocks.CALCITE, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_STAIRS, Blocks.CALCITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_WALL, Blocks.CALCITE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_SLAB, TTBlocks.POLISHED_CALCITE, 2);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_STAIRS, TTBlocks.POLISHED_CALCITE);
+		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_WALL, TTBlocks.POLISHED_CALCITE);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICKS, 4)
 			.define('#', Blocks.CALCITE)
