@@ -237,6 +237,42 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic20",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic21",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic22",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/generic23",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/jail",
         "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
@@ -265,6 +301,15 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/mine2",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/mine3",
         "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
@@ -364,6 +409,24 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/room/storage",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/terracotta",
+        "processors": "trailiertales:catacombs_small_room",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/room/tnt_lever",
         "processors": "trailiertales:catacombs_small_room",
         "projection": "rigid"
       },
