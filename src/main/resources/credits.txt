@@ -2,7 +2,7 @@ Luna/Lunade/AViewFromTheTop - Lead Dev/Producer & Sound Designer
 
 wigglewoggle - Builder
     - Main builder of Catacombs structure pieces after prototyping
-    - Generic, Savanna, Desert, and Jungle ruins
+    - Generic, Snowy, Savanna, Desert, and Jungle ruins
 
 Soro335
     - Came up with initial Badlands Fort designs
@@ -21,6 +21,7 @@ Zhen
       - All new Calcite variants
       - Cracked and Mossy Bricks
       - Dawntrail name and textures
+      - Polished Resin Block
       - Bait Pottery Sherd/Pattern
       - Bolt Pottery Sherd/Pattern
       - Cluck Pottery Sherd/Pattern
@@ -64,6 +65,8 @@ Voxelotl
       - Mossy Cobbled Deepslate
       - Mossy Deepslate Bricks
       - Mossy Deepslate Tiles
+      - Cracked Resin Bricks
+      - Pale Mossy Resin Bricks
       - Bloom Pottery Sherd/Pattern
       - Bullseye Pottery Sherd/Pattern
       - Crescent Pottery Sherd/Pattern
@@ -83,6 +86,15 @@ Stella/Osmiooo
 
 Eggmanplant
     - Polish translation and a few early bug fixes
+
+unroman
+    - Ukranian translation
+
+Kokoroto
+    - Spanish translation
+
+Lufurrius
+    - Enchantment Description strings
 
 The following sounds were used in this mod. Please note that sounds that aren't credited are sourced directly from Minecraft or self-made.
 https://freesound.org/people/ra_gun/sounds/77470/
