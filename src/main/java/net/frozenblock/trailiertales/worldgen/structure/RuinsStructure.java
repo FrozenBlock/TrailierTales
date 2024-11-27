@@ -108,6 +108,7 @@ public class RuinsStructure extends Structure {
 	@Override
 	public @NotNull Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
 		if (this.biomeType == Type.GENERIC && !TTWorldgenConfig.GENERATE_GENERIC_RUINS) return Optional.empty();
+		if (this.biomeType == Type.SNOWY && !TTWorldgenConfig.GENERATE_SNOWY_RUINS) return Optional.empty();
 		if (this.biomeType == Type.JUNGLE && !TTWorldgenConfig.GENERATE_JUNGLE_RUINS) return Optional.empty();
 		if (this.biomeType == Type.SAVANNA && !TTWorldgenConfig.GENERATE_SAVANNA_RUINS) return Optional.empty();
 		if (this.biomeType == Type.DESERT && !TTWorldgenConfig.GENERATE_DESERT_RUINS) return Optional.empty();

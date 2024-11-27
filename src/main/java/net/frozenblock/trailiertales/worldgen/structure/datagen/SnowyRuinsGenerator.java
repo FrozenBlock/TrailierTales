@@ -45,7 +45,7 @@ public class SnowyRuinsGenerator {
 				),
 				RuinsStructure.Type.SNOWY,
 				1F,
-				UniformInt.of(1, 6),
+				UniformInt.of(2, 6),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);

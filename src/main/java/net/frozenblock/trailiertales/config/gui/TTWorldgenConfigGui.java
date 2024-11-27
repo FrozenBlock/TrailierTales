@@ -35,6 +35,16 @@ public final class TTWorldgenConfigGui {
 			"generic",
 			configInstance
 		);
+		var snowyRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("snowy_ruins"), modifiedRuins.snowy)
+				.setDefaultValue(defaultConfig.ruins.snowy)
+				.setSaveConsumer(newValue -> ruins.snowy = newValue)
+				.setTooltip(TTConstants.tooltip("snowy_ruins"))
+				.build(),
+			ruins.getClass(),
+			"snowy",
+			configInstance
+		);
 		var jungleRuins = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("jungle_ruins"), modifiedRuins.jungle)
 				.setDefaultValue(defaultConfig.ruins.jungle)

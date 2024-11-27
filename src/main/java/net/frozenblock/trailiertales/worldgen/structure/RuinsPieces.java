@@ -226,7 +226,7 @@ public class RuinsPieces {
 			return Util.getRandom(SNOWY_MOSTLY_BURIED_PIECES, random);
 		}
 		if (random.nextFloat() <= 0.05F) {
-			return Util.getRandom(SNOWY_FIVE_FROM_TOP_PIECES, random);
+			return random.nextBoolean() ? Util.getRandom(SNOWY_FIVE_FROM_TOP_PIECES, random) : Util.getRandom(SNOWY_FOUR_FROM_TOP_PIECES, random);
 		}
 		return random.nextBoolean() ? Util.getRandom(SNOWY_SURFACE_PIECES, random) : Util.getRandom(SNOWY_BURIED_PIECES, random);
 	}
@@ -411,6 +411,9 @@ public class RuinsPieces {
 	}
 
 	private static ResourceLocation getPieceForType(RuinsStructure.Type type, RandomSource random) {
+		if (type == RuinsStructure.Type.SNOWY) {
+			return getRandomSnowyRuin(random);
+		}
 		if (type == RuinsStructure.Type.SAVANNA) {
 			return getRandomSavannaRuin(random);
 		}

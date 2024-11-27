@@ -310,6 +310,8 @@
   "tooltip.trailiertales.ruins": "Contains options for Ruins structures.",
   "option.trailiertales.generic_ruins": "Ruins",
   "tooltip.trailiertales.generic_ruins": "Whether Ruins should generate in Plains and Forest biomes.",
+  "option.trailiertales.snowy_ruins": "Snowy Ruins",
+  "tooltip.trailiertales.snowy_ruins": "Whether Snowy Ruins should generate biomes.",
   "option.trailiertales.jungle_ruins": "Jungle Ruins",
   "tooltip.trailiertales.jungle_ruins": "Whether Jungle Ruins should generate.",
   "option.trailiertales.savanna_ruins": "Savanna Ruins",
