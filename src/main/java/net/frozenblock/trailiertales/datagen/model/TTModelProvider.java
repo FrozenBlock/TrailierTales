@@ -78,6 +78,10 @@ public final class TTModelProvider extends FabricModelProvider {
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
 
+		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_RED_SAND);
+		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_DIRT);
+		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_CLAY);
+
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(TTBlocks.GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_GRANITE_BRICK);
 		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_GRANITE_BRICK);

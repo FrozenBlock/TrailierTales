@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "trailiertales:block/suspicious_dirt_2"
+    "all": "trailiertales:block/suspicious_clay_1"
   }
 }
