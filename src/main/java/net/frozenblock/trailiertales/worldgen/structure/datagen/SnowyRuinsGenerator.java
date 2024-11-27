@@ -25,31 +25,25 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import org.jetbrains.annotations.NotNull;
 
-public class RuinsGenerator {
-	public static final ResourceKey<StructureSet> RUINS_KEY = TTStructures.ofSet("ruins");
-	private static final ResourceKey<Structure> RUIN_KEY = TTStructures.createKey("ruins");
+public class SnowyRuinsGenerator {
+	public static final ResourceKey<StructureSet> SNOWY_RUINS_KEY = TTStructures.ofSet("snowy_ruins");
+	private static final ResourceKey<Structure> SNOWY_RUIN_KEY = TTStructures.createKey("snowy_ruins");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
 
 		context.register(
-			RUIN_KEY,
+			SNOWY_RUIN_KEY,
 			new RuinsStructure(
 				TTStructures.structure(
-					holderGetter.getOrThrow(TTBiomeTags.HAS_RUINS),
+					holderGetter.getOrThrow(TTBiomeTags.HAS_SNOWY_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.NONE
 				),
-				RuinsStructure.Type.GENERIC,
+				RuinsStructure.Type.SNOWY,
 				1F,
 				UniformInt.of(1, 6),
 				Heightmap.Types.OCEAN_FLOOR_WG
@@ -61,10 +55,10 @@ public class RuinsGenerator {
 		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
 
 		context.register(
-			RUINS_KEY,
+			SNOWY_RUINS_KEY,
 			new StructureSet(
-				structure.getOrThrow(RUIN_KEY),
-				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 68415318)
+				structure.getOrThrow(SNOWY_RUIN_KEY),
+				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 9457163)
 			)
 		);
 	}
@@ -74,20 +68,20 @@ public class RuinsGenerator {
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
 					new BlockStateRespectingProcessorRule(
-						new BlockMatchTest(Blocks.COBBLESTONE_SLAB), AlwaysTrueTest.INSTANCE, Blocks.STONE_BRICK_SLAB
+						new BlockMatchTest(TTBlocks.CALCITE_SLAB), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_BRICK_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new BlockMatchTest(Blocks.COBBLESTONE_WALL), AlwaysTrueTest.INSTANCE, Blocks.STONE_BRICK_SLAB
+						new BlockMatchTest(TTBlocks.CALCITE_WALL), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_BRICK_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new BlockMatchTest(Blocks.COBBLESTONE_STAIRS), AlwaysTrueTest.INSTANCE, Blocks.STONE_BRICK_STAIRS
+						new BlockMatchTest(TTBlocks.CALCITE_STAIRS), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_BRICK_STAIRS
 					)
 				)
 			),
 			new RuleProcessor(
 				ImmutableList.of(
-					new ProcessorRule(new BlockMatchTest(Blocks.COBBLESTONE), AlwaysTrueTest.INSTANCE, Blocks.STONE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLESTONE, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.defaultBlockState())
+					new ProcessorRule(new BlockMatchTest(Blocks.CALCITE), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.CALCITE, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICKS.defaultBlockState())
 				)
 			),
 			new RuleProcessor(
@@ -95,43 +89,43 @@ public class RuinsGenerator {
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
 					TTStructures.archyProcessorRule(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, TTLootTables.RUINS_ARCHAEOLOGY, 0.15F),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.CRACKED_STONE_BRICKS.defaultBlockState())
+					new ProcessorRule(new RandomBlockMatchTest(TTBlocks.CALCITE_BRICKS, 0.35F), AlwaysTrueTest.INSTANCE, Blocks.CALCITE.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(TTBlocks.CALCITE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(TTBlocks.CALCITE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_CALCITE_BRICKS.defaultBlockState())
 				)
 			),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.STONE_BRICK_SLAB, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE_SLAB
+						new RandomBlockMatchTest(TTBlocks.CALCITE_BRICK_SLAB, 0.25F), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.STONE_BRICK_WALL, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE_WALL
+						new RandomBlockMatchTest(TTBlocks.CALCITE_BRICK_WALL, 0.25F), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_WALL
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.STONE_BRICK_STAIRS, 0.25F), AlwaysTrueTest.INSTANCE, Blocks.COBBLESTONE_STAIRS
+						new RandomBlockMatchTest(TTBlocks.CALCITE_BRICK_STAIRS, 0.25F), AlwaysTrueTest.INSTANCE, TTBlocks.CALCITE_STAIRS
 					)
 				)
 			),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.COBBLESTONE_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_SLAB
+						new RandomBlockMatchTest(TTBlocks.CALCITE_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICK_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.COBBLESTONE_WALL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_WALL
+						new RandomBlockMatchTest(TTBlocks.CALCITE_WALL, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICK_WALL
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.COBBLESTONE_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_COBBLESTONE_STAIRS
+						new RandomBlockMatchTest(TTBlocks.CALCITE_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICK_STAIRS
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.STONE_BRICK_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICK_SLAB
+						new RandomBlockMatchTest(TTBlocks.CALCITE_BRICK_SLAB, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICK_SLAB
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.STONE_BRICK_WALL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICK_WALL
+						new RandomBlockMatchTest(TTBlocks.CALCITE_BRICK_WALL, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICK_WALL
 					),
 					new BlockStateRespectingProcessorRule(
-						new RandomBlockMatchTest(Blocks.STONE_BRICK_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.MOSSY_STONE_BRICK_STAIRS
+						new RandomBlockMatchTest(TTBlocks.CALCITE_BRICK_STAIRS, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_CALCITE_BRICK_STAIRS
 					)
 				)
 			),

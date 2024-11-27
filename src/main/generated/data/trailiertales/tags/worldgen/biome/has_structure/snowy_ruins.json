@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "#c:is_snowy_plains",
+      "required": false
+    },
+    "minecraft:snowy_taiga"
+  ]
+}

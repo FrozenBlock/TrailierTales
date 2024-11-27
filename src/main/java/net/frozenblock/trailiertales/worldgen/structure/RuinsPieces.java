@@ -51,6 +51,12 @@ public class RuinsPieces {
 	private static final ArrayList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> GENERIC_BURIED_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
+	// GENERIC
+	private static final ArrayList<ResourceLocation> SNOWY_SURFACE_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> SNOWY_MOSTLY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> SNOWY_BURIED_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> SNOWY_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
+	private static final ArrayList<ResourceLocation> SNOWY_FOUR_FROM_TOP_PIECES = Lists.newArrayList();
 	// SAVANNA
 	private static final ArrayList<ResourceLocation> SAVANNA_SURFACE_PIECES = Lists.newArrayList();
 	private static final ArrayList<ResourceLocation> SAVANNA_MOSTLY_BURIED_PIECES = Lists.newArrayList();
@@ -81,6 +87,12 @@ public class RuinsPieces {
 		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
 		GENERIC_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("buried")));
 		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("five_from_top")));
+
+		SNOWY_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("surface")));
+		SNOWY_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("mostly_buried")));
+		SNOWY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("buried")));
+		SNOWY_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("five_from_top")));
+		SNOWY_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("four_from_top")));
 
 		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("surface")));
 		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
@@ -136,6 +148,10 @@ public class RuinsPieces {
 		GENERIC_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
 		GENERIC_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
 		GENERIC_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
+		SNOWY_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
+		SNOWY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
+		SNOWY_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
+		SNOWY_FOUR_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 4));
 		SAVANNA_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
 		SAVANNA_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
 		JUNGLE_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
@@ -171,6 +187,11 @@ public class RuinsPieces {
 	}
 
 	@Contract("_ -> new")
+	private static @NotNull String createSnowyRuinPath(String path) {
+		return "ruins/snowy/" + path;
+	}
+
+	@Contract("_ -> new")
 	private static @NotNull String createSavannaRuinPath(String path) {
 		return "ruins/savanna/" + path;
 	}
@@ -198,6 +219,16 @@ public class RuinsPieces {
 			return Util.getRandom(GENERIC_FIVE_FROM_TOP_PIECES, random);
 		}
 		return random.nextBoolean() ? Util.getRandom(GENERIC_SURFACE_PIECES, random) : Util.getRandom(GENERIC_BURIED_PIECES, random);
+	}
+
+	private static @NotNull ResourceLocation getRandomSnowyRuin(@NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.75F) {
+			return Util.getRandom(SNOWY_MOSTLY_BURIED_PIECES, random);
+		}
+		if (random.nextFloat() <= 0.05F) {
+			return Util.getRandom(SNOWY_FIVE_FROM_TOP_PIECES, random);
+		}
+		return random.nextBoolean() ? Util.getRandom(SNOWY_SURFACE_PIECES, random) : Util.getRandom(SNOWY_BURIED_PIECES, random);
 	}
 
 	private static @NotNull ResourceLocation getRandomSavannaRuin(@NotNull RandomSource random) {

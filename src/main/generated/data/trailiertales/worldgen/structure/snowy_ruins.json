@@ -1,0 +1,13 @@
+{
+  "type": "trailiertales:ruins",
+  "biome_type": "snowy",
+  "biomes": "#trailiertales:has_structure/snowy_ruins",
+  "cluster_pieces": {
+    "max_inclusive": 6,
+    "min_inclusive": 1
+  },
+  "cluster_probability": 1.0,
+  "heightmap": "OCEAN_FLOOR_WG",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

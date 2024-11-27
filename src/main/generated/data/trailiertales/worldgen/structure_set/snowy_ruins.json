@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 9457163,
+    "separation": 12,
+    "spacing": 34
+  },
+  "structures": [
+    {
+      "structure": "trailiertales:snowy_ruins",
+      "weight": 1
+    }
+  ]
+}

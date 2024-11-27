@@ -5,10 +5,6 @@
       "required": false
     },
     {
-      "id": "#c:is_snowy_plains",
-      "required": false
-    },
-    {
       "id": "#c:is_forest",
       "required": false
     },

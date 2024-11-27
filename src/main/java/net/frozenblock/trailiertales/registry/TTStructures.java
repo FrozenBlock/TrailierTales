@@ -11,8 +11,9 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerat
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.GenericRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.SnowyRuinsGenerator;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -61,7 +62,8 @@ public final class TTStructures {
 		DesertRuinsGenerator.bootstrap(context);
 		JungleRuinsGenerator.bootstrap(context);
 		SavannaRuinsGenerator.bootstrap(context);
-		RuinsGenerator.bootstrap(context);
+		GenericRuinsGenerator.bootstrap(context);
+		SnowyRuinsGenerator.bootstrap(context);
 		DeepslateRuinsGenerator.bootstrap(context);
 	}
 
@@ -71,7 +73,8 @@ public final class TTStructures {
 		DesertRuinsGenerator.bootstrapStructureSet(context);
 		JungleRuinsGenerator.bootstrapStructureSet(context);
 		SavannaRuinsGenerator.bootstrapStructureSet(context);
-		RuinsGenerator.bootstrapStructureSet(context);
+		GenericRuinsGenerator.bootstrapStructureSet(context);
+		SnowyRuinsGenerator.bootstrapStructureSet(context);
 		DeepslateRuinsGenerator.bootstrapStructureSet(context);
 	}
 
