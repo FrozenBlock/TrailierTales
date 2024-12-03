@@ -106,6 +106,12 @@ public class TTItems {
 		TTFeatureFlags.FEATURE_FLAG
 	);
 
+	public static final Item MUSIC_DISC_STASIS = new Item(new Item.Properties()
+		.stacksTo(1)
+		.rarity(Rarity.RARE)
+		.jukeboxPlayable(TTJukeboxSongs.STASIS)
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 	public static final Item MUSIC_DISC_FAUSSE_VIE = new Item(new Item.Properties()
 		.stacksTo(1)
 		.rarity(Rarity.RARE)
@@ -163,6 +169,9 @@ public class TTItems {
 		registerItemAfter(MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, COT_ARMOR_TRIM_SMITHING_TEMPLATE, "cot_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(COT_ARMOR_TRIM_SMITHING_TEMPLATE, EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, "embrace_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
+		// Ruins discs should come before Trail Ruins!
+		registerItemBefore(Items.MUSIC_DISC_RELIC, MUSIC_DISC_STASIS, "music_disc_stasis", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		// Catacombs discs should come after Trail Ruins!
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 

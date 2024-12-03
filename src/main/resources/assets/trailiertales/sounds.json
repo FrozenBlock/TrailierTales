@@ -7,6 +7,14 @@
       }
     ]
   },
+  "music_disc.stasis": {
+    "sounds": [
+      {
+        "name": "trailiertales:records/stasis",
+        "stream": true
+      }
+    ]
+  },
   "event.mob_effect.siege_omen": {
     "sounds": [
       "trailiertales:event/mob_effects/siege_omen"

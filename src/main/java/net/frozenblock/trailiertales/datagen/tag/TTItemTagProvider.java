@@ -29,6 +29,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(ConventionalItemTags.MUSIC_DISCS)
+			.add(TTItems.MUSIC_DISC_STASIS)
 			.add(TTItems.MUSIC_DISC_FAUSSE_VIE);
 
 		this.getOrCreateTagBuilder(ItemTags.SAND)

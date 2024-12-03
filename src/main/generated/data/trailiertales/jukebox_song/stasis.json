@@ -1,0 +1,8 @@
+{
+  "comparator_output": 9,
+  "description": {
+    "translate": "jukebox_song.trailiertales.stasis"
+  },
+  "length_in_seconds": 148.0,
+  "sound_event": "trailiertales:music_disc.stasis"
+}

@@ -220,6 +220,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
 	}
 
