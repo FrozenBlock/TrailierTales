@@ -7,6 +7,8 @@ hi
 - Chains now generate more commonly in Catacombs.
 - Added 14 new tall pieces for Generic Ruins.
 - Added new ruins for snowy biomes.
+- Updated the Undead Armor Trim Smithing Template texture.
+- Updated the Undead Armor Trim's leggings texture.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))
 - Added Spanish translations, thanks to Kokoroto!
 - Added Ukranian translations, thanks to unroman! ([#8](https://github.com/FrozenBlock/TrailierTales/pull/8))
@@ -19,3 +21,4 @@ hi
 - Fixed the Polished Calcite Wall not being craftable with a Stonecutter. ([#11](https://github.com/FrozenBlock/TrailierTales/issues/11))
 - Fixed many recipe unlocks not working on 1.21.2+.
 - Removed the leftover `TRAILIER TALES` subtitle from the main menu.
+- Removed many unused assets.
