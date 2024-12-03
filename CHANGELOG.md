@@ -7,6 +7,9 @@ hi
 - Chains now generate more commonly in Catacombs.
 - Added 14 new tall pieces for Generic Ruins.
 - Added new ruins for snowy biomes.
+- Added the Embrace Armor Trim.
+- Added the Frost Pottery Sherd.
+- Added the Hare Pottery Sherd.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))

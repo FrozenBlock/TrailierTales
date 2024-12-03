@@ -188,6 +188,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.ESSENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.EYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.FOCUS_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.FROST_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.HARE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.HEIGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.HUMP_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.ILLUMINATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
@@ -213,6 +215,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(TTItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);

@@ -33,6 +33,8 @@
   "item.trailiertales.essence_pottery_sherd": "Essence Pottery Sherd",
   "item.trailiertales.eye_pottery_sherd": "Eye Pottery Sherd",
   "item.trailiertales.focus_pottery_sherd": "Focus Pottery Sherd",
+  "item.trailiertales.frost_pottery_sherd": "Frost Pottery Sherd",
+  "item.trailiertales.hare_pottery_sherd": "Hare Pottery Sherd",
   "item.trailiertales.height_pottery_sherd": "Height Pottery Sherd",
   "item.trailiertales.hump_pottery_sherd": "Hump Pottery Sherd",
   "item.trailiertales.illuminator_pottery_sherd": "Illuminator Pottery Sherd",
@@ -58,6 +60,7 @@
   "item.trailiertales.martyr_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.zephyr_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.cot_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.embrace_armor_trim_smithing_template": "Smithing Template",
 
   "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
@@ -67,6 +70,7 @@
   "trim_pattern.trailiertales.martyr": "Martyr Armor Trim",
   "trim_pattern.trailiertales.zephyr": "Zephyr Armor Trim",
   "trim_pattern.trailiertales.cot": "Cot Armor Trim",
+  "trim_pattern.trailiertales.embrace": "Embrace Armor Trim",
 
   "item.trailiertales.music_disc_fausse_vie": "Music Disc",
   "item.trailiertales.music_disc_fausse_vie.desc": "Zhen - Fausse Vie",

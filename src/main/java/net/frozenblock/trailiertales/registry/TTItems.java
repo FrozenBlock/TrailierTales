@@ -53,6 +53,8 @@ public class TTItems {
 	public static final Item ESSENCE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item EYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item FOCUS_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item FROST_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item HARE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item HEIGHT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item HUMP_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item ILLUMINATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -99,6 +101,10 @@ public class TTItems {
 		TTTrimPatterns.COT,
 		TTFeatureFlags.FEATURE_FLAG
 	);
+	public static final Item EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
+		TTTrimPatterns.COT,
+		TTFeatureFlags.FEATURE_FLAG
+	);
 
 	public static final Item MUSIC_DISC_FAUSSE_VIE = new Item(new Item.Properties()
 		.stacksTo(1)
@@ -128,7 +134,9 @@ public class TTItems {
 		registerSherdBefore(Items.EXPLORER_POTTERY_SHERD, ESSENCE_POTTERY_SHERD, "essence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.EXPLORER_POTTERY_SHERD, EYE_POTTERY_SHERD, "eye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.FLOW_POTTERY_SHERD, FOCUS_POTTERY_SHERD, "focus_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerSherdBefore(Items.HOWL_POTTERY_SHERD, HEIGHT_POTTERY_SHERD, "height_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdAfter(FOCUS_POTTERY_SHERD, FROST_POTTERY_SHERD, "frost_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.HOWL_POTTERY_SHERD, HARE_POTTERY_SHERD, "hare_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdAfter(HARE_POTTERY_SHERD, HEIGHT_POTTERY_SHERD, "height_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.HOWL_POTTERY_SHERD, HUMP_POTTERY_SHERD, "hump_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(HUMP_POTTERY_SHERD, ILLUMINATOR_POTTERY_SHERD, "illuminator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(ILLUMINATOR_POTTERY_SHERD, INCIDENCE_POTTERY_SHERD, "incidence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
@@ -153,6 +161,7 @@ public class TTItems {
 		registerItemAfter(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, "zephyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, "martyr_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 		registerItemAfter(MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, COT_ARMOR_TRIM_SMITHING_TEMPLATE, "cot_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(COT_ARMOR_TRIM_SMITHING_TEMPLATE, EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, "embrace_armor_trim_smithing_template", CreativeModeTabs.INGREDIENTS);
 
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}

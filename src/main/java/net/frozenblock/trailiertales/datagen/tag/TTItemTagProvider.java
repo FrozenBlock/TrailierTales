@@ -48,6 +48,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.ESSENCE_POTTERY_SHERD)
 			.add(TTItems.EYE_POTTERY_SHERD)
 			.add(TTItems.FOCUS_POTTERY_SHERD)
+			.add(TTItems.FROST_POTTERY_SHERD)
+			.add(TTItems.HARE_POTTERY_SHERD)
 			.add(TTItems.HEIGHT_POTTERY_SHERD)
 			.add(TTItems.HUMP_POTTERY_SHERD)
 			.add(TTItems.ILLUMINATOR_POTTERY_SHERD)
@@ -167,7 +169,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE);
+			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);

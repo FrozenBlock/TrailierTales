@@ -566,6 +566,18 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("###")
 			.unlockedBy("has_cot_armor_trim_smithing_template", has(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE))
 			.save(recipeOutput);
+
+		// EMBRACE SMITHING TEMPLATE
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, 2)
+			.define('#', Items.DIAMOND)
+			.define('C', Blocks.BLUE_ICE)
+			.define('S', TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.pattern("#S#")
+			.pattern("#C#")
+			.pattern("###")
+			.unlockedBy("has_embrace_armor_trim_smithing_template", has(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE))
+			.save(recipeOutput);
 	}
 
 	public static void stonecutterResultFromBase(RecipeOutput exporter, RecipeCategory category, ItemLike ingredient, ItemLike result) {
@@ -591,7 +603,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE,
 				TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE
+				TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE,
+				TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE
 			)
 			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, TTConstants.id(getItemName(item) + "_smithing_trim")));
 	}

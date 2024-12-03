@@ -16,7 +16,9 @@
         "trailiertales:trims/models/armor/zephyr",
         "trailiertales:trims/models/armor/zephyr_leggings",
         "trailiertales:trims/models/armor/cot",
-        "trailiertales:trims/models/armor/cot_leggings"
+        "trailiertales:trims/models/armor/cot_leggings",
+        "trailiertales:trims/models/armor/embrace",
+        "trailiertales:trims/models/armor/embrace_leggings"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {

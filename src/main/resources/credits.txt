@@ -70,6 +70,8 @@ Voxelotl
       - Bloom Pottery Sherd/Pattern
       - Bullseye Pottery Sherd/Pattern
       - Crescent Pottery Sherd/Pattern
+      - Frost Pottery Sherd/Pattern
+      - Hare Pottery Sherd/Pattern
       - Wither Pottery Sherd/Pattern
       - Coffin
       - Undead Armor Trim
@@ -79,6 +81,7 @@ Voxelotl
       - Siege Omen icon and particle texture
       - Fixed the Chiseled Andesite texture
       - Fixed the Chiseled Diorite texture
+      - Embrace Armor Trim
 
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks
