@@ -40,6 +40,9 @@ public class TTItems {
 		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	/**
+	 * Don't forget to go to {@link TTDecoratedPotPatternRegistry} to register patterns!
+	 */
 	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BOLT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));

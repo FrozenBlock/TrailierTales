@@ -26,6 +26,8 @@ public class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistr
 		register(registry, "essence");
 		register(registry, "eye");
 		register(registry, "focus");
+		register(registry, "frost");
+		register(registry, "hare");
 		register(registry, "height");
 		register(registry, "hump");
 		register(registry, "illuminator");
