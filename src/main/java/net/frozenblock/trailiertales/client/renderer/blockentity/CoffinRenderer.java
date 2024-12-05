@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.block.render;
+package net.frozenblock.trailiertales.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -10,6 +10,7 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -42,11 +43,11 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 	private final ModelPart footLid;
 
 	public CoffinRenderer(@NotNull Context context) {
-		this.headRoot = context.bakeLayer(TrailierTalesClient.COFFIN_HEAD); //left
+		this.headRoot = context.bakeLayer(TTModelLayers.COFFIN_HEAD); //left
 		this.headBase = headRoot.getChild(BASE);
 		this.headLid = headRoot.getChild(LID);
 
-		this.footRoot = context.bakeLayer(TrailierTalesClient.COFFIN_FOOT); //right
+		this.footRoot = context.bakeLayer(TTModelLayers.COFFIN_FOOT); //right
 		this.footBase = footRoot.getChild(BASE);
 		this.footLid = footRoot.getChild(LID);
 	}

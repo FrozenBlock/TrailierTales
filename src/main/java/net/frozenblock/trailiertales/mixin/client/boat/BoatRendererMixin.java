@@ -11,7 +11,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
+import net.frozenblock.trailiertales.client.TTModelLayers;
+import net.frozenblock.trailiertales.client.model.BoatBannerModel;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.BoatRenderer;
@@ -45,7 +46,7 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, boolean isChest, CallbackInfo info) {
-		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TrailierTalesClient.BOAT_BANNER));
+		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TTModelLayers.BOAT_BANNER));
 		this.trailierTales$boatBannerResources = Stream.of(Boat.Type.values())
 			.collect(ImmutableMap.toImmutableMap(boatVariant -> boatVariant, BoatRendererMixin::trailierTales$getBannerBaseTextureLocation));
 	}

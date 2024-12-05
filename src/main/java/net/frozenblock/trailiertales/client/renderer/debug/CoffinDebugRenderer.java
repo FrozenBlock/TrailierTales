@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.debug.client.renderer;
+package net.frozenblock.trailiertales.client.renderer.debug;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;

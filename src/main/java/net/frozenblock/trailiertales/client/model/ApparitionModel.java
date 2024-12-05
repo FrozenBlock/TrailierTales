@@ -1,4 +1,4 @@
-package net.frozenblock.trailiertales.entity.render.model;
+package net.frozenblock.trailiertales.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;

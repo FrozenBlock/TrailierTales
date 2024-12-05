@@ -1,11 +1,12 @@
-package net.frozenblock.trailiertales.entity.render.layer;
+package net.frozenblock.trailiertales.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
 import net.frozenblock.trailiertales.TrailierTalesClient;
+import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.frozenblock.trailiertales.entity.render.model.ApparitionModel;
+import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -32,7 +33,7 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		super(renderLayerParent);
 		this.model = new ApparitionModel<>(
 			cull ? FrozenRenderType::apparitionOuterCull : FrozenRenderType::apparitionOuter,
-			context.bakeLayer(TrailierTalesClient.APPARITION_OVERLAY),
+			context.bakeLayer(TTModelLayers.APPARITION_OVERLAY),
 			innerAlphaFunction,
 			outlineAlphaFunction,
 			outerAlphaFunction,
