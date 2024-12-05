@@ -14,7 +14,7 @@ import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 public class RuinsPieceHandler {
-	private static final boolean LOG_RUINS_PIECE_LOADING = true;
+	private static final boolean LOG_RUINS_PIECE_LOADING = false;
 	private static final Map<String, Integer> DIRECTORY_TO_PIECE_OFFSET_MAP = ImmutableMap.<String, Integer>builder()
 		.put("buried", 0)
 		.put("one_from_top", 1)
