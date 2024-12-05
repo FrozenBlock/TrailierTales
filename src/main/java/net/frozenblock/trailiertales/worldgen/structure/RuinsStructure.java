@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -12,11 +13,12 @@ import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.GenericRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SnowyRuinsGenerator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.ChunkPos;
@@ -38,7 +40,7 @@ public class RuinsStructure extends Structure {
 	public static final MapCodec<RuinsStructure> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 				settingsCodec(instance),
-				RuinsStructure.Type.CODEC.fieldOf("biome_type").forGetter(feature -> feature.biomeType),
+				RuinsStructure.Type.CODEC.optionalFieldOf("ruins_type", Type.GENERIC).forGetter(feature -> feature.ruinsType),
 				Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
 				UniformInt.CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
 				Heightmap.Types.CODEC.lenientOptionalFieldOf("heightmap").forGetter(feature -> feature.heightmap),
@@ -46,7 +48,7 @@ public class RuinsStructure extends Structure {
 			)
 			.apply(instance, RuinsStructure::new)
 	);
-	public final RuinsStructure.Type biomeType;
+	public final RuinsStructure.Type ruinsType;
 	public final float clusterProbability;
 	public final UniformInt clusterPieces;
 	public final Optional<Heightmap.Types> heightmap;
@@ -55,14 +57,14 @@ public class RuinsStructure extends Structure {
 
 	private RuinsStructure(
 		Structure.StructureSettings settings,
-		RuinsStructure.Type biomeType,
+		RuinsStructure.Type ruinsType,
 		float clusterProbability,
 		UniformInt clusterPieces,
 		Optional<Heightmap.Types> heightmap,
 		Optional<HeightProvider> heightProvider
 	) {
 		super(settings);
-		this.biomeType = biomeType;
+		this.ruinsType = ruinsType;
 		this.clusterProbability = clusterProbability;
 		this.clusterPieces = clusterPieces;
 		this.heightmap = heightmap;
@@ -71,22 +73,22 @@ public class RuinsStructure extends Structure {
 
 	public RuinsStructure(
 		Structure.StructureSettings settings,
-		RuinsStructure.Type biomeType,
+		RuinsStructure.Type ruinsType,
 		float clusterProbability,
 		UniformInt clusterPieces,
 		Heightmap.Types heightmap
 	) {
-		this(settings, biomeType, clusterProbability, clusterPieces, Optional.of(heightmap), Optional.empty());
+		this(settings, ruinsType, clusterProbability, clusterPieces, Optional.of(heightmap), Optional.empty());
 	}
 
 	public RuinsStructure(
 		Structure.StructureSettings settings,
-		RuinsStructure.Type biomeType,
+		RuinsStructure.Type ruinsType,
 		float clusterProbability,
 		UniformInt clusterPieces,
 		HeightProvider heightProvider
 	) {
-		this(settings, biomeType, clusterProbability, clusterPieces, Optional.empty(), Optional.of(heightProvider));
+		this(settings, ruinsType, clusterProbability, clusterPieces, Optional.empty(), Optional.of(heightProvider));
 	}
 
 	public int getHeight(
@@ -107,13 +109,13 @@ public class RuinsStructure extends Structure {
 
 	@Override
 	public @NotNull Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-		if (this.biomeType == Type.GENERIC && !TTWorldgenConfig.GENERATE_GENERIC_RUINS) return Optional.empty();
-		if (this.biomeType == Type.SNOWY && !TTWorldgenConfig.GENERATE_SNOWY_RUINS) return Optional.empty();
-		if (this.biomeType == Type.JUNGLE && !TTWorldgenConfig.GENERATE_JUNGLE_RUINS) return Optional.empty();
-		if (this.biomeType == Type.SAVANNA && !TTWorldgenConfig.GENERATE_SAVANNA_RUINS) return Optional.empty();
-		if (this.biomeType == Type.DESERT && !TTWorldgenConfig.GENERATE_DESERT_RUINS) return Optional.empty();
-		if (this.biomeType == Type.BADLANDS && !TTWorldgenConfig.GENERATE_BADLANDS_RUINS) return Optional.empty();
-		if (this.biomeType == Type.DEEPSLATE && !TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.GENERIC && !TTWorldgenConfig.GENERATE_GENERIC_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.SNOWY && !TTWorldgenConfig.GENERATE_SNOWY_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.JUNGLE && !TTWorldgenConfig.GENERATE_JUNGLE_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.SAVANNA && !TTWorldgenConfig.GENERATE_SAVANNA_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.DESERT && !TTWorldgenConfig.GENERATE_DESERT_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.BADLANDS && !TTWorldgenConfig.GENERATE_BADLANDS_RUINS) return Optional.empty();
+		if (this.ruinsType == Type.DEEPSLATE && !TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS) return Optional.empty();
 
 		ChunkPos chunkPos = context.chunkPos();
 		int x = chunkPos.getMiddleBlockX();
@@ -158,22 +160,30 @@ public class RuinsStructure extends Structure {
 		return TTStructureTypes.RUINS;
 	}
 
+	public static void onServerDataReload(@NotNull ResourceManager resourceManager) {
+		Arrays.stream(Type.values()).toList().forEach(type -> type.getPieceHandler().onDataReload(resourceManager));
+	}
+
 	public enum Type implements StringRepresentable {
-		GENERIC("generic", GenericRuinsGenerator.PROCESSORS),
-		SNOWY("snowy", SnowyRuinsGenerator.PROCESSORS),
-		BADLANDS("badlands", BadlandsRuinsGenerator.PROCESSORS),
-		DESERT("desert", DesertRuinsGenerator.PROCESSORS),
-		JUNGLE("jungle", JungleRuinsGenerator.PROCESSORS),
-		SAVANNA("savanna", SavannaRuinsGenerator.PROCESSORS),
-		DEEPSLATE("deepslate", DeepslateRuinsGenerator.PROCESSORS);
+		GENERIC("generic", GenericRuinsGenerator.PROCESSORS, false),
+		SNOWY("snowy", SnowyRuinsGenerator.PROCESSORS, false),
+		BADLANDS("badlands", BadlandsRuinsGenerator.PROCESSORS, false),
+		DESERT("desert", DesertRuinsGenerator.PROCESSORS, false),
+		JUNGLE("jungle", JungleRuinsGenerator.PROCESSORS, false),
+		SAVANNA("savanna", SavannaRuinsGenerator.PROCESSORS, false),
+		DEEPSLATE("deepslate", DeepslateRuinsGenerator.PROCESSORS, true);
 
 		public static final Codec<RuinsStructure.Type> CODEC = StringRepresentable.fromEnum(RuinsStructure.Type::values);
 		private final String name;
 		private final StructureProcessorList processors;
+		private final boolean underground;
+		private final RuinsPieceHandler pieceHandler;
 
-		Type(final String name, StructureProcessorList processors) {
+		Type(final String name, StructureProcessorList processors, boolean underground) {
 			this.name = name;
 			this.processors = processors;
+			this.underground = underground;
+			this.pieceHandler = new RuinsPieceHandler(this);
 		}
 
 		public String getName() {
@@ -182,6 +192,14 @@ public class RuinsStructure extends Structure {
 
 		public StructureProcessorList getProcessors() {
 			return this.processors;
+		}
+
+		public boolean isUnderground() {
+			return this.underground;
+		}
+
+		public RuinsPieceHandler getPieceHandler() {
+			return this.pieceHandler;
 		}
 
 		@Override

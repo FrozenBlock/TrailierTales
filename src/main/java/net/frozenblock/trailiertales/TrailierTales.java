@@ -32,7 +32,7 @@ import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
 import net.frozenblock.trailiertales.registry.TTVillagerTrades;
 import net.frozenblock.trailiertales.worldgen.TTBiomeModifications;
-import net.frozenblock.trailiertales.worldgen.structure.RuinsPieces;
+import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -93,7 +93,7 @@ public class TrailierTales extends FrozenModInitializer {
 
 			@Override
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				RuinsPieces.reloadPiecesFromDirectories(resourceManager);
+				RuinsStructure.onServerDataReload(resourceManager);
 			}
 		});
 	}

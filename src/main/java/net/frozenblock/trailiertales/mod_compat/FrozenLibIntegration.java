@@ -30,8 +30,8 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGen
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.GenericRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;

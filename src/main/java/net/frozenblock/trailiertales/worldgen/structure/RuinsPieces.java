@@ -1,23 +1,17 @@
 package net.frozenblock.trailiertales.worldgen.structure;
 
-import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
+import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.registry.TTStructurePieceTypes;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -40,249 +34,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.FluidState;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class RuinsPieces {
-	private static final Map<ResourceLocation, Integer> PIECE_OFFSETS = new Object2IntLinkedOpenHashMap<>();
-	// GENERIC
-	private static final ArrayList<ResourceLocation> GENERIC_SURFACE_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> GENERIC_MOSTLY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> GENERIC_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> GENERIC_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
-	// GENERIC
-	private static final ArrayList<ResourceLocation> SNOWY_SURFACE_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> SNOWY_MOSTLY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> SNOWY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> SNOWY_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> SNOWY_FOUR_FROM_TOP_PIECES = Lists.newArrayList();
-	// SAVANNA
-	private static final ArrayList<ResourceLocation> SAVANNA_SURFACE_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> SAVANNA_MOSTLY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> SAVANNA_BURIED_PIECES = Lists.newArrayList();
-	// JUNGLE
-	private static final ArrayList<ResourceLocation> JUNGLE_SURFACE_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> JUNGLE_MOSTLY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> JUNGLE_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> JUNGLE_SEVEN_FROM_TOP_PIECES = Lists.newArrayList();
-	// DESERT
-	private static final ArrayList<ResourceLocation> DESERT_SURFACE_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> DESERT_MOSTLY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> DESERT_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> DESERT_FOUR_FROM_TOP_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> DESERT_SIX_FROM_TOP_PIECES = Lists.newArrayList();
-	// BADLANDS
-	private static final ArrayList<ResourceLocation> BADLANDS_SURFACE_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> BADLANDS_MOSTLY_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> BADLANDS_BURIED_PIECES = Lists.newArrayList();
-	private static final ArrayList<ResourceLocation> BADLANDS_FIVE_FROM_TOP_PIECES = Lists.newArrayList();
-	// DEEPSLATE
-	private static final ArrayList<ResourceLocation> DEEPSLATE_PIECES = Lists.newArrayList();
-
-	public static void reloadPiecesFromDirectories(@NotNull ResourceManager resourceManager) {
-		clearPieceLists();
-
-		GENERIC_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("surface")));
-		GENERIC_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("mostly_buried")));
-		GENERIC_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("buried")));
-		GENERIC_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createGenericRuinPath("five_from_top")));
-
-		SNOWY_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("surface")));
-		SNOWY_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("mostly_buried")));
-		SNOWY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("buried")));
-		SNOWY_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("five_from_top")));
-		SNOWY_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSnowyRuinPath("four_from_top")));
-
-		SAVANNA_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("surface")));
-		SAVANNA_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("mostly_buried")));
-		SAVANNA_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createSavannaRuinPath("buried")));
-
-		JUNGLE_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("surface")));
-		JUNGLE_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("mostly_buried")));
-		JUNGLE_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("buried")));
-		JUNGLE_SEVEN_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createJungleRuinPath("seven_from_top")));
-
-		DESERT_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("surface")));
-		DESERT_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("mostly_buried")));
-		DESERT_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("buried")));
-		DESERT_FOUR_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("four_from_top")));
-		DESERT_SIX_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createDesertRuinPath("six_from_top")));
-
-		BADLANDS_SURFACE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("surface")));
-		BADLANDS_MOSTLY_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("mostly_buried")));
-		BADLANDS_BURIED_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("buried")));
-		BADLANDS_FIVE_FROM_TOP_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, createBadlandsRuinPath("five_from_top")));
-
-		DEEPSLATE_PIECES.addAll(getLoadedPieces(resourceManager, TTConstants.MOD_ID, "ruins/deepslate"));
-
-		fillInPieceOffsets();
-	}
-
-	private static void clearPieceLists() {
-		GENERIC_SURFACE_PIECES.clear();
-		GENERIC_MOSTLY_BURIED_PIECES.clear();
-		GENERIC_BURIED_PIECES.clear();
-		GENERIC_FIVE_FROM_TOP_PIECES.clear();
-		SAVANNA_SURFACE_PIECES.clear();
-		SAVANNA_MOSTLY_BURIED_PIECES.clear();
-		SAVANNA_BURIED_PIECES.clear();
-		JUNGLE_SURFACE_PIECES.clear();
-		JUNGLE_MOSTLY_BURIED_PIECES.clear();
-		JUNGLE_BURIED_PIECES.clear();
-		JUNGLE_SEVEN_FROM_TOP_PIECES.clear();
-		DESERT_SURFACE_PIECES.clear();
-		DESERT_MOSTLY_BURIED_PIECES.clear();
-		DESERT_BURIED_PIECES.clear();
-		DESERT_FOUR_FROM_TOP_PIECES.clear();
-		DESERT_SIX_FROM_TOP_PIECES.clear();
-		BADLANDS_SURFACE_PIECES.clear();
-		BADLANDS_MOSTLY_BURIED_PIECES.clear();
-		BADLANDS_BURIED_PIECES.clear();
-		BADLANDS_FIVE_FROM_TOP_PIECES.clear();
-		DEEPSLATE_PIECES.clear();
-	}
-
-	private static void fillInPieceOffsets() {
-		PIECE_OFFSETS.clear();
-		GENERIC_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		GENERIC_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
-		GENERIC_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
-		SNOWY_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		SNOWY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
-		SNOWY_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
-		SNOWY_FOUR_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 4));
-		SAVANNA_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		SAVANNA_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
-		JUNGLE_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		JUNGLE_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
-		JUNGLE_SEVEN_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 7));
-		DESERT_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		DESERT_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
-		DESERT_FOUR_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 4));
-		DESERT_SIX_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 6));
-		BADLANDS_MOSTLY_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 3));
-		BADLANDS_BURIED_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 0));
-		BADLANDS_FIVE_FROM_TOP_PIECES.forEach(resourceLocation -> PIECE_OFFSETS.put(resourceLocation, 5));
-	}
-
-	private static @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager, String namespace, String path) {
-		Set<ResourceLocation> foundPieces = resourceManager.listResources(
-			"structure/" + path,
-			resourceLocation -> resourceLocation.getPath().endsWith(".nbt") && resourceLocation.getNamespace().equals(namespace)
-		).keySet();
-		ArrayList<ResourceLocation> convertedLocations = new ArrayList<>();
-		foundPieces.forEach(resourceLocation -> {
-			String newPath = resourceLocation.getPath();
-			newPath = newPath.replace(".nbt", "");
-			newPath = newPath.replace("structure/", "");
-			convertedLocations.add(ResourceLocation.tryBuild(resourceLocation.getNamespace(), newPath));
-		});
-		return convertedLocations;
-	}
-
-	@Contract("_ -> new")
-	private static @NotNull String createGenericRuinPath(String path) {
-		return "ruins/generic/" + path;
-	}
-
-	@Contract("_ -> new")
-	private static @NotNull String createSnowyRuinPath(String path) {
-		return "ruins/snowy/" + path;
-	}
-
-	@Contract("_ -> new")
-	private static @NotNull String createSavannaRuinPath(String path) {
-		return "ruins/savanna/" + path;
-	}
-
-	@Contract("_ -> new")
-	private static @NotNull String createJungleRuinPath(String path) {
-		return "ruins/jungle/" + path;
-	}
-
-	@Contract("_ -> new")
-	private static @NotNull String createDesertRuinPath(String path) {
-		return "ruins/desert/" + path;
-	}
-
-	@Contract("_ -> new")
-	private static @NotNull String createBadlandsRuinPath(String path) {
-		return "ruins/badlands/" + path;
-	}
-
-	private static @NotNull ResourceLocation getRandomGenericRuin(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.75F) {
-			return Util.getRandom(GENERIC_MOSTLY_BURIED_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.05F) {
-			return Util.getRandom(GENERIC_FIVE_FROM_TOP_PIECES, random);
-		}
-		return random.nextBoolean() ? Util.getRandom(GENERIC_SURFACE_PIECES, random) : Util.getRandom(GENERIC_BURIED_PIECES, random);
-	}
-
-	private static @NotNull ResourceLocation getRandomSnowyRuin(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.75F) {
-			return Util.getRandom(SNOWY_MOSTLY_BURIED_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.05F) {
-			return random.nextBoolean() ? Util.getRandom(SNOWY_FIVE_FROM_TOP_PIECES, random) : Util.getRandom(SNOWY_FOUR_FROM_TOP_PIECES, random);
-		}
-		return random.nextBoolean() ? Util.getRandom(SNOWY_SURFACE_PIECES, random) : Util.getRandom(SNOWY_BURIED_PIECES, random);
-	}
-
-	private static @NotNull ResourceLocation getRandomSavannaRuin(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.75F) {
-			return Util.getRandom(SAVANNA_MOSTLY_BURIED_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.175F) {
-			return Util.getRandom(SAVANNA_SURFACE_PIECES, random);
-		}
-		return Util.getRandom(SAVANNA_BURIED_PIECES, random);
-	}
-
-	private static @NotNull ResourceLocation getRandomJungleRuin(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.75F) {
-			return Util.getRandom(JUNGLE_MOSTLY_BURIED_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.05F) {
-			return Util.getRandom(JUNGLE_SEVEN_FROM_TOP_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.75F) {
-			return Util.getRandom(JUNGLE_SURFACE_PIECES, random);
-		}
-		return Util.getRandom(JUNGLE_BURIED_PIECES, random);
-	}
-
-	private static @NotNull ResourceLocation getRandomDesertRuin(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.65F) {
-			return Util.getRandom(DESERT_SURFACE_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.35F) {
-			return random.nextBoolean() ? Util.getRandom(DESERT_SIX_FROM_TOP_PIECES, random) : Util.getRandom(DESERT_MOSTLY_BURIED_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.75F) {
-			return Util.getRandom(DESERT_MOSTLY_BURIED_PIECES, random);
-		}
-		return Util.getRandom(DESERT_BURIED_PIECES, random);
-	}
-
-	private static @NotNull ResourceLocation getRandomBadlandsRuin(@NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.8F) {
-			return Util.getRandom(BADLANDS_MOSTLY_BURIED_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.3F) {
-			return Util.getRandom(BADLANDS_SURFACE_PIECES, random);
-		}
-		if (random.nextFloat() <= 0.075F) {
-			return Util.getRandom(BADLANDS_FIVE_FROM_TOP_PIECES, random);
-		}
-		return Util.getRandom(BADLANDS_BURIED_PIECES, random);
-	}
-
-	private static @NotNull ResourceLocation getRandomDeepslateRuin(@NotNull RandomSource random) {
-		return Util.getRandom(DEEPSLATE_PIECES, random);
-	}
 
 	public static void addPieces(
 		StructureTemplateManager structureTemplateManager,
@@ -325,7 +80,7 @@ public class RuinsPieces {
 		Rotation rotation,
 		@NotNull List<RuinsPieces.RuinPiece> pieces,
 		RandomSource random,
-		@NotNull RuinsStructure feature,
+		@NotNull RuinsStructure structure,
 		BoundingBox box,
 		int maxAttempts
 	) {
@@ -333,18 +88,18 @@ public class RuinsPieces {
 		maxAttempts += 1;
 
 		RuinPiece potentialPiece;
-		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
+		ResourceLocation pieceId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for (int i = 0; i < maxAttempts; i++) {
 			potentialPiece = new RuinPiece(
 				structureTemplateManager,
-				structureId,
+				pieceId,
 				mutableBlockPos,
 				rotation,
-				feature.biomeType,
-				feature.heightmap,
-				feature.providedHeight
+				structure.ruinsType,
+				structure.heightmap,
+				structure.providedHeight
 			);
 			BoundingBox currentBox = potentialPiece.getBoundingBox();
 			AtomicReference<BoundingBox> inflatedBox = new AtomicReference<>(currentBox.inflatedBy(2));
@@ -394,46 +149,24 @@ public class RuinsPieces {
 		Rotation rotation,
 		@NotNull List<RuinsPieces.RuinPiece> pieces,
 		RandomSource random,
-		@NotNull RuinsStructure feature
+		@NotNull RuinsStructure structure
 	) {
-		ResourceLocation structureId = getPieceForType(feature.biomeType, random);
+		ResourceLocation structureId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
 		RuinPiece piece = new RuinPiece(
 			structureTemplateManager,
 			structureId,
 			pos,
 			rotation,
-			feature.biomeType,
-			feature.heightmap,
-			feature.providedHeight
+			structure.ruinsType,
+			structure.heightmap,
+			structure.providedHeight
 		);
 		pieces.add(piece);
 		return piece;
 	}
 
-	private static ResourceLocation getPieceForType(RuinsStructure.Type type, RandomSource random) {
-		if (type == RuinsStructure.Type.SNOWY) {
-			return getRandomSnowyRuin(random);
-		}
-		if (type == RuinsStructure.Type.SAVANNA) {
-			return getRandomSavannaRuin(random);
-		}
-		if (type == RuinsStructure.Type.JUNGLE) {
-			return getRandomJungleRuin(random);
-		}
-		if (type == RuinsStructure.Type.DESERT) {
-			return getRandomDesertRuin(random);
-		}
-		if (type == RuinsStructure.Type.BADLANDS) {
-			return getRandomBadlandsRuin(random);
-		}
-		if (type == RuinsStructure.Type.DEEPSLATE) {
-			return getRandomDeepslateRuin(random);
-		}
-		return getRandomGenericRuin(random);
-	}
-
 	public static class RuinPiece extends TemplateStructurePiece {
-		private final RuinsStructure.Type biomeType;
+		private final RuinsStructure.Type ruinsType;
 		public final Optional<Heightmap.Types> heightmap;
 		private Optional<Integer> providedHeight;
 		private boolean adjustedHeight;
@@ -447,7 +180,7 @@ public class RuinsPieces {
 			Optional<Integer> providedHeight
 		) {
 			super(TTStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
-			this.biomeType = biomeType;
+			this.ruinsType = biomeType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
 		}
@@ -457,12 +190,13 @@ public class RuinsPieces {
 			ResourceLocation structureId,
 			BlockPos pos,
 			Rotation rotation,
-			RuinsStructure.Type biomeType, Optional<Heightmap.Types> heightmap,
+			RuinsStructure.Type ruinsType,
+			Optional<Heightmap.Types> heightmap,
 			Optional<Integer> providedHeight,
 			boolean adjustedHeight
 		) {
-			super(TTStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, biomeType), pos);
-			this.biomeType = biomeType;
+			super(TTStructurePieceTypes.RUIN, 0, structureTemplateManager, structureId, structureId.toString(), makeSettings(rotation, ruinsType), pos);
+			this.ruinsType = ruinsType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
 			this.adjustedHeight = adjustedHeight;
@@ -471,12 +205,12 @@ public class RuinsPieces {
 		private RuinPiece(
 			StructureTemplateManager templateManager,
 			CompoundTag nbt, Rotation rotation,
-			RuinsStructure.Type biomeType,
+			RuinsStructure.Type ruinsType,
 			Optional<Heightmap.Types> heightmap,
 			Optional<Integer> providedHeight
 		) {
-			super(TTStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
-			this.biomeType = biomeType;
+			super(TTStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, ruinsType));
+			this.ruinsType = ruinsType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
 		}
@@ -484,43 +218,47 @@ public class RuinsPieces {
 		private RuinPiece(
 			StructureTemplateManager templateManager,
 			CompoundTag nbt, Rotation rotation,
-			RuinsStructure.Type biomeType,
+			RuinsStructure.Type ruinsType,
 			Optional<Heightmap.Types> heightmap,
 			Optional<Integer> providedHeight,
 			boolean adjustedHeight
 		) {
-			super(TTStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, biomeType));
-			this.biomeType = biomeType;
+			super(TTStructurePieceTypes.RUIN, nbt, templateManager, id -> makeSettings(rotation, ruinsType));
+			this.ruinsType = ruinsType;
 			this.heightmap = heightmap;
 			this.providedHeight = providedHeight;
 			this.adjustedHeight = adjustedHeight;
 		}
 
-		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.@NotNull Type type) {
+		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.@NotNull Type ruinsType) {
 			StructurePlaceSettings placeSettings = new StructurePlaceSettings()
 				.setRotation(rotation)
 				.setMirror(Mirror.NONE)
 				.addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
 
-			type.getProcessors().list().forEach(placeSettings::addProcessor);
+			ruinsType.getProcessors().list().forEach(placeSettings::addProcessor);
 			return placeSettings;
 		}
 
 		public static @NotNull RuinPiece create(StructureTemplateManager templateManager, @NotNull CompoundTag nbt) {
 			Rotation rotation = Rotation.valueOf(nbt.getString("Rot"));
-			RuinsStructure.Type type = RuinsStructure.Type.valueOf(nbt.getString("BiomeType"));
+
+			RuinsStructure.Type type = RuinsStructure.Type.GENERIC;
+			if (nbt.contains("RuinsType")) {
+				type = RuinsStructure.Type.valueOf(nbt.getString("RuinsType"));
+			} else if (nbt.contains("BiomeType")) {
+				type = RuinsStructure.Type.valueOf(nbt.getString("BiomeType"));
+			}
+
 			Heightmap.Types heightmap = null;
-			if (nbt.contains("HeightmapType")) {
-				heightmap = Heightmap.Types.valueOf(nbt.getString("HeightmapType"));
-			}
+			if (nbt.contains("HeightmapType")) heightmap = Heightmap.Types.valueOf(nbt.getString("HeightmapType"));
+
 			Integer providedHeight = null;
-			if (nbt.contains("ProvidedHeight")) {
-				providedHeight = nbt.getInt("ProvidedHeight");
-			}
+			if (nbt.contains("ProvidedHeight")) providedHeight = nbt.getInt("ProvidedHeight");
+
 			boolean adjustedHeight = false;
-			if (nbt.contains("AdjustedHeight")) {
-				adjustedHeight = nbt.getBoolean("AdjustedHeight");
-			}
+			if (nbt.contains("AdjustedHeight")) adjustedHeight = nbt.getBoolean("AdjustedHeight");
+
 			return new RuinPiece(templateManager, nbt, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight), adjustedHeight);
 		}
 
@@ -528,7 +266,7 @@ public class RuinsPieces {
 		protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
 			super.addAdditionalSaveData(context, nbt);
 			nbt.putString("Rot", this.placeSettings.getRotation().name());
-			nbt.putString("BiomeType", this.biomeType.toString());
+			nbt.putString("RuinsType", this.ruinsType.toString());
 			this.heightmap.ifPresent(types -> nbt.putString("HeightmapType", types.toString()));
 			this.providedHeight.ifPresent(height -> nbt.putInt("ProvidedHeight", height));
 			nbt.putBoolean("AdjustedHeight", this.adjustedHeight);
@@ -552,13 +290,13 @@ public class RuinsPieces {
 				this.adjustedHeight = true;
 				int startHeight = this.templatePosition.getY();
 
-				ResourceLocation pieceLocation = this.makeTemplateLocation();
-				Integer offset = PIECE_OFFSETS.computeIfPresent(pieceLocation, (resourceLocation, integer) -> -this.getBoundingBox().getYSpan() + integer);
-				if (offset == null) {
-					offset = -2;
+				int offset = -2;
+				OptionalInt optionalOffset  = RuinsPieceHandler.getPieceOffset(this);
+				if (optionalOffset.isPresent()) {
+					offset = -this.getBoundingBox().getYSpan() + optionalOffset.getAsInt();
 				}
 
-				if (!DEEPSLATE_PIECES.contains(pieceLocation)) {
+				if (!this.ruinsType.isUnderground()) {
 					int i = this.getGenHeight(world, this.templatePosition, random, 5);
 
 					this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());

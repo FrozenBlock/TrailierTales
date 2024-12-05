@@ -50,7 +50,7 @@ public class JungleRuinsGenerator {
 				),
 				RuinsStructure.Type.JUNGLE,
 				1F,
-				UniformInt.of(1, 5),
+				UniformInt.of(2, 5),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);

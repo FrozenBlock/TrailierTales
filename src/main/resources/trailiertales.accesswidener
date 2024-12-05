@@ -30,6 +30,7 @@ accessible method net/minecraft/world/level/block/BaseEntityBlock createTickerHe
 # Worldgen
 accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
 accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment <init> (Ljava/lang/String;ILjava/lang/String;)V
+accessible method net/minecraft/world/level/levelgen/structure/TemplateStructurePiece makeTemplateLocation ()Lnet/minecraft/resources/ResourceLocation;
 
 # Data Fixers
 accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;

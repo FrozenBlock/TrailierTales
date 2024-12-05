@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.TrailierTalesClient;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.model.BoatBannerModel;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;

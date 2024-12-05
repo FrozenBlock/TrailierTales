@@ -12,6 +12,9 @@ hi
 - Added the Hare Pottery Sherd.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
+- Revamped how Ruins structure pieces are loaded, chosen, and offset during worldgen, being much easier and more automatic.
+  - As a side effect of this, all ruins pieces now have an equal chance of generating. Prior to this revamp, groups of pieces with specific offsets had a certain chance of being selected.
+- Generic and Jungle ruins now generate with one more piece on average.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))
 - Added Spanish translations, thanks to Kokoroto!
 - Added Ukranian translations, thanks to unroman! ([#8](https://github.com/FrozenBlock/TrailierTales/pull/8))
