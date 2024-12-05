@@ -560,12 +560,21 @@ public class RuinsPieces {
 
 				if (!DEEPSLATE_PIECES.contains(pieceLocation)) {
 					int i = this.getGenHeight(world, this.templatePosition, random, 5);
+
 					this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
+
 					BlockPos endPos = StructureTemplate.transform(
-							new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1), Mirror.NONE, this.placeSettings.getRotation(), BlockPos.ZERO
-						)
-						.offset(this.templatePosition);
-					this.templatePosition = new BlockPos(this.templatePosition.getX(), this.getFinalHeight(this.templatePosition, world, endPos), this.templatePosition.getZ());
+						new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1),
+						Mirror.NONE,
+						this.placeSettings.getRotation(),
+						BlockPos.ZERO
+					).offset(this.templatePosition);
+
+					this.templatePosition = new BlockPos(
+						this.templatePosition.getX(),
+						this.getFinalHeight(this.templatePosition, world, endPos),
+						this.templatePosition.getZ()
+					);
 				}
 
 				this.templatePosition = this.templatePosition.relative(Direction.Axis.Y, offset);
