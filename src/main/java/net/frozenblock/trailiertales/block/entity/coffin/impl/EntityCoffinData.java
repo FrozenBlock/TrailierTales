@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.VisibleForDebug;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +38,10 @@ public class EntityCoffinData {
 
 	public UUID getCoffinUUID() {
 		return this.coffinUUID;
+	}
+
+	public static boolean entityHasCoffinData(@NotNull Entity entity) {
+		return entity instanceof EntityCoffinInterface entityCoffinInterface &&  entityCoffinInterface.trailierTales$getCoffinData() != null;
 	}
 
 	public void tick(LivingEntity entity, @NotNull Level level) {
