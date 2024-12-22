@@ -514,7 +514,7 @@ public class TTBlocks {
 			.mapColor(MapColor.COLOR_LIGHT_BLUE)
 			.noOcclusion()
 			.instabreak()
-			.strength(0.2F)
+			.explosionResistance(1200F)
 			.emissiveRendering(Blocks::always)
 			.lightLevel(state -> 1)
 			.sound(SoundType.WOOL)

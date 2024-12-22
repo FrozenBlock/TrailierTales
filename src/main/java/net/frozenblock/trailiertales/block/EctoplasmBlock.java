@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class EctoplasmBlock extends HalfTransparentBlock {
 	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
-	public static final int LIGHT_BLOCK = 2;
 	public static final double GRAVITY_SLOWDOWN = 0.45D;
 	public static final MapCodec<EctoplasmBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		propertiesCodec()
@@ -52,7 +51,12 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public int getLightBlock(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-		return LIGHT_BLOCK;
+	protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
+		return true;
+	}
+
+	@Override
+	protected int getLightBlock(BlockState state, BlockGetter world, BlockPos pos) {
+		return 0;
 	}
 }
