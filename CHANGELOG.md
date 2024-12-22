@@ -5,7 +5,7 @@ hi
 -----------------
 - Added 42 new rooms for Catacombs.
 - Chains now generate more commonly in Catacombs.
-- Added 14 new tall pieces for Generic Ruins.
+- Added plenty of new large pieces to all Ruins types.
 - Added new ruins for snowy biomes.
 - Added the Embrace Armor Trim.
 - Added the Frost Pottery Sherd.
