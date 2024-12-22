@@ -357,13 +357,18 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected @NotNull SoundEvent getHurtSound(DamageSource source) {
 		return TTSounds.APPARITION_HURT;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected @NotNull SoundEvent getDeathSound() {
 		return TTSounds.APPARITION_DEATH;
+	}
+
+	@Override
+	protected @NotNull MovementEmission getMovementEmission() {
+		return MovementEmission.NONE;
 	}
 
 	@Override
@@ -372,10 +377,20 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
+	public boolean onGround() {
+		return false;
+	}
+
+	@Override
+	public boolean isInWall() {
+		return false;
+	}
+
+	@Override
 	public void tick() {
-		this.noPhysics = true;
+		this.stuckSpeedMultiplier = Vec3.ZERO;
+		this.fallDistance = 0F;
 		super.tick();
-		this.noPhysics = false;
 		this.setNoGravity(true);
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
@@ -638,6 +653,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected void pushEntities() {
+	}
+
+	@Override
+	public void push(Entity entity) {
 	}
 
 	public void spawnParticles(int count, ParticleOptions particleOptions) {

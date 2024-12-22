@@ -2,12 +2,14 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +35,11 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+		if (collisionContext instanceof EntityCollisionContext entityCollisionContext) {
+			if (entityCollisionContext.getEntity() instanceof Apparition) {
+				return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+			}
+		}
 		return COLLISION_SHAPE;
 	}
 
