@@ -6,7 +6,6 @@ import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class EctoplasmBlock extends HalfTransparentBlock {
 	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
 	public static final int LIGHT_BLOCK = 2;
-	public static final double GRAVITY_SLOWDOWN = 0.4D;
+	public static final double GRAVITY_SLOWDOWN = 0.45D;
 	public static final MapCodec<EctoplasmBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		propertiesCodec()
 	).apply(instance, EctoplasmBlock::new));
