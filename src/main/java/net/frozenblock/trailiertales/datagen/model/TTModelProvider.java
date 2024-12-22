@@ -117,11 +117,11 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.family(TTBlocks.MOSSY_DEEPSLATE_TILES).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
 
 		this.wallSmooth(generator, TTBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SANDSTONE);
-		this.stairs(generator, TTBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE);
+		this.stairsCut(generator, TTBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE, Blocks.SANDSTONE);
 		this.wall(generator, TTBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
 
 		this.wallSmooth(generator, TTBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.RED_SANDSTONE);
-		this.stairs(generator, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
+		this.stairsCut(generator, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE, Blocks.RED_SANDSTONE);
 		this.wall(generator, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
 
 		this.wall(generator, TTBlocks.PRISMARINE_BRICK_WALL, Blocks.PRISMARINE_BRICKS);
@@ -166,11 +166,15 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.delegateItemModel(wallBlock, resourceLocation4);
 	}
 
-	public void stairs(@NotNull BlockModelGenerators generator, Block stairsBlock, Block originalBlock) {
-		TextureMapping mapping = TexturedModel.CUBE.get(originalBlock).getMapping();
-		ResourceLocation resourceLocation = ModelTemplates.STAIRS_INNER.create(stairsBlock, mapping, generator.modelOutput);
-		ResourceLocation resourceLocation2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, mapping, generator.modelOutput);
-		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, mapping, generator.modelOutput);
+	public void stairsCut(@NotNull BlockModelGenerators generator, Block stairsBlock, Block cutBlock, Block smoothBlock) {
+		TextureMapping textureMapping = new TextureMapping();
+		textureMapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(cutBlock));
+		textureMapping.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(smoothBlock, "_top"));
+		textureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(smoothBlock, "_top"));
+
+		ResourceLocation resourceLocation = ModelTemplates.STAIRS_INNER.create(stairsBlock, textureMapping, generator.modelOutput);
+		ResourceLocation resourceLocation2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, textureMapping, generator.modelOutput);
+		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, textureMapping, generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, resourceLocation, resourceLocation2, resourceLocation3));
 		generator.delegateItemModel(stairsBlock, resourceLocation2);
 	}

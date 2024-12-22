@@ -32,5 +32,6 @@ hi
 - Fixed an issue where modded boats that aren't implemented the same way as vanilla cause a crash. ([#9](https://github.com/FrozenBlock/TrailierTales/issues/9))
 - Fixed the Polished Calcite Wall not being craftable with a Stonecutter. ([#11](https://github.com/FrozenBlock/TrailierTales/issues/11))
 - Fixed some recipe unlocks not working.
+- Fixed Cut Sandstone Stairs and Cut Red Sandstone Stairs having incorrect texture mapping.
 - Removed the leftover `TRAILIER TALES` subtitle from the main menu.
 - Removed many unused assets.
