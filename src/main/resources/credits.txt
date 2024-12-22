@@ -2,7 +2,7 @@ Luna/Lunade/AViewFromTheTop - Lead Dev/Producer & Sound Designer
 
 wigglewoggle - Builder
     - Main builder of Catacombs structure pieces after prototyping
-    - Generic, Snowy, Savanna, Desert, and Jungle ruins
+    - Generic, Snowy, Savanna, Desert, Jungle, and Deepslate ruins
 
 Soro335
     - Came up with initial Badlands Fort designs
@@ -57,6 +57,7 @@ Zhen
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
     - Made the Fausse Vie music disc
+    - Made the Stasis music disc
 
 Voxelotl
     - Texture Artist:
@@ -82,10 +83,14 @@ Voxelotl
       - Fixed the Chiseled Andesite texture
       - Fixed the Chiseled Diorite texture
       - Embrace Armor Trim
+      - Block of Ectoplasm texture
 
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks
     - Implemented the Wither Pottery Sherd
+
+Qzimyion
+    - Mid-air block placement (used for the Block of Ectoplasm)
 
 Eggmanplant
     - Polish translation and a few early bug fixes

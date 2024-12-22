@@ -48,7 +48,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
 			.save(recipeOutput);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTBlocks.ECTOPLASM_BLOCK)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTItems.ECTOPLASM_BLOCK)
 			.define('#', TTItems.ECTOPLASM)
 			.pattern("##")
 			.pattern("##")
@@ -56,8 +56,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.save(recipeOutput);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TTItems.ECTOPLASM, 4)
-			.requires(TTBlocks.ECTOPLASM_BLOCK)
-			.unlockedBy("has_ectoplasm_block", has(TTBlocks.ECTOPLASM_BLOCK))
+			.requires(TTItems.ECTOPLASM_BLOCK)
+			.unlockedBy("has_ectoplasm_block", has(TTItems.ECTOPLASM_BLOCK))
 			.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)

@@ -658,7 +658,7 @@ public class TTBlocks {
 		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
 
-		registerBlockAfter(Blocks.WAXED_OXIDIZED_COPPER_BULB, "ectoplasm_block", ECTOPLASM_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
+		actualRegisterBlock("ectoplasm_block", ECTOPLASM_BLOCK);
 	}
 
 	private static void registerBlock(String path, Block block) {

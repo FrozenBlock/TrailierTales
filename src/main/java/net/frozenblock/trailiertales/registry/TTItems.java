@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
+import net.frozenblock.lib.item.api.PlaceInAirBlockItem;
 import net.frozenblock.lib.item.api.sherd.SherdRegistry;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public class TTItems {
@@ -29,6 +31,7 @@ public class TTItems {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Item ECTOPLASM = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item ECTOPLASM_BLOCK = new PlaceInAirBlockItem(TTBlocks.ECTOPLASM_BLOCK, new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 
 	public static final Item CYAN_ROSE_SEEDS = new ItemNameBlockItem(TTBlocks.CYAN_ROSE_CROP, new Item.Properties()
 		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
@@ -125,6 +128,7 @@ public class TTItems {
 	public static void init() {
 		registerItemAfter(Items.ALLAY_SPAWN_EGG, APPARITION_SPAWN_EGG, "apparition_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
 		registerItemBefore(Items.MAGMA_CREAM, ECTOPLASM, "ectoplasm", CreativeModeTabs.INGREDIENTS);
+		registerItemAfter(Items.WAXED_OXIDIZED_COPPER_BULB, ECTOPLASM_BLOCK, "ectoplasm_block", CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(CYAN_ROSE_SEEDS, DAWNTRAIL_SEEDS, "dawntrail_seeds", CreativeModeTabs.NATURAL_BLOCKS);
