@@ -38,6 +38,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -367,30 +368,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected @NotNull MovementEmission getMovementEmission() {
-		return MovementEmission.NONE;
-	}
-
-	@Override
 	public float getSoundVolume() {
 		return 0.75F;
 	}
 
 	@Override
-	public boolean onGround() {
-		return false;
-	}
-
-	@Override
-	public boolean isInWall() {
-		return false;
-	}
-
-	@Override
 	public void tick() {
-		this.stuckSpeedMultiplier = Vec3.ZERO;
-		this.fallDistance = 0F;
+		this.noPhysics = true;
 		super.tick();
+		this.noPhysics = false;
 		this.setNoGravity(true);
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
@@ -416,6 +402,41 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.aidAnimProgress += (this.getAidAnimProgress() - this.aidAnimProgress) * 0.3F;
 			this.prevPoltergeistAnimProgress = this.poltergeistAnimProgress;
 			this.poltergeistAnimProgress += (this.getPoltergeistAnimProgress() - this.poltergeistAnimProgress) * 0.3F;
+		}
+	}
+
+	@Override
+	public void move(MoverType movementType, Vec3 movement) {
+		this.level().getProfiler().push("move");
+		Vec3 vec3 = this.collide(movement);
+		this.setPos(this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
+
+		this.level().getProfiler().pop();
+		this.level().getProfiler().push("rest");
+		boolean horizontalCollisionX = !Mth.equal(movement.x, vec3.x);
+		boolean horizontalCollisionZ = !Mth.equal(movement.z, vec3.z);
+		this.horizontalCollision = horizontalCollisionX || horizontalCollisionZ;
+		this.verticalCollision = movement.y != vec3.y;
+		this.verticalCollisionBelow = this.verticalCollision && movement.y < 0D;
+		if (this.horizontalCollision) {
+			this.minorHorizontalCollision = this.isHorizontalCollisionMinor(vec3);
+		} else {
+			this.minorHorizontalCollision = false;
+		}
+
+		this.setOnGroundWithMovement(this.verticalCollisionBelow, vec3);
+		if (this.isRemoved()) {
+			this.level().getProfiler().pop();
+		} else {
+			if (this.horizontalCollision) {
+				Vec3 vec32 = this.getDeltaMovement();
+				this.setDeltaMovement(horizontalCollisionX ? 0D : vec32.x, vec32.y, horizontalCollisionZ ? 0D : vec32.z);
+			}
+			this.tryCheckInsideBlocks();
+			float h = this.getBlockSpeedFactor();
+			this.setDeltaMovement(this.getDeltaMovement().multiply(h, 1D, h));
+
+			this.level().getProfiler().pop();
 		}
 	}
 
@@ -653,10 +674,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected void pushEntities() {
-	}
-
-	@Override
-	public void push(Entity entity) {
 	}
 
 	public void spawnParticles(int count, ParticleOptions particleOptions) {

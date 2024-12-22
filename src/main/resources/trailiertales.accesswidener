@@ -10,6 +10,7 @@ accessible method net/minecraft/world/entity/projectile/ProjectileUtil getHitRes
 
 # Entity
 accessible field net/minecraft/world/level/ClipContext collisionContext Lnet/minecraft/world/phys/shapes/CollisionContext;
+accessible method net/minecraft/world/entity/Entity collide (Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
 accessible method net/minecraft/world/entity/LivingEntity makePoofParticles ()V
 
 # Mob Effect
