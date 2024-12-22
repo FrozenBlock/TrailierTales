@@ -4,7 +4,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Added 42 new rooms for Catacombs.
-- Chains now generate more commonly in Catacombs.
 - Added plenty of new large pieces to all Ruins types.
 - Added new ruins for snowy biomes.
 - Added new "Small Trail Ruins," generating rarely in biomes with vanilla's Trail Ruins.
