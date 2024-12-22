@@ -44,7 +44,17 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
 			.save(recipeOutput);
 
-		RecipeProvider.nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TTItems.ECTOPLASM, RecipeCategory.MISC, TTBlocks.ECTOPLASM_BLOCK);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TTBlocks.ECTOPLASM_BLOCK)
+			.define('#', TTItems.ECTOPLASM)
+			.pattern("##")
+			.pattern("##")
+			.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
+			.save(recipeOutput, getSimpleRecipeName(TTBlocks.ECTOPLASM_BLOCK));
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TTItems.ECTOPLASM, 4)
+			.requires(TTBlocks.ECTOPLASM_BLOCK)
+			.unlockedBy("has_ectoplasm_block", has(TTBlocks.ECTOPLASM_BLOCK))
+			.save(recipeOutput, getSimpleRecipeName(TTItems.ECTOPLASM));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
 			.define('#', Items.GRAVEL)
