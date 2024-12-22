@@ -1,13 +1,13 @@
 {
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 9432401,
-    "separation": 18,
-    "spacing": 34
+    "salt": 783586428,
+    "separation": 32,
+    "spacing": 56
   },
   "structures": [
     {
-      "structure": "trailiertales:ruins_desert",
+      "structure": "trailiertales:ruins_trail",
       "weight": 1
     }
   ]

@@ -64,7 +64,7 @@ public class SnowyRuinsGenerator {
 			SNOWY_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(SNOWY_RUIN_KEY),
-				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 9457163)
+				new RandomSpreadStructurePlacement(34, 18, RandomSpreadType.LINEAR, 9457163)
 			)
 		);
 	}
