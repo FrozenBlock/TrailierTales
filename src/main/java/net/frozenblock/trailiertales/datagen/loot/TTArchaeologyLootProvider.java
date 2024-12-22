@@ -45,9 +45,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(1))
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(14))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(2))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(25))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(18))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(16))
@@ -76,9 +73,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(1))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(5))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(1))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(8))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(8))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(8))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(8))
 						.add(LootItem.lootTableItem(Items.PAPER).setWeight(4))
@@ -104,9 +98,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(3))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(1))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(14))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(9))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(8))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(6))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(6))
@@ -140,19 +131,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.SHINE_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
-				)
-		);
-
-		registry.accept(
-			TTLootTables.FOSSIL_ARCHAEOLOGY,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.COAL))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH))
-						.add(LootItem.lootTableItem(Items.STICK))
 				)
 		);
 

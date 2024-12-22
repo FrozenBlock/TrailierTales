@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Added 42 new rooms for Catacombs.
+- Skulls, Bones, and Rotten Flesh are no longer archeology loot in Catacombs.
 - Added the Block of Ectoplasm.
   - While inside this block, gravity is weaker.
   - Apparitions cannot move through these blocks.
