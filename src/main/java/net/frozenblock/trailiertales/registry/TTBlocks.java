@@ -520,6 +520,8 @@ public class TTBlocks {
 			.sound(SoundType.WOOL)
 			.isSuffocating(Blocks::never)
 			.isViewBlocking(Blocks::never)
+			.pushReaction(PushReaction.DESTROY)
+			.dynamicShape()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 

@@ -2,12 +2,14 @@ package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.lib.block.api.shape.FrozenShapes;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -15,7 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class EctoplasmBlock extends HalfTransparentBlock {
-	public static final VoxelShape COLLISION_SHAPE = Shapes.empty();
+	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
 	public static final int LIGHT_BLOCK = 2;
 	public static final double GRAVITY_SLOWDOWN = 0.4D;
 	public static final MapCodec<EctoplasmBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
@@ -23,7 +25,7 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	).apply(instance, EctoplasmBlock::new));
 
 	public EctoplasmBlock(@NotNull Properties properties) {
-		super(properties.pushReaction(PushReaction.DESTROY));
+		super(properties);
 	}
 
 	@NotNull
@@ -35,12 +37,19 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+		VoxelShape shape = Shapes.empty();
+
 		if (collisionContext instanceof EntityCollisionContext entityCollisionContext) {
 			if (entityCollisionContext.getEntity() instanceof Apparition) {
-				return super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+				for (Direction direction : Direction.values()) {
+					if (!blockGetter.getBlockState(blockPos.relative(direction)).is(this)) {
+						shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
+					}
+				}
 			}
 		}
-		return COLLISION_SHAPE;
+
+		return shape;
 	}
 
 	@Override

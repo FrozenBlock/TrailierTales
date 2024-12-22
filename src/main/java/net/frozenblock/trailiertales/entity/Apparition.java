@@ -424,7 +424,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			this.minorHorizontalCollision = false;
 		}
 
-		this.setOnGroundWithMovement(this.verticalCollisionBelow, vec3);
 		if (this.isRemoved()) {
 			this.level().getProfiler().pop();
 		} else {
@@ -432,10 +431,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				Vec3 vec32 = this.getDeltaMovement();
 				this.setDeltaMovement(horizontalCollisionX ? 0D : vec32.x, vec32.y, horizontalCollisionZ ? 0D : vec32.z);
 			}
-			this.tryCheckInsideBlocks();
-			float h = this.getBlockSpeedFactor();
-			this.setDeltaMovement(this.getDeltaMovement().multiply(h, 1D, h));
-
 			this.level().getProfiler().pop();
 		}
 	}
