@@ -10,6 +10,7 @@ hi
 - Added the Embrace Armor Trim.
 - Added the Frost Pottery Sherd.
 - Added the Hare Pottery Sherd.
+- Added the Stasis Music Disc.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
 - Revamped how Ruins structure pieces are loaded, chosen, and offset during worldgen, being much easier and more automatic.
