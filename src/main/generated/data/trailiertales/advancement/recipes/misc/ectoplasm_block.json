@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:ectoplasm_block"
+        "recipe": "trailiertales:ectoplasm_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:ectoplasm_block"
+      "trailiertales:ectoplasm_block"
     ]
   }
 }

@@ -25,12 +25,16 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TTRecipeProvider extends FabricRecipeProvider {
+	public static boolean GENERATING_TT_RECIPES = false;
+
 	public TTRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
 	public void buildRecipes(RecipeOutput recipeOutput) {
+		GENERATING_TT_RECIPES = true;
+
 		generateForEnabledBlockFamilies(recipeOutput, TTFeatureFlags.TRAILIER_TALES_FLAG_SET);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TTBlocks.SURVEYOR)
 			.define('E', TTItems.ECTOPLASM)
@@ -49,12 +53,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("##")
 			.pattern("##")
 			.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
-			.save(recipeOutput, getSimpleRecipeName(TTBlocks.ECTOPLASM_BLOCK));
+			.save(recipeOutput);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TTItems.ECTOPLASM, 4)
 			.requires(TTBlocks.ECTOPLASM_BLOCK)
 			.unlockedBy("has_ectoplasm_block", has(TTBlocks.ECTOPLASM_BLOCK))
-			.save(recipeOutput, getSimpleRecipeName(TTItems.ECTOPLASM));
+			.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
 			.define('#', Items.GRAVEL)
@@ -591,6 +595,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.pattern("###")
 			.unlockedBy("has_embrace_armor_trim_smithing_template", has(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE))
 			.save(recipeOutput);
+
+		GENERATING_TT_RECIPES = false;
 	}
 
 	public static void stonecutterResultFromBase(RecipeOutput exporter, RecipeCategory category, ItemLike ingredient, ItemLike result) {
