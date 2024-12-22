@@ -7,6 +7,8 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
+import net.frozenblock.lib.gravity.api.GravityAPI;
+import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
@@ -84,6 +86,14 @@ public class TrailierTales extends FrozenModInitializer {
 			TTMiscConfig.get().titleResourcePackEnabled ?
 				ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
 		);
+
+		GravityAPI.MODIFICATIONS.register(gravityContext -> {
+			if (gravityContext.entity != null) {
+				if (gravityContext.entity.getInBlockState().getBlock() instanceof EctoplasmBlock) {
+					gravityContext.gravity = gravityContext.gravity.scale(EctoplasmBlock.GRAVITY_SLOWDOWN);
+				}
+			}
+		});
 
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

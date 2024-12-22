@@ -82,6 +82,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_DIRT);
 		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_CLAY);
 
+		createEctoplasmBlock(generator);
+
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(TTBlocks.GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_GRANITE_BRICK);
 		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_GRANITE_BRICK);
@@ -315,5 +317,13 @@ public final class TTModelProvider extends FabricModelProvider {
 				}
 				);
 		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(crop).with(propertyDispatch));
+	}
+
+	private static void createEctoplasmBlock(@NotNull BlockModelGenerators generator) {
+		Block block = TTBlocks.ECTOPLASM_BLOCK;
+		ResourceLocation model = TTConstants.id("block/ectoplasm_block");
+
+		generator.blockStateOutput.accept( BlockModelGenerators.createSimpleBlock(block, model));
+		generator.delegateItemModel(block, model);
 	}
 }

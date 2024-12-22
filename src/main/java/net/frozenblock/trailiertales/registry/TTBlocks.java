@@ -7,6 +7,7 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
+import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
@@ -508,6 +509,20 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	public static final EctoplasmBlock ECTOPLASM_BLOCK = new EctoplasmBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_LIGHT_BLUE)
+			.noOcclusion()
+			.instabreak()
+			.strength(0.2F)
+			.emissiveRendering(Blocks::always)
+			.lightLevel(state -> 1)
+			.sound(SoundType.WOOL)
+			.isSuffocating(Blocks::never)
+			.isViewBlocking(Blocks::never)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
 	public static void init() {
 		TTConstants.log("Registering Blocks for Trailier Tales.", TTConstants.UNSTABLE_LOGGING);
 
@@ -640,6 +655,8 @@ public class TTBlocks {
 
 		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
+
+		registerBlockAfter(Blocks.WAXED_OXIDIZED_COPPER_BULB, "ectoplasm_block", ECTOPLASM_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
 	}
 
 	private static void registerBlock(String path, Block block) {

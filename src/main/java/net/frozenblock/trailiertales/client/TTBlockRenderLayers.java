@@ -15,6 +15,8 @@ public class TTBlockRenderLayers {
 		BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntityTypes.COFFIN);
 
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
+		renderLayerRegistry.putBlock(TTBlocks.ECTOPLASM_BLOCK, RenderType.translucent());
+
 		renderLayerRegistry.putBlock(TTBlocks.POTTED_CYAN_ROSE, RenderType.cutout());
 		renderLayerRegistry.putBlock(TTBlocks.CYAN_ROSE, RenderType.cutout());
 		renderLayerRegistry.putBlock(TTBlocks.CYAN_ROSE_CROP, RenderType.cutout());

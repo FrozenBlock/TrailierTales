@@ -11,6 +11,7 @@ import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -42,6 +43,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD))
 			.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
 			.save(recipeOutput);
+
+		RecipeProvider.nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TTItems.ECTOPLASM, RecipeCategory.MISC, TTBlocks.ECTOPLASM_BLOCK);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
 			.define('#', Items.GRAVEL)
