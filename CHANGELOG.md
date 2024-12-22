@@ -7,7 +7,7 @@ hi
 - Chains now generate more commonly in Catacombs.
 - Added plenty of new large pieces to all Ruins types.
 - Added new ruins for snowy biomes.
-- Added new "Small Trail Ruins," generating rarely in biomes with generic ruins and vanilla's Trail Ruins.
+- Added new "Small Trail Ruins," generating rarely in biomes with vanilla's Trail Ruins.
 - Added the Embrace Armor Trim.
 - Added the Frost Pottery Sherd.
 - Added the Hare Pottery Sherd.

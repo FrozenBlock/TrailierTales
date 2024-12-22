@@ -56,7 +56,7 @@ public class SmallTrailRuinsGenerator {
 			SMALL_TRAIL_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(SMALL_TRAIL_RUIN_KEY),
-				new RandomSpreadStructurePlacement(56, 32, RandomSpreadType.LINEAR, 783586428)
+				new RandomSpreadStructurePlacement(32, 18, RandomSpreadType.LINEAR, 783586428)
 			)
 		);
 	}

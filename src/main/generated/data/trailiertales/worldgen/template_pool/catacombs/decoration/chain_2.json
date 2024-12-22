@@ -15,7 +15,7 @@
         },
         "projection": "rigid"
       },
-      "weight": 6
+      "weight": 2
     },
     {
       "element": {
@@ -26,7 +26,7 @@
         },
         "projection": "rigid"
       },
-      "weight": 6
+      "weight": 3
     }
   ],
   "fallback": "minecraft:empty"

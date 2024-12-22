@@ -474,10 +474,10 @@ public class CatacombsGenerator {
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 2),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 3),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_4")), 4),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_5")), 5)
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 1),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 2),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_4")), 2),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_5")), 3)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -491,9 +491,9 @@ public class CatacombsGenerator {
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.empty(), 75),
 					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 2),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 4),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_4")), 4)
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 1),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 2),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_4")), 2)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -506,9 +506,9 @@ public class CatacombsGenerator {
 				empty,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.empty(), 75),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 4),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 4),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 4)
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 1),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 2),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_3")), 2)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -521,8 +521,8 @@ public class CatacombsGenerator {
 				empty,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.empty(), 75),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 6),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 6)
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 2),
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_2")), 3)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)
@@ -535,7 +535,7 @@ public class CatacombsGenerator {
 				empty,
 				ImmutableList.of(
 					Pair.of(StructurePoolElement.empty(), 75),
-					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 12)
+					Pair.of(StructurePoolElement.single(string("decoration/chain/chain_1")), 4)
 				),
 				StructureTemplatePool.Projection.RIGID
 			)

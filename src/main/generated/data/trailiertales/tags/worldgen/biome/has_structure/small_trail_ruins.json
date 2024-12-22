@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "#trailiertales:has_structure/ruins",
-      "required": false
-    },
-    {
       "id": "#minecraft:has_structure/trail_ruins",
       "required": false
     }
