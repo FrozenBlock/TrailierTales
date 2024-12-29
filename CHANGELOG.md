@@ -38,3 +38,14 @@ hi
 - Fixed Cut Sandstone Stairs and Cut Red Sandstone Stairs having incorrect texture mapping.
 - Removed the leftover `TRAILIER TALES` subtitle from the main menu.
 - Removed many unused assets.
+
+### Splash Texts
+- Added "Light like the moon!"
+- Added "Dropping twice in the siege!"
+- Added "Taller and handsome! ...er."
+- Added "Dressed in a nice black suit!"
+- Added "The money pit!"
+- Added "Mysterious fragments of human bone!"
+- Added "A rat? Located at a depth of 70 feet underground?"
+- Added "A stone crypt? Located at a depth of 406 feet underground?"
+- Added "Contains hidden treasure!"
