@@ -238,6 +238,43 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(TTItems.LUMBER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.CULTIVATOR_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.SPROUT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
+				)
+		);
+
+		registry.accept(
+			TTLootTables.SNOWY_RUINS_ARCHAEOLOGY,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.WHITE_DYE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHITE_CANDLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.RED_CANDLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
+						.add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(7))
+						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(7))
+						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
+						.add(LootItem.lootTableItem(Items.CHARCOAL).setWeight(15))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.CLAY).setWeight(7))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
+						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(10))
+						.add(LootItem.lootTableItem(Items.WHITE_WOOL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.RED_WOOL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.LEAD).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.PACKED_ICE).setWeight(10))
+						.add(LootItem.lootTableItem(Items.SPRUCE_HANGING_SIGN).setWeight(10))
+						.add(LootItem.lootTableItem(TTItems.AURORA_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.ENCLOSURE_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.HARE_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.FROST_POTTERY_SHERD).setWeight(7))
 				)
 		);
 

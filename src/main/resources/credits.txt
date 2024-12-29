@@ -46,6 +46,8 @@ Zhen
       - Shower Pottery Sherd/Pattern
       - Spade Pottery Sherd/Pattern
       - Sprout Pottery Sherd/Pattern
+      - Aurora Pottery Sherd/Pattern
+      - Enclosure Pottery Sherd/Pattern
       - Transfiguring icon and particle texture
       - Overgrowth Armor Trim
       - Matrix Armor Trim

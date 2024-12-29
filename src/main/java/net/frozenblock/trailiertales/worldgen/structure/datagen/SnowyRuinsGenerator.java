@@ -15,7 +15,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -93,7 +92,7 @@ public class SnowyRuinsGenerator {
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.2F), AlwaysTrueTest.INSTANCE, Blocks.DIRT.defaultBlockState()),
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, 0.1F), AlwaysTrueTest.INSTANCE, Blocks.COARSE_DIRT.defaultBlockState()),
-					TTStructures.archyProcessorRule(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, TTLootTables.RUINS_ARCHAEOLOGY, 0.15F),
+					TTStructures.archyProcessorRule(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, TTLootTables.SNOWY_RUINS_ARCHAEOLOGY, 0.15F),
 					new ProcessorRule(new RandomBlockMatchTest(TTBlocks.CALCITE_BRICKS, 0.35F), AlwaysTrueTest.INSTANCE, Blocks.CALCITE.defaultBlockState()),
 					new ProcessorRule(new RandomBlockMatchTest(TTBlocks.CALCITE_BRICKS, 0.1F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_CALCITE_BRICKS.defaultBlockState())
 				)
@@ -111,15 +110,15 @@ public class SnowyRuinsGenerator {
 					)
 				)
 			),
-			TTStructures.archyLootProcessor(Blocks.DIRT, TTBlocks.SUSPICIOUS_DIRT, TTLootTables.RUINS_ARCHAEOLOGY, 0.05F),
-			TTStructures.archyLootProcessor(Blocks.COARSE_DIRT, TTBlocks.SUSPICIOUS_DIRT, TTLootTables.RUINS_ARCHAEOLOGY, 0.05F),
-			TTStructures.archyLootProcessor(Blocks.CLAY, TTBlocks.SUSPICIOUS_CLAY, TTLootTables.RUINS_ARCHAEOLOGY, 0.4F),
+			TTStructures.archyLootProcessor(Blocks.DIRT, TTBlocks.SUSPICIOUS_DIRT, TTLootTables.SNOWY_RUINS_ARCHAEOLOGY, 0.05F),
+			TTStructures.archyLootProcessor(Blocks.COARSE_DIRT, TTBlocks.SUSPICIOUS_DIRT, TTLootTables.SNOWY_RUINS_ARCHAEOLOGY, 0.05F),
+			TTStructures.archyLootProcessor(Blocks.CLAY, TTBlocks.SUSPICIOUS_CLAY, TTLootTables.SNOWY_RUINS_ARCHAEOLOGY, 0.4F),
 			TTStructures.decoratedPotSherdProcessor(
 				1F,
-				TTItems.LUMBER_POTTERY_SHERD,
-				Items.ARCHER_POTTERY_SHERD,
-				Items.BLADE_POTTERY_SHERD,
-				TTItems.SPROUT_POTTERY_SHERD
+				TTItems.AURORA_POTTERY_SHERD,
+				TTItems.ENCLOSURE_POTTERY_SHERD,
+				TTItems.FROST_POTTERY_SHERD,
+				TTItems.HARE_POTTERY_SHERD
 			),
 			new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 		)

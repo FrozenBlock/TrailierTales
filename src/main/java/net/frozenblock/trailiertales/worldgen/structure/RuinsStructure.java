@@ -16,7 +16,6 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGener
 import net.frozenblock.trailiertales.worldgen.structure.datagen.GenericRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.SmallTrailRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SnowyRuinsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -167,7 +166,6 @@ public class RuinsStructure extends Structure {
 
 	public enum Type implements StringRepresentable {
 		GENERIC("generic", GenericRuinsGenerator.PROCESSORS, false),
-		TRAIL("trail", SmallTrailRuinsGenerator.PROCESSORS, false),
 		SNOWY("snowy", SnowyRuinsGenerator.PROCESSORS, false),
 		BADLANDS("badlands", BadlandsRuinsGenerator.PROCESSORS, false),
 		DESERT("desert", DesertRuinsGenerator.PROCESSORS, false),

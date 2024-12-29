@@ -46,6 +46,7 @@ public class TTItems {
 	/**
 	 * Don't forget to go to {@link TTDecoratedPotPatternRegistry} to register patterns!
 	 */
+	public static final Item AURORA_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BAIT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BLOOM_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item BOLT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -56,6 +57,7 @@ public class TTItems {
 	public static final Item CRESCENT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item CULTIVATOR_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item DROUGHT_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Item ENCLOSURE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item ESSENCE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item EYE_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
 	public static final Item FOCUS_POTTERY_SHERD = new Item(new Item.Properties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
@@ -108,7 +110,7 @@ public class TTItems {
 		TTFeatureFlags.FEATURE_FLAG
 	);
 	public static final Item EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE = SmithingTemplateItem.createArmorTrimTemplate(
-		TTTrimPatterns.COT,
+		TTTrimPatterns.EMBRACE,
 		TTFeatureFlags.FEATURE_FLAG
 	);
 
@@ -134,6 +136,7 @@ public class TTItems {
 		registerItemAfter(CYAN_ROSE_SEEDS, DAWNTRAIL_SEEDS, "dawntrail_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.PITCHER_POD, MANEDROP_GERM, "manedrop_germ", CreativeModeTabs.NATURAL_BLOCKS);
 
+		registerSherdAfter(Items.ARMS_UP_POTTERY_SHERD, AURORA_POTTERY_SHERD, "aurora_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdBefore(Items.BLADE_POTTERY_SHERD, BAIT_POTTERY_SHERD, "bait_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.BLADE_POTTERY_SHERD, BLOOM_POTTERY_SHERD, "bloom_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(BLOOM_POTTERY_SHERD, BOLT_POTTERY_SHERD, "bolt_pottery_sherd", CreativeModeTabs.INGREDIENTS);
@@ -144,7 +147,8 @@ public class TTItems {
 		registerSherdAfter(CRAWL_POTTERY_SHERD, CRESCENT_POTTERY_SHERD, "crescent_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(CRESCENT_POTTERY_SHERD, CULTIVATOR_POTTERY_SHERD, "cultivator_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.DANGER_POTTERY_SHERD, DROUGHT_POTTERY_SHERD, "drought_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerSherdBefore(Items.EXPLORER_POTTERY_SHERD, ESSENCE_POTTERY_SHERD, "essence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.EXPLORER_POTTERY_SHERD, ENCLOSURE_POTTERY_SHERD, "enclosure_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdAfter(ENCLOSURE_POTTERY_SHERD, ESSENCE_POTTERY_SHERD, "essence_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.EXPLORER_POTTERY_SHERD, EYE_POTTERY_SHERD, "eye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.FLOW_POTTERY_SHERD, FOCUS_POTTERY_SHERD, "focus_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(FOCUS_POTTERY_SHERD, FROST_POTTERY_SHERD, "frost_pottery_sherd", CreativeModeTabs.INGREDIENTS);

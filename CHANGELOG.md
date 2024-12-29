@@ -3,6 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
+- Increased the protocol version to 2.
 - Added 42 new rooms for Catacombs.
 - Skulls, Bones, and Rotten Flesh are no longer archeology loot in Catacombs.
 - Added the Block of Ectoplasm.
@@ -10,7 +11,6 @@ hi
   - Apparitions cannot move through these blocks.
 - Added plenty of new large pieces to all Ruins types.
 - Added new ruins for snowy biomes.
-- Added new "Small Trail Ruins," generating rarely in biomes with vanilla's Trail Ruins.
 - Added the Embrace Armor Trim.
 - Added the Frost Pottery Sherd.
 - Added the Hare Pottery Sherd.

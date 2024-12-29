@@ -6,22 +6,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:brown_dye",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:white_dye",
           "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:red_dye",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:brown_candle",
           "weight": 20
         },
         {
@@ -51,16 +41,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:carrot",
-          "weight": 7
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:melon_seeds",
-          "weight": 7
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:pumpkin_seeds",
           "weight": 7
         },
@@ -76,12 +56,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal",
-          "weight": 10
+          "name": "minecraft:charcoal",
+          "weight": 15
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:dead_bush",
+          "name": "minecraft:coal",
           "weight": 10
         },
         {
@@ -93,11 +73,6 @@
           "type": "minecraft:item",
           "name": "minecraft:clay",
           "weight": 7
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flower_pot",
-          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -116,6 +91,16 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:white_wool",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_wool",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:lead",
           "weight": 10
         },
@@ -126,38 +111,38 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:oak_hanging_sign",
+          "name": "minecraft:book",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:birch_hanging_sign",
+          "name": "minecraft:packed_ice",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:blade_pottery_sherd",
+          "name": "minecraft:spruce_hanging_sign",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:aurora_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:lumber_pottery_sherd",
+          "name": "trailiertales:enclosure_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:cultivator_pottery_sherd",
+          "name": "trailiertales:hare_pottery_sherd",
           "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "trailiertales:sprout_pottery_sherd",
+          "name": "trailiertales:frost_pottery_sherd",
           "weight": 7
-        },
-        {
-          "type": "minecraft:item",
-          "name": "trailiertales:embrace_armor_trim_smithing_template",
-          "weight": 2
         }
       ],
       "rolls": 1.0

@@ -62,9 +62,6 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_FOREST)
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_SMALL_TRAIL_RUINS)
-			.addOptionalTag(BiomeTags.HAS_TRAIL_RUINS);
-
 		this.getOrCreateTagBuilder(TTBiomeTags.HAS_SNOWY_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
 			.add(Biomes.SNOWY_TAIGA);

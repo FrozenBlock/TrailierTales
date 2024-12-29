@@ -22,6 +22,7 @@
 
   "filled_map.trailiertales.catacombs": "Catacombs Explorer Map",
 
+  "item.trailiertales.aurora_pottery_sherd": "Aurora Pottery Sherd",
   "item.trailiertales.bait_pottery_sherd": "Bait Pottery Sherd",
   "item.trailiertales.bloom_pottery_sherd": "Bloom Pottery Sherd",
   "item.trailiertales.bolt_pottery_sherd": "Bolt Pottery Sherd",
@@ -32,6 +33,7 @@
   "item.trailiertales.crescent_pottery_sherd": "Crescent Pottery Sherd",
   "item.trailiertales.cultivator_pottery_sherd": "Cultivator Pottery Sherd",
   "item.trailiertales.drought_pottery_sherd": "Drought Pottery Sherd",
+  "item.trailiertales.enclosure_pottery_sherd": "Enclosure Pottery Sherd",
   "item.trailiertales.essence_pottery_sherd": "Essence Pottery Sherd",
   "item.trailiertales.eye_pottery_sherd": "Eye Pottery Sherd",
   "item.trailiertales.focus_pottery_sherd": "Focus Pottery Sherd",
@@ -64,7 +66,6 @@
   "item.trailiertales.cot_armor_trim_smithing_template": "Smithing Template",
   "item.trailiertales.embrace_armor_trim_smithing_template": "Smithing Template",
 
-  "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
   "trim_pattern.trailiertales.matrix": "Matrix Armor Trim",
   "trim_pattern.trailiertales.geode": "Geode Armor Trim",
