@@ -152,7 +152,7 @@ public class TTItems {
 		registerSherdAfter(Items.EXPLORER_POTTERY_SHERD, EYE_POTTERY_SHERD, "eye_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.FLOW_POTTERY_SHERD, FOCUS_POTTERY_SHERD, "focus_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(FOCUS_POTTERY_SHERD, FROST_POTTERY_SHERD, "frost_pottery_sherd", CreativeModeTabs.INGREDIENTS);
-		registerSherdBefore(Items.HOWL_POTTERY_SHERD, HARE_POTTERY_SHERD, "hare_pottery_sherd", CreativeModeTabs.INGREDIENTS);
+		registerSherdBefore(Items.HEART_POTTERY_SHERD, HARE_POTTERY_SHERD, "hare_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(HARE_POTTERY_SHERD, HEIGHT_POTTERY_SHERD, "height_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(Items.HOWL_POTTERY_SHERD, HUMP_POTTERY_SHERD, "hump_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdAfter(HUMP_POTTERY_SHERD, ILLUMINATOR_POTTERY_SHERD, "illuminator_pottery_sherd", CreativeModeTabs.INGREDIENTS);

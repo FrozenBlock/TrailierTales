@@ -261,8 +261,10 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/buried2"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/buried_alive"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/caged_chest"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/chambers1"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/chapel"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/collapsed"), tomb), 2),
+					Pair.of(StructurePoolElement.single(string("tomb/collapsed_chambers1"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/collapsed_mob_drop"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/construction"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/corridor_pit"), tomb), 2),
@@ -276,6 +278,7 @@ public class CatacombsGenerator {
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle3"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/door_puzzle4"), tomb), 1),
 					Pair.of(StructurePoolElement.single(string("tomb/dripstone_trap"), tomb), 1),
+					Pair.of(StructurePoolElement.single(string("tomb/eight_walkways"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb1"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb2"), tomb), 2),
 					Pair.of(StructurePoolElement.single(string("tomb/fancy_tomb3"), tomb), 2),
@@ -366,6 +369,10 @@ public class CatacombsGenerator {
 
 					Pair.of(StructurePoolElement.single(string("corridor/small_gallery"), corridor), 1),
 					Pair.of(StructurePoolElement.single(string("corridor/gallery"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/gallery_walk1"), corridor), 1),
+
+					Pair.of(StructurePoolElement.single(string("corridor/ectoplasm_crack1"), corridor), 1),
+					Pair.of(StructurePoolElement.single(string("corridor/dual_prison_drops"), corridor), 1),
 
 					Pair.of(StructurePoolElement.single(string("corridor/connector_dripstone_trap"), corridor), 4),
 					Pair.of(StructurePoolElement.single(string("corridor/connector_lava_trap"), corridor), 4)

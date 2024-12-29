@@ -759,6 +759,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/chambers1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/chapel",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
@@ -769,6 +778,15 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/collapsed",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/collapsed_chambers1",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -890,6 +908,15 @@
         "projection": "rigid"
       },
       "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/eight_walkways",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
     },
     {
       "element": {
@@ -1687,6 +1714,33 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/gallery",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/gallery_walk1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/ectoplasm_crack1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/dual_prison_drops",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },

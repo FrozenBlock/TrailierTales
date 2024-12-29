@@ -1,5 +1,6 @@
 package net.frozenblock.trailiertales.mixin.common.coffin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.advancements.critereon.EntityHurtPlayerTrigger;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
@@ -17,6 +19,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -82,6 +85,19 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 			coffinInterface.trailierTales$getCoffinData().updateLastInteraction(entity.level().getGameTime());
 		}
 		original.call(instance, player, source, dealt, taken, blocked);
+	}
+
+	@ModifyReturnValue(method = "getExperienceReward", at = @At("RETURN"))
+	public int trailierTales$getExperienceReward(
+		int original,
+		ServerLevel world, @Nullable Entity entity
+	) {
+		if (this.trailierTales$entityCoffinData != null) {
+			if (entity instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) {
+				return original * 2;
+			}
+		}
+		return original;
 	}
 
 	@Inject(method = "remove", at = @At("HEAD"))
