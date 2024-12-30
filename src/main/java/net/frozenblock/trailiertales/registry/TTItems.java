@@ -60,205 +60,205 @@ public class TTItems {
 	/**
 	 * Don't forget to go to {@link TTDecoratedPotPatternRegistry} to register patterns!
 	 */
-	public static final Item AURORA_POTTERY_SHERD = registerSherd("aurora_pottery_sherd",
+	public static final Item AURORA_POTTERY_SHERD = registerSherd("aurora",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item BAIT_POTTERY_SHERD = registerSherd("bait_pottery_sherd",
+	public static final Item BAIT_POTTERY_SHERD = registerSherd("bait",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item BLOOM_POTTERY_SHERD = registerSherd("bloom_pottery_sherd",
+	public static final Item BLOOM_POTTERY_SHERD = registerSherd("bloom",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item BOLT_POTTERY_SHERD = registerSherd("bolt_pottery_sherd",
+	public static final Item BOLT_POTTERY_SHERD = registerSherd("bolt",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item BULLSEYE_POTTERY_SHERD = registerSherd("bullseye_pottery_sherd",
+	public static final Item BULLSEYE_POTTERY_SHERD = registerSherd("bullseye",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item CARRIER_POTTERY_SHERD = registerSherd("carrier_pottery_sherd",
+	public static final Item CARRIER_POTTERY_SHERD = registerSherd("carrier",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item CLUCK_POTTERY_SHERD = registerSherd("cluck_pottery_sherd",
+	public static final Item CLUCK_POTTERY_SHERD = registerSherd("cluck",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item CRAWL_POTTERY_SHERD = registerSherd("crawl_pottery_sherd",
+	public static final Item CRAWL_POTTERY_SHERD = registerSherd("crawl",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item CRESCENT_POTTERY_SHERD = registerSherd("crescent_pottery_sherd",
+	public static final Item CRESCENT_POTTERY_SHERD = registerSherd("crescent",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item CULTIVATOR_POTTERY_SHERD = registerSherd("cultivator_pottery_sherd",
+	public static final Item CULTIVATOR_POTTERY_SHERD = registerSherd("cultivator",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item DROUGHT_POTTERY_SHERD = registerSherd("drought_pottery_sherd",
+	public static final Item DROUGHT_POTTERY_SHERD = registerSherd("drought",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item ENCLOSURE_POTTERY_SHERD = registerSherd("enclosure_pottery_sherd",
+	public static final Item ENCLOSURE_POTTERY_SHERD = registerSherd("enclosure",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item ESSENCE_POTTERY_SHERD = registerSherd("essence_pottery_sherd",
+	public static final Item ESSENCE_POTTERY_SHERD = registerSherd("essence",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item EYE_POTTERY_SHERD = registerSherd("eye_pottery_sherd",
+	public static final Item EYE_POTTERY_SHERD = registerSherd("eye",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item FOCUS_POTTERY_SHERD = registerSherd("focus_pottery_sherd",
+	public static final Item FOCUS_POTTERY_SHERD = registerSherd("focus",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item FROST_POTTERY_SHERD = registerSherd("frost_pottery_sherd",
+	public static final Item FROST_POTTERY_SHERD = registerSherd("frost",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item HARE_POTTERY_SHERD = registerSherd("hare_pottery_sherd",
+	public static final Item HARE_POTTERY_SHERD = registerSherd("hare",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item HEIGHT_POTTERY_SHERD = registerSherd("height_pottery_sherd",
+	public static final Item HEIGHT_POTTERY_SHERD = registerSherd("height",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item HUMP_POTTERY_SHERD = registerSherd("hump_pottery_sherd",
+	public static final Item HUMP_POTTERY_SHERD = registerSherd("hump",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item ILLUMINATOR_POTTERY_SHERD = registerSherd("illuminator_pottery_sherd",
+	public static final Item ILLUMINATOR_POTTERY_SHERD = registerSherd("illuminator",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item INCIDENCE_POTTERY_SHERD = registerSherd("incidence_pottery_sherd",
+	public static final Item INCIDENCE_POTTERY_SHERD = registerSherd("incidence",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item LUMBER_POTTERY_SHERD = registerSherd("lumber_pottery_sherd",
+	public static final Item LUMBER_POTTERY_SHERD = registerSherd("lumber",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item NAVIGATOR_POTTERY_SHERD = registerSherd("navigator_pottery_sherd",
+	public static final Item NAVIGATOR_POTTERY_SHERD = registerSherd("navigator",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item NEEDLES_POTTERY_SHERD = registerSherd("needles_pottery_sherd",
+	public static final Item NEEDLES_POTTERY_SHERD = registerSherd("needles",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item OMEN_POTTERY_SHERD = registerSherd("omen_pottery_sherd",
+	public static final Item OMEN_POTTERY_SHERD = registerSherd("omen",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item PLUME_POTTERY_SHERD = registerSherd("plume_pottery_sherd",
+	public static final Item PLUME_POTTERY_SHERD = registerSherd("plume",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item PROTECTION_POTTERY_SHERD = registerSherd("protection_pottery_sherd",
+	public static final Item PROTECTION_POTTERY_SHERD = registerSherd("protection",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item SHED_POTTERY_SHERD = registerSherd("shed_pottery_sherd",
+	public static final Item SHED_POTTERY_SHERD = registerSherd("shed",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item SHINE_POTTERY_SHERD = registerSherd("shine_pottery_sherd",
+	public static final Item SHINE_POTTERY_SHERD = registerSherd("shine",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item SHOWER_POTTERY_SHERD = registerSherd("shower_pottery_sherd",
+	public static final Item SHOWER_POTTERY_SHERD = registerSherd("shower",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item SPADE_POTTERY_SHERD = registerSherd("spade_pottery_sherd",
+	public static final Item SPADE_POTTERY_SHERD = registerSherd("spade",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item SPROUT_POTTERY_SHERD = registerSherd("sprout_pottery_sherd",
+	public static final Item SPROUT_POTTERY_SHERD = registerSherd("sprout",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item VESSEL_POTTERY_SHERD = registerSherd("vessel_pottery_sherd",
+	public static final Item VESSEL_POTTERY_SHERD = registerSherd("vessel",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Item WITHER_POTTERY_SHERD = registerSherd("wither_pottery_sherd",
+	public static final Item WITHER_POTTERY_SHERD = registerSherd("wither",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
@@ -340,8 +340,8 @@ public class TTItems {
 	}
 
 	private static @NotNull <T extends Item> T registerSherd(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
-		T item = (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name)), function, properties);
-		SherdRegistry.register(item, TTConstants.id(name.replace("sherd", "pattern")));
+		T item = (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name + "_pottery_sherd")), function, properties);
+		SherdRegistry.register(item, TTConstants.id(name));
 		return item;
 	}
 
