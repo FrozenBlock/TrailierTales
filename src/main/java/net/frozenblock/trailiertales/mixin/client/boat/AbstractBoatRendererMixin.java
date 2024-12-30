@@ -3,8 +3,8 @@ package net.frozenblock.trailiertales.mixin.client.boat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.TrailierTalesClient;
-import net.frozenblock.trailiertales.entity.render.model.BoatBannerModel;
+import net.frozenblock.trailiertales.client.TTModelLayers;
+import net.frozenblock.trailiertales.client.model.BoatBannerModel;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
 import net.frozenblock.trailiertales.impl.client.AbstractBoatRendererInterface;
 import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;
@@ -48,7 +48,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, CallbackInfo info) {
-		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TrailierTalesClient.BOAT_BANNER));
+		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TTModelLayers.BOAT_BANNER));
 	}
 
 	@Unique

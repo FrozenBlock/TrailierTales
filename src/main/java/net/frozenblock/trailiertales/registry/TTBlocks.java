@@ -744,7 +744,7 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final EctoplasmBlock ECTOPLASM_BLOCK = register("ectoplasm_block",
+	public static final EctoplasmBlock ECTOPLASM_BLOCK = registerWithoutItem("ectoplasm_block",
 		EctoplasmBlock::new,
 		Properties.of()
 			.mapColor(MapColor.COLOR_LIGHT_BLUE)

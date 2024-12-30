@@ -334,6 +334,9 @@ public class TTItems {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	public static void init() {
+	}
+
 	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
 		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name)), function, properties);
 	}
