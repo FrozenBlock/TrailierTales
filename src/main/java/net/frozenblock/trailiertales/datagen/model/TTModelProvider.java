@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -12,11 +13,15 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.Util;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -31,11 +36,13 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTModelProvider extends FabricModelProvider {
@@ -64,6 +71,7 @@ public final class TTModelProvider extends FabricModelProvider {
 				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 		)
 	);
+	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -145,12 +153,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(TTBlocks.CHISELED_PURPUR_BLOCK);
 		this.wall(generator, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 
-		/*
-		generator.blockEntityModels(TTConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
-			.createWithoutBlockItem(
-				TTBlocks.COFFIN
-			);
-		 */
+		this.createCoffin(generator, TTBlocks.COFFIN, Blocks.DEEPSLATE, CoffinSpawnerState.INACTIVE.getHeadTexture(), CoffinSpawnerState.INACTIVE.getFootTexture());
 	}
 
 	public void wallSmooth(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
@@ -184,6 +187,14 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, textureMapping, generator.modelOutput);
 		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, resourceLocation, resourceLocation2, resourceLocation3));
 		generator.registerSimpleItemModel(stairsBlock, resourceLocation2);
+	}
+
+	public void createCoffin(@NotNull BlockModelGenerators generator, Block coffin, Block particleTexture, ResourceLocation headTexture, ResourceLocation footTexture) {
+		generator.createParticleOnlyBlock(coffin, particleTexture);
+		Item item = coffin.asItem();
+		ResourceLocation coffinModel = COFFIN_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
+		ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(coffinModel, new CoffinSpecialRenderer.Unbaked(headTexture, footTexture));
+		generator.itemModelOutput.accept(item, unbaked);
 	}
 
 	@Override
@@ -340,5 +351,10 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, model));
 		generator.registerSimpleItemModel(block, model);
+	}
+
+	@Contract("_, _ -> new")
+	private static @NotNull ModelTemplate createItem(String string, TextureSlot... textureSlots) {
+		return new ModelTemplate(Optional.of(TTConstants.id("item/" + string)), Optional.empty(), textureSlots);
 	}
 }

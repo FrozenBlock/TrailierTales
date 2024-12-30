@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.frozenblock.trailiertales.client.model.BoatBannerModel;
+import net.frozenblock.trailiertales.client.model.CoffinModel;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.frozenblock.trailiertales.client.renderer.entity.ApparitionRenderer;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
@@ -25,8 +26,8 @@ public class TTModelLayers {
 
 	public static void init() {
 		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN, CoffinRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinRenderer::createHeadLayer);
-		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinRenderer::createFootLayer);
+		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinModel::createLayerDefinition);
+		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinModel::createLayerDefinition);
 
 		EntityRendererRegistry.register(TTEntityTypes.APPARITION, ApparitionRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
