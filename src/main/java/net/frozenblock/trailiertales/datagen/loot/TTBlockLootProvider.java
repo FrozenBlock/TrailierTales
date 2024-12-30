@@ -207,6 +207,7 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(TTBlocks.SUSPICIOUS_CLAY, noDrop());
 		this.add(TTBlocks.COFFIN, noDrop());
 		this.dropSelf(TTBlocks.SURVEYOR);
+		this.dropSelf(TTBlocks.ECTOPLASM_BLOCK);
 	}
 
 	public LootTable.@NotNull Builder createMultifaceBlockDrops(Block drop) {

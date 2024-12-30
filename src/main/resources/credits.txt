@@ -2,7 +2,7 @@ Luna/Lunade/AViewFromTheTop - Lead Dev/Producer & Sound Designer
 
 wigglewoggle - Builder
     - Main builder of Catacombs structure pieces after prototyping
-    - Generic, Savanna, Desert, and Jungle ruins
+    - Generic, Snowy, Savanna, Desert, Jungle, and Deepslate ruins
 
 Soro335
     - Came up with initial Badlands Fort designs
@@ -21,6 +21,7 @@ Zhen
       - All new Calcite variants
       - Cracked and Mossy Bricks
       - Dawntrail name and textures
+      - Polished Resin Block
       - Bait Pottery Sherd/Pattern
       - Bolt Pottery Sherd/Pattern
       - Cluck Pottery Sherd/Pattern
@@ -45,6 +46,8 @@ Zhen
       - Shower Pottery Sherd/Pattern
       - Spade Pottery Sherd/Pattern
       - Sprout Pottery Sherd/Pattern
+      - Aurora Pottery Sherd/Pattern
+      - Enclosure Pottery Sherd/Pattern
       - Transfiguring icon and particle texture
       - Overgrowth Armor Trim
       - Matrix Armor Trim
@@ -56,6 +59,7 @@ Zhen
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
     - Made the Fausse Vie music disc
+    - Made the Stasis music disc
 
 Voxelotl
     - Texture Artist:
@@ -64,9 +68,13 @@ Voxelotl
       - Mossy Cobbled Deepslate
       - Mossy Deepslate Bricks
       - Mossy Deepslate Tiles
+      - Cracked Resin Bricks
+      - Pale Mossy Resin Bricks
       - Bloom Pottery Sherd/Pattern
       - Bullseye Pottery Sherd/Pattern
       - Crescent Pottery Sherd/Pattern
+      - Frost Pottery Sherd/Pattern
+      - Hare Pottery Sherd/Pattern
       - Wither Pottery Sherd/Pattern
       - Coffin
       - Undead Armor Trim
@@ -76,13 +84,27 @@ Voxelotl
       - Siege Omen icon and particle texture
       - Fixed the Chiseled Andesite texture
       - Fixed the Chiseled Diorite texture
+      - Embrace Armor Trim
+      - Block of Ectoplasm texture
 
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks
     - Implemented the Wither Pottery Sherd
 
+Qzimyion
+    - Mid-air block placement (used for the Block of Ectoplasm)
+
 Eggmanplant
     - Polish translation and a few early bug fixes
+
+unroman
+    - Ukranian translation
+
+Kokoroto
+    - Spanish translation
+
+Lufurrius
+    - Enchantment Description strings
 
 The following sounds were used in this mod. Please note that sounds that aren't credited are sourced directly from Minecraft or self-made.
 https://freesound.org/people/ra_gun/sounds/77470/

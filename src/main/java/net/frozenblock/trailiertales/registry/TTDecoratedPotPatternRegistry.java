@@ -13,6 +13,7 @@ public class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistr
 
 	@Override
 	public void bootstrap(Registry<DecoratedPotPattern> registry) {
+		register(registry, "aurora");
 		register(registry, "bait");
 		register(registry, "bloom");
 		register(registry, "bolt");
@@ -23,9 +24,12 @@ public class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistr
 		register(registry, "crescent");
 		register(registry, "cultivator");
 		register(registry, "drought");
+		register(registry, "enclosure");
 		register(registry, "essence");
 		register(registry, "eye");
 		register(registry, "focus");
+		register(registry, "frost");
+		register(registry, "hare");
 		register(registry, "height");
 		register(registry, "hump");
 		register(registry, "illuminator");

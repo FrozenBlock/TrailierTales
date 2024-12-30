@@ -59,7 +59,7 @@ public class SavannaRuinsGenerator {
 			SAVANNA_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(SAVANNA_RUIN_KEY),
-				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 78872547)
+				new RandomSpreadStructurePlacement(34, 18, RandomSpreadType.LINEAR, 78872547)
 			)
 		);
 	}

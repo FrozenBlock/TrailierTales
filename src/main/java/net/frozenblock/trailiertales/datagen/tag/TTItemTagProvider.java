@@ -29,12 +29,14 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(ConventionalItemTags.MUSIC_DISCS)
+			.add(TTItems.MUSIC_DISC_STASIS)
 			.add(TTItems.MUSIC_DISC_FAUSSE_VIE);
 
 		this.getOrCreateTagBuilder(ItemTags.SAND)
 			.add(TTBlocks.SUSPICIOUS_RED_SAND.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS)
+			.add(TTItems.AURORA_POTTERY_SHERD)
 			.add(TTItems.BAIT_POTTERY_SHERD)
 			.add(TTItems.BLOOM_POTTERY_SHERD)
 			.add(TTItems.BOLT_POTTERY_SHERD)
@@ -45,9 +47,12 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.CRESCENT_POTTERY_SHERD)
 			.add(TTItems.CULTIVATOR_POTTERY_SHERD)
 			.add(TTItems.DROUGHT_POTTERY_SHERD)
+			.add(TTItems.ENCLOSURE_POTTERY_SHERD)
 			.add(TTItems.ESSENCE_POTTERY_SHERD)
 			.add(TTItems.EYE_POTTERY_SHERD)
 			.add(TTItems.FOCUS_POTTERY_SHERD)
+			.add(TTItems.FROST_POTTERY_SHERD)
+			.add(TTItems.HARE_POTTERY_SHERD)
 			.add(TTItems.HEIGHT_POTTERY_SHERD)
 			.add(TTItems.HUMP_POTTERY_SHERD)
 			.add(TTItems.ILLUMINATOR_POTTERY_SHERD)
@@ -167,7 +172,8 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE)
 			.add(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE);
+			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE)
+			.add(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);

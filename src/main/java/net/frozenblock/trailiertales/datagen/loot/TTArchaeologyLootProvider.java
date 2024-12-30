@@ -45,9 +45,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(1))
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(14))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(10))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(2))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(25))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(18))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(16))
@@ -76,9 +73,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(1))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(5))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(1))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(8))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(8))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(8))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(8))
 						.add(LootItem.lootTableItem(Items.PAPER).setWeight(4))
@@ -104,9 +98,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(3))
-						.add(LootItem.lootTableItem(Items.SKELETON_SKULL).setWeight(1))
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(14))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(9))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(8))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(6))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(6))
@@ -140,19 +131,6 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.SHINE_POTTERY_SHERD).setWeight(6))
 						.add(LootItem.lootTableItem(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
-				)
-		);
-
-		registry.accept(
-			TTLootTables.FOSSIL_ARCHAEOLOGY,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.BONE).setWeight(2))
-						.add(LootItem.lootTableItem(Items.COAL))
-						.add(LootItem.lootTableItem(Items.DEAD_BUSH))
-						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH))
-						.add(LootItem.lootTableItem(Items.STICK))
 				)
 		);
 
@@ -260,6 +238,43 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(TTItems.LUMBER_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.CULTIVATOR_POTTERY_SHERD).setWeight(7))
 						.add(LootItem.lootTableItem(TTItems.SPROUT_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(2))
+				)
+		);
+
+		registry.accept(
+			TTLootTables.SNOWY_RUINS_ARCHAEOLOGY,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.WHITE_DYE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHITE_CANDLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.RED_CANDLE).setWeight(20))
+						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(20))
+						.add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(10))
+						.add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(7))
+						.add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(7))
+						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
+						.add(LootItem.lootTableItem(Items.CHARCOAL).setWeight(15))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BRICK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.CLAY).setWeight(7))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.STRING).setWeight(10))
+						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(10))
+						.add(LootItem.lootTableItem(Items.WHITE_WOOL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.RED_WOOL).setWeight(10))
+						.add(LootItem.lootTableItem(Items.LEAD).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
+						.add(LootItem.lootTableItem(Items.PACKED_ICE).setWeight(10))
+						.add(LootItem.lootTableItem(Items.SPRUCE_HANGING_SIGN).setWeight(10))
+						.add(LootItem.lootTableItem(TTItems.AURORA_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.ENCLOSURE_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.HARE_POTTERY_SHERD).setWeight(7))
+						.add(LootItem.lootTableItem(TTItems.FROST_POTTERY_SHERD).setWeight(7))
 				)
 		);
 

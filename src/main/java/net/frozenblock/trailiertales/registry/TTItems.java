@@ -1,6 +1,7 @@
 package net.frozenblock.trailiertales.registry;
 
 import java.util.function.Function;
+import net.frozenblock.lib.item.api.PlaceInAirBlockItem;
 import net.frozenblock.lib.item.api.sherd.SherdRegistry;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TTItems {
@@ -27,8 +29,14 @@ public class TTItems {
 		new Properties()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+
 	public static final Item ECTOPLASM = register("ectoplasm",
 		Item::new,
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item ECTOPLASM_BLOCK = register("ectoplasm_block",
+		properties -> new PlaceInAirBlockItem(TTBlocks.ECTOPLASM_BLOCK, properties),
 		new Properties()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
@@ -38,17 +46,28 @@ public class TTItems {
 		new Properties()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+
 	public static final Item MANEDROP_GERM = register("manedrop_germ",
 		createBlockItemWithCustomItemName(TTBlocks.MANEDROP_CROP),
 		new Properties()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+
 	public static final Item DAWNTRAIL_SEEDS = register("dawntrail_seeds",
 		createBlockItemWithCustomItemName(TTBlocks.DAWNTRAIL_CROP),
 		new Properties()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	/**
+	 * Don't forget to go to {@link TTDecoratedPotPatternRegistry} to register patterns!
+	 */
+	public static final Item AURORA_POTTERY_SHERD = registerSherd("aurora_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 	public static final Item BAIT_POTTERY_SHERD = registerSherd("bait_pottery_sherd",
 		Item::new,
 		new Properties()
@@ -109,6 +128,12 @@ public class TTItems {
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+	public static final Item ENCLOSURE_POTTERY_SHERD = registerSherd("enclosure_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 	public static final Item ESSENCE_POTTERY_SHERD = registerSherd("essence_pottery_sherd",
 		Item::new,
 		new Properties()
@@ -122,6 +147,18 @@ public class TTItems {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Item FOCUS_POTTERY_SHERD = registerSherd("focus_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item FROST_POTTERY_SHERD = registerSherd("frost_pottery_sherd",
+		Item::new,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item HARE_POTTERY_SHERD = registerSherd("hare_pottery_sherd",
 		Item::new,
 		new Properties()
 			.rarity(Rarity.UNCOMMON)
@@ -272,6 +309,12 @@ public class TTItems {
 			.rarity(Rarity.UNCOMMON)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+	public static final Item EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE = register("embrace_armor_trim_smithing_template",
+		SmithingTemplateItem::createArmorTrimTemplate,
+		new Properties()
+			.rarity(Rarity.UNCOMMON)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
 	public static final Item MUSIC_DISC_FAUSSE_VIE = register("music_disc_fausse_vie",
 		Item::new,
@@ -282,8 +325,14 @@ public class TTItems {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static void init() {
-	}
+	public static final Item MUSIC_DISC_STASIS = register("music_disc_stasis",
+		Item::new,
+		new Properties()
+			.stacksTo(1)
+			.rarity(Rarity.RARE)
+			.jukeboxPlayable(TTJukeboxSongs.STASIS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
 	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
 		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name)), function, properties);
@@ -295,7 +344,8 @@ public class TTItems {
 		return item;
 	}
 
-	public static Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
+	@Contract(pure = true)
+	public static @NotNull Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
 		return properties -> new BlockItem(block, properties.useItemDescriptionPrefix());
 	}
 

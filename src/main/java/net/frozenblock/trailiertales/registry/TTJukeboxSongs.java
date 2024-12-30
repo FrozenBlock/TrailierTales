@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TTJukeboxSongs {
 	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = create("fausse_vie");
+	public static final ResourceKey<JukeboxSong> STASIS = create("stasis");
 
 	public static void init() {
 	}
@@ -35,6 +36,7 @@ public class TTJukeboxSongs {
 	}
 
 	public static void bootstrap(BootstrapContext<JukeboxSong> context) {
-		register(context, FAUSSE_VIE, TTSounds.MUSIC_DISC_FAUSSE_VIE, 246, 10);
+		register(context, FAUSSE_VIE, TTSounds.MUSIC_DISC_FAUSSE_VIE, 246, 10); // 11 is Creator (Music Box)
+		register(context, STASIS, TTSounds.MUSIC_DISC_STASIS, 148, 9);
 	}
 }

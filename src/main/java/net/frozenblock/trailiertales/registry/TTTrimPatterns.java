@@ -16,6 +16,7 @@ public class TTTrimPatterns {
 	public static final ResourceKey<TrimPattern> MARTYR = create("martyr");
 	public static final ResourceKey<TrimPattern> ZEPHYR = create("zephyr");
 	public static final ResourceKey<TrimPattern> COT = create("cot");
+	public static final ResourceKey<TrimPattern> EMBRACE = create("embrace");
 
 	public static void init() {
 	}
@@ -32,5 +33,6 @@ public class TTTrimPatterns {
 		TrimPatterns.register(context, TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR);
 		TrimPatterns.register(context, TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR);
 		TrimPatterns.register(context, TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE, COT);
+		TrimPatterns.register(context, TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, EMBRACE);
 	}
 }

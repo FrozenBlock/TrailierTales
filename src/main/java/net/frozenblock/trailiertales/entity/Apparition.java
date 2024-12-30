@@ -40,6 +40,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -359,14 +360,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	@NotNull
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected @NotNull SoundEvent getHurtSound(DamageSource source) {
 		return TTSounds.APPARITION_HURT;
 	}
 
 	@Override
-	@NotNull
-	protected SoundEvent getDeathSound() {
+	protected @NotNull SoundEvent getDeathSound() {
 		return TTSounds.APPARITION_DEATH;
 	}
 
@@ -408,6 +407,37 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		}
 	}
 
+	@Override
+	public void move(MoverType movementType, Vec3 movement) {
+		ProfilerFiller profilerFiller = Profiler.get();
+		profilerFiller.push("move");
+		Vec3 vec3 = this.collide(movement);
+		this.setPos(this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
+
+		profilerFiller.pop();
+		profilerFiller.push("rest");
+		boolean horizontalCollisionX = !Mth.equal(movement.x, vec3.x);
+		boolean horizontalCollisionZ = !Mth.equal(movement.z, vec3.z);
+		this.horizontalCollision = horizontalCollisionX || horizontalCollisionZ;
+		this.verticalCollision = movement.y != vec3.y;
+		this.verticalCollisionBelow = this.verticalCollision && movement.y < 0D;
+		if (this.horizontalCollision) {
+			this.minorHorizontalCollision = this.isHorizontalCollisionMinor(vec3);
+		} else {
+			this.minorHorizontalCollision = false;
+		}
+
+		if (this.isRemoved()) {
+			profilerFiller.pop();
+		} else {
+			if (this.horizontalCollision) {
+				Vec3 vec32 = this.getDeltaMovement();
+				this.setDeltaMovement(horizontalCollisionX ? 0D : vec32.x, vec32.y, horizontalCollisionZ ? 0D : vec32.z);
+			}
+			profilerFiller.pop();
+		}
+	}
+
 	@Contract(" -> new")
 	private @NotNull ParticleOptions createAmbientParticleOptions() {
 		float aidProgress = this.getAidAnimProgress();
@@ -439,7 +469,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
 		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
 			if (source.getDirectEntity() instanceof Projectile projectile) {
 				if (projectile instanceof AbstractArrow abstractArrow) {

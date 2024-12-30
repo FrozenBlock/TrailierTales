@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class TTSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_DISC_FAUSSE_VIE = registerForHolder("music_disc.fausse_vie");
+	public static final Holder.Reference<SoundEvent> MUSIC_DISC_STASIS = registerForHolder("music_disc.stasis");
+
 	public static final SoundEvent APPLY_EFFECT_SIEGE_OMEN = register("event.mob_effect.siege_omen");
 	public static final SoundEvent DAWNTRAIL_PICK = register("block.dawntrail.pick");
 

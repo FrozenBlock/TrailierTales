@@ -1,0 +1,8 @@
+{
+  "asset_id": "trailiertales:embrace",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.trailiertales.embrace"
+  },
+  "template_item": "trailiertales:embrace_armor_trim_smithing_template"
+}

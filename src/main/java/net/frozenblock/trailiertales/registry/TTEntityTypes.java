@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public final class TTEntityTypes {
 	public static final EntityType<Apparition> APPARITION = register(
 		"apparition",
-		EntityType.Builder.of(Apparition::new, MobCategory.MONSTER)
+		EntityType.Builder.of(Apparition::new, MobCategory.MISC)
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)

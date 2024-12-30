@@ -28,6 +28,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
+		if (mixinClassName.contains("apparition.")) return this.mixinsConfig.apparition;
 		if (mixinClassName.contains("armor_stand.")) return this.mixinsConfig.armor_stand;
 		if (mixinClassName.contains("boat.")) return this.mixinsConfig.boat;
 		if (mixinClassName.contains("brush.")) return this.mixinsConfig.brush;
@@ -37,6 +38,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("datafix.")) return this.mixinsConfig.datafix;
 		if (mixinClassName.contains("dawntrail.")) return this.mixinsConfig.dawntrail;
 		if (mixinClassName.contains("decorated_pot.")) return this.mixinsConfig.decorated_pot;
+		if (mixinClassName.contains("ectoplasm_block.")) return this.mixinsConfig.ectoplasm_block;
 		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
 		if (mixinClassName.contains("rail.")) return this.mixinsConfig.rail;
