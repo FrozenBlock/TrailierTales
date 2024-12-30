@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "minecraft:blue_ice"
-    },
-    "S": {
-      "item": "trailiertales:embrace_armor_trim_smithing_template"
-    }
+    "#": "minecraft:diamond",
+    "C": "minecraft:blue_ice",
+    "S": "trailiertales:embrace_armor_trim_smithing_template"
   },
   "pattern": [
     "#S#",
