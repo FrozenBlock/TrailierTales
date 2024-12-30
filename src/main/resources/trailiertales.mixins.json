@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
+    "common.apparition.BlockCollisionsMixin",
+    "common.apparition.EntityMixin",
     "common.armor_stand.ArmorStandMixin",
     "common.boat.AbstractBoatMixin",
     "common.boat.AbstractChestBoatMixin",
@@ -24,6 +26,8 @@
     "common.datafix.V3689Mixin",
     "common.dawntrail.ShearsDispenseItemBehaviorMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
+    "common.ectoplasm_block.BlockGetterMixin",
+    "common.ectoplasm_block.EntityMixin",
     "common.rail.RailStructureRotationFix",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",

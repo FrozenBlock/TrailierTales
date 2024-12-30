@@ -35,8 +35,7 @@ public class TTLootTables {
 	public static final ResourceKey<LootTable> RUINS_ARCHAEOLOGY = register("archaeology/ruins");
 	public static final ResourceKey<LootTable> DEEPSLATE_RUINS_ARCHAEOLOGY = register("archaeology/deepslate_ruins");
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY = register("archaeology/badlands_ruins");
-
-	public static final ResourceKey<LootTable> FOSSIL_ARCHAEOLOGY = register("archaeology/fossil");
+	public static final ResourceKey<LootTable> SNOWY_RUINS_ARCHAEOLOGY = register("archaeology/snowy_ruins");
 
 	public static void init() {
 		LootTableEvents.REPLACE.register((key, lootTable, source, registries) -> {

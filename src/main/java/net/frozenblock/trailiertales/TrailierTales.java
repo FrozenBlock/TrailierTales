@@ -7,6 +7,8 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
+import net.frozenblock.lib.gravity.api.GravityAPI;
+import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
@@ -33,7 +35,7 @@ import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
 import net.frozenblock.trailiertales.registry.TTVillagerTrades;
 import net.frozenblock.trailiertales.worldgen.TTBiomeModifications;
-import net.frozenblock.trailiertales.worldgen.structure.RuinsPieces;
+import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -87,6 +89,14 @@ public class TrailierTales extends FrozenModInitializer {
 				ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
 		);
 
+		GravityAPI.MODIFICATIONS.register(gravityContext -> {
+			if (gravityContext.entity != null) {
+				if (gravityContext.entity.getInBlockState().getBlock() instanceof EctoplasmBlock) {
+					gravityContext.gravity = gravityContext.gravity.scale(EctoplasmBlock.GRAVITY_SLOWDOWN);
+				}
+			}
+		});
+
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
@@ -95,7 +105,7 @@ public class TrailierTales extends FrozenModInitializer {
 
 			@Override
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				RuinsPieces.reloadPiecesFromDirectories(resourceManager);
+				RuinsStructure.onServerDataReload(resourceManager);
 			}
 		});
 	}

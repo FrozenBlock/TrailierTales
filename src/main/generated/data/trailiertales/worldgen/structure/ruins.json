@@ -1,10 +1,9 @@
 {
   "type": "trailiertales:ruins",
-  "biome_type": "generic",
   "biomes": "#trailiertales:has_structure/ruins",
   "cluster_pieces": {
     "max_inclusive": 6,
-    "min_inclusive": 1
+    "min_inclusive": 2
   },
   "cluster_probability": 1.0,
   "heightmap": "OCEAN_FLOOR_WG",

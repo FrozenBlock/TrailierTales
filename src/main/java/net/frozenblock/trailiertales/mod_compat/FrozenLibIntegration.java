@@ -30,9 +30,10 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGen
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DesertRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.GenericRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.JungleRuinsGenerator;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.RuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGenerator;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.SnowyRuinsGenerator;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -395,7 +396,8 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 					case "minecraft:adventure/salvage_sherd" -> {
-						addLootTableRequirement(advancement, RuinsGenerator.RUINS_KEY.location().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.location().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.location().toString(), TTLootTables.SNOWY_RUINS_ARCHAEOLOGY);
 						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
 						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
 						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.location().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);

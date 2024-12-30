@@ -140,6 +140,7 @@ public class TTCreativeInventorySorting {
 
 		addAfterInFunctionalBlocks(Blocks.VAULT, TTBlocks.COFFIN);
 		addAfterInRedstone(Blocks.OBSERVER, TTBlocks.SURVEYOR);
+		addAfterInBuildingBlocks(TTBlocks.SURVEYOR, TTBlocks.ECTOPLASM_BLOCK);
 
 		// ITEMS
 		addAfterInSpawnEggs(Items.ALLAY_SPAWN_EGG, TTItems.APPARITION_SPAWN_EGG);
@@ -149,6 +150,7 @@ public class TTCreativeInventorySorting {
 		addAfterInNaturalBlocks(TTItems.CYAN_ROSE_SEEDS, TTItems.DAWNTRAIL_SEEDS);
 		addAfterInNaturalBlocks(Items.PITCHER_POD, TTItems.MANEDROP_GERM);
 
+		addAfterInIngredients(Items.ARMS_UP_POTTERY_SHERD, TTItems.AURORA_POTTERY_SHERD);
 		addBeforeInIngredients(Items.BLADE_POTTERY_SHERD, TTItems.BAIT_POTTERY_SHERD);
 		addAfterInIngredients(Items.BLADE_POTTERY_SHERD, TTItems.BLOOM_POTTERY_SHERD);
 		addAfterInIngredients(TTItems.BLOOM_POTTERY_SHERD, TTItems.BOLT_POTTERY_SHERD);
@@ -159,10 +161,13 @@ public class TTCreativeInventorySorting {
 		addAfterInIngredients(TTItems.CRAWL_POTTERY_SHERD, TTItems.CRESCENT_POTTERY_SHERD);
 		addAfterInIngredients(TTItems.CRESCENT_POTTERY_SHERD, TTItems.CULTIVATOR_POTTERY_SHERD);
 		addAfterInIngredients(Items.DANGER_POTTERY_SHERD, TTItems.DROUGHT_POTTERY_SHERD);
-		addBeforeInIngredients(Items.EXPLORER_POTTERY_SHERD, TTItems.ESSENCE_POTTERY_SHERD);
+		addBeforeInIngredients(Items.EXPLORER_POTTERY_SHERD, TTItems.ENCLOSURE_POTTERY_SHERD);
+		addAfterInIngredients(TTItems.ENCLOSURE_POTTERY_SHERD, TTItems.ESSENCE_POTTERY_SHERD);
 		addAfterInIngredients(Items.EXPLORER_POTTERY_SHERD, TTItems.EYE_POTTERY_SHERD);
 		addAfterInIngredients(Items.FLOW_POTTERY_SHERD, TTItems.FOCUS_POTTERY_SHERD);
-		addBeforeInIngredients(Items.HOWL_POTTERY_SHERD, TTItems.HEIGHT_POTTERY_SHERD);
+		addAfterInIngredients(TTItems.FOCUS_POTTERY_SHERD, TTItems.FROST_POTTERY_SHERD);
+		addBeforeInIngredients(Items.HEART_POTTERY_SHERD, TTItems.HARE_POTTERY_SHERD);
+		addAfterInIngredients(TTItems.HARE_POTTERY_SHERD, TTItems.HEIGHT_POTTERY_SHERD);
 		addAfterInIngredients(Items.HOWL_POTTERY_SHERD, TTItems.HUMP_POTTERY_SHERD);
 		addAfterInIngredients(TTItems.HUMP_POTTERY_SHERD, TTItems.ILLUMINATOR_POTTERY_SHERD);
 		addAfterInIngredients(TTItems.ILLUMINATOR_POTTERY_SHERD, TTItems.INCIDENCE_POTTERY_SHERD);
@@ -171,7 +176,7 @@ public class TTCreativeInventorySorting {
 		addAfterInIngredients(TTItems.NAVIGATOR_POTTERY_SHERD, TTItems.NEEDLES_POTTERY_SHERD);
 		addBeforeInIngredients(Items.PLENTY_POTTERY_SHERD, TTItems.OMEN_POTTERY_SHERD);
 		addAfterInIngredients(Items.PLENTY_POTTERY_SHERD, TTItems.PLUME_POTTERY_SHERD);
-		addAfterInIngredients(Items.PRIZE_POTTERY_SHERD, TTItems.PROTECTION_POTTERY_SHERD);
+		addAfterInIngredients(Items.PRIZE_POTTERY_SHERD,TTItems. PROTECTION_POTTERY_SHERD);
 		addAfterInIngredients(Items.SHEAF_POTTERY_SHERD, TTItems.SHED_POTTERY_SHERD);
 		addAfterInIngredients(Items.SHELTER_POTTERY_SHERD, TTItems.SHINE_POTTERY_SHERD);
 		addAfterInIngredients(TTItems.SHINE_POTTERY_SHERD, TTItems.SHOWER_POTTERY_SHERD);
@@ -188,6 +193,9 @@ public class TTCreativeInventorySorting {
 		addAfterInIngredients(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE);
 		addAfterInIngredients(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE);
 
+		// Ruins discs should come before Trail Ruins!
+		addBeforeInToolsAndUtilities(Items.MUSIC_DISC_RELIC, TTItems.MUSIC_DISC_STASIS);
+		// Catacombs discs should come after Trail Ruins!
 		addAfterInToolsAndUtilities(Items.MUSIC_DISC_RELIC, TTItems.MUSIC_DISC_FAUSSE_VIE);
 	}
 
@@ -217,6 +225,10 @@ public class TTCreativeInventorySorting {
 
 	private static void addInToolsAndUtilities(ItemLike item) {
 		FrozenCreativeTabs.add(item, CreativeModeTabs.TOOLS_AND_UTILITIES);
+	}
+
+	private static void addBeforeInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
 	private static void addAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {

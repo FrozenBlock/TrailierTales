@@ -30,6 +30,7 @@ public final class TTWorldgenConfig {
 			public void onSync(TTWorldgenConfig syncInstance) {
 				var config = this.config();
 				GENERATE_GENERIC_RUINS = config.ruins.generic;
+				GENERATE_SNOWY_RUINS = config.ruins.snowy;
 				GENERATE_JUNGLE_RUINS = config.ruins.jungle;
 				GENERATE_SAVANNA_RUINS = config.ruins.savanna;
 				GENERATE_DESERT_RUINS = config.ruins.desert;
@@ -40,6 +41,7 @@ public final class TTWorldgenConfig {
 	);
 
 	public static volatile boolean GENERATE_GENERIC_RUINS = true;
+	public static volatile boolean GENERATE_SNOWY_RUINS = true;
 	public static volatile boolean GENERATE_JUNGLE_RUINS = true;
 	public static volatile boolean GENERATE_SAVANNA_RUINS = true;
 	public static volatile boolean GENERATE_DESERT_RUINS = true;
@@ -58,6 +60,9 @@ public final class TTWorldgenConfig {
 	public static class Ruins {
 		@EntrySyncData("generic")
 		public boolean generic = true;
+
+		@EntrySyncData("snowy")
+		public boolean snowy = true;
 
 		@EntrySyncData("jungle")
 		public boolean jungle = true;

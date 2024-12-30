@@ -11,13 +11,18 @@
   "item.minecraft.tipped_arrow.effect.transfiguring": "Arrow of Transfiguring",
 
   "enchantment.trailiertales.rebrush": "Rebrush",
+  "enchantment.trailiertales.rebrush.desc": "Chance to keep uncovering loot from suspicious blocks.",
   "enchantment.trailiertales.reaping": "Reaping",
+  "enchantment.trailiertales.reaping.desc": "Victims drop more XP on death.",
 
   "item.trailiertales.apparition_spawn_egg": "Apparition Spawn Egg",
 
   "item.trailiertales.ectoplasm": "Ectoplasm",
+  "block.trailiertales.ectoplasm_block": "Block of Ectoplasm",
+
   "filled_map.trailiertales.catacombs": "Catacombs Explorer Map",
 
+  "item.trailiertales.aurora_pottery_sherd": "Aurora Pottery Sherd",
   "item.trailiertales.bait_pottery_sherd": "Bait Pottery Sherd",
   "item.trailiertales.bloom_pottery_sherd": "Bloom Pottery Sherd",
   "item.trailiertales.bolt_pottery_sherd": "Bolt Pottery Sherd",
@@ -28,9 +33,12 @@
   "item.trailiertales.crescent_pottery_sherd": "Crescent Pottery Sherd",
   "item.trailiertales.cultivator_pottery_sherd": "Cultivator Pottery Sherd",
   "item.trailiertales.drought_pottery_sherd": "Drought Pottery Sherd",
+  "item.trailiertales.enclosure_pottery_sherd": "Enclosure Pottery Sherd",
   "item.trailiertales.essence_pottery_sherd": "Essence Pottery Sherd",
   "item.trailiertales.eye_pottery_sherd": "Eye Pottery Sherd",
   "item.trailiertales.focus_pottery_sherd": "Focus Pottery Sherd",
+  "item.trailiertales.frost_pottery_sherd": "Frost Pottery Sherd",
+  "item.trailiertales.hare_pottery_sherd": "Hare Pottery Sherd",
   "item.trailiertales.height_pottery_sherd": "Height Pottery Sherd",
   "item.trailiertales.hump_pottery_sherd": "Hump Pottery Sherd",
   "item.trailiertales.illuminator_pottery_sherd": "Illuminator Pottery Sherd",
@@ -56,8 +64,8 @@
   "item.trailiertales.martyr_armor_trim_smithing_template": "Martyr Armor Trim",
   "item.trailiertales.zephyr_armor_trim_smithing_template": "Zephyr Armor Trim",
   "item.trailiertales.cot_armor_trim_smithing_template": "Cot Armor Trim",
+  "item.trailiertales.embrace_armor_trim_smithing_template": "Embrace Armor Trim",
 
-  "trim_pattern.trailiertales.desolation": "Desolation Armor Trim",
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
   "trim_pattern.trailiertales.matrix": "Matrix Armor Trim",
   "trim_pattern.trailiertales.geode": "Geode Armor Trim",
@@ -65,10 +73,15 @@
   "trim_pattern.trailiertales.martyr": "Martyr Armor Trim",
   "trim_pattern.trailiertales.zephyr": "Zephyr Armor Trim",
   "trim_pattern.trailiertales.cot": "Cot Armor Trim",
+  "trim_pattern.trailiertales.embrace": "Embrace Armor Trim",
 
   "item.trailiertales.music_disc_fausse_vie": "Music Disc",
   "item.trailiertales.music_disc_fausse_vie.desc": "Zhen - Fausse Vie",
   "jukebox_song.trailiertales.fausse_vie": "Zhen - Fausse Vie",
+
+  "item.trailiertales.music_disc_stasis": "Music Disc",
+  "item.trailiertales.music_disc_stasis.desc": "Zhen - Stasis",
+  "jukebox_song.trailiertales.stasis": "Zhen - Stasis",
 
   "tag.trailiertales.copyable_sherds": "Copyable Sherds",
   "tag.trailiertales.pot_bases": "Pot Bases",
@@ -317,6 +330,8 @@
   "tooltip.trailiertales.ruins": "Contains options for Ruins structures.",
   "option.trailiertales.generic_ruins": "Ruins",
   "tooltip.trailiertales.generic_ruins": "Whether Ruins should generate in Plains and Forest biomes.",
+  "option.trailiertales.snowy_ruins": "Snowy Ruins",
+  "tooltip.trailiertales.snowy_ruins": "Whether Snowy Ruins should generate biomes.",
   "option.trailiertales.jungle_ruins": "Jungle Ruins",
   "tooltip.trailiertales.jungle_ruins": "Whether Jungle Ruins should generate.",
   "option.trailiertales.savanna_ruins": "Savanna Ruins",

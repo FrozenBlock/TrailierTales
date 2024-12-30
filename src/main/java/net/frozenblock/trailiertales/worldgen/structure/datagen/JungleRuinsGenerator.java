@@ -50,7 +50,7 @@ public class JungleRuinsGenerator {
 				),
 				RuinsStructure.Type.JUNGLE,
 				1F,
-				UniformInt.of(1, 5),
+				UniformInt.of(2, 5),
 				Heightmap.Types.OCEAN_FLOOR_WG
 			)
 		);
@@ -63,7 +63,7 @@ public class JungleRuinsGenerator {
 			JUNGLE_RUINS_KEY,
 			new StructureSet(
 				structure.getOrThrow(JUNGLE_RUIN_KEY),
-				new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 343577861)
+				new RandomSpreadStructurePlacement(34, 18, RandomSpreadType.LINEAR, 343577861)
 			)
 		);
 	}

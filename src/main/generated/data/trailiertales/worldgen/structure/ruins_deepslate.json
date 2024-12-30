@@ -1,6 +1,5 @@
 {
   "type": "trailiertales:ruins",
-  "biome_type": "deepslate",
   "biomes": "#trailiertales:has_structure/deepslate_ruins",
   "cluster_pieces": {
     "max_inclusive": 6,
@@ -16,6 +15,7 @@
       "above_bottom": 10
     }
   },
+  "ruins_type": "deepslate",
   "spawn_overrides": {},
   "step": "underground_structures",
   "terrain_adaptation": "beard_thin"

@@ -16,7 +16,9 @@
         "trailiertales:trims/entity/humanoid/zephyr",
         "trailiertales:trims/entity/humanoid_leggings/zephyr",
         "trailiertales:trims/entity/humanoid/cot",
-        "trailiertales:trims/entity/humanoid_leggings/cot"
+        "trailiertales:trims/entity/humanoid_leggings/cot",
+        "trailiertales:trims/entity/humanoid/embrace",
+        "trailiertales:trims/entity/humanoid_leggings/embrace"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {

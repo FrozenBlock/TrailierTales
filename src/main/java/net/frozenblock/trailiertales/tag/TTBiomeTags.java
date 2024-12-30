@@ -14,6 +14,7 @@ public class TTBiomeTags {
 	public static final TagKey<Biome> HAS_SAVANNA_RUINS = bind("has_structure/savanna_ruins");
 	public static final TagKey<Biome> HAS_DEEPSLATE_RUINS = bind("has_structure/deepslate_ruins");
 	public static final TagKey<Biome> HAS_RUINS = bind("has_structure/ruins");
+	public static final TagKey<Biome> HAS_SNOWY_RUINS = bind("has_structure/snowy_ruins");
 
 	@NotNull
 	private static TagKey<Biome> bind(@NotNull String path) {

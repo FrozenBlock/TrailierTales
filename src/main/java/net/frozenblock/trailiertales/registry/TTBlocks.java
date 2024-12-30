@@ -7,6 +7,7 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
+import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import org.jetbrains.annotations.NotNull;
 
 public class TTBlocks {
 
@@ -779,28 +781,45 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	public static final EctoplasmBlock ECTOPLASM_BLOCK = registerWithoutItem("ectoplasm_block",
+		EctoplasmBlock::new,
+		Properties.of()
+			.mapColor(MapColor.COLOR_LIGHT_BLUE)
+			.noOcclusion()
+			.instabreak()
+			.explosionResistance(1200F)
+			.emissiveRendering(Blocks::always)
+			.lightLevel(state -> 1)
+			.sound(SoundType.WOOL)
+			.isSuffocating(Blocks::never)
+			.isViewBlocking(Blocks::never)
+			.pushReaction(PushReaction.DESTROY)
+			.dynamicShape()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
 	public static void init() {
 	}
 
-	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
+	private static <T extends Block> @NotNull T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
 		ResourceLocation id = TTConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
-	private static <T extends Block> T register(String path, Function<Properties, T> block, Properties properties) {
+	private static <T extends Block> @NotNull T register(String path, Function<Properties, T> block, Properties properties) {
 		T registered = registerWithoutItem(path, block, properties);
 		Items.registerBlock(registered);
 		return registered;
 	}
 
-	private static <T extends Block> T doRegister(ResourceLocation id, T block) {
+	private static <T extends Block> @NotNull T doRegister(ResourceLocation id, T block) {
 		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
 			return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		}
 		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
 	}
 
-	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, ResourceLocation id) {
+	private static <T extends Block> T makeBlock(@NotNull Function<Properties, T> function, @NotNull Properties properties, ResourceLocation id) {
 		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
 	}
 
