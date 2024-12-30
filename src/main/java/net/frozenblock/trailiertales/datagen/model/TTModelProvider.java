@@ -79,10 +79,10 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.createPlant(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createManedropCrop(generator);
-		generator.createDoublePlant(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createDoublePlantWithDefaultItem(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
@@ -246,6 +246,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MANEDROP_GERM, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
@@ -255,7 +256,6 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.MANEDROP_CROP;
-		generator.registerSimpleFlatItemModel(block);
 		PropertyDispatch propertyDispatch = PropertyDispatch.properties(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
 				case UPPER -> {
