@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class EctoplasmBlock extends HalfTransparentBlock {
 	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
-	public static final double GRAVITY_SLOWDOWN = 0.45D;
+	public static final double GRAVITY_SLOWDOWN = 0.2D;
 	public static final MapCodec<EctoplasmBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		propertiesCodec()
 	).apply(instance, EctoplasmBlock::new));
