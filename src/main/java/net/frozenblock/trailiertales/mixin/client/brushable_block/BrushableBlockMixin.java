@@ -48,7 +48,8 @@ public class BrushableBlockMixin {
 				boolean canCreateParticle = false;
 				BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 				for (Direction direction : Direction.values()) {
-					if (!world.getBlockState(mutableBlockPos.set(pos).move(direction)).isAir()) continue;
+					BlockState state = world.getBlockState(mutableBlockPos.set(pos).move(direction));
+					if (!(state.isAir() || state.isFaceSturdy(world, mutableBlockPos, direction.getOpposite()))) continue;
 					canCreateParticle = true;
 				}
 

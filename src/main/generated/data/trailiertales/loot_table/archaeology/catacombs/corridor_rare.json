@@ -7,7 +7,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:skull_pottery_sherd",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -47,7 +47,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_ingot",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -91,7 +91,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:paper",
-          "weight": 4
+          "weight": 6
         },
         {
           "type": "minecraft:item",
@@ -115,8 +115,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:minecart",
-          "weight": 3
+          "name": "minecraft:minecart"
         },
         {
           "type": "minecraft:item",
@@ -160,6 +159,24 @@
           "type": "minecraft:item",
           "name": "minecraft:chain",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:oak_fence"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glass_bottle"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:weakness"
+            }
+          ],
+          "name": "minecraft:splash_potion"
         }
       ],
       "rolls": 1.0

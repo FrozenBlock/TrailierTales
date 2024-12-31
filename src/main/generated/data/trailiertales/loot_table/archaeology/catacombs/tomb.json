@@ -7,7 +7,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:skull_pottery_sherd",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -42,8 +42,7 @@
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:book",
-          "weight": 2
+          "name": "minecraft:book"
         },
         {
           "type": "minecraft:item",
@@ -57,7 +56,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot"
+          "name": "minecraft:iron_ingot",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -77,27 +77,27 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:stick",
-          "weight": 6
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:string",
-          "weight": 6
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:book",
-          "weight": 8
+          "weight": 9
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:paper",
-          "weight": 4
+          "weight": 12
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:leather",
-          "weight": 3
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -116,7 +116,13 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:minecart"
+          "name": "minecraft:chain",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:oak_fence",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -158,8 +164,18 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:chain",
-          "weight": 5
+          "name": "minecraft:glass_bottle",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:weakness"
+            }
+          ],
+          "name": "minecraft:splash_potion"
         }
       ],
       "rolls": 1.0

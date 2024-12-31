@@ -9,11 +9,13 @@ import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
+import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +38,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.OMEN_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
@@ -52,10 +54,10 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(16))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
-						.add(LootItem.lootTableItem(Items.PAPER).setWeight(8))
-						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(4))
+						.add(LootItem.lootTableItem(Items.PAPER).setWeight(12))
+						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(5))
 						.add(LootItem.lootTableItem(Items.CANDLE).setWeight(18))
-						.add(LootItem.lootTableItem(Items.RAIL).setWeight(4))
+						.add(LootItem.lootTableItem(Items.RAIL).setWeight(6))
 						.add(LootItem.lootTableItem(Items.MINECART).setWeight(1))
 						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(1)
 							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
@@ -64,6 +66,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
 							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))))
 						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(5))
+						.add(LootItem.lootTableItem(Items.OAK_FENCE).setWeight(1))
+						.add(LootItem.lootTableItem(Items.GLASS_BOTTLE).setWeight(1))
 				)
 		);
 
@@ -72,7 +76,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.OMEN_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
@@ -80,7 +84,7 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(TTItems.BULLSEYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BRICK).setWeight(3))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(4))
-						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
+						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(3))
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(2))
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
@@ -88,12 +92,12 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(5))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(8))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(8))
-						.add(LootItem.lootTableItem(Items.PAPER).setWeight(4))
+						.add(LootItem.lootTableItem(Items.PAPER).setWeight(6))
 						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(3))
 						.add(LootItem.lootTableItem(Items.CANDLE).setWeight(8))
 						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(3))
 						.add(LootItem.lootTableItem(Items.RAIL).setWeight(7))
-						.add(LootItem.lootTableItem(Items.MINECART).setWeight(3))
+						.add(LootItem.lootTableItem(Items.MINECART).setWeight(1))
 						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(1)
 							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
 							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))))
@@ -101,6 +105,10 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
 							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))))
 						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(3))
+						.add(LootItem.lootTableItem(Items.OAK_FENCE).setWeight(1))
+						.add(LootItem.lootTableItem(Items.GLASS_BOTTLE).setWeight(1))
+						.add(LootItem.lootTableItem(Items.SPLASH_POTION).setWeight(1)
+							.apply(SetPotionFunction.setPotion(Potions.WEAKNESS)))
 				)
 		);
 
@@ -109,35 +117,38 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(5))
+						.add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.OMEN_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.ESSENCE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(TTItems.EYE_POTTERY_SHERD).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BRICK).setWeight(3))
-						.add(LootItem.lootTableItem(Items.BOOK).setWeight(2).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(1).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(4))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
-						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(1))
+						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(2))
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(6))
 						.add(LootItem.lootTableItem(Items.SOUL_LANTERN).setWeight(3))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(8))
-						.add(LootItem.lootTableItem(Items.STICK).setWeight(6))
-						.add(LootItem.lootTableItem(Items.STRING).setWeight(6))
-						.add(LootItem.lootTableItem(Items.BOOK).setWeight(8))
-						.add(LootItem.lootTableItem(Items.PAPER).setWeight(4))
-						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(3))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(7))
+						.add(LootItem.lootTableItem(Items.STRING).setWeight(7))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9))
+						.add(LootItem.lootTableItem(Items.PAPER).setWeight(12))
+						.add(LootItem.lootTableItem(Items.LEATHER).setWeight(4))
 						.add(LootItem.lootTableItem(Items.CANDLE).setWeight(8))
 						.add(LootItem.lootTableItem(Items.RED_DYE).setWeight(3))
 						.add(LootItem.lootTableItem(Items.RAIL).setWeight(4))
-						.add(LootItem.lootTableItem(Items.MINECART).setWeight(1))
+						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(5))
+						.add(LootItem.lootTableItem(Items.OAK_FENCE).setWeight(2))
 						.add(LootItem.lootTableItem(Items.IRON_PICKAXE).setWeight(1)
 							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
 							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))))
 						.add(LootItem.lootTableItem(Items.STONE_SHOVEL).setWeight(1)
 							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries))
 							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F))))
-						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(5))
+						.add(LootItem.lootTableItem(Items.GLASS_BOTTLE).setWeight(2))
+						.add(LootItem.lootTableItem(Items.SPLASH_POTION).setWeight(1)
+							.apply(SetPotionFunction.setPotion(Potions.WEAKNESS)))
 				)
 		);
 
@@ -161,7 +172,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(10))
 						.add(LootItem.lootTableItem(Items.STONE_PICKAXE).setWeight(5))
 						.add(LootItem.lootTableItem(Items.IRON_SHOVEL).setWeight(5))
-						.add(LootItem.lootTableItem(Items.GLASS_BOTTLE).setWeight(10))
+						.add(LootItem.lootTableItem(Items.POTION).setWeight(10)
+							.apply(SetPotionFunction.setPotion(Potions.WATER)))
 						.add(LootItem.lootTableItem(Items.STONE_AXE).setWeight(10))
 						.add(LootItem.lootTableItem(Items.SADDLE).setWeight(4))
 						.add(LootItem.lootTableItem(Items.BUCKET).setWeight(5))
@@ -406,7 +418,8 @@ public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(5))
 						.add(LootItem.lootTableItem(Items.STRING).setWeight(7))
 						.add(LootItem.lootTableItem(Items.OAK_HANGING_SIGN).setWeight(5))
-						.add(LootItem.lootTableItem(Items.GLASS_BOTTLE).setWeight(3))
+						.add(LootItem.lootTableItem(Items.POTION).setWeight(3)
+							.apply(SetPotionFunction.setPotion(Potions.WATER)))
 						.add(LootItem.lootTableItem(Items.LEATHER_HELMET).setWeight(5))
 						.add(LootItem.lootTableItem(Items.FLINT_AND_STEEL).setWeight(5))
 						.add(LootItem.lootTableItem(Items.BOWL).setWeight(4))
