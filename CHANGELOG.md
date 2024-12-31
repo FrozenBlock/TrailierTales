@@ -30,9 +30,10 @@ hi
 - Added Ukranian translations, thanks to unroman! ([#8](https://github.com/FrozenBlock/TrailierTales/pull/8))
 - Updated Polish translations slightly, thanks to Eggmanplant! ([#4](https://github.com/FrozenBlock/TrailierTales/pull/4))
 
-#### Bugfixes
+#### Bug Fixes
 - Fixed a critical issue with mobs suddenly vanishing.
 - Fixed a vanilla bug where Powered Rails, Activator Rails, and Detector Rails wouldn't rotate properly in structure generation.
+- Fixed the optional accessibility particles for suspicious blocks not working as intended.
 - Cracked and Chiseled Purpur Blocks can now be broken faster with a pickaxe. ([#10](https://github.com/FrozenBlock/TrailierTales/issues/10))
 - Fixed an issue where modded boats that aren't implemented the same way as vanilla cause a crash. ([#9](https://github.com/FrozenBlock/TrailierTales/issues/9))
 - Fixed the Polished Calcite Wall not being craftable with a Stonecutter. ([#11](https://github.com/FrozenBlock/TrailierTales/issues/11))
