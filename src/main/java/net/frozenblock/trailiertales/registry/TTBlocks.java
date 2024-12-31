@@ -86,7 +86,7 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block CYAN_ROSE_CROP = register("cyan_rose_crop",
+	public static final Block CYAN_ROSE_CROP = registerWithoutItem("cyan_rose_crop",
 		CyanRoseCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
@@ -108,12 +108,12 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block POTTED_CYAN_ROSE = register("potted_cyan_rose",
+	public static final Block POTTED_CYAN_ROSE = registerWithoutItem("potted_cyan_rose",
 		properties -> new FlowerPotBlock(CYAN_ROSE, properties),
 		Blocks.flowerPotProperties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block MANEDROP_CROP = register("manedrop_crop",
+	public static final Block MANEDROP_CROP = registerWithoutItem("manedrop_crop",
 		ManedropCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
@@ -136,7 +136,7 @@ public class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block DAWNTRAIL_CROP = register("dawntrail_crop",
+	public static final Block DAWNTRAIL_CROP = registerWithoutItem("dawntrail_crop",
 		DawntrailCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
