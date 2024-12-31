@@ -753,7 +753,7 @@ public class TTBlocks {
 			.explosionResistance(1200F)
 			.emissiveRendering(Blocks::always)
 			.lightLevel(state -> 1)
-			.sound(SoundType.WOOL)
+			.sound(TTSounds.ECTOPLASM)
 			.isSuffocating(Blocks::never)
 			.isViewBlocking(Blocks::never)
 			.pushReaction(PushReaction.DESTROY)
