@@ -45,7 +45,7 @@ public final class TTBlockConfigGui {
 			"particle",
 			configInstance
 		);
-		var placeItemsInSupiciousBlocks = FrozenClothConfig.syncedEntry(
+		var placeItemsInSuspiciousBlocks = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("place_items_in_suspicious_blocks"), modifiedSuspiciousBlocks.place_items)
 				.setDefaultValue(defaultConfig.suspiciousBlocks.place_items)
 				.setSaveConsumer(newValue -> suspiciousBlocks.place_items = newValue)
@@ -60,7 +60,7 @@ public final class TTBlockConfigGui {
 		var suspiciousBlocksCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("suspicious_blocks"),
 			false,
 			TTConstants.tooltip("suspicious_blocks"),
-			smoothSuspiciousBlocks, suspiciousBlockParticles, placeItemsInSupiciousBlocks
+			smoothSuspiciousBlocks, suspiciousBlockParticles, placeItemsInSuspiciousBlocks
 		);
 
 		var blockSounds = config.blockSounds;
