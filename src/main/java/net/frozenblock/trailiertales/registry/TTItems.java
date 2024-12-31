@@ -38,6 +38,7 @@ public class TTItems {
 	public static final Item ECTOPLASM_BLOCK = register("ectoplasm_block",
 		properties -> new PlaceInAirBlockItem(TTBlocks.ECTOPLASM_BLOCK, properties),
 		new Properties()
+			.useBlockDescriptionPrefix()
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
