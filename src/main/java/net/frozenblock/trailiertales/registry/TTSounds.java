@@ -186,6 +186,21 @@ public class TTSounds {
 		COFFIN_FALL
 	);
 
+	public static final SoundEvent ECTOPLASM_BREAK = register("block.ectoplasm.break");
+	public static final SoundEvent ECTOPLASM_STEP = register("block.ectoplasm.step");
+	public static final SoundEvent ECTOPLASM_PLACE = register("block.ectoplasm.place");
+	public static final SoundEvent ECTOPLASM_HIT = register("block.ectoplasm.hit");
+	public static final SoundEvent ECTOPLASM_FALL = register("block.ectoplasm.fall");
+	public static final SoundType ECTOPLASM = new SoundType(
+		0.075F,
+		1.3F,
+		ECTOPLASM_BREAK,
+		ECTOPLASM_STEP,
+		ECTOPLASM_PLACE,
+		ECTOPLASM_HIT,
+		ECTOPLASM_FALL
+	);
+
 	public static final SoundEvent APPARITION_IDLE = register("entity.apparition.idle");
 	public static final SoundEvent APPARITION_HURT = register("entity.apparition.hurt");
 	public static final SoundEvent APPARITION_DEATH = register("entity.apparition.death");
