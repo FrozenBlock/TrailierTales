@@ -7,37 +7,37 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:skull_pottery_sherd",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "trailiertales:omen_pottery_sherd",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:plenty_pottery_sherd",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "trailiertales:essence_pottery_sherd",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "trailiertales:eye_pottery_sherd",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "trailiertales:bullseye_pottery_sherd",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:brick",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
