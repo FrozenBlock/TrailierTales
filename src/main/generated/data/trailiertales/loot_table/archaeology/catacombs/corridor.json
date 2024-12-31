@@ -157,6 +157,10 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:glass_bottle"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:apple"
         }
       ],
       "rolls": 1.0

@@ -166,6 +166,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:apple",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:glass_bottle"
         },
         {

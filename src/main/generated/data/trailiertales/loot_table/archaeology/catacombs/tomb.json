@@ -47,12 +47,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_nugget",
-          "weight": 4
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_ingot",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -165,6 +165,11 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:glass_bottle",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:apple",
           "weight": 2
         },
         {
