@@ -859,6 +859,50 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.ectoplasm.break": {
+    "sounds": [
+      "trailiertales:block/ectoplasm/break1",
+      "trailiertales:block/ectoplasm/break2",
+      "trailiertales:block/ectoplasm/break3",
+      "trailiertales:block/ectoplasm/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.ectoplasm.fall": {
+    "sounds": [
+      "trailiertales:block/ectoplasm/break1",
+      "trailiertales:block/ectoplasm/break2",
+      "trailiertales:block/ectoplasm/break3",
+      "trailiertales:block/ectoplasm/break4"
+    ]
+  },
+  "block.ectoplasm.hit": {
+    "sounds": [
+      "trailiertales:block/ectoplasm/break1",
+      "trailiertales:block/ectoplasm/break2",
+      "trailiertales:block/ectoplasm/break3",
+      "trailiertales:block/ectoplasm/break4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.ectoplasm.place": {
+    "sounds": [
+      "trailiertales:block/ectoplasm/place1",
+      "trailiertales:block/ectoplasm/place2",
+      "trailiertales:block/ectoplasm/place3",
+      "trailiertales:block/ectoplasm/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.ectoplasm.step": {
+    "sounds": [
+      "trailiertales:block/ectoplasm/break1",
+      "trailiertales:block/ectoplasm/break2",
+      "trailiertales:block/ectoplasm/break3",
+      "trailiertales:block/ectoplasm/break4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
 
   "block.dawntrail.pick": {
     "sounds": [
