@@ -16,16 +16,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:wheat_seeds",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:gold_nugget",
           "weight": 10
         },
@@ -66,11 +56,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:lead",
           "weight": 10
         },
@@ -88,6 +73,60 @@
           "type": "minecraft:item",
           "name": "minecraft:diamond",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:clock",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:compass",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:note_block",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glow_berries",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potato",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.15
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "name": "minecraft:iron_pickaxe"
         },
         {
           "type": "minecraft:item",
