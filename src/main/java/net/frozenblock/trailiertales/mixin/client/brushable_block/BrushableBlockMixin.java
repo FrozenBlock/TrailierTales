@@ -42,7 +42,7 @@ public class BrushableBlockMixin {
 		Player player = Minecraft.getInstance().player;
 		if (player != null && player.isHolding(Items.BRUSH)) {
 			Vec3 vec3 = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
-			double playerDistance = vec3.distanceTo(player.getEyePosition());
+			double playerDistance = vec3.distanceTo(player.position());
 			double distanceThreshold = random.nextDouble() * player.blockInteractionRange() * 1.5D;
 			if (playerDistance < distanceThreshold) {
 				boolean canCreateParticle = false;
