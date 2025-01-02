@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
@@ -20,6 +21,8 @@ import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
+import net.minecraft.world.level.storage.loot.functions.SetOminousBottleAmplifierFunction;
+import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -53,6 +56,18 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(6).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(
+							LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetOminousBottleAmplifierFunction.setAmplifier(UniformGenerator.between(1F, 2F)))
+						)
+						.add(
+							LootItem.lootTableItem(Items.SPLASH_POTION)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetPotionFunction.setPotion(Potions.WEAKNESS))
+						)
 						.add(EmptyLootItem.emptyItem().setWeight(3))
 				)
 				.withPool(
@@ -63,6 +78,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BONE).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 6))))
 						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(6).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.COAL).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))
 						.add(LootItem.lootTableItem(Items.CANDLE).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.BRICK).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
@@ -86,8 +102,14 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 								.setWeight(2).setQuality(Rarity.EPIC.ordinal())
 								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
 									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH),
-									ConstantValue.exactly(1.0F)
+									ConstantValue.exactly(1F)
 								))
+						)
+						.add(
+							LootItem.lootTableItem(Items.SPLASH_POTION)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetPotionFunction.setPotion(Potions.WEAKNESS))
 						)
 						.add(EmptyLootItem.emptyItem().setWeight(3))
 				)
@@ -99,6 +121,12 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
 						.add(LootItem.lootTableItem(Items.NAME_TAG).setWeight(8))
 						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(7).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(
+							LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetOminousBottleAmplifierFunction.setAmplifier(UniformGenerator.between(1F, 3F)))
+						)
 						.add(EmptyLootItem.emptyItem().setWeight(2))
 				)
 				.withPool(
@@ -126,6 +154,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 				)
 		);
 
@@ -203,6 +232,18 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
 						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(
+							LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetOminousBottleAmplifierFunction.setAmplifier(UniformGenerator.between(3F, 5F)))
+						)
+						.add(
+							LootItem.lootTableItem(Items.SPLASH_POTION)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetPotionFunction.setPotion(Potions.WEAKNESS))
+						)
 						.add(EmptyLootItem.emptyItem().setWeight(18))
 				)
 				.withPool(
@@ -231,6 +272,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.FLOWER_POT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 				)
 		);
 
@@ -275,6 +317,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(4)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4)))
 						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 				)
 		);
 	}
