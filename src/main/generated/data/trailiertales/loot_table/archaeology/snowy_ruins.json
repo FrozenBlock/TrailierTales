@@ -92,12 +92,22 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:white_wool",
-          "weight": 10
+          "weight": 8
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:red_wool",
-          "weight": 10
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:white_carpet",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_carpet",
+          "weight": 20
         },
         {
           "type": "minecraft:item",
@@ -106,8 +116,13 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:book",
-          "weight": 10
+          "name": "minecraft:spruce_fence",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:spruce_fence_gate",
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -123,6 +138,11 @@
           "type": "minecraft:item",
           "name": "minecraft:spruce_hanging_sign",
           "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "weight": 8
         },
         {
           "type": "minecraft:item",

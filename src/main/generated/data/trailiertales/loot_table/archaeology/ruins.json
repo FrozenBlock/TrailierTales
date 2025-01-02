@@ -56,17 +56,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:melon_seeds",
-          "weight": 7
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:pumpkin_seeds",
-          "weight": 7
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:beetroot_seeds",
           "weight": 7
         },
         {
@@ -121,6 +111,16 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:oak_fence",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:oak_fence_gate",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:book",
           "weight": 10
         },
@@ -133,6 +133,26 @@
           "type": "minecraft:item",
           "name": "minecraft:birch_hanging_sign",
           "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_axe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_pickaxe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_hoe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:saddle",
+          "weight": 5
         },
         {
           "type": "minecraft:item",

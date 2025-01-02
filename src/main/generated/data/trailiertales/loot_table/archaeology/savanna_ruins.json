@@ -31,11 +31,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:purple_dye",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:emerald",
           "weight": 20
         },
@@ -106,6 +101,16 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:acacia_fence",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:acacia_fence_gate",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:acacia_hanging_sign",
           "weight": 10
         },
@@ -113,6 +118,41 @@
           "type": "minecraft:item",
           "name": "minecraft:oak_hanging_sign",
           "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stone_axe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stone_pickaxe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_hoe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:feather",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bow",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fermented_spider_eye",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bowl",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
