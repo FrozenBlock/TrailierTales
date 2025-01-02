@@ -31,6 +31,7 @@ hi
 - Updated Polish translations slightly, thanks to Eggmanplant! ([#4](https://github.com/FrozenBlock/TrailierTales/pull/4))
 
 #### Bug Fixes
+- Fixed a massive issue facing Fabric 1.21.4.
 - Fixed a critical issue with mobs suddenly vanishing.
 - Fixed a vanilla bug where Powered Rails, Activator Rails, and Detector Rails wouldn't rotate properly in structure generation.
 - Fixed the optional accessibility particles for suspicious blocks not working as intended.
