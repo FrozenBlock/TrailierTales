@@ -43,19 +43,21 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierTales extends FrozenModInitializer {
+	private static boolean INITIALIZED = false;
 
 	public TrailierTales() {
 		super(TTConstants.MOD_ID);
 	}
 
-	@Override
-	public void onInitialize(String modId, ModContainer container) {
+	public static void init() {
+		if (INITIALIZED) return;
+		INITIALIZED = true;
+
 		if (FrozenBools.IS_DATAGEN) {
 			TTFeatureFlags.init();
 			FrozenFeatureFlags.rebuild();
 		}
 
-		TTDataFixer.applyDataFixes(container);
 		TTStructureTypes.init();
 		TTStructurePieceTypes.init();
 		TTMapDecorationTypes.init();
@@ -81,7 +83,12 @@ public class TrailierTales extends FrozenModInitializer {
 
 		TTModIntegrations.init();
 		TTCreativeInventorySorting.init();
+	}
 
+	@Override
+	public void onInitialize(String modId, ModContainer container) {
+		TTDataFixer.applyDataFixes(container);
+		init();
 		ResourceManagerHelper.registerBuiltinResourcePack(
 			TTConstants.id("trailier_main_menu"),
 			container, Component.literal("Trailier Main Menu"),
