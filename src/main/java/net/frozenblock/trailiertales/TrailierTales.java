@@ -99,7 +99,7 @@ public class TrailierTales extends FrozenModInitializer {
 		GravityAPI.MODIFICATIONS.register(gravityContext -> {
 			if (gravityContext.entity != null) {
 				if (gravityContext.state.getBlock() instanceof EctoplasmBlock) {
-					gravityContext.gravity *= EctoplasmBlock.GRAVITY_SLOWDOWN;
+					gravityContext.gravity = gravityContext.gravity.scale(EctoplasmBlock.GRAVITY_SLOWDOWN);
 				}
 			}
 		});
