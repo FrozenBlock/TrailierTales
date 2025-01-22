@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DeepslateRuinsGenerator {
 	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = TTStructures.ofSet("ruins_deepslate");
-	private static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = TTStructures.createKey("ruins_deepslate");
+	public static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = TTStructures.createKey("ruins_deepslate");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);

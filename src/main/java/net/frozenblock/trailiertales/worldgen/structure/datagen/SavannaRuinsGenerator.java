@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SavannaRuinsGenerator {
 	public static final ResourceKey<StructureSet> SAVANNA_RUINS_KEY =  TTStructures.ofSet("ruins_savanna");
-	private static final ResourceKey<Structure> SAVANNA_RUIN_KEY = TTStructures.createKey("ruins_savanna");
+	public static final ResourceKey<Structure> SAVANNA_RUIN_KEY = TTStructures.createKey("ruins_savanna");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);

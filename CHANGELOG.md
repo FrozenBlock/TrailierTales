@@ -6,6 +6,7 @@ hi
 - Increased the protocol version to 2.
 - Added 71 new rooms for Catacombs.
 - Skulls, Bones, and Rotten Flesh are no longer archeology loot in Catacombs.
+- Added an advancement for entering Catacombs.
 - Improved the loot tables for suspicious blocks in all of Trailier Tales' structures, providing more insight into the past.
 - Trailier Tales' Armor Trims are now easier to find in Ruins structures.
 - Modifications to Loot Tables for the replacement of Pottery Sherds no longer replaces entire Loot Tables, but only replaces the specified Pottery Sherd items.
@@ -15,6 +16,7 @@ hi
 - Added the Block of Ectoplasm.
   - While inside this block, gravity is weaker.
   - Apparitions cannot move through these blocks.
+  - Grants the `One Small Step` advancement when moving inside the block.
 - Added plenty of new large pieces to all Ruins types.
 - Revamped how Ruins structure pieces are loaded, chosen, and offset during worldgen, being much easier and more automatic.
   - As a side effect of this, all ruins pieces now have an equal chance of generating. Prior to this revamp, groups of pieces with specific offsets had a certain chance of being selected.
@@ -37,6 +39,7 @@ hi
 - Fixed a massive issue facing Fabric 1.21.4.
 - Fixed a critical issue with mobs suddenly vanishing.
 - Fixed a vanilla bug where Powered Rails, Activator Rails, and Detector Rails wouldn't rotate properly in structure generation.
+- Coffins have been removed from the Creative Inventory's `Funcitonal Blocks` tab, and added to the `Spawn Eggs` tab.
 - Fixed the optional accessibility particles for suspicious blocks not working as intended.
 - Cracked and Chiseled Purpur Blocks can now be broken faster with a pickaxe. ([#10](https://github.com/FrozenBlock/TrailierTales/issues/10))
 - Fixed an issue where modded boats that aren't implemented the same way as vanilla cause a crash. ([#9](https://github.com/FrozenBlock/TrailierTales/issues/9))
@@ -58,3 +61,4 @@ hi
 - Added "Contains hidden treasure!"
 - Added "Also try Braver Bundles!"
 - Added "Sherds count in large amounts!"
+- Added "Eerie ghostly fog!"

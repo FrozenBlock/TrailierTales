@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DesertRuinsGenerator {
 	public static final ResourceKey<StructureSet> DESERT_RUINS_KEY = TTStructures.ofSet("ruins_desert");
-	private static final ResourceKey<Structure> DESERT_RUIN_KEY = TTStructures.createKey("ruins_desert");
+	public static final ResourceKey<Structure> DESERT_RUIN_KEY = TTStructures.createKey("ruins_desert");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);

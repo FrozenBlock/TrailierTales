@@ -655,7 +655,7 @@ public class TTBlocks {
 		registerBlockAfter(Blocks.PURPUR_SLAB, "purpur_wall", PURPUR_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(PURPUR_WALL, "chiseled_purpur_block", CHISELED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
 
-		registerBlockAfter(Blocks.VAULT, "coffin", COFFIN, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlockAfter(Blocks.TRIAL_SPAWNER, "coffin", COFFIN, CreativeModeTabs.SPAWN_EGGS);
 		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
 
 		actualRegisterBlock("ectoplasm_block", ECTOPLASM_BLOCK);
