@@ -13,8 +13,8 @@ hi
   - While inside this block, gravity is weaker.
   - Apparitions cannot move through these blocks.
 - Added plenty of new large pieces to all Ruins types.
-- - Revamped how Ruins structure pieces are loaded, chosen, and offset during worldgen, being much easier and more automatic.
-- As a side effect of this, all ruins pieces now have an equal chance of generating. Prior to this revamp, groups of pieces with specific offsets had a certain chance of being selected.
+- Revamped how Ruins structure pieces are loaded, chosen, and offset during worldgen, being much easier and more automatic.
+  - As a side effect of this, all ruins pieces now have an equal chance of generating. Prior to this revamp, groups of pieces with specific offsets had a certain chance of being selected.
 - Generic and Jungle ruins now generate with one more piece on average.
 - Added new ruins for snowy biomes.
 - Added the Embrace Armor Trim.
@@ -25,6 +25,8 @@ hi
 - Added the Stasis Music Disc.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
+- Modifications to Loot Tables for the replacement of Pottery Sherds no longer replaces entire Loot Tables, but only replaces the specified Pottery Sherd items.
+  - This means Trailier Tales will now be compatible with datapacks and other mods that modify archaeology loot tables.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))
 - Added Spanish translations, thanks to Kokoroto!
 - Added Ukranian translations, thanks to unroman! ([#8](https://github.com/FrozenBlock/TrailierTales/pull/8))
@@ -53,3 +55,5 @@ hi
 - Added "A rat? Located at a depth of 70 feet underground?"
 - Added "A stone crypt? Located at a depth of 406 feet underground?"
 - Added "Contains hidden treasure!"
+- Added "Also try Braver Bundles!"
+- Added "Sherds count in large amounts!"
