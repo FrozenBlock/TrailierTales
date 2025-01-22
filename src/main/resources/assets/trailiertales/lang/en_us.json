@@ -250,6 +250,12 @@
   "subtitles.entity.apparition.throw": "Apparition thrusts item",
   "subtitles.entity.apparition.vanish": "Apparition vanquished",
 
+  "advancements.adventure.tomb_raider.title": "Tomb Raider",
+  "advancements.adventure.tomb_raider.description": "Step foot in Catacombs",
+
+  "advancements.adventure.walk_in_ectoplasm_block.title": "One Small Step",
+  "advancements.adventure.walk_in_ectoplasm_block.description": "Float in a Block of Ectoplasm",
+
   "option.trailiertales.component.title": "Trailier Tales Options",
 
   "option.trailiertales.block": "Block",

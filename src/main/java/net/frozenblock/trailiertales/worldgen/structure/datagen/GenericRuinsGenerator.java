@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GenericRuinsGenerator {
 	public static final ResourceKey<StructureSet> RUINS_KEY = TTStructures.ofSet("ruins");
-	private static final ResourceKey<Structure> RUIN_KEY = TTStructures.createKey("ruins");
+	public static final ResourceKey<Structure> RUIN_KEY = TTStructures.createKey("ruins");
 
 	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
 		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
