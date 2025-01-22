@@ -7,6 +7,9 @@ hi
 - Added 71 new rooms for Catacombs.
 - Skulls, Bones, and Rotten Flesh are no longer archeology loot in Catacombs.
 - Improved the loot tables for suspicious blocks in all of Trailier Tales' structures, providing more insight into the past.
+- Trailier Tales' Armor Trims are now easier to find in Ruins structures.
+- Modifications to Loot Tables for the replacement of Pottery Sherds no longer replaces entire Loot Tables, but only replaces the specified Pottery Sherd items.
+    - This means Trailier Tales will now be compatible with datapacks and other mods that modify archaeology loot tables.
 - Ominous Bottles can now be found in Catacombs.
 - Mobs spawned from Coffins now drop twice as much XP if killed by a player with Siege Omen.
 - Added the Block of Ectoplasm.
@@ -25,8 +28,6 @@ hi
 - Added the Stasis Music Disc.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
-- Modifications to Loot Tables for the replacement of Pottery Sherds no longer replaces entire Loot Tables, but only replaces the specified Pottery Sherd items.
-  - This means Trailier Tales will now be compatible with datapacks and other mods that modify archaeology loot tables.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))
 - Added Spanish translations, thanks to Kokoroto!
 - Added Ukranian translations, thanks to unroman! ([#8](https://github.com/FrozenBlock/TrailierTales/pull/8))
