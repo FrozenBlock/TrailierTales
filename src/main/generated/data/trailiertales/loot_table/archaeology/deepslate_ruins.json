@@ -151,7 +151,7 @@
         {
           "type": "minecraft:item",
           "name": "trailiertales:geode_armor_trim_smithing_template",
-          "weight": 2
+          "weight": 5
         }
       ],
       "rolls": 1.0

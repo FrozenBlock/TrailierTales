@@ -131,7 +131,7 @@ public class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(Blocks.PURPUR_SLAB, TTBlocks.PURPUR_WALL);
 		addAfterInBuildingBlocks(TTBlocks.PURPUR_WALL, TTBlocks.CHISELED_PURPUR_BLOCK);
 
-		addAfterInFunctionalBlocks(Blocks.VAULT, TTBlocks.COFFIN);
+		addAfterInSpawnEggs(Blocks.TRIAL_SPAWNER, TTBlocks.COFFIN);
 		addAfterInRedstone(Blocks.OBSERVER, TTBlocks.SURVEYOR);
 		addAfterInBuildingBlocks(TTBlocks.SURVEYOR, TTBlocks.ECTOPLASM_BLOCK);
 
