@@ -30,6 +30,8 @@ hi
 - Added the Stasis Music Disc.
 - Banner Boats no longer offer a speed boost.
   - This functionality has been given to Penguins in Wilder Wild instead.
+- All of Trailier Tales' block sound type overrides now rely on tags.
+  - These can be found in the `/sound` folder for Trailier Tales' block tags.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))

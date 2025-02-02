@@ -26,6 +26,7 @@ import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTSounds;
+import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
@@ -50,7 +51,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
@@ -94,215 +94,14 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.BRICKS,
-				Blocks.BRICK_STAIRS,
-				Blocks.BRICK_SLAB,
-				Blocks.BRICK_WALL,
-				TTBlocks.CRACKED_BRICKS,
-				TTBlocks.MOSSY_BRICKS,
-				TTBlocks.MOSSY_BRICK_STAIRS,
-				TTBlocks.MOSSY_BRICK_SLAB,
-				TTBlocks.MOSSY_BRICK_WALL
-			},
-			TTSounds.BRICKS,
-			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.STONE_BRICKS,
-				Blocks.STONE_BRICK_STAIRS,
-				Blocks.STONE_BRICK_SLAB,
-				Blocks.STONE_BRICK_WALL,
-				Blocks.CHISELED_STONE_BRICKS,
-				Blocks.CRACKED_STONE_BRICKS,
-				Blocks.MOSSY_STONE_BRICKS,
-				Blocks.MOSSY_STONE_BRICK_STAIRS,
-				Blocks.MOSSY_STONE_BRICK_SLAB,
-				Blocks.MOSSY_STONE_BRICK_WALL,
-				Blocks.INFESTED_STONE_BRICKS,
-				Blocks.INFESTED_CHISELED_STONE_BRICKS,
-				Blocks.INFESTED_CRACKED_STONE_BRICKS,
-				Blocks.INFESTED_MOSSY_STONE_BRICKS
-			},
-			TTSounds.BRICKS,
-			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				TTBlocks.GRANITE_BRICKS,
-				TTBlocks.GRANITE_BRICK_STAIRS,
-				TTBlocks.GRANITE_BRICK_SLAB,
-				TTBlocks.GRANITE_BRICK_WALL,
-				TTBlocks.CHISELED_GRANITE_BRICKS,
-				TTBlocks.CRACKED_GRANITE_BRICKS,
-				TTBlocks.MOSSY_GRANITE_BRICKS,
-				TTBlocks.MOSSY_GRANITE_BRICK_STAIRS,
-				TTBlocks.MOSSY_GRANITE_BRICK_SLAB,
-				TTBlocks.MOSSY_GRANITE_BRICK_WALL
-			},
-			TTSounds.POLISHED_BRICKS,
-			() -> TTBlockConfig.get().blockSounds.polished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				TTBlocks.DIORITE_BRICKS,
-				TTBlocks.DIORITE_BRICK_STAIRS,
-				TTBlocks.DIORITE_BRICK_SLAB,
-				TTBlocks.DIORITE_BRICK_WALL,
-				TTBlocks.CHISELED_DIORITE_BRICKS,
-				TTBlocks.CRACKED_DIORITE_BRICKS,
-				TTBlocks.MOSSY_DIORITE_BRICKS,
-				TTBlocks.MOSSY_DIORITE_BRICK_STAIRS,
-				TTBlocks.MOSSY_DIORITE_BRICK_SLAB,
-				TTBlocks.MOSSY_DIORITE_BRICK_WALL
-			},
-			TTSounds.POLISHED_BRICKS,
-			() -> TTBlockConfig.get().blockSounds.polished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				TTBlocks.ANDESITE_BRICKS,
-				TTBlocks.ANDESITE_BRICK_STAIRS,
-				TTBlocks.ANDESITE_BRICK_SLAB,
-				TTBlocks.ANDESITE_BRICK_WALL,
-				TTBlocks.CHISELED_ANDESITE_BRICKS,
-				TTBlocks.CRACKED_ANDESITE_BRICKS,
-				TTBlocks.MOSSY_ANDESITE_BRICKS,
-				TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS,
-				TTBlocks.MOSSY_ANDESITE_BRICK_SLAB,
-				TTBlocks.MOSSY_ANDESITE_BRICK_WALL
-			},
-			TTSounds.POLISHED_BRICKS,
-			() -> TTBlockConfig.get().blockSounds.polished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.PRISMARINE_BRICKS,
-				Blocks.PRISMARINE_BRICK_STAIRS,
-				Blocks.PRISMARINE_BRICK_SLAB,
-				TTBlocks.PRISMARINE_BRICK_WALL,
-			},
-			TTSounds.BRICKS,
-			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.POLISHED_BLACKSTONE_BRICKS,
-				Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS,
-				Blocks.POLISHED_BLACKSTONE_BRICK_SLAB,
-				Blocks.POLISHED_BLACKSTONE_BRICK_WALL,
-				Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS
-			},
-			TTSounds.POLISHED_BRICKS,
-			() -> TTBlockConfig.get().blockSounds.polished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				TTBlocks.POLISHED_CALCITE,
-				TTBlocks.POLISHED_CALCITE_SLAB,
-				TTBlocks.POLISHED_CALCITE_WALL,
-				TTBlocks.POLISHED_CALCITE_STAIRS,
-			},
-			TTSounds.POLISHED_CALCITE,
-			() -> TTBlockConfig.get().blockSounds.polished_calcite
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				TTBlocks.CALCITE_BRICKS,
-				TTBlocks.CALCITE_BRICK_STAIRS,
-				TTBlocks.CALCITE_BRICK_SLAB,
-				TTBlocks.CALCITE_BRICK_WALL,
-				TTBlocks.CHISELED_CALCITE_BRICKS,
-				TTBlocks.CRACKED_CALCITE_BRICKS,
-				TTBlocks.MOSSY_CALCITE_BRICKS,
-				TTBlocks.MOSSY_CALCITE_BRICK_STAIRS,
-				TTBlocks.MOSSY_CALCITE_BRICK_SLAB,
-				TTBlocks.MOSSY_CALCITE_BRICK_WALL
-			},
-			TTSounds.CALCITE_BRICKS_ALT,
-			() -> TTBlockConfig.get().blockSounds.calcite_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.END_STONE_BRICKS,
-				Blocks.END_STONE_BRICK_STAIRS,
-				Blocks.END_STONE_BRICK_SLAB,
-				Blocks.END_STONE_BRICK_WALL,
-				TTBlocks.CHISELED_END_STONE_BRICKS,
-				TTBlocks.CRACKED_END_STONE_BRICKS,
-				TTBlocks.CHORAL_END_STONE_BRICKS,
-				TTBlocks.CHORAL_END_STONE_BRICK_STAIRS,
-				TTBlocks.CHORAL_END_STONE_BRICK_SLAB,
-				TTBlocks.CHORAL_END_STONE_BRICK_WALL
-			},
-			TTSounds.BRICKS,
-			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.POLISHED_ANDESITE,
-				Blocks.POLISHED_ANDESITE_SLAB,
-				Blocks.POLISHED_ANDESITE_STAIRS,
-				TTBlocks.POLISHED_ANDESITE_WALL,
-				Blocks.POLISHED_GRANITE,
-				Blocks.POLISHED_GRANITE_SLAB,
-				Blocks.POLISHED_GRANITE_STAIRS,
-				TTBlocks.POLISHED_GRANITE_WALL,
-				Blocks.POLISHED_DIORITE,
-				Blocks.POLISHED_DIORITE_SLAB,
-				Blocks.POLISHED_DIORITE_STAIRS,
-				TTBlocks.POLISHED_DIORITE_WALL,
-				Blocks.POLISHED_BLACKSTONE,
-				Blocks.POLISHED_BLACKSTONE_SLAB,
-				Blocks.POLISHED_BLACKSTONE_STAIRS,
-				Blocks.POLISHED_BLACKSTONE_WALL,
-				Blocks.CHISELED_POLISHED_BLACKSTONE,
-				Blocks.POLISHED_BLACKSTONE_BUTTON,
-				Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE,
-			},
-			TTSounds.POLISHED,
-			() -> TTBlockConfig.get().blockSounds.polished
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.POLISHED_DEEPSLATE,
-				Blocks.POLISHED_DEEPSLATE_SLAB,
-				Blocks.POLISHED_DEEPSLATE_WALL,
-				Blocks.POLISHED_DEEPSLATE_STAIRS
-			},
-			TTSounds.POLISHED_DEEPSLATE,
-			() -> TTBlockConfig.get().blockSounds.polished_deepslate
-		);
-
-		BlockSoundTypeOverwrites.addBlocks(
-			new Block[]{
-				Blocks.POLISHED_TUFF,
-				Blocks.POLISHED_TUFF_SLAB,
-				Blocks.POLISHED_TUFF_WALL,
-				Blocks.POLISHED_TUFF_STAIRS,
-			},
-			TTSounds.POLISHED_TUFF,
-			() -> TTBlockConfig.get().blockSounds.polished_tuff
-		);
-
-		BlockSoundTypeOverwrites.addBlock(
-			Blocks.POLISHED_BASALT,
-			TTSounds.POLISHED_BASALT,
-			() -> TTBlockConfig.get().blockSounds.polished_basalt
-		);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_UNPOLISHED_BRICKS, TTSounds.BRICKS, () -> TTBlockConfig.get().blockSounds.unpolished_bricks);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BRICKS, TTSounds.POLISHED_BRICKS, () -> TTBlockConfig.get().blockSounds.polished_bricks);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_CALCITE, TTSounds.POLISHED_CALCITE, () -> TTBlockConfig.get().blockSounds.polished_calcite);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_CALCITE_BRICKS, TTSounds.CALCITE_BRICKS_ALT, () -> TTBlockConfig.get().blockSounds.calcite_bricks);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED, TTSounds.POLISHED, () -> TTBlockConfig.get().blockSounds.polished);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_DEEPSLATE, TTSounds.POLISHED_DEEPSLATE, () -> TTBlockConfig.get().blockSounds.polished_deepslate);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_TUFF, TTSounds.POLISHED_TUFF, () -> TTBlockConfig.get().blockSounds.polished_tuff);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BASALT, TTSounds.POLISHED_BASALT, () -> TTBlockConfig.get().blockSounds.polished_basalt);
 
 		if (TTWorldgenConfig.get().endCity.generateCracked) {
 			StructureProcessorApi.addProcessor(
