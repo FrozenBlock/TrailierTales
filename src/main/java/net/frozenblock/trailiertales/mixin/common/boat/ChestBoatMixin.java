@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ChestBoat.class)
+@Mixin(value = ChestBoat.class, priority = 100)
 public abstract class ChestBoatMixin extends Boat {
 
 	public ChestBoatMixin(EntityType<? extends Boat> entityType, Level world) {

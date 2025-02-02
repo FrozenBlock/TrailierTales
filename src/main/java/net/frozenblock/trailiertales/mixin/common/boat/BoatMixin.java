@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Boat.class)
+@Mixin(value = Boat.class, priority = 100)
 public abstract class BoatMixin extends VehicleEntity implements BoatBannerInterface {
 	@Unique
 	private static final EntityDataAccessor<ItemStack> TRAILIER_TALES$BANNER = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.ITEM_STACK);
