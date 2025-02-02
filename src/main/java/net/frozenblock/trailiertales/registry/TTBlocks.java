@@ -27,6 +27,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -112,7 +113,7 @@ public class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MANEDROP = new TallFlowerBlock(
+	public static final Block MANEDROP = new DoublePlantBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
