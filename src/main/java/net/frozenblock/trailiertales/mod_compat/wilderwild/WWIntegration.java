@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
-import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
@@ -13,9 +13,7 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGene
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.ChestBlock;
@@ -34,35 +32,15 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[] {
-				TTBlocks.CYAN_ROSE,
-				TTBlocks.MANEDROP
-			},
-			WWSoundTypes.FLOWER,
-			() -> WWBlockConfig.get().blockSounds.flowerSounds
-		);
-		BlockSoundGroupOverwrites.addBlock(
+		BlockSoundTypeOverwrites.addBlock(
 			TTBlocks.SUSPICIOUS_CLAY,
 			TTSounds.SUSPICIOUS_CLAY_WW,
 			() -> WWBlockConfig.get().blockSounds.claySounds
 		);
-		BlockSoundGroupOverwrites.addBlock(
+		BlockSoundTypeOverwrites.addBlock(
 			Blocks.SUSPICIOUS_GRAVEL,
 			TTSounds.SUSPICIOUS_GRAVEL_WW,
 			() -> WWBlockConfig.get().blockSounds.claySounds
-		);
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[] {
-				TTBlocks.SMOOTH_SANDSTONE_WALL,
-				TTBlocks.CUT_SANDSTONE_STAIRS,
-				TTBlocks.CUT_SANDSTONE_WALL,
-				TTBlocks.SMOOTH_RED_SANDSTONE_WALL,
-				TTBlocks.CUT_RED_SANDSTONE_STAIRS,
-				TTBlocks.CUT_RED_SANDSTONE_WALL
-			},
-			WWSoundTypes.SANDSTONE,
-			() -> WWBlockConfig.get().blockSounds.sandstoneSounds
 		);
 
 		StructureProcessorApi.addProcessor(

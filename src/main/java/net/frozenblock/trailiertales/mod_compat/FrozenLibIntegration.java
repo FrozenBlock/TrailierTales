@@ -11,8 +11,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.FrozenSharedConstants;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
@@ -94,7 +94,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.BRICKS,
 				Blocks.BRICK_STAIRS,
@@ -110,7 +110,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.STONE_BRICKS,
 				Blocks.STONE_BRICK_STAIRS,
@@ -131,7 +131,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				TTBlocks.GRANITE_BRICKS,
 				TTBlocks.GRANITE_BRICK_STAIRS,
@@ -148,7 +148,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				TTBlocks.DIORITE_BRICKS,
 				TTBlocks.DIORITE_BRICK_STAIRS,
@@ -165,7 +165,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				TTBlocks.ANDESITE_BRICKS,
 				TTBlocks.ANDESITE_BRICK_STAIRS,
@@ -182,7 +182,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.PRISMARINE_BRICKS,
 				Blocks.PRISMARINE_BRICK_STAIRS,
@@ -193,7 +193,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.POLISHED_BLACKSTONE_BRICKS,
 				Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS,
@@ -205,7 +205,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				TTBlocks.POLISHED_CALCITE,
 				TTBlocks.POLISHED_CALCITE_SLAB,
@@ -216,7 +216,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_calcite
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				TTBlocks.CALCITE_BRICKS,
 				TTBlocks.CALCITE_BRICK_STAIRS,
@@ -233,7 +233,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.calcite_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.END_STONE_BRICKS,
 				Blocks.END_STONE_BRICK_STAIRS,
@@ -250,7 +250,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.unpolished_bricks
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.POLISHED_ANDESITE,
 				Blocks.POLISHED_ANDESITE_SLAB,
@@ -276,7 +276,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.POLISHED_DEEPSLATE,
 				Blocks.POLISHED_DEEPSLATE_SLAB,
@@ -287,7 +287,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_deepslate
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
+		BlockSoundTypeOverwrites.addBlocks(
 			new Block[]{
 				Blocks.POLISHED_TUFF,
 				Blocks.POLISHED_TUFF_SLAB,
@@ -298,10 +298,8 @@ public class FrozenLibIntegration extends ModIntegration {
 			() -> TTBlockConfig.get().blockSounds.polished_tuff
 		);
 
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[]{
-				Blocks.POLISHED_BASALT
-			},
+		BlockSoundTypeOverwrites.addBlock(
+			Blocks.POLISHED_BASALT,
 			TTSounds.POLISHED_BASALT,
 			() -> TTBlockConfig.get().blockSounds.polished_basalt
 		);
