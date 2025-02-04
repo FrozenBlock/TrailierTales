@@ -4,6 +4,9 @@
       "id": "#minecraft:sand",
       "required": false
     },
-    "minecraft:grass_block"
+    {
+      "id": "#minecraft:dirt",
+      "required": false
+    }
   ]
 }

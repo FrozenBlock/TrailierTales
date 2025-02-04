@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
-import net.frozenblock.lib.sound.api.block_sound_group.BlockSoundGroupOverwrites;
+import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
@@ -13,11 +13,8 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.SavannaRuinsGene
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import static net.minecraft.world.level.block.Blocks.*;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
@@ -34,43 +31,23 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[] {
-				TTBlocks.CYAN_ROSE,
-				TTBlocks.MANEDROP
-			},
-			WWSoundTypes.FLOWER,
-			() -> WWBlockConfig.get().blockSounds.flowerSounds
-		);
-		BlockSoundGroupOverwrites.addBlock(
+		BlockSoundTypeOverwrites.addBlock(
 			TTBlocks.SUSPICIOUS_CLAY,
 			TTSounds.SUSPICIOUS_CLAY_WW,
 			() -> WWBlockConfig.get().blockSounds.claySounds
 		);
-		BlockSoundGroupOverwrites.addBlock(
+		BlockSoundTypeOverwrites.addBlock(
 			Blocks.SUSPICIOUS_GRAVEL,
 			TTSounds.SUSPICIOUS_GRAVEL_WW,
 			() -> WWBlockConfig.get().blockSounds.claySounds
-		);
-		BlockSoundGroupOverwrites.addBlocks(
-			new Block[] {
-				TTBlocks.SMOOTH_SANDSTONE_WALL,
-				TTBlocks.CUT_SANDSTONE_STAIRS,
-				TTBlocks.CUT_SANDSTONE_WALL,
-				TTBlocks.SMOOTH_RED_SANDSTONE_WALL,
-				TTBlocks.CUT_RED_SANDSTONE_STAIRS,
-				TTBlocks.CUT_RED_SANDSTONE_WALL
-			},
-			WWSoundTypes.SANDSTONE,
-			() -> WWBlockConfig.get().blockSounds.sandstoneSounds
 		);
 
 		StructureProcessorApi.addProcessor(
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
 			new RuleProcessor(
 				ImmutableList.of(
-					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
-					new ProcessorRule(new RandomBlockMatchTest(MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICKS.defaultBlockState())
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
+					new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICKS.defaultBlockState())
 				)
 			)
 		);
@@ -78,9 +55,9 @@ public class WWIntegration extends AbstractWWIntegration {
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
-					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
-					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_SLAB),
-					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_WALL)
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_SLAB),
+					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_WALL)
 				)
 			)
 		);

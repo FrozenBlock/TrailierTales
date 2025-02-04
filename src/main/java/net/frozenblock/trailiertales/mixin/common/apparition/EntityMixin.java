@@ -19,10 +19,7 @@ public class EntityMixin {
 		)
 	)
 	private List<VoxelShape> trailierTales$noApparitionCollisions(List<VoxelShape> original) {
-		if (Entity.class.cast(this) instanceof Apparition) {
-			return List.of();
-		}
-
+		if (Entity.class.cast(this) instanceof Apparition) return List.of();
 		return original;
 	}
 

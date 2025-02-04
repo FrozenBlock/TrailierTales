@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractChestBoat.class)
+@Mixin(value = AbstractChestBoat.class, priority = 100)
 public abstract class AbstractChestBoatMixin extends AbstractBoat {
 
 	public AbstractChestBoatMixin(EntityType<? extends AbstractBoat> entityType, Level level, Supplier<Item> supplier) {

@@ -3,7 +3,7 @@ package net.frozenblock.trailiertales.datagen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.feature_flag.api.FrozenFeatureFlags;
+import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.datagen.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTArchaeologyLootProvider;
@@ -77,7 +77,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_DIORITE_WALL);
 		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_ANDESITE_WALL);
 
-		FrozenFeatureFlags.rebuild();
+		FeatureFlagApi.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
 		// ASSETS
