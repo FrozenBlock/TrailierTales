@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
+import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
 import net.frozenblock.lib.entity.impl.client.rendering.ModelPartInvertInterface;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.client.model.EntityModel;
@@ -45,7 +45,7 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 	public ApparitionModel(@NotNull ModelPart root) {
 		this(
-			FrozenRenderType::apparitionOuterCull,
+			FrozenLibRenderTypes::apparitionOuterCull,
 			root,
 			Apparition::getInnerTransparency,
 			Apparition::getOutlineTransparency,

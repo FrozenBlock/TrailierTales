@@ -6,7 +6,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
-import net.frozenblock.lib.menu.api.Panoramas;
+import net.frozenblock.lib.menu.api.PanoramaApi;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.trailiertales.client.TTBlockRenderLayers;
 import net.frozenblock.trailiertales.client.TTModelLayers;
@@ -47,6 +47,6 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	private static void addPanorama(String panoramaName) {
 		ResourceLocation panoramaLocation = TTConstants.id("textures/gui/title/" + panoramaName + "/panorama");
-		Panoramas.addPanorama(panoramaLocation);
+		PanoramaApi.addPanorama(panoramaLocation);
 	}
 }

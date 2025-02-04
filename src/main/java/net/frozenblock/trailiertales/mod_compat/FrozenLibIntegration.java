@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.FrozenSharedConstants;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
@@ -63,7 +63,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = FrozenSharedConstants.id("apparition");
+	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = FrozenLibConstants.id("apparition");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");

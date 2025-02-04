@@ -2,7 +2,7 @@ package net.frozenblock.trailiertales.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.frozenblock.lib.entity.api.rendering.FrozenRenderType;
+import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -31,14 +31,14 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 	) {
 		super(renderLayerParent);
 		this.model = new ApparitionModel<>(
-			cull ? FrozenRenderType::apparitionOuterCull : FrozenRenderType::apparitionOuter,
+			cull ? FrozenLibRenderTypes::apparitionOuterCull : FrozenLibRenderTypes::apparitionOuter,
 			context.bakeLayer(TTModelLayers.APPARITION_OVERLAY),
 			innerAlphaFunction,
 			outlineAlphaFunction,
 			outerAlphaFunction,
 			drawSelector
 		);
-		this.renderType = cull ? FrozenRenderType.apparitionOuterCull(texture) : FrozenRenderType.apparitionOuter(texture);
+		this.renderType = cull ? FrozenLibRenderTypes.apparitionOuterCull(texture) : FrozenLibRenderTypes.apparitionOuter(texture);
 	}
 
 	@Override
