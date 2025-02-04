@@ -28,6 +28,10 @@ hi
 - Added the Frost Pottery Sherd.
 - Added the Hare Pottery Sherd.
 - Added the Stasis Music Disc.
+- Banner Boats no longer offer a speed boost.
+  - This functionality has been given to Penguins in Wilder Wild instead.
+- All of Trailier Tales' block sound type overrides now rely on tags.
+  - These can be found in the `/sound` folder for Trailier Tales' block tags.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))
@@ -39,13 +43,14 @@ hi
 - Fixed a massive issue facing Fabric 1.21.4.
 - Fixed a critical issue with mobs suddenly vanishing.
 - Fixed a vanilla bug where Powered Rails, Activator Rails, and Detector Rails wouldn't rotate properly in structure generation.
-- Coffins have been removed from the Creative Inventory's `Funcitonal Blocks` tab, and added to the `Spawn Eggs` tab.
+- Coffins have been removed from the Creative Inventory's `Functional Blocks` tab, and added to the `Spawn Eggs` tab.
 - Fixed the optional accessibility particles for suspicious blocks not working as intended.
 - Cracked and Chiseled Purpur Blocks can now be broken faster with a pickaxe. ([#10](https://github.com/FrozenBlock/TrailierTales/issues/10))
 - Fixed an issue where modded boats that aren't implemented the same way as vanilla cause a crash. ([#9](https://github.com/FrozenBlock/TrailierTales/issues/9))
 - Fixed the Polished Calcite Wall not being craftable with a Stonecutter. ([#11](https://github.com/FrozenBlock/TrailierTales/issues/11))
 - Fixed some recipe unlocks not working.
 - Fixed Cut Sandstone Stairs and Cut Red Sandstone Stairs having incorrect texture mapping.
+- Manedrops can no longer be bonemealed to obtain more Manedrops.
 - Removed the leftover `TRAILIER TALES` subtitle from the main menu.
 - Removed many unused assets.
 
