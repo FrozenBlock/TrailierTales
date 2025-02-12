@@ -667,7 +667,7 @@ public class TTBlocks {
 	}
 
 	public static void registerBlockProperties() {
-		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
+		HopperApi.addBlacklistedType(TTBlockEntityTypes.COFFIN);
 		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), COFFIN);
 	}
 

@@ -9,7 +9,6 @@ import java.util.UUID;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
-import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
@@ -93,12 +92,6 @@ public final class CoffinSpawner {
 					)
 				)
 		);
-	}
-
-	public @NotNull CompoundTag getUpdateTag() {
-		CompoundTag compoundTag = new CompoundTag();
-		compoundTag.putBoolean("attempting_to_spawn_mob", this.attemptingToSpawnMob);
-		return compoundTag;
 	}
 
 	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector.EntitySelector playerDetectionSelector) {
@@ -393,11 +386,7 @@ public final class CoffinSpawner {
 		return isPreparing && !finishedSpawningMobs && canSpawnInLevel;
 	}
 
-	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || world.isClientSide) {
-			return;
-		}
-
+	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, boolean ominous) {
 		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(world, pos);
 		if (coffinOrientation != null) {
 			this.getState().emitParticles(world, pos, coffinOrientation);

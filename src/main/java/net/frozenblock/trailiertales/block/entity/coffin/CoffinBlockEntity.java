@@ -8,10 +8,12 @@ import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
@@ -22,6 +24,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -33,6 +36,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -48,6 +52,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	private float openProgress;
 
 	public long wobbleStartedAtTick;
+	public int coffinWobbleLidAnimTicks;
 
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
 		super(TTBlockEntityTypes.COFFIN, pos, state);
@@ -73,9 +78,9 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		}
 
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-		if (!this.tryLoadLootTable(nbt)) {
-			ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
-		}
+		if (!this.tryLoadLootTable(nbt)) ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
+
+		this.coffinWobbleLidAnimTicks = nbt.getInt("coffin_wobble_lid_anim_ticks");
 	}
 
 	@Override
@@ -89,9 +94,9 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 				.ifError(error -> LOGGER.warn("Failed to encode CoffinSpawner {}", error.message()));
 		}
 
-		if (!this.trySaveLootTable(nbt)) {
-			ContainerHelper.saveAllItems(nbt, this.items, lookupProvider);
-		}
+		if (!this.trySaveLootTable(nbt)) ContainerHelper.saveAllItems(nbt, this.items, lookupProvider);
+
+		nbt.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
 	}
 
 	@Override
@@ -124,13 +129,18 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		return 27;
 	}
 
+	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
+		if (part == CoffinPart.HEAD || world.isClientSide) return;
+		this.coffinSpawner.tickServer(world, pos, state, ominous);
+		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
+	}
+
 	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || !world.isClientSide) {
-			return;
-		}
+		if (part == CoffinPart.HEAD || !world.isClientSide) return;
+
+		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 
 		CoffinSpawnerState coffinSpawnerState = this.getState();
-
 		if (coffinSpawnerState.isCapableOfSpawning()) {
 			RandomSource randomSource = world.getRandom();
 			if (randomSource.nextFloat() <= 0.0175F) {
@@ -139,8 +149,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		}
 
 		this.previousOpenProgress = this.openProgress;
-		float lidIncrement = this.coffinSpawner.isAttemptingToSpawnMob() ? 0.0155F : -0.03F;
-		this.openProgress = Mth.clamp(this.openProgress + lidIncrement, 0F, 1F);
+		this.openProgress = Mth.clamp(this.openProgress + this.getLidOpenIncrement(), 0F, 1F);
 
 		Direction connectedDirection = CoffinBlock.getConnectedDirection(this.getBlockState());
 		if (connectedDirection != null) {
@@ -152,6 +161,11 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		}
 	}
 
+	private float getLidOpenIncrement() {
+		if (this.coffinWobbleLidAnimTicks > 0) return 0.03F;
+		return this.coffinSpawner.isAttemptingToSpawnMob() ? 0.0155F : -0.03F;
+	}
+
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
@@ -159,7 +173,10 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
-		return this.coffinSpawner.getUpdateTag();
+		CompoundTag compoundTag = new CompoundTag();
+		compoundTag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
+		compoundTag.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
+		return compoundTag;
 	}
 
 	@Override
@@ -238,12 +255,53 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			this.wobbleStartedAtTick = this.level.getGameTime();
 			if (!this.level.isClientSide
 				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
-				&& this.level.random.nextFloat() <= 0.1F) {
+				&& this.level.random.nextFloat() <= 0.1F
+				&& this.coffinSpawner.getData().hasMobToSpawn(this.level, this.level.random, this.getBlockPos())
+			) {
+				this.ejectRandomItem();
 				this.coffinSpawner.onAggressiveWobble(this.level, this.getBlockPos());
 			}
 			return true;
 		} else {
 			return super.triggerEvent(type, data);
+		}
+	}
+
+	public void ejectRandomItem() {
+		if (this.level instanceof ServerLevel serverLevel) {
+			this.unpackLootTable(null);
+			Vec3 centerPos = CoffinBlock.getCenter(this.getBlockState(), this.worldPosition);
+			for (ItemStack coffinStack : Util.shuffledCopy(this.getItems().toArray(new ItemStack[0]), serverLevel.random)) {
+				if (!coffinStack.isEmpty()) {
+					ItemStack splitStack = coffinStack.split(1);
+					ItemEntity itemEntity = new ItemEntity(
+						serverLevel,
+						centerPos.x,
+						centerPos.y,
+						centerPos.z,
+						splitStack
+					);
+					this.level.addFreshEntity(itemEntity);
+					this.coffinWobbleLidAnimTicks = 4;
+
+					// TODO: Sound
+
+					Direction coffinOrientation = CoffinBlock.getCoffinOrientation(serverLevel, this.worldPosition);
+					if (coffinOrientation != null) {
+						CoffinBlock.spawnParticlesFrom(
+							serverLevel,
+							ParticleTypes.DUST_PLUME,
+							this.level.random.nextInt(8, 14),
+							0.02D,
+							coffinOrientation,
+							this.worldPosition,
+							0.375D
+						);
+					}
+					this.markUpdated();
+					return;
+				}
+			}
 		}
 	}
 }

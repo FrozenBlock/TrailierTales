@@ -63,6 +63,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -245,12 +246,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel
 			? BaseEntityBlock.createTickerHelper(
-			blockEntityType,
+				blockEntityType,
 			TTBlockEntityTypes.COFFIN,
-			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
+			(unusedWorld, pos, statex, coffin) -> coffin
 				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: BaseEntityBlock.createTickerHelper(
-			blockEntityType,
+				blockEntityType,
 			TTBlockEntityTypes.COFFIN,
 			(world, pos, statex, coffin) -> coffin
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
@@ -326,5 +327,17 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			zOffset,
 			speed
 		);
+	}
+
+	public static @NotNull Vec3 getCenter(@NotNull BlockState state, @NotNull BlockPos pos) {
+		Direction coffinOrientation = state.getValue(FACING);
+		boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		double stepX = coffinOrientation.getStepX();
+		double stepZ = coffinOrientation.getStepZ();
+		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		return new Vec3(pos.getX() + relativeX, pos.getY() + 0.95D, pos.getZ() + relativeZ);
 	}
 }
