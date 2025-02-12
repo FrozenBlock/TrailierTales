@@ -5,39 +5,55 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
+import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpawner.StateAccessor {
+public class CoffinBlockEntity extends RandomizableContainerBlockEntity implements Spawner, CoffinSpawner.StateAccessor {
 	private static final Logger LOGGER = LogUtils.getLogger();
+	public static final float WOBBLE_DURATION = 15F;
+	public static final float LID_OPEN_WOBBLE_DURATION = 9F;
+
+	private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
 	private CoffinSpawner coffinSpawner;
 
 	private float previousOpenProgress;
 	private float openProgress;
 
+	public long wobbleStartedAtTick;
+
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
 		super(TTBlockEntityTypes.COFFIN, pos, state);
 		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
 		this.coffinSpawner = new CoffinSpawner(this, entitySelector);
+		this.lootTable = TTLootTables.CATACOMBS_TOMB_REWARD;
 	}
 
 	public float getOpenProgress(float partialTick) {
@@ -55,6 +71,11 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
 			this.coffinSpawner.codec().parse(NbtOps.INSTANCE, nbt).resultOrPartial(LOGGER::error).ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
 		}
+
+		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+		if (!this.tryLoadLootTable(nbt)) {
+			ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
+		}
 	}
 
 	@Override
@@ -67,6 +88,40 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 				.ifSuccess(logicNbt -> nbt.merge((CompoundTag) logicNbt))
 				.ifError(error -> LOGGER.warn("Failed to encode CoffinSpawner {}", error.message()));
 		}
+
+		if (!this.trySaveLootTable(nbt)) {
+			ContainerHelper.saveAllItems(nbt, this.items, lookupProvider);
+		}
+	}
+
+	@Override
+	public boolean canOpen(Player player) {
+		return false;
+	}
+
+	@Override
+	protected @NotNull Component getDefaultName() {
+		return Component.translatable("container.coffin");
+	}
+
+	@Override
+	protected @NotNull NonNullList<ItemStack> getItems() {
+		return this.items;
+	}
+
+	@Override
+	protected void setItems(NonNullList<ItemStack> nonNullList) {
+		this.items = nonNullList;
+	}
+
+	@Override
+	protected @NotNull AbstractContainerMenu createMenu(int i, Inventory inventory) {
+		return ChestMenu.threeRows(i, inventory, this);
+	}
+
+	@Override
+	public int getContainerSize() {
+		return 27;
 	}
 
 	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
@@ -174,6 +229,21 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		this.setChanged();
 		if (this.level != null) {
 			this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+		}
+	}
+
+	@Override
+	public boolean triggerEvent(int type, int data) {
+		if (this.level != null && type == 1) {
+			this.wobbleStartedAtTick = this.level.getGameTime();
+			if (!this.level.isClientSide
+				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
+				&& this.level.random.nextFloat() <= 0.1F) {
+				this.coffinSpawner.onAggressiveWobble(this.level, this.getBlockPos());
+			}
+			return true;
+		} else {
+			return super.triggerEvent(type, data);
 		}
 	}
 }

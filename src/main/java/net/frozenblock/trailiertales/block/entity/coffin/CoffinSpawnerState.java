@@ -78,7 +78,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		} else {
 			Direction direction = CoffinBlock.getConnectedDirection(state);
 			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
-			if (spawner.canSpawnApparition(level, pos)) {
+			if (spawner.canSpawnApparition(level, pos, false)) {
 				spawner.spawnApparition(level, pos);
 			}
 
@@ -105,7 +105,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			}
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
-			if (spawner.canSpawnApparition(level, pos)) {
+			if (spawner.canSpawnApparition(level, pos, false)) {
 				spawner.spawnApparition(level, pos);
 			}
 

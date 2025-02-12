@@ -22,10 +22,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
+import net.minecraft.client.renderer.blockentity.DecoratedPotRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
+import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -99,6 +102,14 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 			float f = blockState.getValue(CoffinBlock.FACING).toYRot();
 			poseStack.translate(0.5D, 0.5D, 0.5D);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-f));
+
+			float wobbleProgress = ((float)(level.getGameTime() - blockEntity.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
+			if (wobbleProgress >= 0F && wobbleProgress <= 1F) {
+				float circleWobble = wobbleProgress * Mth.PI * 2F;
+				float l = -2F * (Mth.cos(circleWobble * 1.5F) + 0.5F) * Mth.sin(circleWobble / 1.5F);
+				poseStack.rotateAround(Axis.ZP.rotation(l * 0.015625F), 0F, -0.5F, 0F);
+			}
+
 			poseStack.translate(-0.5D, -0.5D, -0.5D);
 			this.renderPiece(
 				poseStack,

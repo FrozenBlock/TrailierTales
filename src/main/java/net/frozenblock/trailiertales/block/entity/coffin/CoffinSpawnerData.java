@@ -135,6 +135,17 @@ public class CoffinSpawnerData {
 		this.maxActiveLightLevel = maxActiveLightLevel;
 	}
 
+	public void onAggressiveWobble(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
+		if (level instanceof ServerLevel serverLevel) {
+			if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
+				this.nextApparitionSpawnsAt = 0L;
+				this.nextMobSpawnsAt = 0L;
+				coffinSpawner.addPower(1, serverLevel);
+				coffinSpawner.spawnApparition(serverLevel, pos);
+			}
+		}
+	}
+
 	public void reset() {
 		this.totalMobsSpawned = 0;
 		this.power = 0;

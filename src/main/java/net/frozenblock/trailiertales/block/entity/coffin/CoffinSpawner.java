@@ -331,11 +331,12 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public boolean canSpawnApparition(Level level, BlockPos pos) {
+	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChance) {
 		CoffinSpawnerData data = this.getData();
 		if (data.hasPotentialPlayers() && level.getGameTime() >= data.nextApparitionSpawnsAt && data.currentApparitions.size() < this.getConfig().maxApparitions()) {
 			Vec3 vec3 = Vec3.atCenterOf(pos);
 			Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
+			if (ignoreChance) return true;
 			if (optionalPlayer.isPresent()) {
 				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
 				double playerRange = this.getRequiredPlayerRange();
@@ -483,6 +484,10 @@ public final class CoffinSpawner {
 		if (level instanceof ServerLevel serverLevel) {
 			this.data.nextApparitionSpawnsAt = serverLevel.getGameTime() + this.getConfig().ticksBetweenApparitionSpawn();
 		}
+	}
+
+	public void onAggressiveWobble(Level level, BlockPos pos) {
+		this.data.onAggressiveWobble(level, pos, this);
 	}
 
 	public interface StateAccessor {
