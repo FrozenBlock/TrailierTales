@@ -162,7 +162,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	}
 
 	public int getLightLevel() {
-		return lightLevel;
+		return this.lightLevel;
 	}
 
 	public boolean isCapableOfSpawning() {

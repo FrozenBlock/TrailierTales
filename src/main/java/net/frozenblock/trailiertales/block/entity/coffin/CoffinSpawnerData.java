@@ -135,7 +135,7 @@ public class CoffinSpawnerData {
 		this.maxActiveLightLevel = maxActiveLightLevel;
 	}
 
-	public void onAggressiveWobble(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
+	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
 		if (level instanceof ServerLevel serverLevel) {
 			if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
 				this.nextApparitionSpawnsAt = 0L;
@@ -230,6 +230,30 @@ public class CoffinSpawnerData {
 			return closestPlayer.get();
 		}
 		return Optional.empty();
+	}
+
+	public List<Player> getNearbyDetectedPlayers(Level level, Vec3 origin, double distance) {
+		return this.getNearbyPlayersFromSet(this.detectedPlayers, level, origin, distance);
+	}
+
+	public List<Player> getNearbyPotentialPlayers(Level level, Vec3 origin, double distance) {
+		return this.getNearbyPlayersFromSet(this.potentialPlayers, level, origin, distance);
+	}
+
+	private @NotNull List<Player> getNearbyPlayersFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin, double distance) {
+		List<Player> nearbyPlayers = new ArrayList<>();
+		double squaredDistance = distance * distance;
+		if (!players.isEmpty()) {
+			players.forEach(uuid -> {
+				Player player = level.getPlayerByUUID(uuid);
+				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+					if (player.distanceToSqr(origin) < squaredDistance) {
+						nearbyPlayers.add(player);
+					}
+				}
+			});
+		}
+		return nearbyPlayers;
 	}
 
 	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {

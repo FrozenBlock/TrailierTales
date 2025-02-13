@@ -475,8 +475,8 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public void onAggressiveWobble(Level level, BlockPos pos) {
-		this.data.onAggressiveWobble(level, pos, this);
+	public void immediatelyActivate(Level level, BlockPos pos) {
+		this.data.immediatelyActivate(level, pos, this);
 	}
 
 	public interface StateAccessor {

@@ -158,6 +158,7 @@ public class TTSounds {
 	public static final SoundEvent COFFIN_FALL = register("block.coffin.fall");
 	public static final SoundEvent COFFIN_SPAWN_MOB = register("block.coffin.spawn_mob");
 	public static final SoundEvent COFFIN_VANISH_MOB = register("block.coffin.vanish_mob");
+	public static final SoundEvent COFFIN_HAUNT = register("block.coffin.haunt");
 	public static final SoundEvent COFFIN_AMBIENT = register("block.coffin.ambient");
 	public static final SoundEvent COFFIN_DETECT_PLAYER = register("block.coffin.detect_player");
 	public static final SoundEvent COFFIN_INCREASE_POWER = register("block.coffin.increase_power");

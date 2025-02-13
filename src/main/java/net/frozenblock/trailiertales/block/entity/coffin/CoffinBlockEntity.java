@@ -8,12 +8,10 @@ import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
@@ -24,7 +22,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -36,7 +33,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -267,55 +263,15 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	public boolean triggerEvent(int type, int data) {
 		if (this.level != null && type == 1) {
 			this.wobbleStartedAtTick = this.level.getGameTime();
-			if (!this.level.isClientSide
+			if (this.level instanceof ServerLevel serverLevel
 				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
-				&& this.level.random.nextFloat() <= 0.1F
 				&& this.coffinSpawner.getData().hasMobToSpawn(this.level, this.level.random, this.getBlockPos())
 			) {
-				this.ejectRandomItem();
-				this.coffinSpawner.onAggressiveWobble(this.level, this.getBlockPos());
+				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.random);
 			}
 			return true;
 		} else {
 			return super.triggerEvent(type, data);
-		}
-	}
-
-	public void ejectRandomItem() {
-		if (this.level instanceof ServerLevel serverLevel) {
-			this.unpackLootTable(null);
-			Vec3 centerPos = CoffinBlock.getCenter(this.getBlockState(), this.worldPosition);
-			for (ItemStack coffinStack : Util.shuffledCopy(this.getItems().toArray(new ItemStack[0]), serverLevel.random)) {
-				if (!coffinStack.isEmpty()) {
-					ItemStack splitStack = coffinStack.split(1);
-					ItemEntity itemEntity = new ItemEntity(
-						serverLevel,
-						centerPos.x,
-						centerPos.y,
-						centerPos.z,
-						splitStack
-					);
-					this.level.addFreshEntity(itemEntity);
-					this.coffinWobbleLidAnimTicks = 4;
-
-					// TODO: Sound
-
-					Direction coffinOrientation = CoffinBlock.getCoffinOrientation(serverLevel, this.worldPosition);
-					if (coffinOrientation != null) {
-						CoffinBlock.spawnParticlesFrom(
-							serverLevel,
-							ParticleTypes.DUST_PLUME,
-							this.level.random.nextInt(8, 14),
-							0.02D,
-							coffinOrientation,
-							this.worldPosition,
-							0.375D
-						);
-					}
-					this.markUpdated();
-					return;
-				}
-			}
 		}
 	}
 }
