@@ -15,6 +15,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -33,17 +34,17 @@ public enum CoffinWobbleEvent {
 	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
 	HAUNT(0.1F, false, (coffinBlockEntity, blockState) -> true),
 	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> true),
-	MINING_FATIGUE_POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
-	POISON_POTION(0.075F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
-	TRANSFIGURING_POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
+	POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
 	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> true);
 
+	private static final SimpleWeightedRandomList<MobEffectInstance> MOB_EFFECTS = SimpleWeightedRandomList.<MobEffectInstance>builder()
+		.add(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120 * 20), 2)
+		.add(new MobEffectInstance(MobEffects.POISON, 30 * 20), 1)
+		.add(new MobEffectInstance(TTMobEffects.TRANSFIGURING, 60 * 20), 2)
+		.build();
 	private static final Vec3 DEFAULT_SHOOT_ANGLE = new Vec3(0D, 1D, 0D);
 	private static final float DEFAULT_SHOOT_SPEED = 0.45F;
 	private static final float PLAYER_SHOOT_SPEED = 1F;
-	private static final MobEffectInstance MINING_FATIGUE = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120 * 20);
-	private static final MobEffectInstance POISON = new MobEffectInstance(MobEffects.POISON, 30 * 20);
-	private static final MobEffectInstance TRANSFIGURING = new MobEffectInstance(TTMobEffects.TRANSFIGURING, 60 * 20);
 
 	private final float chance;
 	private final boolean playsLidAnim;
@@ -83,14 +84,8 @@ public enum CoffinWobbleEvent {
 				case ACTIVATE:
 					coffinBlockEntity.getCoffinSpawner().immediatelyActivate(level, pos);
 					break;
-				case MINING_FATIGUE_POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, MINING_FATIGUE), coffinBlockEntity);
-					break;
-				case POISON_POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, POISON), coffinBlockEntity);
-					break;
-				case TRANSFIGURING_POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, TRANSFIGURING), coffinBlockEntity);
+				case POTION:
+					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, MOB_EFFECTS.getRandomValue(random).orElseThrow()), coffinBlockEntity);
 					break;
 				case EXPERIENCE_BOTTLE:
 					ejectProjectile(level, centerPos, new ItemStack(Items.EXPERIENCE_BOTTLE), coffinBlockEntity);
