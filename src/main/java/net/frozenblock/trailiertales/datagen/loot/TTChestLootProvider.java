@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTLootTables;
+import net.frozenblock.trailiertales.registry.TTPotions;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -273,6 +274,130 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.DEAD_BUSH).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 						.add(LootItem.lootTableItem(Items.CHAIN).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+				)
+		);
+
+		// TODO: Update
+		registry.accept(
+			TTLootTables.CATACOMBS_COFFIN,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE).setWeight(3))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+						.add(
+							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
+								.setWeight(2)
+								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
+									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH),
+									ConstantValue.exactly(1F)
+								))
+						)
+						.add(
+							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
+								.setWeight(3)
+								.apply(new SetEnchantmentsFunction.Builder().withEnchantment(
+									registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REAPING),
+									ConstantValue.exactly(1F)
+								))
+						)
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(1F, 4F))
+						.add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(2))
+						.add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(9).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
+						.add(LootItem.lootTableItem(Items.NAME_TAG).setWeight(5))
+						.add(LootItem.lootTableItem(Items.EMERALD).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(EmptyLootItem.emptyItem().setWeight(2))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(0F, 2F))
+						.add(LootItem.lootTableItem(Items.BOW).setWeight(3)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.IRON_CHESTPLATE).setWeight(3)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.IRON_LEGGINGS).setWeight(3)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.IRON_HELMET).setWeight(3)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.IRON_BOOTS).setWeight(3)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.DIAMOND_CHESTPLATE).setWeight(1)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.DIAMOND_LEGGINGS).setWeight(1)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.DIAMOND_HELMET).setWeight(1)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(LootItem.lootTableItem(Items.DIAMOND_BOOTS).setWeight(1)
+							.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15F, 0.8F)))
+							.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries).when(LootItemRandomChanceCondition.randomChance(0.6F))))
+						.add(EmptyLootItem.emptyItem().setWeight(10))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(
+							LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
+								.setWeight(3)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetOminousBottleAmplifierFunction.setAmplifier(UniformGenerator.between(3F, 5F)))
+						)
+						.add(EmptyLootItem.emptyItem().setWeight(18))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(2))
+						.add(
+							LootItem.lootTableItem(Items.SPLASH_POTION)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetPotionFunction.setPotion(Potions.WEAKNESS))
+						)
+						.add(
+							LootItem.lootTableItem(Items.SPLASH_POTION)
+								.setWeight(2)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetPotionFunction.setPotion(TTPotions.TRANSFIGURING))
+						)
+						.add(EmptyLootItem.emptyItem().setWeight(1))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(1F, 3F))
+						.add(LootItem.lootTableItem(Items.WHEAT).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.BREAD).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.CARROT).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.POTATO).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(LootItem.lootTableItem(Items.PAPER).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(EmptyLootItem.emptyItem().setWeight(5))
+				)
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(UniformGenerator.between(1F, 3F))
+						.add(LootItem.lootTableItem(Items.BONE).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 6))))
+						.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.COAL).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.BOOK).setWeight(5)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4)))
+						.add(LootItem.lootTableItem(Items.STICK).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+						.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
+						.add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 				)
 		);
 

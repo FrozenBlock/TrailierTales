@@ -21,6 +21,7 @@ public class TTLootTables {
 	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
 	public static final ResourceKey<LootTable> CATACOMBS_TOMB = register("chests/catacombs/tomb");
 	public static final ResourceKey<LootTable> CATACOMBS_TOMB_REWARD = register("chests/catacombs/tomb_reward");
+	public static final ResourceKey<LootTable> CATACOMBS_COFFIN = register("chests/catacombs/coffin");
 	public static final ResourceKey<LootTable> CATACOMBS_DECORATED_POT = register("pots/catacombs/decorated_pot");
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR = register("archaeology/catacombs/corridor");
 	public static final ResourceKey<LootTable> CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE = register("archaeology/catacombs/corridor_rare");
