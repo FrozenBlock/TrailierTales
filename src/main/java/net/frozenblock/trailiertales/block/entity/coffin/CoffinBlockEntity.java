@@ -5,7 +5,6 @@ import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
-import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
@@ -54,10 +53,6 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		super(TTBlockEntityTypes.COFFIN, pos, state);
 		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
 		this.coffinSpawner = new CoffinSpawner(this, entitySelector);
-
-		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.lootTable = TTLootTables.CATACOMBS_TOMB_REWARD;
-		}
 	}
 
 	public float getOpenProgress(float partialTick) {
