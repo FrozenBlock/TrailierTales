@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 public class CoffinBlockEntity extends RandomizableContainerBlockEntity implements Spawner, CoffinSpawner.StateAccessor {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	public static final float WOBBLE_DURATION = 15F;
+	public static final int WOBBLE_COOLDOWN = 10;
 
 	private NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 	private CoffinSpawner coffinSpawner;
