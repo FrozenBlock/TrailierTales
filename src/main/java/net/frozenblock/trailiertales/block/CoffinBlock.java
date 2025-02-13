@@ -195,7 +195,9 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	@Override
 	protected @NotNull InteractionResult useWithoutItem(BlockState state, @NotNull Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
-		if (level.getBlockEntity(pos) instanceof CoffinBlockEntity && !isCoffinActive(state)) {
+		if (level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity
+			&& (level.getGameTime() - coffinBlockEntity.wobbleStartedAtTick) >= CoffinBlockEntity.WOBBLE_DURATION
+		) {
 			// TODO: Sounds
 			level.playSound(null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1F, 1F);
 			wobble(level, pos, state);
