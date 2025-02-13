@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 public enum CoffinWobbleEvent {
 	EJECT_LOOT(0.7F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
-	HAUNT(0.15F, false, (coffinBlockEntity, blockState) -> true),
+	HAUNT(0.1F, false, (coffinBlockEntity, blockState) -> true),
 	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> true),
 	MINING_FATIGUE_POTION(0.15F, true, (coffinBlockEntity, blockState) -> true),
 	POISON_POTION(0.15F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
