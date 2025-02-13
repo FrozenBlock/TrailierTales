@@ -74,9 +74,12 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		}
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.coffinSpawner.codec().parse(NbtOps.INSTANCE, nbt).resultOrPartial(LOGGER::error).ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
-			this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+			this.coffinSpawner.codec()
+				.parse(NbtOps.INSTANCE, nbt)
+				.resultOrPartial(LOGGER::error)
+				.ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
 
+			this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 			if (!this.tryLoadLootTable(nbt)) ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
 		}
 
@@ -205,7 +208,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 				coffinSpawner = coffinBlockEntity.getCoffinSpawner();
 			}
 		}
-		coffinSpawner.getData().setEntityId(entityType, this.level, random, pos);
+		coffinSpawner.getData().setEntityId(entityType, random);
 
 		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
 		if (coffinOrientation != null && this.level instanceof ServerLevel serverLevel) {

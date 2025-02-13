@@ -31,14 +31,17 @@ import org.jetbrains.annotations.NotNull;
 
 public enum CoffinWobbleEvent {
 	EJECT_LOOT(0.4F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
-	HAUNT(0.1F, true, (coffinBlockEntity, blockState) -> true),
+	HAUNT(0.09F, false, (coffinBlockEntity, blockState) -> true),
 	ACTIVATE(0.1F, false, (coffinBlockEntity, blockState) -> true),
-	MINING_FATIGUE_POTION(0.05F, true, (coffinBlockEntity, blockState) -> true),
-	POISON_POTION(0.025F, true, (coffinBlockEntity, blockState) -> true),
-	EXPERIENCE_BOTTLE(0.05F, true, (coffinBlockEntity, blockState) -> true);
+	MINING_FATIGUE_POTION(0.045F, true, (coffinBlockEntity, blockState) -> true),
+	POISON_POTION(0.045F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
+	EXPERIENCE_BOTTLE(0.045F, true, (coffinBlockEntity, blockState) -> true);
 
-	private static final MobEffectInstance MINING_FATIGUE = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 30 * 20);
-	private static final MobEffectInstance POISON = new MobEffectInstance(MobEffects.POISON, 10 * 20);
+	private static final Vec3 DEFAULT_SHOOT_ANGLE = new Vec3(0D, 1D, 0D);
+	private static final float DEFAULT_SHOOT_SPEED = 0.45F;
+	private static final float PLAYER_SHOOT_SPEED = 1F;
+	private static final MobEffectInstance MINING_FATIGUE = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120 * 20);
+	private static final MobEffectInstance POISON = new MobEffectInstance(MobEffects.POISON, 30 * 20);
 
 	private final float chance;
 	private final boolean playsLidAnim;
@@ -79,13 +82,13 @@ public enum CoffinWobbleEvent {
 					coffinBlockEntity.getCoffinSpawner().immediatelyActivate(level, pos);
 					break;
 				case MINING_FATIGUE_POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.SPLASH_POTION, MINING_FATIGUE));
+					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, MINING_FATIGUE), coffinBlockEntity);
 					break;
 				case POISON_POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.SPLASH_POTION, POISON));
+					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, POISON), coffinBlockEntity);
 					break;
 				case EXPERIENCE_BOTTLE:
-					ejectProjectile(level, centerPos, new ItemStack(Items.EXPERIENCE_BOTTLE));
+					ejectProjectile(level, centerPos, new ItemStack(Items.EXPERIENCE_BOTTLE), coffinBlockEntity);
 					break;
 				default: throw new IllegalStateException("Unexpected value: " + event.name());
 			}
@@ -158,16 +161,25 @@ public enum CoffinWobbleEvent {
 		return itemStack;
 	}
 
-	private static void ejectProjectile(@NotNull ServerLevel serverLevel, Vec3 centerPos, @NotNull ItemStack stack) {
+	private static void ejectProjectile(@NotNull ServerLevel serverLevel, Vec3 centerPos, @NotNull ItemStack stack, CoffinBlockEntity coffinBlockEntity) {
 		if (stack.getItem() instanceof ProjectileItem projectileItem) {
-			Projectile projectile = projectileItem.asProjectile(serverLevel, centerPos.add(0D, 0.1D, 0D), stack, Direction.UP);
+			Projectile projectile = projectileItem.asProjectile(serverLevel, centerPos, stack, Direction.UP);
+			Vec3 shootAngle = DEFAULT_SHOOT_ANGLE;
+			float shootSpeed = DEFAULT_SHOOT_SPEED;
+
+			Optional<Player> closestPlayer = coffinBlockEntity.getCoffinSpawner().getData().getClosestPotentialPlayer(serverLevel, centerPos);
+			if (closestPlayer.isPresent()) {
+				shootAngle = (closestPlayer.get().getEyePosition().add(0D, 0.1D, 0D)).subtract(centerPos);
+				shootSpeed = PLAYER_SHOOT_SPEED;
+			}
+
 			projectileItem.shoot(
 				projectile,
-				Direction.DOWN.getStepX(),
-				Direction.DOWN.getStepY(),
-				Direction.DOWN.getStepZ(),
-				1F,
-				0.25F
+				shootAngle.x,
+				Math.max(0.1F, shootAngle.y),
+				shootAngle.z,
+				shootSpeed,
+				0F
 			);
 			serverLevel.addFreshEntity(projectile);
 			return;

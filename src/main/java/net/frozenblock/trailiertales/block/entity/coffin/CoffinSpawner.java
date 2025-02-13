@@ -236,7 +236,7 @@ public final class CoffinSpawner {
 
 	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
 		RandomSource randomSource = level.getRandom();
-		SpawnData spawnData = this.data.getOrCreateNextSpawnData(level, level.getRandom(), pos);
+		SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
 		CompoundTag compoundTag = spawnData.entityToSpawn();
 		ListTag listTag = compoundTag.getList("Pos", 6);
 		Optional<EntityType<?>> optional = EntityType.by(compoundTag);
