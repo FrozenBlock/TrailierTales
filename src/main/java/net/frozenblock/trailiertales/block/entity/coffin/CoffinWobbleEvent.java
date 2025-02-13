@@ -110,6 +110,8 @@ public enum CoffinWobbleEvent {
 			}
 
 			coffinBlockEntity.markUpdated();
+		} else if (random.nextBoolean()) {
+			onWobble(level, pos, state, coffinBlockEntity, random);
 		}
 	}
 
