@@ -30,12 +30,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public enum CoffinWobbleEvent {
-	EJECT_LOOT(0.7F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
+	EJECT_LOOT(0.8F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
 	HAUNT(0.1F, false, (coffinBlockEntity, blockState) -> true),
 	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> true),
-	MINING_FATIGUE_POTION(0.15F, true, (coffinBlockEntity, blockState) -> true),
-	POISON_POTION(0.15F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
-	EXPERIENCE_BOTTLE(0.15F, true, (coffinBlockEntity, blockState) -> true);
+	MINING_FATIGUE_POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
+	POISON_POTION(0.1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
+	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> true);
 
 	private static final Vec3 DEFAULT_SHOOT_ANGLE = new Vec3(0D, 1D, 0D);
 	private static final float DEFAULT_SHOOT_SPEED = 0.45F;
