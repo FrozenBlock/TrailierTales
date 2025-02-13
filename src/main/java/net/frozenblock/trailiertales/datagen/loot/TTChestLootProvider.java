@@ -386,6 +386,12 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 						.add(LootItem.lootTableItem(Items.POTATO).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
 						.add(LootItem.lootTableItem(Items.STICK).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
 						.add(LootItem.lootTableItem(Items.PAPER).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+						.add(
+							LootItem.lootTableItem(Items.SPLASH_POTION)
+								.setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetPotionFunction.setPotion(TTPotions.TRANSFIGURING))
+						)
 						.add(EmptyLootItem.emptyItem().setWeight(5))
 				)
 				.withPool(

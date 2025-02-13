@@ -551,6 +551,21 @@
           "weight": 3
         },
         {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:set_potion",
+              "id": "trailiertales:transfiguring"
+            }
+          ],
+          "name": "minecraft:splash_potion"
+        },
+        {
           "type": "minecraft:empty",
           "weight": 5
         }
