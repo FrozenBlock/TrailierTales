@@ -64,7 +64,7 @@ public enum CoffinWobbleEvent {
 
 	public static void onWobble(ServerLevel level, BlockPos pos, BlockState state, CoffinBlockEntity coffinBlockEntity, RandomSource random) {
 		CoffinWobbleEvent event = Util.getRandom(CoffinWobbleEvent.values(), random);
-		if (event.getChance() <= random.nextFloat() && event.checkExtraConditions(coffinBlockEntity, state)) {
+		if (random.nextFloat() <= event.getChance() && event.checkExtraConditions(coffinBlockEntity, state)) {
 
 			Vec3 centerPos = CoffinBlock.getCenter(state, pos);
 
