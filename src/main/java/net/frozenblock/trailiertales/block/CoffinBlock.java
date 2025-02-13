@@ -201,9 +201,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			wobble(level, pos, state);
 			level.gameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.SUCCESS;
-		} else {
-			return InteractionResult.PASS;
 		}
+		return InteractionResult.PASS;
 	}
 
 	public static void wobble(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {

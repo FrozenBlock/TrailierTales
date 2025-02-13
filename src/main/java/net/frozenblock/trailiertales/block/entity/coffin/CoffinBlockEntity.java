@@ -43,9 +43,8 @@ import org.slf4j.Logger;
 public class CoffinBlockEntity extends RandomizableContainerBlockEntity implements Spawner, CoffinSpawner.StateAccessor {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	public static final float WOBBLE_DURATION = 15F;
-	public static final float LID_OPEN_WOBBLE_DURATION = 9F;
 
-	private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+	private NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 	private CoffinSpawner coffinSpawner;
 
 	private float previousOpenProgress;
@@ -100,7 +99,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public boolean canOpen(Player player) {
+	public boolean canOpen(@NotNull Player player) {
 		return false;
 	}
 
@@ -126,7 +125,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	public int getContainerSize() {
-		return 27;
+		return 54;
 	}
 
 	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
