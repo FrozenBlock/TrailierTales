@@ -30,11 +30,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public enum CoffinWobbleEvent {
-	EJECT_LOOT(0.8F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
+	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
 	HAUNT(0.1F, false, (coffinBlockEntity, blockState) -> true),
 	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> true),
 	MINING_FATIGUE_POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
-	POISON_POTION(0.1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
+	POISON_POTION(0.075F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.getState().isCapableOfSpawning()),
+	TRANSFIGURING_POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
 	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> true);
 
 	private static final Vec3 DEFAULT_SHOOT_ANGLE = new Vec3(0D, 1D, 0D);
@@ -42,6 +43,7 @@ public enum CoffinWobbleEvent {
 	private static final float PLAYER_SHOOT_SPEED = 1F;
 	private static final MobEffectInstance MINING_FATIGUE = new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120 * 20);
 	private static final MobEffectInstance POISON = new MobEffectInstance(MobEffects.POISON, 30 * 20);
+	private static final MobEffectInstance TRANSFIGURING = new MobEffectInstance(TTMobEffects.TRANSFIGURING, 60 * 20);
 
 	private final float chance;
 	private final boolean playsLidAnim;
@@ -86,6 +88,9 @@ public enum CoffinWobbleEvent {
 					break;
 				case POISON_POTION:
 					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, POISON), coffinBlockEntity);
+					break;
+				case TRANSFIGURING_POTION:
+					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, TRANSFIGURING), coffinBlockEntity);
 					break;
 				case EXPERIENCE_BOTTLE:
 					ejectProjectile(level, centerPos, new ItemStack(Items.EXPERIENCE_BOTTLE), coffinBlockEntity);
