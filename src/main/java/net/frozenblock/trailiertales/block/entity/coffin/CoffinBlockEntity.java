@@ -264,7 +264,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			this.wobbleStartedAtTick = this.level.getGameTime();
 			if (this.level instanceof ServerLevel serverLevel
 				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
-				&& !this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.random)
+				&& this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.random)
 			) {
 				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.random);
 			}
