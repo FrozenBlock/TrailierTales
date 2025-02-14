@@ -32,7 +32,6 @@ import org.jetbrains.annotations.NotNull;
 
 public enum CoffinWobbleEvent {
 	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
-	HAUNT(0.1F, false, (coffinBlockEntity, blockState) -> true),
 	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> true),
 	POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
 	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> true);
@@ -77,9 +76,6 @@ public enum CoffinWobbleEvent {
 			switch (event) {
 				case EJECT_LOOT:
 					ejectRandomItem(level, centerPos, coffinBlockEntity);
-					break;
-				case HAUNT:
-					applyHaunt(level, centerPos, coffinBlockEntity);
 					break;
 				case ACTIVATE:
 					coffinBlockEntity.getCoffinSpawner().immediatelyActivate(level, pos);
