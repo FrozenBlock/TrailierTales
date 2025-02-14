@@ -325,16 +325,16 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChanceAndCooldown) {
+	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChance) {
 		CoffinSpawnerData data = this.getData();
-		if ((!data.isOnCooldown(level) || ignoreChanceAndCooldown)
+		if (!data.isOnCooldown(level)
 			&& data.hasPotentialPlayers()
 			&& level.getGameTime() >= data.nextApparitionSpawnsAt
 			&& data.currentApparitions.size() < this.getConfig().maxApparitions()
 		) {
 			Vec3 vec3 = Vec3.atCenterOf(pos);
 			Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
-			if (ignoreChanceAndCooldown) return true;
+			if (ignoreChance) return true;
 			if (optionalPlayer.isPresent()) {
 				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
 				double playerRange = this.getRequiredPlayerRange();

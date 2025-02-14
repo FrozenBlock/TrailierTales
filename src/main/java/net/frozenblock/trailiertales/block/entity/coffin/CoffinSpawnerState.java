@@ -75,7 +75,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		if (!coffinSpawnerData.hasMobToSpawn(level.random)) {
+		if (!coffinSpawnerData.hasMobToSpawn(level.random) || coffinSpawnerData.isOnCooldown(level)) {
 			return getCooldownOrInactiveState(level, spawner);
 		} else {
 			Direction direction = CoffinBlock.getConnectedDirection(state);

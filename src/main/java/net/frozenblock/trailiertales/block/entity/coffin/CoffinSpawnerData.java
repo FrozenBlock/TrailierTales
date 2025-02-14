@@ -142,7 +142,6 @@ public class CoffinSpawnerData {
 	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
 		if (level instanceof ServerLevel serverLevel) {
 			if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
-				this.cooldownEndsAt = 0L;
 				this.nextApparitionSpawnsAt = 0L;
 				this.nextMobSpawnsAt = 0L;
 				coffinSpawner.addPower(1, serverLevel);
@@ -157,6 +156,7 @@ public class CoffinSpawnerData {
 		this.nextMobSpawnsAt = 0L;
 		this.powerCooldownEndsAt = 0L;
 		this.nextApparitionSpawnsAt = 0L;
+		this.cooldownEndsAt = 0L;
 		this.currentMobs.clear();
 		this.currentApparitions.clear();
 	}
