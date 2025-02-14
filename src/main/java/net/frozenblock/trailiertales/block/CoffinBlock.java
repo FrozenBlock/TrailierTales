@@ -224,7 +224,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	public boolean isCoffinActive(@NotNull BlockState state) {
-		return state.getValue(STATE) != CoffinSpawnerState.INACTIVE;
+		return state.getValue(STATE).isCapableOfSpawning();
 	}
 
 	@Override

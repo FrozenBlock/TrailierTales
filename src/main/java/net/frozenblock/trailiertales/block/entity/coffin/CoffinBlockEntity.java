@@ -240,7 +240,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	@Override
 	public CoffinSpawnerState getState() {
 		return !this.getBlockState().hasProperty(TTBlockStateProperties.COFFIN_STATE)
-			? CoffinSpawnerState.INACTIVE
+			? CoffinSpawnerState.COOLDOWN
 			: this.getBlockState().getValue(TTBlockStateProperties.COFFIN_STATE);
 	}
 
@@ -264,7 +264,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			this.wobbleStartedAtTick = this.level.getGameTime();
 			if (this.level instanceof ServerLevel serverLevel
 				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
-				&& this.coffinSpawner.getData().hasMobToSpawn(this.level, this.level.random, this.getBlockPos())
+				&& !this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.random)
 			) {
 				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.random);
 			}

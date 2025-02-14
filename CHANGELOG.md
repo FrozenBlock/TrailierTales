@@ -45,6 +45,7 @@ hi
 - Fixed a vanilla bug where Powered Rails, Activator Rails, and Detector Rails wouldn't rotate properly in structure generation.
 - Coffins have been removed from the Creative Inventory's `Functional Blocks` tab, and added to the `Spawn Eggs` tab.
 - Fixed Coffins sometimes not saving SpawnData that was set via Spawn Egg.
+- Fixed Coffins using the default spawning config while set to `aggressive.`
 - Fixed the optional accessibility particles for suspicious blocks not working as intended.
 - Cracked and Chiseled Purpur Blocks can now be broken faster with a pickaxe. ([#10](https://github.com/FrozenBlock/TrailierTales/issues/10))
 - Fixed an issue where modded boats that aren't implemented the same way as vanilla cause a crash. ([#9](https://github.com/FrozenBlock/TrailierTales/issues/9))

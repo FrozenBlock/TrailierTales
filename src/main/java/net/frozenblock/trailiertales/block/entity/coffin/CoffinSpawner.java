@@ -11,6 +11,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
@@ -140,7 +141,7 @@ public final class CoffinSpawner {
 		return switch (this.getState()) {
 			case OMINOUS -> this.ominousConfig;
 			case AGGRESSIVE -> this.aggressiveConfig;
-			case INACTIVE -> this.irritatedConfig;
+			case IRRITATED -> this.irritatedConfig;
 			default -> this.normalConfig;
 		};
 	}
@@ -324,12 +325,16 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChance) {
+	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChanceAndCooldown) {
 		CoffinSpawnerData data = this.getData();
-		if (data.hasPotentialPlayers() && level.getGameTime() >= data.nextApparitionSpawnsAt && data.currentApparitions.size() < this.getConfig().maxApparitions()) {
+		if ((!data.isOnCooldown(level) || ignoreChanceAndCooldown)
+			&& data.hasPotentialPlayers()
+			&& level.getGameTime() >= data.nextApparitionSpawnsAt
+			&& data.currentApparitions.size() < this.getConfig().maxApparitions()
+		) {
 			Vec3 vec3 = Vec3.atCenterOf(pos);
 			Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
-			if (ignoreChance) return true;
+			if (ignoreChanceAndCooldown) return true;
 			if (optionalPlayer.isPresent()) {
 				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
 				double playerRange = this.getRequiredPlayerRange();
@@ -409,7 +414,7 @@ public final class CoffinSpawner {
 		if (connectedDirection != null) {
 			BlockPos connectedPos = pos.relative(connectedDirection);
 			if (world.isLoaded(connectedPos)) {
-				if (coffinOrientation == null || !(world.getBlockEntity(connectedPos) instanceof CoffinBlockEntity)) {
+				if (coffinOrientation == null || !world.getBlockState(connectedPos).is(TTBlocks.COFFIN)) {
 					world.destroyBlock(pos, false);
 					return;
 				}
@@ -436,8 +441,8 @@ public final class CoffinSpawner {
 
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
-			if (currentState.isCapableOfSpawning()) {
-				this.setState(world, CoffinSpawnerState.INACTIVE);
+			if (this.getState() != CoffinSpawnerState.COOLDOWN) {
+				this.setState(world, CoffinSpawnerState.COOLDOWN);
 			}
 		} else {
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, world);

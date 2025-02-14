@@ -56,6 +56,7 @@ public class CoffinSpawnerData {
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
 				Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
 				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
+				Codec.LONG.lenientOptionalFieldOf("cooldown_ends_at", 0L).forGetter(data -> data.cooldownEndsAt),
 				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power", 0).forGetter(data -> data.power),
 				SpawnData.CODEC.optionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
 				Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
@@ -74,6 +75,7 @@ public class CoffinSpawnerData {
 	protected int totalMobsSpawned;
 	protected long nextApparitionSpawnsAt;
 	protected int totalApparitionsSpawned;
+	protected long cooldownEndsAt;
 	protected int power;
 	protected Optional<SpawnData> nextSpawnData;
 	protected boolean withinCatacombs;
@@ -93,6 +95,7 @@ public class CoffinSpawnerData {
 			0,
 			0L,
 			0,
+			0L,
 			0,
 			Optional.empty(),
 			false,
@@ -112,6 +115,7 @@ public class CoffinSpawnerData {
 		int totalMobsSpawned,
 		long nextApparitionSpawnsAt,
 		int totalApparitionsSpawned,
+		long cooldownEndsAt,
 		int power,
 		Optional<SpawnData> nextSpawnData,
 		boolean withinCatacombs,
@@ -128,6 +132,7 @@ public class CoffinSpawnerData {
 		this.totalMobsSpawned = totalMobsSpawned;
 		this.nextApparitionSpawnsAt = nextApparitionSpawnsAt;
 		this.totalApparitionsSpawned = totalApparitionsSpawned;
+		this.cooldownEndsAt = cooldownEndsAt;
 		this.power = power;
 		this.nextSpawnData = nextSpawnData;
 		this.withinCatacombs = withinCatacombs;
@@ -137,6 +142,7 @@ public class CoffinSpawnerData {
 	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
 		if (level instanceof ServerLevel serverLevel) {
 			if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
+				this.cooldownEndsAt = 0L;
 				this.nextApparitionSpawnsAt = 0L;
 				this.nextMobSpawnsAt = 0L;
 				coffinSpawner.addPower(1, serverLevel);
@@ -155,7 +161,7 @@ public class CoffinSpawnerData {
 		this.currentApparitions.clear();
 	}
 
-	public boolean hasMobToSpawn(Level level, RandomSource random, BlockPos pos) {
+	public boolean hasMobToSpawn(RandomSource random) {
 		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(random).getEntityToSpawn().contains("id", 8);
 		return hasNextSpawnData || !this.spawnPotentials().isEmpty();
 	}
@@ -178,6 +184,14 @@ public class CoffinSpawnerData {
 
 	public boolean trackingApparition(@NotNull Entity entity) {
 		return this.currentApparitions.contains(entity.getUUID());
+	}
+
+	public boolean isOnCooldown(@NotNull Level level) {
+		return level.getGameTime() < this.cooldownEndsAt;
+	}
+
+	public boolean hasMobToSpawnAndIsntOnCooldown(Level level, RandomSource random) {
+		return !isOnCooldown(level) && this.hasMobToSpawn(random);
 	}
 
 	public int getPower() {
