@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "trailiertales:choral_end_stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "trailiertales:choral_end_stone_bricks"
+  }
+}
