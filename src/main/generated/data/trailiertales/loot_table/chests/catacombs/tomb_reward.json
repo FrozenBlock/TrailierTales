@@ -12,7 +12,11 @@
         {
           "type": "minecraft:item",
           "name": "trailiertales:music_disc_fausse_vie",
-          "weight": 3
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "trailiertales:music_disc_ossuaire"
         },
         {
           "type": "minecraft:item",

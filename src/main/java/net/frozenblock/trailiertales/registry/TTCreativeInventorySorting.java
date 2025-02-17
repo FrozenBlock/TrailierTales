@@ -190,6 +190,7 @@ public class TTCreativeInventorySorting {
 		addBeforeInToolsAndUtilities(Items.MUSIC_DISC_RELIC, TTItems.MUSIC_DISC_STASIS);
 		// Catacombs discs should come after Trail Ruins!
 		addAfterInToolsAndUtilities(Items.MUSIC_DISC_RELIC, TTItems.MUSIC_DISC_FAUSSE_VIE);
+		addAfterInToolsAndUtilities(TTItems.MUSIC_DISC_FAUSSE_VIE, TTItems.MUSIC_DISC_OSSUAIRE);
 	}
 
 	private static void addAfterInNaturalBlocks(ItemLike comparedItem, ItemLike item) {

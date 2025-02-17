@@ -1,0 +1,8 @@
+{
+  "comparator_output": 8,
+  "description": {
+    "translate": "jukebox_song.trailiertales.ossuaire"
+  },
+  "length_in_seconds": 176.0,
+  "sound_event": "trailiertales:music_disc.ossuaire"
+}

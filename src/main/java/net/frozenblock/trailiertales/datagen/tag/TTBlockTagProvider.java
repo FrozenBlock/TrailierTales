@@ -280,9 +280,6 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.FEATURES_CANNOT_REPLACE)
 			.add(TTBlocks.COFFIN);
 
-		this.getOrCreateTagBuilder(BlockTags.FALL_DAMAGE_RESETTING)
-			.add(TTBlocks.ECTOPLASM_BLOCK);
-
 		this.getOrCreateTagBuilder(BlockTags.IMPERMEABLE)
 			.add(TTBlocks.ECTOPLASM_BLOCK);
 
@@ -438,9 +435,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			);
 
 		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_BASALT)
-			.add(
-				Blocks.POLISHED_BASALT
-			);
+			.add(Blocks.POLISHED_BASALT);
 
 		// WILDER WILD
 

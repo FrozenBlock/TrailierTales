@@ -4,7 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Increased the protocol version to 2.
-- Added 71 new rooms for Catacombs.
+- Added 108 new rooms for Catacombs.
 - Skulls, Bones, and Rotten Flesh are no longer archeology loot in Catacombs.
 - Added an advancement for entering Catacombs.
 - Improved the loot tables for suspicious blocks in all of Trailier Tales' structures, providing more insight into the past.
@@ -27,7 +27,8 @@ hi
 - Added the Enclosure Pottery Sherd.
 - Added the Frost Pottery Sherd.
 - Added the Hare Pottery Sherd.
-- Added the Stasis Music Disc.
+- Added the Stasis Music Disc by Zhen, found in Snowy Ruins.
+- Added the Ossuaire Music Disc by Zhen, found in Catacombs.
 - Banner Boats no longer offer a speed boost.
   - This functionality has been given to Penguins in Wilder Wild instead.
 - All of Trailier Tales' block sound type overrides now rely on tags.
