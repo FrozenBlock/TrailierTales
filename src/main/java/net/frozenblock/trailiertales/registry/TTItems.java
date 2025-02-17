@@ -126,6 +126,12 @@ public class TTItems {
 		.jukeboxPlayable(TTJukeboxSongs.FAUSSE_VIE)
 		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+	public static final Item MUSIC_DISC_OSSUAIRE = new Item(new Item.Properties()
+		.stacksTo(1)
+		.rarity(Rarity.RARE)
+		.jukeboxPlayable(TTJukeboxSongs.OSSUAIRE)
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
 	public static void init() {
 		registerItemAfter(Items.ALLAY_SPAWN_EGG, APPARITION_SPAWN_EGG, "apparition_spawn_egg", CreativeModeTabs.SPAWN_EGGS);
@@ -184,6 +190,7 @@ public class TTItems {
 		registerItemBefore(Items.MUSIC_DISC_RELIC, MUSIC_DISC_STASIS, "music_disc_stasis", CreativeModeTabs.TOOLS_AND_UTILITIES);
 		// Catacombs discs should come after Trail Ruins!
 		registerItemAfter(Items.MUSIC_DISC_RELIC, MUSIC_DISC_FAUSSE_VIE, "music_disc_fausse_vie", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(MUSIC_DISC_FAUSSE_VIE, MUSIC_DISC_OSSUAIRE, "music_disc_ossuaire", CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
 	@SafeVarargs

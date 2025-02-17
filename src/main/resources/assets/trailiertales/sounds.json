@@ -15,6 +15,14 @@
       }
     ]
   },
+  "music_disc.ossuaire": {
+    "sounds": [
+      {
+        "name": "trailiertales:records/ossuaire",
+        "stream": true
+      }
+    ]
+  },
   "event.mob_effect.siege_omen": {
     "sounds": [
       "trailiertales:event/mob_effects/siege_omen"

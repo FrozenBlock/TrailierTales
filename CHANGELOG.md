@@ -27,7 +27,8 @@ hi
 - Added the Enclosure Pottery Sherd.
 - Added the Frost Pottery Sherd.
 - Added the Hare Pottery Sherd.
-- Added the Stasis Music Disc.
+- Added the Stasis Music Disc by Zhen, found in Snowy Ruins.
+- Added the Ossuaire Music Disc by Zhen, found in Catacombs.
 - Banner Boats no longer offer a speed boost.
   - This functionality has been given to Penguins in Wilder Wild instead.
 - All of Trailier Tales' block sound type overrides now rely on tags.

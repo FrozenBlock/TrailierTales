@@ -231,6 +231,7 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MUSIC_DISC_OSSUAIRE, ModelTemplates.FLAT_ITEM);
 	}
 
 	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
