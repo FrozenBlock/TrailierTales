@@ -1686,6 +1686,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb15",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/small_split_sides",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
@@ -1957,6 +1966,15 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/suspended_railway1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/water_in_center",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
