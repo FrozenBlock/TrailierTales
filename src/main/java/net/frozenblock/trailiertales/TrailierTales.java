@@ -8,6 +8,7 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.gravity.api.GravityAPI;
+import net.frozenblock.lib.worldgen.structure.api.StructurePlacementExclusionApi;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
@@ -36,22 +37,23 @@ import net.frozenblock.trailiertales.registry.TTTrimPatterns;
 import net.frozenblock.trailiertales.registry.TTVillagerTrades;
 import net.frozenblock.trailiertales.worldgen.TTBiomeModifications;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import org.jetbrains.annotations.NotNull;
 
 public class TrailierTales extends FrozenModInitializer {
-	private static boolean INITIALIZED = false;
 
 	public TrailierTales() {
 		super(TTConstants.MOD_ID);
 	}
 
-	public static void init() {
-		if (INITIALIZED) return;
-		INITIALIZED = true;
+	@Override
+	public void onInitialize(String modId, ModContainer container) {
+		TTDataFixer.applyDataFixes(container);
 
 		if (FrozenBools.IS_DATAGEN) {
 			TTFeatureFlags.init();
@@ -83,12 +85,13 @@ public class TrailierTales extends FrozenModInitializer {
 
 		TTModIntegrations.init();
 		TTCreativeInventorySorting.init();
-	}
 
-	@Override
-	public void onInitialize(String modId, ModContainer container) {
-		TTDataFixer.applyDataFixes(container);
-		init();
+		StructurePlacementExclusionApi.addExclusion(
+			BuiltinStructureSets.TRIAL_CHAMBERS.location(),
+			CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(),
+			8
+		);
+
 		ResourceManagerHelper.registerBuiltinResourcePack(
 			TTConstants.id("trailier_main_menu"),
 			container, Component.literal("Trailier Main Menu"),

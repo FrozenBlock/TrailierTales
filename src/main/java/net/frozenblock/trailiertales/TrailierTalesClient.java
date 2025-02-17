@@ -21,7 +21,6 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		TrailierTales.init();
 		SplashTextAPI.addSplashLocation(TTConstants.id("texts/splashes.txt"));
 		addPanorama("catacombs");
 

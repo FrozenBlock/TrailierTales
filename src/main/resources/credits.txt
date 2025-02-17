@@ -60,6 +60,7 @@ Zhen
     - Came up with the functionality of the Reaping enchantment
     - Made the Fausse Vie music disc
     - Made the Stasis music disc
+    - Made the Ossuaire music disc
 
 Voxelotl
     - Texture Artist:
@@ -86,6 +87,7 @@ Voxelotl
       - Fixed the Chiseled Diorite texture
       - Embrace Armor Trim
       - Block of Ectoplasm texture
+      - Ossuaire Music Disc Texture
 
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks

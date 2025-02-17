@@ -290,9 +290,6 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.FEATURES_CANNOT_REPLACE)
 			.add(TTBlocks.COFFIN);
 
-		this.getOrCreateTagBuilder(BlockTags.FALL_DAMAGE_RESETTING)
-			.add(TTBlocks.ECTOPLASM_BLOCK);
-
 		this.getOrCreateTagBuilder(BlockTags.IMPERMEABLE)
 			.add(TTBlocks.ECTOPLASM_BLOCK);
 

@@ -333,6 +333,15 @@ public class TTItems {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	public static final Item MUSIC_DISC_OSSUAIRE = register("music_disc_ossuaire",
+		Item::new,
+		new Properties()
+			.stacksTo(1)
+			.rarity(Rarity.RARE)
+			.jukeboxPlayable(TTJukeboxSongs.OSSUAIRE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
 	public static void init() {
 	}
 

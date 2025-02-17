@@ -633,33 +633,6 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/rail_and_poison",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/lever_waterfall",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/free_chest",
-        "processors": "trailiertales:catacombs_tomb",
-        "projection": "rigid"
-      },
-      "weight": 2
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/archery",
         "processors": "trailiertales:catacombs_archery",
         "projection": "rigid"
@@ -1011,7 +984,16 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/tomb/flood",
+        "location": "trailiertales:catacombs/tomb/flood1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/flood2",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -1227,6 +1209,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/layered5",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/layered_mob_drop",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
@@ -1281,6 +1272,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/minecart_puzzle1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/mineshaft",
         "processors": "trailiertales:catacombs_mineshaft",
         "projection": "rigid"
@@ -1327,6 +1327,15 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/mob_drop2",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/ominous1",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -1677,6 +1686,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/small_fancy_tomb15",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/small_split_sides",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
@@ -1686,7 +1704,34 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/smith1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/smith2",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/tomb/solitary_confinement",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/tomb/solo_coffin1",
         "processors": "trailiertales:catacombs_tomb",
         "projection": "rigid"
       },
@@ -1875,6 +1920,69 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/rail_and_poison",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/lever_waterfall",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/free_chest",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/ravine",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/lava_tower",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/suspended_railway1",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/water_in_center",
+        "processors": "trailiertales:catacombs_tomb",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/small_gallery",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
@@ -1884,7 +1992,16 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "trailiertales:catacombs/corridor/gallery",
+        "location": "trailiertales:catacombs/corridor/gallery1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/gallery2",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },
@@ -1894,6 +2011,24 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "trailiertales:catacombs/corridor/gallery_walk1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/surveyor_gravel_trap1",
+        "processors": "trailiertales:catacombs_corridor",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "trailiertales:catacombs/corridor/wall_trap1",
         "processors": "trailiertales:catacombs_corridor",
         "projection": "rigid"
       },

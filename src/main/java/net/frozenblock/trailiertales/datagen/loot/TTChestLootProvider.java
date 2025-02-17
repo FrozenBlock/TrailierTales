@@ -165,7 +165,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
-						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE).setWeight(2))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_OSSUAIRE).setWeight(1))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(
 							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
