@@ -4,7 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Increased the protocol version to 2.
-- Added 71 new rooms for Catacombs.
+- Added 98 new rooms for Catacombs.
 - Skulls, Bones, and Rotten Flesh are no longer archeology loot in Catacombs.
 - Added an advancement for entering Catacombs.
 - Improved the loot tables for suspicious blocks in all of Trailier Tales' structures, providing more insight into the past.
