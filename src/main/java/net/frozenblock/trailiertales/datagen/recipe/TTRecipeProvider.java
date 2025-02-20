@@ -13,6 +13,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceKey;
@@ -467,6 +469,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS, TTBlocks.CHORAL_END_STONE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_SLAB, TTBlocks.CHORAL_END_STONE, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_SLAB, TTBlocks.CHORAL_END_STONE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_STAIRS, TTBlocks.CHORAL_END_STONE);

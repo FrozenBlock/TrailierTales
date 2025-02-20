@@ -1,6 +1,9 @@
 package net.frozenblock.trailiertales.registry;
 
 import java.util.function.Function;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
+import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
@@ -762,6 +765,11 @@ public class TTBlocks {
 	);
 
 	public static void init() {
+	}
+
+	public static void registerBlockProperties() {
+		HopperApi.addBlacklistedType(TTBlockEntityTypes.COFFIN);
+		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), COFFIN);
 	}
 
 	private static <T extends Block> @NotNull T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {

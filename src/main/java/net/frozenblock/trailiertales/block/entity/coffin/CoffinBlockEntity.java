@@ -10,29 +10,45 @@ import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpawner.StateAccessor {
+public class CoffinBlockEntity extends RandomizableContainerBlockEntity implements Spawner, CoffinSpawner.StateAccessor {
 	private static final Logger LOGGER = LogUtils.getLogger();
+	public static final float WOBBLE_DURATION = 15F;
+	public static final int WOBBLE_COOLDOWN = 10;
+
+	private NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 	private CoffinSpawner coffinSpawner;
 
 	private float previousOpenProgress;
 	private float openProgress;
+
+	public long wobbleStartedAtTick;
+	public int coffinWobbleLidAnimTicks;
 
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
 		super(TTBlockEntityTypes.COFFIN, pos, state);
@@ -47,35 +63,93 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	@Override
 	protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
 		super.loadAdditional(nbt, lookupProvider);
+
 		if (nbt.contains("normal_config")) {
 			CompoundTag compoundTag = nbt.getCompound("normal_config").copy();
 			nbt.put("ominous_config", compoundTag.merge(nbt.getCompound("ominous_config")));
 		}
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.coffinSpawner.codec().parse(NbtOps.INSTANCE, nbt).resultOrPartial(LOGGER::error).ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
+			this.coffinSpawner.codec()
+				.parse(NbtOps.INSTANCE, nbt)
+				.resultOrPartial(LOGGER::error)
+				.ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
+
+			this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+			if (!this.tryLoadLootTable(nbt)) ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
 		}
+
+		this.coffinWobbleLidAnimTicks = nbt.getInt("coffin_wobble_lid_anim_ticks");
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
 		super.saveAdditional(nbt, lookupProvider);
+
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
 			this.coffinSpawner
 				.codec()
 				.encodeStart(NbtOps.INSTANCE, this.coffinSpawner)
 				.ifSuccess(logicNbt -> nbt.merge((CompoundTag) logicNbt))
 				.ifError(error -> LOGGER.warn("Failed to encode CoffinSpawner {}", error.message()));
+
+			if (!this.trySaveLootTable(nbt)) ContainerHelper.saveAllItems(nbt, this.items, lookupProvider);
 		}
+
+		nbt.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
+	}
+
+	@Override
+	public boolean canOpen(@NotNull Player player) {
+		return false;
+	}
+
+	@Override
+	protected @NotNull Component getDefaultName() {
+		return Component.translatable("container.coffin");
+	}
+
+	@Override
+	protected @NotNull NonNullList<ItemStack> getItems() {
+		return this.items;
+	}
+
+	@Override
+	protected void setItems(NonNullList<ItemStack> nonNullList) {
+		this.items = nonNullList;
+	}
+
+	@Override
+	protected @NotNull AbstractContainerMenu createMenu(int i, Inventory inventory) {
+		return ChestMenu.threeRows(i, inventory, this);
+	}
+
+	@Override
+	public int getContainerSize() {
+		return 54;
+	}
+
+	@Override
+	public void unpackLootTable(@Nullable Player player) {
+		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.HEAD) {
+			this.setLootTable(null);
+			return;
+		}
+		super.unpackLootTable(player);
+	}
+
+	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
+		if (part == CoffinPart.HEAD || world.isClientSide) return;
+		this.coffinSpawner.tickServer(world, pos, state, state.getValue(CoffinBlock.PART), ominous);
+		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 	}
 
 	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || !world.isClientSide) {
-			return;
-		}
+		if (part == CoffinPart.HEAD || !world.isClientSide) return;
+
+		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 
 		CoffinSpawnerState coffinSpawnerState = this.getState();
-
 		if (coffinSpawnerState.isCapableOfSpawning()) {
 			RandomSource randomSource = world.getRandom();
 			if (randomSource.nextFloat() <= 0.0175F) {
@@ -84,8 +158,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		}
 
 		this.previousOpenProgress = this.openProgress;
-		float lidIncrement = this.coffinSpawner.isAttemptingToSpawnMob() ? 0.0155F : -0.03F;
-		this.openProgress = Mth.clamp(this.openProgress + lidIncrement, 0F, 1F);
+		this.openProgress = Mth.clamp(this.openProgress + this.getLidOpenIncrement(), 0F, 1F);
 
 		Direction connectedDirection = CoffinBlock.getConnectedDirection(this.getBlockState());
 		if (connectedDirection != null) {
@@ -97,6 +170,11 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		}
 	}
 
+	private float getLidOpenIncrement() {
+		if (this.coffinWobbleLidAnimTicks > 0) return 0.03F;
+		return this.coffinSpawner.isAttemptingToSpawnMob() ? 0.0155F : -0.03F;
+	}
+
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
@@ -104,7 +182,10 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 
 	@Override
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
-		return this.coffinSpawner.getUpdateTag();
+		CompoundTag compoundTag = new CompoundTag();
+		compoundTag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
+		compoundTag.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
+		return compoundTag;
 	}
 
 	@Override
@@ -123,7 +204,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 				coffinSpawner = coffinBlockEntity.getCoffinSpawner();
 			}
 		}
-		coffinSpawner.getData().setEntityId(entityType, this.level, random, pos);
+		coffinSpawner.getData().setEntityId(entityType, random);
 
 		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
 		if (coffinOrientation != null && this.level instanceof ServerLevel serverLevel) {
@@ -159,7 +240,7 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 	@Override
 	public CoffinSpawnerState getState() {
 		return !this.getBlockState().hasProperty(TTBlockStateProperties.COFFIN_STATE)
-			? CoffinSpawnerState.INACTIVE
+			? CoffinSpawnerState.COOLDOWN
 			: this.getBlockState().getValue(TTBlockStateProperties.COFFIN_STATE);
 	}
 
@@ -174,6 +255,22 @@ public class CoffinBlockEntity extends BlockEntity implements Spawner, CoffinSpa
 		this.setChanged();
 		if (this.level != null) {
 			this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+		}
+	}
+
+	@Override
+	public boolean triggerEvent(int type, int data) {
+		if (this.level != null && type == 1) {
+			this.wobbleStartedAtTick = this.level.getGameTime();
+			if (this.level instanceof ServerLevel serverLevel
+				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
+				&& this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.random)
+			) {
+				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.random);
+			}
+			return true;
+		} else {
+			return super.triggerEvent(type, data);
 		}
 	}
 }

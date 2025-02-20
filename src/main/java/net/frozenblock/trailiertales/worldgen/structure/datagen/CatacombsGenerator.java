@@ -900,6 +900,7 @@ public class CatacombsGenerator {
 		final BlockStateRespectingRuleProcessor tombChests = guaranteedChestProcessor(TTLootTables.CATACOMBS_TOMB);
 		final BlockStateRespectingRuleProcessor rewardChests = chestProcessor(TTLootTables.CATACOMBS_TOMB_REWARD, 0.375F);
 		final BlockStateRespectingRuleProcessor guaranteedRewardChests = guaranteedChestProcessor(TTLootTables.CATACOMBS_TOMB_REWARD);
+		final BlockStateRespectingRuleProcessor coffinLootTables = coffinLootProcessor(TTLootTables.CATACOMBS_COFFIN);
 
 		final BlockStateRespectingRuleProcessor zombieSkeletonCoffinProcessor = coffinProcessor(EntityType.ZOMBIE, EntityType.SKELETON);
 		final BlockStateRespectingRuleProcessor skeletonCoffinProcessor = coffinProcessor(EntityType.SKELETON);
@@ -915,6 +916,7 @@ public class CatacombsGenerator {
 				baseProcessor,
 				blockStateRespectingRuleProcessor,
 				corridorChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -940,6 +942,7 @@ public class CatacombsGenerator {
 				baseProcessor,
 				blockStateRespectingRuleProcessor,
 				corridorChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -967,6 +970,7 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				tombChests,
 				rewardChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -993,6 +997,7 @@ public class CatacombsGenerator {
 				baseProcessor,
 				blockStateRespectingRuleProcessor,
 				guaranteedRewardChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -1035,6 +1040,7 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				tombChests,
 				rewardChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -1061,6 +1067,7 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				tombChests,
 				rewardChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -1085,6 +1092,7 @@ public class CatacombsGenerator {
 				blockStateRespectingRuleProcessor,
 				tombChests,
 				rewardChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -1111,6 +1119,7 @@ public class CatacombsGenerator {
 				baseProcessor,
 				blockStateRespectingRuleProcessor,
 				corridorChests,
+				coffinLootTables,
 				potLootProcessor,
 				TTStructures.decoratedPotSherdProcessor(
 					0.5F,
@@ -1191,6 +1200,20 @@ public class CatacombsGenerator {
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
 					Blocks.CHEST,
+					new AppendLoot(lootTable)
+				)
+			)
+		);
+	}
+
+	private static @NotNull BlockStateRespectingRuleProcessor coffinLootProcessor(ResourceKey<LootTable> lootTable) {
+		return new BlockStateRespectingRuleProcessor(
+			ImmutableList.of(
+				new BlockStateRespectingProcessorRule(
+					new BlockMatchTest(TTBlocks.COFFIN),
+					AlwaysTrueTest.INSTANCE,
+					PosAlwaysTrueTest.INSTANCE,
+					TTBlocks.COFFIN,
 					new AppendLoot(lootTable)
 				)
 			)

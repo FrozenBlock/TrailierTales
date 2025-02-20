@@ -23,7 +23,7 @@ public record CoffinSpawnerConfig(
 		400,
 		4,
 		1,
-		1200
+		1600
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		5,
@@ -34,7 +34,7 @@ public record CoffinSpawnerConfig(
 		300,
 		6,
 		1,
-		900
+		1200
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		6,
@@ -45,7 +45,7 @@ public record CoffinSpawnerConfig(
 		200,
 		10,
 		1,
-		700
+		1000
 	);
 	public static final CoffinSpawnerConfig OMINOUS = new CoffinSpawnerConfig(
 		6,
@@ -56,7 +56,7 @@ public record CoffinSpawnerConfig(
 		150,
 		15,
 		2,
-		500
+		800
 	);
 
 	public static final Codec<CoffinSpawnerConfig> CODEC = RecordCodecBuilder.create(

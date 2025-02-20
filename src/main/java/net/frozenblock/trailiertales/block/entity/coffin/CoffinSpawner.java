@@ -12,6 +12,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterf
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
@@ -95,12 +96,6 @@ public final class CoffinSpawner {
 		);
 	}
 
-	public @NotNull CompoundTag getUpdateTag() {
-		CompoundTag compoundTag = new CompoundTag();
-		compoundTag.putBoolean("attempting_to_spawn_mob", this.attemptingToSpawnMob);
-		return compoundTag;
-	}
-
 	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector.EntitySelector playerDetectionSelector) {
 		this(
 			CoffinSpawnerConfig.DEFAULT,
@@ -147,7 +142,7 @@ public final class CoffinSpawner {
 		return switch (this.getState()) {
 			case OMINOUS -> this.ominousConfig;
 			case AGGRESSIVE -> this.aggressiveConfig;
-			case INACTIVE -> this.irritatedConfig;
+			case IRRITATED -> this.irritatedConfig;
 			default -> this.normalConfig;
 		};
 	}
@@ -243,7 +238,7 @@ public final class CoffinSpawner {
 
 	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
 		RandomSource randomSource = level.getRandom();
-		SpawnData spawnData = this.data.getOrCreateNextSpawnData(level, level.getRandom(), pos);
+		SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
 		CompoundTag compoundTag = spawnData.entityToSpawn();
 		ListTag listTag = compoundTag.getList("Pos", 6);
 		Optional<EntityType<?>> optional = EntityType.by(compoundTag);
@@ -331,16 +326,21 @@ public final class CoffinSpawner {
 		}
 	}
 
-	public boolean canSpawnApparition(Level level, BlockPos pos) {
+	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChance) {
 		CoffinSpawnerData data = this.getData();
-		if (data.hasPotentialPlayers() && level.getGameTime() >= data.nextApparitionSpawnsAt && data.currentApparitions.size() < this.getConfig().maxApparitions()) {
+		if (!data.isOnCooldown(level)
+			&& data.hasPotentialPlayers()
+			&& level.getGameTime() >= data.nextApparitionSpawnsAt
+			&& data.currentApparitions.size() < this.getConfig().maxApparitions()
+		) {
 			Vec3 vec3 = Vec3.atCenterOf(pos);
 			Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
+			if (ignoreChance) return true;
 			if (optionalPlayer.isPresent()) {
 				double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
 				double playerRange = this.getRequiredPlayerRange();
 				double chance = playerRange - distance;
-				chance = (0.000475D / playerRange) * chance;
+				chance = (0.000425D / playerRange) * chance;
 				return level.getRandom().nextDouble() < chance;
 			}
 		}
@@ -419,7 +419,7 @@ public final class CoffinSpawner {
 		if (connectedDirection != null) {
 			BlockPos connectedPos = pos.relative(connectedDirection);
 			if (level.isLoaded(connectedPos)) {
-				if (coffinOrientation == null || !(level.getBlockEntity(connectedPos) instanceof CoffinBlockEntity)) {
+				if (coffinOrientation == null || !level.getBlockState(connectedPos).is(TTBlocks.COFFIN)) {
 					level.destroyBlock(pos, false);
 					return;
 				}
@@ -445,9 +445,10 @@ public final class CoffinSpawner {
 		});
 
 		CoffinSpawnerState currentState = this.getState();
+
 		if (!this.canSpawnInLevel(level)) {
-			if (currentState.isCapableOfSpawning()) {
-				this.setState(level, CoffinSpawnerState.INACTIVE);
+			if (this.getState() != CoffinSpawnerState.COOLDOWN) {
+				this.setState(level, CoffinSpawnerState.COOLDOWN);
 			}
 		} else {
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, level);
@@ -483,6 +484,10 @@ public final class CoffinSpawner {
 		if (level instanceof ServerLevel serverLevel) {
 			this.data.nextApparitionSpawnsAt = serverLevel.getGameTime() + this.getConfig().ticksBetweenApparitionSpawn();
 		}
+	}
+
+	public void immediatelyActivate(Level level, BlockPos pos) {
+		this.data.immediatelyActivate(level, pos, this);
 	}
 
 	public interface StateAccessor {

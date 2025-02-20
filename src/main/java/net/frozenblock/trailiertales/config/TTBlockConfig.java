@@ -43,6 +43,9 @@ public final class TTBlockConfig {
 	public final SuspiciousBlocks suspiciousBlocks = new SuspiciousBlocks();
 
 	@CollapsibleObject
+	public final Coffin coffin = new Coffin();
+
+	@CollapsibleObject
 	public final BlockSounds blockSounds = new BlockSounds();
 
 	public static class SuspiciousBlocks {
@@ -52,6 +55,19 @@ public final class TTBlockConfig {
 		public boolean particle = false;
 		@EntrySyncData(value = "place_items")
 		public boolean place_items = false;
+	}
+
+	public static class Coffin {
+		@EntrySyncData(value = "wobble")
+		public boolean wobble = true;
+		@EntrySyncData(value = "wobble_activate")
+		public boolean wobble_activate = true;
+		@EntrySyncData(value = "wobble_loot")
+		public boolean wobble_loot = false;
+		@EntrySyncData(value = "wobble_potion")
+		public boolean wobble_potion = false;
+		@EntrySyncData(value = "wobble_experience_bottle")
+		public boolean wobble_experience_bottle = false;
 	}
 
 	public static class BlockSounds {
