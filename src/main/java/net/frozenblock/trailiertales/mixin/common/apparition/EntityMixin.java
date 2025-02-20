@@ -1,12 +1,12 @@
 package net.frozenblock.trailiertales.mixin.common.apparition;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import java.util.List;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import java.util.List;
 
 @Mixin(Entity.class)
 public class EntityMixin {

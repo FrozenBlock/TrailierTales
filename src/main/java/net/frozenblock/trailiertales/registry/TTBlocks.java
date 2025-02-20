@@ -1,5 +1,8 @@
 package net.frozenblock.trailiertales.registry;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
+import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
@@ -33,7 +36,6 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -660,6 +662,11 @@ public class TTBlocks {
 		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
 
 		actualRegisterBlock("ectoplasm_block", ECTOPLASM_BLOCK);
+	}
+
+	public static void registerBlockProperties() {
+		HopperApi.addBlacklistedType(TTBlockEntityTypes.COFFIN);
+		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), COFFIN);
 	}
 
 	private static void registerBlock(String path, Block block) {

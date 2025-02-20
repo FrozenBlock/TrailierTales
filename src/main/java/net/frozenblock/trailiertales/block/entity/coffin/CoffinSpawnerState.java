@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +20,7 @@ import org.joml.Vector3f;
 
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false, false, Optional.empty()),
+	COOLDOWN("cooldown", 0, false, false, Optional.empty()),
 	ACTIVE("active", 3, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(137F / 255F, 176F / 255F, 244F / 255F), 1F))),
 	IRRITATED("irritated", 5, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(184F / 255F, 149F / 255F, 219F / 255F), 1F))),
 	AGGRESSIVE("aggressive", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(224F / 255F, 130F / 255F, 130F / 255F), 1F))),
@@ -43,7 +45,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		return switch (this) {
-			case INACTIVE -> getInactiveState(pos, spawner, state, level);
+			case INACTIVE, COOLDOWN -> getInactiveState(pos, spawner, state, level);
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
 			case IRRITATED -> activeTickAndGetNext(this, pos, spawner, state, level);
 			case AGGRESSIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
@@ -63,7 +65,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 			}
 			return ACTIVE;
 		}
-		return INACTIVE;
+		return getCooldownOrInactiveState(level, coffinSpawner);
 	}
 
 	private static CoffinSpawnerState getInactiveState(
@@ -73,12 +75,12 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		@NotNull ServerLevel level
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
-			return INACTIVE;
+		if (!coffinSpawnerData.hasMobToSpawn(level.random) || coffinSpawnerData.isOnCooldown(level)) {
+			return getCooldownOrInactiveState(level, spawner);
 		} else {
 			Direction direction = CoffinBlock.getConnectedDirection(state);
 			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
-			if (spawner.canSpawnApparition(level, pos)) {
+			if (spawner.canSpawnApparition(level, pos, false)) {
 				spawner.spawnApparition(level, pos);
 			}
 
@@ -95,17 +97,17 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	) {
 		CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
-		if (!coffinSpawnerData.hasMobToSpawn(level, level.random, pos)) {
-			return INACTIVE;
+		if (!coffinSpawnerData.hasMobToSpawn(level.random)) {
+			return getCooldownOrInactiveState(level, spawner);
 		} else {
 			Direction direction = CoffinBlock.getConnectedDirection(state);
 			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
 			if (!coffinSpawnerData.detectedAnyPlayers()) {
-				return INACTIVE;
+				return getCooldownOrInactiveState(level, spawner);
 			}
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
-			if (spawner.canSpawnApparition(level, pos)) {
+			if (spawner.canSpawnApparition(level, pos, false)) {
 				spawner.spawnApparition(level, pos);
 			}
 
@@ -125,8 +127,9 @@ public enum CoffinSpawnerState implements StringRepresentable {
 						coffinSpawnerData.powerCooldownEndsAt = 0L;
 						long cooldownTime = 36000L;
 						coffinSpawnerData.nextApparitionSpawnsAt = level.getGameTime() + cooldownTime;
+						coffinSpawnerData.cooldownEndsAt = level.getGameTime() + cooldownTime;
 						if (coffinSpawnerData.haveAllCurrentApparitionsDied()) {
-							return INACTIVE;
+							return COOLDOWN;
 						}
 					}
 				}
@@ -162,7 +165,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	}
 
 	public int getLightLevel() {
-		return lightLevel;
+		return this.lightLevel;
 	}
 
 	public boolean isCapableOfSpawning() {
@@ -179,12 +182,15 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	public CoffinSpawnerState getNextPowerState() {
 		return switch (this) {
-			case INACTIVE -> CoffinSpawnerState.ACTIVE;
-			case ACTIVE -> CoffinSpawnerState.IRRITATED;
-			case IRRITATED -> CoffinSpawnerState.AGGRESSIVE;
-			case AGGRESSIVE -> CoffinSpawnerState.AGGRESSIVE;
-			case OMINOUS -> CoffinSpawnerState.OMINOUS;
+			case COOLDOWN, INACTIVE -> ACTIVE;
+			case ACTIVE -> IRRITATED;
+			case IRRITATED, AGGRESSIVE -> AGGRESSIVE;
+			case OMINOUS -> OMINOUS;
 		};
+	}
+
+	public static CoffinSpawnerState getCooldownOrInactiveState(Level level, @NotNull CoffinSpawner coffinSpawner) {
+		return coffinSpawner.getData().isOnCooldown(level) ? COOLDOWN : INACTIVE;
 	}
 
 	public Optional<ParticleOptions> getParticleOptionsForState() {

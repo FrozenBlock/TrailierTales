@@ -81,6 +81,8 @@ public class TrailierTales extends FrozenModInitializer {
 		TTVillagerTrades.init();
 		TTNetworking.init();
 
+		TTBlocks.registerBlockProperties();
+
 		TTModIntegrations.init();
 
 		StructurePlacementExclusionApi.addExclusion(

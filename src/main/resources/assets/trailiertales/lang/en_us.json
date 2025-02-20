@@ -96,6 +96,7 @@
   "block.trailiertales.suspicious_clay": "Suspicious Clay",
 
   "block.trailiertales.coffin": "Coffin",
+  "container.coffin": "Coffin",
   "debug.coffin": "Coffin",
   "block.trailiertales.surveyor": "Surveyor",
 
@@ -235,6 +236,8 @@
   "subtitles.block.coffin.ambient": "Souls rustle",
   "subtitles.block.coffin.detect_player": "Coffin empowers",
   "subtitles.block.coffin.increase_power": "Coffin's aura intensifies",
+  "subtitles.block.coffin.wobble": "Coffin wobbles",
+  "subtitles.block.coffin.haunt": "Coffin haunts",
 
   "subtitles.event.mob_effect.siege_omen": "Ominous siege looms nearby",
 
@@ -265,6 +268,19 @@
   "tooltip.trailiertales.suspicious_block_particles": "Whether particles should spawn around Suspicious Blocks while holding a Brush nearby.\nThis is intended to make archaeology more accessible to those with vision problems.",
   "option.trailiertales.place_items_in_suspicious_blocks": "Place Items",
   "tooltip.trailiertales.place_items_in_suspicious_blocks": "Whether items can be placed into empty Suspicious Blocks.",
+
+  "option.trailiertales.coffin": "Coffin",
+  "tooltip.trailiertales.coffin": "Contains options related to Coffins.",
+  "option.trailiertales.coffin_wobble": "Wobbling",
+  "tooltip.trailiertales.coffin_wobble": "Whether players can interact with a Coffin to make it wobble.",
+  "option.trailiertales.coffin_wobble_activate": "Wobbling Activates Coffins",
+  "tooltip.trailiertales.coffin_wobble_activate": "Whether wobbling a Coffin can cause it to summon an Apparition and activate.",
+  "option.trailiertales.coffin_wobble_experience_bottle": "Experience Bottles From Wobbling",
+  "tooltip.trailiertales.coffin_wobble_experience_bottle": "Whether wobbling a Coffin can yield thrown Experience Bottles.",
+  "option.trailiertales.coffin_wobble_loot": "Loot From Wobbling",
+  "tooltip.trailiertales.coffin_wobble_loot": "Whether wobbling a Coffin can yield loot.",
+  "option.trailiertales.coffin_wobble_potion": "Potions From Wobbling",
+  "tooltip.trailiertales.coffin_wobble_potion": "Whether wobbling a Coffin can yield thrown Potions.",
 
   "option.trailiertales.block_sounds": "Block Sounds",
   "tooltip.trailiertales.block_sounds": "Contains options related to block sounds.",
