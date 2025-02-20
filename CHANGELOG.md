@@ -55,6 +55,7 @@ hi
 - Fixed an issue where modded boats that aren't implemented the same way as vanilla cause a crash. ([#9](https://github.com/FrozenBlock/TrailierTales/issues/9))
 - Fixed the Polished Calcite Wall not being craftable with a Stonecutter. ([#11](https://github.com/FrozenBlock/TrailierTales/issues/11))
 - Fixed Choral End Stone Bricks being unobtainable via Stonecutter.
+- Fixed Choral End Stone not crafting into Choral End Stone Bricks.
 - Fixed some recipe unlocks not working.
 - Fixed Cut Sandstone Stairs and Cut Red Sandstone Stairs having incorrect texture mapping.
 - Manedrops can no longer be bonemealed to obtain more Manedrops.

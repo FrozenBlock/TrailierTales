@@ -7,14 +7,12 @@ import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
-import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -127,30 +125,6 @@ public enum CoffinWobbleEvent {
 				serverLevel.addFreshEntity(itemEntity);
 				return;
 			}
-		}
-	}
-
-	private static void applyHaunt(@NotNull ServerLevel serverLevel, Vec3 centerPos, @NotNull CoffinBlockEntity coffinBlockEntity) {
-		List<Player> nearbyPlayers = coffinBlockEntity.getCoffinSpawner().getData().getNearbyPotentialPlayers(serverLevel, centerPos, 6D);
-		if (!nearbyPlayers.isEmpty()) {
-			serverLevel.playSound(
-				null,
-				centerPos.x,
-				centerPos.y,
-				centerPos.z,
-				TTSounds.COFFIN_HAUNT,
-				SoundSource.BLOCKS,
-				1F,
-				0.9F + serverLevel.random.nextFloat() * 0.2F
-			);
-			nearbyPlayers.forEach(player -> {
-				player.addEffect(
-					new MobEffectInstance(
-						TTMobEffects.HAUNT,
-						300
-					)
-				);
-			});
 		}
 	}
 
