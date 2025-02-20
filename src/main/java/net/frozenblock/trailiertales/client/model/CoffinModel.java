@@ -34,8 +34,7 @@ public class CoffinModel extends Model {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-
 	public void setupAnim(float liftProgress) {
-		this.lid.xRot = -(liftProgress * Mth.HALF_PI);
+		this.lid.zRot = liftProgress * Mth.HALF_PI;
 	}
 }
