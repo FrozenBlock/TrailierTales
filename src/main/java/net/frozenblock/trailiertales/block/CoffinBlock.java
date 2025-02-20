@@ -12,6 +12,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
@@ -22,8 +23,11 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,6 +37,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -58,7 +63,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -185,6 +193,49 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
+	protected @NotNull InteractionResult useItemOn(
+		@NotNull ItemStack stack, BlockState state, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hitResult
+	) {
+		if (stack.getItem() instanceof SpawnEggItem) return InteractionResult.CONSUME;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
+	}
+
+	@Override
+	protected @NotNull InteractionResult useWithoutItem(BlockState state, @NotNull Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
+		if (level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity
+			&& (level.getGameTime() - coffinBlockEntity.wobbleStartedAtTick) >= CoffinBlockEntity.WOBBLE_COOLDOWN
+			&& TTBlockConfig.get().coffin.wobble
+		) {
+			wobble(level, pos, state, entity);
+			return InteractionResult.SUCCESS;
+		}
+		return InteractionResult.PASS;
+	}
+
+	public static void wobble(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Player player) {
+		level.blockEvent(pos, state.getBlock(), 1, 0);
+		BlockPos neighborPos = pos.relative(CoffinBlock.getConnectedDirection(state));
+		BlockState neighborState = level.getBlockState(neighborPos);
+		if (neighborState.is(state.getBlock())) {
+			level.blockEvent(neighborPos, state.getBlock(), 1, 0);
+		}
+
+		level.playSound(null, pos, TTSounds.COFFIN_WOBBLE, SoundSource.BLOCKS, 0.5F, 0.9F + level.random.nextFloat() * 0.2F);
+		level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+	}
+
+	@Override
+	protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int type, int data) {
+		super.triggerEvent(state, level, pos, type, data);
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		return blockEntity != null && blockEntity.triggerEvent(type, data);
+	}
+
+	public boolean isCoffinActive(@NotNull BlockState state) {
+		return state.getValue(STATE).isCapableOfSpawning();
+	}
+
+	@Override
 	protected long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
 		BlockPos blockPos = pos.relative(state.getValue(FACING), state.getValue(PART) == CoffinPart.HEAD ? 0 : 1);
 		return Mth.getSeed(blockPos.getX(), pos.getY(), blockPos.getZ());
@@ -204,12 +255,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return level instanceof ServerLevel serverLevel
 			? BaseEntityBlock.createTickerHelper(
-			blockEntityType,
+				blockEntityType,
 			TTBlockEntityTypes.COFFIN,
-			(unusedWorld, pos, statex, coffin) -> coffin.getCoffinSpawner()
+			(unusedWorld, pos, statex, coffin) -> coffin
 				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: BaseEntityBlock.createTickerHelper(
-			blockEntityType,
+				blockEntityType,
 			TTBlockEntityTypes.COFFIN,
 			(world, pos, statex, coffin) -> coffin
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
@@ -251,7 +302,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 				coffinSpawner.onApparitionRemovedOrKilled(entity.level());
 			}
 		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
-			mob.level().broadcastEntityEvent(mob, (byte)60);
+			mob.level().broadcastEntityEvent(mob, EntityEvent.POOF);
 			mob.discard();
 		}
 	}
@@ -285,5 +336,17 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			zOffset,
 			speed
 		);
+	}
+
+	public static @NotNull Vec3 getCenter(@NotNull BlockState state, @NotNull BlockPos pos) {
+		Direction coffinOrientation = state.getValue(FACING);
+		boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		double stepX = coffinOrientation.getStepX();
+		double stepZ = coffinOrientation.getStepZ();
+		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		return new Vec3(pos.getX() + relativeX, pos.getY() + 0.95D, pos.getZ() + relativeZ);
 	}
 }

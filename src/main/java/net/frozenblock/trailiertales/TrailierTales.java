@@ -83,6 +83,8 @@ public class TrailierTales extends FrozenModInitializer {
 		TTVillagerTrades.init();
 		TTNetworking.init();
 
+		TTBlocks.registerBlockProperties();
+
 		TTModIntegrations.init();
 		TTCreativeInventorySorting.init();
 

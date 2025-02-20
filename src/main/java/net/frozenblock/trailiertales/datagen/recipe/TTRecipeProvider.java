@@ -491,8 +491,15 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
 					.save(recipeOutput, getConversionRecipeName(TTBlocks.CHORAL_END_STONE_BRICKS, Items.CHORUS_FRUIT));
 
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS)
+					.define('#', TTBlocks.CHORAL_END_STONE)
+					.pattern("##")
+					.pattern("##").unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
+					.save(recipeOutput);
+
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS, TTBlocks.CHORAL_END_STONE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_SLAB, TTBlocks.CHORAL_END_STONE, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_SLAB, TTBlocks.CHORAL_END_STONE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_STAIRS, TTBlocks.CHORAL_END_STONE);

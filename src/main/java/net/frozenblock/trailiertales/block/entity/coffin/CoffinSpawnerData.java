@@ -41,26 +41,26 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-				SpawnData.LIST_CODEC.lenientOptionalFieldOf("spawn_potentials", SimpleWeightedRandomList.empty()).forGetter(data -> data.spawnPotentials),
+				SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", SimpleWeightedRandomList.empty()).forGetter(data -> data.spawnPotentials),
 				Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
-				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
-				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
-				Codec.LONG.lenientOptionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
+				UUIDUtil.CODEC_SET.optionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
+				UUIDUtil.CODEC_SET.optionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
+				Codec.LONG.optionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
 				Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
 				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
 				Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
-				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
-				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("power", 0).forGetter(data -> data.power),
-				SpawnData.CODEC.lenientOptionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
-				Codec.BOOL.lenientOptionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
-				Codec.intRange(0, 15).lenientOptionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
+				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
+				Codec.LONG.lenientOptionalFieldOf("cooldown_ends_at", 0L).forGetter(data -> data.cooldownEndsAt),
+				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power", 0).forGetter(data -> data.power),
+				SpawnData.CODEC.optionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
+				Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
+				Codec.intRange(0, 15).optionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
 			)
 			.apply(instance, CoffinSpawnerData::new)
 	);
@@ -75,6 +75,7 @@ public class CoffinSpawnerData {
 	protected int totalMobsSpawned;
 	protected long nextApparitionSpawnsAt;
 	protected int totalApparitionsSpawned;
+	protected long cooldownEndsAt;
 	protected int power;
 	protected Optional<SpawnData> nextSpawnData;
 	protected boolean withinCatacombs;
@@ -94,6 +95,7 @@ public class CoffinSpawnerData {
 			0,
 			0L,
 			0,
+			0L,
 			0,
 			Optional.empty(),
 			false,
@@ -113,6 +115,7 @@ public class CoffinSpawnerData {
 		int totalMobsSpawned,
 		long nextApparitionSpawnsAt,
 		int totalApparitionsSpawned,
+		long cooldownEndsAt,
 		int power,
 		Optional<SpawnData> nextSpawnData,
 		boolean withinCatacombs,
@@ -129,10 +132,22 @@ public class CoffinSpawnerData {
 		this.totalMobsSpawned = totalMobsSpawned;
 		this.nextApparitionSpawnsAt = nextApparitionSpawnsAt;
 		this.totalApparitionsSpawned = totalApparitionsSpawned;
+		this.cooldownEndsAt = cooldownEndsAt;
 		this.power = power;
 		this.nextSpawnData = nextSpawnData;
 		this.withinCatacombs = withinCatacombs;
 		this.maxActiveLightLevel = maxActiveLightLevel;
+	}
+
+	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
+		if (level instanceof ServerLevel serverLevel) {
+			if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
+				this.nextApparitionSpawnsAt = 0L;
+				this.nextMobSpawnsAt = 0L;
+				coffinSpawner.addPower(1, serverLevel);
+				coffinSpawner.spawnApparition(serverLevel, pos);
+			}
+		}
 	}
 
 	public void reset() {
@@ -141,12 +156,13 @@ public class CoffinSpawnerData {
 		this.nextMobSpawnsAt = 0L;
 		this.powerCooldownEndsAt = 0L;
 		this.nextApparitionSpawnsAt = 0L;
+		this.cooldownEndsAt = 0L;
 		this.currentMobs.clear();
 		this.currentApparitions.clear();
 	}
 
-	public boolean hasMobToSpawn(Level level, RandomSource random, BlockPos pos) {
-		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(level, random, pos).getEntityToSpawn().contains("id", 8);
+	public boolean hasMobToSpawn(RandomSource random) {
+		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(random).getEntityToSpawn().contains("id", 8);
 		return hasNextSpawnData || !this.spawnPotentials().isEmpty();
 	}
 
@@ -168,6 +184,14 @@ public class CoffinSpawnerData {
 
 	public boolean trackingApparition(@NotNull Entity entity) {
 		return this.currentApparitions.contains(entity.getUUID());
+	}
+
+	public boolean isOnCooldown(@NotNull Level level) {
+		return level.getGameTime() < this.cooldownEndsAt;
+	}
+
+	public boolean hasMobToSpawnAndIsntOnCooldown(Level level, RandomSource random) {
+		return !isOnCooldown(level) && this.hasMobToSpawn(random);
 	}
 
 	public int getPower() {
@@ -219,6 +243,30 @@ public class CoffinSpawnerData {
 			return closestPlayer.get();
 		}
 		return Optional.empty();
+	}
+
+	public List<Player> getNearbyDetectedPlayers(Level level, Vec3 origin, double distance) {
+		return this.getNearbyPlayersFromSet(this.detectedPlayers, level, origin, distance);
+	}
+
+	public List<Player> getNearbyPotentialPlayers(Level level, Vec3 origin, double distance) {
+		return this.getNearbyPlayersFromSet(this.potentialPlayers, level, origin, distance);
+	}
+
+	private @NotNull List<Player> getNearbyPlayersFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin, double distance) {
+		List<Player> nearbyPlayers = new ArrayList<>();
+		double squaredDistance = distance * distance;
+		if (!players.isEmpty()) {
+			players.forEach(uuid -> {
+				Player player = level.getPlayerByUUID(uuid);
+				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+					if (player.distanceToSqr(origin) < squaredDistance) {
+						nearbyPlayers.add(player);
+					}
+				}
+			});
+		}
+		return nearbyPlayers;
 	}
 
 	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
@@ -294,22 +342,22 @@ public class CoffinSpawnerData {
 		return level.getGameTime() >= this.powerCooldownEndsAt;
 	}
 
-	public void setEntityId(EntityType<?> type, @Nullable Level world, RandomSource random, BlockPos pos) {
-		this.getOrCreateNextSpawnData(world, random, pos).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
+	public void setEntityId(EntityType<?> type, RandomSource random) {
+		this.getOrCreateNextSpawnData(random).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
 	}
 
 	public SimpleWeightedRandomList<SpawnData> spawnPotentials() {
 		return this.spawnPotentials;
 	}
 
-	@NotNull SpawnData getOrCreateNextSpawnData(@Nullable Level world, RandomSource random, BlockPos pos) {
+	@NotNull SpawnData getOrCreateNextSpawnData(RandomSource random) {
 		if (this.nextSpawnData.isEmpty()) {
-			this.setNextSpawnData(world, pos, this.spawnPotentials.getRandom(random).map(Wrapper::data).orElseGet(SpawnData::new));
+			this.setNextSpawnData(this.spawnPotentials.getRandom(random).map(Wrapper::data).orElseGet(SpawnData::new));
 		}
 		return this.nextSpawnData.get();
 	}
 
-	protected void setNextSpawnData(@Nullable Level world, BlockPos pos, SpawnData spawnEntry) {
+	protected void setNextSpawnData(SpawnData spawnEntry) {
 		this.nextSpawnData = Optional.ofNullable(spawnEntry);
 	}
 }

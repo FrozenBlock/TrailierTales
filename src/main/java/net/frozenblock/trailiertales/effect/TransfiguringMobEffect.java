@@ -16,6 +16,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameRules;
@@ -38,7 +39,7 @@ public class TransfiguringMobEffect extends MobEffect {
 	public void onEffectAdded(LivingEntity entity, int amplifier) {
 		super.onEffectAdded(entity, amplifier);
 		if (entity instanceof Apparition apparition) {
-			entity.level().broadcastEntityEvent(entity, (byte) 60);
+			entity.level().broadcastEntityEvent(entity, EntityEvent.POOF);
 			entity.level().playSound(
 				null,
 				entity.getX(),

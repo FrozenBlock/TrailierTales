@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Con
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.level.block.state.BlockState;
@@ -73,6 +74,19 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 			poseStack.translate(0.5D, 0.5D, 0.5D);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-f));
 			poseStack.translate(-0.5D, -0.5D, -0.5D);
+
+			float wobbleProgress = ((float)(level.getGameTime() - blockEntity.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
+			if (wobbleProgress >= 0F && wobbleProgress <= 1F) {
+				float coffinWobble = wobbleProgress * Mth.PI * 2.5F;
+				float wobbleDampen = 1F - wobbleProgress;
+
+				float wobble = -3F * Mth.cos(coffinWobble) * Mth.sin(coffinWobble) * wobbleDampen;
+				poseStack.rotateAround(Axis.ZP.rotation(wobble * 0.015625F), 0.5F, 0F, 0.5F);
+
+				float lidWobble = (wobbleProgress + (2.5F / CoffinBlockEntity.WOBBLE_DURATION)) * Mth.PI * 2.5F;
+				openProg += Math.max(0F, (Mth.cos(lidWobble) * -0.25F) * (Mth.sin(lidWobble) * -0.25F)) * wobbleDampen;
+			}
+
 			this.renderPiece(
 				poseStack,
 				buffer,

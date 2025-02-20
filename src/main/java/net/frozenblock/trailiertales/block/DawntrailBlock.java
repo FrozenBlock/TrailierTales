@@ -41,7 +41,7 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 
-	private final MultifaceSpreader spreader = new LumibloomSpreader(this);
+	private final MultifaceSpreader spreader = new DawntrailSpreader(this);
 
 	@Override
 	public @NotNull MapCodec<DawntrailBlock> codec() {
@@ -156,8 +156,8 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 		return this.spreader;
 	}
 
-	public static class LumibloomSpreader extends MultifaceSpreader {
-		public LumibloomSpreader(@NotNull DawntrailBlock block) {
+	public static class DawntrailSpreader extends MultifaceSpreader {
+		public DawntrailSpreader(@NotNull DawntrailBlock block) {
 			super(new DefaultSpreaderConfig(block));
 		}
 	}
