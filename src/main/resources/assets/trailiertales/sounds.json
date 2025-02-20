@@ -1038,6 +1038,14 @@
     ],
     "subtitle": "subtitles.block.coffin.vanish_mob"
   },
+  "block.coffin.wobble": {
+    "sounds": [
+      "trailiertales:block/coffin/wobble1",
+      "trailiertales:block/coffin/wobble2",
+      "trailiertales:block/coffin/wobble3"
+    ],
+    "subtitle": "subtitles.block.coffin.wobble"
+  },
   "block.coffin.haunt": {
     "sounds": [
       "trailiertales:mob/apparition/haunt1",

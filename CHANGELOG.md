@@ -10,9 +10,13 @@ hi
 - Improved the loot tables for suspicious blocks in all of Trailier Tales' structures, providing more insight into the past.
 - Trailier Tales' Armor Trims are now easier to find in Ruins structures.
 - Modifications to Loot Tables for the replacement of Pottery Sherds no longer replaces entire Loot Tables, but only replaces the specified Pottery Sherd items.
-    - This means Trailier Tales will now be compatible with datapacks and other mods that modify archaeology loot tables.
+  - This means Trailier Tales will now be compatible with datapacks and other mods that modify archaeology loot tables.
 - Ominous Bottles can now be found in Catacombs.
 - Mobs spawned from Coffins now drop twice as much XP if killed by a player with Siege Omen.
+- Coffins can now be wobbled when interacted with.
+  - By default, only has a chance to activate the Coffin and summon an Apparition.
+  - Can summon thrown Potions, Experience Bottles, and Loot items.
+    - These three outcomes are disabled by default, but can be enabled in the config.
 - Added the Block of Ectoplasm.
   - While inside this block, gravity is weaker.
   - Apparitions cannot move through these blocks.

@@ -87,6 +87,9 @@ Voxelotl
       - Embrace Armor Trim
       - Block of Ectoplasm texture
 
+Willow/pictochats_:
+    - Coffin wobble sounds
+
 Stella/Osmiooo
     - Implemented the new Andesite, Diorite, and Granite blocks
     - Implemented the Wither Pottery Sherd

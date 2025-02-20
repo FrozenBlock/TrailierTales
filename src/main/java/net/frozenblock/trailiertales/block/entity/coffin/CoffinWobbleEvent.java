@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.Util;
@@ -31,10 +32,10 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public enum CoffinWobbleEvent {
-	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty()),
-	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> true),
-	POTION(0.1F, true, (coffinBlockEntity, blockState) -> true),
-	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> true);
+	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty() && TTBlockConfig.get().coffin.wobble_loot),
+	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_activate),
+	POTION(0.1F, true, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_potion),
+	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_experience_bottle);
 
 	private static final SimpleWeightedRandomList<MobEffectInstance> MOB_EFFECTS = SimpleWeightedRandomList.<MobEffectInstance>builder()
 		.add(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120 * 20), 2)

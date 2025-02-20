@@ -12,6 +12,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
@@ -22,7 +23,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -197,23 +197,24 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	protected @NotNull InteractionResult useWithoutItem(BlockState state, @NotNull Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
 		if (level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity
 			&& (level.getGameTime() - coffinBlockEntity.wobbleStartedAtTick) >= CoffinBlockEntity.WOBBLE_COOLDOWN
+			&& TTBlockConfig.get().coffin.wobble
 		) {
-			// TODO: Sounds
-			level.playSound(null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1F, 1F);
-			wobble(level, pos, state);
-			level.gameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
+			wobble(level, pos, state, entity);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
 	}
 
-	public static void wobble(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
+	public static void wobble(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Player player) {
 		level.blockEvent(pos, state.getBlock(), 1, 0);
 		BlockPos neighborPos = pos.relative(CoffinBlock.getConnectedDirection(state));
 		BlockState neighborState = level.getBlockState(neighborPos);
 		if (neighborState.is(state.getBlock())) {
 			level.blockEvent(neighborPos, state.getBlock(), 1, 0);
 		}
+
+		level.playSound(null, pos, TTSounds.COFFIN_WOBBLE, SoundSource.BLOCKS, 0.5F, 0.9F + level.random.nextFloat() * 0.2F);
+		level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 	}
 
 	@Override

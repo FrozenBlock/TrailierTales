@@ -2,6 +2,7 @@ package net.frozenblock.trailiertales.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.api.Requirement;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.api.instance.Config;
@@ -61,6 +62,71 @@ public final class TTBlockConfigGui {
 			false,
 			TTConstants.tooltip("suspicious_blocks"),
 			smoothSuspiciousBlocks, suspiciousBlockParticles, placeItemsInSuspiciousBlocks
+		);
+
+		var coffin = config.coffin;
+		var modifiedCoffin = modifiedConfig.coffin;
+		var wobbleEnabled = Requirement.isTrue(() -> modifiedCoffin.wobble);
+
+		var coffinWobble = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("coffin_wobble"), modifiedCoffin.wobble)
+				.setDefaultValue(defaultConfig.coffin.wobble)
+				.setSaveConsumer(newValue -> coffin.wobble = newValue)
+				.setTooltip(TTConstants.tooltip("coffin_wobble"))
+				.build(),
+			coffin.getClass(),
+			"wobble",
+			configInstance
+		);
+		var coffinWobbleActivate = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("coffin_wobble_activate"), modifiedCoffin.wobble_activate)
+				.setDefaultValue(defaultConfig.coffin.wobble_activate)
+				.setSaveConsumer(newValue -> coffin.wobble_activate = newValue)
+				.setTooltip(TTConstants.tooltip("coffin_wobble_activate"))
+				.setRequirement(wobbleEnabled)
+				.build(),
+			coffin.getClass(),
+			"wobble_activate",
+			configInstance
+		);
+		var coffinWobbleLoot = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("coffin_wobble_loot"), modifiedCoffin.wobble_loot)
+				.setDefaultValue(defaultConfig.coffin.wobble_loot)
+				.setSaveConsumer(newValue -> coffin.wobble_loot = newValue)
+				.setTooltip(TTConstants.tooltip("coffin_wobble_loot"))
+				.setRequirement(wobbleEnabled)
+				.build(),
+			coffin.getClass(),
+			"wobble_loot",
+			configInstance
+		);
+		var coffinWobblePotion = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("coffin_wobble_potion"), modifiedCoffin.wobble_potion)
+				.setDefaultValue(defaultConfig.coffin.wobble_potion)
+				.setSaveConsumer(newValue -> coffin.wobble_potion = newValue)
+				.setTooltip(TTConstants.tooltip("coffin_wobble_potion"))
+				.setRequirement(wobbleEnabled)
+				.build(),
+			coffin.getClass(),
+			"wobble_potion",
+			configInstance
+		);
+		var coffinWobbleExperienceBottle = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("coffin_wobble_experience_bottle"), modifiedCoffin.wobble_experience_bottle)
+				.setDefaultValue(defaultConfig.coffin.wobble_experience_bottle)
+				.setSaveConsumer(newValue -> coffin.wobble_experience_bottle = newValue)
+				.setTooltip(TTConstants.tooltip("coffin_wobble_experience_bottle"))
+				.setRequirement(wobbleEnabled)
+				.build(),
+			coffin.getClass(),
+			"wobble_experience_bottle",
+			configInstance
+		);
+
+		var coffinCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("coffin"),
+			false,
+			TTConstants.tooltip("coffin"),
+			coffinWobble, coffinWobbleActivate, coffinWobbleExperienceBottle, coffinWobbleLoot, coffinWobblePotion
 		);
 
 		var blockSounds = config.blockSounds;
