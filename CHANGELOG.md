@@ -45,7 +45,6 @@ hi
 - Updated Polish translations slightly, thanks to Eggmanplant! ([#4](https://github.com/FrozenBlock/TrailierTales/pull/4))
 
 #### Bug Fixes
-- Fixed a massive issue facing Fabric 1.21.4.
 - Fixed a critical issue with mobs suddenly vanishing.
 - Fixed a vanilla bug where Powered Rails, Activator Rails, and Detector Rails wouldn't rotate properly in structure generation.
 - Coffins have been removed from the Creative Inventory's `Functional Blocks` tab, and added to the `Spawn Eggs` tab.
