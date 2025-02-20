@@ -462,6 +462,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
 			.save(recipeOutput, getConversionRecipeName(TTBlocks.CHORAL_END_STONE_BRICKS, Items.CHORUS_FRUIT));
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS)
+			.define('#', TTBlocks.CHORAL_END_STONE)
+			.pattern("##")
+			.pattern("##").unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
+			.save(recipeOutput);
+
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS, TTBlocks.CHORAL_END_STONE);
