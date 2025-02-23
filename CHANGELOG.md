@@ -17,6 +17,8 @@ hi
   - By default, only has a chance to activate the Coffin and summon an Apparition.
   - Can summon thrown Potions, Experience Bottles, and Loot items.
     - These three outcomes are disabled by default, but can be enabled in the config.
+- Added a built-in datapack to replace Strongholds with Catacombs.
+  - A new piece containing an End Portal will generate at the center.
 - Added the Block of Ectoplasm.
   - While inside this block, gravity is weaker.
   - Apparitions cannot move through these blocks.
