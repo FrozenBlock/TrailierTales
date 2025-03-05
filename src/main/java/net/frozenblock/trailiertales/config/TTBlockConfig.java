@@ -17,9 +17,7 @@ public final class TTBlockConfig {
 			TTConstants.MOD_ID,
 			TTBlockConfig.class,
 			TTPreLoadConstants.configPath("block", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {

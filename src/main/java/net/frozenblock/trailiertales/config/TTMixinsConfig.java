@@ -18,9 +18,7 @@ public final class TTMixinsConfig {
 			TTMixinsConfig.class,
 			TTPreLoadConstants.configPath("mixins", true),
 			JsonType.JSON5,
-			false,
-			null,
-			null
+			false
 		)
 	);
 

@@ -17,9 +17,7 @@ public final class TTItemConfig {
 			TTConstants.MOD_ID,
 			TTItemConfig.class,
 			TTPreLoadConstants.configPath("item", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {
