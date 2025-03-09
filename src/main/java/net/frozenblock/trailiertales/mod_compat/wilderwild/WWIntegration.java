@@ -63,57 +63,57 @@ public class WWIntegration extends AbstractWWIntegration {
 		);
 
 		StructureProcessorApi.addProcessor(CatacombsGenerator.CATACOMBS_KEY.location(),
-			new RuleProcessor(
+			new BlockStateRespectingRuleProcessor(
 				List.of(
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState()),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
 
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.LEFT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
 
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					),
-					new ProcessorRule(
+					new BlockStateRespectingProcessorRule(
 						new BlockStateMatchTest(Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT)),
-						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.WEST).setValue(ChestBlock.TYPE, ChestType.RIGHT).setValue(WWBlockStateProperties.ANCIENT, true)
+						AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST
 					)
 				)
 			)
