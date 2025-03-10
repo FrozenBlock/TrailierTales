@@ -59,7 +59,7 @@ hi
 - Fixed some recipe unlocks not working.
 - Fixed Cut Sandstone Stairs and Cut Red Sandstone Stairs having incorrect texture mapping.
 - Manedrops can no longer be bonemealed to obtain more Manedrops.
-- Fixed Dawntrail Crops crashing with `MoreCulling` installed.
+- Fixed Dawntrail Crops crashing with `MoreCulling` installed. ([#15](https://github.com/FrozenBlock/TrailierTales/issues/15))
 - Removed the leftover `TRAILIER TALES` subtitle from the main menu.
 - Removed many unused assets.
 
