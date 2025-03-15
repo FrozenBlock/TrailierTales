@@ -16,9 +16,7 @@ public final class TTMiscConfig {
 			TTConstants.MOD_ID,
 			TTMiscConfig.class,
 			TTPreLoadConstants.configPath("misc", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		)
 	);
 

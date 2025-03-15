@@ -16,9 +16,7 @@ public final class TTEntityConfig {
 			TTConstants.MOD_ID,
 			TTEntityConfig.class,
 			TTPreLoadConstants.configPath("entity", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		)
 	);
 
