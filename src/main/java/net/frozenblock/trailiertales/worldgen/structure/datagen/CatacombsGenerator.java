@@ -16,6 +16,7 @@ import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.frozenblock.trailiertales.registry.TTStructures;
 import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.frozenblock.trailiertales.worldgen.processor.CoffinProcessor;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -30,6 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -77,6 +79,7 @@ public class CatacombsGenerator {
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_ARCHERY = createKey("catacombs_archery");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_LAVA_TRAP = createKey("catacombs_lava_trap");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_MINESHAFT = createKey("catacombs_mineshaft");
+	public static final ResourceKey<StructureProcessorList> CATACOMBS_TOMB_END_PORTAL = createKey("catacombs_tomb_end_portal");
 
 	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
 		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
@@ -1131,6 +1134,54 @@ public class CatacombsGenerator {
 					TTItems.EYE_POTTERY_SHERD
 				),
 				permanentSkullProcessor,
+				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		register(
+			context,
+			CATACOMBS_TOMB_END_PORTAL,
+			ImmutableList.of(
+				tombArchy,
+				zombieSkeletonCoffinProcessor,
+				tombDecorationProcessor,
+				potProcessor,
+				baseProcessor,
+				blockStateRespectingRuleProcessor,
+				tombChests,
+				rewardChests,
+				coffinLootTables,
+				potLootProcessor,
+				TTStructures.decoratedPotSherdProcessor(
+					0.5F,
+					Items.SKULL_POTTERY_SHERD,
+					Items.SKULL_POTTERY_SHERD,
+					TTItems.OMEN_POTTERY_SHERD,
+					Items.PLENTY_POTTERY_SHERD,
+					TTItems.ESSENCE_POTTERY_SHERD,
+					TTItems.EYE_POTTERY_SHERD
+				),
+				permanentSkullProcessor,
+				new RuleProcessor(
+					ImmutableList.of(
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.NORTH), 0.25F),
+							AlwaysTrueTest.INSTANCE, Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.NORTH).setValue(EndPortalFrameBlock.HAS_EYE, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.EAST), 0.25F),
+							AlwaysTrueTest.INSTANCE, Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.EAST).setValue(EndPortalFrameBlock.HAS_EYE, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.SOUTH), 0.25F),
+							AlwaysTrueTest.INSTANCE, Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.SOUTH).setValue(EndPortalFrameBlock.HAS_EYE, true)
+						),
+						new ProcessorRule(
+							new RandomBlockStateMatchTest(Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.WEST), 0.25F),
+							AlwaysTrueTest.INSTANCE, Blocks.END_PORTAL_FRAME.defaultBlockState().setValue(EndPortalFrameBlock.FACING, Direction.WEST).setValue(EndPortalFrameBlock.HAS_EYE, true)
+						)
+					)
+				),
 				new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);

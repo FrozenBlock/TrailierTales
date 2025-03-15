@@ -15,6 +15,7 @@ import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.frozenblock.trailiertales.registry.TTResources;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
@@ -23,6 +24,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -44,6 +46,7 @@ import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -476,7 +479,8 @@ public final class CoffinSpawner {
 	}
 
 	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
-		Structure structure = structureManager.registryAccess().lookupOrThrow(Registries.STRUCTURE).getValue(CatacombsGenerator.CATACOMBS_KEY);
+		ResourceKey<Structure> structureKey = TTResources.HAS_STRONGHOLD_OVERRIDE_PACK ? BuiltinStructures.STRONGHOLD : CatacombsGenerator.CATACOMBS_KEY;
+		Structure structure = structureManager.registryAccess().lookupOrThrow(Registries.STRUCTURE).getValue(structureKey);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
 	}
 

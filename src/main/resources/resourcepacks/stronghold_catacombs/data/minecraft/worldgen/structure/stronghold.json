@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#minecraft:has_structure/stronghold",
+  "dimension_padding": 6,
+  "liquid_settings": "ignore_waterlogging",
+  "max_distance_from_center": 100,
+  "size": 16,
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": []
+    }
+  },
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "above_bottom": 40
+    },
+    "min_inclusive": {
+      "above_bottom": 20
+    }
+  },
+  "start_pool": "trailiertales:catacombs/center",
+  "step": "underground_structures",
+  "terrain_adaptation": "encapsulate",
+  "use_expansion_hack": false
+}

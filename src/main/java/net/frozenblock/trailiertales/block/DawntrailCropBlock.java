@@ -29,6 +29,7 @@ public class DawntrailCropBlock extends CropBlock {
 		Block.box(4D, 0D, 4D, 12D, 6D, 12D),
 		Block.box(2D, 0D, 2D, 14D, 8D, 14D),
 		Block.box(0D, 0D, 0D, 16D, 4D, 16D),
+		Block.box(0D, 0D, 0D, 16D, 4D, 16D),
 	};
 	private static final int BONEMEAL_INCREASE = 1;
 

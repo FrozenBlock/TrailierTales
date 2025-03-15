@@ -16,9 +16,7 @@ public final class TTWorldgenConfig {
 			TTConstants.MOD_ID,
 			TTWorldgenConfig.class,
 			TTPreLoadConstants.configPath("worldgen", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {
