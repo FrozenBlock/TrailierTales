@@ -149,7 +149,7 @@ public class TTLootTables {
 									.apply(
 										SetStewEffectFunction.stewEffect()
 											.withEffect(MobEffects.NIGHT_VISION, UniformGenerator.between(7.0F, 10.0F))
-											.withEffect(MobEffects.JUMP, UniformGenerator.between(7.0F, 10.0F))
+											.withEffect(MobEffects.JUMP_BOOST, UniformGenerator.between(7.0F, 10.0F))
 											.withEffect(MobEffects.WEAKNESS, UniformGenerator.between(6.0F, 8.0F))
 											.withEffect(MobEffects.BLINDNESS, UniformGenerator.between(5.0F, 7.0F))
 											.withEffect(MobEffects.POISON, UniformGenerator.between(10.0F, 20.0F))

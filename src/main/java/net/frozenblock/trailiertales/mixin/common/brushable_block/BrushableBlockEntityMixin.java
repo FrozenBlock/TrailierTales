@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -112,9 +113,9 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	public void trailierTales$loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
 		this.trailierTales$readNBT(compoundTag);
-		if (compoundTag.contains("Rebrushed")) this.trailierTales$rebrushed = compoundTag.getBoolean("Rebrushed");
-		if (compoundTag.contains("TrailierTalesStoredLootTable", 8)) {
-			this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(compoundTag.getString("TrailierTalesStoredLootTable")));
+		if (compoundTag.contains("Rebrushed")) this.trailierTales$rebrushed = compoundTag.getBooleanOr("Rebrushed", false);
+		if (compoundTag.contains("TrailierTalesStoredLootTable")) {
+			this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(compoundTag.getStringOr("TrailierTalesStoredLootTable", "")));
 		}
 	}
 
@@ -134,16 +135,16 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 		method = "brush",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;brushingCompleted(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V",
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;brushingCompleted(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V",
 			shift = At.Shift.BEFORE
 		)
 	)
-	public void trailierTales$rebrushA(long ticks, ServerLevel level, Player player, Direction direction, ItemStack stack, CallbackInfoReturnable<Boolean> info) {
+	public void trailierTales$rebrushA(long ticks, ServerLevel level, LivingEntity entity, Direction direction, ItemStack stack, CallbackInfoReturnable<Boolean> info) {
 		if (!this.trailierTales$hasCustomItem) {
-			int rebrushLevel = stack.getEnchantments().getLevel(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
+			int rebrushLevel = stack.getEnchantments().getLevel(entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
 			if (rebrushLevel > 0) {
 				float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;
-				if (player.getRandom().nextFloat() < rebrushChance) {
+				if (entity.getRandom().nextFloat() < rebrushChance) {
 					this.trailierTales$runRebrush = true;
 				}
 			}
@@ -296,23 +297,23 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 
 	@Unique
 	public void trailierTales$readNBT(@NotNull CompoundTag compoundTag) {
-		if (compoundTag.contains("TTHitDirection")) this.trailierTales$hitDirection = Direction.byName(compoundTag.getString("TTHitDirection"));
-		if (compoundTag.contains("TargetXLerp")) this.trailierTales$targetXLerp = compoundTag.getFloat("TargetXLerp");
-		if (compoundTag.contains("TargetYLerp")) this.trailierTales$targetYLerp = compoundTag.getFloat("TargetYLerp");
-		if (compoundTag.contains("TargetZLerp")) this.trailierTales$targetZLerp = compoundTag.getFloat("TargetZLerp");
-		if (compoundTag.contains("XLerp")) this.trailierTales$xLerp = compoundTag.getFloat("XLerp");
-		if (compoundTag.contains("YLerp")) this.trailierTales$yLerp = compoundTag.getFloat("YLerp");
-		if (compoundTag.contains("ZLerp")) this.trailierTales$zLerp = compoundTag.getFloat("ZLerp");
-		if (compoundTag.contains("PrevXLerp")) this.trailierTales$prevXLerp = compoundTag.getFloat("PrevXLerp");
-		if (compoundTag.contains("PrevYLerp")) this.trailierTales$prevYLerp = compoundTag.getFloat("PrevYLerp");
-		if (compoundTag.contains("PrevZLerp")) this.trailierTales$prevZLerp = compoundTag.getFloat("PrevZLerp");
-		if (compoundTag.contains("TargetItemScale")) this.trailierTales$targetItemScale = compoundTag.getFloat("TargetItemScale");
-		if (compoundTag.contains("ItemScale")) this.trailierTales$itemScale = compoundTag.getFloat("ItemScale");
-		if (compoundTag.contains("PrevItemScale")) this.trailierTales$prevItemScale = compoundTag.getFloat("PrevItemScale");
-		this.trailierTales$rotation = compoundTag.getFloat("Rotation");
-		this.trailierTales$prevRotation = compoundTag.getFloat("PrevRotation");
-		this.trailierTales$hasCustomItem = compoundTag.getBoolean("HasCustomItem");
-		this.brushCount = compoundTag.getInt("BrushCount");
+		if (compoundTag.contains("TTHitDirection")) this.trailierTales$hitDirection = Direction.byName(compoundTag.getStringOr("TTHitDirection", ""));
+		if (compoundTag.contains("TargetXLerp")) this.trailierTales$targetXLerp = compoundTag.getFloatOr("TargetXLerp", 0);
+		if (compoundTag.contains("TargetYLerp")) this.trailierTales$targetYLerp = compoundTag.getFloatOr("TargetYLerp", 0);
+		if (compoundTag.contains("TargetZLerp")) this.trailierTales$targetZLerp = compoundTag.getFloatOr("TargetZLerp", 0);
+		if (compoundTag.contains("XLerp")) this.trailierTales$xLerp = compoundTag.getFloatOr("XLerp", 0);
+		if (compoundTag.contains("YLerp")) this.trailierTales$yLerp = compoundTag.getFloatOr("YLerp", 0);
+		if (compoundTag.contains("ZLerp")) this.trailierTales$zLerp = compoundTag.getFloatOr("ZLerp", 0);
+		if (compoundTag.contains("PrevXLerp")) this.trailierTales$prevXLerp = compoundTag.getFloatOr("PrevXLerp", 0);
+		if (compoundTag.contains("PrevYLerp")) this.trailierTales$prevYLerp = compoundTag.getFloatOr("PrevYLerp", 0);
+		if (compoundTag.contains("PrevZLerp")) this.trailierTales$prevZLerp = compoundTag.getFloatOr("PrevZLerp", 0);
+		if (compoundTag.contains("TargetItemScale")) this.trailierTales$targetItemScale = compoundTag.getFloatOr("TargetItemScale", 0);
+		if (compoundTag.contains("ItemScale")) this.trailierTales$itemScale = compoundTag.getFloatOr("ItemScale", 0);
+		if (compoundTag.contains("PrevItemScale")) this.trailierTales$prevItemScale = compoundTag.getFloatOr("PrevItemScale", 0);
+		this.trailierTales$rotation = compoundTag.getFloatOr("Rotation", 0);
+		this.trailierTales$prevRotation = compoundTag.getFloatOr("PrevRotation", 0);
+		this.trailierTales$hasCustomItem = compoundTag.getBooleanOr("HasCustomItem", false);
+		this.brushCount = compoundTag.getIntOr("BrushCount", 0);
 	}
 
 	@Unique

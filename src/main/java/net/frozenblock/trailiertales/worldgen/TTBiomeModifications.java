@@ -56,7 +56,7 @@ public final class TTBiomeModifications {
 
 					if (TTEntityConfig.get().sniffer.spawn) {
 						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
-							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 5, 1, 4));
+							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 1, 4), 5);
 						}
 					}
 				})
@@ -71,7 +71,7 @@ public final class TTBiomeModifications {
 
 					if (TTEntityConfig.get().camel.spawn) {
 						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
-							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CAMEL, 1, 1, 1));
+							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CAMEL, 1, 1), 1);
 						}
 					}
 				})

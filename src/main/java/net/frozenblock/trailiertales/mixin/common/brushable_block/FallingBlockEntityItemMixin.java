@@ -74,11 +74,11 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	public void trailierTales$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
 		if (compoundTag.contains("TrailierTalesItem")) {
 			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			this.trailierTales$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("TrailierTalesItem"));
+			this.trailierTales$itemStack = ItemStack.parse(fallingBlockEntity.level().registryAccess(), compoundTag.getCompoundOrEmpty("TrailierTalesItem")).orElse(ItemStack.EMPTY);
 		}
 
 		if (compoundTag.contains("TrailierTalesOverrideBreak")) {
-			this.trailierTales$overrideBreak = compoundTag.getBoolean("TrailierTalesOverrideBreak");
+			this.trailierTales$overrideBreak = compoundTag.getBooleanOr("TrailierTalesOverrideBreak", false);
 		}
 	}
 

@@ -68,8 +68,8 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		if (nbt.contains("TrailierTalesBanner", 10)) {
-			this.trailierTales$setBanner(ItemStack.parse(this.registryAccess(), nbt.getCompound("TrailierTalesBanner")).orElse(ItemStack.EMPTY));
+		if (nbt.contains("TrailierTalesBanner")) {
+			this.trailierTales$setBanner(ItemStack.parse(this.registryAccess(), nbt.getCompoundOrEmpty("TrailierTalesBanner")).orElse(ItemStack.EMPTY));
 		}
 	}
 

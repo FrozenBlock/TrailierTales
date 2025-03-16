@@ -10,6 +10,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.VisibleForDebug;
@@ -103,21 +104,21 @@ public class EntityCoffinData {
 		coffinDataTag.putInt("X", this.pos.getX());
 		coffinDataTag.putInt("Y", this.pos.getY());
 		coffinDataTag.putInt("Z", this.pos.getZ());
-		coffinDataTag.putUUID("CoffinUUID", this.coffinUUID);
+		coffinDataTag.store("CoffinUUID", UUIDUtil.CODEC, this.coffinUUID);
 		coffinDataTag.putLong("LastInteractionAt", this.lastInteractionAt);
 		tag.put("TrailierTales_CoffinData", coffinDataTag);
 	}
 
 	public static @Nullable EntityCoffinData loadCompoundTag(@NotNull CompoundTag tag) {
-		if (tag.contains("TrailierTales_CoffinData", 10)) {
-			CompoundTag coffinDataTag = tag.getCompound("TrailierTales_CoffinData");
+		if (tag.contains("TrailierTales_CoffinData")) {
+			CompoundTag coffinDataTag = tag.getCompoundOrEmpty("TrailierTales_CoffinData");
 			BlockPos pos = new BlockPos(
-				coffinDataTag.getInt("X"),
-				coffinDataTag.getInt("Y"),
-				coffinDataTag.getInt("Z")
+				coffinDataTag.getIntOr("X", 0),
+				coffinDataTag.getIntOr("Y", 0),
+				coffinDataTag.getIntOr("Z", 0)
 			);
-			UUID coffinUUID = coffinDataTag.getUUID("CoffinUUID");
-			long lastInteractionAt = coffinDataTag.getLong("LastInteractionAt");
+			UUID coffinUUID = coffinDataTag.read("CoffinUUID", UUIDUtil.CODEC).orElse(null);
+			long lastInteractionAt = coffinDataTag.getLong("LastInteractionAt").orElse(0L);
 			return new EntityCoffinData(pos, coffinUUID, lastInteractionAt);
 		}
 		return null;

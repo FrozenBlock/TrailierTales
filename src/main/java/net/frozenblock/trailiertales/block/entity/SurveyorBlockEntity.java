@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
@@ -61,8 +62,8 @@ public class SurveyorBlockEntity extends BlockEntity {
 	@Override
 	protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
 		super.loadAdditional(nbt, lookupProvider);
-		this.lastDetectionPower = nbt.getInt("last_detection_power");
-		this.detectionCooldown = nbt.getInt("detection_cooldown");
+		this.lastDetectionPower = nbt.getIntOr("last_detection_power", 0);
+		this.detectionCooldown = nbt.getIntOr("detection_cooldown", 0);
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 
 			BlockPos inFrontPos = pos.relative(state.getValue(SurveyorBlock.FACING));
 			BlockState inFrontState = serverLevel.getBlockState(pos.relative(state.getValue(SurveyorBlock.FACING)));
-			boolean isBlocked = inFrontState.isCollisionShapeFullBlock(level, inFrontPos);
+			boolean isBlocked = inFrontState.isCollisionShapeFullBlock(serverLevel, inFrontPos);
 
 			if (!isBlocked) {
 				Vec3 surveyorCenterPos = Vec3.atCenterOf(pos);
@@ -103,11 +104,11 @@ public class SurveyorBlockEntity extends BlockEntity {
 					Optional<Vec3> headPoint = Optional.empty();
 					Optional<Vec3> footPoint = Optional.empty();
 					if (player.isInvisible()) {
-						if (player.getInventory().armor.get(1).isEmpty() && player.getInventory().armor.get(2).isEmpty()) {
-							if (!player.getInventory().armor.get(0).isEmpty() && detectionBox.contains(player.position())) {
+						if (player.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && player.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
+							if (!player.getItemBySlot(EquipmentSlot.FEET).isEmpty() && detectionBox.contains(player.position())) {
 								footPoint = Optional.of(player.position());
 							}
-							if (!player.getInventory().armor.get(3).isEmpty() && detectionBox.contains(player.getEyePosition())) {
+							if (!player.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && detectionBox.contains(player.getEyePosition())) {
 								headPoint = Optional.of(player.getEyePosition());
 							}
 

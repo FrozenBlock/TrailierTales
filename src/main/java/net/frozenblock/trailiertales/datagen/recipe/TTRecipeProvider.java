@@ -2,12 +2,14 @@ package net.frozenblock.trailiertales.datagen.recipe;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTTrimPatterns;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -533,7 +535,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// ARMOR TRIMS
 
-				smithingTrims().forEach(trimTemplate -> this.trimSmithing(trimTemplate.template(), trimTemplate.id()));
+				smithingTrims().forEach(trimTemplate -> this.trimSmithing(trimTemplate.template(), trimTemplate.patternId(), trimTemplate.recipeId()));
 
 				// UNDEAD SMITHING TEMPLATE
 
@@ -638,16 +640,16 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 	private static Stream<VanillaRecipeProvider.TrimTemplate> smithingTrims() {
 		return Stream.of(
-				TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE,
-				TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE
+				Pair.of(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.UNDEAD),
+				Pair.of(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.MATRIX),
+				Pair.of(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.GEODE),
+				Pair.of(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.OVERGROWTH),
+				Pair.of(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.MARTYR),
+				Pair.of(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.ZEPHYR),
+				Pair.of(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.COT),
+				Pair.of(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, TTTrimPatterns.EMBRACE)
 			)
-			.map(item -> new VanillaRecipeProvider.TrimTemplate(item, ResourceKey.create(Registries.RECIPE, TTConstants.id(RecipeProvider.getItemName(item) + "_smithing_trim"))));
+			.map(pair -> new VanillaRecipeProvider.TrimTemplate(pair.getFirst(), pair.getSecond(), ResourceKey.create(Registries.RECIPE, TTConstants.id(RecipeProvider.getItemName(pair.getFirst()) + "_smithing_trim"))));
 	}
 
 	@Override

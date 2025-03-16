@@ -188,22 +188,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected boolean isAffectedByFluids() {
-		return false;
-	}
-
-	@Override
-	public boolean isInWaterOrBubble() {
+	public boolean isAffectedByFluids() {
 		return false;
 	}
 
 	@Override
 	public boolean isInWaterOrRain() {
-		return false;
-	}
-
-	@Override
-	public boolean isInWaterRainOrBubble() {
 		return false;
 	}
 
@@ -585,19 +575,19 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag nbt) {
+	public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
 		super.readAdditionalSaveData(nbt);
 		this.readInventoryFromTag(nbt, this.registryAccess());
-		this.setTransparency(nbt.getFloat("Transparency"));
-		this.setOuterTransparency(nbt.getFloat("OuterTransparency"));
-		this.setAidAnimProgress(nbt.getFloat("AidAnimProgress"));
-		this.setPoltergeistAnimProgress(nbt.getFloat("PoltergeistAnimProgress"));
-		this.setHiding(nbt.getBoolean("Hiding"));
+		this.setTransparency(nbt.getFloatOr("Transparency", 0));
+		this.setOuterTransparency(nbt.getFloatOr("OuterTransparency", 0));
+		this.setAidAnimProgress(nbt.getFloatOr("AidAnimProgress", 0));
+		this.setPoltergeistAnimProgress(nbt.getFloatOr("PoltergeistAnimProgress", 0));
+		this.setHiding(nbt.getBooleanOr("Hiding", false));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag nbt) {
+	public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
 		super.addAdditionalSaveData(nbt);
 		this.writeInventoryToTag(nbt, this.registryAccess());
 		nbt.putFloat("Transparency", this.getInnerTransparency());

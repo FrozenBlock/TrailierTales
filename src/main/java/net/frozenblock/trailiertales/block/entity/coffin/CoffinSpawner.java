@@ -243,18 +243,18 @@ public final class CoffinSpawner {
 		RandomSource randomSource = level.getRandom();
 		SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
 		CompoundTag compoundTag = spawnData.entityToSpawn();
-		ListTag listTag = compoundTag.getList("Pos", 6);
+		ListTag listTag = compoundTag.getListOrEmpty("Pos");
 		Optional<EntityType<?>> optional = EntityType.by(compoundTag);
 		if (optional.isEmpty()) {
 			return Optional.empty();
 		} else {
 			int i = listTag.size();
 			double d = i >= 1
-				? listTag.getDouble(0)
+				? listTag.getDoubleOr(0, 0)
 				: (double)pos.getX() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
-			double e = i >= 2 ? listTag.getDouble(1) : (double)(pos.getY() + randomSource.nextInt(3) - 1);
+			double e = i >= 2 ? listTag.getDoubleOr(1, 0) : (double)(pos.getY() + randomSource.nextInt(3) - 1);
 			double f = i >= 3
-				? listTag.getDouble(2)
+				? listTag.getDoubleOr(2, 0)
 				: (double)pos.getZ() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
 			if (!level.noCollision(optional.get().getSpawnAABB(d, e, f))) {
 				return Optional.empty();
@@ -285,7 +285,7 @@ public final class CoffinSpawner {
 						}
 
 						Entity entity = EntityType.loadEntityRecursive(compoundTag, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
-							entityx.moveTo(d, e, f, randomSource.nextFloat() * 360F, 0F);
+							entityx.snapTo(d, e, f, randomSource.nextFloat() * 360F, 0F);
 							return entityx;
 						});
 						if (entity == null) {
@@ -296,7 +296,7 @@ public final class CoffinSpawner {
 									return Optional.empty();
 								}
 
-								boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id", 8);
+								boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id");
 								if (bl) {
 									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
 								}

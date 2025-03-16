@@ -139,7 +139,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 					++coffinSpawnerData.totalMobsSpawned;
 					coffinSpawnerData.nextMobSpawnsAt = level.getGameTime() + (long)coffinSpawnerConfig.ticksBetweenSpawn();
 					coffinSpawnerData.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
-						coffinSpawnerData.nextSpawnData = Optional.of(spawnData.data());
+						coffinSpawnerData.nextSpawnData = Optional.of(spawnData);
 						spawner.markUpdated();
 					});
 				});
