@@ -5,7 +5,6 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.gravity.api.GravityAPI;
-import net.frozenblock.lib.worldgen.structure.api.StructurePlacementExclusionApi;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
@@ -32,8 +31,6 @@ import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
 import net.frozenblock.trailiertales.registry.TTVillagerTrades;
 import net.frozenblock.trailiertales.worldgen.TTBiomeModifications;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 
 public class TrailierTales extends FrozenModInitializer {
 
@@ -77,12 +74,6 @@ public class TrailierTales extends FrozenModInitializer {
 		TTModIntegrations.init();
 
 		TTResources.init(container);
-
-		StructurePlacementExclusionApi.addExclusion(
-			BuiltinStructureSets.TRIAL_CHAMBERS.location(),
-			CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(),
-			8
-		);
 
 		GravityAPI.MODIFICATIONS.register(gravityContext -> {
 			if (gravityContext.entity != null) {
