@@ -35,7 +35,7 @@ accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment
 accessible method net/minecraft/world/level/levelgen/structure/TemplateStructurePiece makeTemplateLocation ()Lnet/minecraft/resources/ResourceLocation;
 
 # Data Fixers
-accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
+#accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
 
 # Datagen
 accessible field net/minecraft/client/data/models/BlockModelGenerators$BlockFamilyProvider skipGeneratingModelsFor Ljava/util/Set;

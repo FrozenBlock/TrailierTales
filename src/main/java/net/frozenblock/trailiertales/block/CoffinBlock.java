@@ -104,13 +104,13 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	protected @NotNull BlockState updateShape(
 		@NotNull BlockState state,
-		LevelReader level,
-		ScheduledTickAccess tickAccess,
-		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
-		RandomSource random
+		@NotNull LevelReader level,
+		@NotNull ScheduledTickAccess tickAccess,
+		@NotNull BlockPos pos,
+		@NotNull Direction direction,
+		@NotNull BlockPos neighborPos,
+		@NotNull BlockState neighborState,
+		@NotNull RandomSource random
 	) {
 		if (direction == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
 			boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
@@ -187,7 +187,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		if (!level.isClientSide) {
 			BlockPos blockPos = pos.relative(state.getValue(FACING));
 			level.setBlock(blockPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
-			level.blockUpdated(pos, Blocks.AIR);
+			level.updateNeighborsAt(pos, Blocks.AIR);
 			state.updateNeighbourShapes(level, pos, UPDATE_ALL);
 		}
 	}
@@ -264,12 +264,6 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			TTBlockEntityTypes.COFFIN,
 			(world, pos, statex, coffin) -> coffin
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
-	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag options) {
-		super.appendHoverText(stack, tooltipContext, tooltip, options);
-		Spawner.appendHoverText(stack, tooltip, "SpawnData");
 	}
 
 	public static void onCoffinUntrack(ServerLevel level, @Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {

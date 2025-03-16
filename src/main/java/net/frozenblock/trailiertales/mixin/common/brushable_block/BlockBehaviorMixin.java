@@ -4,6 +4,7 @@ import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -55,8 +56,8 @@ public class BlockBehaviorMixin {
 		}
 	}
 
-	@Inject(method = "onRemove", at = @At("HEAD"))
-	public void trailierTales$onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean moved, CallbackInfo info) {
+	@Inject(method = "affectNeighborsAfterRemoval", at = @At("HEAD"))
+	public void trailierTales$onRemove(BlockState blockState, ServerLevel level, BlockPos blockPos, boolean moved, CallbackInfo info) {
 		if (blockState.getBlock() instanceof BrushableBlock) {
 			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity
 				&& brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface

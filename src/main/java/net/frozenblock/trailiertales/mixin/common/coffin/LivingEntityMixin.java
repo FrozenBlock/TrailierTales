@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Shadow
-	protected int lastHurtByPlayerTime;
+	protected int lastHurtByPlayerMemoryTime;
 
 	@Unique
 	@Nullable
@@ -102,7 +102,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Inject(method = "remove", at = @At("HEAD"))
 	public void trailierTales$remove(Entity.RemovalReason reason, CallbackInfo info) {
-		if (reason == Entity.RemovalReason.KILLED && this.lastHurtByPlayerTime > 0) {
+		if (reason == Entity.RemovalReason.KILLED && this.lastHurtByPlayerMemoryTime > 0) {
 			LivingEntity livingEntity = LivingEntity.class.cast(this);
 			if (livingEntity.level() instanceof ServerLevel serverLevel && this.trailierTales$entityCoffinData != null) {
 				Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);

@@ -14,7 +14,9 @@ import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BrushableBlockRendererMixin {
 
 	@ModifyExpressionValue(
-		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;"
@@ -37,12 +39,12 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@Inject(
-		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(value = "HEAD"),
 		cancellable = true
 	)
 	public void trailierTales$setItemScaleOrCancel(
-		BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo info,
+		BrushableBlockEntity brushableBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, Vec3 cameraPos, CallbackInfo info,
 		@Share("trailierTales$itemScale") LocalFloatRef itemScale
 	) {
 		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
@@ -54,7 +56,7 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V"
@@ -88,22 +90,22 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V"
+			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
-				target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V",
+				target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
 				shift = At.Shift.AFTER
 			)
 		)
 	)
 	public void trailierTales$useSmoothXAxisRotation(
 		PoseStack instance,
-		Quaternionf quaternionf,
+		Quaternionfc quaternionf,
 		Operation<Void> original,
 		BrushableBlockEntity brushableBlockEntity,
 		float partialTick
@@ -119,7 +121,7 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V"

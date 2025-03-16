@@ -112,13 +112,13 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void onRemove(@NotNull BlockState state, Level level, BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		if (!state.is(newState.getBlock())) {
-			if (!level.isClientSide && state.getValue(POWERED)) {
-				this.updateNeighborsInFront(level, pos, state.setValue(POWERED, false));
+	protected void affectNeighborsAfterRemoval(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos blockPos, boolean bl) {
+		if (!state.is(level.getBlockState(blockPos).getBlock())) {
+			if (state.getValue(POWERED)) {
+				this.updateNeighborsInFront(level, blockPos, state.setValue(POWERED, false));
 			}
 		}
-		super.onRemove(state, level, pos, newState, movedByPiston);
+		super.affectNeighborsAfterRemoval(state, level, blockPos, bl);
 	}
 
 	@Override

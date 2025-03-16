@@ -12,6 +12,7 @@ import net.frozenblock.trailiertales.impl.client.DecoratedPotBlockEntityInterfac
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.DecoratedPotRenderer;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DecoratedPotRendererMixin {
 
 	@Inject(
-		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity$WobbleStyle;duration:I",
@@ -31,7 +32,7 @@ public class DecoratedPotRendererMixin {
 		)
 	)
 	public void trailierTales$prepareIsFlipped(
-		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo info,
+		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, Vec3 cameraPos, CallbackInfo info,
 		@Share("trailierTales$isFlipped") LocalBooleanRef isFlipped
 	) {
 		isFlipped.set(decoratedPotBlockEntity instanceof DecoratedPotBlockEntityInterface decoratedPotBlockEntityInterface
@@ -40,7 +41,7 @@ public class DecoratedPotRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
+		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/math/Axis;rotation(F)Lorg/joml/Quaternionf;"
