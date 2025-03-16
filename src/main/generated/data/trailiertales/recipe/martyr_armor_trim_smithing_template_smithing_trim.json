@@ -2,5 +2,6 @@
   "type": "minecraft:smithing_trim",
   "addition": "#minecraft:trim_materials",
   "base": "#minecraft:trimmable_armor",
+  "pattern": "trailiertales:martyr",
   "template": "trailiertales:martyr_armor_trim_smithing_template"
 }

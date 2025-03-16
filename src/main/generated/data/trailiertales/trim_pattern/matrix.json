@@ -3,6 +3,5 @@
   "decal": false,
   "description": {
     "translate": "trim_pattern.trailiertales.matrix"
-  },
-  "template_item": "trailiertales:matrix_armor_trim_smithing_template"
+  }
 }

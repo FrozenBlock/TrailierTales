@@ -2,6 +2,94 @@
   "multipart": [
     {
       "apply": {
+        "model": "trailiertales:block/dawntrail_stage_0",
+        "x": 90
+      },
+      "when": {
+        "age": "0",
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_1",
+        "x": 90
+      },
+      "when": {
+        "age": "1",
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_2",
+        "x": 90
+      },
+      "when": {
+        "age": "2",
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail",
+        "x": 90
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_0",
+        "y": 90
+      },
+      "when": {
+        "age": "0",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_1",
+        "y": 90
+      },
+      "when": {
+        "age": "1",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_2",
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail",
+        "y": 90
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
         "model": "trailiertales:block/dawntrail_stage_0"
       },
       "when": {
@@ -29,139 +117,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0"
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
-        "y": 90
-      },
-      "when": {
-        "age": "0",
-        "east": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_1",
-        "y": 90
-      },
-      "when": {
-        "age": "1",
-        "east": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_2",
-        "y": 90
-      },
-      "when": {
-        "age": "2",
-        "east": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
-        "y": 90
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
-        "y": 180
-      },
-      "when": {
-        "age": "0",
-        "south": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_1",
-        "y": 180
-      },
-      "when": {
-        "age": "1",
-        "south": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_2",
-        "y": 180
-      },
-      "when": {
-        "age": "2",
-        "south": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
-        "y": 180
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
-        "y": 270
-      },
-      "when": {
-        "age": "0",
-        "west": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_1",
-        "y": 270
-      },
-      "when": {
-        "age": "1",
-        "west": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_2",
-        "y": 270
-      },
-      "when": {
-        "age": "2",
-        "west": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
-        "y": 270
+        "model": "trailiertales:block/dawntrail"
       },
       "when": {
         "down": "false",
@@ -204,7 +160,7 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/dawntrail_stage_0",
+        "model": "trailiertales:block/dawntrail",
         "x": 270
       },
       "when": {
@@ -219,37 +175,81 @@
     {
       "apply": {
         "model": "trailiertales:block/dawntrail_stage_0",
-        "x": 90
+        "y": 270
       },
       "when": {
         "age": "0",
-        "down": "true"
+        "west": "true"
       }
     },
     {
       "apply": {
         "model": "trailiertales:block/dawntrail_stage_1",
-        "x": 90
+        "y": 270
       },
       "when": {
         "age": "1",
-        "down": "true"
+        "west": "true"
       }
     },
     {
       "apply": {
         "model": "trailiertales:block/dawntrail_stage_2",
-        "x": 90
+        "y": 270
       },
       "when": {
         "age": "2",
-        "down": "true"
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail",
+        "y": 270
+      },
+      "when": {
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
       }
     },
     {
       "apply": {
         "model": "trailiertales:block/dawntrail_stage_0",
-        "x": 90
+        "y": 180
+      },
+      "when": {
+        "age": "0",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_1",
+        "y": 180
+      },
+      "when": {
+        "age": "1",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail_stage_2",
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/dawntrail",
+        "y": 180
       },
       "when": {
         "down": "false",

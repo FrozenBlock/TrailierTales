@@ -3,6 +3,5 @@
   "decal": false,
   "description": {
     "translate": "trim_pattern.trailiertales.undead"
-  },
-  "template_item": "trailiertales:undead_armor_trim_smithing_template"
+  }
 }

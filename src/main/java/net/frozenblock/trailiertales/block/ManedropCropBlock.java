@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
@@ -96,12 +97,12 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier) {
 		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 			level.destroyBlock(pos, true, entity);
 		}
 
-		super.entityInside(state, level, pos, entity);
+		super.entityInside(state, level, pos, entity, applier);
 	}
 
 	@Override

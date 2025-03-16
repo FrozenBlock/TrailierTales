@@ -344,8 +344,6 @@ public class GuiMixin {
 
 	@Unique
 	private void trailierTales$renderHauntedHeart(@NotNull GuiGraphics graphics, int x, int y) {
-		RenderSystem.enableBlend();
 		graphics.blitSprite(RenderType::guiTextured, TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
-		RenderSystem.disableBlend();
 	}
 }
