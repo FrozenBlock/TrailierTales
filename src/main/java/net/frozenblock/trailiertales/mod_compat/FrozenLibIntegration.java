@@ -15,6 +15,8 @@ import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
+import net.frozenblock.lib.worldgen.structure.api.StructureGenerationConditionApi;
+import net.frozenblock.lib.worldgen.structure.api.StructurePlacementExclusionApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
@@ -56,6 +58,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
@@ -108,6 +111,33 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BASALT, TTSounds.POLISHED_BASALT, () -> TTBlockConfig.get().blockSounds.polished_basalt);
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_RESIN, TTSounds.POLISHED_RESIN, () -> TTBlockConfig.get().blockSounds.polished);
 
+
+		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(), () -> TTWorldgenConfig.GENERATE_CATACOMBS);
+		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_BADLANDS_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(DesertRuinsGenerator.DESERT_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_DESERT_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(GenericRuinsGenerator.RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_GENERIC_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(JungleRuinsGenerator.JUNGLE_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_JUNGLE_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_SAVANNA_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(SnowyRuinsGenerator.SNOWY_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_SNOWY_RUINS);
+
+		StructurePlacementExclusionApi.addExclusion(
+			BuiltinStructureSets.TRIAL_CHAMBERS.location(),
+			CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(),
+			8
+		);
+
+		StructurePlacementExclusionApi.addExclusion(
+			DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location(),
+			BuiltinStructureSets.ANCIENT_CITIES.location(),
+			8
+		);
+
+		StructurePlacementExclusionApi.addExclusion(
+			DesertRuinsGenerator.DESERT_RUINS_KEY.location(),
+			BuiltinStructureSets.DESERT_PYRAMIDS.location(),
+			3
+		);
 
 		if (TTWorldgenConfig.get().endCity.generateCracked) {
 			StructureProcessorApi.addProcessor(

@@ -42,13 +42,13 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.shaped(RecipeCategory.REDSTONE, TTBlocks.SURVEYOR)
 					.define('E', TTItems.ECTOPLASM)
-					.define('A', Items.AMETHYST_SHARD)
+					.define('Q', Items.QUARTZ)
 					.define('R', Items.REDSTONE)
 					.define('#', Blocks.COBBLESTONE)
 					.pattern("###")
-					.pattern("RAE")
+					.pattern("RQE")
 					.pattern("###")
-					.unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD))
+					.unlockedBy("has_quartz", has(Items.QUARTZ))
 					.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
 					.save(recipeOutput);
 

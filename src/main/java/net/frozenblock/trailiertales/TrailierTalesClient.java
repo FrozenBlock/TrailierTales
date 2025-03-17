@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
-import net.frozenblock.lib.menu.api.PanoramaApi;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.trailiertales.client.TTBlockRenderLayers;
 import net.frozenblock.trailiertales.client.TTModelLayers;
@@ -14,7 +13,6 @@ import net.frozenblock.trailiertales.client.TTParticleEngine;
 import net.frozenblock.trailiertales.client.renderer.debug.CoffinDebugRenderer;
 import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
-import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class TrailierTalesClient implements ClientModInitializer {
@@ -22,7 +20,6 @@ public class TrailierTalesClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(TTConstants.id("texts/splashes.txt"));
-		addPanorama("catacombs");
 
 		TTBlockRenderLayers.init();
 		TTModelLayers.init();
@@ -43,10 +40,5 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 			DebugRenderManager.registerRenderer(TTConstants.id("coffin"), coffinDebugRenderer::render);
 		});
-	}
-
-	private static void addPanorama(String panoramaName) {
-		ResourceLocation panoramaLocation = TTConstants.id("textures/gui/title/" + panoramaName + "/panorama");
-		PanoramaApi.addPanorama(panoramaLocation);
 	}
 }

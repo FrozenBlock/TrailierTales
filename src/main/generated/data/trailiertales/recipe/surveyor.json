@@ -3,13 +3,13 @@
   "category": "redstone",
   "key": {
     "#": "minecraft:cobblestone",
-    "A": "minecraft:amethyst_shard",
     "E": "trailiertales:ectoplasm",
+    "Q": "minecraft:quartz",
     "R": "minecraft:redstone"
   },
   "pattern": [
     "###",
-    "RAE",
+    "RQE",
     "###"
   ],
   "result": {
