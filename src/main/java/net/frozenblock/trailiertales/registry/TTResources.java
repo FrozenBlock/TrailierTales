@@ -52,7 +52,7 @@ public class TTResources {
 			}
 		});
 
-		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(), () -> false);
+		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(), () -> !HAS_STRONGHOLD_OVERRIDE_PACK);
 	}
 
 }
