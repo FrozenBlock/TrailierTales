@@ -27,6 +27,7 @@ public final class TTWorldgenConfig {
 			@Override
 			public void onSync(TTWorldgenConfig syncInstance) {
 				var config = this.config();
+				GENERATE_CATACOMBS = config.catacombs;
 				GENERATE_GENERIC_RUINS = config.ruins.generic;
 				GENERATE_SNOWY_RUINS = config.ruins.snowy;
 				GENERATE_JUNGLE_RUINS = config.ruins.jungle;
@@ -38,6 +39,7 @@ public final class TTWorldgenConfig {
 		}
 	);
 
+	public static volatile boolean GENERATE_CATACOMBS = true;
 	public static volatile boolean GENERATE_GENERIC_RUINS = true;
 	public static volatile boolean GENERATE_SNOWY_RUINS = true;
 	public static volatile boolean GENERATE_JUNGLE_RUINS = true;
@@ -54,6 +56,9 @@ public final class TTWorldgenConfig {
 
 	@CollapsibleObject
 	public final EndCity endCity = new EndCity();
+
+	@EntrySyncData("catacombs")
+	public boolean catacombs = true;
 
 	public static class Ruins {
 		@EntrySyncData("generic")

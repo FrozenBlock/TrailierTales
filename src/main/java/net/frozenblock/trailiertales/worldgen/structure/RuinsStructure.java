@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.DeepslateRuinsGenerator;
@@ -37,16 +36,14 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class RuinsStructure extends Structure {
-	public static final MapCodec<RuinsStructure> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				settingsCodec(instance),
-				RuinsStructure.Type.CODEC.optionalFieldOf("ruins_type", Type.GENERIC).forGetter(feature -> feature.ruinsType),
-				Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
-				UniformInt.CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
-				Heightmap.Types.CODEC.lenientOptionalFieldOf("heightmap").forGetter(feature -> feature.heightmap),
-				HeightProvider.CODEC.lenientOptionalFieldOf("height_provider").forGetter(feature -> feature.heightProvider)
-			)
-			.apply(instance, RuinsStructure::new)
+	public static final MapCodec<RuinsStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		settingsCodec(instance),
+			RuinsStructure.Type.CODEC.optionalFieldOf("ruins_type", Type.GENERIC).forGetter(feature -> feature.ruinsType),
+			Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
+			UniformInt.CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
+			Heightmap.Types.CODEC.lenientOptionalFieldOf("heightmap").forGetter(feature -> feature.heightmap),
+			HeightProvider.CODEC.lenientOptionalFieldOf("height_provider").forGetter(feature -> feature.heightProvider)
+		).apply(instance, RuinsStructure::new)
 	);
 	public final RuinsStructure.Type ruinsType;
 	public final float clusterProbability;
@@ -109,14 +106,6 @@ public class RuinsStructure extends Structure {
 
 	@Override
 	public @NotNull Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-		if (this.ruinsType == Type.GENERIC && !TTWorldgenConfig.GENERATE_GENERIC_RUINS) return Optional.empty();
-		if (this.ruinsType == Type.SNOWY && !TTWorldgenConfig.GENERATE_SNOWY_RUINS) return Optional.empty();
-		if (this.ruinsType == Type.JUNGLE && !TTWorldgenConfig.GENERATE_JUNGLE_RUINS) return Optional.empty();
-		if (this.ruinsType == Type.SAVANNA && !TTWorldgenConfig.GENERATE_SAVANNA_RUINS) return Optional.empty();
-		if (this.ruinsType == Type.DESERT && !TTWorldgenConfig.GENERATE_DESERT_RUINS) return Optional.empty();
-		if (this.ruinsType == Type.BADLANDS && !TTWorldgenConfig.GENERATE_BADLANDS_RUINS) return Optional.empty();
-		if (this.ruinsType == Type.DEEPSLATE && !TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS) return Optional.empty();
-
 		ChunkPos chunkPos = context.chunkPos();
 		int x = chunkPos.getMiddleBlockX();
 		int z = chunkPos.getMiddleBlockZ();

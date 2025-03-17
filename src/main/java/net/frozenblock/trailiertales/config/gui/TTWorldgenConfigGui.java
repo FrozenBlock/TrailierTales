@@ -22,6 +22,19 @@ public final class TTWorldgenConfigGui {
 		Config<? extends TTWorldgenConfig> configInstance = TTWorldgenConfig.INSTANCE;
 		var defaultConfig = TTWorldgenConfig.INSTANCE.defaultInstance();
 
+		var catacombs = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(TTConstants.text("catacombs"), modifiedConfig.catacombs)
+					.setDefaultValue(defaultConfig.catacombs)
+					.setSaveConsumer(newValue -> config.catacombs = newValue)
+					.setTooltip(TTConstants.tooltip("catacombs"))
+					.build(),
+				config.getClass(),
+				"catacombs",
+				configInstance
+			)
+		);
+
 		var ruins = config.ruins;
 		var modifiedRuins = modifiedConfig.ruins;
 
