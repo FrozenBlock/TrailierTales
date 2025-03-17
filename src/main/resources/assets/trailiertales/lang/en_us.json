@@ -334,11 +334,6 @@
   "option.trailiertales.sniffer_spawns_naturally": "Spawning",
   "tooltip.trailiertales.sniffer_spawns_naturally": "Whether Sniffers can spawn in Jungle biomes.",
 
-  "option.trailiertales.camel": "Camel",
-  "tooltip.trailiertales.camel": "Contains options related to the Camel.",
-  "option.trailiertales.camel_spawns_naturally": "Spawning",
-  "tooltip.trailiertales.camel_spawns_naturally": "Whether Camels can spawn in Desert biomes.",
-
   "option.trailiertales.villager": "Villager",
   "tooltip.trailiertales.villager": "Contains options related to the Villager.",
   "option.trailiertales.villagers_sell_catacombs_map": "Catacombs Map Trade",

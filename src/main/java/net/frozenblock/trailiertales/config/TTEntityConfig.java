@@ -24,9 +24,6 @@ public final class TTEntityConfig {
 	public final Sniffer sniffer = new Sniffer();
 
 	@CollapsibleObject
-	public final Camel camel = new Camel();
-
-	@CollapsibleObject
 	public final Villager villager = new Villager();
 
 	@CollapsibleObject
@@ -41,11 +38,6 @@ public final class TTEntityConfig {
 		public boolean dawntrail_seeds = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
-	}
-
-	public static class Camel {
-		@EntrySyncData(value = "spawn_camel")
-		public boolean spawn = true;
 	}
 
 	public static class Villager {

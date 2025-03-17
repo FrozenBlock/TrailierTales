@@ -61,21 +61,6 @@ public final class TTBiomeModifications {
 					}
 				})
 			);
-
-		BiomeModifications.create(TTConstants.id("camel"))
-			.add(
-				ModificationPhase.ADDITIONS,
-				BiomeSelectors.all(),
-				((biomeSelectionContext, context) -> {
-					BiomeModificationContext.SpawnSettingsContext spawnSettings = context.getSpawnSettings();
-
-					if (TTEntityConfig.get().camel.spawn) {
-						if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
-							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CAMEL, 1, 1), 1);
-						}
-					}
-				})
-			);
 	}
 
 }
