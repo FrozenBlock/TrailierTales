@@ -39,6 +39,7 @@ hi
   - These can be found in the `/sound` folder for Trailier Tales' block tags.
 - Updated the Undead Armor Trim Smithing Template texture.
 - Updated the Undead Armor Trim's leggings texture.
+- The Surveyor's crafting recipe now requires Quartz instead of an Amethyst Shard.
 - Added compat for Enchantment Descriptions, thanks to Lufurrius! ([#12](https://github.com/FrozenBlock/TrailierTales/pull/12))
 - Added Spanish translations, thanks to Kokoroto!
 - Added Ukranian translations, thanks to unroman! ([#8](https://github.com/FrozenBlock/TrailierTales/pull/8))
