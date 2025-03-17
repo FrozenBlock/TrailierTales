@@ -18,10 +18,14 @@ public class EntityMixin {
 		method = "teleport",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/portal/TeleportTransition;newLevel()Lnet/minecraft/server/level/ServerLevel;"
+			target = "Lnet/minecraft/world/entity/Entity;teleportCrossDimension(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;"
 		)
 	)
-	public void trailierTales$changeDimension(TeleportTransition dimensionTransition, CallbackInfoReturnable<Entity> info, @Local ServerLevel level) {
+	public void trailierTales$changeDimension(
+		TeleportTransition dimensionTransition,
+		CallbackInfoReturnable<Entity> info,
+		@Local(ordinal = 0) ServerLevel level
+	) {
 		if (EntityCoffinData.entityHasCoffinData(Entity.class.cast(this))) {
 			CoffinBlock.onCoffinUntrack(level, Entity.class.cast(this), null, true);
 		}
