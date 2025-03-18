@@ -5,3 +5,4 @@ hi
 -----------------
 - Fixed the Polished Calcite and Calcite Bricks recipes conflicting with each other.
 - Fixed Surveyors and Candle placement being broken. Again.
+- Hopefully fixed the Banner Boat crash.
