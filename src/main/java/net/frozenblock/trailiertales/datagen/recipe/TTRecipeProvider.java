@@ -257,10 +257,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_WALL, TTBlocks.POLISHED_CALCITE);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICKS, 4)
-			.define('#', Blocks.CALCITE)
+			.define('#', TTBlocks.POLISHED_CALCITE)
 			.pattern("##")
 			.pattern("##")
-			.unlockedBy("has_calcite", has(Blocks.CALCITE))
+			.unlockedBy("has_polished_calcite", has(TTBlocks.POLISHED_CALCITE))
 			.save(recipeOutput);
 
 		stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_CALCITE_BRICKS, Blocks.CALCITE);
