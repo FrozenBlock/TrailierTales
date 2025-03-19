@@ -6,6 +6,7 @@ import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
 public class TTNetworking {
+
 	public static void init() {
 		PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.playS2C();
 		registry.register(CoffinDebugPacket.PACKET_TYPE, CoffinDebugPacket.CODEC);

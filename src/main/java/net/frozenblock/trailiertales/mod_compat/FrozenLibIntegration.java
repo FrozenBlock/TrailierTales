@@ -66,7 +66,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = FrozenLibConstants.id("apparition");
+	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = TTConstants.id("apparition");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");

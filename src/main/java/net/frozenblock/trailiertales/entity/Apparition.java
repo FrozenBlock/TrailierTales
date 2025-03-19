@@ -714,7 +714,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public@NotNull ResourceLocation frozenLib$getWindDisturbanceLogicID() {
+	public @NotNull ResourceLocation frozenLib$getWindDisturbanceLogicID() {
 		return FrozenLibIntegration.APPARITION_WIND_DISTURBANCE;
 	}
 
