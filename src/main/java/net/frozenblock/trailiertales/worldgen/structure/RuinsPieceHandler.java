@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
 import net.frozenblock.trailiertales.TTConstants;
-import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public class RuinsPieceHandler {
 	private static final boolean LOG_RUINS_PIECE_LOADING = false;

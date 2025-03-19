@@ -14,11 +14,12 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
+@Environment(EnvType.CLIENT)
 public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDustColorTransitionOptions> {
 	private final Vector3f fromColor;
 	private final Vector3f toColor;
 
-	protected GlowingColorTransitionParticle(
+	public GlowingColorTransitionParticle(
 		ClientLevel world,
 		double x,
 		double y,
@@ -59,7 +60,6 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 		return 240;
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class Provider implements ParticleProvider<GlowingDustColorTransitionOptions> {
 		private final SpriteSet sprites;
 

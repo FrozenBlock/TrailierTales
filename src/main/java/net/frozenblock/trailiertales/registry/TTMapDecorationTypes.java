@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.saveddata.maps.MapDecorationType;
 import org.jetbrains.annotations.NotNull;
 
-public class TTMapDecorationTypes {
+public final class TTMapDecorationTypes {
 	public static final Holder<MapDecorationType> CATACOMBS = register(
 		"catacombs",
 		"catacombs",

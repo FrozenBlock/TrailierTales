@@ -8,7 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 
-public class TTStructureTypes {
+public final class TTStructureTypes {
 	public static final StructureType<RuinsStructure> RUINS = register("ruins", RuinsStructure.CODEC);
 
 	public static void init() {

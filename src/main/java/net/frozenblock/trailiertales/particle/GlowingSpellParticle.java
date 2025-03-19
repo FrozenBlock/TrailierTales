@@ -11,8 +11,10 @@ import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class GlowingSpellParticle extends SpellParticle {
-	GlowingSpellParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
+
+	public GlowingSpellParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
 		super(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
 	}
 
@@ -21,7 +23,6 @@ public class GlowingSpellParticle extends SpellParticle {
 		return 240;
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprite;
 
@@ -34,7 +35,6 @@ public class GlowingSpellParticle extends SpellParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class MobEffectProvider implements ParticleProvider<ColorParticleOption> {
 		private final SpriteSet sprite;
 

@@ -18,7 +18,7 @@ public final class TTModIntegrations {
 	);
 
 	private TTModIntegrations() {
-		throw new UnsupportedOperationException("TrailierModIntegrations contains only static declarations.");
+		throw new UnsupportedOperationException("TTModIntegrations contains only static declarations.");
 	}
 
 	public static void init() {

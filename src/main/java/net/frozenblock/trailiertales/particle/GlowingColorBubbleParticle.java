@@ -11,10 +11,11 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.ColorParticleOption;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class GlowingColorBubbleParticle extends TextureSheetParticle {
 	private final SpriteSet spriteProvider;
 
-	GlowingColorBubbleParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
+	public GlowingColorBubbleParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
 		super(world, d, e, f);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
@@ -53,7 +54,6 @@ public class GlowingColorBubbleParticle extends TextureSheetParticle {
 		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class Provider implements ParticleProvider<ColorParticleOption> {
 		private final SpriteSet sprite;
 

@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.SoundType;
 import org.jetbrains.annotations.NotNull;
 
-public class TTSounds {
+public final class TTSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_DISC_FAUSSE_VIE = registerForHolder("music_disc.fausse_vie");
 	public static final Holder.Reference<SoundEvent> MUSIC_DISC_STASIS = registerForHolder("music_disc.stasis");
 	public static final Holder.Reference<SoundEvent> MUSIC_DISC_OSSUAIRE = registerForHolder("music_disc.ossuaire");

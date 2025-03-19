@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public final class TTWorldgenConfigGui {
 	private TTWorldgenConfigGui() {
-		throw new UnsupportedOperationException("WorldgenConfigGui contains only static declarations.");
+		throw new UnsupportedOperationException("TTWorldgenConfigGui contains only static declarations.");
 	}
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {

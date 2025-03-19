@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 import org.jetbrains.annotations.NotNull;
 
-public class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistryEntrypoint {
+public final class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistryEntrypoint {
 
 	@Override
 	public void bootstrap(Registry<DecoratedPotPattern> registry) {

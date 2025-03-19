@@ -3,6 +3,8 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.minecraft.core.HolderLookup;
@@ -282,6 +284,18 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(BlockTags.IMPERMEABLE)
 			.add(TTBlocks.ECTOPLASM_BLOCK);
+
+		this.getOrCreateTagBuilder(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH)
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
+			.addOptionalTag(ConventionalBlockTags.GLASS_PANES);
+
+		this.getOrCreateTagBuilder(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)
+			.add(Blocks.TINTED_GLASS)
+			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().id("echo_glass"));
+
+		this.getOrCreateTagBuilder(TTBlockTags.CAMEL_SPAWNABLE_ON)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.DIRT);
 
 		// SOUNDS
 

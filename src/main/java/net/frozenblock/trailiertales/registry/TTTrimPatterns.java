@@ -8,7 +8,7 @@ import net.minecraft.world.item.armortrim.TrimPattern;
 import net.minecraft.world.item.armortrim.TrimPatterns;
 import org.jetbrains.annotations.NotNull;
 
-public class TTTrimPatterns {
+public final class TTTrimPatterns {
 	public static final ResourceKey<TrimPattern> UNDEAD = create("undead");
 	public static final ResourceKey<TrimPattern> MATRIX = create("matrix");
 	public static final ResourceKey<TrimPattern> GEODE = create("geode");

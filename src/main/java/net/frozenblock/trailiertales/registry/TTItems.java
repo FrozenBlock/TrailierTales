@@ -21,7 +21,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
-public class TTItems {
+public final class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = new SpawnEggItem(
 		TTEntityTypes.APPARITION,
 		11712721,

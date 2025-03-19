@@ -17,14 +17,30 @@ public final class TTMiscConfig {
 			TTMiscConfig.class,
 			TTPreLoadConstants.configPath("misc", true),
 			JsonType.JSON5
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(TTMiscConfig syncInstance) {
+				TTMiscConfig miscConfig = this.config();
+				Client.DISTORTED_CATACOMBS_MUSIC = miscConfig.distortedCatacombsMusic;
+			}
+		}
 	);
+
+	public static class Client {
+		public static volatile boolean DISTORTED_CATACOMBS_MUSIC = true;
+	}
 
 	@EntrySyncData(value = "modify_advancements")
 	public boolean modify_advancements = true;
 
-	@EntrySyncData(value = "titleResourcePackEnabled", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean titleResourcePackEnabled = true;
+	@EntrySyncData(value = "distortedCatacombsMusic", behavior = SyncBehavior.UNSYNCABLE)
+	public boolean distortedCatacombsMusic = true;
 
 	public static TTMiscConfig get() {
 		return get(false);

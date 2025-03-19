@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import org.jetbrains.annotations.NotNull;
 
-public class TTStructurePieceTypes {
+public final class TTStructurePieceTypes {
 	public static final StructurePieceType RUIN = setTemplatePieceId(RuinsPieces.RuinPiece::create, "ruin");
 
 	public static void init() {

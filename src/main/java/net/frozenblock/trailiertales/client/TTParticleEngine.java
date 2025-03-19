@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
-import net.frozenblock.trailiertales.particle.provider.TrailierParticleProviders;
+import net.frozenblock.trailiertales.particle.provider.TTParticleProviders;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.client.particle.SoulParticle;
 
@@ -21,7 +21,7 @@ public class TTParticleEngine {
 		particleRegistry.register(TTParticleTypes.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
 		particleRegistry.register(TTParticleTypes.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
 		particleRegistry.register(TTParticleTypes.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
-		particleRegistry.register(TTParticleTypes.SUSPICIOUS_CONNECTION, TrailierParticleProviders.SuspiciousConnectionProvider::new);
+		particleRegistry.register(TTParticleTypes.SUSPICIOUS_CONNECTION, TTParticleProviders.SuspiciousConnectionProvider::new);
 		particleRegistry.register(TTParticleTypes.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
 		particleRegistry.register(TTParticleTypes.TRANSFIGURING, GlowingSpellParticle.Provider::new);
 	}

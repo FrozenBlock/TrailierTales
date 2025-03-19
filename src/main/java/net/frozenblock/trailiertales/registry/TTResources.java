@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.worldgen.structure.api.StructureGenerationConditionApi;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.network.chat.Component;
@@ -15,21 +14,15 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.NotNull;
 
-public class TTResources {
+public final class TTResources {
 
 	public static boolean HAS_STRONGHOLD_OVERRIDE_PACK = false;
 
 	public static void init(ModContainer container) {
 		ResourceManagerHelper.registerBuiltinResourcePack(
-			TTConstants.id("trailier_main_menu"),
-			container, Component.literal("Trailier Main Menu"),
-			TTMiscConfig.get().titleResourcePackEnabled ?
-				ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL
-		);
-
-		ResourceManagerHelper.registerBuiltinResourcePack(
 			TTConstants.id("stronghold_catacombs"),
-			container, Component.literal("Strongholds -> Catacombs"),
+			container,
+			Component.translatable("pack.trailiertales.strongholds_to_catacombs"),
 			ResourcePackActivationType.NORMAL
 		);
 

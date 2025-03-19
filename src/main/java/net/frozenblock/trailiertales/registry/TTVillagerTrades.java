@@ -6,7 +6,7 @@ import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 
-public class TTVillagerTrades {
+public final class TTVillagerTrades {
 	public static void init() {
 		if (TTEntityConfig.get().villager.sell_catacombs_map) {
 			TradeOfferHelper.registerVillagerOffers(

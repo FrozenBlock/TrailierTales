@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SurveyorBlock extends BaseEntityBlock {
 	public static final MapCodec<SurveyorBlock> CODEC = RecordCodecBuilder.mapCodec(
-		color -> color.group(propertiesCodec()).apply(color, SurveyorBlock::new)
+		instance -> instance.group(propertiesCodec()).apply(instance, SurveyorBlock::new)
 	);
 	public static final DirectionProperty FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;

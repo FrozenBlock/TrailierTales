@@ -17,7 +17,7 @@ import net.minecraft.world.item.enchantment.effects.MultiplyValue;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public class TTEnchantments {
+public final class TTEnchantments {
 	public static final ResourceKey<Enchantment> REBRUSH = key("rebrush");
 	public static final ResourceKey<Enchantment> REAPING = key("reaping");
 

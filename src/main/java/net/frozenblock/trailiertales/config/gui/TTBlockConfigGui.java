@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public final class TTBlockConfigGui {
 	private TTBlockConfigGui() {
-		throw new UnsupportedOperationException("BlockConfigGui contains only static declarations.");
+		throw new UnsupportedOperationException("TTBlockConfigGui contains only static declarations.");
 	}
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {

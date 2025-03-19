@@ -7,7 +7,6 @@ import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -28,6 +27,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public enum CoffinWobbleEvent {
 	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty() && TTBlockConfig.get().coffin.wobble_loot),

@@ -9,7 +9,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class TrailierParticleProviders {
+public class TTParticleProviders {
 
 	@Environment(EnvType.CLIENT)
 	public static class SuspiciousConnectionProvider implements ParticleProvider<SimpleParticleType> {

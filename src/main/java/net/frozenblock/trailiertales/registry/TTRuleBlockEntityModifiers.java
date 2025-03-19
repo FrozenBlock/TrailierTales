@@ -8,7 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifier;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifierType;
 
-public class TTRuleBlockEntityModifiers {
+public final class TTRuleBlockEntityModifiers {
 	public static final RuleBlockEntityModifierType<CoffinProcessor> COFFIN_PROCESSOR = register("coffin", CoffinProcessor.CODEC);
 
 	public static void init() {

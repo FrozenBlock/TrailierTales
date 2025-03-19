@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
-public class TTRecipeTypes {
+public final class TTRecipeTypes {
 	public static final RecipeSerializer<SherdCopyRecipe> SHERD_COPY_RECIPE = Registry.register(
 		BuiltInRegistries.RECIPE_SERIALIZER,
 		TTConstants.id("crafting_sherd_copy"),

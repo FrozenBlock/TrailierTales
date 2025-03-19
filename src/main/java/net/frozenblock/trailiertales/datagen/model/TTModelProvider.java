@@ -15,7 +15,6 @@ import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
-import net.minecraft.Util;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
@@ -36,6 +35,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public final class TTModelProvider extends FabricModelProvider {
 	public static final List<Pair<BooleanProperty, Function<ResourceLocation, Variant>>> MULTIFACE_GENERATOR_NO_UV_LOCK = List.of(

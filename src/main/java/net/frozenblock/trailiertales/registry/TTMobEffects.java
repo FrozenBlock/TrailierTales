@@ -11,7 +11,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import org.jetbrains.annotations.NotNull;
 
-public class TTMobEffects {
+public final class TTMobEffects {
 	public static final Holder<MobEffect> TRANSFIGURING = register(
 		"transfiguring",
 		new TransfiguringMobEffect(

@@ -42,7 +42,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-public class TTBlocks {
+public final class TTBlocks {
 
 	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(
 		Blocks.RED_SAND,

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public final class TTMiscConfigGui {
 	private TTMiscConfigGui() {
-		throw new UnsupportedOperationException("MiscConfigGui contains only static declarations.");
+		throw new UnsupportedOperationException("TTMiscConfigGui contains only static declarations.");
 	}
 
 	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
@@ -36,16 +36,16 @@ public final class TTMiscConfigGui {
 			)
 		);
 
-		var titleResourcePackEnabled = category.addEntry(
+		var distortedCatacombsMusic = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(TTConstants.text("title_resource_pack_enabled"), modifiedConfig.titleResourcePackEnabled)
-					.setDefaultValue(defaultConfig.titleResourcePackEnabled)
-					.setSaveConsumer(newValue -> config.titleResourcePackEnabled = newValue)
-					.setTooltip(TTConstants.tooltip("title_resource_pack_enabled"))
+				entryBuilder.startBooleanToggle(TTConstants.text("distorted_catacombs_music"), modifiedConfig.distortedCatacombsMusic)
+					.setDefaultValue(defaultConfig.distortedCatacombsMusic)
+					.setSaveConsumer(newValue -> config.distortedCatacombsMusic = newValue)
+					.setTooltip(TTConstants.tooltip("distorted_catacombs_music"))
 					.requireRestart()
 					.build(),
 				config.getClass(),
-				"titleResourcePackEnabled",
+				"distortedCatacombsMusic",
 				configInstance
 			)
 		);

@@ -12,7 +12,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
-public class TTPotions {
+public final class TTPotions {
 	public static final Holder.Reference<Potion> TRANSFIGURING = register(
 		"transfiguring", new Potion(new MobEffectInstance(TTMobEffects.TRANSFIGURING, 3600))
 	);

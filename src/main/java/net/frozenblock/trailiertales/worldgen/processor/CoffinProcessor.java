@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.frozenblock.trailiertales.registry.TTRuleBlockEntityModifiers;
-import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockent
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifierType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.Util;
 
 public class CoffinProcessor implements RuleBlockEntityModifier {
 	public static final MapCodec<CoffinProcessor> CODEC = RecordCodecBuilder.mapCodec(
