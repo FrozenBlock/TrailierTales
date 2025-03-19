@@ -472,7 +472,7 @@ modrinth {
         required.project("frozenlib")
         optional.project("cloth-config")
         optional.project("modmenu")
-        optional.project("wilderwild")
+        optional.project("wilder-wild")
     }
 }
 
