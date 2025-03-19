@@ -98,7 +98,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 			this.detectionCooldown = 2;
 
 			int closestDetection = 16;
-			
+
 			Direction facing = state.getValue(SurveyorBlock.FACING);
 			BlockPos inFrontPos = pos.relative(facing);
 			BlockState inFrontState = serverLevel.getBlockState(pos.relative(facing));
