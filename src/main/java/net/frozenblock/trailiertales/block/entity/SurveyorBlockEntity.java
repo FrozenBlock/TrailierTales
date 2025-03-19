@@ -1,10 +1,30 @@
+/*
+ * Copyright 2025 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.trailiertales.block.entity;
 
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
+import net.frozenblock.trailiertales.block.impl.TTClipContextShapeGetters;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
+import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +36,7 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
@@ -35,9 +55,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 	}
 
 	private static Vec3 chooseClosestPos(@NotNull Vec3 origin, Vec3 posA, Vec3 posB) {
-		if (origin.distanceTo(posA) > origin.distanceTo(posB)) {
-			return posB;
-		}
+		if (origin.distanceTo(posA) > origin.distanceTo(posB)) return posB;
 		return posA;
 	}
 
@@ -80,10 +98,11 @@ public class SurveyorBlockEntity extends BlockEntity {
 			this.detectionCooldown = 2;
 
 			int closestDetection = 16;
-
-			BlockPos inFrontPos = pos.relative(state.getValue(SurveyorBlock.FACING));
-			BlockState inFrontState = serverLevel.getBlockState(pos.relative(state.getValue(SurveyorBlock.FACING)));
-			boolean isBlocked = inFrontState.isCollisionShapeFullBlock(serverLevel, inFrontPos);
+			
+			Direction facing = state.getValue(SurveyorBlock.FACING);
+			BlockPos inFrontPos = pos.relative(facing);
+			BlockState inFrontState = serverLevel.getBlockState(pos.relative(facing));
+			boolean isBlocked = !canSeeThroughBlock(serverLevel, inFrontState, inFrontPos);
 
 			if (!isBlocked) {
 				Vec3 surveyorCenterPos = Vec3.atCenterOf(pos);
@@ -132,7 +151,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 							surveyorCenterPos.subtract(closestPoint),
 							serverLevel,
 							0F,
-							ClipContext.Block.COLLIDER
+							TTClipContextShapeGetters.SURVEYOR_SIGHT
 						);
 						if (hitResult.getType() == HitResult.Type.BLOCK) {
 							BlockHitResult blockHitResult = (BlockHitResult) hitResult;
@@ -150,6 +169,11 @@ public class SurveyorBlockEntity extends BlockEntity {
 		} else {
 			this.detectionCooldown -= 1;
 		}
+	}
+
+	public static boolean canSeeThroughBlock(BlockGetter level, @NotNull BlockState blockState, BlockPos pos) {
+		if (blockState.is(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH) && !blockState.is(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)) return true;
+		return !blockState.isCollisionShapeFullBlock(level, pos);
 	}
 
 	private Vec3 closestPointTo(@NotNull AABB aabb, @NotNull Vec3 point) {

@@ -390,6 +390,8 @@
   "option.trailiertales.misc": "Misc & Technical",
   "option.trailiertales.modify_advancements": "Modify Advancements",
   "tooltip.trailiertales.modify_advancements": "Whether Vanilla advancements should be modified for Trailier Tales content.\nDisable if you notice any issues related to advancements.",
-  "option.trailiertales.title_resource_pack_enabled": "Main Menu Resource Pack",
-  "tooltip.trailiertales.title_resource_pack_enabled": "Whether Trailier Tales's Main Menu resource pack should be enabled by default."
+  "option.trailiertales.distorted_catacombs_music": "Distorted Catacombs Music",
+  "tooltip.trailiertales.distorted_catacombs_music": "Whether music will become distorted while in Catacombs.",
+
+  "pack.trailiertales.strongholds_to_catacombs": "Strongholds -> Catacombs"
 }

@@ -1,3 +1,21 @@
+/*
+ * Copyright 2025 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.trailiertales.particle;
 
 import net.fabricmc.api.EnvType;
@@ -11,10 +29,11 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.ColorParticleOption;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class GlowingColorBubbleParticle extends TextureSheetParticle {
 	private final SpriteSet spriteProvider;
 
-	GlowingColorBubbleParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
+	public GlowingColorBubbleParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
 		super(world, d, e, f);
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
@@ -53,7 +72,6 @@ public class GlowingColorBubbleParticle extends TextureSheetParticle {
 		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class Provider implements ParticleProvider<ColorParticleOption> {
 		private final SpriteSet sprite;
 
