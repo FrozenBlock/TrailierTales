@@ -1,3 +1,21 @@
+/*
+ * Copyright 2025 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.trailiertales.mod_compat;
 
 import com.google.common.collect.ImmutableList;
@@ -69,7 +87,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = FrozenLibConstants.id("apparition");
+	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = TTConstants.id("apparition");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");

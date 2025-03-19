@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:tinted_glass",
+    {
+      "id": "wilderwild:echo_glass",
+      "required": false
+    }
+  ]
+}
