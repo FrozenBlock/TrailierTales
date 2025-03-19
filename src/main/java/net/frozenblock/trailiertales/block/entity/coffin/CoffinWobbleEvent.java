@@ -1,3 +1,21 @@
+/*
+ * Copyright 2025 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import java.util.List;
@@ -7,7 +25,6 @@ import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -28,6 +45,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public enum CoffinWobbleEvent {
 	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty() && TTBlockConfig.get().coffin.wobble_loot),

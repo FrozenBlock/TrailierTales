@@ -6,7 +6,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
-public class TTCreativeInventorySorting {
+public final class TTCreativeInventorySorting {
 
 	public static void init() {
 		// BLOCKS

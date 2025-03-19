@@ -1,3 +1,21 @@
+/*
+ * Copyright 2025 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ */
+
 package net.frozenblock.trailiertales.datagen.recipe;
 
 import java.util.concurrent.CompletableFuture;
@@ -260,10 +278,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_WALL, TTBlocks.POLISHED_CALCITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICKS, 4)
-					.define('#', Blocks.CALCITE)
+					.define('#', TTBlocks.POLISHED_CALCITE)
 					.pattern("##")
 					.pattern("##")
-					.unlockedBy("has_calcite", has(Blocks.CALCITE))
+					.unlockedBy("has_polished_calcite", has(TTBlocks.POLISHED_CALCITE))
 					.save(recipeOutput);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_CALCITE_BRICKS, Blocks.CALCITE);
@@ -353,23 +371,30 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_BLOCK, Blocks.RESIN_BLOCK);
 
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_BLOCK, 4)
+					.define('#', Blocks.RESIN_BLOCK)
+					.pattern("##")
+					.pattern("##")
+					.unlockedBy("has_resin_block", has(Blocks.RESIN_BLOCK))
+					.save(recipeOutput);
+
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.RESIN_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_RESIN_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_resin_bricks", has(Blocks.RESIN_BRICKS))
-					.save(output);
+					.save(this.output);
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICKS)
 					.requires(Blocks.RESIN_BRICKS)
 					.requires(Blocks.PALE_HANGING_MOSS)
 					.group("pale_mossy_resin_bricks")
 					.unlockedBy("has_pale_hanging_moss", has(Blocks.PALE_HANGING_MOSS))
-					.save(output, getConversionRecipeName(TTBlocks.PALE_MOSSY_RESIN_BRICKS, Blocks.PALE_HANGING_MOSS));
+					.save(this.output, getConversionRecipeName(TTBlocks.PALE_MOSSY_RESIN_BRICKS, Blocks.PALE_HANGING_MOSS));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICKS)
 					.requires(Blocks.RESIN_BRICKS)
 					.requires(Blocks.PALE_MOSS_BLOCK)
 					.group("pale_mossy_resin_bricks")
 					.unlockedBy("has_pale_moss_block", has(Blocks.PALE_MOSS_BLOCK))
-					.save(output, getConversionRecipeName(TTBlocks.PALE_MOSSY_RESIN_BRICKS, Blocks.PALE_MOSS_BLOCK));
+					.save(this.output, getConversionRecipeName(TTBlocks.PALE_MOSSY_RESIN_BRICKS, Blocks.PALE_MOSS_BLOCK));
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB, TTBlocks.PALE_MOSSY_RESIN_BRICKS, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
