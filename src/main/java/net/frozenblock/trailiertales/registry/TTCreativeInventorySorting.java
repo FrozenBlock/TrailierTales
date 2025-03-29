@@ -103,6 +103,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_BRICK_STAIRS, TTBlocks.MOSSY_BRICK_SLAB);
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_BRICK_SLAB, TTBlocks.MOSSY_BRICK_WALL);
 
+		addBeforeInBuildingBlocks(Blocks.RESIN_BRICKS, Blocks.RESIN_BLOCK);
 		addAfterInBuildingBlocks(Blocks.RESIN_BLOCK, TTBlocks.POLISHED_RESIN_BLOCK);
 		addAfterInBuildingBlocks(Blocks.RESIN_BRICKS, TTBlocks.CRACKED_RESIN_BRICKS);
 		addAfterInBuildingBlocks(Blocks.RESIN_BRICK_WALL, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
@@ -158,7 +159,7 @@ public final class TTCreativeInventorySorting {
 
 		addAfterInSpawnEggs(Blocks.TRIAL_SPAWNER, TTBlocks.COFFIN);
 		addAfterInRedstone(Blocks.OBSERVER, TTBlocks.SURVEYOR);
-		addAfterInBuildingBlocks(TTBlocks.SURVEYOR, TTBlocks.ECTOPLASM_BLOCK);
+		addAfterInFunctionalBlocks(Blocks.MAGMA_BLOCK, TTBlocks.ECTOPLASM_BLOCK);
 
 		// ITEMS
 		addAfterInSpawnEggs(Items.ALLAY_SPAWN_EGG, TTItems.APPARITION_SPAWN_EGG);
