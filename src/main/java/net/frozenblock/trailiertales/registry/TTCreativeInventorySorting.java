@@ -159,7 +159,7 @@ public final class TTCreativeInventorySorting {
 
 		addAfterInSpawnEggs(Blocks.TRIAL_SPAWNER, TTBlocks.COFFIN);
 		addAfterInRedstone(Blocks.OBSERVER, TTBlocks.SURVEYOR);
-		addAfterInBuildingBlocks(TTBlocks.SURVEYOR, TTBlocks.ECTOPLASM_BLOCK);
+		addAfterInFunctionalBlocks(Blocks.MAGMA_BLOCK, TTBlocks.ECTOPLASM_BLOCK);
 
 		// ITEMS
 		addAfterInSpawnEggs(Items.ALLAY_SPAWN_EGG, TTItems.APPARITION_SPAWN_EGG);
