@@ -1,6 +1,6 @@
 # Contributing
 
-By contributing to the Template Mod, you agree with the [Developer Certificate of Origin (DCO)][DCO].
+By contributing to the Trailier Tales, you agree with the [Developer Certificate of Origin (DCO)][DCO].
 
 ## Conventions
 
@@ -22,7 +22,7 @@ than browsing files.
 
 ### Spelling
 
-Use American English to keep consistency across Template Mod.
+Use American English to keep consistency across Trailier Tales.
 
 If there is more than one acceptable spelling of the same word, first check if one word is already
 being used in Wilder Wild, FrozenLib, or in Mojang's Mappings, and if not, use the spelling that is most commonly used.
@@ -52,15 +52,15 @@ Avoid the use of abbreviations in javadocs, except if they describe the name of 
 ### Mixins
 
 The `$` character can be used in mixins to mark a semantic separation in the name.
-It allows to separate the actual name of the variable and the namespace, `frozenBlockTemplateMod`.
+It allows to separate the actual name of the variable and the namespace, `trailierTales`.
 
-Fields marked as `@Unique` must be prefixed with `frozenBlockTemplateMod$` or `FROZENBLOCKTEMPLATEMOD$` if the field is static and final.
+Fields marked as `@Unique` must be prefixed with `trailierTales$` or `TRAILIER_TALES$` if the field is static and final.
 Methods marked with `@Unique` do not need prefixes.
 
 
 ## Licensing & DCO
 
-FrozenBlock Template Mod is licensed under [LGPL 3.0][LICENSE], and it has a [Developer Certificate of Origin (DCO)][DCO], which you are required to agree with to contribute.
+Trailier Tales is licensed under [GPL 3.0][LICENSE], and it has a [Developer Certificate of Origin (DCO)][DCO], which you are required to agree with to contribute.
 Specifying the commit author may be sufficient, but a [sign-off can be also added](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s).
 Legal names are not required.
 
@@ -68,6 +68,6 @@ Legal names are not required.
 
 **Note: This document is currently incomplete.**
 
-[LICENSE]: ./LICENSE "FrozenBlock Template Mod license file"
+[LICENSE]: ./LICENSE "Trailier Tales license file"
 
 [DCO]: ./DEVELOPER_CERTIFICATE_OF_ORIGIN.md "Developer Certificate of Origin file"
