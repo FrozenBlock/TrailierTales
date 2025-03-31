@@ -35,7 +35,7 @@ public class ItemStackMixin {
 			ordinal = 0
 		)
 	)
-	private boolean addCoffinDetails(boolean original) {
+	private boolean trailierTales$addCoffinDetails(boolean original) {
 		return original || ItemStack.class.cast(this).is(TTBlocks.COFFIN.asItem());
 	}
 }
