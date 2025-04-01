@@ -316,6 +316,11 @@
 
   "option.trailiertales.entity": "Entity",
 
+  "option.trailiertales.apparition": "Apparition",
+  "tooltip.trailiertales.apparition": "Contains options related to the Apparition.",
+  "option.trailiertales.ignore_mob_griefing": "Ignore Mob Griefing",
+  "tooltip.trailiertales.ignore_mob_griefing": "Whether the Apparition should ignore the mobGriefing gamerule.",
+
   "option.trailiertales.sniffer": "Sniffer",
   "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",
   "option.trailiertales.sniffer_digs_cyan_rose_seeds": "Dig Cyan Rose Seeds",
