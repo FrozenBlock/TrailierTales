@@ -40,6 +40,26 @@ public final class TTEntityConfigGui {
 		Config<? extends TTEntityConfig> configInstance = TTEntityConfig.INSTANCE;
 		var defaultConfig = TTEntityConfig.INSTANCE.defaultInstance();
 
+		var apparition = config.apparition;
+		var modifiedApparition = modifiedConfig.apparition;
+
+		var ignore_mob_griefing = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("ignore_mob_griefing"), modifiedApparition.ignore_mob_griefing)
+				.setDefaultValue(defaultConfig.apparition.ignore_mob_griefing)
+				.setSaveConsumer(newValue -> apparition.ignore_mob_griefing = newValue)
+				.setTooltip(TTConstants.tooltip("ignore_mob_griefing"))
+				.build(),
+			apparition.getClass(),
+			"ignore_mob_griefing",
+			configInstance
+		);
+
+		var apparitionCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("apparition"),
+			false,
+			TTConstants.tooltip("apparition"),
+			ignore_mob_griefing
+		);
+
 		var sniffer = config.sniffer;
 		var modifiedSniffer = modifiedConfig.sniffer;
 
