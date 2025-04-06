@@ -35,10 +35,9 @@ public class MobMixin {
 			target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
 		)
 	)
-	private boolean bruh(boolean original) {
+	private boolean trailierTales$ignoreMobGriefingForApparitionIfPossible(boolean original) {
 		if (original) return true;
-		Mob mob	= (Mob) (Object) this;
-		if (mob instanceof Apparition) {
+		if (Mob.class.cast(this) instanceof Apparition) {
 			return TTEntityConfig.get().apparition.ignore_mob_griefing;
 		}
 		return false;
