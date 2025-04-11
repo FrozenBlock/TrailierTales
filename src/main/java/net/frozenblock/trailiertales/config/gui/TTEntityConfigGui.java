@@ -114,27 +114,6 @@ public final class TTEntityConfigGui {
 			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, sniffersDigDawntrailSeeds, spawnSniffer
 		);
 
-		var camel = config.camel;
-		var modifiedCamel = modifiedConfig.camel;
-
-		var spawnCamel = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TTConstants.text("camel_spawns_naturally"), modifiedCamel.spawn)
-				.setDefaultValue(defaultConfig.camel.spawn)
-				.setSaveConsumer(newValue -> camel.spawn = newValue)
-				.setTooltip(TTConstants.tooltip("camel_spawns_naturally"))
-				.requireRestart()
-				.build(),
-			camel.getClass(),
-			"spawn_camel",
-			configInstance
-		);
-
-		var camelCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("camel"),
-			false,
-			TTConstants.tooltip("camel"),
-			spawnCamel
-		);
-
 		var villager = config.villager;
 		var modifiedVillager = modifiedConfig.villager;
 

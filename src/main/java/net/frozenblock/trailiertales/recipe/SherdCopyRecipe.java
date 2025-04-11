@@ -44,9 +44,8 @@ public class SherdCopyRecipe extends CustomRecipe {
 		}
 		if (input.ingredientCount() != 2) {
 			return false;
-		} else {
-			return input.stackedContents().canCraft(this, null);
 		}
+		return input.stackedContents().canCraft(this, null);
 	}
 
 	@Override @NotNull
@@ -76,13 +75,12 @@ public class SherdCopyRecipe extends CustomRecipe {
 		return ItemStack.EMPTY;
 	}
 
-	@Override
 	public boolean canCraftInDimensions(int i, int j) {
 		return i >= 2 && j >= 2;
 	}
 
 	@Override @NotNull
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends CustomRecipe> getSerializer() {
 		return TTRecipeTypes.SHERD_COPY_RECIPE;
 	}
 }

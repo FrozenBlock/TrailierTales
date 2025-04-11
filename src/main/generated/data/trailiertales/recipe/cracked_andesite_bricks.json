@@ -3,9 +3,7 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "trailiertales:andesite_bricks"
-  },
+  "ingredient": "trailiertales:andesite_bricks",
   "result": {
     "id": "trailiertales:cracked_andesite_bricks"
   }

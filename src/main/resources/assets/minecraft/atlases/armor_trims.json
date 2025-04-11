@@ -3,22 +3,22 @@
     {
       "type": "paletted_permutations",
       "textures": [
-        "trailiertales:trims/models/armor/undead",
-        "trailiertales:trims/models/armor/undead_leggings",
-        "trailiertales:trims/models/armor/matrix",
-        "trailiertales:trims/models/armor/matrix_leggings",
-        "trailiertales:trims/models/armor/geode",
-        "trailiertales:trims/models/armor/geode_leggings",
-        "trailiertales:trims/models/armor/overgrowth",
-        "trailiertales:trims/models/armor/overgrowth_leggings",
-        "trailiertales:trims/models/armor/martyr",
-        "trailiertales:trims/models/armor/martyr_leggings",
-        "trailiertales:trims/models/armor/zephyr",
-        "trailiertales:trims/models/armor/zephyr_leggings",
-        "trailiertales:trims/models/armor/cot",
-        "trailiertales:trims/models/armor/cot_leggings",
-        "trailiertales:trims/models/armor/embrace",
-        "trailiertales:trims/models/armor/embrace_leggings"
+        "trailiertales:trims/entity/humanoid/undead",
+        "trailiertales:trims/entity/humanoid_leggings/undead",
+        "trailiertales:trims/entity/humanoid/matrix",
+        "trailiertales:trims/entity/humanoid_leggings/matrix",
+        "trailiertales:trims/entity/humanoid/geode",
+        "trailiertales:trims/entity/humanoid_leggings/geode",
+        "trailiertales:trims/entity/humanoid/overgrowth",
+        "trailiertales:trims/entity/humanoid_leggings/overgrowth",
+        "trailiertales:trims/entity/humanoid/martyr",
+        "trailiertales:trims/entity/humanoid_leggings/martyr",
+        "trailiertales:trims/entity/humanoid/zephyr",
+        "trailiertales:trims/entity/humanoid_leggings/zephyr",
+        "trailiertales:trims/entity/humanoid/cot",
+        "trailiertales:trims/entity/humanoid_leggings/cot",
+        "trailiertales:trims/entity/humanoid/embrace",
+        "trailiertales:trims/entity/humanoid_leggings/embrace"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {
@@ -35,7 +35,8 @@
         "iron_darker": "trims/color_palettes/iron_darker",
         "gold_darker": "trims/color_palettes/gold_darker",
         "diamond_darker": "trims/color_palettes/diamond_darker",
-        "netherite_darker": "trims/color_palettes/netherite_darker"
+        "netherite_darker": "trims/color_palettes/netherite_darker",
+        "resin": "trims/color_palettes/resin"
       }
     }
   ]

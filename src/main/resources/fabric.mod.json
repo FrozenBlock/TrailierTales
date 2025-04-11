@@ -38,6 +38,9 @@
     ],
     "frozenlib:decorated_pot_patterns": [
       "net.frozenblock.trailiertales.registry.TTDecoratedPotPatternRegistry"
+    ],
+    "frozenlib:special_model_renderers": [
+      "net.frozenblock.trailiertales.client.TTSpecialModelRenderers"
     ]
   },
   "mixins": [

@@ -107,13 +107,12 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.DAWNTRAIL_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
-			.add(TTBlocks.CYAN_ROSE.asItem());
-
-		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP.asItem());
-
-		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
+			.add(TTBlocks.CYAN_ROSE.asItem())
 			.add(TTBlocks.DAWNTRAIL.asItem());
+
+		this.getOrCreateTagBuilder(ItemTags.BEE_FOOD)
+			.add(TTBlocks.MANEDROP.asItem())
+			.add(TTBlocks.CYAN_ROSE.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.STAIRS)
 			.add(TTBlocks.GRANITE_BRICK_STAIRS.asItem())
@@ -128,6 +127,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.MOSSY_CALCITE_BRICK_STAIRS.asItem())
 			.add(TTBlocks.MOSSY_TUFF_BRICK_STAIRS.asItem())
 			.add(TTBlocks.MOSSY_BRICK_STAIRS.asItem())
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS.asItem())
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.asItem())
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.asItem())
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.asItem())
@@ -150,6 +150,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.MOSSY_CALCITE_BRICK_SLAB.asItem())
 			.add(TTBlocks.MOSSY_TUFF_BRICK_SLAB.asItem())
 			.add(TTBlocks.MOSSY_BRICK_SLAB.asItem())
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB.asItem())
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.asItem())
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.asItem())
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB.asItem())
@@ -170,6 +171,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.MOSSY_ANDESITE_BRICK_WALL.asItem())
 			.add(TTBlocks.MOSSY_TUFF_BRICK_WALL.asItem())
 			.add(TTBlocks.MOSSY_BRICK_WALL.asItem())
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL.asItem())
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.asItem())
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.asItem())
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.asItem())
@@ -183,16 +185,6 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.CHORAL_END_STONE_WALL.asItem())
 			.add(TTBlocks.END_STONE_WALL.asItem())
 			.add(TTBlocks.PURPUR_WALL.asItem());
-
-		this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-			.add(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE)
-			.add(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
 		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);

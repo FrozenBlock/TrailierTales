@@ -142,10 +142,10 @@ public class RuinsStructure extends Structure {
 			LevelHeightAccessor heightAccessor = context.heightAccessor();
 				BoundingBox box = new BoundingBox(
 					x - 128,
-					Math.max(y - 128, heightAccessor.getMinBuildHeight() + 7),
+					Math.max(y - 128, heightAccessor.getMinY() + 7),
 					z - 128,
 					x + 128 + 1,
-					Math.min(y + 128 + 1, heightAccessor.getMaxBuildHeight()),
+					Math.min(y + 128 + 1, heightAccessor.getMaxY()),
 					z + 128 + 1
 				);
 				RuinsPieces.addPieces(

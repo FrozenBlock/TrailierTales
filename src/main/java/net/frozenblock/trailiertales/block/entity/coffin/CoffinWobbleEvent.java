@@ -31,7 +31,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -53,8 +53,8 @@ public enum CoffinWobbleEvent {
 	POTION(0.1F, true, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_potion),
 	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_experience_bottle);
 
-	private static final SimpleWeightedRandomList<MobEffectInstance> MOB_EFFECTS = SimpleWeightedRandomList.<MobEffectInstance>builder()
-		.add(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120 * 20), 2)
+	private static final WeightedList<MobEffectInstance> MOB_EFFECTS = WeightedList.<MobEffectInstance>builder()
+		.add(new MobEffectInstance(MobEffects.MINING_FATIGUE, 120 * 20), 2)
 		.add(new MobEffectInstance(MobEffects.POISON, 30 * 20), 1)
 		.add(new MobEffectInstance(TTMobEffects.TRANSFIGURING, 60 * 20), 2)
 		.build();
@@ -98,7 +98,7 @@ public enum CoffinWobbleEvent {
 					coffinBlockEntity.getCoffinSpawner().immediatelyActivate(level, pos);
 					break;
 				case POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, MOB_EFFECTS.getRandomValue(random).orElseThrow()), coffinBlockEntity);
+					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, MOB_EFFECTS.getRandomOrThrow(random)), coffinBlockEntity);
 					break;
 				case EXPERIENCE_BOTTLE:
 					ejectProjectile(level, centerPos, new ItemStack(Items.EXPERIENCE_BOTTLE), coffinBlockEntity);
@@ -148,7 +148,7 @@ public enum CoffinWobbleEvent {
 
 	public static @NotNull ItemStack createItemStackForMobEffect(Item item, MobEffectInstance effect) {
 		ItemStack itemStack = new ItemStack(item);
-		itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), List.of(effect)));
+		itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), List.of(effect), Optional.empty()));
 		return itemStack;
 	}
 

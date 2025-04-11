@@ -69,12 +69,12 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
+	protected boolean propagatesSkylightDown(BlockState blockState) {
 		return true;
 	}
 
 	@Override
-	protected int getLightBlock(BlockState state, BlockGetter world, BlockPos pos) {
+	protected int getLightBlock(BlockState blockState) {
 		return 0;
 	}
 }

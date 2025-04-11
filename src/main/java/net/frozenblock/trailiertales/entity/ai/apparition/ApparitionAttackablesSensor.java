@@ -33,10 +33,10 @@ import org.jetbrains.annotations.NotNull;
 public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
 	@Override
-	protected boolean isMatchingEntity(LivingEntity entity, LivingEntity target) {
+	protected boolean isMatchingEntity(ServerLevel level, LivingEntity entity, LivingEntity target) {
 		return this.isClose(entity, target)
 			&& this.isHostileTarget(target)
-			&& Sensor.isEntityAttackableIgnoringLineOfSight(entity, target);
+			&& Sensor.isEntityAttackableIgnoringLineOfSight(level, entity, target);
 	}
 
 	private boolean isHostileTarget(@NotNull LivingEntity entity) {
@@ -48,13 +48,13 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	@Override
-	protected void doTick(ServerLevel world, @NotNull LivingEntity entity) {
-		entity.getBrain().setMemory(this.getMemory(), this.getNearestEntityNoLineOfSight(entity));
+	protected void doTick(ServerLevel level, @NotNull LivingEntity entity) {
+		entity.getBrain().setMemory(this.getMemory(), this.getNearestEntityNoLineOfSight(level, entity));
 	}
 
-	private Optional<LivingEntity> getNearestEntityNoLineOfSight(@NotNull LivingEntity entity) {
+	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, @NotNull LivingEntity entity) {
 		return entity.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
-			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> this.isMatchingEntity(entity, livingEntity)));
+			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> this.isMatchingEntity(level, entity, livingEntity)));
 	}
 
 	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {

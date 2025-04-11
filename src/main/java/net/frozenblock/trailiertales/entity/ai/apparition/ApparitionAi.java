@@ -28,6 +28,7 @@ import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.TTSensorTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -128,7 +129,7 @@ public class ApparitionAi {
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
-				StartAttacking.create(apparition -> true, ApparitionAi::findNearestValidAttackTarget),
+				StartAttacking.create((level, apparition) -> true, ApparitionAi::findNearestValidAttackTarget),
 				StayCloseToTarget.create(ApparitionAi::getLookTarget, entity -> true, 7, 16, 1F),
 				new RunOne<>( // idle look
 					ImmutableList.of(
@@ -152,7 +153,7 @@ public class ApparitionAi {
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
-				StopAttackingIfTargetInvalid.create(entity -> !apparition.canTargetEntity(entity), ApparitionAi::onTargetInvalid, true),
+				StopAttackingIfTargetInvalid.create((level, entity) -> !apparition.canTargetEntity(entity, level), ApparitionAi::onTargetInvalid, true),
 				new RunOne<>(
 					ImmutableList.of(
 						Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), 1),
@@ -212,7 +213,7 @@ public class ApparitionAi {
 		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
 	}
 
-	private static void onTargetInvalid(@NotNull Apparition apparition, @NotNull LivingEntity target) {
+	private static void onTargetInvalid(ServerLevel level, @NotNull Apparition apparition, @NotNull LivingEntity target) {
 		if (apparition.getTarget() == target) {
 			apparition.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		}
@@ -223,7 +224,7 @@ public class ApparitionAi {
 	}
 
 	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(@NotNull Apparition apparition) {
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, @NotNull Apparition apparition) {
 		Brain<Apparition> brain = apparition.getBrain();
 		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)) {
 			return brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
@@ -232,21 +233,21 @@ public class ApparitionAi {
 		}
 	}
 
-	public static void wasHurtBy(@NotNull Apparition apparition, LivingEntity target) {
-		if (apparition.canTargetEntity(target)) {
-			if (!Sensor.isEntityAttackableIgnoringLineOfSight(apparition, target)) {
+	public static void wasHurtBy(ServerLevel level, @NotNull Apparition apparition, LivingEntity target) {
+		if (apparition.canTargetEntity(target, level)) {
+			if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, apparition, target)) {
 				return;
 			}
 			if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(apparition, target, 4D)) {
 				return;
 			}
 
-			setAngerTarget(apparition, target);
+			setAngerTarget(level, apparition, target);
 		}
 	}
 
-	public static void setAngerTarget(@NotNull Apparition apparition, LivingEntity target) {
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(apparition, target)) {
+	public static void setAngerTarget(ServerLevel level, @NotNull Apparition apparition, LivingEntity target) {
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, apparition, target)) {
 			return;
 		}
 		apparition.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);

@@ -42,7 +42,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Items;
@@ -849,7 +849,7 @@ public class CatacombsGenerator {
 				new WeightedProcessorRule(
 					new BlockMatchTest(Blocks.SKELETON_SKULL),
 					AlwaysTrueTest.INSTANCE,
-					SimpleWeightedRandomList.<BlockState>builder()
+					WeightedList.<BlockState>builder()
 						.add(Blocks.CAVE_AIR.defaultBlockState(), 125)
 						.add(Blocks.SOUL_LANTERN.defaultBlockState(), 4)
 						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 0), 5)
@@ -878,7 +878,7 @@ public class CatacombsGenerator {
 				new WeightedProcessorRule(
 					new BlockMatchTest(Blocks.SKELETON_SKULL),
 					AlwaysTrueTest.INSTANCE,
-					SimpleWeightedRandomList.<BlockState>builder()
+					WeightedList.<BlockState>builder()
 						.add(Blocks.CAVE_AIR.defaultBlockState(), 200)
 						.add(Blocks.SOUL_LANTERN.defaultBlockState(), 6)
 						.add(Blocks.SKELETON_SKULL.defaultBlockState().setValue(SkullBlock.ROTATION, 0), 12)

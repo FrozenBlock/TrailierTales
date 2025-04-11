@@ -18,10 +18,12 @@
 
 package net.frozenblock.trailiertales.mixin.common.coffin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.minecraft.server.level.ServerLevel;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.level.portal.TeleportTransition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,10 +32,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Entity.class)
 public class EntityMixin {
 
-	@Inject(method = "changeDimension", at = @At("HEAD"))
-	public void trailierTales$changeDimension(DimensionTransition dimensionTransition, CallbackInfoReturnable<Entity> info) {
+	@Inject(
+		method = "teleport",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/Entity;teleportCrossDimension(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/portal/TeleportTransition;)Lnet/minecraft/world/entity/Entity;"
+		)
+	)
+	public void trailierTales$changeDimension(
+		TeleportTransition dimensionTransition,
+		CallbackInfoReturnable<Entity> info,
+		@Local(ordinal = 0) ServerLevel level
+	) {
 		if (EntityCoffinData.entityHasCoffinData(Entity.class.cast(this))) {
-			CoffinBlock.onCoffinUntrack(Entity.class.cast(this), null, true);
+			CoffinBlock.onCoffinUntrack(level, Entity.class.cast(this), null, true);
 		}
 	}
 

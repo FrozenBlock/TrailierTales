@@ -18,10 +18,10 @@
 
 package net.frozenblock.trailiertales.registry;
 
+import java.util.function.Function;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
-import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
@@ -35,60 +35,70 @@ import net.frozenblock.trailiertales.block.SurveyorBlock;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import org.jetbrains.annotations.NotNull;
 
 public final class TTBlocks {
 
-	public static final Block SUSPICIOUS_RED_SAND = new BrushableBlock(
-		Blocks.RED_SAND,
-		SoundEvents.BRUSH_SAND,
-		SoundEvents.BRUSH_SAND_COMPLETED,
-		BlockBehaviour.Properties.of()
+	public static final Block SUSPICIOUS_RED_SAND = register("suspicious_red_sand",
+		properties -> new BrushableBlock(
+			Blocks.RED_SAND,
+			SoundEvents.BRUSH_SAND,
+			SoundEvents.BRUSH_SAND_COMPLETED,
+			properties
+		),
+		Properties.of()
 			.mapColor(MapColor.COLOR_ORANGE)
 			.instrument(NoteBlockInstrument.SNARE)
 			.strength(0.25F).sound(SoundType.SUSPICIOUS_SAND)
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block SUSPICIOUS_DIRT = new NonFallingBrushableBlock(
-		Blocks.DIRT,
-		TTSounds.BRUSH_DIRT,
-		TTSounds.BRUSH_DIRT_COMPLETED,
-		BlockBehaviour.Properties.of()
+	public static final Block SUSPICIOUS_DIRT = register("suspicious_dirt",
+		properties -> new NonFallingBrushableBlock(
+			Blocks.DIRT,
+			TTSounds.BRUSH_DIRT,
+			TTSounds.BRUSH_DIRT_COMPLETED,
+			properties
+		),
+		Properties.of()
 			.mapColor(MapColor.DIRT)
 			.strength(0.25F)
 			.sound(TTSounds.SUSPICIOUS_DIRT)
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block SUSPICIOUS_CLAY = new NonFallingBrushableBlock(
-		Blocks.CLAY,
-		TTSounds.BRUSH_CLAY,
-		TTSounds.BRUSH_CLAY_COMPLETED,
-		BlockBehaviour.Properties.of()
+	public static final Block SUSPICIOUS_CLAY = register("suspicious_clay",
+		properties -> new NonFallingBrushableBlock(
+			Blocks.CLAY,
+			TTSounds.BRUSH_CLAY,
+			TTSounds.BRUSH_CLAY_COMPLETED,
+			properties
+		),
+		Properties.of()
 			.mapColor(MapColor.CLAY)
 			.instrument(NoteBlockInstrument.FLUTE)
 			.strength(0.25F)
@@ -97,8 +107,9 @@ public final class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block CYAN_ROSE_CROP = new CyanRoseCropBlock(
-		BlockBehaviour.Properties.of()
+	public static final Block CYAN_ROSE_CROP = registerWithoutItem("cyan_rose_crop",
+		CyanRoseCropBlock::new,
+		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
 			.randomTicks()
@@ -107,10 +118,9 @@ public final class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CYAN_ROSE = new FlowerBlock(
-		MobEffects.SATURATION,
-		0.5F,
-		BlockBehaviour.Properties.of()
+	public static final Block CYAN_ROSE = register("cyan_rose",
+		properties -> new FlowerBlock(MobEffects.SATURATION, 0.5F, properties),
+		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
 			.instabreak()
@@ -119,13 +129,14 @@ public final class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block POTTED_CYAN_ROSE = new FlowerPotBlock(
-		CYAN_ROSE,
-		BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY).requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block POTTED_CYAN_ROSE = registerWithoutItem("potted_cyan_rose",
+		properties -> new FlowerPotBlock(CYAN_ROSE, properties),
+		Blocks.flowerPotProperties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block MANEDROP_CROP = new ManedropCropBlock(
-		BlockBehaviour.Properties.of()
+	public static final Block MANEDROP_CROP = registerWithoutItem("manedrop_crop",
+		ManedropCropBlock::new,
+		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
 			.instabreak()
@@ -133,8 +144,9 @@ public final class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MANEDROP = new DoublePlantBlock(
-		BlockBehaviour.Properties.of()
+	public static final Block MANEDROP = register("manedrop",
+		DoublePlantBlock::new,
+		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
 			.instabreak()
@@ -145,8 +157,9 @@ public final class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block DAWNTRAIL_CROP = new DawntrailCropBlock(
-		BlockBehaviour.Properties.of()
+	public static final Block DAWNTRAIL_CROP = registerWithoutItem("dawntrail_crop",
+		DawntrailCropBlock::new,
+		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
 			.randomTicks()
@@ -155,8 +168,9 @@ public final class TTBlocks {
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block DAWNTRAIL = new DawntrailBlock(
-		BlockBehaviour.Properties.of()
+	public static final MultifaceSpreadeableBlock DAWNTRAIL = register("dawntrail",
+		DawntrailBlock::new,
+		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
 			.instabreak()
@@ -170,19 +184,37 @@ public final class TTBlocks {
 
 	// GRANITE
 
-	public static final Block POLISHED_GRANITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-
-	public static final Block GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GRANITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block CHISELED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block GRANITE_BRICK_STAIRS = new StairBlock(
-		GRANITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS)
+	public static final Block POLISHED_GRANITE_WALL = register("polished_granite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.POLISHED_GRANITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block GRANITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block GRANITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block CRACKED_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
+
+	public static final Block GRANITE_BRICKS = register("granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.GRANITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CHISELED_GRANITE_BRICKS = register("chiseled_granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block GRANITE_BRICK_STAIRS = register("granite_brick_stairs",
+		properties -> new StairBlock(GRANITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block GRANITE_BRICK_SLAB = register("granite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block GRANITE_BRICK_WALL = register("granite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
+	public static final Block CRACKED_GRANITE_BRICKS = register("cracked_granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_GRANITE_BRICK = BlockFamilies.familyBuilder(GRANITE_BRICKS)
 		.stairs(GRANITE_BRICK_STAIRS)
 		.slab(GRANITE_BRICK_SLAB)
@@ -191,13 +223,22 @@ public final class TTBlocks {
 		.chiseled(CHISELED_GRANITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_GRANITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(GRANITE_BRICKS));
-	public static final Block MOSSY_GRANITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_GRANITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
+	public static final Block MOSSY_GRANITE_BRICKS = register("mossy_granite_bricks",
+		Block::new,
+		Properties.ofFullCopy(GRANITE_BRICKS)
 	);
-	public static final Block MOSSY_GRANITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_GRANITE_BRICKS));
-	public static final Block MOSSY_GRANITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_GRANITE_BRICKS));
+	public static final Block MOSSY_GRANITE_BRICK_STAIRS = register("mossy_granite_brick_stairs",
+		properties -> new StairBlock(MOSSY_GRANITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
+	);
+	public static final Block MOSSY_GRANITE_BRICK_SLAB = register("mossy_granite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
+	);
+	public static final Block MOSSY_GRANITE_BRICK_WALL = register("mossy_granite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_GRANITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_GRANITE_BRICK = BlockFamilies.familyBuilder(MOSSY_GRANITE_BRICKS)
 		.stairs(MOSSY_GRANITE_BRICK_STAIRS)
 		.slab(MOSSY_GRANITE_BRICK_SLAB)
@@ -206,19 +247,37 @@ public final class TTBlocks {
 
 	// DIORITE
 
-	public static final Block POLISHED_DIORITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-
-	public static final Block DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIORITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block DIORITE_BRICK_STAIRS = new StairBlock(
-		DIORITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS)
+	public static final Block POLISHED_DIORITE_WALL = register("polished_diorite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.POLISHED_DIORITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block DIORITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block DIORITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block CRACKED_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block CHISELED_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS));
+
+	public static final Block DIORITE_BRICKS = register("diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.DIORITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block DIORITE_BRICK_STAIRS = register("diorite_brick_stairs",
+		properties -> new StairBlock(DIORITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block DIORITE_BRICK_SLAB = register("diorite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block DIORITE_BRICK_WALL = register("diorite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block CRACKED_DIORITE_BRICKS = register("cracked_diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
+	public static final Block CHISELED_DIORITE_BRICKS = register("chiseled_diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_DIORITE_BRICK = BlockFamilies.familyBuilder(DIORITE_BRICKS)
 		.stairs(DIORITE_BRICK_STAIRS)
 		.slab(DIORITE_BRICK_SLAB)
@@ -227,13 +286,22 @@ public final class TTBlocks {
 		.chiseled(CHISELED_DIORITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_DIORITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(DIORITE_BRICKS));
-	public static final Block MOSSY_DIORITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_DIORITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
+	public static final Block MOSSY_DIORITE_BRICKS = register("mossy_diorite_bricks",
+		Block::new,
+		Properties.ofFullCopy(DIORITE_BRICKS)
 	);
-	public static final Block MOSSY_DIORITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_DIORITE_BRICKS));
-	public static final Block MOSSY_DIORITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_DIORITE_BRICKS));
+	public static final Block MOSSY_DIORITE_BRICK_STAIRS = register("mossy_diorite_brick_stairs",
+		properties -> new StairBlock(MOSSY_DIORITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
+	);
+	public static final Block MOSSY_DIORITE_BRICK_SLAB = register("mossy_diorite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
+	);
+	public static final Block MOSSY_DIORITE_BRICK_WALL = register("mossy_diorite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_DIORITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_DIORITE_BRICK = BlockFamilies.familyBuilder(MOSSY_DIORITE_BRICKS)
 		.stairs(MOSSY_DIORITE_BRICK_STAIRS)
 		.slab(MOSSY_DIORITE_BRICK_SLAB)
@@ -242,18 +310,37 @@ public final class TTBlocks {
 
 	// ANDESITE
 
-	public static final Block POLISHED_ANDESITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-
-	public static final Block ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block ANDESITE_BRICK_STAIRS = new StairBlock(
-		ANDESITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(ANDESITE_BRICKS)
+	public static final Block POLISHED_ANDESITE_WALL = register("polished_andesite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.POLISHED_ANDESITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block ANDESITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ANDESITE_BRICKS));
-	public static final Block ANDESITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(ANDESITE_BRICKS));
-	public static final Block CRACKED_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(ANDESITE_BRICKS));
-	public static final Block CHISELED_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(ANDESITE_BRICKS));
+
+	public static final Block ANDESITE_BRICKS = register("andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.ANDESITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block ANDESITE_BRICK_STAIRS = register("andesite_brick_stairs",
+		properties -> new StairBlock(ANDESITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block ANDESITE_BRICK_SLAB = register("andesite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block ANDESITE_BRICK_WALL = register("andesite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block CRACKED_ANDESITE_BRICKS = register("cracked_andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
+	public static final Block CHISELED_ANDESITE_BRICKS = register("chiseled_andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(ANDESITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_ANDESITE_BRICK = BlockFamilies.familyBuilder(ANDESITE_BRICKS)
 		.stairs(ANDESITE_BRICK_STAIRS)
 		.slab(ANDESITE_BRICK_SLAB)
@@ -262,13 +349,22 @@ public final class TTBlocks {
 		.chiseled(CHISELED_ANDESITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_ANDESITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE));
-	public static final Block MOSSY_ANDESITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_ANDESITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
+	public static final Block MOSSY_ANDESITE_BRICKS = register("mossy_andesite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.ANDESITE)
 	);
-	public static final Block MOSSY_ANDESITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS));
-	public static final Block MOSSY_ANDESITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS));
+	public static final Block MOSSY_ANDESITE_BRICK_STAIRS = register("mossy_andesite_brick_stairs",
+		properties -> new StairBlock(MOSSY_ANDESITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
+	);
+	public static final Block MOSSY_ANDESITE_BRICK_SLAB = register("mossy_andesite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
+	);
+	public static final Block MOSSY_ANDESITE_BRICK_WALL = register("mossy_andesite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_ANDESITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_ANDESITE_BRICK = BlockFamilies.familyBuilder(MOSSY_ANDESITE_BRICKS)
 		.stairs(MOSSY_ANDESITE_BRICK_STAIRS)
 		.slab(MOSSY_ANDESITE_BRICK_SLAB)
@@ -277,40 +373,72 @@ public final class TTBlocks {
 
 	// CALCITE
 
-	public static final Block CALCITE_STAIRS = new StairBlock(
-		Blocks.CALCITE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
+	public static final Block CALCITE_STAIRS = register("calcite_stairs",
+		properties -> new StairBlock(Blocks.CALCITE.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.CALCITE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CALCITE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block CALCITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Block CALCITE_SLAB = register("calcite_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CALCITE_WALL = register("calcite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
-	public static final Block POLISHED_CALCITE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block POLISHED_CALCITE_STAIRS = new StairBlock(
-		Blocks.CALCITE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
+	public static final Block POLISHED_CALCITE = register("polished_calcite",
+		Block::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block POLISHED_CALCITE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CALCITE));
-	public static final Block POLISHED_CALCITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CALCITE));
+	public static final Block POLISHED_CALCITE_STAIRS = register("polished_calcite_stairs",
+		properties -> new StairBlock(Blocks.CALCITE.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block POLISHED_CALCITE_SLAB = register("polished_calcite_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(POLISHED_CALCITE)
+	);
+	public static final Block POLISHED_CALCITE_WALL = register("polished_calcite_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(POLISHED_CALCITE)
+	);
 	public static final BlockFamily FAMILY_POLISHED_CALCITE = BlockFamilies.familyBuilder(POLISHED_CALCITE)
 		.stairs(POLISHED_CALCITE_STAIRS)
 		.slab(POLISHED_CALCITE_SLAB)
 		.wall(POLISHED_CALCITE_WALL)
 		.getFamily();
 
-	public static final Block CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-		.sound(TTSounds.CALCITE_BRICKS)
+	public static final Block CALCITE_BRICKS = register("calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.CALCITE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+			.sound(TTSounds.CALCITE_BRICKS)
 	);
-	public static final Block CALCITE_BRICK_STAIRS = new StairBlock(
-		CALCITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS)
+	public static final Block CALCITE_BRICK_STAIRS = register("calcite_brick_stairs",
+		properties -> new StairBlock(CALCITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(CALCITE_BRICKS)
 	);
-	public static final Block CALCITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CALCITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CRACKED_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block CHISELED_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
+	public static final Block CALCITE_BRICK_SLAB = register("calcite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block CALCITE_BRICK_WALL = register("calcite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block CRACKED_CALCITE_BRICKS = register("cracked_calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
+	public static final Block CHISELED_CALCITE_BRICKS = register("chiseled_calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_CALCITE_BRICK = BlockFamilies.familyBuilder(CALCITE_BRICKS)
 		.stairs(CALCITE_BRICK_STAIRS)
 		.slab(CALCITE_BRICK_SLAB)
@@ -319,13 +447,22 @@ public final class TTBlocks {
 		.chiseled(CHISELED_CALCITE_BRICKS)
 		.getFamily();
 
-	public static final Block MOSSY_CALCITE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(CALCITE_BRICKS));
-	public static final Block MOSSY_CALCITE_BRICK_STAIRS = new StairBlock(
-		MOSSY_CALCITE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
+	public static final Block MOSSY_CALCITE_BRICKS = register("mossy_calcite_bricks",
+		Block::new,
+		Properties.ofFullCopy(CALCITE_BRICKS)
 	);
-	public static final Block MOSSY_CALCITE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_CALCITE_BRICKS));
-	public static final Block MOSSY_CALCITE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_CALCITE_BRICKS));
+	public static final Block MOSSY_CALCITE_BRICK_STAIRS = register("mossy_calcite_brick_stairs",
+		properties -> new StairBlock(MOSSY_CALCITE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
+	);
+	public static final Block MOSSY_CALCITE_BRICK_SLAB = register("mossy_calcite_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
+	);
+	public static final Block MOSSY_CALCITE_BRICK_WALL = register("mossy_calcite_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_CALCITE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_CALCITE_BRICK = BlockFamilies.familyBuilder(MOSSY_CALCITE_BRICKS)
 		.stairs(MOSSY_CALCITE_BRICK_STAIRS)
 		.slab(MOSSY_CALCITE_BRICK_SLAB)
@@ -334,14 +471,28 @@ public final class TTBlocks {
 
 	// TUFF
 
-	public static final Block CRACKED_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_TUFF_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_TUFF_BRICK_STAIRS = new StairBlock(
-		MOSSY_TUFF_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
+	public static final Block CRACKED_TUFF_BRICKS = register("cracked_tuff_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.TUFF_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_TUFF_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
-	public static final Block MOSSY_TUFF_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_TUFF_BRICKS));
+	public static final Block MOSSY_TUFF_BRICKS = register("mossy_tuff_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.TUFF_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MOSSY_TUFF_BRICK_STAIRS = register("mossy_tuff_brick_stairs",
+		properties -> new StairBlock(MOSSY_TUFF_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
+	);
+	public static final Block MOSSY_TUFF_BRICK_SLAB = register("mossy_tuff_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
+	);
+	public static final Block MOSSY_TUFF_BRICK_WALL = register("mossy_tuff_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_TUFF_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_TUFF_BRICKS = BlockFamilies.familyBuilder(MOSSY_TUFF_BRICKS)
 		.stairs(MOSSY_TUFF_BRICK_STAIRS)
 		.slab(MOSSY_TUFF_BRICK_SLAB)
@@ -350,61 +501,135 @@ public final class TTBlocks {
 
 	// BRICKS
 
-	public static final Block CRACKED_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block MOSSY_BRICK_STAIRS = new StairBlock(
-		MOSSY_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS)
+	public static final Block CRACKED_BRICKS = register("cracked_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS));
-	public static final Block MOSSY_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_BRICKS));
+	public static final Block MOSSY_BRICKS = register("mossy_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block MOSSY_BRICK_STAIRS = register("mossy_brick_stairs",
+		properties -> new StairBlock(MOSSY_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_BRICKS)
+	);
+	public static final Block MOSSY_BRICK_SLAB = register("mossy_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_BRICKS)
+	);
+	public static final Block MOSSY_BRICK_WALL = register("mossy_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_BRICKS = BlockFamilies.familyBuilder(MOSSY_BRICKS)
 		.stairs(MOSSY_BRICK_STAIRS)
 		.slab(MOSSY_BRICK_SLAB)
 		.wall(MOSSY_BRICK_WALL)
 		.getFamily();
 
+	// RESIN
+	public static final Block POLISHED_RESIN_BLOCK = register("polished_resin_block",
+		Block::new,
+		Properties.ofFullCopy(Blocks.RESIN_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block CRACKED_RESIN_BRICKS = register("cracked_resin_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.RESIN_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block PALE_MOSSY_RESIN_BRICKS = register("pale_mossy_resin_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.RESIN_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block PALE_MOSSY_RESIN_BRICK_STAIRS = register("pale_mossy_resin_brick_stairs",
+		properties -> new StairBlock(PALE_MOSSY_RESIN_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(PALE_MOSSY_RESIN_BRICKS)
+	);
+	public static final Block PALE_MOSSY_RESIN_BRICK_SLAB = register("pale_mossy_resin_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(PALE_MOSSY_RESIN_BRICKS)
+	);
+	public static final Block PALE_MOSSY_RESIN_BRICK_WALL = register("pale_mossy_resin_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(PALE_MOSSY_RESIN_BRICKS)
+	);
+	public static final BlockFamily FAMILY_PALE_MOSSY_RESIN_BRICKS = BlockFamilies.familyBuilder(PALE_MOSSY_RESIN_BRICKS)
+		.stairs(PALE_MOSSY_RESIN_BRICK_STAIRS)
+		.slab(PALE_MOSSY_RESIN_BRICK_SLAB)
+		.wall(PALE_MOSSY_RESIN_BRICK_WALL)
+		.getFamily();
+
 	// MOSSY DEEPSLATE
 
-	public static final Block MOSSY_COBBLED_DEEPSLATE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block MOSSY_COBBLED_DEEPSLATE = register("mossy_cobbled_deepslate",
+		Block::new,
+		Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_COBBLED_DEEPSLATE_STAIRS = new StairBlock(
-		MOSSY_COBBLED_DEEPSLATE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
+	public static final Block MOSSY_COBBLED_DEEPSLATE_STAIRS = register("mossy_cobbled_deepslate_stairs",
+		properties -> new StairBlock(MOSSY_COBBLED_DEEPSLATE.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
 	);
-	public static final Block MOSSY_COBBLED_DEEPSLATE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE));
-	public static final Block MOSSY_COBBLED_DEEPSLATE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE));
+	public static final Block MOSSY_COBBLED_DEEPSLATE_SLAB = register("mossy_cobbled_deepslate_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
+	);
+	public static final Block MOSSY_COBBLED_DEEPSLATE_WALL = register("mossy_cobbled_deepslate_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_COBBLED_DEEPSLATE)
+	);
 	public static final BlockFamily FAMILY_MOSSY_COBBLED_DEEPSLATE = BlockFamilies.familyBuilder(MOSSY_COBBLED_DEEPSLATE)
 		.stairs(MOSSY_COBBLED_DEEPSLATE_STAIRS)
 		.slab(MOSSY_COBBLED_DEEPSLATE_SLAB)
 		.wall(MOSSY_COBBLED_DEEPSLATE_WALL)
 		.getFamily();
 
-	public static final Block MOSSY_DEEPSLATE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block MOSSY_DEEPSLATE_BRICKS = register("mossy_deepslate_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_DEEPSLATE_BRICK_STAIRS = new StairBlock(
-		MOSSY_DEEPSLATE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
+	public static final Block MOSSY_DEEPSLATE_BRICK_STAIRS = register("mossy_deepslate_brick_stairs",
+		properties -> new StairBlock(MOSSY_DEEPSLATE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
 	);
-	public static final Block MOSSY_DEEPSLATE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS));
-	public static final Block MOSSY_DEEPSLATE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS));
+	public static final Block MOSSY_DEEPSLATE_BRICK_SLAB = register("mossy_deepslate_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
+	);
+	public static final Block MOSSY_DEEPSLATE_BRICK_WALL = register("mossy_deepslate_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_MOSSY_DEEPSLATE_BRICKS = BlockFamilies.familyBuilder(MOSSY_DEEPSLATE_BRICKS)
 		.stairs(MOSSY_DEEPSLATE_BRICK_STAIRS)
 		.slab(MOSSY_DEEPSLATE_BRICK_SLAB)
 		.wall(MOSSY_DEEPSLATE_BRICK_WALL)
 		.getFamily();
 
-	public static final Block MOSSY_DEEPSLATE_TILES = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block MOSSY_DEEPSLATE_TILES = register("mossy_deepslate_tiles",
+		Block::new,
+		Properties.ofFullCopy(Blocks.DEEPSLATE_TILES)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block MOSSY_DEEPSLATE_TILE_STAIRS = new StairBlock(
-		MOSSY_DEEPSLATE_TILES.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILE_STAIRS)
+	public static final Block MOSSY_DEEPSLATE_TILE_STAIRS = register("mossy_deepslate_tile_stairs",
+		properties -> new StairBlock(MOSSY_DEEPSLATE_TILES.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.DEEPSLATE_TILE_STAIRS)
 	);
-	public static final Block MOSSY_DEEPSLATE_TILE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES));
-	public static final Block MOSSY_DEEPSLATE_TILE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES));
+	public static final Block MOSSY_DEEPSLATE_TILE_SLAB = register("mossy_deepslate_tile_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES)
+	);
+	public static final Block MOSSY_DEEPSLATE_TILE_WALL = register("mossy_deepslate_tile_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(MOSSY_DEEPSLATE_TILES)
+	);
 	public static final BlockFamily FAMILY_MOSSY_DEEPSLATE_TILES = BlockFamilies.familyBuilder(MOSSY_DEEPSLATE_TILES)
 		.stairs(MOSSY_DEEPSLATE_TILE_STAIRS)
 		.slab(MOSSY_DEEPSLATE_TILE_SLAB)
@@ -413,82 +638,121 @@ public final class TTBlocks {
 
 	// SANDSTONE
 
-	public static final Block SMOOTH_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-	);
-
-	public static final Block CUT_SANDSTONE_STAIRS = new StairBlock(
-		Blocks.CUT_SANDSTONE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
+	public static final Block SMOOTH_SANDSTONE_WALL = register("smooth_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CUT_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+
+	public static final Block CUT_SANDSTONE_STAIRS = register("cut_sandstone_stairs",
+		properties -> new StairBlock(Blocks.CUT_SANDSTONE.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CUT_SANDSTONE_WALL = register("cut_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.CUT_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	// RED SANDSTONE
 
-	public static final Block SMOOTH_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
-	);
-
-	public static final Block CUT_RED_SANDSTONE_STAIRS = new StairBlock(
-		Blocks.CUT_RED_SANDSTONE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
+	public static final Block SMOOTH_RED_SANDSTONE_WALL = register("smooth_red_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CUT_RED_SANDSTONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+
+	public static final Block CUT_RED_SANDSTONE_STAIRS = register("cut_red_sandstone_stairs",
+		properties -> new StairBlock(Blocks.CUT_RED_SANDSTONE.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block CUT_RED_SANDSTONE_WALL = register("cut_red_sandstone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.CUT_RED_SANDSTONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	// PRISMARINE
 
-	public static final Block PRISMARINE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block PRISMARINE_BRICK_WALL = register("prismarine_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.PRISMARINE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final Block DARK_PRISMARINE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_PRISMARINE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block DARK_PRISMARINE_WALL = register("dark_prismarine_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.DARK_PRISMARINE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	// END STONE
 
-	public static final Block END_STONE_STAIRS = new StairBlock(
-		Blocks.END_STONE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE)
+	public static final Block END_STONE_STAIRS = register("end_stone_stairs",
+		properties -> new StairBlock(Blocks.END_STONE.defaultBlockState(), properties),
+		Properties.ofFullCopy(Blocks.END_STONE)
 	);
-	public static final Block END_STONE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
-	public static final Block END_STONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+	public static final Block END_STONE_SLAB = register("end_stone_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(Blocks.END_STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block END_STONE_WALL = register("end_stone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.END_STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 
-	public static final Block CHORAL_END_STONE = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHORAL_END_STONE = register("choral_end_stone",
+		Block::new,
+		Properties.ofFullCopy(Blocks.END_STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHORAL_END_STONE_STAIRS = new StairBlock(
-		CHORAL_END_STONE.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE)
+	public static final Block CHORAL_END_STONE_STAIRS = register("choral_end_stone_stairs",
+		properties -> new StairBlock(CHORAL_END_STONE.defaultBlockState(), properties),
+		Properties.ofFullCopy(CHORAL_END_STONE)
 	);
-	public static final Block CHORAL_END_STONE_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE));
-	public static final Block CHORAL_END_STONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE));
+	public static final Block CHORAL_END_STONE_SLAB = register("choral_end_stone_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE)
+	);
+	public static final Block CHORAL_END_STONE_WALL = register("choral_end_stone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE)
+	);
 	public static final BlockFamily FAMILY_CHORAL_END_STONE = BlockFamilies.familyBuilder(CHORAL_END_STONE)
 		.stairs(CHORAL_END_STONE_STAIRS)
 		.slab(CHORAL_END_STONE_SLAB)
 		.wall(CHORAL_END_STONE_WALL)
 		.getFamily();
 
-	public static final Block CRACKED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CRACKED_END_STONE_BRICKS = register("cracked_end_stone_bricks",
+		Block::new,Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHISELED_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHISELED_END_STONE_BRICKS = register("chiseled_end_stone_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHORAL_END_STONE_BRICKS = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHORAL_END_STONE_BRICKS = register("choral_end_stone_bricks",
+		Block::new,
+		Properties.ofFullCopy(Blocks.END_STONE_BRICKS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHORAL_END_STONE_BRICK_STAIRS = new StairBlock(
-		CHORAL_END_STONE_BRICKS.defaultBlockState(),
-		BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
+	public static final Block CHORAL_END_STONE_BRICK_STAIRS = register("choral_end_stone_brick_stairs",
+		properties -> new StairBlock(CHORAL_END_STONE_BRICKS.defaultBlockState(), properties),
+		Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
 	);
-	public static final Block CHORAL_END_STONE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
-	public static final Block CHORAL_END_STONE_BRICK_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(CHORAL_END_STONE_BRICKS));
+	public static final Block CHORAL_END_STONE_BRICK_SLAB = register("choral_end_stone_brick_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
+	);
+	public static final Block CHORAL_END_STONE_BRICK_WALL = register("choral_end_stone_brick_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(CHORAL_END_STONE_BRICKS)
+	);
 	public static final BlockFamily FAMILY_CHORAL_END_STONE_BRICKS = BlockFamilies.familyBuilder(CHORAL_END_STONE_BRICKS)
 		.stairs(CHORAL_END_STONE_BRICK_STAIRS)
 		.slab(CHORAL_END_STONE_BRICK_SLAB)
@@ -497,18 +761,25 @@ public final class TTBlocks {
 
 	// PURPUR
 
-	public static final Block CRACKED_PURPUR_BLOCK = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CRACKED_PURPUR_BLOCK = register("cracked_purpur_block",
+		Block::new,
+		Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block PURPUR_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block PURPUR_WALL = register("purpur_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
-	public static final Block CHISELED_PURPUR_BLOCK = new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
-		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	public static final Block CHISELED_PURPUR_BLOCK = register("chiseled_purpur_block",
+		Block::new,
+		Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final CoffinBlock COFFIN = new CoffinBlock(
-		BlockBehaviour.Properties.of()
+	public static final CoffinBlock COFFIN = register("coffin",
+		CoffinBlock::new,
+		Properties.of()
 			.mapColor(MapColor.DEEPSLATE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.noOcclusion()
@@ -520,8 +791,9 @@ public final class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final SurveyorBlock SURVEYOR = new SurveyorBlock(
-		BlockBehaviour.Properties.of()
+	public static final SurveyorBlock SURVEYOR = register("surveyor",
+		SurveyorBlock::new,
+		Properties.of()
 			.mapColor(MapColor.STONE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.strength(3F)
@@ -530,8 +802,9 @@ public final class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
-	public static final EctoplasmBlock ECTOPLASM_BLOCK = new EctoplasmBlock(
-		BlockBehaviour.Properties.of()
+	public static final EctoplasmBlock ECTOPLASM_BLOCK = registerWithoutItem("ectoplasm_block",
+		EctoplasmBlock::new,
+		Properties.of()
 			.mapColor(MapColor.COLOR_LIGHT_BLUE)
 			.noOcclusion()
 			.instabreak()
@@ -547,139 +820,6 @@ public final class TTBlocks {
 	);
 
 	public static void init() {
-		TTConstants.log("Registering Blocks for Trailier Tales.", TTConstants.UNSTABLE_LOGGING);
-
-		registerBlockAfter(Blocks.SUSPICIOUS_SAND, "suspicious_red_sand", SUSPICIOUS_RED_SAND, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockAfter(SUSPICIOUS_RED_SAND, "suspicious_dirt",SUSPICIOUS_DIRT, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-		registerBlockAfter(SUSPICIOUS_DIRT, "suspicious_clay", SUSPICIOUS_CLAY, CreativeModeTabs.FUNCTIONAL_BLOCKS);
-
-		registerBlockAfter(Blocks.TORCHFLOWER, "cyan_rose", CYAN_ROSE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("cyan_rose_crop", CYAN_ROSE_CROP);
-		registerBlock("potted_cyan_rose", POTTED_CYAN_ROSE);
-
-		registerBlockAfter(Blocks.PITCHER_PLANT, "manedrop", MANEDROP, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("manedrop_crop", MANEDROP_CROP);
-
-		registerBlockAfter(Blocks.GLOW_LICHEN, "dawntrail", DAWNTRAIL, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("dawntrail_crop", DAWNTRAIL_CROP);
-
-		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICKS, "cracked_granite_bricks", CRACKED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_GRANITE_BRICKS, "granite_brick_stairs", GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_STAIRS, "granite_brick_slab", GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_SLAB, "granite_brick_wall", GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GRANITE_BRICK_WALL, "chiseled_granite_bricks", CHISELED_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_GRANITE_BRICKS, "mossy_granite_bricks", MOSSY_GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_GRANITE_BRICKS, "mossy_granite_brick_stairs", MOSSY_GRANITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_GRANITE_BRICK_STAIRS, "mossy_granite_brick_slab", MOSSY_GRANITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_GRANITE_BRICK_SLAB, "mossy_granite_brick_wall", MOSSY_GRANITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.POLISHED_DIORITE_SLAB, "polished_diorite_wall", POLISHED_DIORITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.DIORITE_SLAB, "diorite_bricks", DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICKS, "cracked_diorite_bricks", CRACKED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_DIORITE_BRICKS, "diorite_brick_stairs", DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_STAIRS, "diorite_brick_slab", DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_SLAB, "diorite_brick_wall", DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(DIORITE_BRICK_WALL, "chiseled_diorite_bricks", CHISELED_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_DIORITE_BRICKS, "mossy_diorite_bricks", MOSSY_DIORITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DIORITE_BRICKS, "mossy_diorite_brick_stairs", MOSSY_DIORITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DIORITE_BRICK_STAIRS, "mossy_diorite_brick_slab", MOSSY_DIORITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DIORITE_BRICK_SLAB, "mossy_diorite_brick_wall", MOSSY_DIORITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.POLISHED_ANDESITE_SLAB, "polished_andesite_wall", POLISHED_ANDESITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.ANDESITE_SLAB, "andesite_bricks", ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICKS, "cracked_andesite_bricks", CRACKED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_ANDESITE_BRICKS, "andesite_brick_stairs", ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_STAIRS, "andesite_brick_slab", ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_SLAB, "andesite_brick_wall", ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(ANDESITE_BRICK_WALL, "chiseled_andesite_bricks", CHISELED_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_ANDESITE_BRICKS, "mossy_andesite_bricks", MOSSY_ANDESITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_ANDESITE_BRICKS, "mossy_andesite_brick_stairs", MOSSY_ANDESITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_ANDESITE_BRICK_STAIRS, "mossy_andesite_brick_slab", MOSSY_ANDESITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_ANDESITE_BRICK_SLAB, "mossy_andesite_brick_wall", MOSSY_ANDESITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		FrozenCreativeTabs.addBefore(Blocks.DEEPSLATE, Blocks.CALCITE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CALCITE, "calcite_stairs", CALCITE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_STAIRS, "calcite_slab", CALCITE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_SLAB, "calcite_wall", CALCITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_WALL, "polished_calcite", POLISHED_CALCITE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE, "polished_calcite_stairs", POLISHED_CALCITE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE_STAIRS, "polished_calcite_slab", POLISHED_CALCITE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE_SLAB, "polished_calcite_wall", POLISHED_CALCITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(POLISHED_CALCITE_WALL, "calcite_bricks", CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICKS, "cracked_calcite_bricks", CRACKED_CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CRACKED_CALCITE_BRICKS, "calcite_brick_stairs", CALCITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICK_STAIRS, "calcite_brick_slab", CALCITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICK_SLAB, "calcite_brick_wall", CALCITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CALCITE_BRICK_WALL, "chiseled_calcite_bricks", CHISELED_CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_CALCITE_BRICKS, "mossy_calcite_bricks", MOSSY_CALCITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_CALCITE_BRICKS, "mossy_calcite_brick_stairs", MOSSY_CALCITE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_CALCITE_BRICK_STAIRS, "mossy_calcite_brick_slab", MOSSY_CALCITE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_CALCITE_BRICK_SLAB, "mossy_calcite_brick_wall", MOSSY_CALCITE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.TUFF_BRICKS, "cracked_tuff_bricks", CRACKED_TUFF_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CHISELED_TUFF_BRICKS, "mossy_tuff_bricks", MOSSY_TUFF_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_TUFF_BRICKS, "mossy_tuff_brick_stairs", MOSSY_TUFF_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_TUFF_BRICK_STAIRS, "mossy_tuff_brick_slab", MOSSY_TUFF_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_TUFF_BRICK_SLAB, "mossy_tuff_brick_wall", MOSSY_TUFF_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.BRICKS, "cracked_bricks", CRACKED_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.BRICK_WALL, "mossy_bricks", MOSSY_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_BRICKS, "mossy_brick_stairs", MOSSY_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_BRICK_STAIRS, "mossy_brick_slab", MOSSY_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_BRICK_SLAB, "mossy_brick_wall", MOSSY_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.COBBLED_DEEPSLATE_WALL, "mossy_cobbled_deepslate", MOSSY_COBBLED_DEEPSLATE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE, "mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE_STAIRS, "mossy_cobbled_deepslate_slab", MOSSY_COBBLED_DEEPSLATE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_COBBLED_DEEPSLATE_SLAB, "mossy_cobbled_deepslate_wall", MOSSY_COBBLED_DEEPSLATE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.DEEPSLATE_BRICK_WALL, "mossy_deepslate_bricks", MOSSY_DEEPSLATE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_BRICKS, "mossy_deepslate_brick_stairs", MOSSY_DEEPSLATE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_BRICK_STAIRS, "mossy_deepslate_brick_slab", MOSSY_DEEPSLATE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_BRICK_SLAB, "mossy_deepslate_brick_wall", MOSSY_DEEPSLATE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.DEEPSLATE_TILE_WALL, "mossy_deepslate_tiles", MOSSY_DEEPSLATE_TILES, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILES, "mossy_deepslate_tile_stairs", MOSSY_DEEPSLATE_TILE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILE_STAIRS, "mossy_deepslate_tile_slab", MOSSY_DEEPSLATE_TILE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(MOSSY_DEEPSLATE_TILE_SLAB, "mossy_deepslate_tile_wall", MOSSY_DEEPSLATE_TILE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.SMOOTH_SANDSTONE_SLAB, "smooth_sandstone_wall", SMOOTH_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(Blocks.CUT_SANDSTONE_SLAB, "cut_sandstone_stairs", CUT_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CUT_SANDSTONE_SLAB, "cut_sandstone_wall", CUT_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.SMOOTH_RED_SANDSTONE_SLAB, "smooth_red_sandstone_wall", SMOOTH_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockBefore(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_stairs", CUT_RED_SANDSTONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.CUT_RED_SANDSTONE_SLAB, "cut_red_sandstone_wall", CUT_RED_SANDSTONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", PRISMARINE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", DARK_PRISMARINE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.END_STONE, "end_stone_stairs", END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(END_STONE_STAIRS, "end_stone_slab", END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(END_STONE_SLAB, "end_stone_wall", END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(END_STONE_WALL, "choral_end_stone", CHORAL_END_STONE, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE, "choral_end_stone_stairs", CHORAL_END_STONE_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_STAIRS, "choral_end_stone_slab", CHORAL_END_STONE_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_SLAB, "choral_end_stone_wall", CHORAL_END_STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.END_STONE_BRICKS, "cracked_end_stone_bricks", CRACKED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.END_STONE_BRICK_WALL, "chiseled_end_stone_bricks", CHISELED_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHISELED_END_STONE_BRICKS, "choral_end_stone_bricks", CHORAL_END_STONE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_BRICKS, "choral_end_stone_brick_stairs", CHORAL_END_STONE_BRICK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_BRICK_STAIRS, "choral_end_stone_brick_slab", CHORAL_END_STONE_BRICK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(CHORAL_END_STONE_BRICK_SLAB, "choral_end_stone_brick_wall", CHORAL_END_STONE_BRICK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.PURPUR_BLOCK, "cracked_purpur_block", CRACKED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Blocks.PURPUR_SLAB, "purpur_wall", PURPUR_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(PURPUR_WALL, "chiseled_purpur_block", CHISELED_PURPUR_BLOCK, CreativeModeTabs.BUILDING_BLOCKS);
-
-		registerBlockAfter(Blocks.TRIAL_SPAWNER, "coffin", COFFIN, CreativeModeTabs.SPAWN_EGGS);
-		registerBlockAfter(Blocks.OBSERVER, "surveyor", SURVEYOR, CreativeModeTabs.REDSTONE_BLOCKS);
-
-		actualRegisterBlock("ectoplasm_block", ECTOPLASM_BLOCK);
 	}
 
 	public static void registerBlockProperties() {
@@ -687,49 +827,26 @@ public final class TTBlocks {
 		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), COFFIN);
 	}
 
-	private static void registerBlock(String path, Block block) {
-		actualRegisterBlock(path, block);
+	private static <T extends Block> @NotNull T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
+		ResourceLocation id = TTConstants.id(path);
+		return doRegister(id, makeBlock(block, properties, id));
 	}
 
-	@SafeVarargs
-	private static void registerBlockBefore(ItemLike comparedItem, String path, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemBefore(comparedItem, path, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-		actualRegisterBlock(path, block);
+	private static <T extends Block> @NotNull T register(String path, Function<Properties, T> block, Properties properties) {
+		T registered = registerWithoutItem(path, block, properties);
+		Items.registerBlock(registered);
+		return registered;
 	}
 
-	@SafeVarargs
-	private static void registerBlockAfter(ItemLike comparedItem, String path, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemAfter(comparedItem, path, block, tabs);
-		actualRegisterBlock(path, block);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemBefore(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility tabVisibility, ResourceKey<CreativeModeTab>... tabs) {
-		actualRegisterBlockItem(path, block);
-		FrozenCreativeTabs.addBefore(comparedItem, block, tabVisibility, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemAfter(ItemLike comparedItem, String name, Block block, ResourceKey<CreativeModeTab>... tabs) {
-		registerBlockItemAfter(comparedItem, name, block, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
-
-	@SafeVarargs
-	private static void registerBlockItemAfter(ItemLike comparedItem, String path, Block block, CreativeModeTab.TabVisibility visibility, ResourceKey<CreativeModeTab>... tabs) {
-		actualRegisterBlockItem(path, block);
-		FrozenCreativeTabs.addAfter(comparedItem, block, visibility, tabs);
-	}
-
-	private static void actualRegisterBlock(String path, Block block) {
-		if (BuiltInRegistries.BLOCK.getOptional(TTConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.BLOCK, TTConstants.id(path), block);
+	private static <T extends Block> @NotNull T doRegister(ResourceLocation id, T block) {
+		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
+			return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		}
+		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
 	}
 
-	private static void actualRegisterBlockItem(String path, Block block) {
-		if (BuiltInRegistries.ITEM.getOptional(TTConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, TTConstants.id(path), new BlockItem(block, new Item.Properties()));
-		}
+	private static <T extends Block> T makeBlock(@NotNull Function<Properties, T> function, @NotNull Properties properties, ResourceLocation id) {
+		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
 	}
 
 }

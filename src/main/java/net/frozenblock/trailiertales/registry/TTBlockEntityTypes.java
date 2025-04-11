@@ -18,6 +18,8 @@
 
 package net.frozenblock.trailiertales.registry;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
@@ -45,6 +47,6 @@ public final class TTBlockEntityTypes {
 
 	@NotNull
 	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, @NotNull BlockEntityType.BlockEntitySupplier<T> factory, @NotNull Block... blocks) {
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, TTConstants.id(path), BlockEntityType.Builder.of(factory, blocks).build(null));
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, TTConstants.id(path), new BlockEntityType<>(factory, Arrays.stream(blocks).collect(Collectors.toSet())));
 	}
 }

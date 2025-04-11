@@ -43,9 +43,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.LivingEntity;
@@ -60,6 +60,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -117,14 +120,23 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(@NotNull BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState state,
+		@NotNull LevelReader level,
+		@NotNull ScheduledTickAccess tickAccess,
+		@NotNull BlockPos pos,
+		@NotNull Direction direction,
+		@NotNull BlockPos neighborPos,
+		@NotNull BlockState neighborState,
+		@NotNull RandomSource random
+	) {
 		if (direction == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
 			boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
 			return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
 				? isThisFoot ? state : state.setValue(STATE, neighborState.getValue(STATE))
 				: Blocks.AIR.defaultBlockState();
 		} else {
-			return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+			return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
 		}
 	}
 
@@ -182,11 +194,6 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	protected @NotNull RenderShape getRenderShape(BlockState state) {
-		return RenderShape.ENTITYBLOCK_ANIMATED;
-	}
-
-	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, PART, STATE);
@@ -198,17 +205,17 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		if (!level.isClientSide) {
 			BlockPos blockPos = pos.relative(state.getValue(FACING));
 			level.setBlock(blockPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
-			level.blockUpdated(pos, Blocks.AIR);
+			level.updateNeighborsAt(pos, Blocks.AIR);
 			state.updateNeighbourShapes(level, pos, UPDATE_ALL);
 		}
 	}
 
 	@Override
-	protected @NotNull ItemInteractionResult useItemOn(
+	protected @NotNull InteractionResult useItemOn(
 		@NotNull ItemStack stack, BlockState state, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hitResult
 	) {
-		if (stack.getItem() instanceof SpawnEggItem) return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		if (stack.getItem() instanceof SpawnEggItem) return InteractionResult.CONSUME;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	@Override
@@ -277,13 +284,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}
 
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag options) {
-		super.appendHoverText(stack, tooltipContext, tooltip, options);
-		Spawner.appendHoverText(stack, tooltip, "SpawnData");
-	}
-
-	public static void onCoffinUntrack(@Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
+	public static void onCoffinUntrack(ServerLevel level, @Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
 		if (FrozenLibConfig.IS_DEBUG && entity != null && !entity.isRemoved() && entity.level() instanceof ServerLevel serverLevel) {
 			FrozenNetworking.sendPacketToAllPlayers(
 				serverLevel,
@@ -308,7 +309,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			apparition.dropItem();
 			apparition.level().broadcastEntityEvent(apparition, EntityEvent.POOF);
 			apparition.discard();
-			apparition.dropPreservedEquipment();
+			apparition.dropPreservedEquipment(level);
 			if (coffinSpawner != null) {
 				coffinSpawner.onApparitionRemovedOrKilled(entity.level());
 			}

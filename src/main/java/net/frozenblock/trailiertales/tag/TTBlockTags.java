@@ -33,6 +33,7 @@ public class TTBlockTags {
 	public static final TagKey<Block> SOUND_POLISHED_DEEPSLATE = bind("sound/polished_deepslate");
 	public static final TagKey<Block> SOUND_POLISHED_TUFF = bind("sound/polished_tuff");
 	public static final TagKey<Block> SOUND_POLISHED_BASALT = bind("sound/polished_basalt");
+	public static final TagKey<Block> SOUND_POLISHED_RESIN = bind("sound/polished_resin");
 
 	public static final TagKey<Block> COFFIN_UNSPAWNABLE_ON = bind("coffin_unspawnable_on");
 	public static final TagKey<Block> CAMEL_SPAWNABLE_ON = bind("camel_spawnable_on");

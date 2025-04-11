@@ -21,8 +21,6 @@ package net.frozenblock.trailiertales.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.frozenblock.lib.block.api.entity.BlockEntityWithoutLevelRendererRegistry;
-import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.client.renderer.RenderType;
 
@@ -30,8 +28,6 @@ import net.minecraft.client.renderer.RenderType;
 public class TTBlockRenderLayers {
 
 	public static void init() {
-		BlockEntityWithoutLevelRendererRegistry.register(TTBlocks.COFFIN, TTBlockEntityTypes.COFFIN);
-
 		BlockRenderLayerMap renderLayerRegistry = BlockRenderLayerMap.INSTANCE;
 		renderLayerRegistry.putBlock(TTBlocks.ECTOPLASM_BLOCK, RenderType.translucent());
 

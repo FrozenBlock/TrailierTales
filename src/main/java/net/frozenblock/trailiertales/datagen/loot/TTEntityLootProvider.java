@@ -49,7 +49,7 @@ public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
 		HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
-			TTEntityTypes.APPARITION.getDefaultLootTable(),
+			TTEntityTypes.APPARITION.getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

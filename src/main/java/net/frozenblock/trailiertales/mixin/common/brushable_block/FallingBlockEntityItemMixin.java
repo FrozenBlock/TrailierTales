@@ -18,9 +18,11 @@
 
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -58,18 +60,18 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
 		)
 	)
-	public void trailierTales$dropItem(CallbackInfo info) {
-		FallingBlockEntity.class.cast(this).spawnAtLocation(this.trailierTales$itemStack);
+	public void trailierTales$dropItem(CallbackInfo info, @Local ServerLevel level) {
+		FallingBlockEntity.class.cast(this).spawnAtLocation(level, this.trailierTales$itemStack);
 	}
 
 	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
 	public void trailierTales$spawnCustomItemAfterBroken(Block block, BlockPos pos, CallbackInfo info) {
 		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-		if (!fallingBlockEntity.level().isClientSide && this.trailierTales$itemStack != ItemStack.EMPTY) {
-			fallingBlockEntity.spawnAtLocation(this.trailierTales$itemStack.copy());
+		if (fallingBlockEntity.level() instanceof ServerLevel level && this.trailierTales$itemStack != ItemStack.EMPTY) {
+			fallingBlockEntity.spawnAtLocation(level, this.trailierTales$itemStack.copy());
 			this.trailierTales$itemStack = ItemStack.EMPTY;
 		}
 	}
@@ -90,11 +92,11 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	public void trailierTales$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
 		if (compoundTag.contains("TrailierTalesItem")) {
 			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			this.trailierTales$itemStack = ItemStack.parseOptional(fallingBlockEntity.level().registryAccess(), compoundTag.getCompound("TrailierTalesItem"));
+			this.trailierTales$itemStack = ItemStack.parse(fallingBlockEntity.level().registryAccess(), compoundTag.getCompoundOrEmpty("TrailierTalesItem")).orElse(ItemStack.EMPTY);
 		}
 
 		if (compoundTag.contains("TrailierTalesOverrideBreak")) {
-			this.trailierTales$overrideBreak = compoundTag.getBoolean("TrailierTalesOverrideBreak");
+			this.trailierTales$overrideBreak = compoundTag.getBooleanOr("TrailierTalesOverrideBreak", false);
 		}
 	}
 

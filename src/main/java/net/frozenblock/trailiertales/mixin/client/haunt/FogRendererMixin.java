@@ -46,7 +46,7 @@ public class FogRendererMixin {
 	private static List<FogRenderer.MobEffectFogFunction> MOB_EFFECT_FOG;
 
 	@WrapOperation(
-		method = "setupColor",
+		method = "computeFogColor",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/LivingEntity;hasEffect(Lnet/minecraft/core/Holder;)Z",

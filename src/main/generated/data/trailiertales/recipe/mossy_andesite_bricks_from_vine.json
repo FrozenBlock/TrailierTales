@@ -3,12 +3,8 @@
   "category": "building",
   "group": "mossy_andesite_bricks",
   "ingredients": [
-    {
-      "item": "trailiertales:andesite_bricks"
-    },
-    {
-      "item": "minecraft:vine"
-    }
+    "trailiertales:andesite_bricks",
+    "minecraft:vine"
   ],
   "result": {
     "count": 1,

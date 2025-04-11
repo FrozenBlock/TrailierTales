@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "trailiertales:mossy_deepslate_tiles"
-  },
+  "ingredient": "trailiertales:mossy_deepslate_tiles",
   "result": {
     "count": 1,
     "id": "trailiertales:mossy_deepslate_tile_stairs"

@@ -27,16 +27,17 @@ import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,24 +74,23 @@ public class TransfiguringMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void onMobRemoved(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
+	public void onMobRemoved(ServerLevel level, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
 		if (reason == Entity.RemovalReason.KILLED && entity.getType() != SPAWNED_ENTITY_TYPE) {
-			Level level = entity.level();
 			int j = level.getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
 			int k = numberOfApparitionsToSpawn(j, NearbyApparitions.closeTo(entity));
 
 			for (int l = 0; l < k; l++) {
-				this.spawnApparitionOffspring(entity.level(), entity.getX(), entity.getY() + 0.5D, entity.getZ());
+				this.spawnApparitionOffspring(level, entity.getX(), entity.getY() + 0.5D, entity.getZ());
 			}
 		}
 	}
 
-	private void spawnApparitionOffspring(Level world, double x, double y, double z) {
-		Apparition apparition = SPAWNED_ENTITY_TYPE.create(world);
+	private void spawnApparitionOffspring(ServerLevel level, double x, double y, double z) {
+		Apparition apparition = SPAWNED_ENTITY_TYPE.create(level, EntitySpawnReason.TRIAL_SPAWNER);
 		if (apparition != null) {
-			apparition.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0F);
-			ApparitionAi.rememberHome(apparition, world, BlockPos.containing(x, y, z));
-			world.addFreshEntity(apparition);
+			apparition.snapTo(x, y, z, level.getRandom().nextFloat() * 360F, 0F);
+			ApparitionAi.rememberHome(apparition, level, BlockPos.containing(x, y, z));
+			level.addFreshEntity(apparition);
 		}
 	}
 

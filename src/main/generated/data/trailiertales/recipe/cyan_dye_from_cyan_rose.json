@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "cyan_dye",
   "ingredients": [
-    {
-      "item": "trailiertales:cyan_rose"
-    }
+    "trailiertales:cyan_rose"
   ],
   "result": {
     "count": 1,

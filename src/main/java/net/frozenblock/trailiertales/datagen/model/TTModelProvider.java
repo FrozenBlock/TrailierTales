@@ -23,64 +23,62 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
+import net.minecraft.Util;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.ConditionBuilder;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamilies;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.blockstates.Condition;
-import net.minecraft.data.models.blockstates.MultiPartGenerator;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.PropertyDispatch;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
 
+@Environment(EnvType.CLIENT)
 public final class TTModelProvider extends FabricModelProvider {
-	public static final List<Pair<BooleanProperty, Function<ResourceLocation, Variant>>> MULTIFACE_GENERATOR_NO_UV_LOCK = List.of(
-		Pair.of(BlockStateProperties.NORTH, model -> Variant.variant().with(VariantProperties.MODEL, model)),
-		Pair.of(
-			BlockStateProperties.EAST,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-		),
-		Pair.of(
-			BlockStateProperties.SOUTH,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-		),
-		Pair.of(
-			BlockStateProperties.WEST,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-		),
-		Pair.of(
-			BlockStateProperties.UP,
-			model -> Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
-		),
-		Pair.of(
-			BlockStateProperties.DOWN,
-			resourceLocation -> Variant.variant()
-				.with(VariantProperties.MODEL, resourceLocation)
-				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-		)
+	public static final Map<BooleanProperty, VariantMutator> MULTIFACE_GENERATOR_NO_UV_LOCK = Map.of(
+		BlockStateProperties.NORTH, BlockModelGenerators.NOP,
+		BlockStateProperties.EAST, BlockModelGenerators.Y_ROT_90,
+		BlockStateProperties.SOUTH, BlockModelGenerators.Y_ROT_180,
+		BlockStateProperties.WEST, BlockModelGenerators.Y_ROT_270,
+		BlockStateProperties.UP, BlockModelGenerators.X_ROT_270,
+		BlockStateProperties.DOWN, BlockModelGenerators.X_ROT_90
 	);
+	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -88,10 +86,10 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
-		generator.createPlant(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlantWithDefaultItem(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createManedropCrop(generator);
-		generator.createDoublePlant(TTBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createDoublePlantWithDefaultItem(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
@@ -130,6 +128,10 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(TTBlocks.CRACKED_BRICKS);
 		generator.family(TTBlocks.MOSSY_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_BRICKS);
 
+		generator.createTrivialCube(TTBlocks.POLISHED_RESIN_BLOCK);
+		generator.createTrivialCube(TTBlocks.CRACKED_RESIN_BRICKS);
+		generator.family(TTBlocks.PALE_MOSSY_RESIN_BRICKS).generateFor(TTBlocks.FAMILY_PALE_MOSSY_RESIN_BRICKS);
+
 		generator.family(TTBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(TTBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
 		generator.family(TTBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
 		generator.family(TTBlocks.MOSSY_DEEPSLATE_TILES).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
@@ -158,10 +160,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(TTBlocks.CHISELED_PURPUR_BLOCK);
 		this.wall(generator, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
 
-		generator.blockEntityModels(TTConstants.id("block/coffin"), Blocks.DEEPSLATE_BRICKS)
-			.createWithoutBlockItem(
-				TTBlocks.COFFIN
-			);
+		this.createCoffin(generator, TTBlocks.COFFIN, Blocks.DEEPSLATE, CoffinSpawnerState.INACTIVE.getHeadTexture(), CoffinSpawnerState.INACTIVE.getFootTexture());
 	}
 
 	public void wallSmooth(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
@@ -169,9 +168,13 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
 		ResourceLocation resourceLocation2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
 		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
-		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
+
+		MultiVariant variant = BlockModelGenerators.plainVariant(resourceLocation);
+		MultiVariant variant2 = BlockModelGenerators.plainVariant(resourceLocation2);
+		MultiVariant variant3 = BlockModelGenerators.plainVariant(resourceLocation3);
+		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, variant, variant2, variant3));
 		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
-		generator.delegateItemModel(wallBlock, resourceLocation4);
+		generator.registerSimpleItemModel(wallBlock, resourceLocation4);
 	}
 
 	public void wall(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
@@ -179,9 +182,13 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
 		ResourceLocation resourceLocation2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
 		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
-		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
+
+		MultiVariant variant = BlockModelGenerators.plainVariant(resourceLocation);
+		MultiVariant variant2 = BlockModelGenerators.plainVariant(resourceLocation2);
+		MultiVariant variant3 = BlockModelGenerators.plainVariant(resourceLocation3);
+		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, variant, variant2, variant3));
 		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
-		generator.delegateItemModel(wallBlock, resourceLocation4);
+		generator.registerSimpleItemModel(wallBlock, resourceLocation4);
 	}
 
 	public void stairsCut(@NotNull BlockModelGenerators generator, Block stairsBlock, Block cutBlock, Block smoothBlock) {
@@ -193,8 +200,19 @@ public final class TTModelProvider extends FabricModelProvider {
 		ResourceLocation resourceLocation = ModelTemplates.STAIRS_INNER.create(stairsBlock, textureMapping, generator.modelOutput);
 		ResourceLocation resourceLocation2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, textureMapping, generator.modelOutput);
 		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, textureMapping, generator.modelOutput);
-		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, resourceLocation, resourceLocation2, resourceLocation3));
-		generator.delegateItemModel(stairsBlock, resourceLocation2);
+		MultiVariant variant = BlockModelGenerators.plainVariant(resourceLocation);
+		MultiVariant variant2 = BlockModelGenerators.plainVariant(resourceLocation2);
+		MultiVariant variant3 = BlockModelGenerators.plainVariant(resourceLocation3);
+		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, variant, variant2, variant3));
+		generator.registerSimpleItemModel(stairsBlock, resourceLocation2);
+	}
+
+	public void createCoffin(@NotNull BlockModelGenerators generator, Block coffin, Block particleTexture, ResourceLocation headTexture, ResourceLocation footTexture) {
+		generator.createParticleOnlyBlock(coffin, particleTexture);
+		Item item = coffin.asItem();
+		ResourceLocation coffinModel = COFFIN_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
+		ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(coffinModel, new CoffinSpecialRenderer.Unbaked(headTexture, footTexture));
+		generator.itemModelOutput.accept(item, unbaked);
 	}
 
 	@Override
@@ -246,32 +264,31 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MANEDROP_GERM, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_OSSUAIRE, ModelTemplates.FLAT_ITEM);
+
+		generator.generateFlatItem(TTItems.APPARITION_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 	}
 
 	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.MANEDROP_CROP;
-		generator.createSimpleFlatItemModel(block.asItem());
-		PropertyDispatch propertyDispatch = PropertyDispatch.properties(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
+		PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
 				case UPPER -> {
 					if (age < ManedropCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
-						yield Variant.variant().with(
-							VariantProperties.MODEL,
+						yield BlockModelGenerators.plainVariant(
 							TTConstants.id("block/manedrop_crop_top_empty")
 						);
 					} else if (age == ManedropCropBlock.MAX_AGE) {
-						yield Variant.variant().with(
-							VariantProperties.MODEL,
+						yield BlockModelGenerators.plainVariant(
 							TTConstants.id("block/manedrop_top")
 						);
 					} else {
-						yield Variant.variant().with(
-							VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+						yield BlockModelGenerators.plainVariant(
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
 								TTConstants.id("block/manedrop_crop_top_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_top_stage_" + age)),
 								generator.modelOutput
@@ -281,13 +298,12 @@ public final class TTModelProvider extends FabricModelProvider {
 				}
 				case LOWER -> {
 					if (age == ManedropCropBlock.MAX_AGE) {
-						yield Variant.variant().with(
-							VariantProperties.MODEL,
+						yield BlockModelGenerators.plainVariant(
 							TTConstants.id("block/manedrop_bottom")
 						);
 					} else {
-						yield Variant.variant().with(VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+						yield BlockModelGenerators.plainVariant(
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
 								generator.modelOutput
@@ -297,31 +313,32 @@ public final class TTModelProvider extends FabricModelProvider {
 				}
 			};
 		});
-		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(propertyDispatch));
 	}
 
 	private static void createDawntrail(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.DAWNTRAIL;
-		generator.createSimpleFlatItemModel(block);
+		generator.registerSimpleFlatItemModel(block);
 		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
 
 		ResourceLocation firstModel = TTConstants.id("block/dawntrail_stage_0");
 		ResourceLocation secondModel = TTConstants.id("block/dawntrail_stage_1");
 		ResourceLocation thirdModel = TTConstants.id("block/dawntrail_stage_2");
-		Condition.TerminalCondition terminalCondition = Util.make(
-			Condition.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
+		ConditionBuilder terminalCondition = Util.make(
+			BlockModelGenerators.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.keySet().forEach(booleanPropertyx -> {
 				terminalConditionx.term(booleanPropertyx, false);
 			})
 		);
 
-		for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : MULTIFACE_GENERATOR_NO_UV_LOCK) {
-			BooleanProperty booleanProperty = pair.getFirst();
-			Function<ResourceLocation, Variant> function = pair.getSecond();
+		MultiVariant multiVariant = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block));
+		for (Map.Entry<BooleanProperty, VariantMutator> pair : MULTIFACE_GENERATOR_NO_UV_LOCK.entrySet()) {
+			BooleanProperty booleanProperty = pair.getKey();
+			VariantMutator function = pair.getValue();
 			if (block.defaultBlockState().hasProperty(booleanProperty)) {
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 0), function.apply(firstModel));
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 1), function.apply(secondModel));
-				multiPartGenerator.with(Condition.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 2), function.apply(thirdModel));
-				multiPartGenerator.with(terminalCondition, function.apply(firstModel));
+				multiPartGenerator.with(BlockModelGenerators.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 0), BlockModelGenerators.plainVariant(firstModel).with(function));
+				multiPartGenerator.with(BlockModelGenerators.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 1), BlockModelGenerators.plainVariant(secondModel).with(function));
+				multiPartGenerator.with(BlockModelGenerators.condition().term(booleanProperty, true).term(DawntrailBlock.AGE, 2), BlockModelGenerators.plainVariant(thirdModel).with(function));
+				multiPartGenerator.with(terminalCondition, multiVariant.with(function));
 			}
 		}
 
@@ -332,23 +349,29 @@ public final class TTModelProvider extends FabricModelProvider {
 		Block crop = TTBlocks.DAWNTRAIL_CROP;
 		IntegerProperty ageProperty = DawntrailCropBlock.AGE;
 		Int2ObjectMap<ResourceLocation> int2ObjectMap = new Int2ObjectOpenHashMap<>();
-		PropertyDispatch propertyDispatch = PropertyDispatch.property(ageProperty)
+		PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ageProperty)
 			.generate(
 				age -> {
 					ResourceLocation resourceLocation = int2ObjectMap.computeIfAbsent(
 						age, (Int2ObjectFunction<? extends ResourceLocation>)(key -> TTConstants.id("block/dawntrail_crop_stage_" + Math.min(age, 3)))
 					);
-					return Variant.variant().with(VariantProperties.MODEL, resourceLocation).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90);
+					return BlockModelGenerators.plainVariant(resourceLocation).with(BlockModelGenerators.X_ROT_90);
 				}
 				);
-		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(crop).with(propertyDispatch));
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(crop).with(propertyDispatch));
 	}
 
 	private static void createEctoplasmBlock(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.ECTOPLASM_BLOCK;
 		ResourceLocation model = TTConstants.id("block/ectoplasm_block");
+		MultiVariant variant = BlockModelGenerators.plainVariant(model);
 
-		generator.blockStateOutput.accept( BlockModelGenerators.createSimpleBlock(block, model));
-		generator.delegateItemModel(block, model);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, variant));
+		generator.registerSimpleItemModel(block, model);
+	}
+
+	@Contract("_, _ -> new")
+	private static @NotNull ModelTemplate createItem(String string, TextureSlot... textureSlots) {
+		return new ModelTemplate(Optional.of(TTConstants.id("item/" + string)), Optional.empty(), textureSlots);
 	}
 }

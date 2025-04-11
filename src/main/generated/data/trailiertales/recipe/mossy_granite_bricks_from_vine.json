@@ -3,12 +3,8 @@
   "category": "building",
   "group": "mossy_granite_bricks",
   "ingredients": [
-    {
-      "item": "trailiertales:granite_bricks"
-    },
-    {
-      "item": "minecraft:vine"
-    }
+    "trailiertales:granite_bricks",
+    "minecraft:vine"
   ],
   "result": {
     "count": 1,

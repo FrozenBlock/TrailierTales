@@ -22,8 +22,8 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.armortrim.TrimPattern;
-import net.minecraft.world.item.armortrim.TrimPatterns;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
+import net.minecraft.world.item.equipment.trim.TrimPatterns;
 import org.jetbrains.annotations.NotNull;
 
 public final class TTTrimPatterns {
@@ -44,13 +44,14 @@ public final class TTTrimPatterns {
 	}
 
 	public static void bootstrap(BootstrapContext<TrimPattern> context) {
-		TrimPatterns.register(context, TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, UNDEAD);
-		TrimPatterns.register(context, TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, MATRIX);
-		TrimPatterns.register(context, TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, GEODE);
-		TrimPatterns.register(context, TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, OVERGROWTH);
-		TrimPatterns.register(context, TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, MARTYR);
-		TrimPatterns.register(context, TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, ZEPHYR);
-		TrimPatterns.register(context, TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE, COT);
-		TrimPatterns.register(context, TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, EMBRACE);
+		// TODO 1.21.5 convert these
+		TrimPatterns.register(context, /*TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE,*/ UNDEAD);
+		TrimPatterns.register(context, /*TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE,*/ MATRIX);
+		TrimPatterns.register(context, /*TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE,*/ GEODE);
+		TrimPatterns.register(context, /*TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE,*/ OVERGROWTH);
+		TrimPatterns.register(context, /*TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE,*/ MARTYR);
+		TrimPatterns.register(context, /*TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE,*/ ZEPHYR);
+		TrimPatterns.register(context, /*TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE,*/ COT);
+		TrimPatterns.register(context, /*TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE,*/ EMBRACE);
 	}
 }

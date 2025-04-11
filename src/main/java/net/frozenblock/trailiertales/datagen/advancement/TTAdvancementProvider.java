@@ -81,7 +81,11 @@ public class TTAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("walk_in_ectoplasm_block", PlayerTrigger.TriggerInstance.located(
 				EntityPredicate.Builder.entity()
-					.steppingOn(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(TTBlocks.ECTOPLASM_BLOCK)))
+					.steppingOn(
+						LocationPredicate.Builder.location().setBlock(
+							BlockPredicate.Builder.block().of(registries.lookupOrThrow(Registries.BLOCK), TTBlocks.ECTOPLASM_BLOCK)
+						)
+					)
 				)
 			)
 			.save(writer, TTConstants.string("adventure/walk_in_ectoplasm_block"));

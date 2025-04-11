@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "trailiertales:diorite_bricks"
-    }
+    "#": "trailiertales:diorite_bricks"
   },
   "pattern": [
     "#  ",

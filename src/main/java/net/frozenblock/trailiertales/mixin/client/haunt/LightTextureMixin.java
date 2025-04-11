@@ -18,6 +18,7 @@
 
 package net.frozenblock.trailiertales.mixin.client.haunt;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -38,9 +39,9 @@ public class LightTextureMixin {
 	@Final
 	private Minecraft minecraft;
 
-	@ModifyReturnValue(
-		method = "getDarknessGamma",
-		at = @At("RETURN")
+	@ModifyExpressionValue(
+		method = "updateLightTexture",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getEffectBlendFactor(Lnet/minecraft/core/Holder;F)F")
 	)
 	private float trailierTales$modifyDarknessGamma(float darknessGamma, float tickDelta) {
 		MobEffectInstance hauntInstance = this.minecraft.player.getEffect(TTMobEffects.HAUNT);

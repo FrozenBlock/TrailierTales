@@ -45,6 +45,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
@@ -52,10 +54,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -153,13 +155,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level);
 		flyingPathNavigation.setCanFloat(false);
 		flyingPathNavigation.setCanOpenDoors(false);
-		flyingPathNavigation.setCanPassDoors(true);
+		flyingPathNavigation.getNodeEvaluator().setCanPassDoors(true);
 		return flyingPathNavigation;
 	}
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
 		this.getBrain().setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 100L);
 		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
 	}
@@ -171,8 +173,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean isInvulnerableTo(DamageSource damageSource) {
-		return super.isInvulnerableTo(damageSource) || this.isHiding();
+	public boolean isInvulnerableTo(ServerLevel level, DamageSource damageSource) {
+		return super.isInvulnerableTo(level, damageSource) || this.isHiding();
 	}
 
 	@Override
@@ -204,22 +206,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected boolean isAffectedByFluids() {
-		return false;
-	}
-
-	@Override
-	public boolean isInWaterOrBubble() {
+	public boolean isAffectedByFluids() {
 		return false;
 	}
 
 	@Override
 	public boolean isInWaterOrRain() {
-		return false;
-	}
-
-	@Override
-	public boolean isInWaterRainOrBubble() {
 		return false;
 	}
 
@@ -303,26 +295,26 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.getBrain().checkMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryStatus.VALUE_PRESENT);
 	}
 
-	public boolean wantsToPickUp(@NotNull ItemEntity itemEntity) {
-		return this.wantsToPickUp(itemEntity.getItem()) && this.getTarget() != null;
+	public boolean wantsToPickUp(ServerLevel level, @NotNull ItemEntity item) {
+		return this.wantsToPickUp(level, item.getItem()) && this.getTarget() != null;
 	}
 
 	@Override
-	public boolean wantsToPickUp(ItemStack stack) {
+	public boolean wantsToPickUp(ServerLevel level, ItemStack stack) {
 		return this.inventory.getItems().getFirst().isEmpty();
 	}
 
 	@Override
-	protected void pickUpItem(@NotNull ItemEntity item) {
+	protected void pickUpItem(ServerLevel level, ItemEntity item) {
 		ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
 		this.level().addFreshEntity(newItemEntity);
-		InventoryCarrier.pickUpItem(this, this, newItemEntity);
+		InventoryCarrier.pickUpItem(level, this, this, newItemEntity);
 	}
 
 	@Override
-	protected void dropEquipment() {
-		super.dropEquipment();
-		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
+	protected void dropEquipment(ServerLevel level) {
+		super.dropEquipment(level);
+		this.inventory.removeAllItems().forEach(it -> this.spawnAtLocation(level, it));
 	}
 
 	public float getInnerTransparency() {
@@ -425,12 +417,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public void move(MoverType movementType, Vec3 movement) {
-		this.level().getProfiler().push("move");
+		ProfilerFiller profilerFiller = Profiler.get();
+		profilerFiller.push("move");
 		Vec3 vec3 = this.collide(movement);
 		this.setPos(this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
 
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("rest");
+		profilerFiller.pop();
+		profilerFiller.push("rest");
 		boolean horizontalCollisionX = !Mth.equal(movement.x, vec3.x);
 		boolean horizontalCollisionZ = !Mth.equal(movement.z, vec3.z);
 		this.horizontalCollision = horizontalCollisionX || horizontalCollisionZ;
@@ -443,13 +436,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		}
 
 		if (this.isRemoved()) {
-			this.level().getProfiler().pop();
+			profilerFiller.pop();
 		} else {
 			if (this.horizontalCollision) {
 				Vec3 vec32 = this.getDeltaMovement();
 				this.setDeltaMovement(horizontalCollisionX ? 0D : vec32.x, vec32.y, horizontalCollisionZ ? 0D : vec32.z);
 			}
-			this.level().getProfiler().pop();
+			profilerFiller.pop();
 		}
 	}
 
@@ -484,7 +477,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
 		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
 			if (source.getDirectEntity() instanceof Projectile projectile) {
 				if (projectile instanceof AbstractArrow abstractArrow) {
@@ -498,14 +491,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				}
 			}
 		}
-		boolean bl = super.hurt(source, amount);
-		if (this.level().isClientSide) {
-			return false;
-		}
-		if (bl) {
-			if (source.getEntity() instanceof LivingEntity livingEntity) {
-				ApparitionAi.wasHurtBy(this, livingEntity);
-			}
+		boolean bl = super.hurtServer(level, source, amount);
+		if (bl && source.getEntity() instanceof LivingEntity livingEntity) {
+			ApparitionAi.wasHurtBy(level, this, livingEntity);
 		}
 		return bl;
 	}
@@ -605,19 +593,19 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag nbt) {
+	public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
 		super.readAdditionalSaveData(nbt);
 		this.readInventoryFromTag(nbt, this.registryAccess());
-		this.setTransparency(nbt.getFloat("Transparency"));
-		this.setOuterTransparency(nbt.getFloat("OuterTransparency"));
-		this.setAidAnimProgress(nbt.getFloat("AidAnimProgress"));
-		this.setPoltergeistAnimProgress(nbt.getFloat("PoltergeistAnimProgress"));
-		this.setHiding(nbt.getBoolean("Hiding"));
+		this.setTransparency(nbt.getFloatOr("Transparency", 0));
+		this.setOuterTransparency(nbt.getFloatOr("OuterTransparency", 0));
+		this.setAidAnimProgress(nbt.getFloatOr("AidAnimProgress", 0));
+		this.setPoltergeistAnimProgress(nbt.getFloatOr("PoltergeistAnimProgress", 0));
+		this.setHiding(nbt.getBooleanOr("Hiding", false));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag nbt) {
+	public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
 		super.addAdditionalSaveData(nbt);
 		this.writeInventoryToTag(nbt, this.registryAccess());
 		nbt.putFloat("Transparency", this.getInnerTransparency());
@@ -651,14 +639,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected void customServerAiStep() {
-		this.level().getProfiler().push("apparitionBrain");
-		this.getBrain().tick((ServerLevel) this.level(), this);
-		this.level().getProfiler().pop();
-		this.level().getProfiler().push("apparitionActivityUpdate");
+	protected void customServerAiStep(ServerLevel level) {
+		ProfilerFiller profiler = Profiler.get();
+		profiler.push("apparitionBrain");
+		this.getBrain().tick(level, this);
+		profiler.pop();
+		profiler.push("apparitionActivityUpdate");
 		ApparitionAi.updateActivity(this);
-		this.level().getProfiler().pop();
-		super.customServerAiStep();
+		profiler.pop();
+		super.customServerAiStep(level);
 	}
 
 	@Override
@@ -667,8 +656,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		DebugPackets.sendEntityBrain(this);
 	}
 
-	@Contract("null->false")
-	public boolean canTargetEntity(@Nullable Entity entity) {
+	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
@@ -714,9 +702,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
 				projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
 			} else {
-				ThrownItemProjectile thrownItem = new ThrownItemProjectile(this.level(), this);
-				thrownItem.setItem(singleItem);
-				projectile = thrownItem;
+				projectile = new ThrownItemProjectile(this.level(), this, singleItem);
 			}
 			projectile.setOwner(this);
 

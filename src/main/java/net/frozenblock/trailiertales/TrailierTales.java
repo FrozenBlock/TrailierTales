@@ -29,6 +29,7 @@ import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.networking.TTNetworking;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTCreativeInventorySorting;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTItems;
@@ -58,12 +59,13 @@ public class TrailierTales extends FrozenModInitializer {
 
 	@Override
 	public void onInitialize(String modId, ModContainer container) {
+		TTDataFixer.applyDataFixes(container);
+
 		if (FrozenBools.IS_DATAGEN) {
 			TTFeatureFlags.init();
 			FeatureFlagApi.rebuild();
 		}
 
-		TTDataFixer.applyDataFixes(container);
 		TTStructureTypes.init();
 		TTStructurePieceTypes.init();
 		TTMapDecorationTypes.init();
@@ -90,6 +92,7 @@ public class TrailierTales extends FrozenModInitializer {
 		TTBlocks.registerBlockProperties();
 
 		TTModIntegrations.init();
+		TTCreativeInventorySorting.init();
 
 		TTResources.init(container);
 

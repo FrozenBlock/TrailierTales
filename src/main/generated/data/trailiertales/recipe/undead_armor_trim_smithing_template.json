@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "trailiertales:mossy_deepslate_bricks"
-    },
-    "S": {
-      "item": "trailiertales:undead_armor_trim_smithing_template"
-    }
+    "#": "minecraft:diamond",
+    "C": "trailiertales:mossy_deepslate_bricks",
+    "S": "trailiertales:undead_armor_trim_smithing_template"
   },
   "pattern": [
     "#S#",

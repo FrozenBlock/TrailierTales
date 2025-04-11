@@ -3,6 +3,5 @@
   "decal": false,
   "description": {
     "translate": "trim_pattern.trailiertales.overgrowth"
-  },
-  "template_item": "trailiertales:overgrowth_armor_trim_smithing_template"
+  }
 }

@@ -3,9 +3,7 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "trailiertales:granite_bricks"
-  },
+  "ingredient": "trailiertales:granite_bricks",
   "result": {
     "id": "trailiertales:cracked_granite_bricks"
   }

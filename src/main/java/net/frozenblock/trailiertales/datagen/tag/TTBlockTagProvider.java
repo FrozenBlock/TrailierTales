@@ -107,6 +107,12 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_BRICK_WALL)
 
+			.add(TTBlocks.CRACKED_RESIN_BRICKS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICKS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL)
+
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
@@ -166,8 +172,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE);
 
-		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP);
+		this.getOrCreateTagBuilder(BlockTags.BEE_ATTRACTIVE)
+			.add(TTBlocks.MANEDROP)
+			.add(TTBlocks.CYAN_ROSE);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(TTBlocks.DAWNTRAIL);
@@ -203,6 +210,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_CALCITE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_TUFF_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_BRICK_STAIRS)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS)
@@ -225,6 +233,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_CALCITE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_TUFF_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_BRICK_SLAB)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
@@ -248,6 +257,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_CALCITE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_TUFF_BRICK_WALL)
 			.add(TTBlocks.MOSSY_BRICK_WALL)
+			.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL)
@@ -468,6 +478,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_BASALT)
 			.add(Blocks.POLISHED_BASALT);
+
+		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_RESIN)
+			.add(TTBlocks.POLISHED_RESIN_BLOCK);
 
 		// WILDER WILD
 

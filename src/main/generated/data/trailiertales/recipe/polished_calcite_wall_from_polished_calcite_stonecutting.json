@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "trailiertales:polished_calcite"
-  },
+  "ingredient": "trailiertales:polished_calcite",
   "result": {
     "count": 1,
     "id": "trailiertales:polished_calcite_wall"

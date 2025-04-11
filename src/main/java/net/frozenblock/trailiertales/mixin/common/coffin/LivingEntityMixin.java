@@ -52,7 +52,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Shadow
-	protected int lastHurtByPlayerTime;
+	protected int lastHurtByPlayerMemoryTime;
 
 	@Unique
 	@Nullable
@@ -72,7 +72,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	}
 
 	@WrapOperation(
-		method = "hurt",
+		method = "hurtServer",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/advancements/critereon/PlayerHurtEntityTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
@@ -88,7 +88,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	}
 
 	@WrapOperation(
-		method = "hurt",
+		method = "hurtServer",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/advancements/critereon/EntityHurtPlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
@@ -120,7 +120,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Inject(method = "remove", at = @At("HEAD"))
 	public void trailierTales$remove(Entity.RemovalReason reason, CallbackInfo info) {
-		if (reason == Entity.RemovalReason.KILLED && this.lastHurtByPlayerTime > 0) {
+		if (reason == Entity.RemovalReason.KILLED && this.lastHurtByPlayerMemoryTime > 0) {
 			LivingEntity livingEntity = LivingEntity.class.cast(this);
 			if (livingEntity.level() instanceof ServerLevel serverLevel && this.trailierTales$entityCoffinData != null) {
 				Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);
@@ -145,9 +145,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		method = "baseTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getProfiler()Lnet/minecraft/util/profiling/ProfilerFiller;",
-			ordinal = 0,
-			shift = At.Shift.BEFORE
+			target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V"
 		),
 		slice = @Slice(
 			from = @At(

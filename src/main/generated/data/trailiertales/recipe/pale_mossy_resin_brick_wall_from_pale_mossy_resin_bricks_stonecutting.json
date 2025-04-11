@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "trailiertales:pale_mossy_resin_bricks",
+  "result": {
+    "count": 1,
+    "id": "trailiertales:pale_mossy_resin_brick_wall"
+  }
+}

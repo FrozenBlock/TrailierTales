@@ -45,8 +45,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.random.WeightedEntry.Wrapper;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -63,7 +62,7 @@ import org.jetbrains.annotations.NotNull;
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-				SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", SimpleWeightedRandomList.empty()).forGetter(data -> data.spawnPotentials),
+				SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", WeightedList.of()).forGetter(data -> data.spawnPotentials),
 				Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
 				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
@@ -98,11 +97,11 @@ public class CoffinSpawnerData {
 	protected Optional<SpawnData> nextSpawnData;
 	protected boolean withinCatacombs;
 	protected int maxActiveLightLevel;
-	private SimpleWeightedRandomList<SpawnData> spawnPotentials;
+	private WeightedList<SpawnData> spawnPotentials;
 
 	public CoffinSpawnerData() {
 		this(
-			SimpleWeightedRandomList.empty(),
+			WeightedList.of(),
 			new IntArrayList(),
 			Collections.emptySet(),
 			Collections.emptySet(),
@@ -122,7 +121,7 @@ public class CoffinSpawnerData {
 	}
 
 	public CoffinSpawnerData(
-		SimpleWeightedRandomList<SpawnData> spawnPotentials,
+		WeightedList<SpawnData> spawnPotentials,
 		List<Integer> soulsToSpawn,
 		Set<UUID> potentialPlayers,
 		Set<UUID> detectedPlayers,
@@ -180,7 +179,7 @@ public class CoffinSpawnerData {
 	}
 
 	public boolean hasMobToSpawn(RandomSource random) {
-		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(random).getEntityToSpawn().contains("id", 8);
+		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(random).getEntityToSpawn().contains("id");
 		return hasNextSpawnData || !this.spawnPotentials().isEmpty();
 	}
 
@@ -364,13 +363,13 @@ public class CoffinSpawnerData {
 		this.getOrCreateNextSpawnData(random).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
 	}
 
-	public SimpleWeightedRandomList<SpawnData> spawnPotentials() {
+	public WeightedList<SpawnData> spawnPotentials() {
 		return this.spawnPotentials;
 	}
 
 	@NotNull SpawnData getOrCreateNextSpawnData(RandomSource random) {
 		if (this.nextSpawnData.isEmpty()) {
-			this.setNextSpawnData(this.spawnPotentials.getRandom(random).map(Wrapper::data).orElseGet(SpawnData::new));
+			this.setNextSpawnData(this.spawnPotentials.getRandom(random).orElseGet(SpawnData::new));
 		}
 		return this.nextSpawnData.get();
 	}

@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "trailiertales:item/coffin",
+    "model": {
+      "type": "trailiertales:coffin",
+      "foot_texture": "trailiertales:textures/entity/coffin/coffin_foot_inactive.png",
+      "head_texture": "trailiertales:textures/entity/coffin/coffin_head_inactive.png"
+    }
+  }
+}

@@ -38,8 +38,8 @@ public interface RecipeBuilderMixin {
 	default String trailierTales$save(String original) {
 		if (TTRecipeProvider.GENERATING_TT_RECIPES) {
 			ResourceLocation originalLocation = ResourceLocation.tryParse(original);
-			ResourceLocation wilderLocation = TTConstants.id(originalLocation.getPath());
-			return wilderLocation.toString();
+			ResourceLocation trailierLocation = TTConstants.id(originalLocation.getPath());
+			return trailierLocation.toString();
 		}
 		return original;
 	}

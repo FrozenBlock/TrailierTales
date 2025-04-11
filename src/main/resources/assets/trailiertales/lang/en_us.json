@@ -57,14 +57,14 @@
   "item.trailiertales.vessel_pottery_sherd": "Vessel Pottery Sherd",
   "item.trailiertales.wither_pottery_sherd": "Wither Pottery Sherd",
 
-  "item.trailiertales.undead_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.matrix_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.geode_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.overgrowth_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.martyr_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.zephyr_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.cot_armor_trim_smithing_template": "Smithing Template",
-  "item.trailiertales.embrace_armor_trim_smithing_template": "Smithing Template",
+  "item.trailiertales.undead_armor_trim_smithing_template": "Undead Armor Trim",
+  "item.trailiertales.matrix_armor_trim_smithing_template": "Matrix Armor Trim",
+  "item.trailiertales.geode_armor_trim_smithing_template": "Geode Armor Trim",
+  "item.trailiertales.overgrowth_armor_trim_smithing_template": "Overgrowth Armor Trim",
+  "item.trailiertales.martyr_armor_trim_smithing_template": "Martyr Armor Trim",
+  "item.trailiertales.zephyr_armor_trim_smithing_template": "Zephyr Armor Trim",
+  "item.trailiertales.cot_armor_trim_smithing_template": "Cot Armor Trim",
+  "item.trailiertales.embrace_armor_trim_smithing_template": "Embrace Armor Trim",
 
   "trim_pattern.trailiertales.undead": "Undead Armor Trim",
   "trim_pattern.trailiertales.matrix": "Matrix Armor Trim",
@@ -176,6 +176,13 @@
   "block.trailiertales.mossy_brick_stairs": "Mossy Brick Stairs",
   "block.trailiertales.mossy_brick_slab": "Mossy Brick Slab",
   "block.trailiertales.mossy_brick_wall": "Mossy Brick Wall",
+
+  "block.trailiertales.polished_resin_block": "Polished Resin Block",
+  "block.trailiertales.cracked_resin_bricks": "Cracked Resin Bricks",
+  "block.trailiertales.pale_mossy_resin_bricks": "Pale Mossy Resin Bricks",
+  "block.trailiertales.pale_mossy_resin_brick_stairs": "Pale Mossy Resin Brick Stairs",
+  "block.trailiertales.pale_mossy_resin_brick_slab": "Pale Mossy Resin Brick Slab",
+  "block.trailiertales.pale_mossy_resin_brick_wall": "Pale Mossy Resin Brick Wall",
 
   "block.trailiertales.mossy_cobbled_deepslate": "Mossy Cobbled Deepslate",
   "block.trailiertales.mossy_cobbled_deepslate_stairs": "Mossy Cobbled Deepslate Stairs",
@@ -331,11 +338,6 @@
   "tooltip.trailiertales.sniffer_digs_dawntrail_seeds": "Whether Sniffers can dig up Dawntrail Seeds.",
   "option.trailiertales.sniffer_spawns_naturally": "Spawning",
   "tooltip.trailiertales.sniffer_spawns_naturally": "Whether Sniffers can spawn in Jungle biomes.",
-
-  "option.trailiertales.camel": "Camel",
-  "tooltip.trailiertales.camel": "Contains options related to the Camel.",
-  "option.trailiertales.camel_spawns_naturally": "Spawning",
-  "tooltip.trailiertales.camel_spawns_naturally": "Whether Camels can spawn in Desert biomes.",
 
   "option.trailiertales.villager": "Villager",
   "tooltip.trailiertales.villager": "Contains options related to the Villager.",

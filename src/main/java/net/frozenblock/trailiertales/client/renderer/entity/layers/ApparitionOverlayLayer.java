@@ -23,7 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
-import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -33,22 +33,22 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T, ApparitionModel<T>> {
+public class ApparitionOverlayLayer extends RenderLayer<ApparitionRenderState, ApparitionModel> {
 	private final RenderType renderType;
-	private final ApparitionModel<T> model;
+	private final ApparitionModel model;
 
 	public ApparitionOverlayLayer(
 		EntityRendererProvider.@NotNull Context context,
-		RenderLayerParent<T, ApparitionModel<T>> renderLayerParent,
-		ApparitionModel.AlphaFunction<T> innerAlphaFunction,
-		ApparitionModel.AlphaFunction<T> outlineAlphaFunction,
-		ApparitionModel.AlphaFunction<T> outerAlphaFunction,
-		ApparitionModel.DrawSelector<T, ApparitionModel<T>> drawSelector,
+		RenderLayerParent<ApparitionRenderState, ApparitionModel> renderLayerParent,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> innerAlphaFunction,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> outlineAlphaFunction,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> outerAlphaFunction,
+		ApparitionModel.DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector,
 		ResourceLocation texture,
 		boolean cull
 	) {
 		super(renderLayerParent);
-		this.model = new ApparitionModel<>(
+		this.model = new ApparitionModel(
 			cull ? FrozenLibRenderTypes::apparitionOuterCull : FrozenLibRenderTypes::apparitionOuter,
 			context.bakeLayer(TTModelLayers.APPARITION_OVERLAY),
 			innerAlphaFunction,
@@ -64,21 +64,16 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		PoseStack matrices,
 		@NotNull MultiBufferSource vertexConsumers,
 		int light,
-		T entity,
-		float limbAngle,
-		float limbDistance,
-		float tickDelta,
-		float animationProgress,
-		float headYaw,
-		float headPitch
+		ApparitionRenderState renderState,
+		float partialTick,
+		float color
 	) {
-		this.model.prepareMobModel(entity, limbAngle, limbDistance, tickDelta);
-		this.model.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		this.model.setupAnim(renderState);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.renderType);
-		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(entity, 0F));
+		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(renderState, 0F));
 	}
 
-	private int getOverlay(@NotNull T entity, float whiteOverlayProgress) {
-		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(entity.hurtTime > 0 || entity.deathTime > 0));
+	private int getOverlay(@NotNull ApparitionRenderState renderState, float whiteOverlayProgress) {
+		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(renderState.hurtTime > 0 || renderState.deathTime > 0));
 	}
 }

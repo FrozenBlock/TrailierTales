@@ -27,9 +27,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
 import net.frozenblock.lib.entity.impl.client.rendering.ModelPartInvertInterface;
-import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -38,20 +37,20 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> {
+public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	private final ModelPart root;
 	public final ModelPart core;
 	public final ModelPart inner;
 	public final ModelPart outline;
 	public final ModelPart outer;
-	private final AlphaFunction<T> innerAlphaFunction;
-	private final AlphaFunction<T> outlineAlphaFunction;
-	private final AlphaFunction<T> outerAlphaFunction;
-	private final DrawSelector<T, ApparitionModel<T>> drawSelector;
+	private final AlphaFunction<ApparitionRenderState> innerAlphaFunction;
+	private final AlphaFunction<ApparitionRenderState> outlineAlphaFunction;
+	private final AlphaFunction<ApparitionRenderState> outerAlphaFunction;
+	private final DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector;
 	private final List<ModelPart> modelParts;
 	private final List<ModelPart> coreParts;
 	private final List<ModelPart> outerParts;
@@ -65,9 +64,9 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 		this(
 			FrozenLibRenderTypes::apparitionOuterCull,
 			root,
-			Apparition::getInnerTransparency,
-			Apparition::getOutlineTransparency,
-			Apparition::getOuterTransparency,
+			renderState -> renderState.innerTransparency,
+			renderState -> renderState.outlineTransparency,
+			renderState -> renderState.outlineTransparency,
 			ApparitionModel::getParts
 		);
 	}
@@ -75,12 +74,12 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	public ApparitionModel(
 		Function<ResourceLocation, RenderType> function,
 		@NotNull ModelPart root,
-		AlphaFunction<T> innerAlpha,
-		AlphaFunction<T> outlineAlpha,
-		AlphaFunction<T> outerAlpha,
-		DrawSelector<T, ApparitionModel<T>> drawSelector
+		AlphaFunction<ApparitionRenderState> innerAlpha,
+		AlphaFunction<ApparitionRenderState> outlineAlpha,
+		AlphaFunction<ApparitionRenderState> outerAlpha,
+		DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector
 	) {
-		super(function);
+		super(root, function);
 		this.root = root;
 		this.core = root.getChild("core");
 		this.inner = this.core.getChild("inner");
@@ -128,14 +127,19 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	@NotNull
-	public ModelPart root() {
-		return this.root;
-	}
+	public void setupAnim(@NotNull ApparitionRenderState renderState) {
+		float limbAngle = renderState.walkAnimationPos;
+		float limbDistance = renderState.walkAnimationSpeed;
+		float headYaw = renderState.yRot;
+		float headPitch = renderState.xRot;
+		this.innerTransparency = this.innerAlphaFunction.apply(renderState);
+		this.outlineTransparency = this.outlineAlphaFunction.apply(renderState);
+		this.outerTransparency = this.outerAlphaFunction.apply(renderState);
+		this.flicker = renderState.flicker;
+		this.outer.yRot = renderState.itemYRot;
+		this.outer.zRot = renderState.itemZRot;
 
-	@Override
-	public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		animationProgress = animationProgress + (limbAngle * 3.5F);
+		float animationProgress = renderState.ageInTicks + (limbAngle * 3.5F);
 		this.core.yRot = headYaw * ((float) Math.PI / 180F);
 		this.core.xRot = headPitch * ((float) Math.PI / 180F);
 
@@ -153,28 +157,18 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void prepareMobModel(@NotNull T entity, float limbAngle, float limbDistance, float tickDelta) {
-		this.innerTransparency = this.innerAlphaFunction.apply(entity, tickDelta);
-		this.outlineTransparency = this.outlineAlphaFunction.apply(entity, tickDelta);
-		this.outerTransparency = this.outerAlphaFunction.apply(entity, tickDelta);
-		this.flicker = entity.getFlicker(tickDelta);
-		this.outer.yRot = entity.getItemYRot(tickDelta);
-		this.outer.zRot = entity.getItemZRot(tickDelta);
-	}
-
-	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
 		poseStack.pushPose();
 		this.onlyDrawSelectedParts();
-		int innerTransparency = FastColor.ARGB32.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
+		int innerTransparency = ARGB.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
 		if (innerTransparency != 0) {
 			this.inner.render(poseStack, buffer, 15728640, packedOverlay, innerTransparency);
 		}
-		int outlineTransparency = FastColor.ARGB32.colorFromFloat(this.outlineTransparency * this.flicker, 1F, 1F, 1F);
+		int outlineTransparency = ARGB.colorFromFloat(this.outlineTransparency * this.flicker, 1F, 1F, 1F);
 		if (outlineTransparency != 0) {
 			this.outline.render(poseStack, buffer, 15728640, packedOverlay, outlineTransparency);
 		}
-		int outerTransparency = FastColor.ARGB32.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
+		int outerTransparency = ARGB.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
 		if (outerTransparency != 0) {
 			this.outer.render(poseStack, buffer, 15728640, packedOverlay, outerTransparency);
 		}
@@ -194,12 +188,12 @@ public class ApparitionModel<T extends Apparition> extends HierarchicalModel<T> 
 
 
 	@Environment(EnvType.CLIENT)
-	public interface AlphaFunction<T extends Apparition> {
-		float apply(T apparition, float tickDelta);
+	public interface AlphaFunction<T extends ApparitionRenderState> {
+		float apply(T apparition);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public interface DrawSelector<T extends Apparition, M extends EntityModel<T>> {
+	public interface DrawSelector<T extends ApparitionRenderState, M extends EntityModel<T>> {
 		List<ModelPart> getPartsToDraw(M entityModel);
 	}
 }

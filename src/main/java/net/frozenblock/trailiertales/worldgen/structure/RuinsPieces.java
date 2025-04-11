@@ -259,23 +259,23 @@ public class RuinsPieces {
 		}
 
 		public static @NotNull RuinPiece create(StructureTemplateManager templateManager, @NotNull CompoundTag nbt) {
-			Rotation rotation = Rotation.valueOf(nbt.getString("Rot"));
+			Rotation rotation = Rotation.valueOf(nbt.getStringOr("Rot", ""));
 
 			RuinsStructure.Type type = RuinsStructure.Type.GENERIC;
 			if (nbt.contains("RuinsType")) {
-				type = RuinsStructure.Type.valueOf(nbt.getString("RuinsType"));
+				type = RuinsStructure.Type.valueOf(nbt.getStringOr("RuinsType", ""));
 			} else if (nbt.contains("BiomeType")) {
-				type = RuinsStructure.Type.valueOf(nbt.getString("BiomeType"));
+				type = RuinsStructure.Type.valueOf(nbt.getStringOr("BiomeType", ""));
 			}
 
 			Heightmap.Types heightmap = null;
-			if (nbt.contains("HeightmapType")) heightmap = Heightmap.Types.valueOf(nbt.getString("HeightmapType"));
+			if (nbt.contains("HeightmapType")) heightmap = Heightmap.Types.valueOf(nbt.getStringOr("HeightmapType", ""));
 
 			Integer providedHeight = null;
-			if (nbt.contains("ProvidedHeight")) providedHeight = nbt.getInt("ProvidedHeight");
+			if (nbt.contains("ProvidedHeight")) providedHeight = nbt.getIntOr("ProvidedHeight", 0);
 
 			boolean adjustedHeight = false;
-			if (nbt.contains("AdjustedHeight")) adjustedHeight = nbt.getBoolean("AdjustedHeight");
+			if (nbt.contains("AdjustedHeight")) adjustedHeight = nbt.getBooleanOr("AdjustedHeight", false);
 
 			return new RuinPiece(templateManager, nbt, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight), adjustedHeight);
 		}
@@ -337,7 +337,7 @@ public class RuinsPieces {
 				int yDifference = startHeight - this.templatePosition.getY();
 				this.boundingBox.move(0, yDifference, 0);
 			}
-			if (this.boundingBox.minY() <= world.getMinBuildHeight()) {
+			if (this.boundingBox.minY() <= world.getMinY()) {
 				return;
 			}
 			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
@@ -365,7 +365,7 @@ public class RuinsPieces {
 				BlockState blockState = world.getBlockState(mutableBlockPos);
 
 				for (FluidState fluidState = world.getFluidState(mutableBlockPos);
-					 (blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > world.getMinBuildHeight() + 1;
+					 (blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > world.getMinY() + 1;
 					 fluidState = world.getFluidState(mutableBlockPos)
 				) {
 					mutableBlockPos.set(m, --o, n);

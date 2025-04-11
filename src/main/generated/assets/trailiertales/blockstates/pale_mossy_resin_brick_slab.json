@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/pale_mossy_resin_brick_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/pale_mossy_resin_bricks"
+    },
+    "type=top": {
+      "model": "trailiertales:block/pale_mossy_resin_brick_slab_top"
+    }
+  }
+}

@@ -25,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
@@ -32,8 +33,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -89,12 +90,12 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public @NotNull BlockState updateShape(@NotNull BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+	@NotNull
+	protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState blockState2, RandomSource randomSource) {
 		if (isDouble(state.getValue(AGE))) {
-			return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
-		} else {
-			return state.canSurvive(world, pos) ? state : Blocks.AIR.defaultBlockState();
+			return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, blockState2, randomSource);
 		}
+		return state.canSurvive(level, pos) ? state : Blocks.AIR.defaultBlockState();
 	}
 
 	@Override
@@ -114,12 +115,12 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (entity instanceof Ravager && world.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-			world.destroyBlock(pos, true, entity);
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier) {
+		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+			level.destroyBlock(pos, true, entity);
 		}
 
-		super.entityInside(state, world, pos, entity);
+		super.entityInside(state, level, pos, entity, applier);
 	}
 
 	@Override

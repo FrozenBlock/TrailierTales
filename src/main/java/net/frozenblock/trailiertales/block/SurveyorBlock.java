@@ -42,7 +42,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,7 +52,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	public static final MapCodec<SurveyorBlock> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(propertiesCodec()).apply(instance, SurveyorBlock::new)
 	);
-	public static final DirectionProperty FACING = DirectionalBlock.FACING;
+	public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
 	@Override
@@ -91,8 +93,9 @@ public class SurveyorBlock extends BaseEntityBlock {
 	protected void updateNeighborsInFront(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		Direction direction = state.getValue(FACING);
 		BlockPos blockPos = pos.relative(direction.getOpposite());
-		level.neighborChanged(blockPos, this, pos);
-		level.updateNeighborsAtExceptFromFacing(blockPos, this, direction);
+		Orientation orientation = ExperimentalRedstoneUtils.initialOrientation(level, direction.getOpposite(), null);
+		level.neighborChanged(blockPos, this, orientation);
+		level.updateNeighborsAtExceptFromFacing(blockPos, this, direction, orientation);
 	}
 
 	@Override
@@ -127,13 +130,13 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void onRemove(@NotNull BlockState state, Level level, BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		if (!state.is(newState.getBlock())) {
-			if (!level.isClientSide && state.getValue(POWERED)) {
-				this.updateNeighborsInFront(level, pos, state.setValue(POWERED, false));
+	protected void affectNeighborsAfterRemoval(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos blockPos, boolean bl) {
+		if (!state.is(level.getBlockState(blockPos).getBlock())) {
+			if (state.getValue(POWERED)) {
+				this.updateNeighborsInFront(level, blockPos, state.setValue(POWERED, false));
 			}
 		}
-		super.onRemove(state, level, pos, newState, movedByPiston);
+		super.affectNeighborsAfterRemoval(state, level, blockPos, bl);
 	}
 
 	@Override

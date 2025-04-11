@@ -65,16 +65,16 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset()V"
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset(Lnet/minecraft/server/level/ServerLevel;)V"
 		)
 	)
 	public void trailierTales$setHasCustomItemForFalling(
-		BrushableBlockEntity brushableBlockEntity, Operation<Void> original,
+		BrushableBlockEntity brushableBlockEntity, ServerLevel level, Operation<Void> original,
 		BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random,
 		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem
 	) {
-		original.call(brushableBlockEntity);
+		original.call(brushableBlockEntity, level);
 		blockEntityRef.set(brushableBlockEntity);
 		if (
 			brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&

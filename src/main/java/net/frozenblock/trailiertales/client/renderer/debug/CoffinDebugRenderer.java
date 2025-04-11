@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -41,9 +41,9 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
-	private static final int CONNECTION_COLOR = FastColor.ARGB32.color(255, 50, 125, 90);
-	private static final int SELECTED_CONNECTION_COLOR = FastColor.ARGB32.color(255, 255, 50, 255);
-	private static final int TEXT_COLOR = FastColor.ARGB32.color(255, 255, 255, 255);
+	private static final int CONNECTION_COLOR = ARGB.color(255, 50, 125, 90);
+	private static final int SELECTED_CONNECTION_COLOR = ARGB.color(255, 255, 50, 255);
+	private static final int TEXT_COLOR = ARGB.color(255, 255, 255, 255);
 	private final Minecraft minecraft;
 	private final IntArrayList scheduledRemovals = new IntArrayList();
 	private final Map<Integer, EntityCoffinData> connections = Maps.newHashMap();

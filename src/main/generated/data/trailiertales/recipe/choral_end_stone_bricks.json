@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "trailiertales:choral_end_stone"
-    }
+    "#": "trailiertales:choral_end_stone"
   },
   "pattern": [
     "##",

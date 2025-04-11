@@ -79,12 +79,12 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+	protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider lookupProvider) {
 		super.loadAdditional(nbt, lookupProvider);
 
 		if (nbt.contains("normal_config")) {
-			CompoundTag compoundTag = nbt.getCompound("normal_config").copy();
-			nbt.put("ominous_config", compoundTag.merge(nbt.getCompound("ominous_config")));
+			CompoundTag compoundTag = nbt.getCompoundOrEmpty("normal_config").copy();
+			nbt.put("ominous_config", compoundTag.merge(nbt.getCompoundOrEmpty("ominous_config")));
 		}
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
@@ -97,11 +97,11 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			if (!this.tryLoadLootTable(nbt)) ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
 		}
 
-		this.coffinWobbleLidAnimTicks = nbt.getInt("coffin_wobble_lid_anim_ticks");
+		this.coffinWobbleLidAnimTicks = nbt.getIntOr("coffin_wobble_lid_anim_ticks", 0);
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+	protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider lookupProvider) {
 		super.saveAdditional(nbt, lookupProvider);
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
@@ -133,12 +133,12 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	protected void setItems(NonNullList<ItemStack> nonNullList) {
+	protected void setItems(@NotNull NonNullList<ItemStack> nonNullList) {
 		this.items = nonNullList;
 	}
 
 	@Override
-	protected @NotNull AbstractContainerMenu createMenu(int i, Inventory inventory) {
+	protected @NotNull AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory) {
 		return ChestMenu.threeRows(i, inventory, this);
 	}
 
@@ -158,7 +158,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
 		if (part == CoffinPart.HEAD || world.isClientSide) return;
-		this.coffinSpawner.tickServer(world, pos, state, ominous);
+		this.coffinSpawner.tickServer(world, pos, state, state.getValue(CoffinBlock.PART), ominous);
 		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 	}
 
@@ -204,11 +204,6 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		compoundTag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
 		compoundTag.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
 		return compoundTag;
-	}
-
-	@Override
-	public boolean onlyOpCanSetNbt() {
-		return true;
 	}
 
 	@Override

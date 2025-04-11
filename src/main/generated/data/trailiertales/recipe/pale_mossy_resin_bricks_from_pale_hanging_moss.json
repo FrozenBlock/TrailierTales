@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "pale_mossy_resin_bricks",
+  "ingredients": [
+    "minecraft:resin_bricks",
+    "minecraft:pale_hanging_moss"
+  ],
+  "result": {
+    "count": 1,
+    "id": "trailiertales:pale_mossy_resin_bricks"
+  }
+}
