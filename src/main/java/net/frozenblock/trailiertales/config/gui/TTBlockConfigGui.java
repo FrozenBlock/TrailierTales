@@ -86,6 +86,16 @@ public final class TTBlockConfigGui {
 		var modifiedCoffin = modifiedConfig.coffin;
 		var wobbleEnabled = Requirement.isTrue(() -> modifiedCoffin.wobble);
 
+		var ignoreDoMobSpawningGamerule = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("ignore_do_mob_spawning_gamerule"), modifiedCoffin.ignore_do_mob_spawning_gamerule)
+				.setDefaultValue(defaultConfig.coffin.ignore_do_mob_spawning_gamerule)
+				.setSaveConsumer(newValue -> coffin.ignore_do_mob_spawning_gamerule = newValue)
+				.setTooltip(TTConstants.tooltip("ignore_do_mob_spawning_gamerule"))
+				.build(),
+			coffin.getClass(),
+			"ignore_do_mob_spawning_gamerule",
+			configInstance
+		);
 		var coffinWobble = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("coffin_wobble"), modifiedCoffin.wobble)
 				.setDefaultValue(defaultConfig.coffin.wobble)
@@ -144,6 +154,7 @@ public final class TTBlockConfigGui {
 		var coffinCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("coffin"),
 			false,
 			TTConstants.tooltip("coffin"),
+			ignoreDoMobSpawningGamerule,
 			coffinWobble, coffinWobbleActivate, coffinWobbleExperienceBottle, coffinWobbleLoot, coffinWobblePotion
 		);
 

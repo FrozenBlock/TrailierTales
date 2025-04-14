@@ -27,6 +27,7 @@ import java.util.UUID;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -253,7 +254,8 @@ public final class CoffinSpawner {
 	}
 
 	public boolean canSpawnInLevel(@NotNull Level level) {
-		return level.getDifficulty() != Difficulty.PEACEFUL && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING);
+		return level.getDifficulty() != Difficulty.PEACEFUL
+			&& (TTBlockConfig.COFFIN_IGNORE_DOMOBSPAWNING || level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING));
 	}
 
 	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
