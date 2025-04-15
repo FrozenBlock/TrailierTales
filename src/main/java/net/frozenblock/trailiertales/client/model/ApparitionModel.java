@@ -161,15 +161,15 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 		poseStack.pushPose();
 		this.onlyDrawSelectedParts();
 		int innerTransparency = ARGB.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
-		if (innerTransparency != 0) {
+		if (innerTransparency > 0F) {
 			this.inner.render(poseStack, buffer, 15728640, packedOverlay, innerTransparency);
 		}
 		int outlineTransparency = ARGB.colorFromFloat(this.outlineTransparency * this.flicker, 1F, 1F, 1F);
-		if (outlineTransparency != 0) {
+		if (outlineTransparency > 0F) {
 			this.outline.render(poseStack, buffer, 15728640, packedOverlay, outlineTransparency);
 		}
 		int outerTransparency = ARGB.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
-		if (outerTransparency != 0) {
+		if (outerTransparency > 0F) {
 			this.outer.render(poseStack, buffer, 15728640, packedOverlay, outerTransparency);
 		}
 		this.resetDrawForAllParts();
