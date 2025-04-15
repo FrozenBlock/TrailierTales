@@ -46,12 +46,14 @@ public final class TTBlockConfig {
 			@Override
 			public void onSync(TTBlockConfig syncInstance) {
 				var config = this.config();
+				COFFIN_IGNORE_DOMOBSPAWNING = config.coffin.ignore_do_mob_spawning_gamerule;
 				SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = config.suspiciousBlocks.smooth_animations;
 				SUSPICIOUS_BLOCK_PARTICLES = config.suspiciousBlocks.particle;
 			}
 		}
 	);
 
+	public static volatile boolean COFFIN_IGNORE_DOMOBSPAWNING = false;
 	public static volatile boolean SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = true;
 	public static volatile boolean SUSPICIOUS_BLOCK_PARTICLES = false;
 
@@ -74,6 +76,8 @@ public final class TTBlockConfig {
 	}
 
 	public static class Coffin {
+		@EntrySyncData(value = "ignore_do_mob_spawning_gamerule")
+		public boolean ignore_do_mob_spawning_gamerule = false;
 		@EntrySyncData(value = "wobble")
 		public boolean wobble = true;
 		@EntrySyncData(value = "wobble_activate")

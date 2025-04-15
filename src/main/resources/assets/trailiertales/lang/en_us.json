@@ -277,6 +277,8 @@
 
   "option.trailiertales.coffin": "Coffin",
   "tooltip.trailiertales.coffin": "Contains options related to Coffins.",
+  "option.trailiertales.ignore_do_mob_spawning_gamerule": "Ignore doMobSpawning",
+  "tooltip.trailiertales.ignore_do_mob_spawning_gamerule": "Whether Coffins should ignore the doMobSpawning gamerule.",
   "option.trailiertales.coffin_wobble": "Wobbling",
   "tooltip.trailiertales.coffin_wobble": "Whether players can interact with a Coffin to make it wobble.",
   "option.trailiertales.coffin_wobble_activate": "Wobbling Activates Coffins",
@@ -325,8 +327,8 @@
 
   "option.trailiertales.apparition": "Apparition",
   "tooltip.trailiertales.apparition": "Contains options related to the Apparition.",
-  "option.trailiertales.ignore_mob_griefing": "Ignore Mob Griefing",
-  "tooltip.trailiertales.ignore_mob_griefing": "Whether the Apparition should ignore the mobGriefing gamerule.",
+  "option.trailiertales.ignore_mob_griefing": "Ignore mobGriefing",
+  "tooltip.trailiertales.ignore_mob_griefing": "Whether Apparitions should ignore the mobGriefing gamerule.",
 
   "option.trailiertales.sniffer": "Sniffer",
   "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",

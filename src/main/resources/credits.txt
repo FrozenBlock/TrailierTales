@@ -112,6 +112,9 @@ Kokoroto
 Lufurrius
     - Enchantment Description strings
 
+godkyo98
+    - Vietnamese translation
+
 The following sounds were used in this mod. Please note that sounds that aren't credited are sourced directly from Minecraft or self-made.
 https://freesound.org/people/ra_gun/sounds/77470/
 https://freesound.org/people/cMilan/sounds/426782/
