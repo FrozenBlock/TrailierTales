@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "default": "outlined_sprite:trailiertales/apparition/apparition.png",
+    "layersAllowed": true
+  }
+}
