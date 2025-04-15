@@ -25,8 +25,6 @@ import net.minecraft.world.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionRenderState extends LivingEntityRenderState {
-
-	public int hurtTime;
 	public float itemYRot;
 	public float itemZRot;
 	public float totalTransparency;
