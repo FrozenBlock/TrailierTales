@@ -3,4 +3,5 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Added a config option to allow Apparitions to ignore the mobGriefing gamerule.
+- Added a Vietnamese translation to 1.21.5, thanks to godkyo98! ([#22](https://github.com/FrozenBlock/TrailierTales/pull/22))
+- Added a config option to allow Coffins to ignore the `doMobSpawning` gamerule.
