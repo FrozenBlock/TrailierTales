@@ -115,8 +115,6 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	@Override
 	public void extractRenderState(Apparition apparition, ApparitionRenderState renderState, float partialTick) {
 		super.extractRenderState(apparition, renderState, partialTick);
-
-		renderState.hurtTime = apparition.hurtTime;
 		renderState.itemYRot = apparition.getItemYRot(partialTick);
 		renderState.itemZRot = apparition.getItemZRot(partialTick);
 		renderState.totalTransparency = apparition.totalTransparency(partialTick);
