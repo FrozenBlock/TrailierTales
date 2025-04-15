@@ -70,10 +70,10 @@ public class ApparitionOverlayLayer extends RenderLayer<ApparitionRenderState, A
 	) {
 		this.model.setupAnim(renderState);
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.renderType);
-		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, this.getOverlay(renderState, 0F));
+		this.model.renderToBuffer(matrices, vertexConsumer, 15728640, getOverlay(renderState));
 	}
 
-	private int getOverlay(@NotNull ApparitionRenderState renderState, float whiteOverlayProgress) {
-		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(renderState.hurtTime > 0 || renderState.deathTime > 0));
+	private static int getOverlay(@NotNull ApparitionRenderState renderState) {
+		return OverlayTexture.pack(OverlayTexture.u(0F), OverlayTexture.v(renderState.hasRedOverlay));
 	}
 }
