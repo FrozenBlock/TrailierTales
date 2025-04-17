@@ -27,7 +27,7 @@ pluginManagement {
 
 rootProject.name = "Trailier Tales"
 
-localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
+localRepository("FrozenLib", "maven.modrinth:frozenlib", true, true)
 localRepository("WilderWild", "maven.modrinth:wilder-wild", true, false)
 
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {

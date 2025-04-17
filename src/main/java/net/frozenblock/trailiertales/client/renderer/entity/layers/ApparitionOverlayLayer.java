@@ -20,7 +20,7 @@ package net.frozenblock.trailiertales.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
+import net.frozenblock.lib.render.FrozenLibRenderTypes;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -41,22 +41,20 @@ public class ApparitionOverlayLayer<T extends Apparition> extends RenderLayer<T,
 		EntityRendererProvider.@NotNull Context context,
 		RenderLayerParent<T, ApparitionModel<T>> renderLayerParent,
 		ApparitionModel.AlphaFunction<T> innerAlphaFunction,
-		ApparitionModel.AlphaFunction<T> outlineAlphaFunction,
 		ApparitionModel.AlphaFunction<T> outerAlphaFunction,
 		ApparitionModel.DrawSelector<T, ApparitionModel<T>> drawSelector,
 		ResourceLocation texture,
-		boolean cull
+		boolean outer
 	) {
 		super(renderLayerParent);
 		this.model = new ApparitionModel<>(
-			cull ? FrozenLibRenderTypes::apparitionOuterCull : FrozenLibRenderTypes::apparitionOuter,
+			outer ? FrozenLibRenderTypes::apparitionOuter : RenderType::entityTranslucentEmissive,
 			context.bakeLayer(TTModelLayers.APPARITION_OVERLAY),
 			innerAlphaFunction,
-			outlineAlphaFunction,
 			outerAlphaFunction,
 			drawSelector
 		);
-		this.renderType = cull ? FrozenLibRenderTypes.apparitionOuterCull(texture) : FrozenLibRenderTypes.apparitionOuter(texture);
+		this.renderType = outer ? FrozenLibRenderTypes.apparitionOuter(texture) : RenderType.entityTranslucentEmissive(texture);
 	}
 
 	@Override

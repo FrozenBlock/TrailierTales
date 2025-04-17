@@ -36,6 +36,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -44,30 +45,65 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 	private float itemYaw;
 
 	private static final ResourceLocation TEXTURE = TTConstants.id("textures/entity/apparition/apparition.png");
+	private static final ResourceLocation HYPNOTIZING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png");
+	private static final ResourceLocation SHOOTING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_shooting.png");
 
 	public ApparitionRenderer(EntityRendererProvider.Context context) {
 		super(context, new ApparitionModel<>(context.bakeLayer(TTModelLayers.APPARITION)), 0.5F);
 		this.addLayer(new ApparitionOverlayLayer<>(
 			context,
 			this,
+			Apparition::getInnerTransparency,
+			Apparition::getOuterTransparency,
+			ApparitionModel::getInnerParts,
+			TEXTURE,
+			false
+		));
+		this.addLayers(
+			context,
 			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
-			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
-			(apparition, tickDelta) -> apparition.getAidAnimProgress(tickDelta) * 0.8F,
-			ApparitionModel::getParts,
-			TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png"),
+			HYPNOTIZING_TEXTURE
+		);
+		this.addLayers(
+			context,
+			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
+			SHOOTING_TEXTURE
+		);
+		this.itemRenderer = context.getItemRenderer();
+	}
+
+	private void addLayers(
+		EntityRendererProvider.Context context,
+		ApparitionModel.AlphaFunction<Apparition> innerFunction,
+		ApparitionModel.AlphaFunction<Apparition> outerFunction,
+		ResourceLocation textureLocation
+	) {
+		this.addLayer(new ApparitionOverlayLayer<>(
+			context,
+			this,
+			innerFunction,
+			outerFunction,
+			ApparitionModel::getOuterParts,
+			textureLocation,
 			true
 		));
 		this.addLayer(new ApparitionOverlayLayer<>(
 			context,
 			this,
-			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
-			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
-			(apparition, tickDelta) -> apparition.getPoltergeistAnimProgress(tickDelta) * 0.8F,
-			ApparitionModel::getParts,
-			TTConstants.id("textures/entity/apparition/apparition_shooting.png"),
-			true
+			innerFunction,
+			outerFunction,
+			ApparitionModel::getInnerParts,
+			textureLocation,
+			false
 		));
-		this.itemRenderer = context.getItemRenderer();
+	}
+
+	private void addLayers(
+		EntityRendererProvider.Context context,
+		ApparitionModel.AlphaFunction<Apparition> alphaFunction,
+		ResourceLocation textureLocation
+	) {
+		this.addLayers(context, alphaFunction, alphaFunction, textureLocation);
 	}
 
 	@Override
@@ -80,9 +116,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
 			poseStack.mulPose(Axis.YN.rotation(entity.getItemYRot(partialTick)));
 			poseStack.mulPose(Axis.ZN.rotation(entity.getItemZRot(partialTick)));
-			poseStack.pushPose();
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, null, 1);
-			poseStack.popPose();
 			poseStack.popPose();
 		}
 	}
@@ -102,6 +136,6 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionModel<
 
 	@Override
 	protected int getBlockLightLevel(Apparition entity, BlockPos pos) {
-		return 15;
+		return LightEngine.MAX_LEVEL;
 	}
 }
