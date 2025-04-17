@@ -29,7 +29,6 @@ public class ApparitionRenderState extends LivingEntityRenderState {
 	public float itemZRot;
 	public float totalTransparency;
 	public float innerTransparency;
-	public float outlineTransparency;
 	public float outerTransparency;
 	public float flicker;
 
