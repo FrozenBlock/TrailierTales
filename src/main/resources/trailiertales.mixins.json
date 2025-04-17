@@ -32,7 +32,6 @@
     "common.rail.RailStructureRotationFix",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",
-    "datagen.common.recipe.RecipeBuilderMixin",
     "structure_building.common.CandleBlockMixin",
     "common.surveyor.ClipContextBlockMixin"
   ],

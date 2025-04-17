@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Trailier Tales.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.trailiertales.datagen.recipe;
@@ -22,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -40,7 +40,6 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public class TTRecipeProvider extends FabricRecipeProvider {
-	public static boolean GENERATING_TT_RECIPES = false;
 
 	public TTRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
@@ -52,7 +51,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 		return new RecipeProvider(provider, recipeOutput) {
 			@Override
 			public void buildRecipes() {
-				GENERATING_TT_RECIPES = true;
+				RecipeExportNamespaceFix.setCurrentGeneratingModId(TTConstants.MOD_ID);
 
 				this.generateForEnabledBlockFamilies(TTFeatureFlags.TRAILIER_TALES_FLAG_SET);
 
@@ -656,7 +655,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy("has_embrace_armor_trim_smithing_template", has(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE))
 					.save(recipeOutput);
 
-				GENERATING_TT_RECIPES = false;
+				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}
 		};
 	}
