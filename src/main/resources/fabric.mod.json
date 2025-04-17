@@ -20,7 +20,7 @@
     "sources": "https://github.com/FrozenBlock/TrailierTales",
     "issues": "https://github.com/FrozenBlock/TrailierTales/issues"
   },
-  "license": "GPL-3.0",
+  "license": "FrozenBlock Modding Oasis License v1.0",
   "icon": "assets/trailiertales/icon.png",
   "environment": "*",
   "entrypoints": {
