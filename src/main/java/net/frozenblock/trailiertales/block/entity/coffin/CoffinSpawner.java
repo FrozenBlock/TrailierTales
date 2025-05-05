@@ -263,88 +263,66 @@ public final class CoffinSpawner {
 		CompoundTag compoundTag = spawnData.entityToSpawn();
 		ListTag listTag = compoundTag.getList("Pos", 6);
 		Optional<EntityType<?>> optional = EntityType.by(compoundTag);
-		if (optional.isEmpty()) {
-			return Optional.empty();
-		} else {
-			int i = listTag.size();
-			double d = i >= 1
-				? listTag.getDouble(0)
-				: (double)pos.getX() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
-			double e = i >= 2 ? listTag.getDouble(1) : (double)(pos.getY() + randomSource.nextInt(3) - 1);
-			double f = i >= 3
-				? listTag.getDouble(2)
-				: (double)pos.getZ() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
-			if (!level.noCollision(optional.get().getSpawnAABB(d, e, f))) {
-				return Optional.empty();
-			} else {
-				Vec3 vec3 = new Vec3(d, e, f);
-				if (!inLineOfSight(level, pos.getCenter(), vec3)) {
-					return Optional.empty();
-				} else {
-					BlockPos blockPos = BlockPos.containing(vec3);
-					if (!SpawnPlacements.checkSpawnRules(optional.get(), level, MobSpawnType.TRIAL_SPAWNER, blockPos, level.getRandom())) {
-						return Optional.empty();
-					} else {
-						if (spawnData.getCustomSpawnRules().isPresent()) {
-							SpawnData.CustomSpawnRules customSpawnRules = spawnData.getCustomSpawnRules().get();
-							if (!customSpawnRules.isValidPosition(blockPos, level)) {
-								return Optional.empty();
-							}
-						}
 
-						int lightAtPos = level.getRawBrightness(blockPos, 0);
-						int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
-						if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 25) > 0) {
-							return Optional.empty();
-						}
+		if (optional.isEmpty()) return Optional.empty();
 
-						if (level.getBlockState(blockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) {
-							return Optional.empty();
-						}
+		int i = listTag.size();
+		double d = i >= 1
+			? listTag.getDouble(0)
+			: (double)pos.getX() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
+		double e = i >= 2 ? listTag.getDouble(1) : (double)(pos.getY() + randomSource.nextInt(3) - 1);
+		double f = i >= 3
+			? listTag.getDouble(2)
+			: (double)pos.getZ() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
+		if (!level.noCollision(optional.get().getSpawnAABB(d, e, f))) return Optional.empty();
 
-						Entity entity = EntityType.loadEntityRecursive(compoundTag, level, entityx -> {
-							entityx.moveTo(d, e, f, randomSource.nextFloat() * 360F, 0F);
-							return entityx;
-						});
-						if (entity == null) {
-							return Optional.empty();
-						} else {
-							if (entity instanceof Mob mob) {
-								if (!mob.checkSpawnObstruction(level)) {
-									return Optional.empty();
-								}
+		Vec3 vec3 = new Vec3(d, e, f);
+		if (!inLineOfSight(level, pos.getCenter(), vec3)) return Optional.empty();
 
-								boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id", 8);
-								if (bl) {
-									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.TRIAL_SPAWNER, null);
-								}
+		BlockPos blockPos = BlockPos.containing(vec3);
+		if (!SpawnPlacements.checkSpawnRules(optional.get(), level, MobSpawnType.TRIAL_SPAWNER, blockPos, level.getRandom())) return Optional.empty();
 
-								spawnData.getEquipment().ifPresent(mob::equip);
-							}
-
-							if (!level.tryAddFreshEntityWithPassengers(entity)) {
-								return Optional.empty();
-							} else {
-								level.playSound(
-									null,
-									entity,
-									TTSounds.COFFIN_SPAWN_MOB,
-									SoundSource.BLOCKS,
-									1F,
-									(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F
-								);
-								if (entity instanceof Mob mob) {
-									mob.spawnAnim();
-								}
-								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
-								this.appendCoffinSpawnAttributes(entity, level, pos, false);
-								return Optional.of(entity.getUUID());
-							}
-						}
-					}
-				}
-			}
+		if (spawnData.getCustomSpawnRules().isPresent()) {
+			SpawnData.CustomSpawnRules customSpawnRules = spawnData.getCustomSpawnRules().get();
+			if (!customSpawnRules.isValidPosition(blockPos, level)) return Optional.empty();
 		}
+
+		int lightAtPos = level.getRawBrightness(blockPos, 0);
+		int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
+		if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 25) > 0) return Optional.empty();
+
+		if (level.getBlockState(blockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) return Optional.empty();
+
+		Entity entity = EntityType.loadEntityRecursive(compoundTag, level, entityx -> {
+			entityx.moveTo(d, e, f, randomSource.nextFloat() * 360F, 0F);
+			return entityx;
+		});
+
+		if (entity == null) return Optional.empty();
+
+		if (entity instanceof Mob mob) {
+			if (!mob.checkSpawnObstruction(level)) return Optional.empty();
+			boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id", 8);
+			if (bl) {
+				mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.TRIAL_SPAWNER, null);
+			}
+			spawnData.getEquipment().ifPresent(mob::equip);
+		}
+
+		if (!level.tryAddFreshEntityWithPassengers(entity)) return Optional.empty();
+
+		level.playSound(
+			null,
+			entity,
+			TTSounds.COFFIN_SPAWN_MOB,
+			SoundSource.BLOCKS,
+			1F,
+			(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F
+		);
+		if (entity instanceof Mob mob) mob.spawnAnim();
+		level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
+		this.appendCoffinSpawnAttributes(entity, level, pos, false);
+		return Optional.of(entity.getUUID());
 	}
 
 	public boolean canSpawnApparition(Level level, BlockPos pos, boolean ignoreChance) {
@@ -446,9 +424,7 @@ public final class CoffinSpawner {
 		this.data.currentMobs.removeIf(uiid -> {
 			Entity entity = world.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(world, pos, entity);
-			if (shouldUntrack) {
-				CoffinBlock.onCoffinUntrack(entity, this, false);
-			}
+			if (shouldUntrack) CoffinBlock.onCoffinUntrack(entity, this, false);
 			return shouldUntrack;
 		});
 
@@ -463,14 +439,10 @@ public final class CoffinSpawner {
 
 		CoffinSpawnerState currentState = this.getState();
 		if (!this.canSpawnInLevel(world)) {
-			if (this.getState() != CoffinSpawnerState.COOLDOWN) {
-				this.setState(world, CoffinSpawnerState.COOLDOWN);
-			}
+			if (this.getState() != CoffinSpawnerState.COOLDOWN) this.setState(world, CoffinSpawnerState.COOLDOWN);
 		} else {
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, world);
-			if (nextState != currentState) {
-				this.setState(world, nextState);
-			}
+			if (nextState != currentState) this.setState(world, nextState);
 		}
 		this.updateAttemptingToSpawn(world);
 	}

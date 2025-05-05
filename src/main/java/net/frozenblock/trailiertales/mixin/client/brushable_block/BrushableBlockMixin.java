@@ -45,13 +45,8 @@ public class BrushableBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$animateTick(BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (TTBlockConfig.SUSPICIOUS_BLOCK_PARTICLES) {
-			trailierTales$emitConnectionParticlesForPlayer(world, pos, random);
-		}
-
-		if (BrushableBlock.class.cast(this) instanceof NonFallingBrushableBlock) {
-			info.cancel();
-		}
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_PARTICLES) trailierTales$emitConnectionParticlesForPlayer(world, pos, random);
+		if (BrushableBlock.class.cast(this) instanceof NonFallingBrushableBlock) info.cancel();
 	}
 
 	@Unique
@@ -65,7 +60,7 @@ public class BrushableBlockMixin {
 				boolean canCreateParticle = false;
 				BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 				for (Direction direction : Direction.values()) {
-					BlockState state = world.getBlockState(mutableBlockPos.set(pos).move(direction));
+					BlockState state = world.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 					if (!(state.isAir() || !state.isFaceSturdy(world, mutableBlockPos, direction.getOpposite()))) continue;
 					canCreateParticle = true;
 				}

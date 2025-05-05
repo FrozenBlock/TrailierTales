@@ -75,10 +75,9 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	) {
 		original.call(brushableBlockEntity);
 		blockEntityRef.set(brushableBlockEntity);
-		if (
-			brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&
-				(brushableBlockEntityInterface.trailierTales$hasCustomItem() ||
-					(state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM)))
+		if (brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&
+			(brushableBlockEntityInterface.trailierTales$hasCustomItem() ||
+				(state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM)))
 		) {
 			hasCustomItem.set(true);
 		}

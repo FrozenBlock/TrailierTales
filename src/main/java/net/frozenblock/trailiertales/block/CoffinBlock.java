@@ -290,27 +290,21 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			);
 		}
 
-		if (entity != null) {
-			entity.playSound(TTSounds.COFFIN_VANISH_MOB, 0.8F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
-		}
+		if (entity != null) entity.playSound(TTSounds.COFFIN_VANISH_MOB, 0.8F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
 
 		if (entity instanceof LivingEntity livingEntity) {
 			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
 			if (followRange != null) followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
 		}
 
-		if (entity instanceof EntityCoffinInterface entityInterface) {
-			entityInterface.trailierTales$setCoffinData(null);
-		}
+		if (entity instanceof EntityCoffinInterface entityInterface) entityInterface.trailierTales$setCoffinData(null);
 
 		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem();
 			apparition.level().broadcastEntityEvent(apparition, EntityEvent.POOF);
 			apparition.discard();
 			apparition.dropPreservedEquipment();
-			if (coffinSpawner != null) {
-				coffinSpawner.onApparitionRemovedOrKilled(entity.level());
-			}
+			if (coffinSpawner != null) coffinSpawner.onApparitionRemovedOrKilled(entity.level());
 		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
 			mob.level().broadcastEntityEvent(mob, EntityEvent.POOF);
 			mob.discard();

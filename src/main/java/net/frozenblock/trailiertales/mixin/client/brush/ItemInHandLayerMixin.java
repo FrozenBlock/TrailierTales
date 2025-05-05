@@ -64,10 +64,7 @@ public class ItemInHandLayerMixin{
 			float remainingTicks = livingEntity.getUseItemRemainingTicks() + 1F;
 			float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaTicks() - Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
 			float brushProgress = remainingTicks + partialTick;
-			float brushRoll = Mth.cos(
-				(brushProgress * Mth.PI)
-					/ 5F
-			) * 1.2F;
+			float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;
 
 			if (isLeftArm) {
 				poseStack.mulPose(Axis.ZP.rotation(brushRoll));

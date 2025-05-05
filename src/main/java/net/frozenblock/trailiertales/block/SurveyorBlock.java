@@ -107,7 +107,6 @@ public class SurveyorBlock extends BaseEntityBlock {
 	@Override
 	protected int getSignal(@NotNull BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		if (TTPreLoadConstants.STRUCTURE_BUILDING_MODE) return 0;
-
 		return state.getValue(POWERED) && state.getValue(FACING) == direction ? 15 : 0;
 	}
 
@@ -120,17 +119,14 @@ public class SurveyorBlock extends BaseEntityBlock {
 	protected int getAnalogOutputSignal(BlockState state, @NotNull Level level, BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof SurveyorBlockEntity surveyorBlockEntity) {
 			return state.getValue(POWERED) ? surveyorBlockEntity.getLastDetectionPower() : 0;
-		} else {
-			return 0;
 		}
+		return 0;
 	}
 
 	@Override
 	protected void onRemove(@NotNull BlockState state, Level level, BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		if (!state.is(newState.getBlock())) {
-			if (!level.isClientSide && state.getValue(POWERED)) {
-				this.updateNeighborsInFront(level, pos, state.setValue(POWERED, false));
-			}
+		if (!state.is(newState.getBlock()) && !level.isClientSide && state.getValue(POWERED)) {
+			this.updateNeighborsInFront(level, pos, state.setValue(POWERED, false));
 		}
 		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
@@ -142,9 +138,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 
 	public static void updatePower(@NotNull Level level, BlockPos pos, @NotNull BlockState state, int lastDetectionPower, boolean updateNeighbors) {
 		boolean shouldPower = lastDetectionPower > 0;
-		if (shouldPower != state.getValue(POWERED)) {
-			level.setBlockAndUpdate(pos, state.setValue(POWERED, shouldPower));
-		}
+		if (shouldPower != state.getValue(POWERED)) level.setBlockAndUpdate(pos, state.setValue(POWERED, shouldPower));
 		if (updateNeighbors && state.getBlock() instanceof SurveyorBlock surveyorBlock) {
 			surveyorBlock.updateNeighborsInFront(level, pos, state);
 		}

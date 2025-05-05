@@ -54,12 +54,10 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
 		VoxelShape shape = Shapes.empty();
 
-		if (collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			if (entityCollisionContext.getEntity() instanceof Apparition) {
-				for (Direction direction : Direction.values()) {
-					if (!blockGetter.getBlockState(blockPos.relative(direction)).is(this)) {
-						shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
-					}
+		if (collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Apparition) {
+			for (Direction direction : Direction.values()) {
+				if (!blockGetter.getBlockState(blockPos.relative(direction)).is(this)) {
+					shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
 				}
 			}
 		}

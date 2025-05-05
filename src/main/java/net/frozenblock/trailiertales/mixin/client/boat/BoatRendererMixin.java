@@ -104,42 +104,39 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
 		Boat boat, float f, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int i, CallbackInfo info,
 		@Share("trailierTales$boatType") LocalRef<Boat.Type> boatType
 	) {
-		if (boat instanceof BoatBannerInterface bannerInterface) {
-			ItemStack stack = bannerInterface.trailierTales$getBanner();
-			if (!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem) {
-				Boat.Type type = boatType.get();
-				matrices.pushPose();
-				float o;
-				float p;
-				o = bannerInterface.trailierTales$getWalkAnimationState().speed(tickDelta);
-				p = bannerInterface.trailierTales$getWalkAnimationState().position(tickDelta);
-				if (o > 1F) {
-					o = 1F;
-				}
-				this.trailierTales$boatBannerModel.setRaft(type == Boat.Type.BAMBOO);
-				this.trailierTales$boatBannerModel.beforeRender(matrices);
-				this.trailierTales$boatBannerModel.setupAnim(boat, p, o, boat.tickCount + tickDelta, 0F, 0F);
-				this.trailierTales$boatBannerModel.renderToBuffer(
-					matrices,
-					vertexConsumers.getBuffer(
-						this.trailierTales$boatBannerModel.renderType(
-							this.trailierTales$boatBannerResources.get(type)
-						)
-					),
-					i,
-					OverlayTexture.NO_OVERLAY
-				);
-				this.trailierTales$boatBannerModel.renderFlag(
-					matrices,
-					vertexConsumers,
-					i,
-					OverlayTexture.NO_OVERLAY,
-					bannerItem.getColor(),
-					stack.getComponents().get(DataComponents.BANNER_PATTERNS)
-				);
-				this.trailierTales$boatBannerModel.afterRender(matrices);
-				matrices.popPose();
-			}
+		if (!(boat instanceof BoatBannerInterface bannerInterface)) return;
+		ItemStack stack = bannerInterface.trailierTales$getBanner();
+		if (!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem) {
+			Boat.Type type = boatType.get();
+			matrices.pushPose();
+			float o;
+			float p;
+			o = bannerInterface.trailierTales$getWalkAnimationState().speed(tickDelta);
+			p = bannerInterface.trailierTales$getWalkAnimationState().position(tickDelta);
+			if (o > 1F) o = 1F;
+			this.trailierTales$boatBannerModel.setRaft(type == Boat.Type.BAMBOO);
+			this.trailierTales$boatBannerModel.beforeRender(matrices);
+			this.trailierTales$boatBannerModel.setupAnim(boat, p, o, boat.tickCount + tickDelta, 0F, 0F);
+			this.trailierTales$boatBannerModel.renderToBuffer(
+				matrices,
+				vertexConsumers.getBuffer(
+					this.trailierTales$boatBannerModel.renderType(
+						this.trailierTales$boatBannerResources.get(type)
+					)
+				),
+				i,
+				OverlayTexture.NO_OVERLAY
+			);
+			this.trailierTales$boatBannerModel.renderFlag(
+				matrices,
+				vertexConsumers,
+				i,
+				OverlayTexture.NO_OVERLAY,
+				bannerItem.getColor(),
+				stack.getComponents().get(DataComponents.BANNER_PATTERNS)
+			);
+			this.trailierTales$boatBannerModel.afterRender(matrices);
+			matrices.popPose();
 		}
 	}
 }
