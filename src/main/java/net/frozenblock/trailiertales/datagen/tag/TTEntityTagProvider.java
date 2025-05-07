@@ -35,19 +35,19 @@ public final class TTEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(TTEntityTags.APPARITION_TARGETABLE)
+		this.valueLookupBuilder(TTEntityTags.APPARITION_TARGETABLE)
 			.add(EntityType.PLAYER);
 
-		this.getOrCreateTagBuilder(TTEntityTags.SURVEYOR_IGNORES)
+		this.valueLookupBuilder(TTEntityTags.SURVEYOR_IGNORES)
 			.add(TTEntityTypes.APPARITION);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(TTEntityTypes.APPARITION);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+		this.valueLookupBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(TTEntityTypes.APPARITION);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.WITHER_FRIENDS)
+		this.valueLookupBuilder(EntityTypeTags.WITHER_FRIENDS)
 			.add(TTEntityTypes.APPARITION);
 	}
 }

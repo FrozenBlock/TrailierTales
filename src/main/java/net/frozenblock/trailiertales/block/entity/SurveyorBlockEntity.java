@@ -27,8 +27,6 @@ import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
@@ -39,6 +37,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -77,17 +77,17 @@ public class SurveyorBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
-		super.loadAdditional(nbt, lookupProvider);
-		this.lastDetectionPower = nbt.getIntOr("last_detection_power", 0);
-		this.detectionCooldown = nbt.getIntOr("detection_cooldown", 0);
+	protected void loadAdditional(ValueInput valueInput) {
+		super.loadAdditional(valueInput);
+		this.lastDetectionPower = valueInput.getIntOr("last_detection_power", 0);
+		this.detectionCooldown = valueInput.getIntOr("detection_cooldown", 0);
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
-		super.saveAdditional(nbt, lookupProvider);
-		nbt.putInt("last_detection_power", this.lastDetectionPower);
-		nbt.putInt("detection_cooldown", this.detectionCooldown);
+	protected void saveAdditional(ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		valueOutput.putInt("last_detection_power", this.lastDetectionPower);
+		valueOutput.putInt("detection_cooldown", this.detectionCooldown);
 	}
 
 	public void tickServer(ServerLevel serverLevel, BlockPos pos, BlockState state) {

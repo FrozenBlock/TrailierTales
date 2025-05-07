@@ -19,8 +19,8 @@ package net.frozenblock.trailiertales.mixin.common.coffin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.trailiertales.block.CoffinBlock;
-import net.minecraft.server.level.ServerLevel;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.portal.TeleportTransition;
 import org.spongepowered.asm.mixin.Mixin;

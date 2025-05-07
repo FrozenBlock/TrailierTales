@@ -45,15 +45,15 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(ConventionalItemTags.MUSIC_DISCS)
+		this.valueLookupBuilder(ConventionalItemTags.MUSIC_DISCS)
 			.add(TTItems.MUSIC_DISC_STASIS)
 			.add(TTItems.MUSIC_DISC_FAUSSE_VIE)
 			.add(TTItems.MUSIC_DISC_OSSUAIRE);
 
-		this.getOrCreateTagBuilder(ItemTags.SAND)
+		this.valueLookupBuilder(ItemTags.SAND)
 			.add(TTBlocks.SUSPICIOUS_RED_SAND.asItem());
 
-		this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS)
+		this.valueLookupBuilder(ItemTags.DECORATED_POT_SHERDS)
 			.add(TTItems.AURORA_POTTERY_SHERD)
 			.add(TTItems.BAIT_POTTERY_SHERD)
 			.add(TTItems.BLOOM_POTTERY_SHERD)
@@ -89,31 +89,31 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.VESSEL_POTTERY_SHERD)
 			.add(TTItems.WITHER_POTTERY_SHERD);
 
-		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
+		this.valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
 			.add(TTItems.DAWNTRAIL_SEEDS);
 
-		this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD)
+		this.valueLookupBuilder(ItemTags.CHICKEN_FOOD)
 			.add(TTItems.CYAN_ROSE_SEEDS);
 
-		this.getOrCreateTagBuilder(ItemTags.PARROT_FOOD)
+		this.valueLookupBuilder(ItemTags.PARROT_FOOD)
 			.add(TTItems.CYAN_ROSE_SEEDS);
 
-		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
+		this.valueLookupBuilder(ItemTags.SNIFFER_FOOD)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
 			.add(TTItems.DAWNTRAIL_SEEDS);
 
-		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
+		this.valueLookupBuilder(ItemTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE.asItem())
 			.add(TTBlocks.DAWNTRAIL.asItem());
 
-		this.getOrCreateTagBuilder(ItemTags.BEE_FOOD)
+		this.valueLookupBuilder(ItemTags.BEE_FOOD)
 			.add(TTBlocks.MANEDROP.asItem())
 			.add(TTBlocks.CYAN_ROSE.asItem());
 
-		this.getOrCreateTagBuilder(ItemTags.STAIRS)
+		this.valueLookupBuilder(ItemTags.STAIRS)
 			.add(TTBlocks.GRANITE_BRICK_STAIRS.asItem())
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_STAIRS.asItem())
 			.add(TTBlocks.DIORITE_BRICK_STAIRS.asItem())
@@ -136,7 +136,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_STAIRS.asItem())
 			.add(TTBlocks.END_STONE_STAIRS.asItem());
 
-		this.getOrCreateTagBuilder(ItemTags.SLABS)
+		this.valueLookupBuilder(ItemTags.SLABS)
 			.add(TTBlocks.GRANITE_BRICK_SLAB.asItem())
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_SLAB.asItem())
 			.add(TTBlocks.DIORITE_BRICK_SLAB.asItem())
@@ -157,7 +157,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB.asItem())
 			.add(TTBlocks.END_STONE_SLAB.asItem());
 
-		this.getOrCreateTagBuilder(ItemTags.WALLS)
+		this.valueLookupBuilder(ItemTags.WALLS)
 			.add(TTBlocks.GRANITE_BRICK_WALL.asItem())
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL.asItem())
 			.add(TTBlocks.DIORITE_BRICK_WALL.asItem())
@@ -185,10 +185,10 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.END_STONE_WALL.asItem())
 			.add(TTBlocks.PURPUR_WALL.asItem());
 
-		this.getOrCreateTagBuilder(TTItemTags.BRUSH_ENCHANTABLE)
+		this.valueLookupBuilder(TTItemTags.BRUSH_ENCHANTABLE)
 			.add(Items.BRUSH);
 
-		this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+		this.valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
 			.add(Items.BRUSH);
 	}
 }

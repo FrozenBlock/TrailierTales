@@ -17,9 +17,9 @@
 
 package net.frozenblock.trailiertales.datagen.recipe;
 
+import com.mojang.datafixers.util.Pair;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;

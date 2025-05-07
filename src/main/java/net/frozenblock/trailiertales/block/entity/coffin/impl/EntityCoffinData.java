@@ -28,7 +28,6 @@ import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.VisibleForDebug;
 import net.minecraft.world.entity.Entity;
@@ -36,6 +35,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -116,26 +117,26 @@ public class EntityCoffinData {
 		this.lastInteractionAt = newTime;
 	}
 
-	public void saveCompoundTag(@NotNull CompoundTag tag) {
-		CompoundTag coffinDataTag = new CompoundTag();
+	public void save(@NotNull ValueOutput valueOutput) {
+		ValueOutput coffinDataTag = valueOutput.child("TrailierTales_CoffinData");
 		coffinDataTag.putInt("X", this.pos.getX());
 		coffinDataTag.putInt("Y", this.pos.getY());
 		coffinDataTag.putInt("Z", this.pos.getZ());
 		coffinDataTag.store("CoffinUUID", UUIDUtil.CODEC, this.coffinUUID);
 		coffinDataTag.putLong("LastInteractionAt", this.lastInteractionAt);
-		tag.put("TrailierTales_CoffinData", coffinDataTag);
 	}
 
-	public static @Nullable EntityCoffinData loadCompoundTag(@NotNull CompoundTag tag) {
-		if (tag.contains("TrailierTales_CoffinData")) {
-			CompoundTag coffinDataTag = tag.getCompoundOrEmpty("TrailierTales_CoffinData");
+	public static @Nullable EntityCoffinData load(@NotNull ValueInput valueInput) {
+		Optional<ValueInput> optional = valueInput.child("TrailierTales_CoffinData");
+		if (optional.isPresent()) {
+			ValueInput coffinData = optional.get();
 			BlockPos pos = new BlockPos(
-				coffinDataTag.getIntOr("X", 0),
-				coffinDataTag.getIntOr("Y", 0),
-				coffinDataTag.getIntOr("Z", 0)
+				coffinData.getIntOr("X", 0),
+				coffinData.getIntOr("Y", 0),
+				coffinData.getIntOr("Z", 0)
 			);
-			UUID coffinUUID = coffinDataTag.read("CoffinUUID", UUIDUtil.CODEC).orElse(null);
-			long lastInteractionAt = coffinDataTag.getLong("LastInteractionAt").orElse(0L);
+			UUID coffinUUID = coffinData.read("CoffinUUID", UUIDUtil.CODEC).orElse(null);
+			long lastInteractionAt = coffinData.getLong("LastInteractionAt").orElse(0L);
 			return new EntityCoffinData(pos, coffinUUID, lastInteractionAt);
 		}
 		return null;

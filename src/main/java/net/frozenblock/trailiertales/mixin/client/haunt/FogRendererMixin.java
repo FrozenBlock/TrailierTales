@@ -17,54 +17,37 @@
 
 package net.frozenblock.trailiertales.mixin.client.haunt;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import java.util.List;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import java.util.ArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.effect.client.HauntFogFunction;
-import net.frozenblock.trailiertales.registry.TTMobEffects;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.core.Holder;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.LivingEntity;
-import org.spongepowered.asm.mixin.Final;
+import net.frozenblock.trailiertales.client.renderer.fog.environment.HauntFogEnvironment;
+import net.minecraft.client.renderer.fog.FogRenderer;
+import net.minecraft.client.renderer.fog.environment.DarknessFogEnvironment;
+import net.minecraft.client.renderer.fog.environment.FogEnvironment;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Slice;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
 
-	@Shadow
-	@Final
-	private static List<FogRenderer.MobEffectFogFunction> MOB_EFFECT_FOG;
-
-	@WrapOperation(
-		method = "computeFogColor",
+	@ModifyExpressionValue(
+		method = "<clinit>",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/LivingEntity;hasEffect(Lnet/minecraft/core/Holder;)Z",
-			ordinal = 0
-		),
-		slice = @Slice(
-			from = @At(
-				value = "FIELD",
-				target = "Lnet/minecraft/world/effect/MobEffects;DARKNESS:Lnet/minecraft/core/Holder;"
-			)
+			target = "Lcom/google/common/collect/Lists;newArrayList([Ljava/lang/Object;)Ljava/util/ArrayList;"
 		)
 	)
-	private static boolean trailierTales$setupColor(LivingEntity instance, Holder<MobEffect> effect, Operation<Boolean> original) {
-		return original.call(instance, effect) || original.call(instance, TTMobEffects.HAUNT);
-	}
+	private static ArrayList<FogEnvironment> trailierTales$injectHauntEnvironment(ArrayList<FogEnvironment> original) {
+		ArrayList<FogEnvironment> finalEnvironments = new ArrayList<>();
 
-	@Inject(method = "<clinit>", at = @At("TAIL"))
-	private static void trailierTales$injectHauntFunction(CallbackInfo info) {
-		MOB_EFFECT_FOG.add(new HauntFogFunction());
+		for (FogEnvironment environment : original) {
+			finalEnvironments.add(environment);
+			if (environment instanceof DarknessFogEnvironment) finalEnvironments.add(new HauntFogEnvironment());
+		}
+
+		return finalEnvironments;
 	}
 
 }

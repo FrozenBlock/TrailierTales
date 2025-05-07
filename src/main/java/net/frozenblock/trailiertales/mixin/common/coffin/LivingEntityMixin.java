@@ -30,13 +30,14 @@ import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.advancements.critereon.EntityHurtPlayerTrigger;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -161,17 +162,15 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(CompoundTag tag, CallbackInfo info) {
+	public void trailierTales$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
 		if (this.trailierTales$entityCoffinData != null) {
-			this.trailierTales$entityCoffinData.saveCompoundTag(tag);
+			this.trailierTales$entityCoffinData.save(valueOutput);
 		}
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(CompoundTag tag, CallbackInfo info) {
-		EntityCoffinData coffinData = EntityCoffinData.loadCompoundTag(tag);
-		if (coffinData != null) {
-			this.trailierTales$entityCoffinData = coffinData;
-		}
+	public void trailierTales$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		EntityCoffinData coffinData = EntityCoffinData.load(valueInput);
+		if (coffinData != null) this.trailierTales$entityCoffinData = coffinData;
 	}
 }

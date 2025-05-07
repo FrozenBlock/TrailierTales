@@ -19,16 +19,16 @@ package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
-public final class TTEnchantmentTagProvider extends FabricTagProvider.EnchantmentTagProvider {
+public final class TTEnchantmentTagProvider extends EnchantmentTagsProvider {
 
 	public TTEnchantmentTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
@@ -41,7 +41,7 @@ public final class TTEnchantmentTagProvider extends FabricTagProvider.Enchantmen
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(EnchantmentTags.TREASURE)
+		this.tag(EnchantmentTags.TREASURE)
 			.add(TTEnchantments.REBRUSH);
 	}
 }

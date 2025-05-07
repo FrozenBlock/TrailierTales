@@ -35,7 +35,6 @@ public class TTBlockTags {
 	public static final TagKey<Block> SOUND_POLISHED_RESIN = bind("sound/polished_resin");
 
 	public static final TagKey<Block> COFFIN_UNSPAWNABLE_ON = bind("coffin_unspawnable_on");
-	public static final TagKey<Block> CAMEL_SPAWNABLE_ON = bind("camel_spawnable_on");
 
 	public static final TagKey<Block> SURVEYOR_CAN_SEE_THROUGH = bind("surveyor_can_see_through");
 	public static final TagKey<Block> SURVEYOR_CANNOT_SEE_THROUGH = bind("surveyor_cannot_see_through");

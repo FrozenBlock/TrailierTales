@@ -29,7 +29,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -47,8 +46,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
-import net.minecraft.world.level.block.entity.trialspawner.PlayerDetector;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -69,8 +69,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	public CoffinBlockEntity(BlockPos pos, BlockState state) {
 		super(TTBlockEntityTypes.COFFIN, pos, state);
-		PlayerDetector.EntitySelector entitySelector = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
-		this.coffinSpawner = new CoffinSpawner(this, entitySelector);
+		this.coffinSpawner = new CoffinSpawner(this);
 	}
 
 	public float getOpenProgress(float partialTick) {
@@ -78,42 +77,32 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider lookupProvider) {
-		super.loadAdditional(nbt, lookupProvider);
-
-		if (nbt.contains("normal_config")) {
-			CompoundTag compoundTag = nbt.getCompoundOrEmpty("normal_config").copy();
-			nbt.put("ominous_config", compoundTag.merge(nbt.getCompoundOrEmpty("ominous_config")));
-		}
+	protected void loadAdditional(ValueInput valueInput) {
+		super.loadAdditional(valueInput);
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.coffinSpawner.codec()
-				.parse(NbtOps.INSTANCE, nbt)
-				.resultOrPartial(LOGGER::error)
-				.ifPresent(coffinSpawner -> this.coffinSpawner = coffinSpawner);
+			this.coffinSpawner = valueInput.read(this.coffinSpawner.mapCodec()).orElse(this.coffinSpawner);
 
 			this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-			if (!this.tryLoadLootTable(nbt)) ContainerHelper.loadAllItems(nbt, this.items, lookupProvider);
+			if (!this.tryLoadLootTable(valueInput)) {
+				ContainerHelper.loadAllItems(valueInput, this.items);
+			}
 		}
 
-		this.coffinWobbleLidAnimTicks = nbt.getIntOr("coffin_wobble_lid_anim_ticks", 0);
+		this.coffinWobbleLidAnimTicks = valueInput.getIntOr("coffin_wobble_lid_anim_ticks", 0);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider lookupProvider) {
-		super.saveAdditional(nbt, lookupProvider);
+	protected void saveAdditional(ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.coffinSpawner
-				.codec()
-				.encodeStart(NbtOps.INSTANCE, this.coffinSpawner)
-				.ifSuccess(logicNbt -> nbt.merge((CompoundTag) logicNbt))
-				.ifError(error -> LOGGER.warn("Failed to encode CoffinSpawner {}", error.message()));
+			valueOutput.store(this.coffinSpawner.mapCodec(), this.coffinSpawner);
 
-			if (!this.trySaveLootTable(nbt)) ContainerHelper.saveAllItems(nbt, this.items, lookupProvider);
+			ContainerHelper.saveAllItems(valueOutput, this.items);
 		}
 
-		nbt.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
+		valueOutput.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
 	}
 
 	@Override

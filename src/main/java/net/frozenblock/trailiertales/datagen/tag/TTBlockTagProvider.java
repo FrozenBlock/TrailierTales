@@ -25,6 +25,7 @@ import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -37,9 +38,13 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		super(output, registries);
 	}
 
+	@NotNull private ResourceKey<Block> getKey(String namespace, String path) {
+		return ResourceKey.create(this.registryKey, ResourceLocation.fromNamespaceAndPath(namespace, path));
+	}
+
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+		this.valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(TTBlocks.CHISELED_GRANITE_BRICKS)
 			.add(TTBlocks.GRANITE_BRICKS)
 			.add(TTBlocks.CRACKED_GRANITE_BRICKS)
@@ -157,46 +162,46 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 			.add(TTBlocks.SURVEYOR);
 
-		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
+		this.valueLookupBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
 			.add(TTBlocks.SUSPICIOUS_RED_SAND)
 			.add(TTBlocks.SUSPICIOUS_DIRT)
 			.add(TTBlocks.SUSPICIOUS_CLAY);
 
-		this.getOrCreateTagBuilder(BlockTags.SAND)
+		this.valueLookupBuilder(BlockTags.SAND)
 			.add(TTBlocks.SUSPICIOUS_RED_SAND);
 
-		this.getOrCreateTagBuilder(BlockTags.DIRT)
+		this.valueLookupBuilder(BlockTags.DIRT)
 			.add(TTBlocks.SUSPICIOUS_DIRT);
 
-		this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS)
+		this.valueLookupBuilder(BlockTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE);
 
-		this.getOrCreateTagBuilder(BlockTags.BEE_ATTRACTIVE)
+		this.valueLookupBuilder(BlockTags.BEE_ATTRACTIVE)
 			.add(TTBlocks.MANEDROP)
 			.add(TTBlocks.CYAN_ROSE);
 
-		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
+		this.valueLookupBuilder(BlockTags.FLOWERS)
 			.add(TTBlocks.DAWNTRAIL);
 
-		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
+		this.valueLookupBuilder(BlockTags.FLOWER_POTS)
 			.add(TTBlocks.POTTED_CYAN_ROSE);
 
-		this.getOrCreateTagBuilder(BlockTags.CROPS)
+		this.valueLookupBuilder(BlockTags.CROPS)
 			.add(TTBlocks.CYAN_ROSE_CROP)
 			.add(TTBlocks.MANEDROP_CROP)
 			.add(TTBlocks.DAWNTRAIL_CROP);
 
-		this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND)
+		this.valueLookupBuilder(BlockTags.MAINTAINS_FARMLAND)
 			.add(TTBlocks.CYAN_ROSE_CROP)
 			.add(TTBlocks.CYAN_ROSE)
 			.add(TTBlocks.MANEDROP_CROP)
 			.add(TTBlocks.DAWNTRAIL_CROP)
 			.add(TTBlocks.DAWNTRAIL);
 
-		this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
+		this.valueLookupBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
 			.add(TTBlocks.DAWNTRAIL);
 
-		this.getOrCreateTagBuilder(BlockTags.STAIRS)
+		this.valueLookupBuilder(BlockTags.STAIRS)
 			.add(TTBlocks.GRANITE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_STAIRS)
 			.add(TTBlocks.DIORITE_BRICK_STAIRS)
@@ -219,7 +224,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_STAIRS)
 			.add(TTBlocks.END_STONE_STAIRS);
 
-		this.getOrCreateTagBuilder(BlockTags.SLABS)
+		this.valueLookupBuilder(BlockTags.SLABS)
 			.add(TTBlocks.GRANITE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_SLAB)
 			.add(TTBlocks.DIORITE_BRICK_SLAB)
@@ -240,7 +245,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB)
 			.add(TTBlocks.END_STONE_SLAB);
 
-		this.getOrCreateTagBuilder(BlockTags.WALLS)
+		this.valueLookupBuilder(BlockTags.WALLS)
 			.add(TTBlocks.GRANITE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL)
 			.add(TTBlocks.POLISHED_GRANITE_WALL)
@@ -271,7 +276,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.END_STONE_WALL)
 			.add(TTBlocks.PURPUR_WALL);
 
-		this.getOrCreateTagBuilder(BlockTags.ANCIENT_CITY_REPLACEABLE)
+		this.valueLookupBuilder(BlockTags.ANCIENT_CITY_REPLACEABLE)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
@@ -285,16 +290,12 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL);
 
-		this.getOrCreateTagBuilder(BlockTags.SCULK_REPLACEABLE_WORLD_GEN)
+		this.valueLookupBuilder(BlockTags.SCULK_REPLACEABLE_WORLD_GEN)
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICKS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILES);
 
-		this.getOrCreateTagBuilder(TTBlockTags.CAMEL_SPAWNABLE_ON)
-			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.DIRT);
-
-		this.getOrCreateTagBuilder(TTBlockTags.COFFIN_UNSPAWNABLE_ON)
+		this.valueLookupBuilder(TTBlockTags.COFFIN_UNSPAWNABLE_ON)
 			.add(Blocks.REDSTONE_WIRE)
 			.add(Blocks.REDSTONE_TORCH)
 			.add(Blocks.REDSTONE_WALL_TORCH)
@@ -306,27 +307,23 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.BUTTONS)
 			.addOptionalTag(BlockTags.PRESSURE_PLATES);
 
-		this.getOrCreateTagBuilder(BlockTags.FEATURES_CANNOT_REPLACE)
+		this.valueLookupBuilder(BlockTags.FEATURES_CANNOT_REPLACE)
 			.add(TTBlocks.COFFIN);
 
-		this.getOrCreateTagBuilder(BlockTags.IMPERMEABLE)
+		this.valueLookupBuilder(BlockTags.IMPERMEABLE)
 			.add(TTBlocks.ECTOPLASM_BLOCK);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH)
+		this.valueLookupBuilder(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH)
 			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
 			.addOptionalTag(ConventionalBlockTags.GLASS_PANES);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)
-			.add(Blocks.TINTED_GLASS)
-			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().id("echo_glass"));
-
-		this.getOrCreateTagBuilder(TTBlockTags.CAMEL_SPAWNABLE_ON)
-			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.DIRT);
+		this.builder(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)
+			.add(Blocks.TINTED_GLASS.builtInRegistryHolder().key())
+			.addOptional(this.getKey(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getID(), "echo_glass"));
 
 		// SOUNDS
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_UNPOLISHED_BRICKS)
+		this.valueLookupBuilder(TTBlockTags.SOUND_UNPOLISHED_BRICKS)
 			.add(
 				Blocks.BRICKS,
 				Blocks.BRICK_STAIRS,
@@ -371,7 +368,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				TTBlocks.CHORAL_END_STONE_BRICK_WALL
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_BRICKS)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED_BRICKS)
 			.add(
 				TTBlocks.GRANITE_BRICKS,
 				TTBlocks.GRANITE_BRICK_STAIRS,
@@ -414,7 +411,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_CALCITE)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED_CALCITE)
 			.add(
 				TTBlocks.POLISHED_CALCITE,
 				TTBlocks.POLISHED_CALCITE_SLAB,
@@ -422,7 +419,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				TTBlocks.POLISHED_CALCITE_STAIRS
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_CALCITE_BRICKS)
+		this.valueLookupBuilder(TTBlockTags.SOUND_CALCITE_BRICKS)
 			.add(
 				TTBlocks.CALCITE_BRICKS,
 				TTBlocks.CALCITE_BRICK_STAIRS,
@@ -436,7 +433,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				TTBlocks.MOSSY_CALCITE_BRICK_WALL
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED)
 			.add(
 				Blocks.POLISHED_ANDESITE,
 				Blocks.POLISHED_ANDESITE_SLAB,
@@ -459,7 +456,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_DEEPSLATE)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED_DEEPSLATE)
 			.add(
 				Blocks.POLISHED_DEEPSLATE,
 				Blocks.POLISHED_DEEPSLATE_SLAB,
@@ -467,7 +464,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				Blocks.POLISHED_DEEPSLATE_STAIRS
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_TUFF)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED_TUFF)
 			.add(
 				Blocks.POLISHED_TUFF,
 				Blocks.POLISHED_TUFF_SLAB,
@@ -475,25 +472,25 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 				Blocks.POLISHED_TUFF_STAIRS
 			);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_BASALT)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED_BASALT)
 			.add(Blocks.POLISHED_BASALT);
 
-		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_RESIN)
+		this.valueLookupBuilder(TTBlockTags.SOUND_POLISHED_RESIN)
 			.add(TTBlocks.POLISHED_RESIN_BLOCK);
 
 		// WILDER WILD
 
-		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_slab_replaceable_worldgen"))
+		this.valueLookupBuilder(getTag("wilderwild:sculk_slab_replaceable_worldgen"))
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB);
 
-		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_stair_replaceable_worldgen"))
+		this.valueLookupBuilder(getTag("wilderwild:sculk_stair_replaceable_worldgen"))
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
 
-		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_wall_replaceable_worldgen"))
+		this.valueLookupBuilder(getTag("wilderwild:sculk_wall_replaceable_worldgen"))
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL);

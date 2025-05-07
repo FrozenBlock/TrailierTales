@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.mixin.common.boat;
 
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,6 +34,8 @@ import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -77,17 +78,15 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
+	public void trailierTales$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
 		if (!this.trailierTales$getBanner().isEmpty()) {
-			nbt.put("TrailierTalesBanner", this.trailierTales$getBanner().save(this.registryAccess()).copy());
+			valueOutput.store("TraileirTalesBanner", ItemStack.CODEC, this.trailierTales$getBanner());
 		}
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		if (nbt.contains("TrailierTalesBanner")) {
-			this.trailierTales$setBanner(ItemStack.parse(this.registryAccess(), nbt.getCompoundOrEmpty("TrailierTalesBanner")).orElse(ItemStack.EMPTY));
-		}
+	public void trailierTales$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.trailierTales$setBanner(valueInput.read("TrailierTalesBanner", ItemStack.CODEC).orElse(ItemStack.EMPTY));
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))

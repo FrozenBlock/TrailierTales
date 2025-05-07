@@ -20,7 +20,6 @@
     "common.brushable_block.BrushableBlockMixin",
     "common.brushable_block.EntityBlockMixin",
     "common.brushable_block.FallingBlockEntityItemMixin",
-    "common.camel.SpawnPlacementsMixin",
     "common.coffin.EntityMixin",
     "common.coffin.ItemStackMixin",
     "common.coffin.LivingEntityMixin",

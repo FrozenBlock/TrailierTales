@@ -32,7 +32,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -82,6 +81,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
@@ -588,26 +589,26 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
-		super.readAdditionalSaveData(nbt);
-		this.readInventoryFromTag(nbt, this.registryAccess());
-		this.setTransparency(nbt.getFloatOr("Transparency", 0));
-		this.setOuterTransparency(nbt.getFloatOr("OuterTransparency", 0));
-		this.setAidAnimProgress(nbt.getFloatOr("AidAnimProgress", 0));
-		this.setPoltergeistAnimProgress(nbt.getFloatOr("PoltergeistAnimProgress", 0));
-		this.setHiding(nbt.getBooleanOr("Hiding", false));
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		this.readInventoryFromTag(valueInput);
+		this.setTransparency(valueInput.getFloatOr("Transparency", 0));
+		this.setOuterTransparency(valueInput.getFloatOr("OuterTransparency", 0));
+		this.setAidAnimProgress(valueInput.getFloatOr("AidAnimProgress", 0));
+		this.setPoltergeistAnimProgress(valueInput.getFloatOr("PoltergeistAnimProgress", 0));
+		this.setHiding(valueInput.getBooleanOr("Hiding", false));
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
-		super.addAdditionalSaveData(nbt);
-		this.writeInventoryToTag(nbt, this.registryAccess());
-		nbt.putFloat("Transparency", this.getInnerTransparency());
-		nbt.putFloat("OuterTransparency", this.getOuterTransparency());
-		nbt.putFloat("AidAnimProgress", this.getAidAnimProgress());
-		nbt.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());
-		nbt.putBoolean("Hiding", this.isHiding());
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		this.writeInventoryToTag(valueOutput);
+		valueOutput.putFloat("Transparency", this.getInnerTransparency());
+		valueOutput.putFloat("OuterTransparency", this.getOuterTransparency());
+		valueOutput.putFloat("AidAnimProgress", this.getAidAnimProgress());
+		valueOutput.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());
+		valueOutput.putBoolean("Hiding", this.isHiding());
 	}
 
 	@Override

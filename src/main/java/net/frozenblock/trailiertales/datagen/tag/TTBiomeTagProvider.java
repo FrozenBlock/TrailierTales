@@ -39,12 +39,12 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_BADLANDS_RUINS)
+		this.builder(TTBiomeTags.HAS_BADLANDS_RUINS)
 			.add(Biomes.BADLANDS)
 			.add(Biomes.WOODED_BADLANDS)
 			.add(Biomes.ERODED_BADLANDS);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_CATACOMBS)
+		this.builder(TTBiomeTags.HAS_CATACOMBS)
 			.addOptionalTag(BiomeTags.IS_OCEAN)
 			.addOptionalTag(BiomeTags.IS_MOUNTAIN)
 			.addOptionalTag(BiomeTags.IS_HILL)
@@ -61,25 +61,25 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("magmatic_caves"))
 			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("frozen_caves"));
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_DESERT_RUINS)
+		this.builder(TTBiomeTags.HAS_DESERT_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_SAVANNA_RUINS)
+		this.builder(TTBiomeTags.HAS_SAVANNA_RUINS)
 			.add(Biomes.SAVANNA)
 			.add(Biomes.SAVANNA_PLATEAU);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_JUNGLE_RUINS)
+		this.builder(TTBiomeTags.HAS_JUNGLE_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_JUNGLE);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_DEEPSLATE_RUINS)
+		this.builder(TTBiomeTags.HAS_DEEPSLATE_RUINS)
 			.add(Biomes.DEEP_DARK);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_RUINS)
+		this.builder(TTBiomeTags.HAS_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_PLAINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_FOREST)
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST);
 
-		this.getOrCreateTagBuilder(TTBiomeTags.HAS_SNOWY_RUINS)
+		this.builder(TTBiomeTags.HAS_SNOWY_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
 			.add(Biomes.SNOWY_TAIGA);
 	}

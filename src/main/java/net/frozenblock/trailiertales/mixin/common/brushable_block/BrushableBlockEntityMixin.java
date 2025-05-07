@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
@@ -31,14 +32,19 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -53,7 +59,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BrushableBlockEntity.class)
-public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityInterface {
+public abstract class BrushableBlockEntityMixin extends BlockEntity implements BrushableBlockEntityInterface {
 
 	@Unique
 	private float trailierTales$targetXLerp = 0.5F;
@@ -106,6 +112,10 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	@Shadow
 	private int brushCount;
 
+	public BrushableBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+		super(blockEntityType, blockPos, blockState);
+	}
+
 	@Contract(pure = true)
 	@Unique
 	private static float @NotNull [] trailierTales$translations(@NotNull Direction direction, int i) {
@@ -123,25 +133,26 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Inject(method = "getUpdateTag", at = @At("RETURN"))
-	public void trailierTales$getUpdateTag(CallbackInfoReturnable<CompoundTag> info) {
-		this.trailierTales$saveNBT(info.getReturnValue());
-	}
-
-	@Inject(method = "loadAdditional", at = @At("TAIL"))
-	public void trailierTales$loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
-		this.trailierTales$readNBT(compoundTag);
-		if (compoundTag.contains("Rebrushed")) this.trailierTales$rebrushed = compoundTag.getBooleanOr("Rebrushed", false);
-		if (compoundTag.contains("TrailierTalesStoredLootTable")) {
-			this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(compoundTag.getStringOr("TrailierTalesStoredLootTable", "")));
+	public void trailierTales$getUpdateTag(HolderLookup.Provider provider, CallbackInfoReturnable<CompoundTag> info) {
+		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), TTConstants.LOGGER)) {
+			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, provider);
+			this.trailierTales$saveTT(tagValueOutput);
 		}
 	}
 
+	@Inject(method = "loadAdditional", at = @At("TAIL"))
+	public void trailierTales$loadAdditional(ValueInput valueInput, CallbackInfo info) {
+		this.trailierTales$readTT(valueInput);
+		this.trailierTales$rebrushed = valueInput.getBooleanOr("Rebrushed", false);
+		this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(valueInput.getStringOr("TrailierTalesStoredLootTable", "")));
+	}
+
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
-	public void trailierTales$saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider, CallbackInfo info) {
-		this.trailierTales$saveNBT(compoundTag);
-		if (this.trailierTales$rebrushed) compoundTag.putBoolean("Rebrushed", this.trailierTales$rebrushed);
+	public void trailierTales$saveAdditional(ValueOutput valueOutput, CallbackInfo info) {
+		this.trailierTales$saveTT(valueOutput);
+		if (this.trailierTales$rebrushed) valueOutput.putBoolean("Rebrushed", this.trailierTales$rebrushed);
 		if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
-			compoundTag.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.location().toString());
+			valueOutput.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.location().toString());
 		}
 	}
 
@@ -212,7 +223,7 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 			shift = At.Shift.AFTER
 		)
 	)
-	private void trailierTales$storeLootTable(CompoundTag nbt, CallbackInfoReturnable<Boolean> info) {
+	private void trailierTales$storeLootTable(ValueInput valueInput, CallbackInfoReturnable<Boolean> info) {
 		this.trailierTales$storedLootTable = this.lootTable;
 	}
 
@@ -273,64 +284,46 @@ public abstract class BrushableBlockEntityMixin implements BrushableBlockEntityI
 	}
 
 	@Unique
-	public void trailierTales$saveNBT(CompoundTag compoundTag) {
-		if (this.trailierTales$hitDirection != null) {
-			compoundTag.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
-		}
-		if (this.trailierTales$targetXLerp != 0.5F)
-			compoundTag.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
-		if (this.trailierTales$targetYLerp != 0F)
-			compoundTag.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
-		if (this.trailierTales$targetZLerp != 0.5F)
-			compoundTag.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
-		if (this.trailierTales$xLerp != 0.5F)
-			compoundTag.putFloat("XLerp", this.trailierTales$xLerp);
-		if (this.trailierTales$yLerp != 0F)
-			compoundTag.putFloat("YLerp", this.trailierTales$yLerp);
-		if (this.trailierTales$zLerp != 0.5F)
-			compoundTag.putFloat("ZLerp", this.trailierTales$zLerp);
-		if (this.trailierTales$prevXLerp != 0.5F)
-			compoundTag.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
-		if (this.trailierTales$prevYLerp != 0F)
-			compoundTag.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
-		if (this.trailierTales$prevZLerp != 0.5F)
-			compoundTag.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
+	public void trailierTales$saveTT(ValueOutput valueOutput) {
+		if (this.trailierTales$hitDirection != null) valueOutput.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
+		if (this.trailierTales$targetXLerp != 0.5F) valueOutput.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
+		if (this.trailierTales$targetYLerp != 0F) valueOutput.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
+		if (this.trailierTales$targetZLerp != 0.5F) valueOutput.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
+		if (this.trailierTales$xLerp != 0.5F) valueOutput.putFloat("XLerp", this.trailierTales$xLerp);
+		if (this.trailierTales$yLerp != 0F) valueOutput.putFloat("YLerp", this.trailierTales$yLerp);
+		if (this.trailierTales$zLerp != 0.5F) valueOutput.putFloat("ZLerp", this.trailierTales$zLerp);
+		if (this.trailierTales$prevXLerp != 0.5F) valueOutput.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
+		if (this.trailierTales$prevYLerp != 0F) valueOutput.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
+		if (this.trailierTales$prevZLerp != 0.5F) valueOutput.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
 
-		if (Math.abs(this.trailierTales$rotation) > 0.1F)
-			compoundTag.putFloat("Rotation", this.trailierTales$rotation);
-		if (Math.abs(this.trailierTales$prevRotation) > 0.1F)
-			compoundTag.putFloat("PrevRotation", this.trailierTales$prevRotation);
-		if (Math.abs(this.trailierTales$targetItemScale) > 0.1F)
-			compoundTag.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
-		if (Math.abs(this.trailierTales$itemScale) > 0.1F)
-			compoundTag.putFloat("ItemScale", this.trailierTales$itemScale);
-		if (Math.abs(this.trailierTales$prevItemScale) > 0.1F)
-			compoundTag.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
-		if (this.trailierTales$hasCustomItem)
-			compoundTag.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
-		if (this.brushCount != 0)
-			compoundTag.putInt("BrushCount", this.brushCount);
+		if (Math.abs(this.trailierTales$rotation) > 0.1F) valueOutput.putFloat("Rotation", this.trailierTales$rotation);
+		if (Math.abs(this.trailierTales$prevRotation) > 0.1F) valueOutput.putFloat("PrevRotation", this.trailierTales$prevRotation);
+		if (Math.abs(this.trailierTales$targetItemScale) > 0.1F) valueOutput.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
+		if (Math.abs(this.trailierTales$itemScale) > 0.1F) valueOutput.putFloat("ItemScale", this.trailierTales$itemScale);
+		if (Math.abs(this.trailierTales$prevItemScale) > 0.1F) valueOutput.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
+		if (this.trailierTales$hasCustomItem) valueOutput.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
+		if (this.brushCount != 0) valueOutput.putInt("BrushCount", this.brushCount);
 	}
 
 	@Unique
-	public void trailierTales$readNBT(@NotNull CompoundTag compoundTag) {
-		if (compoundTag.contains("TTHitDirection")) this.trailierTales$hitDirection = Direction.byName(compoundTag.getStringOr("TTHitDirection", ""));
-		if (compoundTag.contains("TargetXLerp")) this.trailierTales$targetXLerp = compoundTag.getFloatOr("TargetXLerp", 0);
-		if (compoundTag.contains("TargetYLerp")) this.trailierTales$targetYLerp = compoundTag.getFloatOr("TargetYLerp", 0);
-		if (compoundTag.contains("TargetZLerp")) this.trailierTales$targetZLerp = compoundTag.getFloatOr("TargetZLerp", 0);
-		if (compoundTag.contains("XLerp")) this.trailierTales$xLerp = compoundTag.getFloatOr("XLerp", 0);
-		if (compoundTag.contains("YLerp")) this.trailierTales$yLerp = compoundTag.getFloatOr("YLerp", 0);
-		if (compoundTag.contains("ZLerp")) this.trailierTales$zLerp = compoundTag.getFloatOr("ZLerp", 0);
-		if (compoundTag.contains("PrevXLerp")) this.trailierTales$prevXLerp = compoundTag.getFloatOr("PrevXLerp", 0);
-		if (compoundTag.contains("PrevYLerp")) this.trailierTales$prevYLerp = compoundTag.getFloatOr("PrevYLerp", 0);
-		if (compoundTag.contains("PrevZLerp")) this.trailierTales$prevZLerp = compoundTag.getFloatOr("PrevZLerp", 0);
-		if (compoundTag.contains("TargetItemScale")) this.trailierTales$targetItemScale = compoundTag.getFloatOr("TargetItemScale", 0);
-		if (compoundTag.contains("ItemScale")) this.trailierTales$itemScale = compoundTag.getFloatOr("ItemScale", 0);
-		if (compoundTag.contains("PrevItemScale")) this.trailierTales$prevItemScale = compoundTag.getFloatOr("PrevItemScale", 0);
-		this.trailierTales$rotation = compoundTag.getFloatOr("Rotation", 0);
-		this.trailierTales$prevRotation = compoundTag.getFloatOr("PrevRotation", 0);
-		this.trailierTales$hasCustomItem = compoundTag.getBooleanOr("HasCustomItem", false);
-		this.brushCount = compoundTag.getIntOr("BrushCount", 0);
+	public void trailierTales$readTT(@NotNull ValueInput valueInput) {
+		this.trailierTales$hitDirection = Direction.byName(valueInput.getStringOr("TTHitDirection", ""));
+		this.trailierTales$targetXLerp = valueInput.getFloatOr("TargetXLerp", 0);
+		this.trailierTales$targetYLerp = valueInput.getFloatOr("TargetYLerp", 0);
+		this.trailierTales$targetZLerp = valueInput.getFloatOr("TargetZLerp", 0);
+		this.trailierTales$xLerp = valueInput.getFloatOr("XLerp", 0);
+		this.trailierTales$yLerp = valueInput.getFloatOr("YLerp", 0);
+		this.trailierTales$zLerp = valueInput.getFloatOr("ZLerp", 0);
+		this.trailierTales$prevXLerp = valueInput.getFloatOr("PrevXLerp", 0);
+		this.trailierTales$prevYLerp = valueInput.getFloatOr("PrevYLerp", 0);
+		this.trailierTales$prevZLerp = valueInput.getFloatOr("PrevZLerp", 0);
+		this.trailierTales$targetItemScale = valueInput.getFloatOr("TargetItemScale", 0);
+		this.trailierTales$itemScale = valueInput.getFloatOr("ItemScale", 0);
+		this.trailierTales$prevItemScale = valueInput.getFloatOr("PrevItemScale", 0);
+		this.trailierTales$rotation = valueInput.getFloatOr("Rotation", 0);
+		this.trailierTales$prevRotation = valueInput.getFloatOr("PrevRotation", 0);
+		this.trailierTales$hasCustomItem = valueInput.getBooleanOr("HasCustomItem", false);
+		this.brushCount = valueInput.getIntOr("BrushCount", 0);
 	}
 
 	@Unique

@@ -20,11 +20,12 @@ package net.frozenblock.trailiertales.mixin.common.brushable_block;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -76,27 +77,20 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
+	public void trailierTales$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
 		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) {
-			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			compoundTag.put("TrailierTalesItem", this.trailierTales$itemStack.save(fallingBlockEntity.level().registryAccess(), new CompoundTag()));
+			valueOutput.store("TrailierTalesItem", ItemStack.CODEC, this.trailierTales$itemStack);
 		}
 
 		if (this.trailierTales$overrideBreak) {
-			compoundTag.putBoolean("TrailierTalesOverrideBreak", true);
+			valueOutput.putBoolean("TrailierTalesOverrideBreak", true);
 		}
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		if (compoundTag.contains("TrailierTalesItem")) {
-			FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-			this.trailierTales$itemStack = ItemStack.parse(fallingBlockEntity.level().registryAccess(), compoundTag.getCompoundOrEmpty("TrailierTalesItem")).orElse(ItemStack.EMPTY);
-		}
-
-		if (compoundTag.contains("TrailierTalesOverrideBreak")) {
-			this.trailierTales$overrideBreak = compoundTag.getBooleanOr("TrailierTalesOverrideBreak", false);
-		}
+	public void trailierTales$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.trailierTales$itemStack = valueInput.read("TrailierTalesItem", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		this.trailierTales$overrideBreak = valueInput.getBooleanOr("TrailierTalesOverrideBreak", false);
 	}
 
 }

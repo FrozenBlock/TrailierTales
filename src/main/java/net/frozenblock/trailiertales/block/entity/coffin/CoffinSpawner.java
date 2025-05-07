@@ -18,7 +18,9 @@
 package net.frozenblock.trailiertales.block.entity.coffin;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import java.util.Optional;
@@ -40,12 +42,11 @@ import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerat
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
@@ -66,16 +67,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 public final class CoffinSpawner {
+	private static final Logger LOGGER = LogUtils.getLogger();
 	private static final int PLAYER_TRACKING_DISTANCE = 48;
 	private static final int MAX_MOB_TRACKING_DISTANCE = 64;
 	private static final int MAX_MOB_TRACKING_DISTANCE_SQR = Mth.square(MAX_MOB_TRACKING_DISTANCE);
+	private static final PlayerDetector.EntitySelector ENTITY_SELECTOR = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
 	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (world, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
 			world, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
 		)
@@ -91,12 +98,12 @@ public final class CoffinSpawner {
 	private final int requiredPlayerRange;
 	private final int powerCooldownLength;
 	private final CoffinSpawner.StateAccessor stateAccessor;
-	private final PlayerDetector.EntitySelector entitySelector;
 	private final UUID uuid;
 	private boolean attemptingToSpawnMob;
 
-	public Codec<CoffinSpawner> codec() {
-		return RecordCodecBuilder.create(
+	@Contract(" -> new")
+	public @NotNull MapCodec<CoffinSpawner> mapCodec() {
+		return RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("normal_config", CoffinSpawnerConfig.DEFAULT).forGetter(CoffinSpawner::getNormalConfig),
 					CoffinSpawnerConfig.CODEC.optionalFieldOf("irritated_config", CoffinSpawnerConfig.IRRITATED).forGetter(CoffinSpawner::getIrritatedConfig),
@@ -111,13 +118,13 @@ public final class CoffinSpawner {
 				.apply(
 					instance,
 					(config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn) -> new CoffinSpawner(
-						config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor, this.entitySelector
+						config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor
 					)
 				)
 		);
 	}
 
-	public CoffinSpawner(CoffinSpawner.StateAccessor coffin, PlayerDetector.EntitySelector playerDetectionSelector) {
+	public CoffinSpawner(CoffinSpawner.StateAccessor coffin) {
 		this(
 			CoffinSpawnerConfig.DEFAULT,
 			CoffinSpawnerConfig.IRRITATED,
@@ -128,8 +135,7 @@ public final class CoffinSpawner {
 			PLAYER_TRACKING_DISTANCE,
 			UUID.randomUUID().toString(),
 			false,
-			coffin,
-			playerDetectionSelector
+			coffin
 		);
 	}
 
@@ -143,8 +149,7 @@ public final class CoffinSpawner {
 		int requiredPlayerRange,
 		String uuid,
 		boolean attemptingToSpawnMob,
-		CoffinSpawner.StateAccessor coffin,
-		PlayerDetector.EntitySelector playerDetectionSelector
+		CoffinSpawner.StateAccessor coffin
 	) {
 		this.normalConfig = normalConfig;
 		this.irritatedConfig = irritatedConfig;
@@ -156,7 +161,6 @@ public final class CoffinSpawner {
 		this.uuid = UUID.fromString(uuid);
 		this.attemptingToSpawnMob = attemptingToSpawnMob;
 		this.stateAccessor = coffin;
-		this.entitySelector = playerDetectionSelector;
 	}
 
 	public CoffinSpawnerConfig getConfig() {
@@ -250,7 +254,7 @@ public final class CoffinSpawner {
 	}
 
 	public PlayerDetector.EntitySelector getEntitySelector() {
-		return this.entitySelector;
+		return ENTITY_SELECTOR;
 	}
 
 	public boolean canSpawnInLevel(@NotNull ServerLevel level) {
@@ -261,90 +265,66 @@ public final class CoffinSpawner {
 	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
 		RandomSource randomSource = level.getRandom();
 		SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
-		CompoundTag compoundTag = spawnData.entityToSpawn();
-		ListTag listTag = compoundTag.getListOrEmpty("Pos");
-		Optional<EntityType<?>> optional = EntityType.by(compoundTag);
-		if (optional.isEmpty()) {
-			return Optional.empty();
-		} else {
-			int i = listTag.size();
-			double d = i >= 1
-				? listTag.getDoubleOr(0, 0)
-				: (double)pos.getX() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
-			double e = i >= 2 ? listTag.getDoubleOr(1, 0) : (double)(pos.getY() + randomSource.nextInt(3) - 1);
-			double f = i >= 3
-				? listTag.getDoubleOr(2, 0)
-				: (double)pos.getZ() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)this.getConfig().spawnRange() + 0.5;
-			if (!level.noCollision(optional.get().getSpawnAABB(d, e, f))) {
-				return Optional.empty();
-			} else {
-				Vec3 vec3 = new Vec3(d, e, f);
-				if (!inLineOfSight(level, pos.getCenter(), vec3)) {
-					return Optional.empty();
-				} else {
-					BlockPos blockPos = BlockPos.containing(vec3);
-					if (!SpawnPlacements.checkSpawnRules(optional.get(), level, EntitySpawnReason.TRIAL_SPAWNER, blockPos, level.getRandom())) {
-						return Optional.empty();
-					} else {
-						if (spawnData.getCustomSpawnRules().isPresent()) {
-							SpawnData.CustomSpawnRules customSpawnRules = spawnData.getCustomSpawnRules().get();
-							if (!customSpawnRules.isValidPosition(blockPos, level)) {
-								return Optional.empty();
-							}
-						}
 
-						int lightAtPos = level.getRawBrightness(blockPos, 0);
-						int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
-						if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 25) > 0) {
-							return Optional.empty();
-						}
+		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(() -> "spawner@" + pos, LOGGER)) {
+			ValueInput valueInput = TagValueInput.create(scopedCollector, level.registryAccess(), spawnData.entityToSpawn());
+			Optional<EntityType<?>> optional = EntityType.by(valueInput);
+			if (optional.isEmpty()) return Optional.empty();
 
-						if (level.getBlockState(blockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) {
-							return Optional.empty();
-						}
+			Vec3 vec3 = valueInput.read("Pos", Vec3.CODEC).orElseGet(() -> {
+				CoffinSpawnerConfig config = this.getConfig();
+				return new Vec3(
+					pos.getX() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)config.spawnRange() + (double)0.5F,
+					pos.getY() + randomSource.nextInt(3) - 1,
+					pos.getZ() + (randomSource.nextDouble() - randomSource.nextDouble()) * (double)config.spawnRange() + (double)0.5F
+				);
+			});
+			if (!level.noCollision(optional.get().getSpawnAABB(vec3.x, vec3.y, vec3.z))) return Optional.empty();
 
-						Entity entity = EntityType.loadEntityRecursive(compoundTag, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
-							entityx.snapTo(d, e, f, randomSource.nextFloat() * 360F, 0F);
-							return entityx;
-						});
-						if (entity == null) {
-							return Optional.empty();
-						} else {
-							if (entity instanceof Mob mob) {
-								if (!mob.checkSpawnObstruction(level)) {
-									return Optional.empty();
-								}
+			if (!inLineOfSight(level, pos.getCenter(), vec3)) return Optional.empty();
 
-								boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id");
-								if (bl) {
-									mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
-								}
+			BlockPos blockPos = BlockPos.containing(vec3);
+			if (!SpawnPlacements.checkSpawnRules(optional.get(), level, EntitySpawnReason.TRIAL_SPAWNER, blockPos, level.getRandom())) return Optional.empty();
 
-								spawnData.getEquipment().ifPresent(mob::equip);
-							}
-
-							if (!level.tryAddFreshEntityWithPassengers(entity)) {
-								return Optional.empty();
-							} else {
-								level.playSound(
-									null,
-									entity,
-									TTSounds.COFFIN_SPAWN_MOB,
-									SoundSource.BLOCKS,
-									1F,
-									(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F
-								);
-								if (entity instanceof Mob mob) {
-									mob.spawnAnim();
-								}
-								level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
-								this.appendCoffinSpawnAttributes(entity, level, pos, false);
-								return Optional.of(entity.getUUID());
-							}
-						}
-					}
-				}
+			if (spawnData.getCustomSpawnRules().isPresent()) {
+				SpawnData.CustomSpawnRules customSpawnRules = spawnData.getCustomSpawnRules().get();
+				if (!customSpawnRules.isValidPosition(blockPos, level)) return Optional.empty();
 			}
+
+			int lightAtPos = level.getRawBrightness(blockPos, 0);
+			int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
+			if (lightToleranceDifference > 0 && randomSource.nextInt(lightToleranceDifference * 25) > 0) return Optional.empty();
+
+			if (level.getBlockState(blockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) return Optional.empty();
+
+			Entity entity = EntityType.loadEntityRecursive(valueInput, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
+				entityx.snapTo(vec3, randomSource.nextFloat() * 360F, 0F);
+				return entityx;
+			});
+			if (entity == null) return Optional.empty();
+
+			if (entity instanceof Mob mob) {
+				if (!mob.checkSpawnObstruction(level)) return Optional.empty();
+				boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id");
+				if (bl) {
+					mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
+				}
+				spawnData.getEquipment().ifPresent(mob::equip);
+			}
+
+			if (!level.tryAddFreshEntityWithPassengers(entity)) return Optional.empty();
+			level.playSound(
+				null,
+				entity,
+				TTSounds.COFFIN_SPAWN_MOB,
+				SoundSource.BLOCKS,
+				1F,
+				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F
+			);
+			if (entity instanceof Mob mob) mob.spawnAnim();
+			level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
+			this.appendCoffinSpawnAttributes(entity, level, pos, false);
+			return Optional.of(entity.getUUID());
 		}
 	}
 
