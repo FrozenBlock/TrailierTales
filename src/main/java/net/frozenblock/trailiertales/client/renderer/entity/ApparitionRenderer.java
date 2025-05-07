@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Trailier Tales.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.trailiertales.client.renderer.entity;
@@ -38,6 +37,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -46,30 +46,65 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	private float itemYaw;
 
 	private static final ResourceLocation TEXTURE = TTConstants.id("textures/entity/apparition/apparition.png");
+	private static final ResourceLocation HYPNOTIZING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png");
+	private static final ResourceLocation SHOOTING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_shooting.png");
 
 	public ApparitionRenderer(EntityRendererProvider.Context context) {
 		super(context, new ApparitionModel(context.bakeLayer(TTModelLayers.APPARITION)), 0.5F);
 		this.addLayer(new ApparitionOverlayLayer(
 			context,
 			this,
+			renderState -> renderState.innerTransparency,
+			renderState -> renderState.outerTransparency,
+			ApparitionModel::getInnerParts,
+			TEXTURE,
+			false
+		));
+		this.addLayers(
+			context,
 			renderState -> renderState.aidAnimProgress * 0.8F,
-			renderState -> renderState.aidAnimProgress * 0.8F,
-			renderState -> renderState.aidAnimProgress * 0.8F,
-			ApparitionModel::getParts,
-			TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png"),
+			HYPNOTIZING_TEXTURE
+		);
+		this.addLayers(
+			context,
+			renderState -> renderState.poltergeistAnimProgress * 0.8F,
+			SHOOTING_TEXTURE
+		);
+		this.itemRenderer = Minecraft.getInstance().getItemRenderer();
+	}
+
+	private void addLayers(
+		EntityRendererProvider.Context context,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> innerFunction,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> outerFunction,
+		ResourceLocation textureLocation
+	) {
+		this.addLayer(new ApparitionOverlayLayer(
+			context,
+			this,
+			innerFunction,
+			outerFunction,
+			ApparitionModel::getOuterParts,
+			textureLocation,
 			true
 		));
 		this.addLayer(new ApparitionOverlayLayer(
 			context,
 			this,
-			renderState -> renderState.poltergeistAnimProgress * 0.8F,
-			renderState -> renderState.poltergeistAnimProgress * 0.8F,
-			renderState -> renderState.poltergeistAnimProgress * 0.8F,
-			ApparitionModel::getParts,
-			TTConstants.id("textures/entity/apparition/apparition_shooting.png"),
-			true
+			innerFunction,
+			outerFunction,
+			ApparitionModel::getInnerParts,
+			textureLocation,
+			false
 		));
-		this.itemRenderer = Minecraft.getInstance().getItemRenderer();
+	}
+
+	private void addLayers(
+		EntityRendererProvider.Context context,
+		ApparitionModel.AlphaFunction<ApparitionRenderState> alphaFunction,
+		ResourceLocation textureLocation
+	) {
+		this.addLayers(context, alphaFunction, alphaFunction, textureLocation);
 	}
 
 	@Override
@@ -82,9 +117,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
 			poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
 			poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
-			poseStack.pushPose();
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, null, 1);
-			poseStack.popPose();
 			poseStack.popPose();
 		}
 	}
@@ -104,7 +137,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 
 	@Override
 	protected int getBlockLightLevel(Apparition entity, BlockPos pos) {
-		return 15;
+		return LightEngine.MAX_LEVEL;
 	}
 
 	@Override
@@ -120,7 +153,6 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		renderState.itemZRot = apparition.getItemZRot(partialTick);
 		renderState.totalTransparency = apparition.totalTransparency(partialTick);
 		renderState.innerTransparency = apparition.getInnerTransparency(partialTick);
-		renderState.outlineTransparency = apparition.getOutlineTransparency(partialTick);
 		renderState.outerTransparency = apparition.getOuterTransparency(partialTick);
 		renderState.flicker = apparition.getFlicker(partialTick);
 

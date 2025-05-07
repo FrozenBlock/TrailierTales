@@ -60,7 +60,7 @@ Methods marked with `@Unique` do not need prefixes.
 
 ## Licensing & DCO
 
-Trailier Tales is licensed under [GPL 3.0][LICENSE], and it has a [Developer Certificate of Origin (DCO)][DCO], which you are required to agree with to contribute.
+Trailier Tales is licensed under [FrozenBlock Modding Oasis License][LICENSE], and it has a [Developer Certificate of Origin (DCO)][DCO], which you are required to agree with to contribute.
 Specifying the commit author may be sufficient, but a [sign-off can be also added](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s).
 Legal names are not required.
 
@@ -68,6 +68,6 @@ Legal names are not required.
 
 **Note: This document is currently incomplete.**
 
-[LICENSE]: ./LICENSE "Trailier Tales license file"
+[LICENSE]: ./LICENSE.md "Trailier Tales license file"
 
 [DCO]: ./DEVELOPER_CERTIFICATE_OF_ORIGIN.md "Developer Certificate of Origin file"
