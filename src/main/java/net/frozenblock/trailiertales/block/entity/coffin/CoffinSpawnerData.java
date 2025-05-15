@@ -61,24 +61,23 @@ import org.jetbrains.annotations.NotNull;
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-				SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", WeightedList.of()).forGetter(data -> data.spawnPotentials),
-				Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
-				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
-				UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
-				UUIDUtil.CODEC_SET.optionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
-				UUIDUtil.CODEC_SET.optionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
-				Codec.LONG.optionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
-				Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
-				Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
-				Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
-				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
-				Codec.LONG.lenientOptionalFieldOf("cooldown_ends_at", 0L).forGetter(data -> data.cooldownEndsAt),
-				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power", 0).forGetter(data -> data.power),
-				SpawnData.CODEC.optionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
-				Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
-				Codec.intRange(0, 15).optionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
-			)
-			.apply(instance, CoffinSpawnerData::new)
+			SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", WeightedList.of()).forGetter(data -> data.spawnPotentials),
+			Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
+			UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
+			UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
+			UUIDUtil.CODEC_SET.optionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
+			UUIDUtil.CODEC_SET.optionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
+			Codec.LONG.optionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
+			Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
+			Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
+			Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
+			Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
+			Codec.LONG.lenientOptionalFieldOf("cooldown_ends_at", 0L).forGetter(data -> data.cooldownEndsAt),
+			Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power", 0).forGetter(data -> data.power),
+			SpawnData.CODEC.optionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
+			Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
+			Codec.intRange(0, 15).optionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
+		).apply(instance, CoffinSpawnerData::new)
 	);
 
 	protected final IntArrayList soulsToSpawn = new IntArrayList();
@@ -156,13 +155,12 @@ public class CoffinSpawnerData {
 	}
 
 	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
-		if (level instanceof ServerLevel serverLevel) {
-			if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
-				this.nextApparitionSpawnsAt = 0L;
-				this.nextMobSpawnsAt = 0L;
-				coffinSpawner.addPower(1, serverLevel);
-				coffinSpawner.spawnApparition(serverLevel, pos);
-			}
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
+			this.nextApparitionSpawnsAt = 0L;
+			this.nextMobSpawnsAt = 0L;
+			coffinSpawner.addPower(1, serverLevel);
+			coffinSpawner.spawnApparition(serverLevel, pos);
 		}
 	}
 
@@ -243,22 +241,20 @@ public class CoffinSpawnerData {
 	}
 
 	private Optional<Player> getClosestPlayerFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin) {
-		if (!players.isEmpty()) {
-			AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
-			AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
-			players.forEach(uuid -> {
-				Player player = level.getPlayerByUUID(uuid);
-				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-					double distanceTo = player.distanceToSqr(origin);
-					if (distanceTo < closestDistance.get()) {
-						closestDistance.set(distanceTo);
-						closestPlayer.set(Optional.of(player));
-					}
+		if (players.isEmpty()) return Optional.empty();
+		AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
+		AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
+		players.forEach(uuid -> {
+			Player player = level.getPlayerByUUID(uuid);
+			if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+				double distanceTo = player.distanceToSqr(origin);
+				if (distanceTo < closestDistance.get()) {
+					closestDistance.set(distanceTo);
+					closestPlayer.set(Optional.of(player));
 				}
-			});
-			return closestPlayer.get();
-		}
-		return Optional.empty();
+			}
+		});
+		return closestPlayer.get();
 	}
 
 	public List<Player> getNearbyDetectedPlayers(Level level, Vec3 origin, double distance) {
@@ -272,56 +268,50 @@ public class CoffinSpawnerData {
 	private @NotNull List<Player> getNearbyPlayersFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin, double distance) {
 		List<Player> nearbyPlayers = new ArrayList<>();
 		double squaredDistance = distance * distance;
-		if (!players.isEmpty()) {
-			players.forEach(uuid -> {
-				Player player = level.getPlayerByUUID(uuid);
-				if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-					if (player.distanceToSqr(origin) < squaredDistance) {
-						nearbyPlayers.add(player);
-					}
+		if (players.isEmpty()) return nearbyPlayers;
+		players.forEach(uuid -> {
+			Player player = level.getPlayerByUUID(uuid);
+			if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
+				if (player.distanceToSqr(origin) < squaredDistance) {
+					nearbyPlayers.add(player);
 				}
-			});
-		}
+			}
+		});
 		return nearbyPlayers;
 	}
 
 	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
 		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
-		if (isSecondForPos) {
-			List<UUID> list = coffinSpawner.getPlayerDetector()
-				.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
-			this.potentialPlayers.addAll(list);
+		if (!isSecondForPos) return;
+		List<UUID> list = coffinSpawner.getPlayerDetector()
+			.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
+		this.potentialPlayers.addAll(list);
 
-			if (!coffinSpawner.isOminous() && !list.isEmpty()) {
-				Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
-				optional.ifPresent(pair -> {
-					Player player = pair.getFirst();
-					if (pair.getSecond() == MobEffects.BAD_OMEN) {
-						transformBadOmenIntoSiegeOmen(player);
-					}
-					coffinSpawner.applyOminous(world);
-				});
-			}
-
-			List<UUID> detectedList = new ArrayList<>(list);
-			detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
-			for (UUID uuid : this.currentApparitions) {
-				if (world.getEntity(uuid) instanceof Apparition apparition) {
-					LivingEntity target = apparition.getTarget();
-					if (target instanceof Player player) {
-						detectedList.add(player.getUUID());
-					}
-				}
-			}
-
-			if (this.detectedPlayers.addAll(detectedList)) {
-				RandomSource randomSource = world.random;
-				CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
-				world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
-			}
-
-			this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
+		if (!coffinSpawner.isOminous() && !list.isEmpty()) {
+			Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
+			optional.ifPresent(pair -> {
+				Player player = pair.getFirst();
+				if (pair.getSecond() == MobEffects.BAD_OMEN) transformBadOmenIntoSiegeOmen(player);
+				coffinSpawner.applyOminous(world);
+			});
 		}
+
+		List<UUID> detectedList = new ArrayList<>(list);
+		detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
+		for (UUID uuid : this.currentApparitions) {
+			if (world.getEntity(uuid) instanceof Apparition apparition) {
+				LivingEntity target = apparition.getTarget();
+				if (target instanceof Player player) detectedList.add(player.getUUID());
+			}
+		}
+
+		if (this.detectedPlayers.addAll(detectedList)) {
+			RandomSource randomSource = world.random;
+			CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
+			world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
+		}
+
+		this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
 	}
 
 	private static Optional<Pair<Player, Holder<MobEffect>>> findPlayerWithOminousEffect(ServerLevel world, @NotNull List<UUID> list) {
@@ -331,13 +321,8 @@ public class CoffinSpawnerData {
 			Player player2 = world.getPlayerByUUID(uUID);
 			if (player2 != null) {
 				Holder<MobEffect> holder = TTMobEffects.SIEGE_OMEN;
-				if (player2.hasEffect(holder)) {
-					return Optional.of(Pair.of(player2, holder));
-				}
-
-				if (player2.hasEffect(MobEffects.BAD_OMEN)) {
-					player = player2;
-				}
+				if (player2.hasEffect(holder)) return Optional.of(Pair.of(player2, holder));
+				if (player2.hasEffect(MobEffects.BAD_OMEN)) player = player2;
 			}
 		}
 

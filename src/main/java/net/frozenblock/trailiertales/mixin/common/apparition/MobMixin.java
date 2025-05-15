@@ -36,9 +36,7 @@ public class MobMixin {
 	)
 	private boolean trailierTales$ignoreMobGriefingForApparitionIfPossible(boolean original) {
 		if (original) return true;
-		if (Mob.class.cast(this) instanceof Apparition) {
-			return TTEntityConfig.get().apparition.ignore_mob_griefing;
-		}
+		if (Mob.class.cast(this) instanceof Apparition) return TTEntityConfig.get().apparition.ignore_mob_griefing;
 		return false;
 	}
 }

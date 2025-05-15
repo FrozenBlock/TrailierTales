@@ -91,9 +91,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	@Override
 	@NotNull
 	protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState blockState2, RandomSource randomSource) {
-		if (isDouble(state.getValue(AGE))) {
-			return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, blockState2, randomSource);
-		}
+		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, blockState2, randomSource);
 		return state.canSurvive(level, pos) ? state : Blocks.AIR.defaultBlockState();
 	}
 
@@ -115,10 +113,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier) {
-		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-			level.destroyBlock(pos, true, entity);
-		}
-
+		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) level.destroyBlock(pos, true, entity);
 		super.entityInside(state, level, pos, entity, applier);
 	}
 
@@ -138,9 +133,8 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
-		float f = CropBlock.getGrowthSpeed(this, world, pos);
-		boolean bl = random.nextInt((int)(25F / f) + 1) == 0;
-		if (bl) {
+		float growthSpeed = CropBlock.getGrowthSpeed(this, world, pos);
+		if (random.nextInt((int)(25F / growthSpeed) + 1) == 0) {
 			this.grow(world, state, pos, 1);
 		}
 	}
@@ -150,9 +144,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 		if (this.canGrow(world, pos, state, i)) {
 			BlockState blockState = state.setValue(AGE, i);
 			world.setBlock(pos, blockState, UPDATE_CLIENTS);
-			if (isDouble(i)) {
-				world.setBlock(pos.above(), blockState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
-			}
+			if (isDouble(i)) world.setBlock(pos.above(), blockState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
 		}
 	}
 
@@ -183,13 +175,10 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 
 	@Nullable
 	private PosAndState getLowerHalf(LevelReader world, BlockPos pos, BlockState state) {
-		if (isLower(state)) {
-			return new PosAndState(pos, state);
-		} else {
-			BlockPos blockPos = pos.below();
-			BlockState blockState = world.getBlockState(blockPos);
-			return isLower(blockState) ? new PosAndState(blockPos, blockState) : null;
-		}
+		if (isLower(state)) return new PosAndState(pos, state);
+		BlockPos blockPos = pos.below();
+		BlockState blockState = world.getBlockState(blockPos);
+		return isLower(blockState) ? new PosAndState(blockPos, blockState) : null;
 	}
 
 	@Override
@@ -206,9 +195,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	@Override
 	public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
 		PosAndState posAndState = this.getLowerHalf(world, pos, state);
-		if (posAndState != null) {
-			this.grow(world, posAndState.state, posAndState.pos, 1);
-		}
+		if (posAndState != null) this.grow(world, posAndState.state, posAndState.pos, 1);
 	}
 
 	record PosAndState(BlockPos pos, BlockState state) {

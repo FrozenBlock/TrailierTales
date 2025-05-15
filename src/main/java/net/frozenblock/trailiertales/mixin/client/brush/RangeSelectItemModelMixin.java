@@ -44,9 +44,7 @@ public class RangeSelectItemModelMixin {
 		ItemStackRenderState itemStackRenderState,
 		ItemStack itemStack
 	) {
-		if (TTItemConfig.SMOOTH_BRUSH_ANIMATION && itemStack.is(Items.BRUSH)) {
-			return true;
-		}
+		if (TTItemConfig.SMOOTH_BRUSH_ANIMATION && itemStack.is(Items.BRUSH)) return true;
 		return original;
 	}
 }

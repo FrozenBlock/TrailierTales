@@ -162,16 +162,12 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$addAdditionalSaveData(CompoundTag tag, CallbackInfo info) {
-		if (this.trailierTales$entityCoffinData != null) {
-			this.trailierTales$entityCoffinData.saveCompoundTag(tag);
-		}
+		if (this.trailierTales$entityCoffinData != null) this.trailierTales$entityCoffinData.saveCompoundTag(tag);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$readAdditionalSaveData(CompoundTag tag, CallbackInfo info) {
 		EntityCoffinData coffinData = EntityCoffinData.loadCompoundTag(tag);
-		if (coffinData != null) {
-			this.trailierTales$entityCoffinData = coffinData;
-		}
+		if (coffinData != null) this.trailierTales$entityCoffinData = coffinData;
 	}
 }
