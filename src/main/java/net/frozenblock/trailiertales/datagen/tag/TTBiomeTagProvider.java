@@ -75,7 +75,6 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DEEP_DARK);
 
 		this.getOrCreateTagBuilder(TTBiomeTags.HAS_RUINS)
-			.addOptionalTag(ConventionalBiomeTags.IS_PLAINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_FOREST)
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST);
 

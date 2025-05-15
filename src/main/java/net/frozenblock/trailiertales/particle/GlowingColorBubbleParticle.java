@@ -52,11 +52,11 @@ public class GlowingColorBubbleParticle extends TextureSheetParticle {
 		if (this.age++ >= this.lifetime) {
 			this.remove();
 		} else {
-			this.yd += 0.002;
+			this.yd += 0.002D;
 			this.move(this.xd, this.yd, this.zd);
-			this.xd *= 0.85F;
-			this.yd *= 0.85F;
-			this.zd *= 0.85F;
+			this.xd *= 0.85D;
+			this.yd *= 0.85D;
+			this.zd *= 0.85D;
 		}
 		this.setSpriteFromAge(this.spriteProvider);
 	}

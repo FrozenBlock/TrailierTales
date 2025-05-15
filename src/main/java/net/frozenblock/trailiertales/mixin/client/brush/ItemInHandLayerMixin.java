@@ -69,8 +69,7 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 			InteractionHand interactionHand = humanoidArm == humanoidRenderState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 			boolean isLeftHand = humanoidArm == HumanoidArm.LEFT;
 			ItemStack item = isLeftHand ? armedEntityRenderStateInterface.trailierTales$getLeftHandItemStack() : armedEntityRenderStateInterface.trailierTales$getRightHandItemStack();
-			if (
-				item != null
+			if (item != null
 				&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
 				&& humanoidRenderState.isUsingItem
 				&& humanoidRenderState.useItemHand == interactionHand

@@ -20,7 +20,6 @@
     "common.brushable_block.BrushableBlockMixin",
     "common.brushable_block.EntityBlockMixin",
     "common.brushable_block.FallingBlockEntityItemMixin",
-    "common.camel.SpawnPlacementsMixin",
     "common.coffin.EntityMixin",
     "common.coffin.LivingEntityMixin",
     "common.datafix.DataFixersMixin",
@@ -29,11 +28,13 @@
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
     "common.ectoplasm_block.BlockGetterMixin",
     "common.ectoplasm_block.EntityMixin",
+    "common.lithium.LithiumEntityCollisionsMixin",
     "common.rail.RailStructureRotationFix",
+    "common.surveyor.ClipContextBlockMixin",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",
     "structure_building.common.CandleBlockMixin",
-    "common.surveyor.ClipContextBlockMixin"
+    "structure_building.common.CandleBlockMixin"
   ],
   "client": [
     "client.boat.AbstractBoatRendererMixin",

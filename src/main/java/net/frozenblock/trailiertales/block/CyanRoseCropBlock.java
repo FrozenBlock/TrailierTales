@@ -93,9 +93,7 @@ public class CyanRoseCropBlock extends CropBlock {
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(3) != 0) {
-			super.randomTick(state, level, pos, random);
-		}
+		if (random.nextInt(3) != 0) super.randomTick(state, level, pos, random);
 	}
 
 	@Override

@@ -125,7 +125,8 @@ public class GuiMixin {
 		)
 	)
 	private int trailierTales$lerpBackHealth(
-		int original, @Share("trailierTales$maxHealthAttribute") LocalDoubleRef maxHealthAttribute
+		int original,
+		@Share("trailierTales$maxHealthAttribute") LocalDoubleRef maxHealthAttribute
 	) {
 		return (int) Mth.lerp(trailierTales$getHauntProgress(), original, maxHealthAttribute.get());
 	}
@@ -329,9 +330,7 @@ public class GuiMixin {
 	private int trailierTales$hideAirSupply(long airSupply, int noSupply, int maxAirSupply, Operation<Integer> original) {
 		int finalSupply = original.call(airSupply, noSupply, maxAirSupply);
 		if (trailierTales$isHaunted) {
-			if (finalSupply != maxAirSupply) {
-				return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
-			}
+			if (finalSupply != maxAirSupply) return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
 		}
 		return finalSupply;
 	}

@@ -49,6 +49,7 @@ val wilderwild_version: String by project
 
 val modmenu_version: String by project
 val cloth_config_version: String by project
+val lithium_version: String by project
 
 val sodium_version: String by project
 val run_sodium: String by project
@@ -219,6 +220,9 @@ dependencies {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
+
+    // Lithium
+    modImplementation("maven.modrinth:lithium:${lithium_version}")
 
     // Sodium
     if (shouldRunSodium)

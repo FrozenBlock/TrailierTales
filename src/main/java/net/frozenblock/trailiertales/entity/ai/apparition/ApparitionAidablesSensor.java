@@ -56,8 +56,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	private boolean isAidable(@NotNull Apparition apparition, @NotNull LivingEntity entity, List<UUID> takenUUIDs) {
 		LivingEntity newTarget = apparition.getTarget();
-		if (
-			entity instanceof Mob mob
+		if (entity instanceof Mob mob
 				&& newTarget != null
 				&& mob.getType() != TTEntityTypes.APPARITION
 				&& !mob.getType().getCategory().isFriendly()
@@ -67,9 +66,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 			Brain<Apparition> brain = apparition.getBrain();
 			if (brain.hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME)) {
 				Optional<List<UUID>> trackingUUIDs = brain.getMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
-				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) {
-					return false;
-				}
+				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) return false;
 			}
 			LivingEntity currentTarget = mob.getTarget();
 			return mob != apparition
@@ -122,9 +119,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
 		for (LivingEntity livingEntity : livingEntities) {
-			if (predicate.test(livingEntity)) {
-				return Optional.of(livingEntity);
-			}
+			if (predicate.test(livingEntity)) return Optional.of(livingEntity);
 		}
 
 		return Optional.empty();
