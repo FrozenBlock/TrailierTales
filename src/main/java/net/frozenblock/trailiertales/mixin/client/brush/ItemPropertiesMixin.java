@@ -38,9 +38,7 @@ public class ItemPropertiesMixin {
 		)
 	)
 	private static ItemStack trailierTales$useSmoothBrushingAnim(ItemStack original) {
-		if (TTItemConfig.SMOOTH_BRUSH_ANIMATION) {
-			return ItemStack.EMPTY;
-		}
+		if (TTItemConfig.SMOOTH_BRUSH_ANIMATION) return ItemStack.EMPTY;
 		return original;
 	}
 }

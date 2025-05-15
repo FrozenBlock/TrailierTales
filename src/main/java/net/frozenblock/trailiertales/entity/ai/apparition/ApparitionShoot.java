@@ -90,9 +90,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 			double distance = apparition.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
 			boolean lineOfSight = apparition.getSensing().hasLineOfSight(livingEntity);
 			boolean hasSeen = brain.hasMemoryValue(TTMemoryModuleTypes.SEE_TIME);
-			if (lineOfSight != hasSeen) {
-				brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
-			}
+			if (lineOfSight != hasSeen) brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
 
 			int seeTime = brain.getMemory(TTMemoryModuleTypes.SEE_TIME).orElse(0);
 			if (lineOfSight) {

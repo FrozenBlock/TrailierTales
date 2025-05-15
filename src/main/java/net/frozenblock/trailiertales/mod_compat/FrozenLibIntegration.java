@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;

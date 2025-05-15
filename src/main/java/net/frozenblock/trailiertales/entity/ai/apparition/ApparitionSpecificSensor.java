@@ -46,9 +46,7 @@ public class ApparitionSpecificSensor extends Sensor<LivingEntity> {
 		ArrayList<Apparition> apparitions = Lists.newArrayList();
 		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
 		for (LivingEntity livingEntity : entities) {
-			if (livingEntity instanceof Apparition apparition) {
-				apparitions.add(apparition);
-			}
+			if (livingEntity instanceof Apparition apparition) apparitions.add(apparition);
 		}
 		brain.setMemory(TTMemoryModuleTypes.NEARBY_APPARITIONS, apparitions);
 	}

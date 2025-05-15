@@ -49,9 +49,7 @@ public interface BlockGetterMixin {
 			Entity entity = entityCollisionContext.getEntity();
 			if (entity instanceof InEctoplasmBlockInterface inEctoplasmBlockInterface) {
 				BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
-				if (eyeState != null) {
-					inEctoplasmBlockInterface.trailierTales$setClipInEctoplasm(eyeState.getBlock() instanceof EctoplasmBlock);
-				}
+				if (eyeState != null) inEctoplasmBlockInterface.trailierTales$setClipInEctoplasm(eyeState.getBlock() instanceof EctoplasmBlock);
 			}
 		}
 	}
@@ -68,10 +66,9 @@ public interface BlockGetterMixin {
 		ClipContext context
 	) {
 		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			if (
-				entityCollisionContext.getEntity() instanceof InEctoplasmBlockInterface inEctoplasmBlockInterface
-					&& inEctoplasmBlockInterface.trailierTales$wasClipInEctoplasm()
-					&& state.getBlock() instanceof EctoplasmBlock
+			if (entityCollisionContext.getEntity() instanceof InEctoplasmBlockInterface inEctoplasmBlockInterface
+				&& inEctoplasmBlockInterface.trailierTales$wasClipInEctoplasm()
+				&& state.getBlock() instanceof EctoplasmBlock
 			) {
 				shape = Shapes.empty();
 			}

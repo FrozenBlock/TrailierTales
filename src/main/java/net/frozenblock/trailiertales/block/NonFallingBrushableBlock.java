@@ -23,7 +23,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,9 +36,6 @@ public class NonFallingBrushableBlock extends BrushableBlock {
 
 	@Override
 	public void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		BlockEntity blockEntity = serverLevel.getBlockEntity(blockPos);
-		if (blockEntity instanceof BrushableBlockEntity brushableBlockEntity) {
-			brushableBlockEntity.checkReset(serverLevel);
-		}
+		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) brushableBlockEntity.checkReset(serverLevel);
 	}
 }

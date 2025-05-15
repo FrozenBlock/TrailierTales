@@ -69,12 +69,11 @@ public class ItemInHandLayerMixin<S extends LivingEntityRenderState, M extends E
 	) {
 		if (renderState instanceof HumanoidRenderState humanoidRenderState) {
 			InteractionHand interactionHand = humanoidArm == humanoidRenderState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-			if (
-				humanoidRenderState.isUsingItem
+			if (humanoidRenderState.isUsingItem
 				&& humanoidRenderState.useItemHand == interactionHand
 				&& humanoidRenderState.attackTime < 1.0E-5F
-				&& itemStack.is(Items.BRUSH)
 				&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
+				&& itemStack.is(Items.BRUSH)
 			) {
 				float remainingTicks = humanoidRenderState.ticksUsingItem + 1F;
 				float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);

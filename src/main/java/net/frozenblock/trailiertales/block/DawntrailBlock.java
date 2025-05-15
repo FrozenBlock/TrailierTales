@@ -80,11 +80,8 @@ public class DawntrailBlock extends MultifaceBlock implements BonemealableBlock 
 
 	@Override
 	protected @NotNull BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
-		if (!hasAnyFace(state)) {
-			return Blocks.AIR.defaultBlockState();
-		} else {
-			return hasFace(state, direction) && !canAttachTo(level, direction, neighborPos, neighborState) ? removeFace(state, getFaceProperty(direction)) : state;
-		}
+		if (!hasAnyFace(state)) return Blocks.AIR.defaultBlockState();
+		return hasFace(state, direction) && !canAttachTo(level, direction, neighborPos, neighborState) ? removeFace(state, getFaceProperty(direction)) : state;
 	}
 
 	@Override
@@ -102,15 +99,12 @@ public class DawntrailBlock extends MultifaceBlock implements BonemealableBlock 
 
 	@Override
 	public boolean isValidStateForPlacement(BlockGetter view, @NotNull BlockState state, BlockPos pos, Direction dir) {
-		if (!state.getFluidState().isEmpty()) {
-			return false;
-		}
+		if (!state.getFluidState().isEmpty()) return false;
 		if (this.isFaceSupported(dir) && (!state.is(this) || !hasFace(state, dir))) {
 			BlockPos blockPos = pos.relative(dir);
 			return canAttachTo(view, dir, blockPos, view.getBlockState(blockPos));
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	public static boolean isMaxAge(@NotNull BlockState state) {
@@ -152,9 +146,8 @@ public class DawntrailBlock extends MultifaceBlock implements BonemealableBlock 
 			shear(level, pos, state, player);
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
-		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {

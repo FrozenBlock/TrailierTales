@@ -93,15 +93,12 @@ public class DawntrailCropBlock extends CropBlock {
 	public BlockState getStateForAge(int age) {
 		return age == MAX_AGE ?
 			TTBlocks.DAWNTRAIL.defaultBlockState().setValue(DawntrailBlock.getFaceProperty(Direction.DOWN), true).setValue(DawntrailBlock.AGE, DawntrailBlock.MAX_AGE)
-			:
-			super.getStateForAge(age);
+			: super.getStateForAge(age);
 	}
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(3) != 0) {
-			super.randomTick(state, level, pos, random);
-		}
+		if (random.nextInt(3) != 0) super.randomTick(state, level, pos, random);
 	}
 
 	@Override

@@ -64,9 +64,7 @@ public class BrushableBlockRendererMixin {
 	) {
 		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
 			itemScale.set(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
-			if (itemScale.get() <= 0.05F) {
-				info.cancel();
-			}
+			if (itemScale.get() <= 0.05F) info.cancel();
 		}
 	}
 

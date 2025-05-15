@@ -77,9 +77,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 		brain.getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES).ifPresent(nearbyAidables -> {
 			nearbyAidables.forEach(aidable -> trackingUUIDs.add(aidable.getUUID()));
 		});
-		if (!trackingUUIDs.isEmpty()) {
-			brain.setMemory(TTMemoryModuleTypes.AIDING_ENTITIES, trackingUUIDs);
-		}
+		if (!trackingUUIDs.isEmpty()) brain.setMemory(TTMemoryModuleTypes.AIDING_ENTITIES, trackingUUIDs);
 	}
 
 	@Override
