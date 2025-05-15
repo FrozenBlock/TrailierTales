@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.mixin;
 
 import java.util.List;
 import java.util.Set;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.config.TTMixinsConfig;
@@ -31,10 +32,12 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class TTMixinPlugin implements IMixinConfigPlugin {
 	private TTMixinsConfig mixinsConfig;
+	private boolean hasLithium;
 
 	@Override
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = TTMixinsConfig.get();
+		this.hasLithium = FabricLoader.getInstance().isModLoaded("lithium");
 	}
 
 	@Contract(pure = true)
@@ -58,6 +61,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("ectoplasm_block.")) return this.mixinsConfig.ectoplasm_block;
 		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
+		if (mixinClassName.contains("lithium.")) return this.mixinsConfig.lithium && this.hasLithium;
 		if (mixinClassName.contains("rail.")) return this.mixinsConfig.rail;
 
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;

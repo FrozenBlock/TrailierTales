@@ -29,12 +29,13 @@
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
     "common.ectoplasm_block.BlockGetterMixin",
     "common.ectoplasm_block.EntityMixin",
+    "common.lithium.LithiumEntityCollisionsMixin",
     "common.rail.RailStructureRotationFix",
+    "common.surveyor.ClipContextBlockMixin",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",
     "datagen.common.recipe.RecipeBuilderMixin",
-    "structure_building.common.CandleBlockMixin",
-    "common.surveyor.ClipContextBlockMixin"
+    "structure_building.common.CandleBlockMixin"
   ],
   "client": [
     "client.boat.BoatRendererMixin",
