@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "#c:is_plains",
-      "required": false
-    },
-    {
       "id": "#c:is_forest",
       "required": false
     },

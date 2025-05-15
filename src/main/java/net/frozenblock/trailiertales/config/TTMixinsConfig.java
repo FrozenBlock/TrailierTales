@@ -72,6 +72,9 @@ public final class TTMixinsConfig {
 	@Comment("Required to let the player's cursor ignore Ectoplasm Blocks while inside them")
 	public boolean ectoplasm_block = true;
 
+	@Comment("Required for Apparitions to not collide with all blocks when Lithium is installed")
+	public boolean lithium = true;
+
 	@Comment("Required for a structure gen bugfix related to rail rotation")
 	public boolean rail = true;
 

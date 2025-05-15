@@ -306,13 +306,12 @@ public final class CoffinSpawner {
 			if (entity instanceof Mob mob) {
 				if (!mob.checkSpawnObstruction(level)) return Optional.empty();
 				boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id");
-				if (bl) {
-					mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
-				}
+				if (bl) mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
 				spawnData.getEquipment().ifPresent(mob::equip);
 			}
 
 			if (!level.tryAddFreshEntityWithPassengers(entity)) return Optional.empty();
+
 			level.playSound(
 				null,
 				entity,
@@ -431,9 +430,7 @@ public final class CoffinSpawner {
 		this.data.currentMobs.removeIf(uiid -> {
 			Entity entity = level.getEntity(uiid);
 			boolean shouldUntrack = shouldMobBeUntracked(level, pos, entity);
-			if (shouldUntrack) {
-				CoffinBlock.onCoffinUntrack(level, entity, this, false);
-			}
+			if (shouldUntrack) CoffinBlock.onCoffinUntrack(level, entity, this, false);
 			return shouldUntrack;
 		});
 
@@ -449,14 +446,10 @@ public final class CoffinSpawner {
 		CoffinSpawnerState currentState = this.getState();
 
 		if (!this.canSpawnInLevel(level)) {
-			if (this.getState() != CoffinSpawnerState.COOLDOWN) {
-				this.setState(level, CoffinSpawnerState.COOLDOWN);
-			}
+			if (this.getState() != CoffinSpawnerState.COOLDOWN) this.setState(level, CoffinSpawnerState.COOLDOWN);
 		} else {
 			CoffinSpawnerState nextState = currentState.tickAndGetNext(pos, this, state, level);
-			if (nextState != currentState) {
-				this.setState(level, nextState);
-			}
+			if (nextState != currentState) this.setState(level, nextState);
 		}
 		this.updateAttemptingToSpawn(level);
 	}

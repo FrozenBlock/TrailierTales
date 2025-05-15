@@ -119,11 +119,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 				this.trailierTales$boatBannerModel.setupAnim(boatRenderState);
 				this.trailierTales$boatBannerModel.renderToBuffer(
 					poseStack,
-					multiBufferSource.getBuffer(
-						this.trailierTales$boatBannerModel.renderType(
-							this.trailierTales$bannerTexture
-						)
-					),
+					multiBufferSource.getBuffer(this.trailierTales$boatBannerModel.renderType(this.trailierTales$bannerTexture)),
 					light,
 					OverlayTexture.NO_OVERLAY
 				);

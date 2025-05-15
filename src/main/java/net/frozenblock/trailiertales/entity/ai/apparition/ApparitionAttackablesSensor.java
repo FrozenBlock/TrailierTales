@@ -58,9 +58,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 
 	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
 		for (LivingEntity livingEntity : livingEntities) {
-			if (predicate.test(livingEntity)) {
-				return Optional.of(livingEntity);
-			}
+			if (predicate.test(livingEntity)) return Optional.of(livingEntity);
 		}
 
 		return Optional.empty();

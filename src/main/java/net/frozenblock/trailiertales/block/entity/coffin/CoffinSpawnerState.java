@@ -74,11 +74,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		CoffinSpawnerData coffinSpawnerData = coffinSpawner.getData();
 		if (coffinSpawnerData.detectedAnyPlayers()) {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
-				if (coffinSpawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-					return AGGRESSIVE;
-				} else if (coffinSpawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) {
-					return IRRITATED;
-				}
+				if (coffinSpawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) return AGGRESSIVE;
+				if (coffinSpawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) return IRRITATED;
 			}
 			return ACTIVE;
 		}
@@ -97,10 +94,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		} else {
 			Direction direction = CoffinBlock.getConnectedDirection(state);
 			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
-			if (spawner.canSpawnApparition(level, pos, false)) {
-				spawner.spawnApparition(level, pos);
-			}
-
+			if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
 			return getStateForPower(level, spawner);
 		}
 	}
@@ -119,14 +113,11 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		} else {
 			Direction direction = CoffinBlock.getConnectedDirection(state);
 			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
-			if (!coffinSpawnerData.detectedAnyPlayers()) {
-				return getCooldownOrInactiveState(level, spawner);
-			}
+			if (!coffinSpawnerData.detectedAnyPlayers()) return getCooldownOrInactiveState(level, spawner);
+
 			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
-			if (spawner.canSpawnApparition(level, pos, false)) {
-				spawner.spawnApparition(level, pos);
-			}
+			if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
 
 			if (!coffinSpawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
@@ -145,9 +136,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 						long cooldownTime = 36000L;
 						coffinSpawnerData.nextApparitionSpawnsAt = level.getGameTime() + cooldownTime;
 						coffinSpawnerData.cooldownEndsAt = level.getGameTime() + cooldownTime;
-						if (coffinSpawnerData.haveAllCurrentApparitionsDied()) {
-							return COOLDOWN;
-						}
+						if (coffinSpawnerData.haveAllCurrentApparitionsDied()) return COOLDOWN;
 					}
 				}
 			} else if (coffinSpawnerData.isReadyToSpawnNextMob(level, coffinSpawnerConfig, additionalPlayers)) {

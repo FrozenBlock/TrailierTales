@@ -240,9 +240,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
 			if (entityCoffinInterface.trailierTales$getCoffinData() != null && level instanceof ServerLevel serverLevel) {
 				boolean withinCatacombs = CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
-				if (withinCatacombs) {
-					punishmentValue = 0F;
-				}
+				if (withinCatacombs) punishmentValue = 0F;
 				isPosSafe = isPosSafe && withinCatacombs;
 				successValue *= 2F;
 			}
@@ -391,15 +389,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		if (!this.level().isClientSide) {
 			this.tickTransparency();
 			boolean isHidden = this.isHiding();
-			if (!isHidden) {
-				this.spawnParticles(this.random.nextInt(0, 2), this.createAmbientParticleOptions());
-			}
+			if (!isHidden) this.spawnParticles(this.random.nextInt(0, 2), this.createAmbientParticleOptions());
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
 			boolean hiding = this.hiddenTicks > 0;
 			this.setHiding(hiding);
-			if (isHidden != hiding) {
-				this.refreshDimensions();
-			}
+			if (isHidden != hiding) this.refreshDimensions();
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 		} else {
 			this.prevTransparency = this.transparency;
@@ -460,9 +454,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> data) {
-		if (HIDING.equals(data)) {
-			this.refreshDimensions();
-		}
+		if (HIDING.equals(data)) this.refreshDimensions();
 		super.onSyncedDataUpdated(data);
 	}
 
@@ -492,9 +484,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			}
 		}
 		boolean bl = super.hurtServer(level, source, amount);
-		if (bl && source.getEntity() instanceof LivingEntity livingEntity) {
-			ApparitionAi.wasHurtBy(level, this, livingEntity);
-		}
+		if (bl && source.getEntity() instanceof LivingEntity livingEntity) ApparitionAi.wasHurtBy(level, this, livingEntity);
 		return bl;
 	}
 
