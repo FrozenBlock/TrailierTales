@@ -123,7 +123,7 @@
 	"block.trailiertales.mossy_granite_brick_slab": "Phiến Gạch Đá Hoa Cương Rêu",
 	"block.trailiertales.mossy_granite_brick_wall": "Tường Gạch Đá Hoa Cương Rêu",
 	"block.trailiertales.polished_diorite_wall": "Tường Đá Diorit Đánh Bóng",
-	
+
 	"block.trailiertales.chiseled_diorite_bricks": "Gạch Đá Diorit Đục",
 	"block.trailiertales.diorite_bricks": "Gạch Đá Diorit",
 	"block.trailiertales.cracked_diorite_bricks": "Gạch Đá Diorit Nứt",
@@ -268,6 +268,8 @@
 
 	"option.trailiertales.suspicious_blocks": "Khối Đáng Ngờ",
 	"tooltip.trailiertales.suspicious_blocks": "Chứa các tùy chọn liên quan đến Khối Đáng Ngờ",
+    "option.trailiertales.ignore_do_mob_spawning_gamerule": "Bỏ qua luật chơi doMobSpawning",
+  "tooltip.trailiertales.ignore_do_mob_spawning_gamerule": "Liệu quan tài có nên bỏ qua luật chơi doMobSpawning hay không.",
 	"option.trailiertales.smooth_suspicious_blocks": "Hoạt Ảnh Mượt Mà",
 	"tooltip.trailiertales.smooth_suspicious_blocks": "Khối Đáng Ngờ có hoạt ảnh mượt mà hay không",
 	"option.trailiertales.suspicious_block_particles": "Hạt Khối Đáng Ngờ Hỗ Trợ Tiếp Cận",
@@ -397,6 +399,6 @@
 	"tooltip.trailiertales.modify_advancements": "Các thành tựu Vanilla có được sửa đổi cho nội dung Trailier Tales hay không\nTắt nếu bạn nhận thấy bất kỳ sự cố nào liên quan đến thành tựu",
 	"option.trailiertales.distorted_catacombs_music": "Nhạc Hầm Mộ Biến Dạng",
 	"tooltip.trailiertales.distorted_catacombs_music": "Nhạc có bị biến dạng khi ở trong Hầm Mộ hay không",
-	
+
 	"pack.trailiertales.strongholds_to_catacombs": "Pháo Đài -> Hầm Mộ"
 }
