@@ -21,6 +21,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
@@ -31,6 +32,7 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
@@ -49,6 +51,11 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	@Override
 	public void render(ItemDisplayContext itemDisplayContext, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, boolean bl) {
 		this.coffinRenderer.renderInHand(poseStack, multiBufferSource, i, j, this.headTexture, this.footTexture, this.openness);
+	}
+
+	@Override
+	public void getExtents(Set<Vector3f> set) {
+		this.coffinRenderer.getExtents(set);
 	}
 
 	@Environment(EnvType.CLIENT)
