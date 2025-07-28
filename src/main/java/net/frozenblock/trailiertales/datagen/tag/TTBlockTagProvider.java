@@ -324,6 +324,22 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.DIRT);
 
+		this.getOrCreateTagBuilder(ConventionalBlockTags.UNCOLORED_SANDSTONE_BLOCKS)
+			.add(TTBlocks.SMOOTH_SANDSTONE_WALL)
+			.add(TTBlocks.CUT_SANDSTONE_WALL)
+			.add(TTBlocks.CUT_SANDSTONE_STAIRS);
+
+		this.getOrCreateTagBuilder(ConventionalBlockTags.UNCOLORED_SANDSTONE_STAIRS)
+			.add(TTBlocks.CUT_SANDSTONE_STAIRS);
+
+		this.getOrCreateTagBuilder(ConventionalBlockTags.RED_SANDSTONE_BLOCKS)
+			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL)
+			.add(TTBlocks.CUT_RED_SANDSTONE_WALL)
+			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS);
+
+		this.getOrCreateTagBuilder(ConventionalBlockTags.RED_SANDSTONE_STAIRS)
+			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS);
+
 		// SOUNDS
 
 		this.getOrCreateTagBuilder(TTBlockTags.SOUND_UNPOLISHED_BRICKS)
