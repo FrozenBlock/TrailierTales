@@ -386,7 +386,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		super.tick();
 		this.noPhysics = false;
 		this.setNoGravity(true);
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.tickTransparency();
 			boolean isHidden = this.isHiding();
 			if (!isHidden) this.spawnParticles(this.random.nextInt(0, 2), this.createAmbientParticleOptions());
@@ -489,7 +489,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public void swapItem(@NotNull ItemStack itemStack) {
-		if (!itemStack.isEmpty() && !this.level().isClientSide) {
+		if (!itemStack.isEmpty() && !this.level().isClientSide()) {
 			this.dropItem();
 			this.inventory.setItem(0, itemStack);
 		}

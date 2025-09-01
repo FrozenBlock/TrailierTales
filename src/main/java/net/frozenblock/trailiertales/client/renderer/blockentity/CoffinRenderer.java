@@ -53,7 +53,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity> {
 	private final CoffinModel footModel;
 
 	public CoffinRenderer(@NotNull Context context) {
-		this(context.getModelSet());
+		this(context.entityModelSet());
 	}
 
 	public CoffinRenderer(@NotNull EntityModelSet entityModelSet) {

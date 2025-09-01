@@ -28,7 +28,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -144,8 +146,7 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	@NotNull
 	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		if (level instanceof ServerLevel && isMaxAge(state) && stack.is(Items.SHEARS)) {
-			shear(level, pos, state, player);
-			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 			return InteractionResult.SUCCESS;
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);

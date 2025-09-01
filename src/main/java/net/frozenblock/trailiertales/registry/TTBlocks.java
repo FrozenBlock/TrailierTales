@@ -110,7 +110,7 @@ public final class TTBlocks {
 		CyanRoseCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
-			.noCollission()
+			.noCollision()
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.CROP)
@@ -121,7 +121,7 @@ public final class TTBlocks {
 		properties -> new FlowerBlock(MobEffects.SATURATION, 0.5F, properties),
 		Properties.of()
 			.mapColor(MapColor.PLANT)
-			.noCollission()
+			.noCollision()
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
@@ -137,7 +137,7 @@ public final class TTBlocks {
 		ManedropCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
-			.noCollission()
+			.noCollision()
 			.instabreak()
 			.sound(SoundType.CROP)
 			.pushReaction(PushReaction.DESTROY)
@@ -147,7 +147,7 @@ public final class TTBlocks {
 		DoublePlantBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
-			.noCollission()
+			.noCollision()
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
@@ -160,7 +160,7 @@ public final class TTBlocks {
 		DawntrailCropBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
-			.noCollission()
+			.noCollision()
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.CROP)
@@ -171,7 +171,7 @@ public final class TTBlocks {
 		DawntrailBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
-			.noCollission()
+			.noCollision()
 			.instabreak()
 			.randomTicks()
 			.strength(0.2F)

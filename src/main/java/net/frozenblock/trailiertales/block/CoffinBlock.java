@@ -141,7 +141,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	@Override
 	public @NotNull BlockState playerWillDestroy(@NotNull Level level, BlockPos pos, BlockState state, Player player) {
-		if (!level.isClientSide && player.isCreative()) {
+		if (!level.isClientSide() && player.isCreative()) {
 			CoffinPart coffinPart = state.getValue(PART);
 			if (coffinPart == CoffinPart.FOOT) {
 				BlockPos blockPos = pos.relative(getConnectedDirection(coffinPart, state.getValue(FACING)));
@@ -193,7 +193,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			BlockPos blockPos = pos.relative(state.getValue(FACING));
 			level.setBlock(blockPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
 			level.updateNeighborsAt(pos, Blocks.AIR);

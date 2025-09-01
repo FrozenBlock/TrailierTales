@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.client.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -31,7 +32,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class CoffinModel extends Model {
+public class CoffinModel extends Model<CoffinBlockEntity> {
 	private static final String BASE = "base";
 	private static final String LID = "lid";
 	private final ModelPart base;

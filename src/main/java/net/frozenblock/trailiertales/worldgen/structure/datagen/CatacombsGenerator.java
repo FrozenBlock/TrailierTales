@@ -690,7 +690,7 @@ public class CatacombsGenerator {
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
 				false,
 				Optional.empty(),
-				100,
+				new JigsawStructure.MaxDistance(100),
 				List.of(),
 				new DimensionPadding(6),
 				LiquidSettings.IGNORE_WATERLOGGING

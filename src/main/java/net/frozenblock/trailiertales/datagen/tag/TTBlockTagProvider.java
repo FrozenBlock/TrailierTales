@@ -321,20 +321,20 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.TINTED_GLASS.builtInRegistryHolder().key())
 			.addOptional(this.getKey(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getID(), "echo_glass"));
 
-		this.getOrCreateTagBuilder(ConventionalBlockTags.UNCOLORED_SANDSTONE_BLOCKS)
+		this.valueLookupBuilder(ConventionalBlockTags.UNCOLORED_SANDSTONE_BLOCKS)
 			.add(TTBlocks.SMOOTH_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_SANDSTONE_STAIRS);
 
-		this.getOrCreateTagBuilder(ConventionalBlockTags.UNCOLORED_SANDSTONE_STAIRS)
+		this.valueLookupBuilder(ConventionalBlockTags.UNCOLORED_SANDSTONE_STAIRS)
 			.add(TTBlocks.CUT_SANDSTONE_STAIRS);
 
-		this.getOrCreateTagBuilder(ConventionalBlockTags.RED_SANDSTONE_BLOCKS)
+		this.valueLookupBuilder(ConventionalBlockTags.RED_SANDSTONE_BLOCKS)
 			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_RED_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS);
 
-		this.getOrCreateTagBuilder(ConventionalBlockTags.RED_SANDSTONE_STAIRS)
+		this.valueLookupBuilder(ConventionalBlockTags.RED_SANDSTONE_STAIRS)
 			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS);
 
 		// SOUNDS

@@ -37,11 +37,9 @@ import org.jetbrains.annotations.NotNull;
 
 public final class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = register("apparition_spawn_egg",
-		properties -> new SpawnEggItem(
-			TTEntityTypes.APPARITION,
-			properties
-		),
+		SpawnEggItem::new,
 		new Properties()
+			.spawnEgg(TTEntityTypes.APPARITION)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 

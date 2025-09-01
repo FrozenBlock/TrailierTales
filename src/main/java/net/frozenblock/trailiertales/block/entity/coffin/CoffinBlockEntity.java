@@ -145,13 +145,13 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || world.isClientSide) return;
+		if (part == CoffinPart.HEAD || world.isClientSide()) return;
 		this.coffinSpawner.tickServer(world, pos, state, state.getValue(CoffinBlock.PART), ominous);
 		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 	}
 
 	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || !world.isClientSide) return;
+		if (part == CoffinPart.HEAD || !world.isClientSide()) return;
 
 		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 

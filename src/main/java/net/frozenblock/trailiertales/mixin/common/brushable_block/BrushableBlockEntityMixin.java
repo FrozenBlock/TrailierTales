@@ -239,7 +239,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	public void trailierTales$tick() {
 		BrushableBlockEntity brushableBlockEntity = BrushableBlockEntity.class.cast(this);
 		Level level = brushableBlockEntity.getLevel();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			BlockPos blockPos = brushableBlockEntity.getBlockPos();
 			BlockState blockState = level.getBlockState(blockPos);
 			if (blockState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) {

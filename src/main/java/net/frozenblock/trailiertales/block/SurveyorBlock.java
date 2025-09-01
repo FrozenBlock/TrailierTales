@@ -119,7 +119,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(BlockState state, @NotNull Level level, BlockPos pos) {
+	protected int getAnalogOutputSignal(BlockState state, @NotNull Level level, BlockPos pos, Direction direction) {
 		if (level.getBlockEntity(pos) instanceof SurveyorBlockEntity surveyorBlockEntity) {
 			return state.getValue(POWERED) ? surveyorBlockEntity.getLastDetectionPower() : 0;
 		}
