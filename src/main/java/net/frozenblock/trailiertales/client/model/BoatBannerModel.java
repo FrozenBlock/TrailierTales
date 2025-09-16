@@ -108,7 +108,8 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
 	) {
-		BannerRenderer.renderPatterns(poseStack, multiBufferSource, light, overlay, this.flag, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers);
+		// TODO port
+		//BannerRenderer.renderPatterns(poseStack, multiBufferSource, light, overlay, this.flag, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers);
 	}
 
 	@Override

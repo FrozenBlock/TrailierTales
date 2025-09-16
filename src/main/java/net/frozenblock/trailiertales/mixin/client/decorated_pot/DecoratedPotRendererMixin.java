@@ -40,7 +40,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DecoratedPotRenderer.class)
 public class DecoratedPotRendererMixin {
 
-	@Inject(
+	// TODO port
+	/*@Inject(
 		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "FIELD",
@@ -69,6 +70,6 @@ public class DecoratedPotRendererMixin {
 		@Share("trailierTales$isFlipped") LocalBooleanRef isFlipped
 	) {
 		return original.call(instance, v * (isFlipped.get() ? -1 : 1F));
-	}
+	}*/
 
 }

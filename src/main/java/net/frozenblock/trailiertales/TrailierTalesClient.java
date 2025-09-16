@@ -20,18 +20,12 @@ package net.frozenblock.trailiertales;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
-import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
 import net.frozenblock.trailiertales.client.TTBlockRenderLayers;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.TTParticleEngine;
-import net.frozenblock.trailiertales.client.renderer.debug.CoffinDebugRenderer;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
-import net.frozenblock.trailiertales.networking.packet.CoffinDebugPacket;
-import net.frozenblock.trailiertales.networking.packet.CoffinRemoveDebugPacket;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.util.Mth;
 
@@ -48,7 +42,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.location(), TrailierTalesClient::calculateCatacombsMusicPitch);
 
-		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
+		/*DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
 			CoffinDebugRenderer coffinDebugRenderer = new CoffinDebugRenderer(client);
 
 			ClientPlayNetworking.registerGlobalReceiver(CoffinDebugPacket.PACKET_TYPE, (packet, ctx) -> {
@@ -61,8 +55,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 			DebugRenderManager.addClearRunnable(coffinDebugRenderer::clear);
 
-			DebugRenderManager.registerRenderer(TTConstants.id("coffin"), coffinDebugRenderer::render);
-		});
+			// TODO port
+			//DebugRenderManager.registerRenderer(TTConstants.id("coffin"), coffinDebugRenderer::render);
+		});*/
 	}
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {

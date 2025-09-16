@@ -27,6 +27,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -49,8 +50,8 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void render(ItemDisplayContext itemDisplayContext, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, boolean bl) {
-		this.coffinRenderer.renderInHand(poseStack, multiBufferSource, i, j, this.headTexture, this.footTexture, this.openness);
+	public void submit(ItemDisplayContext itemDisplayContext, PoseStack poseStack, SubmitNodeCollector collector, int i, int j, boolean bl) {
+		this.coffinRenderer.renderInHand(poseStack, collector, i, j, this.headTexture, this.footTexture, this.openness);
 	}
 
 	@Override
@@ -79,8 +80,8 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public @NotNull SpecialModelRenderer<?> bake(@NotNull EntityModelSet entityModelSet) {
-			return new CoffinSpecialRenderer(new CoffinRenderer(entityModelSet), this.headTexture, this.footTexture, this.openness);
+		public @NotNull SpecialModelRenderer<?> bake(@NotNull BakingContext entityModelSet) {
+			return new CoffinSpecialRenderer(new CoffinRenderer(entityModelSet.entityModelSet()), this.headTexture, this.footTexture, this.openness);
 		}
 	}
 }

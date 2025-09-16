@@ -32,7 +32,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class CoffinModel extends Model<CoffinBlockEntity> {
+public class CoffinModel extends Model<Float> {
 	private static final String BASE = "base";
 	private static final String LID = "lid";
 	private final ModelPart base;

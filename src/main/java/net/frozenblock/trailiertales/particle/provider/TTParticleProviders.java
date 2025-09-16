@@ -25,6 +25,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
 public class TTParticleProviders {
 
@@ -36,12 +37,12 @@ public class TTParticleProviders {
 			this.sprite = spriteProvider;
 		}
 
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i) {
+		@Override
+		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random) {
 			FlyTowardsPositionParticle flyTowardsPositionParticle = new FlyTowardsPositionParticle(
-				world, d, e, f, g, h, i, true, new Particle.LifetimeAlpha(1F, 0F, 0F, 1F)
+				world, d, e, f, g, h, i, true, new Particle.LifetimeAlpha(1F, 0F, 0F, 1F), this.sprite.get(random)
 			);
 			flyTowardsPositionParticle.scale(1.75F);
-			flyTowardsPositionParticle.pickSprite(this.sprite);
 			return flyTowardsPositionParticle;
 		}
 	}

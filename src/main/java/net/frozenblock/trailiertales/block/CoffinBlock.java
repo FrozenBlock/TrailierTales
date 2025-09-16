@@ -276,12 +276,13 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	public static void onCoffinUntrack(ServerLevel level, @Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
-		if (FrozenLibConfig.IS_DEBUG && entity != null && !entity.isRemoved() && entity.level() instanceof ServerLevel serverLevel) {
+		// TODO port
+		/*if (FrozenLibConfig.IS_DEBUG && entity != null && !entity.isRemoved() && entity.level() instanceof ServerLevel serverLevel) {
 			FrozenNetworking.sendPacketToAllPlayers(
 				serverLevel,
 				new CoffinRemoveDebugPacket(entity.getId())
 			);
-		}
+		}*/
 
 		if (entity != null) entity.playSound(TTSounds.COFFIN_VANISH_MOB, 0.8F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
 

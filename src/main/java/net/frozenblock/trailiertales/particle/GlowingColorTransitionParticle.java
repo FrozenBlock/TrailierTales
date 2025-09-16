@@ -27,6 +27,7 @@ import net.minecraft.client.particle.DustParticleBase;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -66,11 +67,12 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 		this.bCol = vector3f.z();
 	}
 
-	@Override
+	// TODO port
+	/*@Override
 	public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
 		this.lerpColors(tickDelta);
 		super.render(vertexConsumer, camera, tickDelta);
-	}
+	}*/
 
 	@Override
 	protected int getLightColor(float tint) {
@@ -84,8 +86,9 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 			this.sprites = spriteProvider;
 		}
 
+		@Override
 		public Particle createParticle(
-			GlowingDustColorTransitionOptions dustColorTransitionOptions, ClientLevel world, double d, double e, double f, double g, double h, double i
+			GlowingDustColorTransitionOptions dustColorTransitionOptions, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random
 		) {
 			return new GlowingColorTransitionParticle(world, d, e, f, g, h, i, dustColorTransitionOptions, this.sprites);
 		}

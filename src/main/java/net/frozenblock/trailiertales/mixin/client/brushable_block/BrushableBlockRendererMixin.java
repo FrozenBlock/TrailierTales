@@ -43,7 +43,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BrushableBlockRenderer.class)
 public class BrushableBlockRendererMixin {
 
-	@ModifyExpressionValue(
+	// TODO port
+	/*@ModifyExpressionValue(
 		method = "render(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
 		at = @At(
 			value = "INVOKE",
@@ -161,6 +162,6 @@ public class BrushableBlockRendererMixin {
 		} else {
 			original.call(instance, x, y, z);
 		}
-	}
+	}*/
 
 }

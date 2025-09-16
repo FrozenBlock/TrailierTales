@@ -71,12 +71,13 @@ public class EntityCoffinData {
 			if (optionalCoffinSpawner.isEmpty() || canUntrackFromTime) {
 				CoffinBlock.onCoffinUntrack(serverLevel, entity, null, true);
 			} else {
-				if (FrozenLibConfig.IS_DEBUG) {
+				// TODO port
+				/*if (FrozenLibConfig.IS_DEBUG) {
 					FrozenNetworking.sendPacketToAllPlayers(
 						serverLevel,
 						new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, gameTime)
 					);
-				}
+				}*/
 				if (entity instanceof Mob mob) {
 					if (optionalCoffinSpawner.get().isOminous()) {
 						CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();

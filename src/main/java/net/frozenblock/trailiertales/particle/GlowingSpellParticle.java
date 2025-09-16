@@ -26,12 +26,13 @@ import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class GlowingSpellParticle extends SpellParticle {
 
-	public GlowingSpellParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
+	public GlowingSpellParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider, RandomSource random) {
 		super(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
 	}
 
@@ -47,8 +48,9 @@ public class GlowingSpellParticle extends SpellParticle {
 			this.sprite = spriteProvider;
 		}
 
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i) {
-			return new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite);
+		@Override
+		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random) {
+			return new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite, random);
 		}
 	}
 
@@ -59,8 +61,9 @@ public class GlowingSpellParticle extends SpellParticle {
 			this.sprite = spriteSet;
 		}
 
-		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i) {
-			GlowingSpellParticle particle = new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite);
+		@Override
+		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random) {
+			GlowingSpellParticle particle = new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite, random);
 			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			particle.setAlpha(colorParticleOption.getAlpha());
 			return particle;

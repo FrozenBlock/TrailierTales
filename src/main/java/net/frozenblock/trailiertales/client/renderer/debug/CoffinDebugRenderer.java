@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.UUID;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -33,6 +32,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -80,7 +80,7 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	}
 
 	@Override
-	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ) {
+	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ, DebugValueAccess debugValueAccess) {
 		this.clearRemovedEntities();
 		this.scheduledRemovals.removeIf(id -> true);
 
@@ -95,7 +95,8 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 			if (id != null) {
 				Entity entity = this.minecraft.level.getEntity(id);
 				if (entity != null) {
-					if (id.equals(this.lastLookedAtId)) {
+					// TODO port
+					/*if (id.equals(this.lastLookedAtId)) {
 						selected = true;
 						highlightPos(matrices, vertexConsumers, coffinData.getPos());
 						Vec3 entityTextPos = entity.getEyePosition(DebugRenderManager.PARTIAL_TICK);
@@ -115,7 +116,7 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 						cameraX, cameraY, cameraZ,
 						entity.getEyePosition(DebugRenderManager.PARTIAL_TICK), Vec3.atCenterOf(coffinData.getPos()),
 						selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR
-					);
+					);*/
 				}
 			}
 		}

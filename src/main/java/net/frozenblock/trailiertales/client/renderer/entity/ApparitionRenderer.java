@@ -29,6 +29,7 @@ import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRend
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -108,8 +109,8 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	public void render(@NotNull ApparitionRenderState renderState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-		super.render(renderState, poseStack, buffer, packedLight);
+	public void submit(ApparitionRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+		super.submit(renderState, poseStack, submitNodeCollector);
 		ItemStack stack = renderState.visibleItem;
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
@@ -117,7 +118,8 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
 			poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
 			poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
-			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, null, 1);
+			// TODO port
+			//this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, null, 1);
 			poseStack.popPose();
 		}
 	}

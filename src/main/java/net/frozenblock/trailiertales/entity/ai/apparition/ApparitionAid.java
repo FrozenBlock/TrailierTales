@@ -88,7 +88,8 @@ public class ApparitionAid extends Behavior<Apparition> {
 		apparition.setAidAnimProgress(0F);
 	}
 
-	public static final ParticleOptions BUBBLE_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_BUBBLE, 162F / 255F, 181F/ 255F, 217F / 255F);
+	// TODO port
+	//public static final ParticleOptions BUBBLE_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_BUBBLE, 162F / 255F, 181F/ 255F, 217F / 255F);
 	public static final ParticleOptions EFFECT_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_ENTITY_EFFECT, 162F / 255F, 181F/ 255F, 217F / 255F);
 
 	@Override
@@ -106,7 +107,8 @@ public class ApparitionAid extends Behavior<Apparition> {
 
 		int aidingTime = brain.getMemory(TTMemoryModuleTypes.AIDING_TIME).orElse(0);
 		if (aidingTime > 1) {
-			entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), BUBBLE_PARTICLE));
+			// TODO port
+			//entities.forEach(livingEntity -> spawnParticles(world, livingEntity, apparition.getRandom().nextInt(1, 2), BUBBLE_PARTICLE));
 			apparition.setAidAnimProgress(1F);
 			LivingEntity nearestAidable = brain.getMemory(TTMemoryModuleTypes.NEAREST_AIDABLE).orElse(null);
 			if (nearestAidable != null) {

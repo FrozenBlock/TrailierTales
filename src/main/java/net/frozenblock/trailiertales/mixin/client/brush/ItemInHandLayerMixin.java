@@ -45,7 +45,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemInHandLayer.class)
 public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M extends EntityModel<S> & ArmedModel> {
 
-	@Inject(
+	// TODO port
+	/*@Inject(
 		method = "renderArmWithItem",
 		at = @At(
 			value = "INVOKE",
@@ -88,5 +89,5 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 				}
 			}
 		}
-	}
+	}*/
 }

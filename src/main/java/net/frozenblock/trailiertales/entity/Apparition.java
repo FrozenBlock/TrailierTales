@@ -33,7 +33,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -636,11 +635,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		super.customServerAiStep(level);
 	}
 
-	@Override
+	// TODO port
+	/*@Override
 	protected void sendDebugPackets() {
 		super.sendDebugPackets();
 		DebugPackets.sendEntityBrain(this);
-	}
+	}*/
 
 	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity

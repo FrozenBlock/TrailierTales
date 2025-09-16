@@ -24,6 +24,7 @@ import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,12 +38,12 @@ public class ShearsDispenseItemBehaviorMixin {
 		method = "execute",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;)Z"
+			target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
-	private boolean trailierTales$execute(ServerLevel world, BlockPos pos, Operation<Boolean> original) {
-		return original.call(world, pos) ||
-			trailierTales$tryShearDawntrail(world, pos);
+	private boolean trailierTales$execute(ServerLevel level, ItemStack stack, BlockPos pos, Operation<Boolean> original) {
+		return original.call(level, stack, pos) ||
+			trailierTales$tryShearDawntrail(level, pos);
 	}
 
 	@Unique

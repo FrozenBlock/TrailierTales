@@ -99,7 +99,8 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		}
 	}
 
-	@Inject(
+	// TODO port
+	/*@Inject(
 		method = "render(Lnet/minecraft/client/renderer/entity/state/BoatRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
 		at = @At(
 			value = "INVOKE",
@@ -135,5 +136,5 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 				poseStack.popPose();
 			}
 		}
-	}
+	}*/
 }
