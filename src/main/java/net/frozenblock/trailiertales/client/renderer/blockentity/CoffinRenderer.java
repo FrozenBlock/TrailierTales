@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import java.util.Set;
 import net.fabricmc.api.EnvType;
@@ -32,7 +31,6 @@ import net.frozenblock.trailiertales.client.model.CoffinModel;
 import net.frozenblock.trailiertales.client.renderer.blockentity.state.CoffinRenderState;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -76,47 +74,19 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		openProg = 1F - openProg;
 		openProg = 1F - openProg * openProg * openProg;
 
-		submitNodeCollector.submitModel(
-			this.headModel,
-			openProg, poseStack,
-			this.headModel.renderType(getCoffinTexture(CoffinPart.HEAD, renderState.spawnerState, renderState.ominous)),
-			renderState.lightCoords,
-			OverlayTexture.NO_OVERLAY,
-			-1,
-			renderState.breakProgress
-		);
-		/*BlockState blockState = blockEntity.getBlockState();
-		DoubleBlockCombiner.NeighborCombineResult<? extends CoffinBlockEntity> neighborCombineResult = DoubleBlockCombiner.combineWithNeigbour(
-			TTBlockEntityTypes.COFFIN,
-			CoffinBlock::getBlockType,
-			CoffinBlock::getConnectedDirection,
-			CoffinBlock.FACING,
-			blockState,
-			level,
-			blockEntity.getBlockPos(),
-			(world, pos) -> false
-		);
-
-		float wobbleProgress = ((float)(level.getGameTime() - blockEntity.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
-
-		int i = neighborCombineResult.apply(new BrightnessCombiner<>()).get(packedLight);
-		CoffinPart part = blockState.getValue(CoffinBlock.PART);
-		CoffinSpawnerState coffinSpawnerState = blockState.getValue(CoffinBlock.STATE);
-		Direction direction = blockState.getValue(CoffinBlock.FACING);
-
-		this.renderPiece(
+		this.submitPiece(
 			poseStack,
-			buffer,
-			part == CoffinPart.HEAD ? this.headModel : this.footModel,
-			getCoffinTexture(part, coffinSpawnerState, false),
+			submitNodeCollector,
+			renderState.part == CoffinPart.HEAD ? this.headModel : this.footModel,
+			getCoffinTexture(renderState.part, renderState.spawnerState, false),
 			null,
 			openProg,
-			wobbleProgress,
-			i,
-			packedOverlay,
+			renderState.wobbleProgress,
+			renderState.lightCoords,
+			OverlayTexture.NO_OVERLAY,
 			false,
-			direction
-		);*/
+			renderState.direction
+		);
 	}
 
 	public void renderInHand(
@@ -129,11 +99,11 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		float openness
 	) {
 		poseStack.translate(0F, -0.1F, 0F);
-		this.renderPiece(poseStack, collector, this.headModel, headTexture, null, openness, 0F, packedLight, packedOverlay, false, Direction.SOUTH);
-		this.renderPiece(poseStack, collector, this.footModel, footTexture, null, openness, 0F, packedLight, packedOverlay, true, Direction.SOUTH);
+		this.submitPiece(poseStack, collector, this.headModel, headTexture, null, openness, 0F, packedLight, packedOverlay, false, Direction.SOUTH);
+		this.submitPiece(poseStack, collector, this.footModel, footTexture, null, openness, 0F, packedLight, packedOverlay, true, Direction.SOUTH);
 	}
 
-	private void renderPiece(
+	private void submitPiece(
 		@NotNull PoseStack poseStack,
 		@NotNull SubmitNodeCollector collector,
 		@NotNull CoffinModel model,
@@ -151,14 +121,27 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		prepareModelAndPose(model, poseStack, renderAsOffsetFoot, direction, openProgress, wobbleProgress);
 
 
-		// TODO
-		/*VertexConsumer vertexConsumer = collector.getBuffer(RenderType.entityCutout(texture));
-		model.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay);
-
+		// TODO port: fix coffin opening
+		collector.submitModel(
+			model,
+			openProgress, poseStack,
+			RenderType.entityCutout(texture),
+			packedLight,
+			packedOverlay,
+			0,
+			null
+		);
 		if (glowingTexture != null) {
-			VertexConsumer glowingConsumer = collector.getBuffer(RenderType.eyes(glowingTexture));
-			model.renderToBuffer(poseStack, glowingConsumer, packedLight, packedOverlay);
-		}*/
+			collector.submitModel(
+				model,
+				openProgress, poseStack,
+				RenderType.eyes(glowingTexture),
+				packedLight,
+				packedOverlay,
+				0,
+				null
+			);
+		}
 
 		poseStack.popPose();
 	}
@@ -208,7 +191,26 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	public void extractRenderState(CoffinBlockEntity blockEntity, CoffinRenderState renderState, float partialTick, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, vec3, crumblingOverlay);
 		renderState.openProgress = blockEntity.getOpenProgress(partialTick);
-		renderState.spawnerState = blockEntity.getState();
 		renderState.ominous = blockEntity.getCoffinSpawner().isOminous();
+
+		Level level = blockEntity.getLevel();
+		BlockState blockState = blockEntity.getBlockState();
+		DoubleBlockCombiner.NeighborCombineResult<? extends CoffinBlockEntity> neighborCombineResult = DoubleBlockCombiner.combineWithNeigbour(
+			TTBlockEntityTypes.COFFIN,
+			CoffinBlock::getBlockType,
+			CoffinBlock::getConnectedDirection,
+			CoffinBlock.FACING,
+			blockState,
+			level,
+			blockEntity.getBlockPos(),
+			(world, pos) -> false
+		);
+
+		renderState.wobbleProgress = ((float)(level.getGameTime() - blockEntity.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
+
+		renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).get(renderState.lightCoords);
+		renderState.part = blockState.getValue(CoffinBlock.PART);
+		renderState.spawnerState = blockState.getValue(CoffinBlock.STATE);
+		renderState.direction = blockState.getValue(CoffinBlock.FACING);
 	}
 }

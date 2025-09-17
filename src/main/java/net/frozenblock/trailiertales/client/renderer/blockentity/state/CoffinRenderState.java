@@ -20,7 +20,9 @@ package net.frozenblock.trailiertales.client.renderer.blockentity.state;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.core.Direction;
 
 @Environment(EnvType.CLIENT)
 public class CoffinRenderState extends BlockEntityRenderState {
@@ -28,4 +30,7 @@ public class CoffinRenderState extends BlockEntityRenderState {
 	public float openProgress;
 	public CoffinSpawnerState spawnerState;
 	public boolean ominous;
+	public float wobbleProgress;
+	public Direction direction;
+	public CoffinPart part;
 }
