@@ -635,13 +635,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		super.customServerAiStep(level);
 	}
 
-	// TODO port
-	/*@Override
-	protected void sendDebugPackets() {
-		super.sendDebugPackets();
-		DebugPackets.sendEntityBrain(this);
-	}*/
-
 	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()

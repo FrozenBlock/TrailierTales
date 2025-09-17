@@ -26,7 +26,6 @@ import net.frozenblock.trailiertales.impl.BoatBannerInterface;
 import net.frozenblock.trailiertales.impl.client.AbstractBoatRendererInterface;
 import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.AbstractBoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -96,16 +95,14 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		method = "extractRenderState(Lnet/minecraft/world/entity/vehicle/AbstractBoat;Lnet/minecraft/client/renderer/entity/state/BoatRenderState;F)V",
 		at = @At("TAIL")
 	)
-	public void trailierTales$extractRenderState(AbstractBoat abstractBoat, BoatRenderState boatRenderState, float f, CallbackInfo info) {
-		if (abstractBoat instanceof BoatBannerInterface bannerInterface && boatRenderState instanceof BoatRenderStateInterface boatRenderStateInterface) {
-			WalkAnimationState walkAnimationState = bannerInterface.trailierTales$getWalkAnimationState();
-			boatRenderStateInterface.trailierTales$setWalkAnimationPos(walkAnimationState.position(f));
-			boatRenderStateInterface.trailierTales$setWalkAnimationSpeed(walkAnimationState.speed(f));
-			boatRenderStateInterface.trailierTales$setBanner(bannerInterface.trailierTales$getBanner());
-		}
+	public void trailierTales$extractRenderState(AbstractBoat abstractBoat, BoatRenderState renderState, float partialTick, CallbackInfo info) {
+		if (!(abstractBoat instanceof BoatBannerInterface bannerInterface && renderState instanceof BoatRenderStateInterface stateInterface)) return;
+		final WalkAnimationState walkAnimationState = bannerInterface.trailierTales$getWalkAnimationState();
+		stateInterface.trailierTales$setWalkAnimationPos(walkAnimationState.position(partialTick));
+		stateInterface.trailierTales$setWalkAnimationSpeed(walkAnimationState.speed(partialTick));
+		stateInterface.trailierTales$setBanner(bannerInterface.trailierTales$getBanner());
 	}
 
-	// TODO port
 	@Inject(
 		method = "submit(Lnet/minecraft/client/renderer/entity/state/BoatRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V",
 		at = @At(
@@ -114,28 +111,25 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 			shift = At.Shift.AFTER
 		)
 	)
-	public void trailierTales$renderBoatBanner(
-		BoatRenderState boatRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CallbackInfo ci
-	) {
-		if (boatRenderState instanceof BoatRenderStateInterface boatRenderStateInterface) {
-			ItemStack stack = boatRenderStateInterface.trailierTales$getBanner();
-			if (!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem) {
-				poseStack.pushPose();
-				this.trailierTales$boatBannerModel.setRaft(this.trailierTales$raft);
-				this.trailierTales$boatBannerModel.beforeRender(poseStack);
-				this.trailierTales$boatBannerModel.setupAnim(boatRenderState);
-				this.trailierTales$boatBannerModel.submitFlag(
-					this.materials,
-					poseStack,
-					submitNodeCollector,
-					boatRenderState,
-					OverlayTexture.NO_OVERLAY,
-					bannerItem.getColor(),
-					stack.getComponents().get(DataComponents.BANNER_PATTERNS)
-				);
-				this.trailierTales$boatBannerModel.afterRender(poseStack);
-				poseStack.popPose();
-			}
-		}
+	public void trailierTales$renderBoatBanner(BoatRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CallbackInfo info) {
+		if (!(renderState instanceof BoatRenderStateInterface stateInterface)) return;
+		final ItemStack stack = stateInterface.trailierTales$getBanner();
+		if (!(!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem)) return;
+
+		poseStack.pushPose();
+		this.trailierTales$boatBannerModel.setRaft(this.trailierTales$raft);
+		this.trailierTales$boatBannerModel.beforeRender(poseStack);
+		this.trailierTales$boatBannerModel.setupAnim(renderState);
+		this.trailierTales$boatBannerModel.submitFlag(
+			this.materials,
+			poseStack,
+			submitNodeCollector,
+			renderState,
+			OverlayTexture.NO_OVERLAY,
+			bannerItem.getColor(),
+			stack.getComponents().get(DataComponents.BANNER_PATTERNS)
+		);
+		this.trailierTales$boatBannerModel.afterRender(poseStack);
+		poseStack.popPose();
 	}
 }
