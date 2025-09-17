@@ -67,9 +67,16 @@ public class ApparitionOverlayLayer extends RenderLayer<ApparitionRenderState, A
 		float color
 	) {
 		this.model.setupAnim(renderState);
-		// TODO port
-		//VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.renderType);
-		//this.model.renderToBuffer(matrices, vertexConsumer, 15728640, getOverlay(renderState));
+		submitNodeCollector.submitModel(
+			this.model,
+			renderState,
+			poseStack,
+			this.renderType,
+			light,
+			getOverlay(renderState),
+			0,
+			null
+		);
 	}
 
 	private static int getOverlay(@NotNull ApparitionRenderState renderState) {

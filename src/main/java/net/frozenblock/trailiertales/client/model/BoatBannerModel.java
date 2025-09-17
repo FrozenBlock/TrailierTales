@@ -30,9 +30,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.state.BoatRenderState;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
@@ -100,7 +98,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		this.raft = false;
 	}
 
-	public void renderFlag(
+	public void submitFlag(
 		@NotNull PoseStack poseStack,
 		MultiBufferSource multiBufferSource,
 		int light,
