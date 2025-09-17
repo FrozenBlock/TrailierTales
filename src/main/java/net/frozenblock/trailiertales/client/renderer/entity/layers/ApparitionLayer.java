@@ -36,9 +36,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 	ApparitionModel.AlphaFunction<ApparitionRenderState> innerAlphaFunction;
 	ApparitionModel.AlphaFunction<ApparitionRenderState> outerAlphaFunction;
 	private final ApparitionModel model;
-	private final int outlineOrder;
-	private final int innerOrder;
-	private final int outerOrder;
+	private final int minOrder;
 
 	public ApparitionLayer(
 		RenderLayerParent<ApparitionRenderState, ApparitionModel> renderLayerParent,
@@ -54,10 +52,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		this.outerAlphaFunction = outerAlphaFunction;
 		this.model = renderLayerParent.getModel();
 
-		minOrder *= 3;
-		this.outlineOrder = minOrder;
-		this.innerOrder = minOrder + 1;
-		this.outerOrder = minOrder + 2;
+		this.minOrder = minOrder * 3;
 	}
 
 	@Override
@@ -70,10 +65,13 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		float color
 	) {
 		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
-
 		final float innerTransparency = this.innerAlphaFunction.apply(renderState) * renderState.flicker;
+		final float outerTransparency = this.outerAlphaFunction.apply(renderState) * renderState.flicker;
+
+		int order = this.minOrder;
+
 		if (renderState.innerTransparency > 0F) {
-			submitNodeCollector.order(this.outlineOrder).submitModelPart(
+			submitNodeCollector.order(order).submitModelPart(
 				this.model.outline,
 				poseStack,
 				this.innerRenderType,
@@ -84,7 +82,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				null
 			);
 
-			submitNodeCollector.order(this.innerOrder).submitModelPart(
+			submitNodeCollector.order(order += 1).submitModelPart(
 				this.model.inner,
 				poseStack,
 				this.innerRenderType,
@@ -96,9 +94,8 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 			);
 		}
 
-		final float outerTransparency = this.outerAlphaFunction.apply(renderState) * renderState.flicker;
 		if (outerTransparency > 0F) {
-			submitNodeCollector.order(this.outerOrder).submitModelPart(
+			submitNodeCollector.order((order == this.minOrder) ? order : order + 1).submitModelPart(
 				this.model.outer,
 				poseStack,
 				this.outerRenderType,
