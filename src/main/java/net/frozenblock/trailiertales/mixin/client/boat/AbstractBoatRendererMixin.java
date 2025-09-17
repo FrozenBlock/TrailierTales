@@ -27,11 +27,13 @@ import net.frozenblock.trailiertales.impl.client.AbstractBoatRendererInterface;
 import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.AbstractBoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.BoatRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.WalkAnimationState;
@@ -53,6 +55,9 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	protected abstract EntityModel<BoatRenderState> model();
 
 	@Unique
+	private MaterialSet materials;
+
+	@Unique
 	private ResourceLocation trailierTales$bannerTexture;
 	@Unique
 	private BoatBannerModel trailierTales$boatBannerModel;
@@ -65,6 +70,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, CallbackInfo info) {
+		this.materials = context.getMaterials();
 		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TTModelLayers.BOAT_BANNER));
 	}
 
@@ -100,16 +106,16 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	}
 
 	// TODO port
-	/*@Inject(
-		method = "render(Lnet/minecraft/client/renderer/entity/state/BoatRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+	@Inject(
+		method = "submit(Lnet/minecraft/client/renderer/entity/state/BoatRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/model/EntityModel;renderToBuffer(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;II)V",
+			target = "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/RenderType;IIILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
 			shift = At.Shift.AFTER
 		)
 	)
 	public void trailierTales$renderBoatBanner(
-		BoatRenderState boatRenderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, CallbackInfo info
+		BoatRenderState boatRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CallbackInfo ci
 	) {
 		if (boatRenderState instanceof BoatRenderStateInterface boatRenderStateInterface) {
 			ItemStack stack = boatRenderStateInterface.trailierTales$getBanner();
@@ -118,16 +124,11 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 				this.trailierTales$boatBannerModel.setRaft(this.trailierTales$raft);
 				this.trailierTales$boatBannerModel.beforeRender(poseStack);
 				this.trailierTales$boatBannerModel.setupAnim(boatRenderState);
-				this.trailierTales$boatBannerModel.renderToBuffer(
+				this.trailierTales$boatBannerModel.submitFlag(
+					this.materials,
 					poseStack,
-					multiBufferSource.getBuffer(this.trailierTales$boatBannerModel.renderType(this.trailierTales$bannerTexture)),
-					light,
-					OverlayTexture.NO_OVERLAY
-				);
-				this.trailierTales$boatBannerModel.renderFlag(
-					poseStack,
-					multiBufferSource,
-					light,
+					submitNodeCollector,
+					boatRenderState,
 					OverlayTexture.NO_OVERLAY,
 					bannerItem.getColor(),
 					stack.getComponents().get(DataComponents.BANNER_PATTERNS)
@@ -136,5 +137,5 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 				poseStack.popPose();
 			}
 		}
-	}*/
+	}
 }

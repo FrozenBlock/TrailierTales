@@ -30,7 +30,11 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.state.BoatRenderState;
+import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
@@ -99,20 +103,14 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	}
 
 	public void submitFlag(
+		MaterialSet materials,
 		@NotNull PoseStack poseStack,
-		MultiBufferSource multiBufferSource,
-		int light,
+		SubmitNodeCollector submitNodeCollector,
+		BoatRenderState renderState,
 		int overlay,
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
 	) {
-		// TODO port
-		//BannerRenderer.renderPatterns(poseStack, multiBufferSource, light, overlay, this.flag, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers);
-	}
-
-	@Override
-	public void renderToBuffer(@NotNull PoseStack matrices, VertexConsumer vertexConsumer, int i, int j, int k) {
-		this.pole.render(matrices, vertexConsumer, i, j);
-		this.bar.render(matrices, vertexConsumer, i, j);
+		BannerRenderer.submitPatterns(materials, poseStack, submitNodeCollector, renderState.lightCoords, overlay, this, renderState, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers, null);
 	}
 }
