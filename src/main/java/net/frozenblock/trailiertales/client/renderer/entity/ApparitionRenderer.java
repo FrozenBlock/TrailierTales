@@ -24,102 +24,71 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
-import net.frozenblock.trailiertales.client.renderer.entity.layers.ApparitionOverlayLayer;
+import net.frozenblock.trailiertales.client.renderer.entity.layers.ApparitionLayer;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.frozenblock.trailiertales.entity.Apparition;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRenderState, ApparitionModel> {
-	private final ItemRenderer itemRenderer;
-	private float itemYaw;
-
 	private static final ResourceLocation TEXTURE = TTConstants.id("textures/entity/apparition/apparition.png");
 	private static final ResourceLocation HYPNOTIZING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png");
 	private static final ResourceLocation SHOOTING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_shooting.png");
+	private final ItemModelResolver itemModelResolver;
+	private float itemYaw;
 
 	public ApparitionRenderer(EntityRendererProvider.Context context) {
 		super(context, new ApparitionModel(context.bakeLayer(TTModelLayers.APPARITION)), 0.5F);
-		this.addLayer(new ApparitionOverlayLayer(
-			context,
+		this.addLayer(new ApparitionLayer(
 			this,
 			renderState -> renderState.innerTransparency,
 			renderState -> renderState.outerTransparency,
-			ApparitionModel::getInnerParts,
 			TEXTURE,
-			false
+			0
 		));
-		this.addLayers(
-			context,
-			renderState -> renderState.aidAnimProgress * 0.8F,
-			HYPNOTIZING_TEXTURE
-		);
-		this.addLayers(
-			context,
-			renderState -> renderState.poltergeistAnimProgress * 0.8F,
-			SHOOTING_TEXTURE
-		);
-		this.itemRenderer = Minecraft.getInstance().getItemRenderer();
-	}
 
-	private void addLayers(
-		EntityRendererProvider.Context context,
-		ApparitionModel.AlphaFunction<ApparitionRenderState> innerFunction,
-		ApparitionModel.AlphaFunction<ApparitionRenderState> outerFunction,
-		ResourceLocation textureLocation
-	) {
-		this.addLayer(new ApparitionOverlayLayer(
-			context,
+		final ApparitionModel.AlphaFunction<ApparitionRenderState> aidAlpha = renderState -> renderState.aidAnimProgress * 0.8F;
+		this.addLayer(new ApparitionLayer(
 			this,
-			innerFunction,
-			outerFunction,
-			ApparitionModel::getOuterParts,
-			textureLocation,
-			true
+			aidAlpha,
+			aidAlpha,
+			HYPNOTIZING_TEXTURE,
+			1
 		));
-		this.addLayer(new ApparitionOverlayLayer(
-			context,
-			this,
-			innerFunction,
-			outerFunction,
-			ApparitionModel::getInnerParts,
-			textureLocation,
-			false
-		));
-	}
 
-	private void addLayers(
-		EntityRendererProvider.Context context,
-		ApparitionModel.AlphaFunction<ApparitionRenderState> alphaFunction,
-		ResourceLocation textureLocation
-	) {
-		this.addLayers(context, alphaFunction, alphaFunction, textureLocation);
+		final ApparitionModel.AlphaFunction<ApparitionRenderState> poltergeistAlpha = renderState -> renderState.poltergeistAnimProgress * 0.8F;
+		this.addLayer(new ApparitionLayer(
+			this,
+			poltergeistAlpha,
+			poltergeistAlpha,
+			SHOOTING_TEXTURE,
+			2
+		));
+
+		this.itemModelResolver = context.getItemModelResolver();
 	}
 
 	@Override
 	public void submit(ApparitionRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 		super.submit(renderState, poseStack, submitNodeCollector);
-		ItemStack stack = renderState.visibleItem;
-		if (!stack.isEmpty()) {
+		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(0F, 0.425F, 0F);
 			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
 			poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
 			poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
-			// TODO port
-			//this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, null, 1);
+			renderState.item.submit(poseStack, submitNodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
 			poseStack.popPose();
 		}
 	}
@@ -129,6 +98,11 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		super.setupRotations(renderState, matrices, bodyYaw, scale);
 		this.itemYaw = bodyYaw;
 		this.shadowStrength = renderState.totalTransparency;
+	}
+
+	@Override
+	protected @Nullable RenderType getRenderType(ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
+		return null;
 	}
 
 	@Override
@@ -151,6 +125,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	@Override
 	public void extractRenderState(Apparition apparition, ApparitionRenderState renderState, float partialTick) {
 		super.extractRenderState(apparition, renderState, partialTick);
+		renderState.lightCoords = 15728640;
 		renderState.itemYRot = apparition.getItemYRot(partialTick);
 		renderState.itemZRot = apparition.getItemZRot(partialTick);
 		renderState.totalTransparency = apparition.totalTransparency(partialTick);
@@ -158,7 +133,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		renderState.outerTransparency = apparition.getOuterTransparency(partialTick);
 		renderState.flicker = apparition.getFlicker(partialTick);
 
-		renderState.visibleItem = apparition.getVisibleItem();
+		this.itemModelResolver.updateForLiving(renderState.item, apparition.getVisibleItem(), ItemDisplayContext.GROUND, apparition);
 		renderState.aidAnimProgress = apparition.getAidAnimProgress(partialTick);
 		renderState.poltergeistAnimProgress = apparition.getPoltergeistAnimProgress(partialTick);
 	}

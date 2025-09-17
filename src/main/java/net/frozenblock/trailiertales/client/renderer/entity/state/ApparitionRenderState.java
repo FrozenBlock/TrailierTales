@@ -20,7 +20,7 @@ package net.frozenblock.trailiertales.client.renderer.entity.state;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionRenderState extends LivingEntityRenderState {
@@ -31,7 +31,7 @@ public class ApparitionRenderState extends LivingEntityRenderState {
 	public float outerTransparency;
 	public float flicker;
 
-	public ItemStack visibleItem;
+	public ItemStackRenderState item = new ItemStackRenderState();
 	public float aidAnimProgress;
 	public float poltergeistAnimProgress;
 }

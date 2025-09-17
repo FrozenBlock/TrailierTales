@@ -17,10 +17,6 @@
 
 package net.frozenblock.trailiertales.client.model;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import java.util.List;
 import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -36,7 +32,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ARGB;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -46,53 +42,18 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	public final ModelPart inner;
 	public final ModelPart outline;
 	public final ModelPart outer;
-	private final AlphaFunction<ApparitionRenderState> innerAlphaFunction;
-	private final AlphaFunction<ApparitionRenderState> outerAlphaFunction;
-	private final DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector;
-	private final List<ModelPart> innerParts;
-	private final List<ModelPart> outerParts;
-
-	private float innerTransparency;
-	private float outerTransparency;
-	private float flicker;
 
 	public ApparitionModel(@NotNull ModelPart root) {
-		this(
-			FrozenLibRenderTypes::apparitionOuter,
-			root,
-			renderState -> renderState.innerTransparency,
-			renderState -> renderState.outerTransparency,
-			ApparitionModel::getOuterParts
-		);
+		this(FrozenLibRenderTypes::apparitionOuter, root);
 	}
 
-	public ApparitionModel(
-		Function<ResourceLocation, RenderType> function,
-		@NotNull ModelPart root,
-		AlphaFunction<ApparitionRenderState> innerAlpha,
-		AlphaFunction<ApparitionRenderState> outerAlpha,
-		DrawSelector<ApparitionRenderState, ApparitionModel> drawSelector
-	) {
+	public ApparitionModel(Function<ResourceLocation, RenderType> function, @NotNull ModelPart root) {
 		super(root, function);
 		this.root = root;
 		this.core = root.getChild("core");
 		this.inner = this.core.getChild("inner");
 		this.outline = this.core.getChild("outline");
 		this.outer = root.getChild("outer");
-
-		this.innerAlphaFunction = innerAlpha;
-		this.outerAlphaFunction = outerAlpha;
-		this.drawSelector = drawSelector;
-		this.innerParts = ImmutableList.of(this.inner);
-		this.outerParts = ImmutableList.of(this.outline, this.outer);
-	}
-
-	public List<ModelPart> getOuterParts() {
-		return this.outerParts;
-	}
-
-	public List<ModelPart> getInnerParts() {
-		return this.innerParts;
 	}
 
 	@NotNull
@@ -129,15 +90,12 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 		float limbDistance = renderState.walkAnimationSpeed;
 		float headYaw = renderState.yRot;
 		float headPitch = renderState.xRot;
-		this.innerTransparency = this.innerAlphaFunction.apply(renderState);
-		this.outerTransparency = this.outerAlphaFunction.apply(renderState);
-		this.flicker = renderState.flicker;
 		this.outer.yRot = renderState.itemYRot;
 		this.outer.zRot = renderState.itemZRot;
 
 		float animationProgress = renderState.ageInTicks + (limbAngle * 3.5F);
-		this.core.yRot = headYaw * ((float) Math.PI / 180F);
-		this.core.xRot = headPitch * ((float) Math.PI / 180F);
+		this.core.yRot = headYaw * Mth.DEG_TO_RAD;
+		this.core.xRot = headPitch * Mth.DEG_TO_RAD;
 
 		float tighten = 1F - limbDistance * 0.75F;
 		this.outer.yRot *= tighten;
@@ -152,40 +110,7 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 		this.outer.yScale = -sinIdle + 1;
 	}
 
-	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int colorBad) {
-		poseStack.pushPose();
-		this.onlyDrawSelectedParts();
-
-		int innerTransparency = ARGB.colorFromFloat(this.innerTransparency * this.flicker, 1F, 1F, 1F);
-		this.inner.render(poseStack, buffer, 15728640, packedOverlay, innerTransparency);
-
-		int outlineTransparency = ARGB.colorFromFloat(this.innerTransparency * 0.7F * this.flicker, 1F, 1F, 1F);
-		this.outline.render(poseStack, buffer, 15728640, packedOverlay, outlineTransparency);
-
-		int outerTransparency = ARGB.colorFromFloat(this.outerTransparency * this.flicker, 1F, 1F, 1F);
-		this.outer.render(poseStack, buffer, 15728640, packedOverlay, outerTransparency);
-
-		this.resetDrawForAllParts();
-		poseStack.popPose();
-	}
-
-	private void onlyDrawSelectedParts() {
-		this.root().getAllParts().forEach(modelPart -> modelPart.skipDraw = true);
-		this.drawSelector.getPartsToDraw(this).forEach(modelPart -> modelPart.skipDraw = false);
-	}
-
-	private void resetDrawForAllParts() {
-		this.root().getAllParts().forEach(modelPart -> modelPart.skipDraw = false);
-	}
-
-	@Environment(EnvType.CLIENT)
 	public interface AlphaFunction<T extends ApparitionRenderState> {
 		float apply(T apparition);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public interface DrawSelector<T extends ApparitionRenderState, M extends EntityModel<T>> {
-		List<ModelPart> getPartsToDraw(M entityModel);
 	}
 }
