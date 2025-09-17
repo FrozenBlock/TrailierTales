@@ -19,7 +19,6 @@ package net.frozenblock.trailiertales.client.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -47,12 +46,25 @@ public class CoffinModel extends Model<Float> {
 	public static @NotNull LayerDefinition createLayerDefinition() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
-		modelPartData.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 18).addBox(0F, 0F, 0F, 16F, 12F, 16F), PartPose.ZERO);
-		modelPartData.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(0F, 0F, 0F, 16F, 2F, 16F), PartPose.offset(0F, 12F, 0F));
+		modelPartData.addOrReplaceChild(
+			BASE,
+			CubeListBuilder.create()
+				.texOffs(0, 18)
+				.addBox(0F, 0F, 0F, 16F, 12F, 16F),
+			PartPose.ZERO
+		);
+		modelPartData.addOrReplaceChild(
+			LID,
+			CubeListBuilder.create()
+				.texOffs(0, 0)
+				.addBox(0F, 0F, 0F, 16F, 2F, 16F),
+			PartPose.offset(0F, 12F, 0F)
+		);
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	public void setupAnim(float liftProgress) {
-		this.lid.zRot = liftProgress * Mth.HALF_PI;
+	@Override
+	public void setupAnim(Float openProgress) {
+		this.lid.zRot = openProgress * Mth.HALF_PI;
 	}
 }

@@ -84,9 +84,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			this.coffinSpawner = valueInput.read(this.coffinSpawner.mapCodec()).orElse(this.coffinSpawner);
 
 			this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-			if (!this.tryLoadLootTable(valueInput)) {
-				ContainerHelper.loadAllItems(valueInput, this.items);
-			}
+			if (!this.tryLoadLootTable(valueInput)) ContainerHelper.loadAllItems(valueInput, this.items);
 		}
 
 		this.coffinWobbleLidAnimTicks = valueInput.getIntOr("coffin_wobble_lid_anim_ticks", 0);
@@ -98,7 +96,6 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
 			valueOutput.store(this.coffinSpawner.mapCodec(), this.coffinSpawner);
-
 			ContainerHelper.saveAllItems(valueOutput, this.items);
 		}
 
@@ -190,7 +187,6 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
 		CompoundTag compoundTag = new CompoundTag();
 		compoundTag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
-		compoundTag.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
 		return compoundTag;
 	}
 
@@ -214,7 +210,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 				CoffinBlock.spawnParticlesFrom(
 					serverLevel,
 					particleOptions,
-					level.random.nextInt(1, 5),
+					this.level.random.nextInt(1, 5),
 					0.5D,
 					coffinOrientation,
 					finalPos,
@@ -224,7 +220,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			CoffinBlock.spawnParticlesFrom(
 				serverLevel,
 				TTParticleTypes.COFFIN_SOUL_ENTER,
-				level.random.nextInt(1, 2),
+				this.level.random.nextInt(1, 2),
 				0D,
 				coffinOrientation,
 				finalPos,

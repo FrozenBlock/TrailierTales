@@ -26,11 +26,10 @@ import net.minecraft.core.Direction;
 
 @Environment(EnvType.CLIENT)
 public class CoffinRenderState extends BlockEntityRenderState {
-
-	public float openProgress;
+	public CoffinPart part;
 	public CoffinSpawnerState spawnerState;
 	public boolean ominous;
-	public float wobbleProgress;
 	public Direction direction;
-	public CoffinPart part;
+	public float openProgress;
+	public float wobbleProgress;
 }

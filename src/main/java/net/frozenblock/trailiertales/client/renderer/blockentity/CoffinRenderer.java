@@ -43,7 +43,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -69,7 +68,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	@Override
-	public void submit(CoffinRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+	public void submit(@NotNull CoffinRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 		float openProg = renderState.openProgress;
 		openProg = 1F - openProg;
 		openProg = 1F - openProg * openProg * openProg;
@@ -118,13 +117,13 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	) {
 		poseStack.pushPose();
 
-		prepareModelAndPose(model, poseStack, renderAsOffsetFoot, direction, openProgress, wobbleProgress);
-
+		openProgress = setupPoseStackAndCalculateOpenProgress(poseStack, renderAsOffsetFoot, direction, openProgress, wobbleProgress);
 
 		// TODO port: fix coffin opening
 		collector.submitModel(
 			model,
-			openProgress, poseStack,
+			openProgress,
+			poseStack,
 			RenderType.entityCutout(texture),
 			packedLight,
 			packedOverlay,
@@ -134,7 +133,8 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		if (glowingTexture != null) {
 			collector.submitModel(
 				model,
-				openProgress, poseStack,
+				openProgress,
+				poseStack,
 				RenderType.eyes(glowingTexture),
 				packedLight,
 				packedOverlay,
@@ -146,8 +146,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		poseStack.popPose();
 	}
 
-	private static void prepareModelAndPose(
-		CoffinModel model,
+	private static float setupPoseStackAndCalculateOpenProgress(
 		@NotNull PoseStack poseStack,
 		boolean renderAsOffsetFoot,
 		@NotNull Direction direction,
@@ -168,17 +167,18 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			float lidWobble = (wobbleProgress + (2.5F / CoffinBlockEntity.WOBBLE_DURATION)) * Mth.PI * 2.5F;
 			openProgress += Math.max(0F, (Mth.cos(lidWobble) * -0.25F) * (Mth.sin(lidWobble) * -0.25F)) * wobbleDampen;
 		}
-		model.setupAnim(openProgress * 1.5707964F);
 
 		if (renderAsOffsetFoot) poseStack.translate(0F, 0F, -1F);
+
+		return openProgress * Mth.HALF_PI;
 	}
 
 	public void getExtents(Set<Vector3f> set) {
 		PoseStack poseStack = new PoseStack();
-		prepareModelAndPose(this.headModel, poseStack, false, Direction.SOUTH, 0F, 0F);
+		setupPoseStackAndCalculateOpenProgress(poseStack, false, Direction.SOUTH, 0F, 0F);
 		this.headModel.root().getExtentsForGui(poseStack, set);
 		poseStack.setIdentity();
-		prepareModelAndPose(this.footModel, poseStack, true, Direction.SOUTH, 0F, 0F);
+		setupPoseStackAndCalculateOpenProgress(poseStack, true, Direction.SOUTH, 0F, 0F);
 		this.footModel.root().getExtentsForGui(poseStack, set);
 	}
 
@@ -188,29 +188,33 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	@Override
-	public void extractRenderState(CoffinBlockEntity blockEntity, CoffinRenderState renderState, float partialTick, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
-		BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, vec3, crumblingOverlay);
-		renderState.openProgress = blockEntity.getOpenProgress(partialTick);
-		renderState.ominous = blockEntity.getCoffinSpawner().isOminous();
+	public void extractRenderState(
+		@NotNull CoffinBlockEntity coffin,
+		@NotNull CoffinRenderState renderState,
+		float partialTick,
+		Vec3 cameraPos,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		BlockEntityRenderer.super.extractRenderState(coffin, renderState, partialTick, cameraPos, crumblingOverlay);
 
-		Level level = blockEntity.getLevel();
-		BlockState blockState = blockEntity.getBlockState();
+		final Level level = coffin.getLevel();
+		renderState.part = renderState.blockState.getValue(CoffinBlock.PART);
+		renderState.spawnerState = renderState.blockState.getValue(CoffinBlock.STATE);
+		renderState.ominous = coffin.getCoffinSpawner().isOminous();
+		renderState.direction = renderState.blockState.getValue(CoffinBlock.FACING);
+		renderState.openProgress = coffin.getOpenProgress(partialTick);
+		renderState.wobbleProgress = ((float)(level.getGameTime() - coffin.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
+
 		DoubleBlockCombiner.NeighborCombineResult<? extends CoffinBlockEntity> neighborCombineResult = DoubleBlockCombiner.combineWithNeigbour(
 			TTBlockEntityTypes.COFFIN,
 			CoffinBlock::getBlockType,
 			CoffinBlock::getConnectedDirection,
 			CoffinBlock.FACING,
-			blockState,
+			renderState.blockState,
 			level,
-			blockEntity.getBlockPos(),
+			renderState.blockPos,
 			(world, pos) -> false
 		);
-
-		renderState.wobbleProgress = ((float)(level.getGameTime() - blockEntity.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
-
 		renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).get(renderState.lightCoords);
-		renderState.part = blockState.getValue(CoffinBlock.PART);
-		renderState.spawnerState = blockState.getValue(CoffinBlock.STATE);
-		renderState.direction = blockState.getValue(CoffinBlock.FACING);
 	}
 }
