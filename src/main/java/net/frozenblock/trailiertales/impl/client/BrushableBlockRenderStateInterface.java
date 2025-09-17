@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.impl.client;
 
 public interface BrushableBlockRenderStateInterface {
-
 	float trailierTales$getXOffset();
 	void trailierTales$setXOffset(float xOffset);
 

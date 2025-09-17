@@ -21,7 +21,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
 public interface BrushableBlockEntityInterface {
-
 	void trailierTales$tick();
 
 	boolean trailierTales$setItem(ItemStack itemStack);
@@ -39,5 +38,4 @@ public interface BrushableBlockEntityInterface {
 	float trailierTales$getItemScale(float partialTicks);
 
 	Direction trailierTales$getHitDirection();
-
 }

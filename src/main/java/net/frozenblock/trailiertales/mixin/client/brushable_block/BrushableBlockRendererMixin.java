@@ -20,8 +20,6 @@ package net.frozenblock.trailiertales.mixin.client.brushable_block;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
@@ -29,7 +27,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.impl.client.BrushableBlockRenderStateInterface;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
 import net.minecraft.client.renderer.blockentity.state.BrushableBlockRenderState;
@@ -62,32 +59,39 @@ public class BrushableBlockRendererMixin {
 		method = "extractRenderState(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
 		at = @At("TAIL")
 	)
-	private void trailierTales$extractBrushableBlockRenderState(BrushableBlockEntity brushableBlockEntity, BrushableBlockRenderState brushableBlockRenderState, float partialTick, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay, CallbackInfo ci) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface && brushableBlockRenderState instanceof BrushableBlockRenderStateInterface brushableBlockRenderStateInterface) {
-			brushableBlockRenderStateInterface.trailierTales$setXOffset(brushableBlockEntityInterface.trailierTales$getXOffset(partialTick));
-			brushableBlockRenderStateInterface.trailierTales$setYOffset(brushableBlockEntityInterface.trailierTales$getYOffset(partialTick));
-			brushableBlockRenderStateInterface.trailierTales$setZOffset(brushableBlockEntityInterface.trailierTales$getZOffset(partialTick));
-			brushableBlockRenderStateInterface.trailierTales$setRotation(brushableBlockEntityInterface.trailierTales$getRotation(partialTick));
-			brushableBlockRenderStateInterface.trailierTales$setItemScale(brushableBlockEntityInterface.trailierTales$getItemScale(partialTick));
+	private void trailierTales$extractBrushableBlockRenderState(
+		BrushableBlockEntity brushableBlockEntity,
+		BrushableBlockRenderState brushableBlockRenderState,
+		float partialTick,
+		Vec3 vec3,
+		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+		CallbackInfo info
+	) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS
+			&& brushableBlockEntity instanceof BrushableBlockEntityInterface blockInterface
+			&& brushableBlockRenderState instanceof BrushableBlockRenderStateInterface stateInterface
+		) {
+			stateInterface.trailierTales$setXOffset(blockInterface.trailierTales$getXOffset(partialTick));
+			stateInterface.trailierTales$setYOffset(blockInterface.trailierTales$getYOffset(partialTick));
+			stateInterface.trailierTales$setZOffset(blockInterface.trailierTales$getZOffset(partialTick));
+			stateInterface.trailierTales$setRotation(blockInterface.trailierTales$getRotation(partialTick));
+			stateInterface.trailierTales$setItemScale(blockInterface.trailierTales$getItemScale(partialTick));
 		}
 	}
 
 	@Inject(
 		method = "submit(Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V",
-		at = @At(value = "HEAD"),
+		at = @At("HEAD"),
 		cancellable = true
 	)
-	public void trailierTales$setItemScaleOrCancel(
+	public void trailierTales$cancelIfItemIsTooSmall(
 		BrushableBlockRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector submitNodeCollector,
-		CallbackInfo ci,
-		@Share("trailierTales$itemScale") LocalFloatRef itemScale
+		CallbackInfo info
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface brushableBlockRenderStateInterface) {
-			itemScale.set(brushableBlockRenderStateInterface.trailierTales$getItemScale());
-			if (itemScale.get() <= 0.05F)
-				ci.cancel();
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
+			if (stateInterface.trailierTales$getItemScale() <= 0.05F) info.cancel();
 		}
 	}
 
@@ -106,21 +110,21 @@ public class BrushableBlockRendererMixin {
 	)
 	public void trailierTales$useSmoothTranslation(
 		PoseStack instance,
-		float f,
-		float g,
-		float h,
+		float x,
+		float y,
+		float z,
 		Operation<Void> original,
 		BrushableBlockRenderState renderState
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface brushableBlockRenderStateInterface) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
 			original.call(
 				instance,
-				brushableBlockRenderStateInterface.trailierTales$getXOffset(),
-				brushableBlockRenderStateInterface.trailierTales$getYOffset(),
-				brushableBlockRenderStateInterface.trailierTales$getZOffset()
+				stateInterface.trailierTales$getXOffset(),
+				stateInterface.trailierTales$getYOffset(),
+				stateInterface.trailierTales$getZOffset()
 			);
 		} else {
-			original.call(instance, f, g, h);
+			original.call(instance, x, y, z);
 		}
 	}
 
@@ -140,17 +144,17 @@ public class BrushableBlockRendererMixin {
 	)
 	public void trailierTales$useSmoothXAxisRotation(
 		PoseStack instance,
-		Quaternionfc quaternionf,
+		Quaternionfc rotation,
 		Operation<Void> original,
 		BrushableBlockRenderState renderState
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface brushableBlockRenderStateInterface) {
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
 			original.call(
 				instance,
-				Axis.YP.rotationDegrees(brushableBlockRenderStateInterface.trailierTales$getRotation() + 15F)
+				Axis.YP.rotationDegrees(stateInterface.trailierTales$getRotation() + 15F)
 			);
 		} else {
-			original.call(instance, quaternionf);
+			original.call(instance, rotation);
 		}
 	}
 
@@ -169,8 +173,8 @@ public class BrushableBlockRendererMixin {
 		Operation<Void> original,
 		BrushableBlockRenderState renderState
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface brushableBlockRenderStateInterface) {
-			float itemScale = brushableBlockRenderStateInterface.trailierTales$getItemScale();
+		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
+			final float itemScale = stateInterface.trailierTales$getItemScale();
 			original.call(
 				instance,
 				x * itemScale,
