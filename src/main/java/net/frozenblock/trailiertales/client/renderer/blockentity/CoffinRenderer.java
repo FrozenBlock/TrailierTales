@@ -118,8 +118,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		poseStack.pushPose();
 
 		openProgress = setupPoseStackAndCalculateOpenProgress(poseStack, renderAsOffsetFoot, direction, openProgress, wobbleProgress);
-
-		// TODO port: fix coffin opening
+		
 		collector.submitModel(
 			model,
 			openProgress,
