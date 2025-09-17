@@ -19,15 +19,15 @@ package net.frozenblock.trailiertales.mixin.client.decorated_pot;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.impl.client.DecoratedPotBlockEntityInterface;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.frozenblock.trailiertales.impl.client.DecoratedPotRenderStateInterface;
 import net.minecraft.client.renderer.blockentity.DecoratedPotRenderer;
+import net.minecraft.client.renderer.blockentity.state.DecoratedPotRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
@@ -40,26 +40,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DecoratedPotRenderer.class)
 public class DecoratedPotRendererMixin {
 
-	// TODO port
-	/*@Inject(
-		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
-		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity$WobbleStyle;duration:I",
-			ordinal = 0
-		)
+	@Inject(
+		method = "extractRenderState(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;Lnet/minecraft/client/renderer/blockentity/state/DecoratedPotRenderState;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
+		at = @At("TAIL")
 	)
-	public void trailierTales$prepareIsFlipped(
-		DecoratedPotBlockEntity decoratedPotBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, Vec3 cameraPos, CallbackInfo info,
-		@Share("trailierTales$isFlipped") LocalBooleanRef isFlipped
+	public void trailierTales$setIsFlipped(
+		DecoratedPotBlockEntity decoratedPot,
+		DecoratedPotRenderState renderState,
+		float partialTick,
+		Vec3 cameraPos,
+		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+		CallbackInfo info
 	) {
-		isFlipped.set(decoratedPotBlockEntity instanceof DecoratedPotBlockEntityInterface decoratedPotBlockEntityInterface
-			&& decoratedPotBlockEntityInterface.trailierTales$isWobbleFlipped()
-		);
+		if (!(decoratedPot instanceof DecoratedPotBlockEntityInterface potInterface)) return;
+		if (!(renderState instanceof DecoratedPotRenderStateInterface stateInterface)) return;
+		stateInterface.trailierTales$setWobbleFlipped(potInterface.trailierTales$isWobbleFlipped());
 	}
 
 	@WrapOperation(
-		method = "render(Lnet/minecraft/world/level/block/entity/DecoratedPotBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/world/phys/Vec3;)V",
+		method = "submit(Lnet/minecraft/client/renderer/blockentity/state/DecoratedPotRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/math/Axis;rotation(F)Lorg/joml/Quaternionf;"
@@ -67,9 +66,11 @@ public class DecoratedPotRendererMixin {
 	)
 	public Quaternionf trailierTales$flipWobble(
 		Axis instance, float v, Operation<Quaternionf> original,
-		@Share("trailierTales$isFlipped") LocalBooleanRef isFlipped
+		@Local(argsOnly = true) DecoratedPotRenderState renderState
 	) {
-		return original.call(instance, v * (isFlipped.get() ? -1 : 1F));
-	}*/
+		float multiplier = 1F;
+		if (renderState instanceof DecoratedPotRenderStateInterface stateInterface) multiplier = stateInterface.trailierTales$isWobbleFlipped() ? -1F : 1F;
+		return original.call(instance, v * multiplier);
+	}
 
 }

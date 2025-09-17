@@ -49,6 +49,7 @@
     "client.brushable_block.BrushableBlockRenderStateMixin",
     "client.brushable_block.BrushingCompleteSoundMixin",
     "client.decorated_pot.DecoratedPotRendererMixin",
+    "client.decorated_pot.DecoratedPotRenderStateMixin",
     "client.haunt.FogRendererMixin",
     "client.haunt.GuiMixin",
     "client.haunt.LevelRendererMixin",
