@@ -80,9 +80,8 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 		}
 
 		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
-			Particle particle = new GlowingColorBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite);
-			//TODO port color?
-			//particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
+			SingleQuadParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite);
+			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			return particle;
 		}
 	}
