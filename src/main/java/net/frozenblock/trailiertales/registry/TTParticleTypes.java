@@ -35,10 +35,9 @@ import org.jetbrains.annotations.NotNull;
 public final class TTParticleTypes {
 	public static final SimpleParticleType COFFIN_SOUL = register("coffin_soul");
 	public static final SimpleParticleType COFFIN_SOUL_ENTER = register("coffin_soul_enter");
-	// TODO port
-	/*public static final ParticleType<ColorParticleOption> GLOWING_BUBBLE = register(
+	public static final ParticleType<ColorParticleOption> GLOWING_BUBBLE = register(
 		"glowing_bubble", false, ColorParticleOption::codec, ColorParticleOption::streamCodec
-	);*/
+	);
 	public static final ParticleType<ColorParticleOption> GLOWING_ENTITY_EFFECT = register(
 		"glowing_entity_effect", false, ColorParticleOption::codec, ColorParticleOption::streamCodec
 	);

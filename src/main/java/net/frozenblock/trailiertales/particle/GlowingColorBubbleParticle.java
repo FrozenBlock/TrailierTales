@@ -15,32 +15,32 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-/*package net.frozenblock.trailiertales.particle;
+package net.frozenblock.trailiertales.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class GlowingColorBubbleParticle extends TextureSheetParticle {
+public class GlowingColorBubbleParticle extends SingleQuadParticle {
 	private final SpriteSet spriteProvider;
 
-	public GlowingColorBubbleParticle(ClientLevel world, double d, double e, double f, double g, double h, double i, @NotNull SpriteSet spriteProvider) {
-		super(world, d, e, f);
+	public GlowingColorBubbleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteProvider) {
+		super(level, x, y, z, spriteProvider.first());
 		this.spriteProvider = spriteProvider;
 		this.setSpriteFromAge(spriteProvider);
 		this.quadSize *= 1.2F;
 		this.setSize(0.02F, 0.02F);
-		this.xd = g * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
-		this.yd = h * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
-		this.zd = i * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
+		this.xd = xSpeed * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
+		this.yd = ySpeed * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
+		this.zd = zSpeed * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
 		this.lifetime = 5;
 	}
 
@@ -67,8 +67,9 @@ public class GlowingColorBubbleParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	public @NotNull ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	@NotNull
+	protected Layer getLayer() {
+		return Layer.OPAQUE;
 	}
 
 	public static class Provider implements ParticleProvider<ColorParticleOption> {
@@ -78,11 +79,11 @@ public class GlowingColorBubbleParticle extends TextureSheetParticle {
 			this.sprite = spriteSet;
 		}
 
-		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i) {
-			Particle particle = new GlowingColorBubbleParticle(world, d, e, f, g, h, i, this.sprite);
-			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
+		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
+			Particle particle = new GlowingColorBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite);
+			//TODO port color?
+			//particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			return particle;
 		}
 	}
 }
-*/
