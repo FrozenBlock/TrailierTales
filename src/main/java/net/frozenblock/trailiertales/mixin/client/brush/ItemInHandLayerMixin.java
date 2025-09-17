@@ -27,6 +27,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
@@ -45,9 +46,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemInHandLayer.class)
 public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M extends EntityModel<S> & ArmedModel> {
 
-	// TODO port
-	/*@Inject(
-		method = "renderArmWithItem",
+	@Inject(
+		method = "submitArmWithItem",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V",
@@ -59,9 +59,9 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 		ItemStackRenderState itemStackRenderState,
 		HumanoidArm humanoidArm,
 		PoseStack poseStack,
-		MultiBufferSource multiBufferSource,
+		SubmitNodeCollector submitNodeCollector,
 		int i,
-		CallbackInfo info
+		CallbackInfo ci
 	) {
 		if (
 			armedEntityRenderState instanceof HumanoidRenderState humanoidRenderState
@@ -89,5 +89,5 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 				}
 			}
 		}
-	}*/
+	}
 }
