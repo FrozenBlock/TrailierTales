@@ -45,10 +45,9 @@ public class ArmedEntityRenderStateMixin implements ArmedEntityRenderStateInterf
 	private static void trailierTales$extractArmedEntityRenderState(
 		LivingEntity livingEntity, ArmedEntityRenderState armedEntityRenderState, ItemModelResolver itemModelResolver, CallbackInfo info
 	) {
-		if (armedEntityRenderState instanceof ArmedEntityRenderStateInterface armedEntityRenderStateInterface) {
-			armedEntityRenderStateInterface.trailierTales$setLeftHandItemStack(livingEntity.getItemHeldByArm(HumanoidArm.LEFT));
-			armedEntityRenderStateInterface.trailierTales$setRightHandItemStack(livingEntity.getItemHeldByArm(HumanoidArm.RIGHT));
-		}
+		if (!(armedEntityRenderState instanceof ArmedEntityRenderStateInterface stateInterface)) return;
+		stateInterface.trailierTales$setLeftHandItemStack(livingEntity.getItemHeldByArm(HumanoidArm.LEFT));
+		stateInterface.trailierTales$setRightHandItemStack(livingEntity.getItemHeldByArm(HumanoidArm.RIGHT));
 	}
 
 	@Unique

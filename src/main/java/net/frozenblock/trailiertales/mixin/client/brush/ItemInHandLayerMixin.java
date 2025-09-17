@@ -26,7 +26,6 @@ import net.frozenblock.trailiertales.impl.client.ArmedEntityRenderStateInterface
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
@@ -55,21 +54,20 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 		)
 	)
 	void trailierTales$injectBrushAnim(
-		S armedEntityRenderState,
+		S renderState,
 		ItemStackRenderState itemStackRenderState,
 		HumanoidArm humanoidArm,
 		PoseStack poseStack,
 		SubmitNodeCollector submitNodeCollector,
 		int i,
-		CallbackInfo ci
+		CallbackInfo info
 	) {
-		if (
-			armedEntityRenderState instanceof HumanoidRenderState humanoidRenderState
-			&& humanoidRenderState instanceof ArmedEntityRenderStateInterface armedEntityRenderStateInterface
+		if (renderState instanceof HumanoidRenderState humanoidRenderState
+			&& humanoidRenderState instanceof ArmedEntityRenderStateInterface stateInterface
 		) {
 			InteractionHand interactionHand = humanoidArm == humanoidRenderState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 			boolean isLeftHand = humanoidArm == HumanoidArm.LEFT;
-			ItemStack item = isLeftHand ? armedEntityRenderStateInterface.trailierTales$getLeftHandItemStack() : armedEntityRenderStateInterface.trailierTales$getRightHandItemStack();
+			ItemStack item = isLeftHand ? stateInterface.trailierTales$getLeftHandItemStack() : stateInterface.trailierTales$getRightHandItemStack();
 			if (item != null
 				&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
 				&& humanoidRenderState.isUsingItem
