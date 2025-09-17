@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
@@ -27,6 +26,7 @@ import net.minecraft.client.particle.DustParticleBase;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.QuadParticleRenderState;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -38,17 +38,13 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 	private final Vector3f toColor;
 
 	public GlowingColorTransitionParticle(
-		ClientLevel world,
-		double x,
-		double y,
-		double z,
-		double velocityX,
-		double velocityY,
-		double velocityZ,
+		@NotNull ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		GlowingDustColorTransitionOptions particleEffect,
 		SpriteSet spriteProvider
 	) {
-		super(world, x, y, z, velocityX, velocityY, velocityZ, particleEffect, spriteProvider);
+		super(level, x, y, z, xd, yd, zd, particleEffect, spriteProvider);
 		float f = this.random.nextFloat() * 0.4F + 0.6F;
 		this.fromColor = this.randomizeColor(particleEffect.getFromColor(), f);
 		this.toColor = this.randomizeColor(particleEffect.getToColor(), f);
@@ -59,20 +55,19 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 		return new Vector3f(this.randomizeColor(color.x(), factor), this.randomizeColor(color.y(), factor), this.randomizeColor(color.z(), factor));
 	}
 
-	private void lerpColors(float tickDelta) {
-		float f = ((float) this.age + tickDelta) / ((float) this.lifetime + 1.0F);
-		Vector3f vector3f = new Vector3f(this.fromColor).lerp(this.toColor, f);
+	private void lerpColors(float partialTick) {
+		final float lerp = ((float) this.age + partialTick) / ((float) this.lifetime + 1F);
+		Vector3f vector3f = new Vector3f(this.fromColor).lerp(this.toColor, lerp);
 		this.rCol = vector3f.x();
 		this.gCol = vector3f.y();
 		this.bCol = vector3f.z();
 	}
 
-	// TODO port
-	/*@Override
-	public void render(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
-		this.lerpColors(tickDelta);
-		super.render(vertexConsumer, camera, tickDelta);
-	}*/
+	@Override
+	public void extract(QuadParticleRenderState renderState, Camera camera, float partialTick) {
+		this.lerpColors(partialTick);
+		super.extract(renderState, camera, partialTick);
+	}
 
 	@Override
 	protected int getLightColor(float tint) {
@@ -80,17 +75,21 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 	}
 
 	public static class Provider implements ParticleProvider<GlowingDustColorTransitionOptions> {
-		private final SpriteSet sprites;
+		private final SpriteSet spriteSet;
 
-		public Provider(SpriteSet spriteProvider) {
-			this.sprites = spriteProvider;
+		public Provider(SpriteSet spriteSet) {
+			this.spriteSet = spriteSet;
 		}
 
 		@Override
 		public Particle createParticle(
-			GlowingDustColorTransitionOptions dustColorTransitionOptions, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random
+			GlowingDustColorTransitionOptions dustColorTransitionOptions,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			return new GlowingColorTransitionParticle(world, d, e, f, g, h, i, dustColorTransitionOptions, this.sprites);
+			return new GlowingColorTransitionParticle(level, x, y, z, xd, yd, zd, dustColorTransitionOptions, this.spriteSet);
 		}
 	}
 }

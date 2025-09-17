@@ -32,8 +32,13 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class GlowingSpellParticle extends SpellParticle {
 
-	public GlowingSpellParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider, RandomSource random) {
-		super(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
+	public GlowingSpellParticle(
+		@NotNull ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
+		SpriteSet spriteSet
+	) {
+		super(level, x, y, z, xd, yd, zd, spriteSet);
 	}
 
 	@Override
@@ -42,28 +47,40 @@ public class GlowingSpellParticle extends SpellParticle {
 	}
 
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet sprite;
+		private final SpriteSet spriteSet;
 
-		public Provider(SpriteSet spriteProvider) {
-			this.sprite = spriteProvider;
+		public Provider(SpriteSet spriteSet) {
+			this.spriteSet = spriteSet;
 		}
 
 		@Override
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random) {
-			return new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite, random);
+		public Particle createParticle(
+			SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			return new GlowingSpellParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 		}
 	}
 
 	public static class MobEffectProvider implements ParticleProvider<ColorParticleOption> {
-		private final SpriteSet sprite;
+		private final SpriteSet spriteSet;
 
 		public MobEffectProvider(SpriteSet spriteSet) {
-			this.sprite = spriteSet;
+			this.spriteSet = spriteSet;
 		}
 
 		@Override
-		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel world, double d, double e, double f, double g, double h, double i, RandomSource random) {
-			GlowingSpellParticle particle = new GlowingSpellParticle(world, d, e, f, g, h, i, this.sprite, random);
+		public Particle createParticle(
+			@NotNull ColorParticleOption colorParticleOption,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			GlowingSpellParticle particle = new GlowingSpellParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			particle.setAlpha(colorParticleOption.getAlpha());
 			return particle;

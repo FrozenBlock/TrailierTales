@@ -94,7 +94,6 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				ARGB.colorFromFloat(innerTransparency, 1F, 1F, 1F),
 				null
 			);
-
 		}
 
 		final float outerTransparency = this.outerAlphaFunction.apply(renderState) * renderState.flicker;

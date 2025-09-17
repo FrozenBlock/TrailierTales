@@ -30,17 +30,22 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class GlowingColorBubbleParticle extends SingleQuadParticle {
-	private final SpriteSet spriteProvider;
+	private final SpriteSet spriteSet;
 
-	public GlowingColorBubbleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteProvider) {
-		super(level, x, y, z, spriteProvider.first());
-		this.spriteProvider = spriteProvider;
-		this.setSpriteFromAge(spriteProvider);
+	public GlowingColorBubbleParticle(
+		@NotNull ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
+		@NotNull SpriteSet spriteSet
+	) {
+		super(level, x, y, z, spriteSet.first());
+		this.spriteSet = spriteSet;
+		this.setSpriteFromAge(spriteSet);
 		this.quadSize *= 1.2F;
 		this.setSize(0.02F, 0.02F);
-		this.xd = xSpeed * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
-		this.yd = ySpeed * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
-		this.zd = zSpeed * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
+		this.xd = xd * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
+		this.yd = yd * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
+		this.zd = zd * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
 		this.lifetime = 5;
 	}
 
@@ -58,7 +63,7 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 			this.yd *= 0.85D;
 			this.zd *= 0.85D;
 		}
-		this.setSpriteFromAge(this.spriteProvider);
+		this.setSpriteFromAge(this.spriteSet);
 	}
 
 	@Override
@@ -73,14 +78,20 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 	}
 
 	public static class Provider implements ParticleProvider<ColorParticleOption> {
-		private final SpriteSet sprite;
+		private final SpriteSet spriteSet;
 
 		public Provider(SpriteSet spriteSet) {
-			this.sprite = spriteSet;
+			this.spriteSet = spriteSet;
 		}
 
-		public Particle createParticle(@NotNull ColorParticleOption colorParticleOption, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
-			SingleQuadParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite);
+		public Particle createParticle(
+			@NotNull ColorParticleOption colorParticleOption,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			SingleQuadParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			return particle;
 		}
