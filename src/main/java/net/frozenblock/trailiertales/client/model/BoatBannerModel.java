@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;
 import net.minecraft.client.model.EntityModel;
@@ -28,7 +27,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
@@ -69,34 +67,32 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	}
 
 	@Override
-	public void setupAnim(BoatRenderState renderState) {
+	public void setupAnim(@NotNull BoatRenderState renderState) {
 		super.setupAnim(renderState);
-		if (renderState instanceof BoatRenderStateInterface boatRenderStateInterface) {
-			this.flag.xRot = (-0.0125F + 0.01F * Mth.cos((Mth.PI * 2F) * renderState.ageInTicks / 100F)) * Mth.PI;
-			this.flag.xRot -= (boatRenderStateInterface.trailierTales$getWalkAnimationSpeed() * (90F / 180F)) * Mth.PI;
-			this.flag.xRot -= (Mth.cos(boatRenderStateInterface.trailierTales$getWalkAnimationPos() * 0.4F) + 1F) * 0.1F * Math.min(boatRenderStateInterface.trailierTales$getWalkAnimationSpeed() * 2F, 1F);
-			this.flag.y = -32F;
-		}
+		if (!(renderState instanceof BoatRenderStateInterface stateInterface)) return;
+		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(Mth.TWO_PI * renderState.ageInTicks / 100F)) * Mth.PI;
+		this.flag.xRot -= (stateInterface.trailierTales$getWalkAnimationSpeed() * (90F / 180F)) * Mth.PI;
+		this.flag.xRot -= (Mth.cos(stateInterface.trailierTales$getWalkAnimationPos() * 0.4F) + 1F) * 0.1F * Math.min(stateInterface.trailierTales$getWalkAnimationSpeed() * 2F, 1F);
+		this.flag.y = -32F;
 	}
 
-	public void beforeRender(@NotNull PoseStack matrices) {
-		matrices.pushPose();
-		matrices.translate(
+	public void preparePoseStack(@NotNull PoseStack poseStack) {
+		poseStack.pushPose();
+		poseStack.translate(
 			this.raft ? -0.74F : -0.94F,
 			this.raft ? -0.2F : -0.25F,
 			0F
 		);
 
-		float h = -Direction.WEST.toYRot();
-		matrices.mulPose(Axis.YN.rotationDegrees(h));
-		matrices.translate(0F, -0.3125F, 0F);
-		matrices.mulPose(Axis.XP.rotation(Mth.PI));
+		poseStack.mulPose(Axis.YN.rotationDegrees(-Direction.WEST.toYRot()));
+		poseStack.translate(0F, -0.3125F, 0F);
+		poseStack.mulPose(Axis.XP.rotation(Mth.PI));
 
-		matrices.pushPose();
-		matrices.scale(0.6666667F, -0.6666667F, -0.6666667F);
+		poseStack.pushPose();
+		poseStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
 	}
 
-	public void afterRender(@NotNull PoseStack matrices) {
+	public void popPoseStack(@NotNull PoseStack matrices) {
 		matrices.popPose();
 		matrices.popPose();
 		this.raft = false;
@@ -111,6 +107,17 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
 	) {
-		BannerRenderer.submitPatterns(materials, poseStack, submitNodeCollector, renderState.lightCoords, overlay, this, renderState, ModelBakery.BANNER_BASE, true, dyeColor, bannerPatternLayers, null);
+		BannerRenderer.submitPatterns(
+			materials,
+			poseStack,
+			submitNodeCollector,
+			renderState.lightCoords,
+			overlay,
+			this,
+			renderState,
+			ModelBakery.BANNER_BASE,
+			true,
+			dyeColor,
+			bannerPatternLayers, null);
 	}
 }

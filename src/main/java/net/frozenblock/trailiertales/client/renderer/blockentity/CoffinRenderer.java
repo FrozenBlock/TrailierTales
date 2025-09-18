@@ -64,12 +64,17 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	@NotNull
-	public static ResourceLocation getCoffinTexture(@NotNull CoffinPart part, CoffinSpawnerState state, boolean ominous) {
+	public static ResourceLocation getCoffinTexture(@NotNull CoffinPart part, CoffinSpawnerState state) {
 		return part == CoffinPart.HEAD ? state.getHeadTexture() : state.getFootTexture();
 	}
 
 	@Override
-	public void submit(@NotNull CoffinRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+	public void submit(
+		@NotNull CoffinRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		float openProg = renderState.openProgress;
 		openProg = 1F - openProg;
 		openProg = 1F - openProg * openProg * openProg;
@@ -78,7 +83,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			poseStack,
 			submitNodeCollector,
 			renderState.part == CoffinPart.HEAD ? this.headModel : this.footModel,
-			getCoffinTexture(renderState.part, renderState.spawnerState, false),
+			getCoffinTexture(renderState.part, renderState.spawnerState),
 			null,
 			openProg,
 			renderState.wobbleProgress,

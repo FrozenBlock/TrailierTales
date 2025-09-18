@@ -112,14 +112,20 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 			shift = At.Shift.AFTER
 		)
 	)
-	public void trailierTales$renderBoatBanner(BoatRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState, CallbackInfo info) {
+	public void trailierTales$renderBoatBanner(
+		BoatRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector submitNodeCollector,
+		CameraRenderState cameraRenderState,
+		CallbackInfo info
+	) {
 		if (!(renderState instanceof BoatRenderStateInterface stateInterface)) return;
 		final ItemStack stack = stateInterface.trailierTales$getBanner();
 		if (!(!stack.isEmpty() && stack.getItem() instanceof BannerItem bannerItem)) return;
 
 		poseStack.pushPose();
 		this.trailierTales$boatBannerModel.setRaft(this.trailierTales$raft);
-		this.trailierTales$boatBannerModel.beforeRender(poseStack);
+		this.trailierTales$boatBannerModel.preparePoseStack(poseStack);
 		this.trailierTales$boatBannerModel.setupAnim(renderState);
 		this.trailierTales$boatBannerModel.submitFlag(
 			this.materials,
@@ -130,7 +136,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 			bannerItem.getColor(),
 			stack.getComponents().get(DataComponents.BANNER_PATTERNS)
 		);
-		this.trailierTales$boatBannerModel.afterRender(poseStack);
+		this.trailierTales$boatBannerModel.popPoseStack(poseStack);
 		poseStack.popPose();
 	}
 }

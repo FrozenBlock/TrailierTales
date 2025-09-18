@@ -81,7 +81,12 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	public void submit(ApparitionRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+	public void submit(
+		@NotNull ApparitionRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
@@ -95,14 +100,14 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	protected void setupRotations(ApparitionRenderState renderState, PoseStack matrices, float bodyYaw, float scale) {
-		super.setupRotations(renderState, matrices, bodyYaw, scale);
+	protected void setupRotations(@NotNull ApparitionRenderState renderState, @NotNull PoseStack poseStack, float bodyYaw, float scale) {
+		super.setupRotations(renderState, poseStack, bodyYaw, scale);
 		this.itemYaw = bodyYaw;
 		this.shadowStrength = renderState.totalTransparency;
 	}
 
 	@Override
-	protected @Nullable RenderType getRenderType(ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
+	protected @Nullable RenderType getRenderType(@NotNull ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
 		return null;
 	}
 
@@ -124,7 +129,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	public void extractRenderState(Apparition apparition, ApparitionRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull Apparition apparition, @NotNull ApparitionRenderState renderState, float partialTick) {
 		super.extractRenderState(apparition, renderState, partialTick);
 		renderState.lightCoords = 15728640;
 		renderState.itemYRot = apparition.getItemYRot(partialTick);

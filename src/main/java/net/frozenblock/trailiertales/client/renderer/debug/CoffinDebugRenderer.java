@@ -31,6 +31,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.debug.DebugValueAccess;
@@ -41,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
+	// TODO: fucking fix me.
 	private static final int CONNECTION_COLOR = ARGB.color(255, 50, 125, 90);
 	private static final int SELECTED_CONNECTION_COLOR = ARGB.color(255, 255, 50, 255);
 	private static final int TEXT_COLOR = ARGB.color(255, 255, 255, 255);
@@ -73,22 +75,21 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		scheduledRemovals.add(entityId);
 	}
 
-	// TODO port
-	/*@Override
-	public void clear() {
-		this.connections.clear();
-		this.scheduledRemovals.clear();
-		this.lastLookedAtId = null;
-	}*/
 
 	@Override
-	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ, DebugValueAccess debugValueAccess, Frustum frustum) {
+	public void render(
+		PoseStack matrices,
+		@NotNull MultiBufferSource vertexConsumers,
+		double cameraX,
+		double cameraY,
+		double cameraZ,
+		DebugValueAccess debugValueAccess,
+		Frustum frustum
+	) {
 		this.clearRemovedEntities();
 		this.scheduledRemovals.removeIf(id -> true);
 
-		if (!this.minecraft.player.isSpectator()) {
-			this.updateLastLookedAtUuid();
-		}
+		if (!this.minecraft.player.isSpectator()) this.updateLastLookedAtUuid();
 
 		for (Map.Entry<Integer, EntityCoffinData> connectionInfo : this.connections.entrySet()) {
 			EntityCoffinData coffinData = connectionInfo.getValue();
