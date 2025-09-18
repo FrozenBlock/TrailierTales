@@ -29,6 +29,8 @@ public class TTBlockRenderLayers {
 	public static void init() {
 		BlockRenderLayerMap.putBlock(TTBlocks.ECTOPLASM_BLOCK, ChunkSectionLayer.TRANSLUCENT);
 
+		BlockRenderLayerMap.putBlock(TTBlocks.SURVEYOR, ChunkSectionLayer.CUTOUT);
+
 		BlockRenderLayerMap.putBlock(TTBlocks.POTTED_CYAN_ROSE, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(TTBlocks.CYAN_ROSE, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(TTBlocks.CYAN_ROSE_CROP, ChunkSectionLayer.CUTOUT);
