@@ -29,6 +29,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
@@ -72,15 +73,16 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		scheduledRemovals.add(entityId);
 	}
 
-	@Override
+	// TODO port
+	/*@Override
 	public void clear() {
 		this.connections.clear();
 		this.scheduledRemovals.clear();
 		this.lastLookedAtId = null;
-	}
+	}*/
 
 	@Override
-	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ, DebugValueAccess debugValueAccess) {
+	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ, DebugValueAccess debugValueAccess, Frustum frustum) {
 		this.clearRemovedEntities();
 		this.scheduledRemovals.removeIf(id -> true);
 

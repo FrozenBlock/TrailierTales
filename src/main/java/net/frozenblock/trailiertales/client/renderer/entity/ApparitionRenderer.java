@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -80,8 +81,8 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	public void submit(ApparitionRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
-		super.submit(renderState, poseStack, submitNodeCollector);
+	public void submit(ApparitionRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(0F, 0.425F, 0F);
