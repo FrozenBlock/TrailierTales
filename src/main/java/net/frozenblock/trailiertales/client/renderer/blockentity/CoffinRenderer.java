@@ -90,6 +90,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			renderState.lightCoords,
 			OverlayTexture.NO_OVERLAY,
 			renderState.breakProgress,
+			0,
 			false,
 			renderState.direction
 		);
@@ -102,11 +103,12 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		int packedOverlay,
 		ResourceLocation headTexture,
 		ResourceLocation footTexture,
-		float openness
+		float openness,
+		int outlineColor
 	) {
 		poseStack.translate(0F, -0.1F, 0F);
-		this.submitPiece(poseStack, collector, this.headModel, headTexture, null, openness, 0F, packedLight, packedOverlay, null, false, Direction.SOUTH);
-		this.submitPiece(poseStack, collector, this.footModel, footTexture, null, openness, 0F, packedLight, packedOverlay, null, true, Direction.SOUTH);
+		this.submitPiece(poseStack, collector, this.headModel, headTexture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, false, Direction.SOUTH);
+		this.submitPiece(poseStack, collector, this.footModel, footTexture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, true, Direction.SOUTH);
 	}
 
 	private void submitPiece(
@@ -120,6 +122,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		int packedLight,
 		int packedOverlay,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress,
+		int outlineColor,
 		boolean renderAsOffsetFoot,
 		Direction direction
 	) {
@@ -134,7 +137,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			RenderType.entityCutout(texture),
 			packedLight,
 			packedOverlay,
-			0,
+			outlineColor,
 			breakProgress
 		);
 		if (glowingTexture != null) {
@@ -145,7 +148,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 				RenderType.eyes(glowingTexture),
 				packedLight,
 				packedOverlay,
-				0,
+				outlineColor,
 				null
 			);
 		}

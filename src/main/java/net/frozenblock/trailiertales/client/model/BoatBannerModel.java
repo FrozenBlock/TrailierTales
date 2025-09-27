@@ -118,6 +118,10 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 			ModelBakery.BANNER_BASE,
 			true,
 			dyeColor,
-			bannerPatternLayers, null);
+			bannerPatternLayers,
+			false,
+			null,
+			renderState.outlineColor
+		);
 	}
 }

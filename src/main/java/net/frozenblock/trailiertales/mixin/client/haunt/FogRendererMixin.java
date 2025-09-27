@@ -17,37 +17,41 @@
 
 package net.frozenblock.trailiertales.mixin.client.haunt;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import java.util.ArrayList;
+import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.renderer.fog.environment.HauntFogEnvironment;
 import net.minecraft.client.renderer.fog.FogRenderer;
 import net.minecraft.client.renderer.fog.environment.DarknessFogEnvironment;
 import net.minecraft.client.renderer.fog.environment.FogEnvironment;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
 
-	@ModifyExpressionValue(
-		method = "<clinit>",
-		at = @At(
-			value = "INVOKE",
-			target = "Lcom/google/common/collect/Lists;newArrayList([Ljava/lang/Object;)Ljava/util/ArrayList;"
-		)
-	)
-	private static ArrayList<FogEnvironment> trailierTales$injectHauntEnvironment(ArrayList<FogEnvironment> original) {
+	@Shadow
+	@Final
+	@Mutable
+	private static List<FogEnvironment> FOG_ENVIRONMENTS;
+
+	@Inject(method = "<clinit>", at = @At("TAIL"))
+	private static void trailierTales$injectHauntEnvironment(CallbackInfo info) {
 		ArrayList<FogEnvironment> finalEnvironments = new ArrayList<>();
 
-		for (FogEnvironment environment : original) {
+		for (FogEnvironment environment : FOG_ENVIRONMENTS) {
 			finalEnvironments.add(environment);
 			if (environment instanceof DarknessFogEnvironment) finalEnvironments.add(new HauntFogEnvironment());
 		}
 
-		return finalEnvironments;
+		FOG_ENVIRONMENTS = finalEnvironments;
 	}
 
 }

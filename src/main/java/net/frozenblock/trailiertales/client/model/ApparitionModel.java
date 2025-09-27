@@ -37,7 +37,6 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionModel extends EntityModel<ApparitionRenderState> {
-	private final ModelPart root;
 	public final ModelPart core;
 	public final ModelPart inner;
 	public final ModelPart outline;
@@ -49,7 +48,6 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 
 	public ApparitionModel(Function<ResourceLocation, RenderType> function, @NotNull ModelPart root) {
 		super(root, function);
-		this.root = root;
 		this.core = root.getChild("core");
 		this.inner = this.core.getChild("inner");
 		this.outline = this.core.getChild("outline");

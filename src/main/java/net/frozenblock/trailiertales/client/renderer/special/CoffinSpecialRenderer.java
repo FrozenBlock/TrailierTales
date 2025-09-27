@@ -48,8 +48,8 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void submit(ItemDisplayContext itemDisplayContext, PoseStack poseStack, SubmitNodeCollector collector, int i, int j, boolean bl) {
-		this.coffinRenderer.renderInHand(poseStack, collector, i, j, this.headTexture, this.footTexture, this.openness);
+	public void submit(ItemDisplayContext itemDisplayContext, PoseStack poseStack, SubmitNodeCollector collector, int i, int j, boolean bl, int k) {
+		this.coffinRenderer.renderInHand(poseStack, collector, i, j, this.headTexture, this.footTexture, this.openness, k);
 	}
 
 	@Override

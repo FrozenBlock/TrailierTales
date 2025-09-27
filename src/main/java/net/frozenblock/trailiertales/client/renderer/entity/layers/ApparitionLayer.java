@@ -95,7 +95,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		}
 
 		if (outerTransparency > 0F) {
-			submitNodeCollector.order((order == this.minOrder) ? order : order + 1).submitModelPart(
+			submitNodeCollector.order((order == this.minOrder) ? order : order - 1).submitModelPart(
 				this.model.outer,
 				poseStack,
 				this.outerRenderType,
