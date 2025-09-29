@@ -88,6 +88,7 @@ Voxelotl
       - Embrace Armor Trim
       - Block of Ectoplasm texture
       - Ossuaire Music Disc Texture
+      - Resource/Data Pack Icon
 
 Willow/pictochats_:
     - Coffin wobble sounds
