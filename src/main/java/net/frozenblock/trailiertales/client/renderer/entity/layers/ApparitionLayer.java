@@ -52,7 +52,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		this.outerAlphaFunction = outerAlphaFunction;
 		this.model = renderLayerParent.getModel();
 
-		this.minOrder = minOrder * 3;
+		this.minOrder = minOrder * 2;
 	}
 
 	@Override
@@ -68,10 +68,8 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		final float innerTransparency = this.innerAlphaFunction.apply(renderState) * renderState.flicker;
 		final float outerTransparency = this.outerAlphaFunction.apply(renderState) * renderState.flicker;
 
-		int order = this.minOrder;
-
 		if (renderState.innerTransparency > 0F) {
-			submitNodeCollector.order(order).submitModelPart(
+			submitNodeCollector.order(this.minOrder).submitModelPart(
 				this.model.outline,
 				poseStack,
 				this.innerRenderType,
@@ -82,7 +80,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				null
 			);
 
-			submitNodeCollector.order(order += 1).submitModelPart(
+			submitNodeCollector.order(this.minOrder + 1).submitModelPart(
 				this.model.inner,
 				poseStack,
 				this.innerRenderType,
@@ -95,7 +93,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		}
 
 		if (outerTransparency > 0F) {
-			submitNodeCollector.order((order == this.minOrder) ? order : order - 1).submitModelPart(
+			submitNodeCollector.order(this.minOrder).submitModelPart(
 				this.model.outer,
 				poseStack,
 				this.outerRenderType,
