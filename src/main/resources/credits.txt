@@ -89,6 +89,7 @@ Voxelotl
       - Block of Ectoplasm texture
       - Ossuaire Music Disc Texture
       - Apparition Spawn Egg texture
+      - Resource/Data Pack Icon
 
 Willow/pictochats_:
     - Coffin wobble sounds
