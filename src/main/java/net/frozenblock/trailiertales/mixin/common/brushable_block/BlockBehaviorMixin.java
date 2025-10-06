@@ -46,42 +46,38 @@ public class BlockBehaviorMixin {
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$useItemOn(
 		ItemStack stack,
-		BlockState blockState,
+		BlockState state,
 		Level level,
-		BlockPos blockPos,
+		BlockPos pos,
 		Player player,
 		InteractionHand interactionHand,
 		BlockHitResult hitResult,
 		CallbackInfoReturnable<InteractionResult> info
 	) {
-		if (blockState.getBlock() instanceof BrushableBlock) {
-			if (TTBlockConfig.get().suspiciousBlocks.place_items && blockState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) {
-				ItemStack playerStack = player.getItemInHand(interactionHand);
-				boolean canPlaceIntoBlock = blockState.getValue(TTBlockStateProperties.CAN_PLACE_ITEM) &&
-					playerStack != ItemStack.EMPTY &&
-					playerStack.getItem() != Items.AIR &&
-					!playerStack.is(Items.BRUSH);
-				if (canPlaceIntoBlock) {
-					if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
-						brushableBlockEntityInterface.trailierTales$setItem(playerStack.split(1));
-						info.setReturnValue(InteractionResult.SUCCESS);
-						return;
-					}
-				}
-				info.setReturnValue(InteractionResult.TRY_WITH_EMPTY_HAND);
-			}
+		if (!(state.getBlock() instanceof BrushableBlock)) return;
+		if (!TTBlockConfig.get().suspiciousBlocks.place_items || !state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) return;
+
+		final ItemStack playerStack = player.getItemInHand(interactionHand);
+		final boolean canPlaceIntoBlock = state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM) &&
+			playerStack != ItemStack.EMPTY &&
+			playerStack.getItem() != Items.AIR &&
+			!playerStack.is(Items.BRUSH);
+		if (canPlaceIntoBlock && level.getBlockEntity(pos) instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
+			brushableBlockEntityInterface.trailierTales$setItem(playerStack.split(1));
+			info.setReturnValue(InteractionResult.SUCCESS);
+			return;
 		}
+		info.setReturnValue(InteractionResult.TRY_WITH_EMPTY_HAND);
 	}
 
 	@Inject(method = "affectNeighborsAfterRemoval", at = @At("HEAD"))
-	public void trailierTales$onRemove(BlockState blockState, ServerLevel level, BlockPos blockPos, boolean moved, CallbackInfo info) {
-		if (blockState.getBlock() instanceof BrushableBlock) {
-			if (level.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity
-				&& brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface
-				&& brushableBlockEntityInterface.trailierTales$hasCustomItem()
-			) {
-				Containers.dropItemStack(level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), brushableBlockEntity.getItem());
-			}
+	public void trailierTales$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean moved, CallbackInfo info) {
+		if (!(state.getBlock() instanceof BrushableBlock)) return;
+		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlockEntity
+			&& brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface
+			&& brushableBlockEntityInterface.trailierTales$hasCustomItem()
+		) {
+			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), brushableBlockEntity.getItem());
 		}
 	}
 }

@@ -41,12 +41,9 @@ public class BrushingCompleteSoundMixin {
 		)
 	)
 	public SoundEvent trailierTales$newBrushSounds(SoundEvent original) {
-		AbstractWWIntegration wwIntegration = TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration();
-		if (original == SoundEvents.BRUSH_GRAVEL_COMPLETED && wwIntegration.newGravelSounds()) {
-			return TTSounds.BRUSH_GRAVEL_WW_COMPLETED;
-		} else if (original == TTSounds.BRUSH_CLAY_COMPLETED && wwIntegration.newClaySounds()) {
-			return TTSounds.BRUSH_CLAY_WW_COMPLETED;
-		}
+		final AbstractWWIntegration wwIntegration = TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration();
+		if (original == SoundEvents.BRUSH_GRAVEL_COMPLETED && wwIntegration.newGravelSounds()) return TTSounds.BRUSH_GRAVEL_WW_COMPLETED;
+		if (original == TTSounds.BRUSH_CLAY_COMPLETED && wwIntegration.newClaySounds()) return TTSounds.BRUSH_CLAY_WW_COMPLETED;
 		return original;
 	}
 

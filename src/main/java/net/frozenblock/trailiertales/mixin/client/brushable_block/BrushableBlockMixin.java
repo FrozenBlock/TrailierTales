@@ -52,25 +52,25 @@ public class BrushableBlockMixin {
 	@Unique
 	private static void trailierTales$emitConnectionParticlesForPlayer(@NotNull Level world, BlockPos pos, RandomSource random) {
 		Player player = Minecraft.getInstance().player;
-		if (player != null && player.isHolding(Items.BRUSH)) {
-			Vec3 vec3 = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
-			double playerDistance = vec3.distanceTo(player.position());
-			double distanceThreshold = random.nextDouble() * player.blockInteractionRange() * 1.5D;
-			if (playerDistance < distanceThreshold) {
-				boolean canCreateParticle = false;
-				BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-				for (Direction direction : Direction.values()) {
-					BlockState state = world.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
-					if (!(state.isAir() || !state.isFaceSturdy(world, mutableBlockPos, direction.getOpposite()))) continue;
-					canCreateParticle = true;
-				}
+		if (player == null || !player.isHolding(Items.BRUSH)) return;
 
-				if (canCreateParticle) {
-					Vec3 halfPlayerHeight = vec3.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
-					Vec3 startPos = halfPlayerHeight.offsetRandom(random, 1F);
-					world.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION, vec3.x(), vec3.y(), vec3.z(), startPos.x(), startPos.y(), startPos.z());
-				}
-			}
+		final Vec3 vec3 = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
+		final double playerDistance = vec3.distanceTo(player.position());
+		final double distanceThreshold = random.nextDouble() * player.blockInteractionRange() * 1.5D;
+		if (playerDistance >= distanceThreshold) return;
+
+		boolean canCreateParticle = false;
+		final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (Direction direction : Direction.values()) {
+			final BlockState state = world.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
+			if (!(state.isAir() || !state.isFaceSturdy(world, mutableBlockPos, direction.getOpposite()))) continue;
+			canCreateParticle = true;
+		}
+
+		if (canCreateParticle) {
+			final Vec3 halfPlayerHeight = vec3.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
+			final Vec3 startPos = halfPlayerHeight.offsetRandom(random, 1F);
+			world.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION, vec3.x(), vec3.y(), vec3.z(), startPos.x(), startPos.y(), startPos.z());
 		}
 	}
 

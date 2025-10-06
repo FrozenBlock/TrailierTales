@@ -92,9 +92,8 @@ public class BrushableBlockRendererMixin {
 		CameraRenderState cameraRenderState,
 		CallbackInfo info
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
-			if (stateInterface.trailierTales$getItemScale() <= 0.05F) info.cancel();
-		}
+		if (!TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS || !(renderState instanceof BrushableBlockRenderStateInterface stateInterface)) return;
+		if (stateInterface.trailierTales$getItemScale() <= 0.05F) info.cancel();
 	}
 
 	@WrapOperation(
