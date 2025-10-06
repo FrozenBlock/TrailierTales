@@ -40,7 +40,7 @@ public class LithiumEntityCollisionsMixin {
 	private CollisionContext context;
 
 	@ModifyExpressionValue(
-		method = "computeNext",
+		method = "computeNext()Lnet/minecraft/world/phys/shapes/VoxelShape;",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/chunk/LevelChunkSection;getBlockState(III)Lnet/minecraft/world/level/block/state/BlockState;"
@@ -48,10 +48,8 @@ public class LithiumEntityCollisionsMixin {
 		require = 0
 	)
 	public BlockState trailierTales$modifyBlockStateForApparitions(BlockState original) {
-		if (this.context instanceof EntityCollisionContext entityCollisionContext) {
-			if (entityCollisionContext.getEntity() instanceof Apparition) {
-				return original.getBlock() instanceof EctoplasmBlock ? original : Blocks.AIR.defaultBlockState();
-			}
+		if (this.context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Apparition) {
+			return original.getBlock() instanceof EctoplasmBlock ? original : Blocks.AIR.defaultBlockState();
 		}
 
 		return original;

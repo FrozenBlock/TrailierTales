@@ -37,9 +37,7 @@ public class TTConstants {
 
 	// LOGGING
 	public static void log(String string, boolean shouldLog) {
-		if (shouldLog) {
-			LOGGER.info(string);
-		}
+		if (shouldLog) LOGGER.info(string);
 	}
 
 	@Contract("_ -> new")
