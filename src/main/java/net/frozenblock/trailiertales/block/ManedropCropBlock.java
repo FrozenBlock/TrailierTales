@@ -112,9 +112,9 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean bl) {
 		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) level.destroyBlock(pos, true, entity);
-		super.entityInside(state, level, pos, entity, applier);
+		super.entityInside(state, level, pos, entity, applier, bl);
 	}
 
 	@Override
@@ -140,12 +140,11 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	private void grow(ServerLevel world, @NotNull BlockState state, BlockPos pos, int amount) {
-		int i = Math.min(state.getValue(AGE) + amount, MAX_AGE);
-		if (this.canGrow(world, pos, state, i)) {
-			BlockState blockState = state.setValue(AGE, i);
-			world.setBlock(pos, blockState, UPDATE_CLIENTS);
-			if (isDouble(i)) world.setBlock(pos.above(), blockState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
-		}
+		final int grownAge = Math.min(state.getValue(AGE) + amount, MAX_AGE);
+		if (!this.canGrow(world, pos, state, grownAge)) return;
+		BlockState blockState = state.setValue(AGE, grownAge);
+		world.setBlock(pos, blockState, UPDATE_CLIENTS);
+		if (isDouble(grownAge)) world.setBlock(pos.above(), blockState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
 	}
 
 	private static boolean canGrowInto(@NotNull LevelReader world, BlockPos pos) {
