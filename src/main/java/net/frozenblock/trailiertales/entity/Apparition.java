@@ -40,6 +40,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.Profiler;
@@ -87,13 +88,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob, WindDisturbingEntity {
-	private static final Vector3f BASE_DUST_COLOR = new Vector3f(162F / 255F, 181F / 255F, 217F / 255F);
-	private static final Vector3f AID_DUST_COLOR = new Vector3f(24F / 255F, 252F / 255F, 1F);
-	private static final Vector3f POLTERGEIST_DUST_COLOR = new Vector3f(222F / 255F, 157F / 255F, 224F / 255F);
-	private static final Vector3f WHITE = new Vector3f(1F, 1F, 1F);
+	private static final Vec3 BASE_DUST_COLOR = new Vec3(162F / 255F, 181F / 255F, 217F / 255F);
+	private static final Vec3 AID_DUST_COLOR = new Vec3(24F / 255F, 252F / 255F, 1F);
+	private static final Vec3 POLTERGEIST_DUST_COLOR = new Vec3(222F / 255F, 157F / 255F, 224F / 255F);
+	private static final int WHITE = ARGB.color(new Vec3(1F, 1F, 1F));
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
@@ -441,14 +441,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Contract(" -> new")
 	private @NotNull ParticleOptions createAmbientParticleOptions() {
-		float aidProgress = this.getAidAnimProgress();
-		float poltergeistProgress = this.getPoltergeistAnimProgress();
-		Vector3f finalColor = new Vector3f(BASE_DUST_COLOR);
+		final float aidProgress = this.getAidAnimProgress();
+		final float poltergeistProgress = this.getPoltergeistAnimProgress();
+		Vec3 finalColor = BASE_DUST_COLOR;
 		finalColor = finalColor.lerp(AID_DUST_COLOR, aidProgress);
 		finalColor = finalColor.lerp(POLTERGEIST_DUST_COLOR, poltergeistProgress);
-		return new GlowingDustColorTransitionOptions(
-			finalColor, WHITE, 1F
-		);
+		return new GlowingDustColorTransitionOptions(ARGB.color(finalColor), WHITE, 1F);
 	}
 
 	@Override

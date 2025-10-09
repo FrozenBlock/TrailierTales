@@ -77,14 +77,13 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 
 
 	@Override
-	public void render(
-		PoseStack matrices,
-		@NotNull MultiBufferSource vertexConsumers,
+	public void emitGizmos(
 		double cameraX,
 		double cameraY,
 		double cameraZ,
 		DebugValueAccess debugValueAccess,
-		Frustum frustum
+		Frustum frustum,
+		float unknown
 	) {
 		this.clearRemovedEntities();
 		this.scheduledRemovals.removeIf(id -> true);
@@ -129,6 +128,7 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		DebugRenderer.getTargetedEntity(this.minecraft.getCameraEntity(), 8).ifPresent(entity -> this.lastLookedAtId = entity.getId());
 	}
 
+	/*
 	private static void highlightPos(PoseStack matrices, MultiBufferSource vertexConsumers, BlockPos pos) {
 		DebugRenderer.renderFilledBox(matrices, vertexConsumers, pos, 0.05F, 0.2F, 0.2F, 1.0F, 0.3F);
 		renderTextOverPos(matrices, vertexConsumers, "Coffin", pos.getCenter(), 0, TEXT_COLOR);
@@ -153,4 +153,5 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 		double g = pos.y + (double)offsetY * 0.2;
 		DebugRenderer.renderFloatingText(matrices, vertexConsumers, string, pos.x, g, pos.z, color, 0.02F, true, 0.0F, true);
 	}
+	 */
 }

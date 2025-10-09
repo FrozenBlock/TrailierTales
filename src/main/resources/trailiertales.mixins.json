@@ -41,7 +41,6 @@
     "client.boat.BoatRendererMixin",
     "client.boat.BoatRenderStateMixin",
     "client.boat.RaftRendererMixin",
-    "client.brush.ArmedEntityRenderStateMixin",
     "client.brush.ItemInHandLayerMixin",
     "client.brush.RangeSelectItemModelMixin",
     "client.brushable_block.BrushableBlockMixin",

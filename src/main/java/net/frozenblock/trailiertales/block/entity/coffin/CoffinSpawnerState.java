@@ -28,20 +28,21 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false, false, Optional.empty()),
 	COOLDOWN("cooldown", 0, false, false, Optional.empty()),
-	ACTIVE("active", 3, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(137F / 255F, 176F / 255F, 244F / 255F), 1F))),
-	IRRITATED("irritated", 5, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(184F / 255F, 149F / 255F, 219F / 255F), 1F))),
-	AGGRESSIVE("aggressive", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(224F / 255F, 130F / 255F, 130F / 255F), 1F))),
-	OMINOUS("ominous", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(new Vector3f(222F / 255F, 64F / 255F, 88F / 255F), 1F)));
+	ACTIVE("active", 3, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(137F / 255F, 176F / 255F, 244F / 255F)), 1F))),
+	IRRITATED("irritated", 5, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(184F / 255F, 149F / 255F, 219F / 255F)), 1F))),
+	AGGRESSIVE("aggressive", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(224F / 255F, 130F / 255F, 130F / 255F)), 1F))),
+	OMINOUS("ominous", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(222F / 255F, 64F / 255F, 88F / 255F)), 1F)));
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;

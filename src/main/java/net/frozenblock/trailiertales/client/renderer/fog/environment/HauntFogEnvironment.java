@@ -20,16 +20,15 @@ package net.frozenblock.trailiertales.client.renderer.fog.environment;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
+import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.fog.FogData;
 import net.minecraft.client.renderer.fog.environment.MobEffectFogEnvironment;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,17 +36,17 @@ import org.jetbrains.annotations.NotNull;
 public class HauntFogEnvironment extends MobEffectFogEnvironment {
 
 	@Override
-	public Holder<MobEffect> getMobEffect() {
+	public @NotNull Holder<MobEffect> getMobEffect() {
 		return TTMobEffects.HAUNT;
 	}
 
 	@Override
-	public void setupFog(FogData fogData, Entity entity, BlockPos blockPos, ClientLevel clientLevel, float viewDistance, DeltaTracker deltaTracker) {
-		if (entity instanceof LivingEntity livingEntity) {
+	public void setupFog(FogData fogData, @NotNull Camera camera, ClientLevel clientLevel, float viewDistance, DeltaTracker deltaTracker) {
+		if (camera.entity() instanceof LivingEntity livingEntity) {
 			MobEffectInstance mobEffectInstance = livingEntity.getEffect(this.getMobEffect());
 			if (mobEffectInstance != null) {
 				float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(false);
-				float entityProgress = entity.tickCount + tickDelta;
+				float entityProgress = livingEntity.tickCount + tickDelta;
 				float fogCos = (Mth.cos((entityProgress * Mth.PI) / 48F) * 4F) + 12F;
 				float fogDistance = Mth.lerp(mobEffectInstance.getBlendFactor(livingEntity, tickDelta), viewDistance, fogCos);
 				fogData.environmentalStart = fogDistance * 0.75F;

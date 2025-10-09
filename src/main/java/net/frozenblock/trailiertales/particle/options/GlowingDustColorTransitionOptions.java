@@ -25,6 +25,7 @@ import net.minecraft.core.particles.ScalableParticleOptionsBase;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -33,41 +34,41 @@ import org.joml.Vector3f;
 public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBase {
 	public static final MapCodec<GlowingDustColorTransitionOptions> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-				ExtraCodecs.VECTOR3F.fieldOf("from_color").forGetter(effect -> effect.fromColor),
-				ExtraCodecs.VECTOR3F.fieldOf("to_color").forGetter(effect -> effect.toColor),
+				ExtraCodecs.RGB_COLOR_CODEC.fieldOf("from_color").forGetter(options -> options.fromColor),
+				ExtraCodecs.RGB_COLOR_CODEC.fieldOf("to_color").forGetter(options -> options.toColor),
 				SCALE.fieldOf("scale").forGetter(ScalableParticleOptionsBase::getScale)
 			)
 			.apply(instance, GlowingDustColorTransitionOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, GlowingDustColorTransitionOptions> STREAM_CODEC = StreamCodec.composite(
-		ByteBufCodecs.VECTOR3F,
-		dustColorTransitionOptions -> dustColorTransitionOptions.fromColor,
-		ByteBufCodecs.VECTOR3F,
-		dustColorTransitionOptions -> dustColorTransitionOptions.toColor,
+		ByteBufCodecs.INT,
+		options -> options.fromColor,
+		ByteBufCodecs.INT,
+		options -> options.toColor,
 		ByteBufCodecs.FLOAT,
 		ScalableParticleOptionsBase::getScale,
 		GlowingDustColorTransitionOptions::new
 	);
-	private final Vector3f fromColor;
-	private final Vector3f toColor;
+	private final int fromColor;
+	private final int toColor;
 
-	public GlowingDustColorTransitionOptions(Vector3f fromColor, Vector3f toColor, float scale) {
+	public GlowingDustColorTransitionOptions(int fromColor, int toColor, float scale) {
 		super(scale);
 		this.fromColor = fromColor;
 		this.toColor = toColor;
 	}
 
 	@Contract("_, _ -> new")
-	public static @NotNull GlowingDustColorTransitionOptions ofSingleColor(Vector3f color, float scale) {
+	public static @NotNull GlowingDustColorTransitionOptions ofSingleColor(int color, float scale) {
 		return new GlowingDustColorTransitionOptions(color, color, scale);
 	}
 
 	public Vector3f getFromColor() {
-		return this.fromColor;
+		return ARGB.vector3fFromRGB24(this.fromColor);
 	}
 
 	public Vector3f getToColor() {
-		return this.toColor;
+		return ARGB.vector3fFromRGB24(this.toColor);
 	}
 
 	@Override
