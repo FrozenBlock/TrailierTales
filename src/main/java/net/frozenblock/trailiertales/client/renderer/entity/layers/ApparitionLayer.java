@@ -21,11 +21,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.lib.render.FrozenLibRenderTypes;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +47,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		int minOrder
 	) {
 		super(renderLayerParent);
-		this.innerRenderType = RenderType.entityTranslucentEmissive(texture);
+		this.innerRenderType = RenderTypes.entityTranslucentEmissive(texture);
 		this.outerRenderType = FrozenLibRenderTypes.apparitionOuter(texture);
 		this.innerAlphaFunction = innerAlphaFunction;
 		this.outerAlphaFunction = outerAlphaFunction;

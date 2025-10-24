@@ -27,10 +27,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.state.BoatRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Direction;
@@ -47,7 +47,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	private boolean raft = false;
 
 	public BoatBannerModel(@NotNull ModelPart root) {
-		super(root, RenderType::entitySolid);
+		super(root, RenderTypes::entitySolid);
 		this.flag = root.getChild("flag");
 		this.pole = root.getChild("pole");
 		this.bar = root.getChild("bar");

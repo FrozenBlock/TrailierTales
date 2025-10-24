@@ -28,7 +28,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;

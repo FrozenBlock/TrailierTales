@@ -26,7 +26,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +38,7 @@ public class CoffinModel extends Model<Float> {
 	private final ModelPart lid;
 
 	public CoffinModel(ModelPart root) {
-		super(root, RenderType::entitySolid);
+		super(root, RenderTypes::entitySolid);
 		this.base = root.getChild(BASE);
 		this.lid = root.getChild(LID);
 	}
