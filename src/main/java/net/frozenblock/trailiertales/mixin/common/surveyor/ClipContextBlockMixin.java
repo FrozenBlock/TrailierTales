@@ -63,14 +63,14 @@ public class ClipContextBlockMixin {
 		)
 	)
 	private static void trailierTales$addCustomBlock(CallbackInfo info) {
-		var blocks = new ArrayList<>(Arrays.asList($VALUES));
+		final var blocks = new ArrayList<>(Arrays.asList($VALUES));
 		var last = blocks.get(blocks.size() - 1);
 
-		ClipContext.ShapeGetter surveyorShapeGetter = (blockState, blockGetter, blockPos, collisionContext) -> {
-			if (blockState.is(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH) && !blockState.is(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)) return Shapes.empty();
-			return COLLIDER.get(blockState, blockGetter, blockPos, collisionContext);
+		final ClipContext.ShapeGetter surveyorShapeGetter = (state, blockGetter, pos, collisionContext) -> {
+			if (state.is(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH) && !state.is(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)) return Shapes.empty();
+			return COLLIDER.get(state, blockGetter, pos, collisionContext);
 		};
-		var surveyorSight = trailierTales$newBlock(
+		final var surveyorSight = trailierTales$newBlock(
 			"TRAILIERTALESSURVEYORSIGHT",
 			last.ordinal() + 1,
 			surveyorShapeGetter

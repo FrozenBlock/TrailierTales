@@ -45,13 +45,8 @@ public class BlockCollisionsMixin {
 		)
 	)
 	public BlockState trailierTales$modifyBlockStateForApparitions(BlockState original) {
-		if (this.context instanceof EntityCollisionContext entityCollisionContext) {
-			if (entityCollisionContext.getEntity() instanceof Apparition) {
-				return original.getBlock() instanceof EctoplasmBlock ? original : Blocks.AIR.defaultBlockState();
-			}
-		}
-
-		return original;
+		if (!(this.context instanceof EntityCollisionContext entityCollisionContext) || !(entityCollisionContext.getEntity() instanceof Apparition)) return original;
+		return original.getBlock() instanceof EctoplasmBlock ? original : Blocks.AIR.defaultBlockState();
 	}
 
 }

@@ -156,12 +156,11 @@ public class CoffinSpawnerData {
 
 	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
-		if (coffinSpawner.canSpawnApparition(serverLevel, pos, true)) {
-			this.nextApparitionSpawnsAt = 0L;
-			this.nextMobSpawnsAt = 0L;
-			coffinSpawner.addPower(1, serverLevel);
-			coffinSpawner.spawnApparition(serverLevel, pos);
-		}
+		if (!coffinSpawner.canSpawnApparition(serverLevel, pos, true)) return;
+		this.nextApparitionSpawnsAt = 0L;
+		this.nextMobSpawnsAt = 0L;
+		coffinSpawner.addPower(1, serverLevel);
+		coffinSpawner.spawnApparition(serverLevel, pos);
 	}
 
 	public void reset() {
@@ -242,8 +241,8 @@ public class CoffinSpawnerData {
 
 	private Optional<Player> getClosestPlayerFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin) {
 		if (players.isEmpty()) return Optional.empty();
-		AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
-		AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
+		final AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
+		final AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
 		players.forEach(uuid -> {
 			Player player = level.getPlayerByUUID(uuid);
 			if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
@@ -281,14 +280,14 @@ public class CoffinSpawnerData {
 	}
 
 	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
-		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
+		final boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
 		if (!isSecondForPos) return;
-		List<UUID> list = coffinSpawner.getPlayerDetector()
+		final List<UUID> list = coffinSpawner.getPlayerDetector()
 			.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 		this.potentialPlayers.addAll(list);
 
 		if (!coffinSpawner.isOminous() && !list.isEmpty()) {
-			Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
+			final Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
 			optional.ifPresent(pair -> {
 				Player player = pair.getFirst();
 				if (pair.getSecond() == MobEffects.BAD_OMEN) transformBadOmenIntoSiegeOmen(player);
@@ -296,31 +295,31 @@ public class CoffinSpawnerData {
 			});
 		}
 
-		List<UUID> detectedList = new ArrayList<>(list);
+		final List<UUID> detectedList = new ArrayList<>(list);
 		detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
 		for (UUID uuid : this.currentApparitions) {
 			if (world.getEntity(uuid) instanceof Apparition apparition) {
-				LivingEntity target = apparition.getTarget();
+				final LivingEntity target = apparition.getTarget();
 				if (target instanceof Player player) detectedList.add(player.getUUID());
 			}
 		}
 
 		if (this.detectedPlayers.addAll(detectedList)) {
-			RandomSource randomSource = world.random;
+			final RandomSource random = world.random;
 			CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
-			world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
+			world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1F);
 		}
 
 		this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
 	}
 
-	private static Optional<Pair<Player, Holder<MobEffect>>> findPlayerWithOminousEffect(ServerLevel world, @NotNull List<UUID> list) {
+	private static Optional<Pair<Player, Holder<MobEffect>>> findPlayerWithOminousEffect(ServerLevel level, @NotNull List<UUID> list) {
 		Player player = null;
 
 		for (UUID uUID : list) {
-			Player player2 = world.getPlayerByUUID(uUID);
+			final Player player2 = level.getPlayerByUUID(uUID);
 			if (player2 != null) {
-				Holder<MobEffect> holder = TTMobEffects.SIEGE_OMEN;
+				final Holder<MobEffect> holder = TTMobEffects.SIEGE_OMEN;
 				if (player2.hasEffect(holder)) return Optional.of(Pair.of(player2, holder));
 				if (player2.hasEffect(MobEffects.BAD_OMEN)) player = player2;
 			}
@@ -330,13 +329,12 @@ public class CoffinSpawnerData {
 	}
 
 	private static void transformBadOmenIntoSiegeOmen(@NotNull Player player) {
-		MobEffectInstance mobEffectInstance = player.getEffect(MobEffects.BAD_OMEN);
-		if (mobEffectInstance != null) {
-			int i = mobEffectInstance.getAmplifier() + 1;
-			int j = 18000 * i;
-			player.removeEffect(MobEffects.BAD_OMEN);
-			player.addEffect(new MobEffectInstance(TTMobEffects.SIEGE_OMEN, j, 0));
-		}
+		final MobEffectInstance mobEffectInstance = player.getEffect(MobEffects.BAD_OMEN);
+		if (mobEffectInstance == null) return;
+		final int i = mobEffectInstance.getAmplifier() + 1;
+		final int j = 18000 * i;
+		player.removeEffect(MobEffects.BAD_OMEN);
+		player.addEffect(new MobEffectInstance(TTMobEffects.SIEGE_OMEN, j, 0));
 	}
 
 	public boolean isPowerCooldownFinished(@NotNull ServerLevel level) {
@@ -352,9 +350,7 @@ public class CoffinSpawnerData {
 	}
 
 	@NotNull SpawnData getOrCreateNextSpawnData(RandomSource random) {
-		if (this.nextSpawnData.isEmpty()) {
-			this.setNextSpawnData(this.spawnPotentials.getRandom(random).orElseGet(SpawnData::new));
-		}
+		if (this.nextSpawnData.isEmpty()) this.setNextSpawnData(this.spawnPotentials.getRandom(random).orElseGet(SpawnData::new));
 		return this.nextSpawnData.get();
 	}
 

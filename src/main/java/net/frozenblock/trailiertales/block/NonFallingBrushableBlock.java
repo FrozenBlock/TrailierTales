@@ -35,7 +35,7 @@ public class NonFallingBrushableBlock extends BrushableBlock {
 	}
 
 	@Override
-	public void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (serverLevel.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) brushableBlockEntity.checkReset(serverLevel);
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlockEntity) brushableBlockEntity.checkReset(level);
 	}
 }

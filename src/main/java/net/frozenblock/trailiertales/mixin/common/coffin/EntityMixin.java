@@ -43,9 +43,7 @@ public class EntityMixin {
 		CallbackInfoReturnable<Entity> info,
 		@Local(ordinal = 0) ServerLevel level
 	) {
-		if (EntityCoffinData.entityHasCoffinData(Entity.class.cast(this))) {
-			CoffinBlock.onCoffinUntrack(level, Entity.class.cast(this), null, true);
-		}
+		if (EntityCoffinData.entityHasCoffinData(Entity.class.cast(this))) CoffinBlock.onCoffinUntrack(level, Entity.class.cast(this), null, true);
 	}
 
 	@Inject(method = "canUsePortal", at = @At("HEAD"), cancellable = true)

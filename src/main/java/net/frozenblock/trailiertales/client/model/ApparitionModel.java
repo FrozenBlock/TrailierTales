@@ -56,9 +56,8 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = new MeshDefinition();
-
-		PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.ZERO);
+		final MeshDefinition meshdefinition = new MeshDefinition();
+		final PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.ZERO);
 
 		core.addOrReplaceChild("inner", CubeListBuilder.create()
 				.texOffs(0, 28)
@@ -84,24 +83,24 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 
 	@Override
 	public void setupAnim(@NotNull ApparitionRenderState renderState) {
-		float limbAngle = renderState.walkAnimationPos;
-		float limbDistance = renderState.walkAnimationSpeed;
-		float headYaw = renderState.yRot;
-		float headPitch = renderState.xRot;
+		final float limbAngle = renderState.walkAnimationPos;
+		final float limbDistance = renderState.walkAnimationSpeed;
+		final float headYaw = renderState.yRot;
+		final float headPitch = renderState.xRot;
 		this.outer.yRot = renderState.itemYRot;
 		this.outer.zRot = renderState.itemZRot;
 
-		float animationProgress = renderState.ageInTicks + (limbAngle * 3.5F);
+		final float animationProgress = renderState.ageInTicks + (limbAngle * 3.5F);
 		this.core.yRot = headYaw * Mth.DEG_TO_RAD;
 		this.core.xRot = headPitch * Mth.DEG_TO_RAD;
 
-		float tighten = 1F - limbDistance * 0.75F;
+		final float tighten = 1F - limbDistance * 0.75F;
 		this.outer.yRot *= tighten;
 		this.outer.zRot *= tighten;
 
 		//SQUASH & STRETCH
-		float sinIdle = (float) (Math.sin(animationProgress * 0.3F) * 0.1F) * tighten;
-		float squash = sinIdle + 1F;
+		final float sinIdle = (float) (Math.sin(animationProgress * 0.3F) * 0.1F) * tighten;
+		final float squash = sinIdle + 1F;
 
 		this.outer.xScale = squash;
 		this.outer.zScale = squash;

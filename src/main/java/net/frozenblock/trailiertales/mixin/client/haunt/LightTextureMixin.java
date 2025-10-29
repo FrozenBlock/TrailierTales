@@ -42,10 +42,8 @@ public class LightTextureMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getEffectBlendFactor(Lnet/minecraft/core/Holder;F)F")
 	)
 	private float trailierTales$modifyDarknessGamma(float darknessGamma, float tickDelta) {
-		MobEffectInstance hauntInstance = this.minecraft.player.getEffect(TTMobEffects.HAUNT);
-		if (hauntInstance != null) {
-			return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, tickDelta) * 0.67F, darknessGamma);
-		}
+		final MobEffectInstance hauntInstance = this.minecraft.player.getEffect(TTMobEffects.HAUNT);
+		if (hauntInstance != null) return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, tickDelta) * 0.67F, darknessGamma);
 		return darknessGamma;
 	}
 

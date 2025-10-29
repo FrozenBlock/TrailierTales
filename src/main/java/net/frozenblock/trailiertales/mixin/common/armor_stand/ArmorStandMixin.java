@@ -49,9 +49,7 @@ public class ArmorStandMixin {
 		)
 	)
 	public void trailierTales$enableArms(Args args) {
-		if (TTEntityConfig.get().armorStand.armor_stand_arms) {
-			args.set(1, this.setBit((byte) 0, 4, true));
-		}
+		if (TTEntityConfig.get().armorStand.armor_stand_arms) args.set(1, this.setBit((byte) 0, 4, true));
 	}
 
 }

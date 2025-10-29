@@ -152,24 +152,23 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 
-		CoffinSpawnerState coffinSpawnerState = this.getState();
+		final CoffinSpawnerState coffinSpawnerState = this.getState();
 		if (coffinSpawnerState.isCapableOfSpawning()) {
-			RandomSource randomSource = world.getRandom();
-			if (randomSource.nextFloat() <= 0.0175F) {
-				world.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.15F + 0.05F, randomSource.nextFloat() + 0.5F, false);
+			final RandomSource random = world.getRandom();
+			if (random.nextFloat() <= 0.0175F) {
+				world.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, random.nextFloat() * 0.15F + 0.05F, random.nextFloat() + 0.5F, false);
 			}
 		}
 
 		this.previousOpenProgress = this.openProgress;
 		this.openProgress = Mth.clamp(this.openProgress + this.getLidOpenIncrement(), 0F, 1F);
 
-		Direction connectedDirection = CoffinBlock.getConnectedDirection(this.getBlockState());
-		if (connectedDirection != null) {
-			BlockPos connectedPos = pos.relative(connectedDirection);
-			if (world.isLoaded(connectedPos) && world.getBlockEntity(connectedPos) instanceof CoffinBlockEntity coffinBlockEntity) {
-				coffinBlockEntity.previousOpenProgress = this.previousOpenProgress;
-				coffinBlockEntity.openProgress = this.openProgress;
-			}
+		final Direction connectedDirection = CoffinBlock.getConnectedDirection(this.getBlockState());
+		if (connectedDirection == null) return;
+		final BlockPos connectedPos = pos.relative(connectedDirection);
+		if (world.isLoaded(connectedPos) && world.getBlockEntity(connectedPos) instanceof CoffinBlockEntity coffinBlockEntity) {
+			coffinBlockEntity.previousOpenProgress = this.previousOpenProgress;
+			coffinBlockEntity.openProgress = this.openProgress;
 		}
 	}
 
@@ -185,7 +184,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 
 	@Override
 	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
-		CompoundTag compoundTag = new CompoundTag();
+		final CompoundTag compoundTag = new CompoundTag();
 		compoundTag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
 		return compoundTag;
 	}
@@ -194,16 +193,14 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	public void setEntityId(EntityType<?> entityType, RandomSource random) {
 		BlockPos pos = this.getBlockPos();
 		CoffinSpawner coffinSpawner = this.getCoffinSpawner();
-		BlockState state = this.getBlockState();
+		final BlockState state = this.getBlockState();
 		if (this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.HEAD) {
 			pos = pos.relative(CoffinBlock.getConnectedDirection(state));
-			if (this.level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity) {
-				coffinSpawner = coffinBlockEntity.getCoffinSpawner();
-			}
+			if (this.level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity) coffinSpawner = coffinBlockEntity.getCoffinSpawner();
 		}
 		coffinSpawner.getData().setEntityId(entityType, random);
 
-		Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
+		final Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
 		if (coffinOrientation != null && this.level instanceof ServerLevel serverLevel) {
 			BlockPos finalPos = pos;
 			CoffinSpawnerState.ACTIVE.getParticleOptionsForState().ifPresent(particleOptions ->
@@ -250,9 +247,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	@Override
 	public void markUpdated() {
 		this.setChanged();
-		if (this.level != null) {
-			this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
-		}
+		if (this.level != null) this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
 	}
 
 	@Override

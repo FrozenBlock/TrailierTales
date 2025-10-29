@@ -39,7 +39,7 @@ public class SoundEngineMixin {
 		)
 	)
 	public int modifyAttenuationDistance(int original) {
-		Player player = Minecraft.getInstance().player;
+		final Player player = Minecraft.getInstance().player;
 		if (player != null && player.hasEffect(TTMobEffects.HAUNT)) return (int) (original * 0.5F);
 		return original;
 	}

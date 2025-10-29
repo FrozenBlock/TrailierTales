@@ -29,7 +29,7 @@ public class CandleBlockMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(BlockBehaviour.Properties settings, CallbackInfo info) {
-		CandleBlock candleBlock = CandleBlock.class.cast(this);
+		final CandleBlock candleBlock = CandleBlock.class.cast(this);
 		candleBlock.registerDefaultState(candleBlock.defaultBlockState().setValue(CandleBlock.CANDLES, CandleBlock.MAX_CANDLES));
 	}
 

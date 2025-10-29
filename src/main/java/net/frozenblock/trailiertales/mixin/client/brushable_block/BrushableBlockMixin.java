@@ -51,7 +51,7 @@ public class BrushableBlockMixin {
 
 	@Unique
 	private static void trailierTales$emitConnectionParticlesForPlayer(@NotNull Level world, BlockPos pos, RandomSource random) {
-		Player player = Minecraft.getInstance().player;
+		final Player player = Minecraft.getInstance().player;
 		if (player == null || !player.isHolding(Items.BRUSH)) return;
 
 		final Vec3 vec3 = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);

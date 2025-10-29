@@ -30,7 +30,6 @@
     "common.ectoplasm_block.BlockGetterMixin",
     "common.ectoplasm_block.EntityMixin",
     "common.lithium.LithiumEntityCollisionsMixin",
-    "common.rail.RailStructureRotationFix",
     "common.surveyor.ClipContextBlockMixin",
     "common.surveyor.RedStoneWireBlockMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",

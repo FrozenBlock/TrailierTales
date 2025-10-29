@@ -104,8 +104,8 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	public boolean isValidStateForPlacement(BlockGetter view, @NotNull BlockState state, BlockPos pos, Direction dir) {
 		if (!state.getFluidState().isEmpty()) return false;
 		if (this.isFaceSupported(dir) && (!state.is(this) || !hasFace(state, dir))) {
-			BlockPos blockPos = pos.relative(dir);
-			return canAttachTo(view, dir, blockPos, view.getBlockState(blockPos));
+			final BlockPos offsetPos = pos.relative(dir);
+			return canAttachTo(view, dir, offsetPos, view.getBlockState(offsetPos));
 		}
 		return false;
 	}
@@ -137,24 +137,32 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
 		if (!isMaxAge(state)) {
 			this.grow(world, pos, state);
-		} else {
-			this.spreader.spreadFromRandomFaceTowardRandomDirection(state, world, pos, random);
+			return;
 		}
+		this.spreader.spreadFromRandomFaceTowardRandomDirection(state, world, pos, random);
 	}
 
 	@Override
 	@NotNull
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult
+	) {
 		if (level instanceof ServerLevel && isMaxAge(state) && stack.is(Items.SHEARS)) {
 			stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 			return InteractionResult.SUCCESS;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-		ItemStack seeds = new ItemStack(TTItems.DAWNTRAIL_SEEDS);
+		final ItemStack seeds = new ItemStack(TTItems.DAWNTRAIL_SEEDS);
 		seeds.setCount(availableFaces(state).size());
 		popResource(level, pos, seeds);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);

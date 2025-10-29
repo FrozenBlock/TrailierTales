@@ -38,10 +38,8 @@ public class EntityRendererMixin<T extends Entity, S extends EntityRenderState> 
 		)
 	)
 	public AABB trailierTales$extendBannerBoatRenderBox(AABB original, @Local(argsOnly = true) T entity) {
-		if (entity instanceof BoatBannerInterface bannerInterface) {
-			if (!bannerInterface.trailierTales$getBanner().isEmpty()) {
-				return original.inflate(1D, 0D, 1D).expandTowards(0D, 2D, 0D);
-			}
+		if (entity instanceof BoatBannerInterface bannerInterface && !bannerInterface.trailierTales$getBanner().isEmpty()) {
+			return original.inflate(1D, 0D, 1D).expandTowards(0D, 2D, 0D);
 		}
 		return original;
 	}

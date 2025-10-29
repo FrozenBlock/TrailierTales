@@ -42,7 +42,7 @@ public class V3689Mixin {
 		)
 	)
 	public Map<String, Supplier<TypeTemplate>> trailierTales$registerBlockEntities(V3689 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
-		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
+		final Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
 			TTConstants.string("coffin"),
@@ -70,7 +70,7 @@ public class V3689Mixin {
 		)
 	)
 	public Map<String, Supplier<TypeTemplate>> trailierTales$registerEntities(V3689 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
-		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
+		final Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.register(
 			map,
 			TTConstants.string("apparition"),

@@ -151,7 +151,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	@NotNull
 	protected PathNavigation createNavigation(Level level) {
-		FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level);
+		final FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level);
 		flyingPathNavigation.setCanFloat(false);
 		flyingPathNavigation.setCanOpenDoors(false);
 		flyingPathNavigation.getNodeEvaluator().setCanPassDoors(true);
@@ -160,9 +160,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
 		this.getBrain().setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 100L);
-		return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, entityData);
 	}
 
 	@Override
@@ -231,7 +231,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos) {
-		Level level = this.level();
+		final Level level = this.level();
 		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
 		float successValue = 20F - (Math.max(5, level.getRawBrightness(pos, 0) * 0.5F));
 		float punishmentValue = -1F;
@@ -254,9 +254,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public boolean shouldReturnToHome(@NotNull GlobalPos globalPos) {
-		if (globalPos.dimension() == this.level().dimension()) {
-			return this.position().distanceTo(Vec3.atCenterOf(globalPos.pos())) >= 58D;
-		}
+		if (globalPos.dimension() == this.level().dimension()) return this.position().distanceTo(Vec3.atCenterOf(globalPos.pos())) >= 58D;
 		return false;
 	}
 
@@ -279,8 +277,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	public void setVisibleItem(@NotNull ItemStack itemStack) {
-		this.getEntityData().set(ITEM_STACK, itemStack);
+	public void setVisibleItem(@NotNull ItemStack stack) {
+		this.getEntityData().set(ITEM_STACK, stack);
 	}
 
 	@Override
@@ -303,7 +301,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected void pickUpItem(ServerLevel level, ItemEntity item) {
-		ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
+		final ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
 		this.level().addFreshEntity(newItemEntity);
 		InventoryCarrier.pickUpItem(level, this, this, newItemEntity);
 	}
@@ -387,10 +385,10 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setNoGravity(true);
 		if (!this.level().isClientSide()) {
 			this.tickTransparency();
-			boolean isHidden = this.isHiding();
+			final boolean isHidden = this.isHiding();
 			if (!isHidden) this.spawnParticles(this.random.nextInt(0, 2), this.createAmbientParticleOptions());
 			this.hiddenTicks = (Math.max(0, this.hiddenTicks - 1));
-			boolean hiding = this.hiddenTicks > 0;
+			final boolean hiding = this.hiddenTicks > 0;
 			this.setHiding(hiding);
 			if (isHidden != hiding) this.refreshDimensions();
 			this.setVisibleItem(this.inventory.getItems().getFirst().copy());
@@ -486,17 +484,14 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public void swapItem(@NotNull ItemStack itemStack) {
-		if (!itemStack.isEmpty() && !this.level().isClientSide()) {
-			this.dropItem();
-			this.inventory.setItem(0, itemStack);
-		}
+		if (itemStack.isEmpty() || this.level().isClientSide()) return;
+		this.dropItem();
+		this.inventory.setItem(0, itemStack);
 	}
 
 	public void dropItem() {
-		ItemStack currentStack = this.inventory.getItems().getFirst().copyAndClear();
-		if (!currentStack.isEmpty()) {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), currentStack));
-		}
+		final ItemStack currentStack = this.inventory.getItems().getFirst().copyAndClear();
+		if (!currentStack.isEmpty()) this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), currentStack));
 	}
 
 	@Override
@@ -510,7 +505,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public void tickTransparency() {
 		float transparency = 0F;
 		float outerTransparency;
-		boolean isHidden = this.isHiding();
+		final boolean isHidden = this.isHiding();
 		if (this.isAiding()) {
 			transparency = 1F;
 			outerTransparency = 1.5F;
@@ -524,13 +519,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				outerTransparency = transparency * 0.5F;
 			}
 		}
-		float interpolationFactor = isHidden ? 0.9F : 0.3F;
+		final float interpolationFactor = isHidden ? 0.9F : 0.3F;
 		this.transparency += (transparency - this.transparency) * interpolationFactor;
 		if (this.transparency < 0.025F && this.transparency != 0F && transparency == 0F) {
 			this.transparency = 0F;
-			if (isHidden) {
-				this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
-			}
+			if (isHidden) this.spawnParticles(this.random.nextInt(3, 7), ParticleTypes.POOF);
 		} else if (this.transparency > 0.975F && transparency == 1F) {
 			this.transparency = 1F;
 		}
@@ -655,27 +648,26 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	public void spawnParticles(int count, ParticleOptions particleOptions) {
-		if (this.level() instanceof ServerLevel level) {
-			level.sendParticles(
-				particleOptions,
-				this.getX(),
-				this.getY(0.6666666666666666D),
-				this.getZ(),
-				count,
-				this.getBbWidth() / 4F,
-				this.getBbHeight() / 4F,
-				this.getBbWidth() / 4F,
-				0.05D
-			);
-		}
+		if (!(this.level() instanceof ServerLevel level)) return;
+		level.sendParticles(
+			particleOptions,
+			this.getX(),
+			this.getY(0.6666666666666666D),
+			this.getZ(),
+			count,
+			this.getBbWidth() / 4F,
+			this.getBbHeight() / 4F,
+			this.getBbWidth() / 4F,
+			0.05D
+		);
 	}
 
 	@Override
 	public void performRangedAttack(LivingEntity target, float pullProgress) {
-		ItemStack itemStack = this.inventory.getItems().getFirst();
-		if (!itemStack.isEmpty()) {
+		final ItemStack stack = this.inventory.getItems().getFirst();
+		if (!stack.isEmpty()) {
 			Projectile projectile;
-			ItemStack singleItem = itemStack.copyAndClear();
+			final ItemStack singleItem = stack.copyAndClear();
 			if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
 				projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
 			} else {
@@ -683,11 +675,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			}
 			projectile.setOwner(this);
 
-			double targetY = target.getEyeY() - 1.1F;
-			double xDifference = target.getX() - this.getX();
-			double yDifference = targetY - projectile.getY();
-			double zDifference = target.getZ() - this.getZ();
-			double yAdjustment = Math.sqrt(xDifference * xDifference + zDifference * zDifference) * 0.2F;
+			final double targetY = target.getEyeY() - 1.1F;
+			final double xDifference = target.getX() - this.getX();
+			final double yDifference = targetY - projectile.getY();
+			final double zDifference = target.getZ() - this.getZ();
+			final double yAdjustment = Math.sqrt(xDifference * xDifference + zDifference * zDifference) * 0.2F;
 			projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
 			this.playSound(TTSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 			this.level().addFreshEntity(projectile);

@@ -70,7 +70,7 @@ public class GuiMixin {
 	private Minecraft minecraft;
 
 	@Inject(
-		method = "Lnet/minecraft/client/gui/Gui;tick()V",
+		method = "tick()V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/player/LocalPlayer;getInventory()Lnet/minecraft/world/entity/player/Inventory;",
@@ -79,7 +79,7 @@ public class GuiMixin {
 		)
 	)
 	private void trailierTales$setHauntedInfo(CallbackInfo info) {
-		Player player = this.minecraft.player;
+		final Player player = this.minecraft.player;
 		trailierTales$isHaunted = player.hasEffect(TTMobEffects.HAUNT);
 		if (trailierTales$isHaunted) {
 			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
@@ -206,9 +206,9 @@ public class GuiMixin {
 	) {
 		if (trailierTales$isHaunted) {
 			this.trailierTales$renderHauntedHeart(graphics, x, y);
-		} else {
-			original.call(instance, graphics, type, x, y, hardcore, blinking, half);
+			return;
 		}
+		original.call(instance, graphics, type, x, y, hardcore, blinking, half);
 	}
 
 	@ModifyExpressionValue(
@@ -297,9 +297,7 @@ public class GuiMixin {
 	)
 	private void trailierTales$hauntedHunger(GuiGraphics instance, RenderPipeline renderPipeline, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
 		original.call(instance, renderPipeline, texture, x, y, width, height);
-		if (trailierTales$isHaunted) {
-			original.call(instance, renderPipeline, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
-		}
+		if (trailierTales$isHaunted) original.call(instance, renderPipeline, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
 	}
 
 	@ModifyExpressionValue(
@@ -327,10 +325,8 @@ public class GuiMixin {
 		)
 	)
 	private int trailierTales$hideAirSupply(long airSupply, int noSupply, int maxAirSupply, Operation<Integer> original) {
-		int finalSupply = original.call(airSupply, noSupply, maxAirSupply);
-		if (trailierTales$isHaunted) {
-			if (finalSupply != maxAirSupply) return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
-		}
+		final int finalSupply = original.call(airSupply, noSupply, maxAirSupply);
+		if (trailierTales$isHaunted && finalSupply != maxAirSupply) return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
 		return finalSupply;
 	}
 

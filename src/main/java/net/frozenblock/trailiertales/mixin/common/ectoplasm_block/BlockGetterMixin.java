@@ -45,13 +45,13 @@ public interface BlockGetterMixin {
 
 	@Inject(method = "clip", at = @At("HEAD"))
 	default void trailierTales$setClipInEctoplasmBlock(ClipContext context, CallbackInfoReturnable<BlockHitResult> info) {
-		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			Entity entity = entityCollisionContext.getEntity();
-			if (entity instanceof InEctoplasmBlockInterface inEctoplasmBlockInterface) {
-				BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
-				if (eyeState != null) inEctoplasmBlockInterface.trailierTales$setClipInEctoplasm(eyeState.getBlock() instanceof EctoplasmBlock);
-			}
-		}
+		if (!(context.collisionContext instanceof EntityCollisionContext entityCollisionContext)) return;
+
+		final Entity entity = entityCollisionContext.getEntity();
+		if (!(entity instanceof InEctoplasmBlockInterface inEctoplasmBlockInterface)) return;
+
+		final BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
+		if (eyeState != null) inEctoplasmBlockInterface.trailierTales$setClipInEctoplasm(eyeState.getBlock() instanceof EctoplasmBlock);
 	}
 
 	@WrapOperation(

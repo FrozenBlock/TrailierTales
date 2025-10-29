@@ -51,14 +51,13 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 
 	@Override
 	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		VoxelShape shape = Shapes.empty();
 
-		if (collisionContext instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof Apparition) {
-			for (Direction direction : Direction.values()) {
-				if (!blockGetter.getBlockState(blockPos.relative(direction)).is(this)) {
-					shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
-				}
+		if (!(context instanceof EntityCollisionContext entityCollisionContext) || !(entityCollisionContext.getEntity() instanceof Apparition)) return shape;
+		for (Direction direction : Direction.values()) {
+			if (!blockGetter.getBlockState(pos.relative(direction)).is(this)) {
+				shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
 			}
 		}
 
@@ -66,12 +65,12 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected boolean propagatesSkylightDown(BlockState blockState) {
+	protected boolean propagatesSkylightDown(BlockState state) {
 		return true;
 	}
 
 	@Override
-	protected int getLightBlock(BlockState blockState) {
+	protected int getLightBlock(BlockState state) {
 		return 0;
 	}
 }

@@ -35,19 +35,16 @@ public class BoatRendererMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, CallbackInfo info) {
-		if (BoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface) {
-			try {
-				abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
-					modelLayerLocation.model().withPath((string) -> {
-						string = string.substring(Math.max(0, string.indexOf("/")));
-						return "textures/entity/boat/banner_base/" + string + ".png";
-					})
-				);
-			} catch (Exception ignored) {
-				abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
-					TTConstants.vanillaId("textures/entity/boat/banner_base/oak.png")
-				);
-			}
+		if (!(BoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface)) return;
+		try {
+			abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
+				modelLayerLocation.model().withPath((string) -> {
+					string = string.substring(Math.max(0, string.indexOf("/")));
+					return "textures/entity/boat/banner_base/" + string + ".png";
+				})
+			);
+		} catch (Exception ignored) {
+			abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(TTConstants.vanillaId("textures/entity/boat/banner_base/oak.png"));
 		}
 	}
 }

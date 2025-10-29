@@ -44,8 +44,8 @@ public class CoffinModel extends Model<Float> {
 	}
 
 	public static @NotNull LayerDefinition createLayerDefinition() {
-		MeshDefinition modelData = new MeshDefinition();
-		PartDefinition modelPartData = modelData.getRoot();
+		final MeshDefinition modelData = new MeshDefinition();
+		final PartDefinition modelPartData = modelData.getRoot();
 		modelPartData.addOrReplaceChild(
 			BASE,
 			CubeListBuilder.create()

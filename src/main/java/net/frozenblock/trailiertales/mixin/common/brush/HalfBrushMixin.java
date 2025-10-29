@@ -25,6 +25,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -54,34 +55,51 @@ public class HalfBrushMixin {
 		)
 	)
 	public void trailierTales$onUseTick(
-		Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info,
+		Level level, LivingEntity entity, ItemStack stack, int i, CallbackInfo info,
 		@Local(ordinal = 0) BlockHitResult hitResult
 	) {
-		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) {
-			this.trailierTales$halfBrush(level, livingEntity2, itemStack, hitResult, i);
+		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) this.trailierTales$halfBrush(level, entity, stack, hitResult, i);
+	}
+
+	@Unique
+	public void trailierTales$halfBrush(Level level, LivingEntity entity, ItemStack stack, BlockHitResult hitResult, int i) {
+		final int brushTimer = BrushItem.class.cast(this).getUseDuration(stack, entity) - i + 1;
+		if (brushTimer % 5 == 0 && brushTimer % 10 != 5 && hitResult != null && entity instanceof Player player) {
+			final BlockPos pos = hitResult.getBlockPos();
+			this.trailierTales$spawnOppositeDustParticles(
+				level, hitResult,
+				level.getBlockState(pos),
+				entity.getViewVector(0F),
+				entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite()
+			);
+			level.playSound(player, pos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.3F, 0.85F);
 		}
 	}
 
 	@Unique
-	public void trailierTales$halfBrush(Level level, LivingEntity livingEntity2, ItemStack itemStack, BlockHitResult blockHitResult, int i) {
-		int j = BrushItem.class.cast(this).getUseDuration(itemStack, livingEntity2) - i + 1;
-		if (j % 5 == 0 && j % 10 != 5 && blockHitResult != null && livingEntity2 instanceof Player player) {
-			BlockPos blockPos = blockHitResult.getBlockPos();
-			this.trailierTales$spawnOppositeDustParticles(level, blockHitResult, level.getBlockState(blockPos), livingEntity2.getViewVector(0F), livingEntity2.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite());
-			level.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.PLAYERS, 0.3F, 0.85F);
-		}
-	}
+	public void trailierTales$spawnOppositeDustParticles(
+		@NotNull Level level, @NotNull BlockHitResult hitResult, @NotNull BlockState state, @NotNull Vec3 vec3, @NotNull HumanoidArm arm
+	) {
+		final RandomSource random = level.getRandom();
+		final int particleCount = random.nextInt(2, 6);
+		final BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, state);
 
-	@Unique
-	public void trailierTales$spawnOppositeDustParticles(@NotNull Level level, @NotNull BlockHitResult blockHitResult, @NotNull BlockState blockState, @NotNull Vec3 vec3, @NotNull HumanoidArm humanoidArm) {
-		int i = humanoidArm == HumanoidArm.RIGHT ? -1 : 1;
-		int j = level.getRandom().nextInt(2, 6);
-		BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
-		Direction direction = blockHitResult.getDirection();
-		BrushItem.DustParticlesDelta dustParticlesDelta = BrushItem.DustParticlesDelta.fromDirection(vec3, direction);
-		Vec3 vec32 = blockHitResult.getLocation();
-		for (int k = 0; k < j; ++k) {
-			level.addParticle(blockParticleOption, vec32.x - (double) (direction == Direction.WEST ? 1.0E-6F : 0F), vec32.y, vec32.z - (double) (direction == Direction.NORTH ? 1.0E-6F : 0F), dustParticlesDelta.xd() * (double) i * 3.0 * level.getRandom().nextDouble(), 0.0, dustParticlesDelta.zd() * (double) i * 3.0 * level.getRandom().nextDouble());
+		final Direction direction = hitResult.getDirection();
+		final BrushItem.DustParticlesDelta dustParticlesDelta = BrushItem.DustParticlesDelta.fromDirection(vec3, direction);
+		final Vec3 hitLocation = hitResult.getLocation();
+
+		final double xPos = hitLocation.x - (direction == Direction.WEST ? 1.0E-6D : 0D);
+		final double zPos = hitLocation.z - (direction == Direction.NORTH ? 1.0E-6D : 0D);
+
+		final double armDirection = arm == HumanoidArm.RIGHT ? -3D : 3;
+		final double xDelta = dustParticlesDelta.xd() * armDirection;
+		final double zDelta = dustParticlesDelta.zd() * armDirection;
+		for (int i = 0; i < particleCount; ++i) {
+			level.addParticle(
+				blockParticleOption,
+				xPos, hitLocation.y, zPos,
+				xDelta * random.nextDouble(), 0D, zDelta * random.nextDouble()
+			);
 		}
 	}
 

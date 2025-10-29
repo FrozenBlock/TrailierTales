@@ -122,7 +122,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		@NotNull RandomSource random
 	) {
 		if (direction == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
-			boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
+			final boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
 			return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
 				? isThisFoot ? state : state.setValue(STATE, neighborState.getValue(STATE))
 				: Blocks.AIR.defaultBlockState();
@@ -142,13 +142,13 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	public @NotNull BlockState playerWillDestroy(@NotNull Level level, BlockPos pos, BlockState state, Player player) {
 		if (!level.isClientSide() && player.isCreative()) {
-			CoffinPart coffinPart = state.getValue(PART);
+			final CoffinPart coffinPart = state.getValue(PART);
 			if (coffinPart == CoffinPart.FOOT) {
-				BlockPos blockPos = pos.relative(getConnectedDirection(coffinPart, state.getValue(FACING)));
-				BlockState blockState = level.getBlockState(blockPos);
-				if (blockState.is(this) && blockState.getValue(PART) == CoffinPart.HEAD) {
-					level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 35);
-					level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
+				final BlockPos connectedPos = pos.relative(getConnectedDirection(coffinPart, state.getValue(FACING)));
+				final BlockState connectedState = level.getBlockState(connectedPos);
+				if (connectedState.is(this) && connectedState.getValue(PART) == CoffinPart.HEAD) {
+					level.setBlock(connectedPos, Blocks.AIR.defaultBlockState(), 35);
+					level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, connectedPos, Block.getId(connectedState));
 				}
 			}
 		}
@@ -159,18 +159,18 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		Direction direction = context.getHorizontalDirection();
-		BlockPos blockPos = context.getClickedPos();
-		BlockPos blockPos2 = blockPos.relative(direction);
-		Level level = context.getLevel();
-		return level.getBlockState(blockPos2).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos2)
+		final Direction direction = context.getHorizontalDirection();
+		final BlockPos blockPos = context.getClickedPos();
+		final BlockPos offsetPos = blockPos.relative(direction);
+		final Level level = context.getLevel();
+		return level.getBlockState(offsetPos).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(offsetPos)
 			? this.defaultBlockState().setValue(FACING, direction)
 			: null;
 	}
 
 	@Override
 	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		Direction direction = getConnectedDirection(state).getOpposite();
+		final Direction direction = getConnectedDirection(state).getOpposite();
 		return switch (direction) {
 			case NORTH -> SHAPE;
 			case SOUTH -> SHAPE;
@@ -180,7 +180,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	public static DoubleBlockCombiner.BlockType getBlockType(@NotNull BlockState state) {
-		CoffinPart coffinPart = state.getValue(PART);
+		final CoffinPart coffinPart = state.getValue(PART);
 		return coffinPart == CoffinPart.HEAD ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND;
 	}
 
@@ -193,12 +193,12 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
-		if (!level.isClientSide()) {
-			BlockPos blockPos = pos.relative(state.getValue(FACING));
-			level.setBlock(blockPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
-			level.updateNeighborsAt(pos, Blocks.AIR);
-			state.updateNeighbourShapes(level, pos, UPDATE_ALL);
-		}
+		if (level.isClientSide()) return;
+
+		final BlockPos blockPos = pos.relative(state.getValue(FACING));
+		level.setBlock(blockPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
+		level.updateNeighborsAt(pos, Blocks.AIR);
+		state.updateNeighbourShapes(level, pos, UPDATE_ALL);
 	}
 
 	@Override
@@ -223,11 +223,10 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	public static void wobble(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Player player) {
 		level.blockEvent(pos, state.getBlock(), 1, 0);
-		BlockPos neighborPos = pos.relative(CoffinBlock.getConnectedDirection(state));
-		BlockState neighborState = level.getBlockState(neighborPos);
-		if (neighborState.is(state.getBlock())) {
-			level.blockEvent(neighborPos, state.getBlock(), 1, 0);
-		}
+
+		final BlockPos neighborPos = pos.relative(CoffinBlock.getConnectedDirection(state));
+		final BlockState neighborState = level.getBlockState(neighborPos);
+		if (neighborState.is(state.getBlock())) level.blockEvent(neighborPos, state.getBlock(), 1, 0);
 
 		level.playSound(null, pos, TTSounds.COFFIN_WOBBLE, SoundSource.BLOCKS, 0.5F, 0.9F + level.random.nextFloat() * 0.2F);
 		level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
@@ -236,7 +235,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int type, int data) {
 		super.triggerEvent(state, level, pos, type, data);
-		BlockEntity blockEntity = level.getBlockEntity(pos);
+		final BlockEntity blockEntity = level.getBlockEntity(pos);
 		return blockEntity != null && blockEntity.triggerEvent(type, data);
 	}
 
@@ -246,8 +245,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	@Override
 	protected long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
-		BlockPos blockPos = pos.relative(state.getValue(FACING), state.getValue(PART) == CoffinPart.HEAD ? 0 : 1);
-		return Mth.getSeed(blockPos.getX(), pos.getY(), blockPos.getZ());
+		final BlockPos headPos = pos.relative(state.getValue(FACING), state.getValue(PART) == CoffinPart.HEAD ? 0 : 1);
+		return Mth.getSeed(headPos.getX(), pos.getY(), headPos.getZ());
 	}
 
 	@Override
@@ -265,14 +264,14 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		return level instanceof ServerLevel serverLevel
 			? BaseEntityBlock.createTickerHelper(
 				blockEntityType,
-			TTBlockEntityTypes.COFFIN,
-			(unusedWorld, pos, statex, coffin) -> coffin
-				.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
+				TTBlockEntityTypes.COFFIN,
+				(unusedWorld, pos, statex, coffin) -> coffin
+					.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
 			: BaseEntityBlock.createTickerHelper(
 				blockEntityType,
-			TTBlockEntityTypes.COFFIN,
-			(world, pos, statex, coffin) -> coffin
-				.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
+				TTBlockEntityTypes.COFFIN,
+				(world, pos, statex, coffin) -> coffin
+					.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
 	}
 
 	public static void onCoffinUntrack(ServerLevel level, @Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
@@ -314,15 +313,15 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		@NotNull BlockPos pos,
 		double spread
 	) {
-		boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
-		boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
-		boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
-		double stepX = coffinOrientation.getStepX();
-		double stepZ = coffinOrientation.getStepZ();
-		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
-		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
-		double xOffset = Math.max(0.5D, Math.abs(stepX)) * spread;
-		double zOffset = Math.max(0.5D, Math.abs(stepZ)) * spread;
+		final boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		final boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		final boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		final double stepX = coffinOrientation.getStepX();
+		final double stepZ = coffinOrientation.getStepZ();
+		final double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		final double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		final double xOffset = Math.max(0.5D, Math.abs(stepX)) * spread;
+		final double zOffset = Math.max(0.5D, Math.abs(stepZ)) * spread;
 		world.sendParticles(
 			particleOptions,
 			pos.getX() + relativeX,
@@ -337,14 +336,14 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	public static @NotNull Vec3 getCenter(@NotNull BlockState state, @NotNull BlockPos pos) {
-		Direction coffinOrientation = state.getValue(FACING);
-		boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
-		boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
-		boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
-		double stepX = coffinOrientation.getStepX();
-		double stepZ = coffinOrientation.getStepZ();
-		double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
-		double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		final Direction coffinOrientation = state.getValue(FACING);
+		final boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		final boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		final boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		final double stepX = coffinOrientation.getStepX();
+		final double stepZ = coffinOrientation.getStepZ();
+		final double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		final double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
 		return new Vec3(pos.getX() + relativeX, pos.getY() + 0.95D, pos.getZ() + relativeZ);
 	}
 }

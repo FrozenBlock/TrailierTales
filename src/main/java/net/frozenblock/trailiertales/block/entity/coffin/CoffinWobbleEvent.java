@@ -84,9 +84,9 @@ public enum CoffinWobbleEvent {
 	}
 
 	public static void onWobble(ServerLevel level, BlockPos pos, BlockState state, CoffinBlockEntity coffinBlockEntity, RandomSource random) {
-		CoffinWobbleEvent event = Util.getRandom(CoffinWobbleEvent.values(), random);
+		final CoffinWobbleEvent event = Util.getRandom(CoffinWobbleEvent.values(), random);
 		if (random.nextFloat() <= event.getChance() && event.checkExtraConditions(coffinBlockEntity, state)) {
-			Vec3 centerPos = CoffinBlock.getCenter(state, pos);
+			final Vec3 centerPos = CoffinBlock.getCenter(state, pos);
 
 			switch (event) {
 				case EJECT_LOOT:
@@ -106,7 +106,7 @@ public enum CoffinWobbleEvent {
 
 			if (event.playsLidAnim()) {
 				coffinBlockEntity.coffinWobbleLidAnimTicks = 4;
-				Direction coffinOrientation = CoffinBlock.getCoffinOrientation(level, pos);
+				final Direction coffinOrientation = CoffinBlock.getCoffinOrientation(level, pos);
 				if (coffinOrientation != null) {
 					CoffinBlock.spawnParticlesFrom(
 						level,
@@ -130,8 +130,8 @@ public enum CoffinWobbleEvent {
 		coffinBlockEntity.unpackLootTable(null);
 		for (ItemStack coffinStack : Util.shuffledCopy(coffinBlockEntity.getItems().toArray(new ItemStack[0]), serverLevel.random)) {
 			if (!coffinStack.isEmpty()) {
-				ItemStack splitStack = coffinStack.split(1);
-				ItemEntity itemEntity = new ItemEntity(
+				final ItemStack splitStack = coffinStack.split(1);
+				final ItemEntity itemEntity = new ItemEntity(
 					serverLevel,
 					centerPos.x,
 					centerPos.y,
@@ -145,7 +145,7 @@ public enum CoffinWobbleEvent {
 	}
 
 	public static @NotNull ItemStack createItemStackForMobEffect(Item item, MobEffectInstance effect) {
-		ItemStack itemStack = new ItemStack(item);
+		final ItemStack itemStack = new ItemStack(item);
 		itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), List.of(effect), Optional.empty()));
 		return itemStack;
 	}
@@ -156,7 +156,7 @@ public enum CoffinWobbleEvent {
 			Vec3 shootAngle = DEFAULT_SHOOT_ANGLE;
 			float shootSpeed = DEFAULT_SHOOT_SPEED;
 
-			Optional<Player> closestPlayer = coffinBlockEntity.getCoffinSpawner().getData().getClosestPotentialPlayer(serverLevel, centerPos);
+			final Optional<Player> closestPlayer = coffinBlockEntity.getCoffinSpawner().getData().getClosestPotentialPlayer(serverLevel, centerPos);
 			if (closestPlayer.isPresent()) {
 				shootAngle = (closestPlayer.get().getEyePosition().add(0D, 0.1D, 0D)).subtract(centerPos);
 				shootSpeed = PLAYER_SHOOT_SPEED;

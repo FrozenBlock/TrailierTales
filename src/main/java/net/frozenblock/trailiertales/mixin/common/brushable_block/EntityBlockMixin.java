@@ -34,18 +34,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface EntityBlockMixin {
 
 	@Inject(method = "getTicker", at = @At("HEAD"), cancellable = true)
-	default <T extends BlockEntity> void trailierTales$getTicker(Level world, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
-		if (type == BlockEntityType.BRUSHABLE_BLOCK) {
-			info.setReturnValue(
-				BaseEntityBlock.createTickerHelper(
-					type,
-					BlockEntityType.BRUSHABLE_BLOCK,
-					(worldx, pos, statex, blockEntity) -> {
-						if (blockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) {
-							brushableBlockEntityInterface.trailierTales$tick();
-						}
-					})
-			);
-		}
+	default <T extends BlockEntity> void trailierTales$getTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+		if (type != BlockEntityType.BRUSHABLE_BLOCK) return;
+		info.setReturnValue(
+			BaseEntityBlock.createTickerHelper(
+				type,
+				BlockEntityType.BRUSHABLE_BLOCK,
+				(levelx, pos, statex, blockEntity) -> {
+					if (blockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) brushableBlockEntityInterface.trailierTales$tick();
+				})
+		);
 	}
 }

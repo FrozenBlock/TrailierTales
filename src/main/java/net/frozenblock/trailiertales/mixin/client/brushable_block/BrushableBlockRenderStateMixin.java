@@ -35,51 +35,61 @@ public class BrushableBlockRenderStateMixin implements BrushableBlockRenderState
 	@Unique
 	private float itemScale;
 
+	@Unique
 	@Override
 	public float trailierTales$getXOffset() {
 		return this.xOffset;
 	}
 
+	@Unique
 	@Override
 	public void trailierTales$setXOffset(float xOffset) {
 		this.xOffset = xOffset;
 	}
 
+	@Unique
 	@Override
 	public float trailierTales$getYOffset() {
 		return this.yOffset;
 	}
 
+	@Unique
 	@Override
 	public void trailierTales$setYOffset(float yOffset) {
 		this.yOffset = yOffset;
 	}
 
+	@Unique
 	@Override
 	public float trailierTales$getZOffset() {
 		return this.zOffset;
 	}
 
+	@Unique
 	@Override
 	public void trailierTales$setZOffset(float zOffset) {
 		this.zOffset = zOffset;
 	}
 
+	@Unique
 	@Override
 	public float trailierTales$getRotation() {
 		return this.rotation;
 	}
 
+	@Unique
 	@Override
 	public void trailierTales$setRotation(float rotation) {
 		this.rotation = rotation;
 	}
 
+	@Unique
 	@Override
 	public float trailierTales$getItemScale() {
 		return this.itemScale;
 	}
 
+	@Unique
 	@Override
 	public void trailierTales$setItemScale(float itemScale) {
 		this.itemScale = itemScale;

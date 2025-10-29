@@ -45,25 +45,22 @@ public abstract class AbstractChestBoatMixin extends AbstractBoat {
 
 	@Inject(method = "interact", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
-		if (player.isSecondaryUseActive() && AbstractChestBoat.class.cast(this) instanceof BoatBannerInterface bannerInterface) {
-			if (bannerInterface.trailierTales$getBanner().isEmpty()) {
-				ItemStack itemStack = player.getItemInHand(hand);
-				if (itemStack.is(ItemTags.BANNERS)) {
-					if (this.level() instanceof ServerLevel serverLevel) {
-						this.spawnAtLocation(serverLevel, bannerInterface.trailierTales$getBanner(), 0.6F);
-						bannerInterface.trailierTales$setBanner(itemStack.split(1));
-						this.gameEvent(GameEvent.ENTITY_INTERACT, player);
-					}
-					info.setReturnValue(InteractionResult.SUCCESS);
-				}
-			} else {
+		if (!player.isSecondaryUseActive() || !(AbstractChestBoat.class.cast(this) instanceof BoatBannerInterface bannerInterface)) return;
+		if (bannerInterface.trailierTales$getBanner().isEmpty()) {
+			ItemStack stack = player.getItemInHand(hand);
+			if (stack.is(ItemTags.BANNERS)) {
 				if (this.level() instanceof ServerLevel serverLevel) {
 					this.spawnAtLocation(serverLevel, bannerInterface.trailierTales$getBanner(), 0.6F);
+					bannerInterface.trailierTales$setBanner(stack.split(1));
+					this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 				}
-				bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);
-				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 				info.setReturnValue(InteractionResult.SUCCESS);
 			}
+		} else {
+			if (this.level() instanceof ServerLevel serverLevel) this.spawnAtLocation(serverLevel, bannerInterface.trailierTales$getBanner(), 0.6F);
+			bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);
+			this.gameEvent(GameEvent.ENTITY_INTERACT, player);
+			info.setReturnValue(InteractionResult.SUCCESS);
 		}
 	}
 }

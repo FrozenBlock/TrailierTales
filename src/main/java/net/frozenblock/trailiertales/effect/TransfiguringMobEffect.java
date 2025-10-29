@@ -36,7 +36,7 @@ import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,7 +75,7 @@ public class TransfiguringMobEffect extends MobEffect {
 	@Override
 	public void onMobRemoved(ServerLevel level, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
 		if (reason == Entity.RemovalReason.KILLED && entity.getType() != SPAWNED_ENTITY_TYPE) {
-			int j = level.getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
+			int j = level.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
 			int k = numberOfApparitionsToSpawn(j, NearbyApparitions.closeTo(entity));
 
 			for (int l = 0; l < k; l++) {

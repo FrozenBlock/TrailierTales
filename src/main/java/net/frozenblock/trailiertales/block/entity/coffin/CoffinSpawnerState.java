@@ -71,16 +71,16 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		};
 	}
 
-	static CoffinSpawnerState getStateForPower(ServerLevel level, @NotNull CoffinSpawner coffinSpawner) {
-		CoffinSpawnerData coffinSpawnerData = coffinSpawner.getData();
+	static CoffinSpawnerState getStateForPower(ServerLevel level, @NotNull CoffinSpawner spawner) {
+		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		if (coffinSpawnerData.detectedAnyPlayers()) {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
-				if (coffinSpawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) return AGGRESSIVE;
-				if (coffinSpawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) return IRRITATED;
+				if (spawner.getIrritatedConfig().powerForNextLevel() <= coffinSpawnerData.power) return AGGRESSIVE;
+				if (spawner.getNormalConfig().powerForNextLevel() <= coffinSpawnerData.power) return IRRITATED;
 			}
 			return ACTIVE;
 		}
-		return getCooldownOrInactiveState(level, coffinSpawner);
+		return getCooldownOrInactiveState(level, spawner);
 	}
 
 	private static CoffinSpawnerState getInactiveState(
@@ -89,11 +89,11 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		BlockState state,
 		@NotNull ServerLevel level
 	) {
-		CoffinSpawnerData coffinSpawnerData = spawner.getData();
+		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		if (!coffinSpawnerData.hasMobToSpawn(level.random) || coffinSpawnerData.isOnCooldown(level)) {
 			return getCooldownOrInactiveState(level, spawner);
 		} else {
-			Direction direction = CoffinBlock.getConnectedDirection(state);
+			final Direction direction = CoffinBlock.getConnectedDirection(state);
 			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
 			if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
 			return getStateForPower(level, spawner);
@@ -107,67 +107,64 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		BlockState state,
 		@NotNull ServerLevel level
 	) {
-		CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
-		if (!coffinSpawnerData.hasMobToSpawn(level.random)) {
-			return getCooldownOrInactiveState(level, spawner);
-		} else {
-			Direction direction = CoffinBlock.getConnectedDirection(state);
-			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
-			if (!coffinSpawnerData.detectedAnyPlayers()) return getCooldownOrInactiveState(level, spawner);
+		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
+		final CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
+		if (!coffinSpawnerData.hasMobToSpawn(level.random)) return getCooldownOrInactiveState(level, spawner);
 
-			int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
+		final Direction direction = CoffinBlock.getConnectedDirection(state);
+		coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
+		if (!coffinSpawnerData.detectedAnyPlayers()) return getCooldownOrInactiveState(level, spawner);
 
-			if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
+		final int additionalPlayers = coffinSpawnerData.countAdditionalPlayers();
 
-			if (!coffinSpawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
-				coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
-				coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getConfig().powerForNextLevel() : coffinSpawnerData.power;
-				level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.random.nextFloat() * 0.2F));
-				return coffinSpawnerState.getNextPowerState();
-			}
+		if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
 
-			if (coffinSpawnerData.hasFinishedSpawningAllMobs(coffinSpawnerConfig, additionalPlayers)) {
-				if (coffinSpawnerData.haveAllCurrentMobsDied()) {
-					coffinSpawnerData.totalMobsSpawned = 0;
-					if (coffinSpawnerState.finalWave) {
-						coffinSpawnerData.nextMobSpawnsAt = 0L;
-						coffinSpawnerData.power = 0;
-						coffinSpawnerData.powerCooldownEndsAt = 0L;
-						long cooldownTime = 36000L;
-						coffinSpawnerData.nextApparitionSpawnsAt = level.getGameTime() + cooldownTime;
-						coffinSpawnerData.cooldownEndsAt = level.getGameTime() + cooldownTime;
-						if (coffinSpawnerData.haveAllCurrentApparitionsDied()) return COOLDOWN;
-					}
+		if (!coffinSpawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
+			coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
+			coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getConfig().powerForNextLevel() : coffinSpawnerData.power;
+			level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.random.nextFloat() * 0.2F));
+			return coffinSpawnerState.getNextPowerState();
+		}
+
+		if (coffinSpawnerData.hasFinishedSpawningAllMobs(coffinSpawnerConfig, additionalPlayers)) {
+			if (coffinSpawnerData.haveAllCurrentMobsDied()) {
+				coffinSpawnerData.totalMobsSpawned = 0;
+				if (coffinSpawnerState.finalWave) {
+					coffinSpawnerData.nextMobSpawnsAt = 0L;
+					coffinSpawnerData.power = 0;
+					coffinSpawnerData.powerCooldownEndsAt = 0L;
+					final long cooldownTime = 36000L;
+					coffinSpawnerData.nextApparitionSpawnsAt = level.getGameTime() + cooldownTime;
+					coffinSpawnerData.cooldownEndsAt = level.getGameTime() + cooldownTime;
+					if (coffinSpawnerData.haveAllCurrentApparitionsDied()) return COOLDOWN;
 				}
-			} else if (coffinSpawnerData.isReadyToSpawnNextMob(level, coffinSpawnerConfig, additionalPlayers)) {
-				spawner.spawnMob(level, pos).ifPresent(uuid -> {
-					coffinSpawnerData.currentMobs.add(uuid);
-					++coffinSpawnerData.totalMobsSpawned;
-					coffinSpawnerData.nextMobSpawnsAt = level.getGameTime() + (long)coffinSpawnerConfig.ticksBetweenSpawn();
-					coffinSpawnerData.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
-						coffinSpawnerData.nextSpawnData = Optional.of(spawnData);
-						spawner.markUpdated();
-					});
-				});
 			}
+		} else if (coffinSpawnerData.isReadyToSpawnNextMob(level, coffinSpawnerConfig, additionalPlayers)) {
+			spawner.spawnMob(level, pos).ifPresent(uuid -> {
+				coffinSpawnerData.currentMobs.add(uuid);
+				++coffinSpawnerData.totalMobsSpawned;
+				coffinSpawnerData.nextMobSpawnsAt = level.getGameTime() + (long)coffinSpawnerConfig.ticksBetweenSpawn();
+				coffinSpawnerData.spawnPotentials().getRandom(level.getRandom()).ifPresent(spawnData -> {
+					coffinSpawnerData.nextSpawnData = Optional.of(spawnData);
+					spawner.markUpdated();
+				});
+			});
 		}
 		return coffinSpawnerState;
 	}
 
 	public void emitParticles(ServerLevel level, BlockPos pos, Direction coffinOrientation) {
 		this.getParticleOptionsForState().ifPresent(particleOptions -> {
-			if (level.random.nextFloat() <= 0.05F) {
-				CoffinBlock.spawnParticlesFrom(
-					level,
-					particleOptions,
-					level.random.nextInt(1, 2),
-					0.5D,
-					coffinOrientation,
-					pos,
-					0.5D
-				);
-			}
+			if (level.random.nextFloat() > 0.05F) return;
+			CoffinBlock.spawnParticlesFrom(
+				level,
+				particleOptions,
+				level.random.nextInt(1, 2),
+				0.5D,
+				coffinOrientation,
+				pos,
+				0.5D
+			);
 		});
 	}
 

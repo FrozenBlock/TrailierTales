@@ -69,7 +69,7 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 
 	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
 	public void trailierTales$spawnCustomItemAfterBroken(Block block, BlockPos pos, CallbackInfo info) {
-		FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
+		final FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
 		if (fallingBlockEntity.level() instanceof ServerLevel level && this.trailierTales$itemStack != ItemStack.EMPTY) {
 			fallingBlockEntity.spawnAtLocation(level, this.trailierTales$itemStack.copy());
 			this.trailierTales$itemStack = ItemStack.EMPTY;

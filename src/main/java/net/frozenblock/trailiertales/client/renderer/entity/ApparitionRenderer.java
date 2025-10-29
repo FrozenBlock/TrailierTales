@@ -88,15 +88,15 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		@NotNull CameraRenderState cameraRenderState
 	) {
 		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
-		if (!renderState.item.isEmpty()) {
-			poseStack.pushPose();
-			poseStack.translate(0F, 0.425F, 0F);
-			poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
-			poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
-			poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
-			renderState.item.submit(poseStack, submitNodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
-			poseStack.popPose();
-		}
+
+		if (renderState.item.isEmpty()) return;
+		poseStack.pushPose();
+		poseStack.translate(0F, 0.425F, 0F);
+		poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
+		poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
+		poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
+		renderState.item.submit(poseStack, submitNodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
+		poseStack.popPose();
 	}
 
 	@Override

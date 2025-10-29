@@ -62,9 +62,9 @@ public class TrailierTalesClient implements ClientModInitializer {
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {
 		if (!TTMiscConfig.Client.DISTORTED_CATACOMBS_MUSIC) return 1F;
-		float basePitch = 0.98F + Mth.sin((float) ((gameTime * Math.PI) / 1000F)) * 0.005F;
-		float additionalPitchChangeA = Mth.clamp(Mth.cos((float) ((gameTime * Math.PI) / 600F)) * 0.5F, -0.00975F, 0.00975F);
-		float additionalWobble = Mth.sin((float) ((gameTime * Math.PI) / 20F)) * 0.005F;
+		final float basePitch = 0.98F + Mth.sin((float) ((gameTime * Math.PI) / 1000F)) * 0.005F;
+		final float additionalPitchChangeA = Mth.clamp(Mth.cos((float) ((gameTime * Math.PI) / 600F)) * 0.5F, -0.00975F, 0.00975F);
+		final float additionalWobble = Mth.sin((float) ((gameTime * Math.PI) / 20F)) * 0.005F;
 		return basePitch + additionalPitchChangeA + additionalWobble;
 	}
 }

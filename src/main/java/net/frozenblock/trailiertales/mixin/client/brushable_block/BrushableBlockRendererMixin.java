@@ -46,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BrushableBlockRendererMixin {
 
 	@ModifyExpressionValue(
-		method = "extractRenderState(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
+		method = "extractRenderState*",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;"
@@ -57,12 +57,12 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@Inject(
-		method = "extractRenderState(Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
+		method = "extractRenderState*",
 		at = @At("TAIL")
 	)
 	private void trailierTales$extractBrushableBlockRenderState(
 		BrushableBlockEntity brushableBlockEntity,
-		BrushableBlockRenderState brushableBlockRenderState,
+		BrushableBlockRenderState renderState,
 		float partialTick,
 		Vec3 vec3,
 		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
@@ -70,7 +70,7 @@ public class BrushableBlockRendererMixin {
 	) {
 		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS
 			&& brushableBlockEntity instanceof BrushableBlockEntityInterface blockInterface
-			&& brushableBlockRenderState instanceof BrushableBlockRenderStateInterface stateInterface
+			&& renderState instanceof BrushableBlockRenderStateInterface stateInterface
 		) {
 			stateInterface.trailierTales$setXOffset(blockInterface.trailierTales$getXOffset(partialTick));
 			stateInterface.trailierTales$setYOffset(blockInterface.trailierTales$getYOffset(partialTick));
@@ -81,7 +81,7 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@Inject(
-		method = "submit(Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+		method = "submit*",
 		at = @At("HEAD"),
 		cancellable = true
 	)
@@ -97,7 +97,7 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "submit(Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+		method = "submit*",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V"
@@ -130,7 +130,7 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "submit(Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+		method = "submit*",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V"
@@ -160,7 +160,7 @@ public class BrushableBlockRendererMixin {
 	}
 
 	@WrapOperation(
-		method = "submit(Lnet/minecraft/client/renderer/blockentity/state/BrushableBlockRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+		method = "submit*",
 		at = @At(
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/vertex/PoseStack;scale(FFF)V"

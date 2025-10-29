@@ -17,26 +17,32 @@
 
 package net.frozenblock.trailiertales.mixin.common.apparition;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Mob.class)
 public class MobMixin {
 
-	@ModifyExpressionValue(
+	@WrapOperation(
 		method = "aiStep",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
+			target = "Lnet/minecraft/world/level/gamerules/GameRules;get(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;"
 		)
 	)
-	private boolean trailierTales$ignoreMobGriefingForApparitionIfPossible(boolean original) {
-		if (original) return true;
+	private Object trailierTales$ignoreMobGriefingForApparitionIfPossible(GameRules instance, GameRule<?> gameRule, Operation<?> original) {
+		final Object returnValue = original.call(instance, gameRule);
+		if (gameRule != GameRules.MOB_GRIEFING || !(returnValue instanceof Boolean bool)) return returnValue;
+		if (bool) return true;
 		if (Mob.class.cast(this) instanceof Apparition) return TTEntityConfig.get().apparition.ignore_mob_griefing;
-		return false;
+		return returnValue;
 	}
+
 }

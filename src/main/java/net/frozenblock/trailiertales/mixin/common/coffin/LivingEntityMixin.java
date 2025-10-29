@@ -81,9 +81,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	public void trailierTales$onHurtByPlayer(
 		PlayerHurtEntityTrigger instance, ServerPlayer player, Entity entity, DamageSource damage, float dealt, float taken, boolean blocked, Operation<Void> original
 	) {
-		if (this.trailierTales$entityCoffinData != null) {
-			this.trailierTales$entityCoffinData.updateLastInteraction(entity.level().getGameTime());
-		}
+		if (this.trailierTales$entityCoffinData != null) this.trailierTales$entityCoffinData.updateLastInteraction(entity.level().getGameTime());
 		original.call(instance, player, entity, damage, dealt, taken, blocked);
 	}
 
@@ -108,36 +106,35 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	@ModifyReturnValue(method = "getExperienceReward", at = @At("RETURN"))
 	public int trailierTales$getExperienceReward(
 		int original,
-		ServerLevel world, @Nullable Entity entity
+		ServerLevel serverLevel,
+		@Nullable Entity entity
 	) {
-		if (this.trailierTales$entityCoffinData != null) {
-			if (entity instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) {
-				return original * 2;
-			}
+		if (this.trailierTales$entityCoffinData != null && entity instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) {
+			return original * 2;
 		}
 		return original;
 	}
 
 	@Inject(method = "remove", at = @At("HEAD"))
 	public void trailierTales$remove(Entity.RemovalReason reason, CallbackInfo info) {
-		if (reason == Entity.RemovalReason.KILLED && this.lastHurtByPlayerMemoryTime > 0) {
-			LivingEntity livingEntity = LivingEntity.class.cast(this);
-			if (livingEntity.level() instanceof ServerLevel serverLevel && this.trailierTales$entityCoffinData != null) {
-				Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);
-				if (optionalCoffinSpawner.isPresent()) {
-					CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
-					CoffinSpawnerData spawnerData = coffinSpawner.getData();
-					if (spawnerData.trackingEntity(livingEntity)) {
-						Vec3 pos = livingEntity.getEyePosition();
-						serverLevel.sendParticles(TTParticleTypes.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
-						serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
-						double distance = livingEntity.distanceToSqr(pos);
-						coffinSpawner.addSoulParticle(40 + (int)(distance * 1.25D));
-					} else if (spawnerData.trackingApparition(livingEntity)) {
-						coffinSpawner.onApparitionRemovedOrKilled(serverLevel);
-					}
-				}
-			}
+		if (reason != Entity.RemovalReason.KILLED || this.lastHurtByPlayerMemoryTime <= 0) return;
+
+		final LivingEntity livingEntity = LivingEntity.class.cast(this);
+		if (!(livingEntity.level() instanceof ServerLevel serverLevel) || this.trailierTales$entityCoffinData == null) return;
+
+		final Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);
+		if (optionalCoffinSpawner.isEmpty()) return;
+
+		final CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+		final CoffinSpawnerData spawnerData = coffinSpawner.getData();
+		if (spawnerData.trackingEntity(livingEntity)) {
+			final Vec3 pos = livingEntity.getEyePosition();
+			serverLevel.sendParticles(TTParticleTypes.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
+			serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
+			final double distance = livingEntity.distanceToSqr(pos);
+			coffinSpawner.addSoulParticle(40 + (int)(distance * 1.25D));
+		} else if (spawnerData.trackingApparition(livingEntity)) {
+			coffinSpawner.onApparitionRemovedOrKilled(serverLevel);
 		}
 	}
 
@@ -155,22 +152,19 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		)
 	)
 	public void trailierTales$baseTick(CallbackInfo info) {
-		if (this.trailierTales$entityCoffinData != null) {
-			LivingEntity livingEntity = LivingEntity.class.cast(this);
-			this.trailierTales$entityCoffinData.tick(livingEntity, livingEntity.level());
-		}
+		if (this.trailierTales$entityCoffinData == null) return;
+		final LivingEntity livingEntity = LivingEntity.class.cast(this);
+		this.trailierTales$entityCoffinData.tick(livingEntity, livingEntity.level());
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
-		if (this.trailierTales$entityCoffinData != null) {
-			this.trailierTales$entityCoffinData.save(valueOutput);
-		}
+		if (this.trailierTales$entityCoffinData != null) this.trailierTales$entityCoffinData.save(valueOutput);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
-		EntityCoffinData coffinData = EntityCoffinData.load(valueInput);
+		final EntityCoffinData coffinData = EntityCoffinData.load(valueInput);
 		if (coffinData != null) this.trailierTales$entityCoffinData = coffinData;
 	}
 }

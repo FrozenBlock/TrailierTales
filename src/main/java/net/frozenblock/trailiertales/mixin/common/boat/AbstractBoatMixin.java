@@ -94,14 +94,14 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 
 	@Unique
 	public void trailierTales$calculateEntityAnimation(boolean flutter) {
-		float f = (float) Mth.length(this.getX() - this.xo, flutter ? this.getY() - this.yo : 0.0, this.getZ() - this.zo);
-		this.trailierTales$updateWalkAnimation(f);
+		final float walkDifference = (float) Mth.length(this.getX() - this.xo, flutter ? this.getY() - this.yo : 0F, this.getZ() - this.zo);
+		this.trailierTales$updateWalkAnimation(walkDifference);
 	}
 
 	@Unique
 	protected void trailierTales$updateWalkAnimation(float limbDistance) {
-		float f = Math.min(limbDistance, 1F);
-		this.trailierTales$walkAnimation.update(f, 0.1F, 1F);
+		final float speed = Math.min(limbDistance, 1F);
+		this.trailierTales$walkAnimation.update(speed, 0.1F, 1F);
 	}
 
 	@Inject(
@@ -114,25 +114,22 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 		cancellable = true
 	)
 	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
-		if (player.isSecondaryUseActive()) {
-			if (this.trailierTales$getBanner().isEmpty()) {
-				ItemStack itemStack = player.getItemInHand(hand);
-				if (itemStack.is(ItemTags.BANNERS)) {
-					if (this.level() instanceof ServerLevel serverLevel) {
-						this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
-						this.trailierTales$setBanner(itemStack.split(1));
-						this.gameEvent(GameEvent.ENTITY_INTERACT, player);
-					}
-					info.setReturnValue(InteractionResult.SUCCESS);
-				}
-			} else {
+		if (!player.isSecondaryUseActive()) return;
+		if (this.trailierTales$getBanner().isEmpty()) {
+			final ItemStack stack = player.getItemInHand(hand);
+			if (stack.is(ItemTags.BANNERS)) {
 				if (this.level() instanceof ServerLevel serverLevel) {
 					this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
+					this.trailierTales$setBanner(stack.split(1));
+					this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 				}
-				this.trailierTales$setBanner(ItemStack.EMPTY);
-				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 				info.setReturnValue(InteractionResult.SUCCESS);
 			}
+		} else {
+			if (this.level() instanceof ServerLevel serverLevel) this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
+			this.trailierTales$setBanner(ItemStack.EMPTY);
+			this.gameEvent(GameEvent.ENTITY_INTERACT, player);
+			info.setReturnValue(InteractionResult.SUCCESS);
 		}
 	}
 }
