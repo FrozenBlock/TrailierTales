@@ -3,8 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Updated FrozenLib dependency.
-- Added Trailier Tales' Sandstone blocks to Fabric's conventional Sandstone tags.
-- Fixed Boats losing their appended Banner items in 1.21.8+ after saving a world.
-- Retextured the Ectoplasm item.
-- Added a new icon for the `Strongholds -> Catacombs` built-in datapack, by Voxelotl!
+- FrozenLib is no longer embedded in Trailier Tales.
+  - It must now be downloaded separately.
+- Fixed the Sherd Duplication recipe sometimes failing to produce an output.
+  - The recipe is still disabled by default in the config, remember to enable it if you want it!
