@@ -54,19 +54,19 @@ public class ApparitionPlayerSensor extends Sensor<Apparition> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull Apparition apparition) {
-		double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
-		List<Player> list = level.players()
+		final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
+		final List<Player> list = level.players()
 			.stream()
 			.filter(EntitySelector.NO_SPECTATORS)
 			.filter(player -> apparition.closerThan(player, range))
 			.sorted(Comparator.comparingDouble(apparition::distanceToSqr))
 			.collect(Collectors.toList());
 
-		Brain<?> brain = apparition.getBrain();
+		final Brain<?> brain = apparition.getBrain();
 		brain.setMemory(MemoryModuleType.NEAREST_PLAYERS, list);
-		List<Player> list2 = list.stream().filter(player -> isEntityTargetable(level, apparition, player, range)).toList();
+		final List<Player> list2 = list.stream().filter(player -> isEntityTargetable(level, apparition, player, range)).toList();
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, list2.isEmpty() ? null : list2.getFirst());
-		Optional<Player> optional = list2.stream().filter(player -> isEntityAttackable(level, apparition, player, range)).findFirst();
+		final Optional<Player> optional = list2.stream().filter(player -> isEntityAttackable(level, apparition, player, range)).findFirst();
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, optional);
 	}
 

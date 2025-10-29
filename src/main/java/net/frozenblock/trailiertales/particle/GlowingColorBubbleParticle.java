@@ -77,13 +77,7 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 		return Layer.OPAQUE;
 	}
 
-	public static class Provider implements ParticleProvider<ColorParticleOption> {
-		private final SpriteSet spriteSet;
-
-		public Provider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<ColorParticleOption> {
 		public Particle createParticle(
 			@NotNull ColorParticleOption colorParticleOption,
 			@NotNull ClientLevel level,
@@ -91,7 +85,7 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			SingleQuadParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
+			final GlowingColorBubbleParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
 			return particle;
 		}

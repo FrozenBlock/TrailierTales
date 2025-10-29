@@ -50,29 +50,27 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
-		Brain<Apparition> brain = apparition.getBrain();
-		LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+		final Brain<Apparition> brain = apparition.getBrain();
+		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+		if (livingEntity == null) return;
 
-		if (livingEntity != null) {
-			int hauntingTicks = brain.getMemory(TTMemoryModuleTypes.HAUNTING_TICKS).orElse(0);
-
-			if (livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox())) {
-				hauntingTicks += 2;
-				if (hauntingTicks >= 150) {
-					apparition.playSound(TTSounds.APPARITION_HAUNT, apparition.getSoundVolume(), apparition.getVoicePitch());
-					hauntingTicks = 0;
-					livingEntity.addEffect(
-						new MobEffectInstance(
-							TTMobEffects.HAUNT,
-							600
-						)
-					);
-				}
-			} else {
-				hauntingTicks = Math.max(0, hauntingTicks - 1);
+		int hauntingTicks = brain.getMemory(TTMemoryModuleTypes.HAUNTING_TICKS).orElse(0);
+		if (!livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox())) {
+			hauntingTicks += 2;
+			if (hauntingTicks >= 150) {
+				apparition.playSound(TTSounds.APPARITION_HAUNT, apparition.getSoundVolume(), apparition.getVoicePitch());
+				hauntingTicks = 0;
+				livingEntity.addEffect(
+					new MobEffectInstance(
+						TTMobEffects.HAUNT,
+						600
+					)
+				);
 			}
-
-			brain.setMemory(TTMemoryModuleTypes.HAUNTING_TICKS, hauntingTicks);
+		} else {
+			hauntingTicks = Math.max(0, hauntingTicks - 1);
 		}
+
+		brain.setMemory(TTMemoryModuleTypes.HAUNTING_TICKS, hauntingTicks);
 	}
 }

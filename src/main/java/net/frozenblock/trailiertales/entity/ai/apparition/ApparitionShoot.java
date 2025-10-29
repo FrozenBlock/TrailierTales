@@ -70,7 +70,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void stop(ServerLevel world, @NotNull Apparition apparition, long l) {
-		Brain<Apparition> brain = apparition.getBrain();
+		final Brain<Apparition> brain = apparition.getBrain();
 		apparition.setAggressive(false);
 		brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
 		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE);
@@ -83,102 +83,96 @@ public class ApparitionShoot extends Behavior<Apparition> {
 
 	@Override
 	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
-		Brain<Apparition> brain = apparition.getBrain();
-		LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+		final Brain<Apparition> brain = apparition.getBrain();
+		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+		if (livingEntity == null) return;
 
-		if (livingEntity != null) {
-			double distance = apparition.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
-			boolean lineOfSight = apparition.getSensing().hasLineOfSight(livingEntity);
-			boolean hasSeen = brain.hasMemoryValue(TTMemoryModuleTypes.SEE_TIME);
-			if (lineOfSight != hasSeen) brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
+		final double distance = apparition.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
+		final boolean lineOfSight = apparition.getSensing().hasLineOfSight(livingEntity);
+		final boolean hasSeen = brain.hasMemoryValue(TTMemoryModuleTypes.SEE_TIME);
+		if (lineOfSight != hasSeen) brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
 
-			int seeTime = brain.getMemory(TTMemoryModuleTypes.SEE_TIME).orElse(0);
-			if (lineOfSight) {
-				seeTime += 1;
-			} else {
-				seeTime -= 1;
-			}
-			brain.setMemory(TTMemoryModuleTypes.SEE_TIME, seeTime);
+		final int seeTime = brain.getMemory(TTMemoryModuleTypes.SEE_TIME).orElse(0) + (lineOfSight ? 1 : -1);
+		brain.setMemory(TTMemoryModuleTypes.SEE_TIME, seeTime);
 
-			int strafeTime = brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME).orElse(-1);
-			if (!(distance > 256D) && seeTime >= 20) {
-				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-				apparition.getNavigation().stop();
-				strafeTime += 1;
-				brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME, strafeTime);
-			} else {
-				apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
-				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-				brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME);
-			}
-
-			if (brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME).orElse(0) >= 20) {
-				if (apparition.getRandom().nextFloat() < 0.3F) {
-					brain.getMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE)
-						.ifPresentOrElse(
-							unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE),
-							() -> brain.setMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE, Unit.INSTANCE)
-						);
-					brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS);
-				}
-
-				if (apparition.getRandom().nextFloat() < 0.3F) {
-					brain.getMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS)
-						.ifPresentOrElse(
-							unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS),
-							() -> brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE)
-						);
-				}
-
-				strafeTime = 0;
-				brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME, strafeTime);
-			}
-
-			if (strafeTime > -1) {
-				if (distance > 256D * 0.75F) {
-					brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS);
-				} else if (distance < 256D * 0.25F) {
-					brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE);
-				}
-
-				apparition.getMoveControl().strafe(
-					brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_BACKWARDS) ? -0.5F : 0.5F,
-					brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_CLOCKWISE) ? 0.5F : -0.5F
-				);
-				if (apparition.getControlledVehicle() instanceof Mob mob) {
-					brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-					mob.lookAt(livingEntity, 30F, 30F);
-				}
-
-				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-				apparition.lookAt(livingEntity, 30F, 30F);
-			} else {
-				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-				apparition.getLookControl().setLookAt(livingEntity, 30F, 30F);
-			}
-
-			int chargingTicks = brain.getMemory(TTMemoryModuleTypes.CHARGING_TICKS).orElse(0);
-			if (chargingTicks > 0) {
-				if (!lineOfSight && seeTime < -60) {
-					chargingTicks = 0;
-				} else if (lineOfSight) {
-					if (chargingTicks++ >= 20) {
-						chargingTicks = 0;
-						apparition.performRangedAttack(livingEntity, 0.3F + (apparition.getRandom().nextFloat() * 1.4F));
-						this.doStop(world, apparition, l);
-					}
-				}
-			} else if (seeTime >= -60) {
-				chargingTicks++;
-			}
-			brain.setMemory(TTMemoryModuleTypes.CHARGING_TICKS, chargingTicks);
+		int strafeTime = brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME).orElse(-1);
+		if (!(distance > 256D) && seeTime >= 20) {
+			brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
+			apparition.getNavigation().stop();
+			strafeTime += 1;
+			brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME, strafeTime);
+		} else {
+			apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
+			brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
+			brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME);
 		}
+
+		if (brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME).orElse(0) >= 20) {
+			if (apparition.getRandom().nextFloat() < 0.3F) {
+				brain.getMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE)
+					.ifPresentOrElse(
+						unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE),
+						() -> brain.setMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE, Unit.INSTANCE)
+					);
+				brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS);
+			}
+
+			if (apparition.getRandom().nextFloat() < 0.3F) {
+				brain.getMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS)
+					.ifPresentOrElse(
+						unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS),
+						() -> brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE)
+					);
+			}
+
+			strafeTime = 0;
+			brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME, strafeTime);
+		}
+
+		if (strafeTime > -1) {
+			if (distance > 256D * 0.75F) {
+				brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS);
+			} else if (distance < 256D * 0.25F) {
+				brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS, Unit.INSTANCE);
+			}
+
+			apparition.getMoveControl().strafe(
+				brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_BACKWARDS) ? -0.5F : 0.5F,
+				brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_CLOCKWISE) ? 0.5F : -0.5F
+			);
+			if (apparition.getControlledVehicle() instanceof Mob mob) {
+				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
+				mob.lookAt(livingEntity, 30F, 30F);
+			}
+
+			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
+			apparition.lookAt(livingEntity, 30F, 30F);
+		} else {
+			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
+			apparition.getLookControl().setLookAt(livingEntity, 30F, 30F);
+		}
+
+		int chargingTicks = brain.getMemory(TTMemoryModuleTypes.CHARGING_TICKS).orElse(0);
+		if (chargingTicks > 0) {
+			if (!lineOfSight && seeTime < -60) {
+				chargingTicks = 0;
+			} else if (lineOfSight) {
+				if (chargingTicks++ >= 20) {
+					chargingTicks = 0;
+					apparition.performRangedAttack(livingEntity, 0.3F + (apparition.getRandom().nextFloat() * 1.4F));
+					this.doStop(world, apparition, l);
+				}
+			}
+		} else if (seeTime >= -60) {
+			chargingTicks++;
+		}
+		brain.setMemory(TTMemoryModuleTypes.CHARGING_TICKS, chargingTicks);
 	}
 
 	private static boolean isTargetWithinRange(@NotNull Apparition apparition, @NotNull LivingEntity target) {
-		double d = apparition.position().distanceToSqr(target.position());
+		final double d = apparition.position().distanceToSqr(target.position());
 		return d > 4D && d < 256D;
 	}
 }

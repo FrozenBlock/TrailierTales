@@ -46,13 +46,7 @@ public class GlowingSpellParticle extends SpellParticle {
 		return 240;
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteSet;
-
-		public Provider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
 			SimpleParticleType simpleParticleType,
@@ -65,13 +59,7 @@ public class GlowingSpellParticle extends SpellParticle {
 		}
 	}
 
-	public static class MobEffectProvider implements ParticleProvider<ColorParticleOption> {
-		private final SpriteSet spriteSet;
-
-		public MobEffectProvider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record MobEffectProvider(SpriteSet spriteSet) implements ParticleProvider<ColorParticleOption> {
 		@Override
 		public Particle createParticle(
 			@NotNull ColorParticleOption colorParticleOption,

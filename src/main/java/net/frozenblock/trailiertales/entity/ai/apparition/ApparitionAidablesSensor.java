@@ -55,7 +55,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 	}
 
 	private boolean isAidable(@NotNull Apparition apparition, @NotNull LivingEntity entity, List<UUID> takenUUIDs) {
-		LivingEntity newTarget = apparition.getTarget();
+		final LivingEntity newTarget = apparition.getTarget();
 		if (entity instanceof Mob mob
 				&& newTarget != null
 				&& mob.getType() != TTEntityTypes.APPARITION
@@ -63,12 +63,12 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
 				&& !takenUUIDs.contains(mob.getUUID())
 		) {
-			Brain<Apparition> brain = apparition.getBrain();
+			final Brain<Apparition> brain = apparition.getBrain();
 			if (brain.hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME)) {
 				Optional<List<UUID>> trackingUUIDs = brain.getMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
 				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) return false;
 			}
-			LivingEntity currentTarget = mob.getTarget();
+			final LivingEntity currentTarget = mob.getTarget();
 			return mob != apparition
 				&& mob.isAlive()
 				&& !mob.isSpectator()
@@ -84,8 +84,8 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel world, @NotNull Apparition apparition) {
-		Brain<?> brain = apparition.getBrain();
-		LivingEntity attackTarget = apparition.getTarget();
+		final Brain<?> brain = apparition.getBrain();
+		final LivingEntity attackTarget = apparition.getTarget();
 		if (attackTarget != null) {
 			List<UUID> takenUUIDs = new ArrayList<>();
 			world.getAllEntities().forEach(
@@ -96,9 +96,9 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				}
 			);
 
-			double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
-			AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
-			List<LivingEntity> list = world.getEntitiesOfClass(
+			final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
+			final AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
+			final List<LivingEntity> list = world.getEntitiesOfClass(
 				LivingEntity.class,
 				aABB,
 				livingEntity2 -> isMatchingEntity(apparition, livingEntity2, takenUUIDs)

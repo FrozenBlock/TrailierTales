@@ -34,11 +34,10 @@ import org.joml.Vector3f;
 public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBase {
 	public static final MapCodec<GlowingDustColorTransitionOptions> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-				ExtraCodecs.RGB_COLOR_CODEC.fieldOf("from_color").forGetter(options -> options.fromColor),
-				ExtraCodecs.RGB_COLOR_CODEC.fieldOf("to_color").forGetter(options -> options.toColor),
-				SCALE.fieldOf("scale").forGetter(ScalableParticleOptionsBase::getScale)
-			)
-			.apply(instance, GlowingDustColorTransitionOptions::new)
+			ExtraCodecs.RGB_COLOR_CODEC.fieldOf("from_color").forGetter(options -> options.fromColor),
+			ExtraCodecs.RGB_COLOR_CODEC.fieldOf("to_color").forGetter(options -> options.toColor),
+			SCALE.fieldOf("scale").forGetter(ScalableParticleOptionsBase::getScale)
+		).apply(instance, GlowingDustColorTransitionOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, GlowingDustColorTransitionOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.INT,

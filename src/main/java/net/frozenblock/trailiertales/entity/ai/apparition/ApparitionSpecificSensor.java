@@ -42,9 +42,9 @@ public class ApparitionSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
-		Brain<?> brain = entity.getBrain();
-		ArrayList<Apparition> apparitions = Lists.newArrayList();
-		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
+		final Brain<?> brain = entity.getBrain();
+		final ArrayList<Apparition> apparitions = Lists.newArrayList();
+		final List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
 		for (LivingEntity livingEntity : entities) {
 			if (livingEntity instanceof Apparition apparition) apparitions.add(apparition);
 		}

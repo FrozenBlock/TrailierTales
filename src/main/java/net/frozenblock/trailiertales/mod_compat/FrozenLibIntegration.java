@@ -96,18 +96,17 @@ public class FrozenLibIntegration extends ModIntegration {
 		WindDisturbanceLogic.register(
 			APPARITION_WIND_DISTURBANCE,
 			(WindDisturbanceLogic.DisturbanceLogic<Apparition>) (source, level, windOrigin, affectedArea, windTarget) -> {
-				if (source.isPresent()) {
-					double distance = windOrigin.distanceTo(windTarget);
-					if (distance <= 6D) {
-						Vec3 differenceInPoses = windOrigin.subtract(windTarget);
-						double scaledDistance = (6D - distance) / 6D;
-						double strengthFromDistance = Mth.clamp((6D - distance) / 4.5D, 0D, 1D);
-						double x = scaledDistance * differenceInPoses.x * 0.3D;
-						double y = scaledDistance * differenceInPoses.y * 0.3D;
-						double z = scaledDistance * differenceInPoses.z * 0.3D;
-						Vec3 windVec = new Vec3(x, y, z);
-						return new WindDisturbance.DisturbanceResult(strengthFromDistance, 6D - distance, windVec);
-					}
+				if (source.isEmpty()) return null;
+				final double distance = windOrigin.distanceTo(windTarget);
+				if (distance <= 6D) {
+					final Vec3 differenceInPoses = windOrigin.subtract(windTarget);
+					final double scaledDistance = (6D - distance) / 6D;
+					final double strengthFromDistance = Mth.clamp((6D - distance) / 4.5D, 0D, 1D);
+					final double x = scaledDistance * differenceInPoses.x * 0.3D;
+					final double y = scaledDistance * differenceInPoses.y * 0.3D;
+					final double z = scaledDistance * differenceInPoses.z * 0.3D;
+					final Vec3 windVec = new Vec3(x, y, z);
+					return new WindDisturbance.DisturbanceResult(strengthFromDistance, 6D - distance, windVec);
 				}
 				return null;
 			}
@@ -200,9 +199,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								TTConstants.string("apparition")
-							)
+							List.of(TTConstants.string("apparition"))
 						);
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
@@ -211,9 +208,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement,
 							new AdvancementRequirements(List.of(
-								List.of(
-									TTConstants.string("apparition")
-								)
+								List.of(TTConstants.string("apparition"))
 							))
 						);
 					}
@@ -284,13 +279,13 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addLootRequirementToList(Advancement advancement, String requirement) {
 		AdvancementAPI.setupRequirements(advancement);
-		List<List<String>> list = new ArrayList<>(advancement.requirements().requirements);
+		final List<List<String>> list = new ArrayList<>(advancement.requirements().requirements);
 		if (list.isEmpty()) {
 			list.add(List.of(requirement));
 		} else {
 			for (List<String> requirements : list) {
 				if (!requirements.contains("has_sherd")) {
-					List<String> finalList = new ArrayList<>(requirements);
+					final List<String> finalList = new ArrayList<>(requirements);
 					finalList.add(requirement);
 					list.add(Collections.unmodifiableList(finalList));
 					list.remove(requirements);

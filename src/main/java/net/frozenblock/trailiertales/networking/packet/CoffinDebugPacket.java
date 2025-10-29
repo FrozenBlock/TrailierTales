@@ -25,9 +25,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import org.jetbrains.annotations.NotNull;
 
 public record CoffinDebugPacket(int entityId, long lastInteractionTime, BlockPos coffinPos, long gameTime) implements CustomPacketPayload {
-	public static final Type<CoffinDebugPacket> PACKET_TYPE = new Type<>(
-		TTConstants.id("debug_coffin")
-	);
+	public static final Type<CoffinDebugPacket> PACKET_TYPE = new Type<>(TTConstants.id("debug_coffin"));
 
 	public static final StreamCodec<FriendlyByteBuf, CoffinDebugPacket> CODEC = StreamCodec.ofMember(CoffinDebugPacket::write, CoffinDebugPacket::new);
 

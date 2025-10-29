@@ -478,9 +478,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				}
 			}
 		}
-		boolean bl = super.hurtServer(level, source, amount);
-		if (bl && source.getEntity() instanceof LivingEntity livingEntity) ApparitionAi.wasHurtBy(level, this, livingEntity);
-		return bl;
+		boolean hurtServer = super.hurtServer(level, source, amount);
+		if (hurtServer && source.getEntity() instanceof LivingEntity livingEntity) ApparitionAi.wasHurtBy(level, this, livingEntity);
+		return hurtServer;
 	}
 
 	public void swapItem(@NotNull ItemStack itemStack) {
@@ -665,25 +665,25 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	public void performRangedAttack(LivingEntity target, float pullProgress) {
 		final ItemStack stack = this.inventory.getItems().getFirst();
-		if (!stack.isEmpty()) {
-			Projectile projectile;
-			final ItemStack singleItem = stack.copyAndClear();
-			if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
-				projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
-			} else {
-				projectile = new ThrownItemProjectile(this.level(), this, singleItem);
-			}
-			projectile.setOwner(this);
+		if (stack.isEmpty()) return;
 
-			final double targetY = target.getEyeY() - 1.1F;
-			final double xDifference = target.getX() - this.getX();
-			final double yDifference = targetY - projectile.getY();
-			final double zDifference = target.getZ() - this.getZ();
-			final double yAdjustment = Math.sqrt(xDifference * xDifference + zDifference * zDifference) * 0.2F;
-			projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
-			this.playSound(TTSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-			this.level().addFreshEntity(projectile);
+		Projectile projectile;
+		final ItemStack singleItem = stack.copyAndClear();
+		if (singleItem.getItem() instanceof ProjectileItem projectileItem) {
+			projectile = projectileItem.asProjectile(this.level(), this.getEyePosition(), singleItem, this.getDirection());
+		} else {
+			projectile = new ThrownItemProjectile(this.level(), this, singleItem);
 		}
+		projectile.setOwner(this);
+
+		final double targetY = target.getEyeY() - 1.1F;
+		final double xDifference = target.getX() - this.getX();
+		final double yDifference = targetY - projectile.getY();
+		final double zDifference = target.getZ() - this.getZ();
+		final double yAdjustment = Math.sqrt(xDifference * xDifference + zDifference * zDifference) * 0.2F;
+		projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
+		this.playSound(TTSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+		this.level().addFreshEntity(projectile);
 	}
 
 	@Override

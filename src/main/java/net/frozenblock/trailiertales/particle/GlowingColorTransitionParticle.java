@@ -41,13 +41,13 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 		@NotNull ClientLevel level,
 		double x, double y, double z,
 		double xd, double yd, double zd,
-		GlowingDustColorTransitionOptions particleEffect,
-		SpriteSet spriteProvider
+		GlowingDustColorTransitionOptions options,
+		SpriteSet spriteSet
 	) {
-		super(level, x, y, z, xd, yd, zd, particleEffect, spriteProvider);
+		super(level, x, y, z, xd, yd, zd, options, spriteSet);
 		float f = this.random.nextFloat() * 0.4F + 0.6F;
-		this.fromColor = this.randomizeColor(particleEffect.getFromColor(), f);
-		this.toColor = this.randomizeColor(particleEffect.getToColor(), f);
+		this.fromColor = this.randomizeColor(options.getFromColor(), f);
+		this.toColor = this.randomizeColor(options.getToColor(), f);
 	}
 
 	@Contract("_, _ -> new")
@@ -57,7 +57,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 
 	private void lerpColors(float partialTick) {
 		final float lerp = ((float) this.age + partialTick) / ((float) this.lifetime + 1F);
-		Vector3f vector3f = new Vector3f(this.fromColor).lerp(this.toColor, lerp);
+		final Vector3f vector3f = new Vector3f(this.fromColor).lerp(this.toColor, lerp);
 		this.rCol = vector3f.x();
 		this.gCol = vector3f.y();
 		this.bCol = vector3f.z();
@@ -74,13 +74,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 		return 240;
 	}
 
-	public static class Provider implements ParticleProvider<GlowingDustColorTransitionOptions> {
-		private final SpriteSet spriteSet;
-
-		public Provider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<GlowingDustColorTransitionOptions> {
 		@Override
 		public Particle createParticle(
 			GlowingDustColorTransitionOptions dustColorTransitionOptions,

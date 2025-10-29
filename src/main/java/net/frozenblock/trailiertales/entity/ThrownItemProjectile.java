@@ -24,6 +24,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -59,8 +60,8 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		if (id == 3) {
-			ParticleOptions particleOptions = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
+		if (id == EntityEvent.DEATH) {
+			final ParticleOptions particleOptions = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
 			for (int i = 0; i < 8; ++i) {
 				this.level().addParticle(particleOptions, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
 			}
@@ -72,7 +73,7 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	@Override
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
-		Entity entity = result.getEntity();
+		final Entity entity = result.getEntity();
 		if (entity instanceof Apparition apparition) {
 			apparition.swapItem(this.getItem().copy());
 		} else {
@@ -91,21 +92,20 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	public void spawnParticles() {
-		if (this.level() instanceof ServerLevel server) {
-			EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
-			server.sendParticles(
-				new ItemParticleOption(ParticleTypes.ITEM, this.getItem()),
-				this.position().x + (dimensions.width() * 0.5),
-				this.position().y + (dimensions.height() * 0.5),
-				this.position().z + (dimensions.width() * 0.5),
-				this.random.nextInt(5, 10),
-				dimensions.width() / 4F,
-				dimensions.height() / 4F,
-				dimensions.width() / 4F,
-				0.1D
-			);
-			this.discard();
-		}
+		if (!(this.level() instanceof ServerLevel server)) return;
+		final EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
+		server.sendParticles(
+			new ItemParticleOption(ParticleTypes.ITEM, this.getItem()),
+			this.position().x + (dimensions.width() * 0.5),
+			this.position().y + (dimensions.height() * 0.5),
+			this.position().z + (dimensions.width() * 0.5),
+			this.random.nextInt(5, 10),
+			dimensions.width() / 4F,
+			dimensions.height() / 4F,
+			dimensions.width() / 4F,
+			0.1D
+		);
+		this.discard();
 	}
 
 }
