@@ -119,24 +119,25 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Inject(method = "remove", at = @At("HEAD"))
 	public void trailierTales$remove(Entity.RemovalReason reason, CallbackInfo info) {
-		if (reason == Entity.RemovalReason.KILLED && this.lastHurtByPlayerTime > 0) {
-			LivingEntity livingEntity = LivingEntity.class.cast(this);
-			if (livingEntity.level() instanceof ServerLevel serverLevel && this.trailierTales$entityCoffinData != null) {
-				Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);
-				if (optionalCoffinSpawner.isPresent()) {
-					CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
-					CoffinSpawnerData spawnerData = coffinSpawner.getData();
-					if (spawnerData.trackingEntity(livingEntity)) {
-						Vec3 pos = livingEntity.getEyePosition();
-						serverLevel.sendParticles(TTParticleTypes.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
-						serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
-						double distance = livingEntity.distanceToSqr(pos);
-						coffinSpawner.addSoulParticle(40 + (int)(distance * 1.25D));
-					} else if (spawnerData.trackingApparition(livingEntity)) {
-						coffinSpawner.onApparitionRemovedOrKilled(serverLevel);
-					}
-				}
-			}
+		if (reason != Entity.RemovalReason.KILLED || this.lastHurtByPlayerTime <= 0) return;
+
+		final LivingEntity livingEntity = LivingEntity.class.cast(this);
+		if (!(livingEntity.level() instanceof ServerLevel serverLevel) || this.trailierTales$entityCoffinData == null) return;
+
+		final Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);
+		if (optionalCoffinSpawner.isEmpty()) return;
+
+		final CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+		final CoffinSpawnerData spawnerData = coffinSpawner.getData();
+		if (spawnerData.trackingEntity(livingEntity)) {
+			final Vec3 pos = livingEntity.getEyePosition();
+			final Vec3 coffinPos = Vec3.atCenterOf(this.trailierTales$entityCoffinData.getPos());
+			serverLevel.sendParticles(TTParticleTypes.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
+			serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
+			final double distance = livingEntity.distanceToSqr(coffinPos);
+			coffinSpawner.addSoulParticle(60 + (int)(distance * 1.25D));
+		} else if (spawnerData.trackingApparition(livingEntity)) {
+			coffinSpawner.onApparitionRemovedOrKilled(serverLevel);
 		}
 	}
 

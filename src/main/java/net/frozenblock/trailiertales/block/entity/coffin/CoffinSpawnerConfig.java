@@ -35,12 +35,12 @@ public record CoffinSpawnerConfig(
 		4,
 		6F,
 		1F,
-		2F,
+		0F,
 		0F,
 		400,
-		4,
+		3,
 		1,
-		1600
+		2000
 	);
 	public static final CoffinSpawnerConfig IRRITATED = new CoffinSpawnerConfig(
 		5,
@@ -49,9 +49,9 @@ public record CoffinSpawnerConfig(
 		2F,
 		1F,
 		300,
-		6,
+		3,
 		1,
-		1200
+		1600
 	);
 	public static final CoffinSpawnerConfig AGGRESSIVE = new CoffinSpawnerConfig(
 		6,
@@ -60,9 +60,9 @@ public record CoffinSpawnerConfig(
 		3F,
 		1F,
 		200,
-		10,
+		4,
 		1,
-		1000
+		1200
 	);
 	public static final CoffinSpawnerConfig OMINOUS = new CoffinSpawnerConfig(
 		6,
@@ -72,7 +72,7 @@ public record CoffinSpawnerConfig(
 		1F,
 		150,
 		15,
-		2,
+		1,
 		800
 	);
 
