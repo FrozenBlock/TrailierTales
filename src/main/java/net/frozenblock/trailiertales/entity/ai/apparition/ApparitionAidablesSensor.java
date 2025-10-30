@@ -24,7 +24,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
@@ -85,6 +87,11 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 	@Override
 	protected void doTick(@NotNull ServerLevel world, @NotNull Apparition apparition) {
 		Brain<?> brain = apparition.getBrain();
+		if (!TTEntityConfig.get().apparition.hypnotizes_mobs) {
+			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, ImmutableList.of());
+			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE);
+		}
+
 		LivingEntity attackTarget = apparition.getTarget();
 		if (attackTarget != null) {
 			List<UUID> takenUUIDs = new ArrayList<>();
@@ -107,7 +114,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, list);
 			brain.setMemory(TTMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
 		} else {
-			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
+			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, ImmutableList.of());
 			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE);
 		}
 	}

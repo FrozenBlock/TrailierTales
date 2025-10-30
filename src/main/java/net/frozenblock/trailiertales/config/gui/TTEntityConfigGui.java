@@ -72,11 +72,72 @@ public final class TTEntityConfigGui {
 			"ignore_mob_griefing",
 			configInstance
 		);
+		var hypnotizesMobs = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("hypnotizes_mobs"), modifiedApparition.hypnotizes_mobs)
+				.setDefaultValue(defaultConfig.apparition.hypnotizes_mobs)
+				.setSaveConsumer(newValue -> apparition.hypnotizes_mobs = newValue)
+				.setTooltip(TTConstants.tooltip("hypnotizes_mobs"))
+				.build(),
+			apparition.getClass(),
+			"hypnotizes_mobs",
+			configInstance
+		);
+		var hauntsPlayers = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunts_players"), modifiedApparition.haunts_players)
+				.setDefaultValue(defaultConfig.apparition.haunts_players)
+				.setSaveConsumer(newValue -> apparition.haunts_players = newValue)
+				.setTooltip(TTConstants.tooltip("haunts_players"))
+				.build(),
+			apparition.getClass(),
+			"haunts_players",
+			configInstance
+		);
+		var hauntedFog = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_fog"), modifiedApparition.haunted_fog)
+				.setDefaultValue(defaultConfig.apparition.haunted_fog)
+				.setSaveConsumer(newValue -> apparition.haunted_fog = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_fog"))
+				.build(),
+			apparition.getClass(),
+			"haunted_fog",
+			configInstance
+		);
+		var hauntedLightmap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_lightmap"), modifiedApparition.haunted_lightmap)
+				.setDefaultValue(defaultConfig.apparition.haunted_lightmap)
+				.setSaveConsumer(newValue -> apparition.haunted_lightmap = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_lightmap"))
+				.build(),
+			apparition.getClass(),
+			"haunted_lightmap",
+			configInstance
+		);
+		var hauntedSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_sounds"), modifiedApparition.haunted_sounds)
+				.setDefaultValue(defaultConfig.apparition.haunted_sounds)
+				.setSaveConsumer(newValue -> apparition.haunted_sounds = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_sounds"))
+				.build(),
+			apparition.getClass(),
+			"haunted_sounds",
+			configInstance
+		);
+		var hauntedHUD = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_hud"), modifiedApparition.haunted_hud)
+				.setDefaultValue(defaultConfig.apparition.haunted_hud)
+				.setSaveConsumer(newValue -> apparition.haunted_hud = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_hud"))
+				.build(),
+			apparition.getClass(),
+			"haunted_hud",
+			configInstance
+		);
 
 		var apparitionCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("apparition"),
 			false,
 			TTConstants.tooltip("apparition"),
-			picksUpItems, catchesProjectiles, ignoreMobGriefing
+			picksUpItems, catchesProjectiles, ignoreMobGriefing, hypnotizesMobs,
+			hauntsPlayers, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
 		);
 
 		var sniffer = config.sniffer;

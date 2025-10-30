@@ -7,5 +7,12 @@ hi
   - It must now be downloaded separately.
 - Fixed the Sherd Duplication recipe sometimes failing to produce an output.
   - The recipe is still disabled by default in the config, remember to enable it if you want it!
-- Added a config option to control whether Apparitions can pick up items.
-- Added a config option to control whether Apparitions can catch projectiles.
+- Added a config option to toggle whether Apparitions can pick up items.
+- Added a config option to toggle whether Apparitions can catch projectiles.
+- Added a config option to toggle whether Apparitions can "hypnotize" mobs.
+- Added a config option to toggle whether Apparitions can give players the Haunt effect.
+- Added four config options to toggle the features of the Haunt effect.
+    - Fog
+    - Lightmap Dimming
+    - Lower Sound Attenuation Distance
+    - Obscured Stats In HUD

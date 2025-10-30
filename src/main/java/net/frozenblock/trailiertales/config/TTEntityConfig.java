@@ -34,8 +34,28 @@ public final class TTEntityConfig {
 			TTEntityConfig.class,
 			TTPreLoadConstants.configPath("entity", true),
 			JsonType.JSON5
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(TTEntityConfig syncInstance) {
+				final TTEntityConfig entityConfig = this.config();
+				TTEntityConfig.HAUNTED_FOG = entityConfig.apparition.haunted_fog;
+				TTEntityConfig.HAUNTED_LIGHTMAP = entityConfig.apparition.haunted_lightmap;
+				TTEntityConfig.HAUNTED_SOUNDS = entityConfig.apparition.haunted_sounds;
+				TTEntityConfig.HAUNTED_HUD = entityConfig.apparition.haunted_hud;
+			}
+		}
 	);
+
+	public static volatile boolean HAUNTED_FOG = true;
+	public static volatile boolean HAUNTED_LIGHTMAP = true;
+	public static volatile boolean HAUNTED_SOUNDS = true;
+	public static volatile boolean HAUNTED_HUD = true;
 
 	@CollapsibleObject
 	public final Apparition apparition = new Apparition();
@@ -59,6 +79,18 @@ public final class TTEntityConfig {
 		public boolean catches_projectiles = true;
 		@EntrySyncData(value = "ignore_mob_griefing")
 		public boolean ignore_mob_griefing = false;
+		@EntrySyncData(value = "hypnotizes_mobs")
+		public boolean hypnotizes_mobs = true;
+		@EntrySyncData(value = "haunts_players")
+		public boolean haunts_players = true;
+		@EntrySyncData(value = "haunted_fog")
+		public boolean haunted_fog = true;
+		@EntrySyncData(value = "haunted_lightmap")
+		public boolean haunted_lightmap = true;
+		@EntrySyncData(value = "haunted_sounds")
+		public boolean haunted_sounds = true;
+		@EntrySyncData(value = "haunted_hud")
+		public boolean haunted_hud = true;
 	}
 
 	public static class Sniffer {
