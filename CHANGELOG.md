@@ -7,6 +7,8 @@ hi
   - It must now be downloaded separately.
 - Fixed the Sherd Duplication recipe sometimes failing to produce an output.
   - The recipe is still disabled by default in the config, remember to enable it if you want it!
+- Apparitions now drop Ectoplasm upon death more commonly.
+- Apparitions now must be killed my a player to drop Ectoplasm.
 - Added a config option to toggle whether Apparitions can pick up items.
 - Added a config option to toggle whether Apparitions can catch projectiles.
 - Added a config option to toggle whether Apparitions can "hypnotize" mobs.
