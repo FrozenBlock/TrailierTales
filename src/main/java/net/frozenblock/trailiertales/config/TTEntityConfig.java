@@ -40,7 +40,6 @@ public final class TTEntityConfig {
 	@CollapsibleObject
 	public final Apparition apparition = new Apparition();
 
-
 	@CollapsibleObject
 	public final Sniffer sniffer = new Sniffer();
 
@@ -54,6 +53,10 @@ public final class TTEntityConfig {
 	public final ArmorStand armorStand = new ArmorStand();
 
 	public static class Apparition {
+		@EntrySyncData(value = "picks_up_items")
+		public boolean picks_up_items = true;
+		@EntrySyncData(value = "catches_projectiles")
+		public boolean catches_projectiles = true;
 		@EntrySyncData(value = "ignore_mob_griefing")
 		public boolean ignore_mob_griefing = false;
 	}

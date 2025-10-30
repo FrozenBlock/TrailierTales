@@ -48,6 +48,11 @@ public class SherdCopyRecipe extends CustomRecipe {
 		return getCraftingOutput(input).getSecond();
 	}
 
+	@Override
+	public boolean canCraftInDimensions(int width, int height) {
+		return width * height >= 2;
+	}
+
 	private static Pair<Boolean, ItemStack> getCraftingOutput(@NotNull CraftingInput input) {
 		if (!TTItemConfig.SHERD_DUPLICATION_RECIPE || input.ingredientCount() != 2) return EMPTY;
 

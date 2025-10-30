@@ -22,6 +22,7 @@ import java.util.Arrays;
 import net.frozenblock.lib.wind.api.WindDisturbingEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.mod_compat.FrozenLibIntegration;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
@@ -75,6 +76,7 @@ import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -239,7 +241,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos) {
-		Level level = this.level();
+		final Level level = this.level();
 		boolean isPosSafe = !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos);
 		float successValue = 20F - (Math.max(5, level.getRawBrightness(pos, 0) * 0.5F));
 		float punishmentValue = -1F;
@@ -287,13 +289,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	public void setVisibleItem(@NotNull ItemStack itemStack) {
-		this.getEntityData().set(ITEM_STACK, itemStack);
+	public void setVisibleItem(@NotNull ItemStack stack) {
+		this.getEntityData().set(ITEM_STACK, stack);
 	}
 
 	@Override
 	public boolean canPickUpLoot() {
-		return !this.isOnPickupCooldown();
+		return !this.isOnPickupCooldown() && TTEntityConfig.get().apparition.picks_up_items;
 	}
 
 	private boolean isOnPickupCooldown() {
@@ -306,6 +308,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean wantsToPickUp(ItemStack stack) {
+		final TTEntityConfig entityConfig = TTEntityConfig.get();
+		if (!entityConfig.apparition.picks_up_items) return false;
+		if (!(this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || entityConfig.apparition.ignore_mob_griefing)) return false;
 		return this.inventory.getItems().getFirst().isEmpty();
 	}
 
@@ -476,7 +481,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean hurt(@NotNull DamageSource source, float amount) {
-		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+		if (source.is(DamageTypeTags.IS_PROJECTILE) && TTEntityConfig.get().apparition.catches_projectiles) {
 			if (source.getDirectEntity() instanceof Projectile projectile) {
 				if (projectile instanceof AbstractArrow abstractArrow) {
 					this.swapItem(abstractArrow.getPickupItemStackOrigin());

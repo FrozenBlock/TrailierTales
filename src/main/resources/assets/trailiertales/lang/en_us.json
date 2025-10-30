@@ -320,6 +320,10 @@
 
   "option.trailiertales.apparition": "Apparition",
   "tooltip.trailiertales.apparition": "Contains options related to the Apparition.",
+  "option.trailiertales.picks_up_items": "Picks Up Items",
+  "tooltip.trailiertales.picks_up_items": "Whether Apparitions can pick up dropped items.",
+  "option.trailiertales.catches_projectiles": "Catches Projectiles",
+  "tooltip.trailiertales.catches_projectiles": "Whether Apparitions can catch projectiles shot at them.",
   "option.trailiertales.ignore_mob_griefing": "Ignore mobGriefing",
   "tooltip.trailiertales.ignore_mob_griefing": "Whether Apparitions should ignore the mobGriefing gamerule.",
 

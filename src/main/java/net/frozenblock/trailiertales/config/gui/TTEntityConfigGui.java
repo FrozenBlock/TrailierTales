@@ -42,7 +42,27 @@ public final class TTEntityConfigGui {
 		var apparition = config.apparition;
 		var modifiedApparition = modifiedConfig.apparition;
 
-		var ignore_mob_griefing = FrozenClothConfig.syncedEntry(
+		var picksUpItems = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("picks_up_items"), modifiedApparition.picks_up_items)
+				.setDefaultValue(defaultConfig.apparition.picks_up_items)
+				.setSaveConsumer(newValue -> apparition.picks_up_items = newValue)
+				.setTooltip(TTConstants.tooltip("picks_up_items"))
+				.build(),
+			apparition.getClass(),
+			"picks_up_items",
+			configInstance
+		);
+		var catchesProjectiles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("catches_projectiles"), modifiedApparition.catches_projectiles)
+				.setDefaultValue(defaultConfig.apparition.catches_projectiles)
+				.setSaveConsumer(newValue -> apparition.catches_projectiles = newValue)
+				.setTooltip(TTConstants.tooltip("catches_projectiles"))
+				.build(),
+			apparition.getClass(),
+			"catches_projectiles",
+			configInstance
+		);
+		var ignoreMobGriefing = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("ignore_mob_griefing"), modifiedApparition.ignore_mob_griefing)
 				.setDefaultValue(defaultConfig.apparition.ignore_mob_griefing)
 				.setSaveConsumer(newValue -> apparition.ignore_mob_griefing = newValue)
@@ -56,7 +76,7 @@ public final class TTEntityConfigGui {
 		var apparitionCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("apparition"),
 			false,
 			TTConstants.tooltip("apparition"),
-			ignore_mob_griefing
+			picksUpItems, catchesProjectiles, ignoreMobGriefing
 		);
 
 		var sniffer = config.sniffer;
