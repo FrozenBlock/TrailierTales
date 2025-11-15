@@ -55,7 +55,7 @@ public class WWIntegration extends AbstractWWIntegration {
 		);
 
 		StructureProcessorApi.addProcessor(
-			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
+			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(),
 			new RuleProcessor(
 				ImmutableList.of(
 					new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
@@ -64,7 +64,7 @@ public class WWIntegration extends AbstractWWIntegration {
 			)
 		);
 		StructureProcessorApi.addProcessor(
-			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(),
+			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
 					new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
@@ -74,7 +74,7 @@ public class WWIntegration extends AbstractWWIntegration {
 			)
 		);
 
-		StructureProcessorApi.addProcessor(CatacombsGenerator.CATACOMBS_KEY.location(),
+		StructureProcessorApi.addProcessor(CatacombsGenerator.CATACOMBS_KEY.identifier(),
 			new BlockStateRespectingRuleProcessor(
 				ImmutableList.of(
 					new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.CHEST), AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST)

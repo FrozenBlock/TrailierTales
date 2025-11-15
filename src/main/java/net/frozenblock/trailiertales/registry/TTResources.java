@@ -26,7 +26,7 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.worldgen.structure.RuinsStructure;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +45,7 @@ public final class TTResources {
 
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
-			public ResourceLocation getFabricId() {
+			public Identifier getFabricId() {
 				return TTConstants.id("server_resource_listener");
 			}
 
@@ -62,7 +62,7 @@ public final class TTResources {
 			}
 		});
 
-		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(), () -> !HAS_STRONGHOLD_OVERRIDE_PACK);
+		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), () -> !HAS_STRONGHOLD_OVERRIDE_PACK);
 	}
 
 }

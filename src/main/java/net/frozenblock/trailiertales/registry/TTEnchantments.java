@@ -84,7 +84,7 @@ public final class TTEnchantments {
 	}
 
 	private static void register(@NotNull BootstrapContext<Enchantment> context, ResourceKey<Enchantment> registryKey, Enchantment.@NotNull Builder builder) {
-		context.register(registryKey, builder.build(registryKey.location()));
+		context.register(registryKey, builder.build(registryKey.identifier()));
 	}
 
 	private static @NotNull ResourceKey<Enchantment> key(String path) {

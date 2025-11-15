@@ -22,25 +22,27 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	private final CoffinRenderer coffinRenderer;
-	private final ResourceLocation headTexture;
-	private final ResourceLocation footTexture;
+	private final Identifier headTexture;
+	private final Identifier footTexture;
 	private final float openness;
 
-	public CoffinSpecialRenderer(CoffinRenderer coffinRenderer, ResourceLocation headTexture, ResourceLocation footTexture, float f) {
+	public CoffinSpecialRenderer(CoffinRenderer coffinRenderer, Identifier headTexture, Identifier footTexture, float f) {
 		this.coffinRenderer = coffinRenderer;
 		this.headTexture = headTexture;
 		this.footTexture = footTexture;
@@ -53,22 +55,22 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void getExtents(Set<Vector3f> set) {
-		this.coffinRenderer.getExtents(set);
+	public void getExtents(Consumer<Vector3fc> consumer) {
+		this.coffinRenderer.getExtents(consumer);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Unbaked(ResourceLocation headTexture, ResourceLocation footTexture, float openness) implements SpecialModelRenderer.Unbaked {
+	public record Unbaked(Identifier headTexture, Identifier footTexture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-					ResourceLocation.CODEC.fieldOf("head_texture").forGetter(CoffinSpecialRenderer.Unbaked::headTexture),
-					ResourceLocation.CODEC.fieldOf("foot_texture").forGetter(CoffinSpecialRenderer.Unbaked::footTexture),
+					Identifier.CODEC.fieldOf("head_texture").forGetter(CoffinSpecialRenderer.Unbaked::headTexture),
+					Identifier.CODEC.fieldOf("foot_texture").forGetter(CoffinSpecialRenderer.Unbaked::footTexture),
 					Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(CoffinSpecialRenderer.Unbaked::openness)
 				)
 				.apply(instance, CoffinSpecialRenderer.Unbaked::new)
 		);
 
-		public Unbaked(ResourceLocation headTexture, ResourceLocation footTexture) {
+		public Unbaked(Identifier headTexture, Identifier footTexture) {
 			this(headTexture, footTexture, 0F);
 		}
 

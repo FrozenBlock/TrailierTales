@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
 import net.frozenblock.trailiertales.TTConstants;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public class RuinsPieceHandler {
 	private static final boolean LOG_RUINS_PIECE_LOADING = false;
@@ -46,14 +46,14 @@ public class RuinsPieceHandler {
 		.put("ten_from_top", 10)
 		.build();
 
-	private final List<ResourceLocation> ruinsPieces = new ArrayList<>();
+	private final List<Identifier> ruinsPieces = new ArrayList<>();
 	private final RuinsStructure.Type type;
 
 	public RuinsPieceHandler(RuinsStructure.Type type) {
 		this.type = type;
 	}
 
-	public ResourceLocation getRandomPiece(@NotNull RandomSource randomSource) {
+	public Identifier getRandomPiece(@NotNull RandomSource randomSource) {
 		return Util.getRandom(this.ruinsPieces, randomSource);
 	}
 
@@ -62,18 +62,18 @@ public class RuinsPieceHandler {
 		this.ruinsPieces.addAll(this.getLoadedPieces(resourceManager));
 	}
 
-	private @NotNull List<ResourceLocation> getLoadedPieces(@NotNull ResourceManager resourceManager) {
-		Set<ResourceLocation> foundPieces = resourceManager.listResources(
+	private @NotNull List<Identifier> getLoadedPieces(@NotNull ResourceManager resourceManager) {
+		Set<Identifier> foundPieces = resourceManager.listResources(
 			"structure/ruins/" + this.type.getName(),
-			resourceLocation -> resourceLocation.getPath().endsWith(".nbt") && resourceLocation.getNamespace().equals(TTConstants.MOD_ID)
+			identifier -> identifier.getPath().endsWith(".nbt") && identifier.getNamespace().equals(TTConstants.MOD_ID)
 		).keySet();
 
-		ArrayList<ResourceLocation> convertedLocations = new ArrayList<>();
-		foundPieces.forEach(resourceLocation -> {
-			String newPath = resourceLocation.getPath();
+		ArrayList<Identifier> convertedLocations = new ArrayList<>();
+		foundPieces.forEach(identifier -> {
+			String newPath = identifier.getPath();
 			newPath = newPath.replace(".nbt", "");
 			newPath = newPath.replace("structure/", "");
-			convertedLocations.add(ResourceLocation.tryBuild(resourceLocation.getNamespace(), newPath));
+			convertedLocations.add(Identifier.tryBuild(identifier.getNamespace(), newPath));
 		});
 
 		if (LOG_RUINS_PIECE_LOADING) convertedLocations.forEach(convertedLocation -> TTConstants.log(convertedLocation.toString(), true));
@@ -82,7 +82,7 @@ public class RuinsPieceHandler {
 	}
 
 	public static OptionalInt getPieceOffset(RuinsPieces.@NotNull RuinPiece piece) {
-		ResourceLocation pieceLocation = piece.makeTemplateLocation();
+		Identifier pieceLocation = piece.makeTemplateLocation();
 		String piecePath = pieceLocation.getPath();
 
 		for (Map.Entry<String, Integer> offsetMapEntry : DIRECTORY_TO_PIECE_OFFSET_MAP.entrySet()) {

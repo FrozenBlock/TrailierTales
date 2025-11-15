@@ -57,18 +57,18 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.EffectsChangedTrigger;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
-import net.minecraft.advancements.critereon.KilledTrigger;
-import net.minecraft.advancements.critereon.LootTableTrigger;
-import net.minecraft.advancements.critereon.MobEffectsPredicate;
+import net.minecraft.advancements.criterion.EffectsChangedTrigger;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemUsedOnLocationTrigger;
+import net.minecraft.advancements.criterion.KilledTrigger;
+import net.minecraft.advancements.criterion.LootTableTrigger;
+import net.minecraft.advancements.criterion.MobEffectsPredicate;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -85,7 +85,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation APPARITION_WIND_DISTURBANCE = TTConstants.id("apparition");
+	public static final Identifier APPARITION_WIND_DISTURBANCE = TTConstants.id("apparition");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -127,36 +127,36 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_RESIN, TTSounds.POLISHED_RESIN, () -> TTBlockConfig.get().blockSounds.polished);
 
 
-		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(), () -> TTWorldgenConfig.GENERATE_CATACOMBS);
-		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_BADLANDS_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(DesertRuinsGenerator.DESERT_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_DESERT_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(GenericRuinsGenerator.RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_GENERIC_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(JungleRuinsGenerator.JUNGLE_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_JUNGLE_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_SAVANNA_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(SnowyRuinsGenerator.SNOWY_RUINS_KEY.location(), () -> TTWorldgenConfig.GENERATE_SNOWY_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_CATACOMBS);
+		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_BADLANDS_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(DesertRuinsGenerator.DESERT_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_DESERT_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(GenericRuinsGenerator.RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_GENERIC_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_JUNGLE_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_SAVANNA_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_SNOWY_RUINS);
 
 		StructurePlacementExclusionApi.addExclusion(
-			BuiltinStructureSets.TRIAL_CHAMBERS.location(),
-			CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.location(),
+			BuiltinStructureSets.TRIAL_CHAMBERS.identifier(),
+			CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(),
 			8
 		);
 
 		StructurePlacementExclusionApi.addExclusion(
-			DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location(),
-			BuiltinStructureSets.ANCIENT_CITIES.location(),
+			DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(),
+			BuiltinStructureSets.ANCIENT_CITIES.identifier(),
 			8
 		);
 
 		StructurePlacementExclusionApi.addExclusion(
-			DesertRuinsGenerator.DESERT_RUINS_KEY.location(),
-			BuiltinStructureSets.DESERT_PYRAMIDS.location(),
+			DesertRuinsGenerator.DESERT_RUINS_KEY.identifier(),
+			BuiltinStructureSets.DESERT_PYRAMIDS.identifier(),
 			3
 		);
 
 		if (TTWorldgenConfig.get().endCity.generateCracked) {
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.END_CITY.location(),
+				BuiltinStructures.END_CITY.identifier(),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_END_STONE_BRICKS.defaultBlockState()),
@@ -168,7 +168,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		if (TTWorldgenConfig.get().endCity.generateChoral) {
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.END_CITY.location(),
+				BuiltinStructures.END_CITY.identifier(),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, TTBlocks.CHORAL_END_STONE_BRICKS.defaultBlockState())
@@ -179,7 +179,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		if (TTWorldgenConfig.get().endCity.generateChiseled) {
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.END_CITY.location(),
+				BuiltinStructures.END_CITY.identifier(),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, TTBlocks.CHISELED_PURPUR_BLOCK.defaultBlockState()),
@@ -231,16 +231,16 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 					case "minecraft:adventure/salvage_sherd" -> {
-						addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.location().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.location().toString(), TTLootTables.SNOWY_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.location().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.location().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.location().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.location().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.location().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.location().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB);
-						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.location().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE);
-						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.location().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR);
+						addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.identifier().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier().toString(), TTLootTables.SNOWY_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.identifier().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
+						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB);
+						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE);
+						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR);
 					}
 					case "minecraft:nether/all_potions" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {

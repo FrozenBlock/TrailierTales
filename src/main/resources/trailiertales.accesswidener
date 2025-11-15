@@ -1,9 +1,9 @@
 accessWidener    v2    named
 
 # Advancement
-accessible field net/minecraft/advancements/critereon/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
-accessible field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
-mutable field net/minecraft/advancements/critereon/MobEffectsPredicate effectMap Ljava/util/Map;
+accessible field net/minecraft/advancements/criterion/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
+accessible field net/minecraft/advancements/criterion/MobEffectsPredicate effectMap Ljava/util/Map;
+mutable field net/minecraft/advancements/criterion/MobEffectsPredicate effectMap Ljava/util/Map;
 
 # Projectile
 accessible method net/minecraft/world/entity/projectile/ProjectileUtil getHitResult (Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/Level;FLnet/minecraft/world/level/ClipContext$Block;)Lnet/minecraft/world/phys/HitResult;
@@ -32,7 +32,7 @@ accessible method net/minecraft/world/level/block/BaseEntityBlock createTickerHe
 # Worldgen
 accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
 accessible method net/minecraft/world/level/levelgen/structure/TerrainAdjustment <init> (Ljava/lang/String;ILjava/lang/String;)V
-accessible method net/minecraft/world/level/levelgen/structure/TemplateStructurePiece makeTemplateLocation ()Lnet/minecraft/resources/ResourceLocation;
+accessible method net/minecraft/world/level/levelgen/structure/TemplateStructurePiece makeTemplateLocation ()Lnet/minecraft/resources/Identifier;
 
 # Data Fixers
 #accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;

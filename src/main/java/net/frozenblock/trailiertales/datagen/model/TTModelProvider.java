@@ -52,7 +52,7 @@ import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.data.BlockFamilies;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -61,7 +61,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 @Environment(EnvType.CLIENT)
 public final class TTModelProvider extends FabricModelProvider {
@@ -162,30 +162,30 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	public void wallSmooth(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
 		TextureMapping mapping = TexturedModel.createAllSame(TextureMapping.getBlockTexture(originalBlock, "_top")).getMapping();
-		ResourceLocation resourceLocation = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
-		ResourceLocation resourceLocation2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
-		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
+		Identifier identifier = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
+		Identifier identifier2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
+		Identifier identifier3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
 
-		MultiVariant variant = BlockModelGenerators.plainVariant(resourceLocation);
-		MultiVariant variant2 = BlockModelGenerators.plainVariant(resourceLocation2);
-		MultiVariant variant3 = BlockModelGenerators.plainVariant(resourceLocation3);
+		MultiVariant variant = BlockModelGenerators.plainVariant(identifier);
+		MultiVariant variant2 = BlockModelGenerators.plainVariant(identifier2);
+		MultiVariant variant3 = BlockModelGenerators.plainVariant(identifier3);
 		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, variant, variant2, variant3));
-		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
-		generator.registerSimpleItemModel(wallBlock, resourceLocation4);
+		Identifier identifier4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
+		generator.registerSimpleItemModel(wallBlock, identifier4);
 	}
 
 	public void wall(@NotNull BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
 		TextureMapping mapping = TexturedModel.CUBE.get(originalBlock).getMapping();
-		ResourceLocation resourceLocation = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
-		ResourceLocation resourceLocation2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
-		ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
+		Identifier identifier = ModelTemplates.WALL_POST.create(wallBlock, mapping, generator.modelOutput);
+		Identifier identifier2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, generator.modelOutput);
+		Identifier identifier3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, generator.modelOutput);
 
-		MultiVariant variant = BlockModelGenerators.plainVariant(resourceLocation);
-		MultiVariant variant2 = BlockModelGenerators.plainVariant(resourceLocation2);
-		MultiVariant variant3 = BlockModelGenerators.plainVariant(resourceLocation3);
+		MultiVariant variant = BlockModelGenerators.plainVariant(identifier);
+		MultiVariant variant2 = BlockModelGenerators.plainVariant(identifier2);
+		MultiVariant variant3 = BlockModelGenerators.plainVariant(identifier3);
 		generator.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, variant, variant2, variant3));
-		ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
-		generator.registerSimpleItemModel(wallBlock, resourceLocation4);
+		Identifier identifier4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, generator.modelOutput);
+		generator.registerSimpleItemModel(wallBlock, identifier4);
 	}
 
 	public void stairsCut(@NotNull BlockModelGenerators generator, Block stairsBlock, Block cutBlock, Block smoothBlock) {
@@ -194,20 +194,20 @@ public final class TTModelProvider extends FabricModelProvider {
 		textureMapping.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(smoothBlock, "_top"));
 		textureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(smoothBlock, "_top"));
 
-		ResourceLocation resourceLocation = ModelTemplates.STAIRS_INNER.create(stairsBlock, textureMapping, generator.modelOutput);
-		ResourceLocation resourceLocation2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, textureMapping, generator.modelOutput);
-		ResourceLocation resourceLocation3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, textureMapping, generator.modelOutput);
-		MultiVariant variant = BlockModelGenerators.plainVariant(resourceLocation);
-		MultiVariant variant2 = BlockModelGenerators.plainVariant(resourceLocation2);
-		MultiVariant variant3 = BlockModelGenerators.plainVariant(resourceLocation3);
+		Identifier identifier = ModelTemplates.STAIRS_INNER.create(stairsBlock, textureMapping, generator.modelOutput);
+		Identifier identifier2 = ModelTemplates.STAIRS_STRAIGHT.create(stairsBlock, textureMapping, generator.modelOutput);
+		Identifier identifier3 = ModelTemplates.STAIRS_OUTER.create(stairsBlock, textureMapping, generator.modelOutput);
+		MultiVariant variant = BlockModelGenerators.plainVariant(identifier);
+		MultiVariant variant2 = BlockModelGenerators.plainVariant(identifier2);
+		MultiVariant variant3 = BlockModelGenerators.plainVariant(identifier3);
 		generator.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, variant, variant2, variant3));
-		generator.registerSimpleItemModel(stairsBlock, resourceLocation2);
+		generator.registerSimpleItemModel(stairsBlock, identifier2);
 	}
 
-	public void createCoffin(@NotNull BlockModelGenerators generator, Block coffin, Block particleTexture, ResourceLocation headTexture, ResourceLocation footTexture) {
+	public void createCoffin(@NotNull BlockModelGenerators generator, Block coffin, Block particleTexture, Identifier headTexture, Identifier footTexture) {
 		generator.createParticleOnlyBlock(coffin, particleTexture);
 		Item item = coffin.asItem();
-		ResourceLocation coffinModel = COFFIN_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
+		Identifier coffinModel = COFFIN_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
 		ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(coffinModel, new CoffinSpecialRenderer.Unbaked(headTexture, footTexture));
 		generator.itemModelOutput.accept(item, unbaked);
 	}
@@ -318,9 +318,9 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.registerSimpleFlatItemModel(block);
 		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
 
-		ResourceLocation firstModel = TTConstants.id("block/dawntrail_stage_0");
-		ResourceLocation secondModel = TTConstants.id("block/dawntrail_stage_1");
-		ResourceLocation thirdModel = TTConstants.id("block/dawntrail_stage_2");
+		Identifier firstModel = TTConstants.id("block/dawntrail_stage_0");
+		Identifier secondModel = TTConstants.id("block/dawntrail_stage_1");
+		Identifier thirdModel = TTConstants.id("block/dawntrail_stage_2");
 		ConditionBuilder terminalCondition = Util.make(
 			BlockModelGenerators.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.keySet().forEach(booleanPropertyx -> {
 				terminalConditionx.term(booleanPropertyx, false);
@@ -345,14 +345,14 @@ public final class TTModelProvider extends FabricModelProvider {
 	private static void createDawntrailCrop(@NotNull BlockModelGenerators generator) {
 		Block crop = TTBlocks.DAWNTRAIL_CROP;
 		IntegerProperty ageProperty = DawntrailCropBlock.AGE;
-		Int2ObjectMap<ResourceLocation> int2ObjectMap = new Int2ObjectOpenHashMap<>();
+		Int2ObjectMap<Identifier> int2ObjectMap = new Int2ObjectOpenHashMap<>();
 		PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ageProperty)
 			.generate(
 				age -> {
-					ResourceLocation resourceLocation = int2ObjectMap.computeIfAbsent(
-						age, (Int2ObjectFunction<? extends ResourceLocation>)(key -> TTConstants.id("block/dawntrail_crop_stage_" + Math.min(age, 3)))
+					Identifier identifier = int2ObjectMap.computeIfAbsent(
+						age, (Int2ObjectFunction<? extends Identifier>)(key -> TTConstants.id("block/dawntrail_crop_stage_" + Math.min(age, 3)))
 					);
-					return BlockModelGenerators.plainVariant(resourceLocation).with(BlockModelGenerators.X_ROT_90);
+					return BlockModelGenerators.plainVariant(identifier).with(BlockModelGenerators.X_ROT_90);
 				}
 				);
 		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(crop).with(propertyDispatch));
@@ -360,7 +360,7 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	private static void createEctoplasmBlock(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.ECTOPLASM_BLOCK;
-		ResourceLocation model = TTConstants.id("block/ectoplasm_block");
+		Identifier model = TTConstants.id("block/ectoplasm_block");
 		MultiVariant variant = BlockModelGenerators.plainVariant(model);
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, variant));

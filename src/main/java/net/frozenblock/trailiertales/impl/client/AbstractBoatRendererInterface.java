@@ -19,13 +19,13 @@ package net.frozenblock.trailiertales.impl.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
 public interface AbstractBoatRendererInterface {
-	void trailierTales$setBannerBaseTexture(ResourceLocation texture);
+	void trailierTales$setBannerBaseTexture(Identifier texture);
 
-	ResourceLocation trailierTales$getBannerBaseTexture();
+	Identifier trailierTales$getBannerBaseTexture();
 
 	void trailierTales$setRaft(boolean raft);
 }

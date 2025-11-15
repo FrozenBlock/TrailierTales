@@ -27,7 +27,7 @@ import net.frozenblock.trailiertales.registry.TTStructurePieceTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -52,7 +52,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public class RuinsPieces {
 
@@ -105,7 +105,7 @@ public class RuinsPieces {
 		maxAttempts += 1;
 
 		RuinPiece potentialPiece;
-		ResourceLocation pieceId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
+		Identifier pieceId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 
 		for (int i = 0; i < maxAttempts; i++) {
@@ -168,7 +168,7 @@ public class RuinsPieces {
 		RandomSource random,
 		@NotNull RuinsStructure structure
 	) {
-		ResourceLocation structureId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
+		Identifier structureId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
 		RuinPiece piece = new RuinPiece(
 			structureTemplateManager,
 			structureId,
@@ -190,7 +190,7 @@ public class RuinsPieces {
 
 		public RuinPiece(
 			StructureTemplateManager structureTemplateManager,
-			ResourceLocation structureId,
+			Identifier structureId,
 			BlockPos pos,
 			Rotation rotation,
 			RuinsStructure.Type biomeType, Optional<Heightmap.Types> heightmap,
@@ -204,7 +204,7 @@ public class RuinsPieces {
 
 		public RuinPiece(
 			StructureTemplateManager structureTemplateManager,
-			ResourceLocation structureId,
+			Identifier structureId,
 			BlockPos pos,
 			Rotation rotation,
 			RuinsStructure.Type ruinsType,

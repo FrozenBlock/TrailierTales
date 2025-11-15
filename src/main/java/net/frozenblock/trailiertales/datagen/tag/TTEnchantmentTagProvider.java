@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -36,7 +36,7 @@ public final class TTEnchantmentTagProvider extends EnchantmentTagsProvider {
 
 	@NotNull
 	private TagKey<Enchantment> getTag(String id) {
-		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 	@Override

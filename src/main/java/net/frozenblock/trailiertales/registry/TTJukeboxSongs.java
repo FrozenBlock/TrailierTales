@@ -26,7 +26,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public final class TTJukeboxSongs {
 	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = create("fausse_vie");
@@ -49,7 +49,7 @@ public final class TTJukeboxSongs {
 	) {
 		context.register(
 			registryKey,
-			new JukeboxSong(soundEvent, Component.translatable(Util.makeDescriptionId("jukebox_song", registryKey.location())), (float)lengthInSeconds, comparatorOutput)
+			new JukeboxSong(soundEvent, Component.translatable(Util.makeDescriptionId("jukebox_song", registryKey.identifier())), (float)lengthInSeconds, comparatorOutput)
 		);
 	}
 

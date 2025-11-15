@@ -36,7 +36,7 @@ import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -88,7 +88,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	public static final EnumProperty<CoffinPart> PART = TTBlockStateProperties.COFFIN_PART;
 	public static final EnumProperty<CoffinSpawnerState> STATE = TTBlockStateProperties.COFFIN_STATE;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
-	public static final ResourceLocation ATTRIBUTE_COFFIN_FOLLOW_RANGE = TTConstants.id("coffin_follow_range");
+	public static final Identifier ATTRIBUTE_COFFIN_FOLLOW_RANGE = TTConstants.id("coffin_follow_range");
 
 	@Override
 	public @NotNull MapCodec<CoffinBlock> codec() {

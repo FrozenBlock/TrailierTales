@@ -35,7 +35,7 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.NotNull;
@@ -43,9 +43,9 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRenderState, ApparitionModel> {
-	private static final ResourceLocation TEXTURE = TTConstants.id("textures/entity/apparition/apparition.png");
-	private static final ResourceLocation HYPNOTIZING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png");
-	private static final ResourceLocation SHOOTING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_shooting.png");
+	private static final Identifier TEXTURE = TTConstants.id("textures/entity/apparition/apparition.png");
+	private static final Identifier HYPNOTIZING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_hypnotizing.png");
+	private static final Identifier SHOOTING_TEXTURE = TTConstants.id("textures/entity/apparition/apparition_shooting.png");
 	private final ItemModelResolver itemModelResolver;
 	private float itemYaw;
 
@@ -113,7 +113,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(ApparitionRenderState renderState) {
+	public Identifier getTextureLocation(ApparitionRenderState renderState) {
 		return TEXTURE;
 	}
 

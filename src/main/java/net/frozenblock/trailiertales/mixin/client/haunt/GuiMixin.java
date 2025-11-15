@@ -32,7 +32,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
@@ -50,15 +50,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 public class GuiMixin {
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$HEART_HAUNT = TTConstants.id("hud/heart/haunt");
+	private static final Identifier TRAILIER_TALES$HEART_HAUNT = TTConstants.id("hud/heart/haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$ARMOR_HAUNT = TTConstants.id("hud/armor_full_haunt");
+	private static final Identifier TRAILIER_TALES$ARMOR_HAUNT = TTConstants.id("hud/armor_full_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$ARMOR_HALF_HAUNT = TTConstants.id("hud/armor_half_haunt");
+	private static final Identifier TRAILIER_TALES$ARMOR_HALF_HAUNT = TTConstants.id("hud/armor_half_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$FOOD_HAUNT = TTConstants.id("hud/food_haunt");
+	private static final Identifier TRAILIER_TALES$FOOD_HAUNT = TTConstants.id("hud/food_haunt");
 	@Unique
-	private static final ResourceLocation TRAILIER_TALES$AIR_HAUNT = TTConstants.id("hud/air_haunt");
+	private static final Identifier TRAILIER_TALES$AIR_HAUNT = TTConstants.id("hud/air_haunt");
 
 	@Unique
 	private static boolean trailierTales$isHaunted;
@@ -226,10 +226,10 @@ public class GuiMixin {
 		method = "renderArmor",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/gui/Gui;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/ResourceLocation;"
+			target = "Lnet/minecraft/client/gui/Gui;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/Identifier;"
 		)
 	)
-	private static ResourceLocation trailierTales$hauntedFullArmor(ResourceLocation original) {
+	private static Identifier trailierTales$hauntedFullArmor(Identifier original) {
 		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HAUNT : original;
 	}
 
@@ -237,10 +237,10 @@ public class GuiMixin {
 		method = "renderArmor",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/gui/Gui;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/ResourceLocation;"
+			target = "Lnet/minecraft/client/gui/Gui;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/Identifier;"
 		)
 	)
-	private static ResourceLocation trailierTales$hauntedHalfArmor(ResourceLocation original) {
+	private static Identifier trailierTales$hauntedHalfArmor(Identifier original) {
 		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HALF_HAUNT : original;
 	}
 
@@ -248,18 +248,18 @@ public class GuiMixin {
 		method = "renderFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V"
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
-				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V",
+				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
 				ordinal = 0,
 				shift = At.Shift.AFTER
 			)
 		)
 	)
-	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, RenderPipeline renderPipeline, ResourceLocation texture, int x, int y, int width, int height) {
+	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height) {
 		return !trailierTales$isHaunted;
 	}
 
@@ -291,11 +291,11 @@ public class GuiMixin {
 		method = "renderFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V",
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
 			ordinal = 0
 		)
 	)
-	private void trailierTales$hauntedHunger(GuiGraphics instance, RenderPipeline renderPipeline, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+	private void trailierTales$hauntedHunger(GuiGraphics instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
 		original.call(instance, renderPipeline, texture, x, y, width, height);
 		if (trailierTales$isHaunted) original.call(instance, renderPipeline, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
 	}
@@ -334,16 +334,16 @@ public class GuiMixin {
 		method = "renderAirBubbles",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V"
+			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/client/gui/Gui;AIR_SPRITE:Lnet/minecraft/resources/ResourceLocation;"
+				target = "Lnet/minecraft/client/gui/Gui;AIR_SPRITE:Lnet/minecraft/resources/Identifier;"
 			)
 		)
 	)
-	private void trailierTales$hauntedAirSupply(GuiGraphics instance, RenderPipeline renderPipeline, ResourceLocation texture, int x, int y, int width, int height, Operation<Void> original) {
+	private void trailierTales$hauntedAirSupply(GuiGraphics instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
 		texture = trailierTales$isHaunted ? TRAILIER_TALES$AIR_HAUNT : texture;
 		original.call(instance, renderPipeline, texture, x, y, width, height);
 	}

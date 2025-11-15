@@ -20,6 +20,7 @@ package net.frozenblock.trailiertales.client.renderer.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.block.CoffinBlock;
@@ -40,7 +41,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -48,6 +49,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, CoffinRenderState> {
@@ -64,7 +66,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	@NotNull
-	public static ResourceLocation getCoffinTexture(@NotNull CoffinPart part, CoffinSpawnerState state) {
+	public static Identifier getCoffinTexture(@NotNull CoffinPart part, CoffinSpawnerState state) {
 		return part == CoffinPart.HEAD ? state.getHeadTexture() : state.getFootTexture();
 	}
 
@@ -101,8 +103,8 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		SubmitNodeCollector collector,
 		int packedLight,
 		int packedOverlay,
-		ResourceLocation headTexture,
-		ResourceLocation footTexture,
+		Identifier headTexture,
+		Identifier footTexture,
 		float openness,
 		int outlineColor
 	) {
@@ -115,8 +117,8 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		@NotNull PoseStack poseStack,
 		@NotNull SubmitNodeCollector collector,
 		@NotNull CoffinModel model,
-		@NotNull ResourceLocation texture,
-		@Nullable ResourceLocation glowingTexture,
+		@NotNull Identifier texture,
+		@Nullable Identifier glowingTexture,
 		float openProgress,
 		float wobbleProgress,
 		int packedLight,
@@ -183,7 +185,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		return openProgress * Mth.HALF_PI;
 	}
 
-	public void getExtents(Set<Vector3f> set) {
+	public void getExtents(Consumer<Vector3fc> set) {
 		PoseStack poseStack = new PoseStack();
 		setupPoseStackAndCalculateOpenProgress(poseStack, false, Direction.SOUTH, 0F, 0F);
 		this.headModel.root().getExtentsForGui(poseStack, set);

@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -41,18 +41,18 @@ public class TTConstants {
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	public static @NotNull Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
-	public static @NotNull ResourceLocation idOrDefault(String path, String fallback) {
-		if (ResourceLocation.isValidPath(path)) return id(path);
+	public static @NotNull Identifier idOrDefault(String path, String fallback) {
+		if (Identifier.isValidPath(path)) return id(path);
 		return id(fallback);
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation vanillaId(String path) {
-		return ResourceLocation.withDefaultNamespace(path);
+	public static @NotNull Identifier vanillaId(String path) {
+		return Identifier.withDefaultNamespace(path);
 	}
 
 	@NotNull

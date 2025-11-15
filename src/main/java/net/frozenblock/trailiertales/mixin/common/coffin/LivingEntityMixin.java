@@ -27,8 +27,8 @@ import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
-import net.minecraft.advancements.critereon.EntityHurtPlayerTrigger;
-import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.advancements.criterion.EntityHurtPlayerTrigger;
+import net.minecraft.advancements.criterion.PlayerHurtEntityTrigger;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -75,7 +75,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		method = "hurtServer",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/advancements/critereon/PlayerHurtEntityTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
+			target = "Lnet/minecraft/advancements/criterion/PlayerHurtEntityTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
 		)
 	)
 	public void trailierTales$onHurtByPlayer(
@@ -89,7 +89,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		method = "hurtServer",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/advancements/critereon/EntityHurtPlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
+			target = "Lnet/minecraft/advancements/criterion/EntityHurtPlayerTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"
 		)
 	)
 	public void trailierTales$onHurtPlayer(

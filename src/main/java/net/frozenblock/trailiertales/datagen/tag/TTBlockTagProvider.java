@@ -26,7 +26,7 @@ import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -39,7 +39,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	@NotNull private ResourceKey<Block> getKey(String namespace, String path) {
-		return ResourceKey.create(this.registryKey, ResourceLocation.fromNamespaceAndPath(namespace, path));
+		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	@Override
@@ -514,7 +514,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	@NotNull
 	private TagKey<Block> getTag(String id) {
-		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 }

@@ -28,7 +28,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -139,7 +139,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	public void trailierTales$loadAdditional(ValueInput valueInput, CallbackInfo info) {
 		this.trailierTales$readTT(valueInput);
 		this.trailierTales$rebrushed = valueInput.getBooleanOr("Rebrushed", false);
-		this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(valueInput.getStringOr("TrailierTalesStoredLootTable", "")));
+		this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, Identifier.parse(valueInput.getStringOr("TrailierTalesStoredLootTable", "")));
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
@@ -147,7 +147,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 		this.trailierTales$saveTT(valueOutput);
 		if (this.trailierTales$rebrushed) valueOutput.putBoolean("Rebrushed", this.trailierTales$rebrushed);
 		if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
-			valueOutput.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.location().toString());
+			valueOutput.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.identifier().toString());
 		}
 	}
 

@@ -27,7 +27,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +43,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		RenderLayerParent<ApparitionRenderState, ApparitionModel> renderLayerParent,
 		ApparitionModel.AlphaFunction<ApparitionRenderState> innerAlphaFunction,
 		ApparitionModel.AlphaFunction<ApparitionRenderState> outerAlphaFunction,
-		ResourceLocation texture,
+		Identifier texture,
 		int minOrder
 	) {
 		super(renderLayerParent);

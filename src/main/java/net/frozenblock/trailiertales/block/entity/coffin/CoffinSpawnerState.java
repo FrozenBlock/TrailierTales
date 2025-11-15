@@ -25,7 +25,7 @@ import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
@@ -48,8 +48,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	private final boolean isCapableOfSpawning;
 	private final boolean finalWave;
 	private final Optional<ParticleOptions> emitParticle;
-	private final ResourceLocation headTexture;
-	private final ResourceLocation footTexture;
+	private final Identifier headTexture;
+	private final Identifier footTexture;
 
 	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning, final boolean finalWave, Optional<ParticleOptions> emitParticle) {
 		this.name = name;
@@ -176,11 +176,11 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		return this.isCapableOfSpawning;
 	}
 
-	public ResourceLocation getHeadTexture() {
+	public Identifier getHeadTexture() {
 		return this.headTexture;
 	}
 
-	public ResourceLocation getFootTexture() {
+	public Identifier getFootTexture() {
 		return this.footTexture;
 	}
 
@@ -202,7 +202,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	}
 
 	@Contract("_, _ -> new")
-	private static @NotNull ResourceLocation getTexture(String stateName, boolean foot) {
+	private static @NotNull Identifier getTexture(String stateName, boolean foot) {
 		return TTConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName + ".png");
 	}
 

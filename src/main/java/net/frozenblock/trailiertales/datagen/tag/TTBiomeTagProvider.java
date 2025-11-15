@@ -24,7 +24,7 @@ import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -85,7 +85,7 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@NotNull
 	private TagKey<Biome> getTag(String id) {
-		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 }

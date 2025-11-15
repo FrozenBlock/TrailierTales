@@ -40,7 +40,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 		TTModelLayers.init();
 		TTParticleEngine.init();
 
-		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.location(), TrailierTalesClient::calculateCatacombsMusicPitch);
+		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
 
 		/*DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
 			CoffinDebugRenderer coffinDebugRenderer = new CoffinDebugRenderer(client);

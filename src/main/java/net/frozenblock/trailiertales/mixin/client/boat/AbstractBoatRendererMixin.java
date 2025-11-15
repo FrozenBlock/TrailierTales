@@ -35,7 +35,7 @@ import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.WalkAnimationState;
 import net.minecraft.world.entity.vehicle.AbstractBoat;
 import net.minecraft.world.item.BannerItem;
@@ -58,7 +58,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	private MaterialSet materials;
 
 	@Unique
-	private ResourceLocation trailierTales$bannerTexture;
+	private Identifier trailierTales$bannerTexture;
 	@Unique
 	private BoatBannerModel trailierTales$boatBannerModel;
 	@Unique
@@ -76,13 +76,13 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 
 	@Unique
 	@Override
-	public void trailierTales$setBannerBaseTexture(ResourceLocation texture) {
+	public void trailierTales$setBannerBaseTexture(Identifier texture) {
 		this.trailierTales$bannerTexture = texture;
 	}
 
 	@Unique
 	@Override
-	public ResourceLocation trailierTales$getBannerBaseTexture() {
+	public Identifier trailierTales$getBannerBaseTexture() {
 		return this.trailierTales$bannerTexture;
 	}
 

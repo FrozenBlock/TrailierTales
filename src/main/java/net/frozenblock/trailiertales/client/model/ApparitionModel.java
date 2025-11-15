@@ -31,7 +31,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,7 +46,7 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 		this(FrozenLibRenderTypes::apparitionOuter, root);
 	}
 
-	public ApparitionModel(Function<ResourceLocation, RenderType> function, @NotNull ModelPart root) {
+	public ApparitionModel(Function<Identifier, RenderType> function, @NotNull ModelPart root) {
 		super(root, function);
 		this.core = root.getChild("core");
 		this.inner = this.core.getChild("inner");
