@@ -86,7 +86,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Apparition extends Monster implements InventoryCarrier, RangedAttackMob, WindDisturbingEntity {
@@ -137,7 +136,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		builder.define(HIDING, true);
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createApparitionAttributes() {
 		return Mob.createMobAttributes()
 			.add(Attributes.MAX_HEALTH, 30D)
@@ -149,20 +147,19 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	@NotNull
 	protected PathNavigation createNavigation(Level level) {
-		final FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level);
-		flyingPathNavigation.setCanFloat(false);
-		flyingPathNavigation.setCanOpenDoors(false);
-		flyingPathNavigation.getNodeEvaluator().setCanPassDoors(true);
-		return flyingPathNavigation;
+		final FlyingPathNavigation navigation = new FlyingPathNavigation(this, level);
+		navigation.setCanFloat(false);
+		navigation.setCanOpenDoors(false);
+		navigation.getNodeEvaluator().setCanPassDoors(true);
+		return navigation;
 	}
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData entityData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, SpawnGroupData entityData) {
 		this.getBrain().setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 100L);
-		return super.finalizeSpawn(level, difficulty, spawnReason, entityData);
+		return super.finalizeSpawn(level, difficulty, reason, entityData);
 	}
 
 	@Override
@@ -172,12 +169,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean isInvulnerableTo(ServerLevel level, DamageSource damageSource) {
-		return super.isInvulnerableTo(level, damageSource) || this.isHiding();
+	public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
+		return super.isInvulnerableTo(level, source) || this.isHiding();
 	}
 
 	@Override
-	protected @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
+	protected EntityDimensions getDefaultDimensions(Pose pose) {
 		return this.isHiding() ? this.getType().getDimensions().scale(0F) : super.getDefaultDimensions(pose);
 	}
 
@@ -238,7 +235,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
 			if (entityCoffinInterface.trailierTales$getCoffinData() != null && level instanceof ServerLevel serverLevel) {
-				boolean withinCatacombs = CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
+				final boolean withinCatacombs = CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
 				if (withinCatacombs) punishmentValue = 0F;
 				isPosSafe = isPosSafe && withinCatacombs;
 				successValue *= 2F;
@@ -249,11 +246,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public float getWalkTargetValue(BlockPos pos, @NotNull LevelReader world) {
-		return !world.getBlockState(pos).isCollisionShapeFullBlock(world, pos) ? 15F : -0.75F;
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		return !level.getBlockState(pos).isCollisionShapeFullBlock(level, pos) ? 15F : -0.75F;
 	}
 
-	public boolean shouldReturnToHome(@NotNull GlobalPos globalPos) {
+	public boolean shouldReturnToHome(GlobalPos globalPos) {
 		if (globalPos.dimension() == this.level().dimension()) return this.position().distanceTo(Vec3.atCenterOf(globalPos.pos())) >= 58D;
 		return false;
 	}
@@ -269,7 +266,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public @NotNull SimpleContainer getInventory() {
+	public SimpleContainer getInventory() {
 		return this.inventory;
 	}
 
@@ -277,7 +274,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.entityData.get(ITEM_STACK);
 	}
 
-	public void setVisibleItem(@NotNull ItemStack stack) {
+	public void setVisibleItem(ItemStack stack) {
 		this.getEntityData().set(ITEM_STACK, stack);
 	}
 
@@ -290,7 +287,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return this.getBrain().checkMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryStatus.VALUE_PRESENT);
 	}
 
-	public boolean wantsToPickUp(ServerLevel level, @NotNull ItemEntity item) {
+	public boolean wantsToPickUp(ServerLevel level, ItemEntity item) {
 		return this.wantsToPickUp(level, item.getItem()) && this.getTarget() != null;
 	}
 
@@ -301,9 +298,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected void pickUpItem(ServerLevel level, ItemEntity item) {
-		final ItemEntity newItemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
-		this.level().addFreshEntity(newItemEntity);
-		InventoryCarrier.pickUpItem(level, this, this, newItemEntity);
+		final ItemEntity itemEntity = new ItemEntity(this.level(), item.getX(), item.getY(), item.getZ(), item.getItem().split(1));
+		this.level().addFreshEntity(itemEntity);
+		InventoryCarrier.pickUpItem(level, this, this, itemEntity);
 	}
 
 	@Override
@@ -363,12 +360,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	protected @NotNull SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return TTSounds.APPARITION_HURT;
 	}
 
 	@Override
-	protected @NotNull SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound() {
 		return TTSounds.APPARITION_DEATH;
 	}
 
@@ -408,37 +405,36 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public void move(MoverType movementType, Vec3 movement) {
-		ProfilerFiller profilerFiller = Profiler.get();
+		final ProfilerFiller profilerFiller = Profiler.get();
 		profilerFiller.push("move");
-		Vec3 vec3 = this.collide(movement);
+
+		final Vec3 vec3 = this.collide(movement);
 		this.setPos(this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
 
 		profilerFiller.pop();
 		profilerFiller.push("rest");
-		boolean horizontalCollisionX = !Mth.equal(movement.x, vec3.x);
-		boolean horizontalCollisionZ = !Mth.equal(movement.z, vec3.z);
+
+		final boolean horizontalCollisionX = !Mth.equal(movement.x, vec3.x);
+		final boolean horizontalCollisionZ = !Mth.equal(movement.z, vec3.z);
 		this.horizontalCollision = horizontalCollisionX || horizontalCollisionZ;
 		this.verticalCollision = movement.y != vec3.y;
 		this.verticalCollisionBelow = this.verticalCollision && movement.y < 0D;
-		if (this.horizontalCollision) {
-			this.minorHorizontalCollision = this.isHorizontalCollisionMinor(vec3);
-		} else {
-			this.minorHorizontalCollision = false;
-		}
+		this.minorHorizontalCollision = this.horizontalCollision && this.isHorizontalCollisionMinor(vec3);
 
 		if (this.isRemoved()) {
 			profilerFiller.pop();
-		} else {
-			if (this.horizontalCollision) {
-				Vec3 vec32 = this.getDeltaMovement();
-				this.setDeltaMovement(horizontalCollisionX ? 0D : vec32.x, vec32.y, horizontalCollisionZ ? 0D : vec32.z);
-			}
-			profilerFiller.pop();
+			return;
 		}
+
+		if (this.horizontalCollision) {
+			final Vec3 deltaMovement = this.getDeltaMovement();
+			this.setDeltaMovement(horizontalCollisionX ? 0D : deltaMovement.x, deltaMovement.y, horizontalCollisionZ ? 0D : deltaMovement.z);
+		}
+		profilerFiller.pop();
 	}
 
 	@Contract(" -> new")
-	private @NotNull ParticleOptions createAmbientParticleOptions() {
+	private ParticleOptions createAmbientParticleOptions() {
 		final float aidProgress = this.getAidAnimProgress();
 		final float poltergeistProgress = this.getPoltergeistAnimProgress();
 		Vec3 finalColor = BASE_DUST_COLOR;
@@ -464,7 +460,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
 		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
 			if (source.getDirectEntity() instanceof Projectile projectile) {
 				if (projectile instanceof AbstractArrow abstractArrow) {
@@ -478,15 +474,15 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 				}
 			}
 		}
-		boolean hurtServer = super.hurtServer(level, source, amount);
+		final boolean hurtServer = super.hurtServer(level, source, amount);
 		if (hurtServer && source.getEntity() instanceof LivingEntity livingEntity) ApparitionAi.wasHurtBy(level, this, livingEntity);
 		return hurtServer;
 	}
 
-	public void swapItem(@NotNull ItemStack itemStack) {
-		if (itemStack.isEmpty() || this.level().isClientSide()) return;
+	public void swapItem(ItemStack stack) {
+		if (stack.isEmpty() || this.level().isClientSide()) return;
 		this.dropItem();
-		this.inventory.setItem(0, itemStack);
+		this.inventory.setItem(0, stack);
 	}
 
 	public void dropItem() {
@@ -495,7 +491,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public @NotNull AABB getAttackBoundingBox() { // Extends access for outside-package classes
+	public AABB getAttackBoundingBox() { // Extends access for outside-package classes
 		return super.getAttackBoundingBox();
 	}
 
@@ -569,7 +565,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+	public void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		this.readInventoryFromTag(valueInput);
 		this.setTransparency(valueInput.getFloatOr("Transparency", 0));
@@ -592,13 +588,11 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	@NotNull
 	protected Brain.Provider<Apparition> brainProvider() {
 		return Brain.provider(ApparitionAi.MEMORY_TYPES, ApparitionAi.SENSOR_TYPES);
 	}
 
 	@Override
-	@NotNull
 	protected Brain<Apparition> makeBrain(Dynamic<?> dynamic) {
 		return ApparitionAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
@@ -609,14 +603,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@NotNull
 	public Brain<Apparition> getBrain() {
 		return (Brain<Apparition>) super.getBrain();
 	}
 
 	@Override
 	protected void customServerAiStep(ServerLevel level) {
-		ProfilerFiller profiler = Profiler.get();
+		final ProfilerFiller profiler = Profiler.get();
 		profiler.push("apparitionBrain");
 		this.getBrain().tick(level, this);
 		profiler.pop();
@@ -647,17 +640,13 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	protected void pushEntities() {
 	}
 
-	public void spawnParticles(int count, ParticleOptions particleOptions) {
+	public void spawnParticles(int count, ParticleOptions options) {
 		if (!(this.level() instanceof ServerLevel level)) return;
 		level.sendParticles(
-			particleOptions,
-			this.getX(),
-			this.getY(0.6666666666666666D),
-			this.getZ(),
+			options,
+			this.getX(), this.getY(0.6666666666666666D), this.getZ(),
 			count,
-			this.getBbWidth() / 4F,
-			this.getBbHeight() / 4F,
-			this.getBbWidth() / 4F,
+			this.getBbWidth() / 4F, this.getBbHeight() / 4F, this.getBbWidth() / 4F,
 			0.05D
 		);
 	}
@@ -687,7 +676,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public @NotNull Identifier frozenLib$getWindDisturbanceLogicID() {
+	public Identifier frozenLib$getWindDisturbanceLogicID() {
 		return FrozenLibIntegration.APPARITION_WIND_DISTURBANCE;
 	}
 

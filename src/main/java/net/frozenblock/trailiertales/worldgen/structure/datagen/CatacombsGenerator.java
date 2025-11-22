@@ -78,7 +78,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.NotNull;
 
 public class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  TTStructures.ofSet("catacombs");
@@ -98,20 +97,20 @@ public class CatacombsGenerator {
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_MINESHAFT = createKey("catacombs_mineshaft");
 	public static final ResourceKey<StructureProcessorList> CATACOMBS_TOMB_END_PORTAL = createKey("catacombs_tomb_end_portal");
 
-	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> pool) {
-		HolderGetter<StructureTemplatePool> holderGetter = pool.lookup(Registries.TEMPLATE_POOL);
-		Holder<StructureTemplatePool> empty = holderGetter.getOrThrow(Pools.EMPTY);
-		Holder<StructureTemplatePool> connectorFallback = holderGetter.getOrThrow(CONNECTOR_FALLBACK);
-		Holder<StructureTemplatePool> corridorFallback = holderGetter.getOrThrow(CORRIDOR_FALLBACK);
-		HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
-		Holder<StructureProcessorList> corridor = structureProcessorGetter.getOrThrow(CATACOMBS_CORRIDOR);
-		Holder<StructureProcessorList> corridorRare = structureProcessorGetter.getOrThrow(CATACOMBS_CORRIDOR_RARE);
-		Holder<StructureProcessorList> smallRoom = structureProcessorGetter.getOrThrow(CATACOMBS_SMALL_ROOM);
-		Holder<StructureProcessorList> tomb = structureProcessorGetter.getOrThrow(CATACOMBS_TOMB);
-		Holder<StructureProcessorList> king = structureProcessorGetter.getOrThrow(CATACOMBS_KING);
-		Holder<StructureProcessorList> archery = structureProcessorGetter.getOrThrow(CATACOMBS_ARCHERY);
-		Holder<StructureProcessorList> lavaTrap = structureProcessorGetter.getOrThrow(CATACOMBS_LAVA_TRAP);
-		Holder<StructureProcessorList> mineshaft = structureProcessorGetter.getOrThrow(CATACOMBS_MINESHAFT);
+	public static void bootstrapTemplatePool(BootstrapContext<StructureTemplatePool> pool) {
+		final HolderGetter<StructureTemplatePool> templatePools = pool.lookup(Registries.TEMPLATE_POOL);
+		final Holder<StructureTemplatePool> empty = templatePools.getOrThrow(Pools.EMPTY);
+		final Holder<StructureTemplatePool> connectorFallback = templatePools.getOrThrow(CONNECTOR_FALLBACK);
+		final Holder<StructureTemplatePool> corridorFallback = templatePools.getOrThrow(CORRIDOR_FALLBACK);
+		final HolderGetter<StructureProcessorList> structureProcessorGetter = pool.lookup(Registries.PROCESSOR_LIST);
+		final Holder<StructureProcessorList> corridor = structureProcessorGetter.getOrThrow(CATACOMBS_CORRIDOR);
+		final Holder<StructureProcessorList> corridorRare = structureProcessorGetter.getOrThrow(CATACOMBS_CORRIDOR_RARE);
+		final Holder<StructureProcessorList> smallRoom = structureProcessorGetter.getOrThrow(CATACOMBS_SMALL_ROOM);
+		final Holder<StructureProcessorList> tomb = structureProcessorGetter.getOrThrow(CATACOMBS_TOMB);
+		final Holder<StructureProcessorList> king = structureProcessorGetter.getOrThrow(CATACOMBS_KING);
+		final Holder<StructureProcessorList> archery = structureProcessorGetter.getOrThrow(CATACOMBS_ARCHERY);
+		final Holder<StructureProcessorList> lavaTrap = structureProcessorGetter.getOrThrow(CATACOMBS_LAVA_TRAP);
+		final Holder<StructureProcessorList> mineshaft = structureProcessorGetter.getOrThrow(CATACOMBS_MINESHAFT);
 
 		pool.register(
 			START,
@@ -669,22 +668,22 @@ public class CatacombsGenerator {
 		);
 	}
 
-	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
-		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
-		HolderGetter<StructureTemplatePool> templatePool = context.lookup(Registries.TEMPLATE_POOL);
+	public static void bootstrap(BootstrapContext<Structure> context) {
+		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+		final HolderGetter<StructureTemplatePool> templatePools = context.lookup(Registries.TEMPLATE_POOL);
 
 		context.register(
 			CATACOMBS_KEY,
 			new JigsawStructure(
 				TTStructures.structure(
-					holderGetter.getOrThrow(TTBiomeTags.HAS_CATACOMBS),
+					biomes.getOrThrow(TTBiomeTags.HAS_CATACOMBS),
 					Map.of(
 						MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, MobSpawnSettings.EMPTY_MOB_LIST)
 					),
 					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
 					TerrainAdjustment.ENCAPSULATE
 				),
-				templatePool.getOrThrow(START),
+				templatePools.getOrThrow(START),
 				Optional.empty(),
 				16,
 				UniformHeight.of(VerticalAnchor.aboveBottom(20), VerticalAnchor.aboveBottom(40)),
@@ -698,19 +697,19 @@ public class CatacombsGenerator {
 		);
 	}
 
-	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
-		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
+	public static void bootstrapStructureSet(BootstrapContext<StructureSet> context) {
+		final HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
 		context.register(
 			CATACOMBS_STRUCTURE_SET_KEY,
 			new StructureSet(
-				structure.getOrThrow(CATACOMBS_KEY),
+				structures.getOrThrow(CATACOMBS_KEY),
 				new RandomSpreadStructurePlacement(65, 35, RandomSpreadType.LINEAR, 1886497114)
 			)
 		);
 	}
 
-	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
+	public static void bootstrapProcessor(BootstrapContext<StructureProcessorList> context) {
 		final RuleProcessor baseProcessor = new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(new RandomBlockMatchTest(Blocks.COBBLED_DEEPSLATE, 0.15F), AlwaysTrueTest.INSTANCE, TTBlocks.MOSSY_COBBLED_DEEPSLATE.defaultBlockState()),
@@ -1204,7 +1203,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull BlockStateRespectingRuleProcessor catacombsPotLootProcessor(ResourceKey<LootTable> registryKey) {
+	private static BlockStateRespectingRuleProcessor catacombsPotLootProcessor(ResourceKey<LootTable> registryKey) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -1218,7 +1217,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull RuleProcessor catacombsArchy(boolean clay, ResourceKey<LootTable> lootTable, float chance) {
+	private static RuleProcessor catacombsArchy(boolean clay, ResourceKey<LootTable> lootTable, float chance) {
 		return new RuleProcessor(
 			ImmutableList.of(
 				new ProcessorRule(
@@ -1232,7 +1231,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull BlockStateRespectingRuleProcessor coffinProcessor(EntityType<?>... entities) {
+	private static BlockStateRespectingRuleProcessor coffinProcessor(EntityType<?>... entities) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -1246,7 +1245,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull BlockStateRespectingRuleProcessor guaranteedChestProcessor(ResourceKey<LootTable> lootTable) {
+	private static BlockStateRespectingRuleProcessor guaranteedChestProcessor(ResourceKey<LootTable> lootTable) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -1260,7 +1259,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull BlockStateRespectingRuleProcessor chestProcessor(ResourceKey<LootTable> lootTable, float chance) {
+	private static BlockStateRespectingRuleProcessor chestProcessor(ResourceKey<LootTable> lootTable, float chance) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -1274,7 +1273,7 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull BlockStateRespectingRuleProcessor coffinLootProcessor(ResourceKey<LootTable> lootTable) {
+	private static BlockStateRespectingRuleProcessor coffinLootProcessor(ResourceKey<LootTable> lootTable) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -1288,18 +1287,16 @@ public class CatacombsGenerator {
 		);
 	}
 
-	private static @NotNull String string(String name) {
+	private static String string(String name) {
 		return TTConstants.string("catacombs/" + name);
 	}
 
-	@NotNull
-	private static ResourceKey<StructureProcessorList> createKey(@NotNull String string) {
+	private static ResourceKey<StructureProcessorList> createKey(String string) {
 		return ResourceKey.create(Registries.PROCESSOR_LIST, TTConstants.id(string));
 	}
 
-	@NotNull
 	private static Holder<StructureProcessorList> register(
-		@NotNull BootstrapContext<StructureProcessorList> entries, @NotNull ResourceKey<StructureProcessorList> key, @NotNull List<StructureProcessor> list
+		BootstrapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> key, List<StructureProcessor> list
 	) {
 		return entries.register(key, new StructureProcessorList(list));
 	}

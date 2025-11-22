@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block.entity.coffin;
 
-import com.mojang.logging.LogUtils;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
@@ -49,12 +48,9 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 public class CoffinBlockEntity extends RandomizableContainerBlockEntity implements Spawner, CoffinSpawner.StateAccessor {
-	private static final Logger LOGGER = LogUtils.getLogger();
 	public static final float WOBBLE_DURATION = 15F;
 	public static final int WOBBLE_COOLDOWN = 10;
 
@@ -103,27 +99,27 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public boolean canOpen(@NotNull Player player) {
+	public boolean canOpen(Player player) {
 		return false;
 	}
 
 	@Override
-	protected @NotNull Component getDefaultName() {
+	protected Component getDefaultName() {
 		return Component.translatable("container.coffin");
 	}
 
 	@Override
-	protected @NotNull NonNullList<ItemStack> getItems() {
+	protected NonNullList<ItemStack> getItems() {
 		return this.items;
 	}
 
 	@Override
-	protected void setItems(@NotNull NonNullList<ItemStack> nonNullList) {
+	protected void setItems(NonNullList<ItemStack> nonNullList) {
 		this.items = nonNullList;
 	}
 
 	@Override
-	protected @NotNull AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory) {
+	protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
 		return ChestMenu.threeRows(i, inventory, this);
 	}
 
@@ -141,22 +137,22 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		super.unpackLootTable(player);
 	}
 
-	public void tickServer(ServerLevel world, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || world.isClientSide()) return;
-		this.coffinSpawner.tickServer(world, pos, state, state.getValue(CoffinBlock.PART), ominous);
+	public void tickServer(ServerLevel level, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
+		if (part == CoffinPart.HEAD || level.isClientSide()) return;
+		this.coffinSpawner.tickServer(level, pos, state, state.getValue(CoffinBlock.PART), ominous);
 		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 	}
 
-	public void tickClient(Level world, BlockPos pos, CoffinPart part, boolean ominous) {
-		if (part == CoffinPart.HEAD || !world.isClientSide()) return;
+	public void tickClient(Level level, BlockPos pos, CoffinPart part, boolean ominous) {
+		if (part == CoffinPart.HEAD || !level.isClientSide()) return;
 
 		this.coffinWobbleLidAnimTicks = Math.max(0, this.coffinWobbleLidAnimTicks - 1);
 
 		final CoffinSpawnerState coffinSpawnerState = this.getState();
 		if (coffinSpawnerState.isCapableOfSpawning()) {
-			final RandomSource random = world.getRandom();
+			final RandomSource random = level.getRandom();
 			if (random.nextFloat() <= 0.0175F) {
-				world.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, random.nextFloat() * 0.15F + 0.05F, random.nextFloat() + 0.5F, false);
+				level.playLocalSound(pos, TTSounds.COFFIN_AMBIENT, SoundSource.BLOCKS, random.nextFloat() * 0.15F + 0.05F, random.nextFloat() + 0.5F, false);
 			}
 		}
 
@@ -166,7 +162,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		final Direction connectedDirection = CoffinBlock.getConnectedDirection(this.getBlockState());
 		if (connectedDirection == null) return;
 		final BlockPos connectedPos = pos.relative(connectedDirection);
-		if (world.isLoaded(connectedPos) && world.getBlockEntity(connectedPos) instanceof CoffinBlockEntity coffinBlockEntity) {
+		if (level.isLoaded(connectedPos) && level.getBlockEntity(connectedPos) instanceof CoffinBlockEntity coffinBlockEntity) {
 			coffinBlockEntity.previousOpenProgress = this.previousOpenProgress;
 			coffinBlockEntity.openProgress = this.openProgress;
 		}
@@ -183,10 +179,10 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
-		final CompoundTag compoundTag = new CompoundTag();
-		compoundTag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
-		return compoundTag;
+	public CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
+		final CompoundTag tag = new CompoundTag();
+		tag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
+		return tag;
 	}
 
 	@Override
@@ -239,7 +235,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public void setState(@NotNull Level level, CoffinSpawnerState state) {
+	public void setState(Level level, CoffinSpawnerState state) {
 		this.setChanged();
 		level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(TTBlockStateProperties.COFFIN_STATE, state));
 	}
@@ -261,8 +257,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.random);
 			}
 			return true;
-		} else {
-			return super.triggerEvent(type, data);
 		}
+		return super.triggerEvent(type, data);
 	}
 }

@@ -35,7 +35,6 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -354,7 +353,7 @@ public class GuiMixin {
 	}
 
 	@Unique
-	private void trailierTales$renderHauntedHeart(@NotNull GuiGraphics graphics, int x, int y) {
+	private void trailierTales$renderHauntedHeart(GuiGraphics graphics, int x, int y) {
 		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
 	}
 }

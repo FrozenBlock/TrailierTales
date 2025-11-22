@@ -24,8 +24,6 @@ import net.minecraft.resources.Identifier;
 @Environment(EnvType.CLIENT)
 public interface AbstractBoatRendererInterface {
 	void trailierTales$setBannerBaseTexture(Identifier texture);
-
 	Identifier trailierTales$getBannerBaseTexture();
-
 	void trailierTales$setRaft(boolean raft);
 }

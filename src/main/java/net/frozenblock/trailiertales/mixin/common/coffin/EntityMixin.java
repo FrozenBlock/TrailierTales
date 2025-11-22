@@ -39,7 +39,7 @@ public class EntityMixin {
 		)
 	)
 	public void trailierTales$changeDimension(
-		TeleportTransition dimensionTransition,
+		TeleportTransition transition,
 		CallbackInfoReturnable<Entity> info,
 		@Local(ordinal = 0) ServerLevel level
 	) {

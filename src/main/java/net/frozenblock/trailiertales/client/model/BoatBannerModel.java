@@ -37,7 +37,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
-import org.jetbrains.annotations.NotNull;
 
 public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	private final ModelPart flag;
@@ -46,19 +45,19 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 
 	private boolean raft = false;
 
-	public BoatBannerModel(@NotNull ModelPart root) {
+	public BoatBannerModel(ModelPart root) {
 		super(root, RenderTypes::entitySolid);
 		this.flag = root.getChild("flag");
 		this.pole = root.getChild("pole");
 		this.bar = root.getChild("bar");
 	}
 
-	public static @NotNull LayerDefinition createBodyLayer() {
+	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshDefinition = new MeshDefinition();
-		final PartDefinition partDefinition = meshDefinition.getRoot();
-		partDefinition.addOrReplaceChild("flag", CubeListBuilder.create().texOffs(0, 0).addBox(-10F, 0F, -2F, 20F, 40F, 1F), PartPose.ZERO);
-		partDefinition.addOrReplaceChild("pole", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -30F, -1F, 2F, 42F, 2F), PartPose.ZERO);
-		partDefinition.addOrReplaceChild("bar", CubeListBuilder.create().texOffs(0, 42).addBox(-10F, -32F, -1F, 20F, 2F, 2F), PartPose.ZERO);
+		final PartDefinition root = meshDefinition.getRoot();
+		root.addOrReplaceChild("flag", CubeListBuilder.create().texOffs(0, 0).addBox(-10F, 0F, -2F, 20F, 40F, 1F), PartPose.ZERO);
+		root.addOrReplaceChild("pole", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -30F, -1F, 2F, 42F, 2F), PartPose.ZERO);
+		root.addOrReplaceChild("bar", CubeListBuilder.create().texOffs(0, 42).addBox(-10F, -32F, -1F, 20F, 2F, 2F), PartPose.ZERO);
 		return LayerDefinition.create(meshDefinition, 64, 64);
 	}
 
@@ -67,7 +66,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull BoatRenderState renderState) {
+	public void setupAnim(BoatRenderState renderState) {
 		super.setupAnim(renderState);
 		if (!(renderState instanceof BoatRenderStateInterface stateInterface)) return;
 		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(Mth.TWO_PI * renderState.ageInTicks / 100F)) * Mth.PI;
@@ -76,7 +75,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		this.flag.y = -32F;
 	}
 
-	public void preparePoseStack(@NotNull PoseStack poseStack) {
+	public void preparePoseStack(PoseStack poseStack) {
 		poseStack.pushPose();
 		poseStack.translate(
 			this.raft ? -0.74F : -0.94F,
@@ -92,7 +91,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		poseStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
 	}
 
-	public void popPoseStack(@NotNull PoseStack matrices) {
+	public void popPoseStack(PoseStack matrices) {
 		matrices.popPose();
 		matrices.popPose();
 		this.raft = false;
@@ -100,8 +99,8 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 
 	public void submitFlag(
 		MaterialSet materials,
-		@NotNull PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
 		BoatRenderState renderState,
 		int overlay,
 		DyeColor dyeColor,
@@ -110,7 +109,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		BannerRenderer.submitPatterns(
 			materials,
 			poseStack,
-			submitNodeCollector,
+			collector,
 			renderState.lightCoords,
 			overlay,
 			this,

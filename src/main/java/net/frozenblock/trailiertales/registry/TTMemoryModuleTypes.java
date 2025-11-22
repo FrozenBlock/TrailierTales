@@ -28,9 +28,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTMemoryModuleTypes {
+
 	private TTMemoryModuleTypes() {
 		throw new UnsupportedOperationException("RegisterMemoryModuleTypes contains only static declarations.");
 	}
@@ -52,12 +52,10 @@ public final class TTMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> HAUNTING_TICKS = register("haunting_ticks");
 	public static final MemoryModuleType<List<UUID>> AIDING_ENTITIES = register("aiding_entities");
 
-	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {
 		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, TTConstants.id(identifier), new MemoryModuleType<>(Optional.of(codec)));
 	}
 
-	@NotNull
 	private static <U> MemoryModuleType<U> register(String identifier) {
 		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, TTConstants.id(identifier), new MemoryModuleType<>(Optional.empty()));
 	}

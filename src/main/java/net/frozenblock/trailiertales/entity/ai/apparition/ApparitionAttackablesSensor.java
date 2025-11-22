@@ -27,7 +27,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
@@ -38,25 +37,25 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 			&& Sensor.isEntityAttackableIgnoringLineOfSight(level, entity, target);
 	}
 
-	private boolean isHostileTarget(@NotNull LivingEntity entity) {
+	private boolean isHostileTarget(LivingEntity entity) {
 		return entity.getType().is(TTEntityTags.APPARITION_TARGETABLE);
 	}
 
-	private boolean isClose(LivingEntity apparition, @NotNull LivingEntity target) {
+	private boolean isClose(LivingEntity apparition, LivingEntity target) {
 		return target.distanceTo(apparition) <= apparition.getAttributes().getValue(Attributes.FOLLOW_RANGE);
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, @NotNull LivingEntity entity) {
+	protected void doTick(ServerLevel level, LivingEntity entity) {
 		entity.getBrain().setMemory(this.getMemory(), this.getNearestEntityNoLineOfSight(level, entity));
 	}
 
-	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, @NotNull LivingEntity entity) {
+	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, LivingEntity entity) {
 		return entity.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
 			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> this.isMatchingEntity(level, entity, livingEntity)));
 	}
 
-	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
+	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
 		for (LivingEntity livingEntity : livingEntities) {
 			if (predicate.test(livingEntity)) return Optional.of(livingEntity);
 		}
@@ -65,7 +64,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	@Override
-	protected @NotNull MemoryModuleType<LivingEntity> getMemory() {
+	protected MemoryModuleType<LivingEntity> getMemory() {
 		return MemoryModuleType.NEAREST_ATTACKABLE;
 	}
 }

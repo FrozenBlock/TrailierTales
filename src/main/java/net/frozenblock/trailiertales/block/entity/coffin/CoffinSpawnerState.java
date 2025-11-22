@@ -34,7 +34,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false, false, Optional.empty()),
@@ -61,7 +60,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		this.footTexture = getTexture(name, true);
 	}
 
-	CoffinSpawnerState tickAndGetNext(BlockPos pos, @NotNull CoffinSpawner spawner, BlockState state, ServerLevel level) {
+	CoffinSpawnerState tickAndGetNext(BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		return switch (this) {
 			case INACTIVE, COOLDOWN -> getInactiveState(pos, spawner, state, level);
 			case ACTIVE -> activeTickAndGetNext(this, pos, spawner, state, level);
@@ -71,7 +70,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		};
 	}
 
-	static CoffinSpawnerState getStateForPower(ServerLevel level, @NotNull CoffinSpawner spawner) {
+	static CoffinSpawnerState getStateForPower(ServerLevel level, CoffinSpawner spawner) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		if (coffinSpawnerData.detectedAnyPlayers()) {
 			if (!coffinSpawnerData.isPowerCooldownFinished(level)) {
@@ -83,30 +82,17 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		return getCooldownOrInactiveState(level, spawner);
 	}
 
-	private static CoffinSpawnerState getInactiveState(
-		BlockPos pos,
-		@NotNull CoffinSpawner spawner,
-		BlockState state,
-		@NotNull ServerLevel level
-	) {
+	private static CoffinSpawnerState getInactiveState(BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		if (!coffinSpawnerData.hasMobToSpawn(level.random) || coffinSpawnerData.isOnCooldown(level)) {
-			return getCooldownOrInactiveState(level, spawner);
-		} else {
-			final Direction direction = CoffinBlock.getConnectedDirection(state);
-			coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
-			if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
-			return getStateForPower(level, spawner);
-		}
+		if (!coffinSpawnerData.hasMobToSpawn(level.random) || coffinSpawnerData.isOnCooldown(level)) return getCooldownOrInactiveState(level, spawner);
+
+		final Direction direction = CoffinBlock.getConnectedDirection(state);
+		coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
+		if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
+		return getStateForPower(level, spawner);
 	}
 
-	private static CoffinSpawnerState activeTickAndGetNext(
-		CoffinSpawnerState coffinSpawnerState,
-		BlockPos pos,
-		@NotNull CoffinSpawner spawner,
-		BlockState state,
-		@NotNull ServerLevel level
-	) {
+	private static CoffinSpawnerState activeTickAndGetNext(CoffinSpawnerState spawnerState, BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		final CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
 		if (!coffinSpawnerData.hasMobToSpawn(level.random)) return getCooldownOrInactiveState(level, spawner);
@@ -119,17 +105,17 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 		if (spawner.canSpawnApparition(level, pos, false)) spawner.spawnApparition(level, pos);
 
-		if (!coffinSpawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
+		if (!spawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 			coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
-			coffinSpawnerData.power = coffinSpawnerState == AGGRESSIVE ? spawner.getConfig().powerForNextLevel() : coffinSpawnerData.power;
+			coffinSpawnerData.power = spawnerState == AGGRESSIVE ? spawner.getConfig().powerForNextLevel() : coffinSpawnerData.power;
 			level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.random.nextFloat() * 0.2F));
-			return coffinSpawnerState.getNextPowerState();
+			return spawnerState.getNextPowerState();
 		}
 
 		if (coffinSpawnerData.hasFinishedSpawningAllMobs(coffinSpawnerConfig, additionalPlayers)) {
 			if (coffinSpawnerData.haveAllCurrentMobsDied()) {
 				coffinSpawnerData.totalMobsSpawned = 0;
-				if (coffinSpawnerState.finalWave) {
+				if (spawnerState.finalWave) {
 					coffinSpawnerData.nextMobSpawnsAt = 0L;
 					coffinSpawnerData.power = 0;
 					coffinSpawnerData.powerCooldownEndsAt = 0L;
@@ -150,15 +136,15 @@ public enum CoffinSpawnerState implements StringRepresentable {
 				});
 			});
 		}
-		return coffinSpawnerState;
+		return spawnerState;
 	}
 
 	public void emitParticles(ServerLevel level, BlockPos pos, Direction coffinOrientation) {
-		this.getParticleOptionsForState().ifPresent(particleOptions -> {
+		this.getParticleOptionsForState().ifPresent(options -> {
 			if (level.random.nextFloat() > 0.05F) return;
 			CoffinBlock.spawnParticlesFrom(
 				level,
-				particleOptions,
+				options,
 				level.random.nextInt(1, 2),
 				0.5D,
 				coffinOrientation,
@@ -193,8 +179,8 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		};
 	}
 
-	public static CoffinSpawnerState getCooldownOrInactiveState(Level level, @NotNull CoffinSpawner coffinSpawner) {
-		return coffinSpawner.getData().isOnCooldown(level) ? COOLDOWN : INACTIVE;
+	public static CoffinSpawnerState getCooldownOrInactiveState(Level level, CoffinSpawner spawner) {
+		return spawner.getData().isOnCooldown(level) ? COOLDOWN : INACTIVE;
 	}
 
 	public Optional<ParticleOptions> getParticleOptionsForState() {
@@ -202,12 +188,12 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	}
 
 	@Contract("_, _ -> new")
-	private static @NotNull Identifier getTexture(String stateName, boolean foot) {
+	private static Identifier getTexture(String stateName, boolean foot) {
 		return TTConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName + ".png");
 	}
 
 	@Override
-	public @NotNull String getSerializedName() {
+	public String getSerializedName() {
 		return this.name;
 	}
 }

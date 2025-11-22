@@ -50,8 +50,8 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 	@Unique
 	private final WalkAnimationState trailierTales$walkAnimation = new WalkAnimationState();
 
-	public AbstractBoatMixin(EntityType<?> entityType, Level world) {
-		super(entityType, world);
+	public AbstractBoatMixin(EntityType<?> entityType, Level level) {
+		super(entityType, level);
 	}
 
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))

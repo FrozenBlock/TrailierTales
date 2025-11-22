@@ -24,7 +24,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.SoundType;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_DISC_FAUSSE_VIE = registerForHolder("music_disc.fausse_vie");
@@ -297,21 +296,20 @@ public final class TTSounds {
 		SUSPICIOUS_GRAVEL_WW_FALL
 	);
 
-	@NotNull
-	private static SoundEvent register(@NotNull String string) {
-		Identifier identifier = TTConstants.id(string);
+	private static SoundEvent register(String string) {
+		final Identifier identifier = TTConstants.id(string);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
 	}
 
-	private static Holder.@NotNull Reference<SoundEvent> registerForHolder(String id) {
+	private static Holder.Reference<SoundEvent> registerForHolder(String id) {
 		return registerForHolder(TTConstants.id(id));
 	}
 
-	private static Holder.@NotNull Reference<SoundEvent> registerForHolder(Identifier id) {
+	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id) {
 		return registerForHolder(id, id);
 	}
 
-	private static Holder.@NotNull Reference<SoundEvent> registerForHolder(Identifier id, Identifier soundId) {
+	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id, Identifier soundId) {
 		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(soundId));
 	}
 

@@ -56,7 +56,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
@@ -154,7 +153,7 @@ public class CoffinSpawnerData {
 		this.maxActiveLightLevel = maxActiveLightLevel;
 	}
 
-	public void immediatelyActivate(Level level, BlockPos pos, @NotNull CoffinSpawner coffinSpawner) {
+	public void immediatelyActivate(Level level, BlockPos pos, CoffinSpawner coffinSpawner) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		if (!coffinSpawner.canSpawnApparition(serverLevel, pos, true)) return;
 		this.nextApparitionSpawnsAt = 0L;
@@ -179,7 +178,7 @@ public class CoffinSpawnerData {
 		return hasNextSpawnData || !this.spawnPotentials().isEmpty();
 	}
 
-	public boolean hasFinishedSpawningAllMobs(@NotNull CoffinSpawnerConfig config, int players) {
+	public boolean hasFinishedSpawningAllMobs(CoffinSpawnerConfig config, int players) {
 		return this.totalMobsSpawned >= config.calculateTargetTotalMobs(players);
 	}
 
@@ -191,15 +190,15 @@ public class CoffinSpawnerData {
 		return this.currentApparitions.isEmpty();
 	}
 
-	public boolean trackingEntity(@NotNull Entity entity) {
+	public boolean trackingEntity(Entity entity) {
 		return this.currentMobs.contains(entity.getUUID());
 	}
 
-	public boolean trackingApparition(@NotNull Entity entity) {
+	public boolean trackingApparition(Entity entity) {
 		return this.currentApparitions.contains(entity.getUUID());
 	}
 
-	public boolean isOnCooldown(@NotNull Level level) {
+	public boolean isOnCooldown(Level level) {
 		return level.getGameTime() < this.cooldownEndsAt;
 	}
 
@@ -211,11 +210,11 @@ public class CoffinSpawnerData {
 		return this.power;
 	}
 
-	public boolean isReadyToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players) {
+	public boolean isReadyToSpawnNextMob(ServerLevel level, CoffinSpawnerConfig config, int players) {
 		return this.isPreparingToSpawnNextMob(level, config, players, 0);
 	}
 
-	public boolean isPreparingToSpawnNextMob(@NotNull ServerLevel level, CoffinSpawnerConfig config, int players, int timeAhead) {
+	public boolean isPreparingToSpawnNextMob(ServerLevel level, CoffinSpawnerConfig config, int players, int timeAhead) {
 		return level.getGameTime() + timeAhead >= this.nextMobSpawnsAt && this.detectedAnyPlayers() && this.currentMobs.size() < config.calculateTargetSimultaneousMobs(players);
 	}
 
@@ -239,7 +238,7 @@ public class CoffinSpawnerData {
 		return this.getClosestPlayerFromSet(this.potentialPlayers, level, origin);
 	}
 
-	private Optional<Player> getClosestPlayerFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin) {
+	private Optional<Player> getClosestPlayerFromSet(Set<UUID> players, Level level, Vec3 origin) {
 		if (players.isEmpty()) return Optional.empty();
 		final AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
 		final AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
@@ -264,56 +263,55 @@ public class CoffinSpawnerData {
 		return this.getNearbyPlayersFromSet(this.potentialPlayers, level, origin, distance);
 	}
 
-	private @NotNull List<Player> getNearbyPlayersFromSet(@NotNull Set<UUID> players, Level level, Vec3 origin, double distance) {
-		List<Player> nearbyPlayers = new ArrayList<>();
-		double squaredDistance = distance * distance;
+	private List<Player> getNearbyPlayersFromSet(Set<UUID> players, Level level, Vec3 origin, double distance) {
+		final List<Player> nearbyPlayers = new ArrayList<>();
+		final double squaredDistance = distance * distance;
 		if (players.isEmpty()) return nearbyPlayers;
 		players.forEach(uuid -> {
-			Player player = level.getPlayerByUUID(uuid);
+			final Player player = level.getPlayerByUUID(uuid);
 			if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
-				if (player.distanceToSqr(origin) < squaredDistance) {
-					nearbyPlayers.add(player);
-				}
+				if (player.distanceToSqr(origin) < squaredDistance) nearbyPlayers.add(player);
 			}
 		});
 		return nearbyPlayers;
 	}
 
-	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
-		final boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
+	public void tryDetectPlayers(ServerLevel level, BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
+		final boolean isSecondForPos = (pos.asLong() + level.getGameTime()) % 20L == 0L;
 		if (!isSecondForPos) return;
+
 		final List<UUID> list = coffinSpawner.getPlayerDetector()
-			.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
+			.detect(level, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 		this.potentialPlayers.addAll(list);
 
 		if (!coffinSpawner.isOminous() && !list.isEmpty()) {
-			final Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
+			final Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(level, list);
 			optional.ifPresent(pair -> {
 				Player player = pair.getFirst();
 				if (pair.getSecond() == MobEffects.BAD_OMEN) transformBadOmenIntoSiegeOmen(player);
-				coffinSpawner.applyOminous(world);
+				coffinSpawner.applyOminous(level);
 			});
 		}
 
 		final List<UUID> detectedList = new ArrayList<>(list);
-		detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
+		detectedList.removeIf(uuid -> !(level.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
 		for (UUID uuid : this.currentApparitions) {
-			if (world.getEntity(uuid) instanceof Apparition apparition) {
+			if (level.getEntity(uuid) instanceof Apparition apparition) {
 				final LivingEntity target = apparition.getTarget();
 				if (target instanceof Player player) detectedList.add(player.getUUID());
 			}
 		}
 
 		if (this.detectedPlayers.addAll(detectedList)) {
-			final RandomSource random = world.random;
-			CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
-			world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1F);
+			final RandomSource random = level.random;
+			CoffinBlock.spawnParticlesFrom(level, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
+			level.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1F);
 		}
 
 		this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));
 	}
 
-	private static Optional<Pair<Player, Holder<MobEffect>>> findPlayerWithOminousEffect(ServerLevel level, @NotNull List<UUID> list) {
+	private static Optional<Pair<Player, Holder<MobEffect>>> findPlayerWithOminousEffect(ServerLevel level, List<UUID> list) {
 		Player player = null;
 
 		for (UUID uUID : list) {
@@ -328,7 +326,7 @@ public class CoffinSpawnerData {
 		return Optional.ofNullable(player).map(playerx -> Pair.of(playerx, MobEffects.BAD_OMEN));
 	}
 
-	private static void transformBadOmenIntoSiegeOmen(@NotNull Player player) {
+	private static void transformBadOmenIntoSiegeOmen(Player player) {
 		final MobEffectInstance mobEffectInstance = player.getEffect(MobEffects.BAD_OMEN);
 		if (mobEffectInstance == null) return;
 		final int i = mobEffectInstance.getAmplifier() + 1;
@@ -337,7 +335,7 @@ public class CoffinSpawnerData {
 		player.addEffect(new MobEffectInstance(TTMobEffects.SIEGE_OMEN, j, 0));
 	}
 
-	public boolean isPowerCooldownFinished(@NotNull ServerLevel level) {
+	public boolean isPowerCooldownFinished(ServerLevel level) {
 		return level.getGameTime() >= this.powerCooldownEndsAt;
 	}
 
@@ -349,7 +347,7 @@ public class CoffinSpawnerData {
 		return this.spawnPotentials;
 	}
 
-	@NotNull SpawnData getOrCreateNextSpawnData(RandomSource random) {
+	SpawnData getOrCreateNextSpawnData(RandomSource random) {
 		if (this.nextSpawnData.isEmpty()) this.setNextSpawnData(this.spawnPotentials.getRandom(random).orElseGet(SpawnData::new));
 		return this.nextSpawnData.get();
 	}

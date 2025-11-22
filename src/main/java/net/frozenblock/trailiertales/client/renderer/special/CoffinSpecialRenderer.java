@@ -21,7 +21,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Set;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,8 +30,6 @@ import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
@@ -50,7 +47,7 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void submit(ItemDisplayContext itemDisplayContext, PoseStack poseStack, SubmitNodeCollector collector, int i, int j, boolean bl, int k) {
+	public void submit(ItemDisplayContext context, PoseStack poseStack, SubmitNodeCollector collector, int i, int j, boolean bl, int k) {
 		this.coffinRenderer.renderInHand(poseStack, collector, i, j, this.headTexture, this.footTexture, this.openness, k);
 	}
 
@@ -59,7 +56,6 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 		this.coffinRenderer.getExtents(consumer);
 	}
 
-	@Environment(EnvType.CLIENT)
 	public record Unbaked(Identifier headTexture, Identifier footTexture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
@@ -75,12 +71,12 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public @NotNull MapCodec<CoffinSpecialRenderer.Unbaked> type() {
+		public MapCodec<CoffinSpecialRenderer.Unbaked> type() {
 			return MAP_CODEC;
 		}
 
 		@Override
-		public @NotNull SpecialModelRenderer<?> bake(@NotNull BakingContext entityModelSet) {
+		public SpecialModelRenderer<?> bake(BakingContext entityModelSet) {
 			return new CoffinSpecialRenderer(new CoffinRenderer(entityModelSet.entityModelSet()), this.headTexture, this.footTexture, this.openness);
 		}
 	}

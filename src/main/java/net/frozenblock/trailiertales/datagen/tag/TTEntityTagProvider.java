@@ -25,16 +25,15 @@ import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
-	public TTEntityTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public TTEntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.valueLookupBuilder(TTEntityTags.APPARITION_TARGETABLE)
 			.add(EntityType.PLAYER);
 

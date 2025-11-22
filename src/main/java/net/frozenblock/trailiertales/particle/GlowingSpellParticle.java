@@ -27,13 +27,12 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class GlowingSpellParticle extends SpellParticle {
 
 	public GlowingSpellParticle(
-		@NotNull ClientLevel level,
+		ClientLevel level,
 		double x, double y, double z,
 		double xd, double yd, double zd,
 		SpriteSet spriteSet
@@ -49,8 +48,8 @@ public class GlowingSpellParticle extends SpellParticle {
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
-			SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
@@ -62,15 +61,15 @@ public class GlowingSpellParticle extends SpellParticle {
 	public record MobEffectProvider(SpriteSet spriteSet) implements ParticleProvider<ColorParticleOption> {
 		@Override
 		public Particle createParticle(
-			@NotNull ColorParticleOption colorParticleOption,
-			@NotNull ClientLevel level,
+			ColorParticleOption options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
 			GlowingSpellParticle particle = new GlowingSpellParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
-			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
-			particle.setAlpha(colorParticleOption.getAlpha());
+			particle.setColor(options.getRed(), options.getGreen(), options.getBlue());
+			particle.setAlpha(options.getAlpha());
 			return particle;
 		}
 	}

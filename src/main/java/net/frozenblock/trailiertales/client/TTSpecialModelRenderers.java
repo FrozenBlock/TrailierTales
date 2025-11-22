@@ -29,18 +29,17 @@ import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TTSpecialModelRenderers implements SpecialModelRenderersEntrypoint {
 
 	@Override
-	public void registerSpecialModelRenderers(ExtraCodecs.@NotNull LateBoundIdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> mapper) {
+	public void registerSpecialModelRenderers(ExtraCodecs.LateBoundIdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> mapper) {
 		mapper.put(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 
 	@Override
-	public void onMapInit(ImmutableMap.@NotNull Builder map) {
+	public void onMapInit(ImmutableMap.Builder map) {
 		map.put(TTBlocks.COFFIN, new CoffinSpecialRenderer.Unbaked(CoffinSpawnerState.INACTIVE.getHeadTexture(), CoffinSpawnerState.INACTIVE.getFootTexture()));
 	}
 }

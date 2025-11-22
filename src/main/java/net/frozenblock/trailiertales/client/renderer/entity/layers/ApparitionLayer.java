@@ -29,7 +29,6 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionLayer extends RenderLayer<ApparitionRenderState, ApparitionModel> {
 	private final RenderType innerRenderType;
@@ -59,9 +58,9 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 	@Override
 	public void submit(
 		PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
+		SubmitNodeCollector collector,
 		int light,
-		@NotNull ApparitionRenderState renderState,
+		ApparitionRenderState renderState,
 		float partialTick,
 		float color
 	) {
@@ -70,7 +69,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		final float outerTransparency = this.outerAlphaFunction.apply(renderState) * renderState.flicker;
 
 		if (renderState.innerTransparency > 0F) {
-			submitNodeCollector.order(this.minOrder).submitModelPart(
+			collector.order(this.minOrder).submitModelPart(
 				this.model.outline,
 				poseStack,
 				this.innerRenderType,
@@ -81,7 +80,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				null
 			);
 
-			submitNodeCollector.order(this.minOrder + 1).submitModelPart(
+			collector.order(this.minOrder + 1).submitModelPart(
 				this.model.inner,
 				poseStack,
 				this.innerRenderType,
@@ -94,7 +93,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		}
 
 		if (outerTransparency > 0F) {
-			submitNodeCollector.order(this.minOrder).submitModelPart(
+			collector.order(this.minOrder).submitModelPart(
 				this.model.outer,
 				poseStack,
 				this.outerRenderType,

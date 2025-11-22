@@ -30,21 +30,19 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-	public TTItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public TTItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
-	@NotNull
 	private TagKey<Item> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.valueLookupBuilder(ConventionalItemTags.MUSIC_DISCS)
 			.add(TTItems.MUSIC_DISC_STASIS)
 			.add(TTItems.MUSIC_DISC_FAUSSE_VIE)

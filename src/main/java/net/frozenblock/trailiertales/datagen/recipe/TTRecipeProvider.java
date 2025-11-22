@@ -39,7 +39,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public class TTRecipeProvider extends FabricRecipeProvider {
 
@@ -48,9 +47,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	@NotNull
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
-		return new RecipeProvider(provider, recipeOutput) {
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
+		return new RecipeProvider(provider, output) {
 			@Override
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(TTConstants.MOD_ID);
@@ -67,19 +65,19 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("###")
 					.unlockedBy("has_quartz", has(Items.QUARTZ))
 					.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, TTItems.ECTOPLASM_BLOCK)
 					.define('#', TTItems.ECTOPLASM)
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_ectoplasm", has(TTItems.ECTOPLASM))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shapeless(RecipeCategory.MISC, TTItems.ECTOPLASM, 4)
 					.requires(TTItems.ECTOPLASM_BLOCK)
 					.unlockedBy("has_ectoplasm_block", has(TTItems.ECTOPLASM_BLOCK))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
 					.define('#', Items.GRAVEL)
@@ -87,7 +85,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("# #")
 					.pattern(" # ")
 					.unlockedBy(getHasName(Items.GRAVEL), has(Items.GRAVEL))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_SAND, 4)
 					.define('#', Items.SAND)
@@ -95,7 +93,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("# #")
 					.pattern(" # ")
 					.unlockedBy(getHasName(Items.SAND), has(Items.SAND))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, TTBlocks.SUSPICIOUS_RED_SAND, 4)
 					.define('#', Items.RED_SAND)
@@ -103,7 +101,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("# #")
 					.pattern(" # ")
 					.unlockedBy(getHasName(Items.RED_SAND), has(Items.RED_SAND))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, TTBlocks.SUSPICIOUS_DIRT, 4)
 					.define('#', Items.DIRT)
@@ -111,7 +109,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("# #")
 					.pattern(" # ")
 					.unlockedBy(getHasName(Items.DIRT), has(Items.DIRT))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, TTBlocks.SUSPICIOUS_CLAY, 4)
 					.define('#', Items.CLAY)
@@ -119,7 +117,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("# #")
 					.pattern(" # ")
 					.unlockedBy(getHasName(Items.CLAY), has(Items.CLAY))
-					.save(recipeOutput);
+					.save(output);
 
 				this.oneToOneConversionRecipe(Items.CYAN_DYE, TTBlocks.CYAN_ROSE, "cyan_dye");
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTBlocks.MANEDROP, "purple_dye", 2);
@@ -134,7 +132,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_polished_granite", has(Blocks.POLISHED_GRANITE))
-					.save(recipeOutput);
+					.save(output);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_GRANITE_BRICKS, Blocks.GRANITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_GRANITE_BRICKS, Blocks.POLISHED_GRANITE);
@@ -158,14 +156,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_granite_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_GRANITE_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_GRANITE_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_GRANITE_BRICKS)
 					.requires(TTBlocks.GRANITE_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_granite_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_GRANITE_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_GRANITE_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_GRANITE_BRICK_SLAB, TTBlocks.MOSSY_GRANITE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_GRANITE_BRICK_STAIRS, TTBlocks.MOSSY_GRANITE_BRICKS);
@@ -181,7 +179,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_polished_diorite", has(Blocks.POLISHED_DIORITE))
-					.save(recipeOutput);
+					.save(output);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_DIORITE_BRICKS, Blocks.DIORITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_DIORITE_BRICKS, Blocks.POLISHED_DIORITE);
@@ -205,14 +203,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_diorite_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_DIORITE_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_DIORITE_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DIORITE_BRICKS)
 					.requires(TTBlocks.DIORITE_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_diorite_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_DIORITE_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_DIORITE_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DIORITE_BRICK_SLAB, TTBlocks.MOSSY_DIORITE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DIORITE_BRICK_STAIRS, TTBlocks.MOSSY_DIORITE_BRICKS);
@@ -228,7 +226,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_polished_andesite", has(Blocks.POLISHED_ANDESITE))
-					.save(recipeOutput);
+					.save(output);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_ANDESITE_BRICKS, Blocks.ANDESITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_ANDESITE_BRICKS, Blocks.POLISHED_ANDESITE);
@@ -252,14 +250,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_andesite_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_ANDESITE_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_ANDESITE_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_ANDESITE_BRICKS)
 					.requires(TTBlocks.ANDESITE_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_andesite_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_ANDESITE_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_ANDESITE_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_ANDESITE_BRICK_SLAB, TTBlocks.MOSSY_ANDESITE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS, TTBlocks.MOSSY_ANDESITE_BRICKS);
@@ -283,7 +281,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_polished_calcite", has(TTBlocks.POLISHED_CALCITE))
-					.save(recipeOutput);
+					.save(output);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_CALCITE_BRICKS, Blocks.CALCITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_CALCITE_BRICKS, TTBlocks.POLISHED_CALCITE);
@@ -307,14 +305,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_calcite_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_CALCITE_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_CALCITE_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_CALCITE_BRICKS)
 					.requires(TTBlocks.CALCITE_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_calcite_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_CALCITE_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_CALCITE_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_CALCITE_BRICK_SLAB, TTBlocks.MOSSY_CALCITE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_CALCITE_BRICK_STAIRS, TTBlocks.MOSSY_CALCITE_BRICKS);
@@ -324,21 +322,21 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_TUFF_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_tuff_bricks", has(Blocks.TUFF_BRICKS))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICKS)
 					.requires(Blocks.TUFF_BRICKS)
 					.requires(Blocks.VINE)
 					.group("mossy_tuff_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_TUFF_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_TUFF_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICKS)
 					.requires(Blocks.TUFF_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_tuff_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_TUFF_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_TUFF_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICK_SLAB, TTBlocks.MOSSY_TUFF_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICK_STAIRS, TTBlocks.MOSSY_TUFF_BRICKS);
@@ -348,21 +346,21 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_bricks", has(Blocks.BRICKS))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICKS)
 					.requires(Blocks.BRICKS)
 					.requires(Blocks.VINE)
 					.group("mossy_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICKS)
 					.requires(Blocks.BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_SLAB, TTBlocks.MOSSY_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_STAIRS, TTBlocks.MOSSY_BRICKS);
@@ -377,7 +375,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_resin_block", has(Blocks.RESIN_BLOCK))
-					.save(recipeOutput);
+					.save(output);
 
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.RESIN_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_RESIN_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_resin_bricks", has(Blocks.RESIN_BRICKS))
@@ -408,14 +406,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_cobbled_deepslate")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_COBBLED_DEEPSLATE, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_COBBLED_DEEPSLATE, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_COBBLED_DEEPSLATE)
 					.requires(Blocks.COBBLED_DEEPSLATE)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_cobbled_deepslate")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_COBBLED_DEEPSLATE, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_COBBLED_DEEPSLATE, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, TTBlocks.MOSSY_COBBLED_DEEPSLATE, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS, TTBlocks.MOSSY_COBBLED_DEEPSLATE);
@@ -428,14 +426,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_deepslate_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_BRICKS, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICKS)
 					.requires(Blocks.DEEPSLATE_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_deepslate_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_BRICKS, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_BRICKS, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, TTBlocks.MOSSY_DEEPSLATE_BRICKS, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS, TTBlocks.MOSSY_DEEPSLATE_BRICKS);
@@ -453,14 +451,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_deepslate_tiles")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_TILES, Blocks.VINE));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_TILES, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILES)
 					.requires(Blocks.DEEPSLATE_TILES)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_deepslate_tiles")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_TILES, Blocks.MOSS_BLOCK));
+					.save(output, getConversionRecipeName(TTBlocks.MOSSY_DEEPSLATE_TILES, Blocks.MOSS_BLOCK));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILES, TTBlocks.MOSSY_DEEPSLATE_BRICKS);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB, TTBlocks.MOSSY_DEEPSLATE_BRICKS, 2);
@@ -502,26 +500,26 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.END_STONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_END_STONE_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_end_stone_bricks", has(Blocks.END_STONE_BRICKS))
-					.save(recipeOutput);
+					.save(output);
 
 				this.chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Ingredient.of(Blocks.END_STONE_BRICK_SLAB))
 					.unlockedBy("has_end_stone_bricks", has(Blocks.END_STONE_BRICKS))
 					.unlockedBy("has_chiseled_end_stone_bricks", has(TTBlocks.CHISELED_END_STONE_BRICKS))
 					.unlockedBy("has_end_stone_brick_slab", has(Blocks.END_STONE_BRICK_SLAB))
-					.save(recipeOutput);
+					.save(output);
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS)
 					.requires(Blocks.END_STONE_BRICKS)
 					.requires(Items.CHORUS_FRUIT)
 					.group("choral_end_stone_bricks")
 					.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.CHORAL_END_STONE_BRICKS, Items.CHORUS_FRUIT));
+					.save(output, getConversionRecipeName(TTBlocks.CHORAL_END_STONE_BRICKS, Items.CHORUS_FRUIT));
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICKS)
 					.define('#', TTBlocks.CHORAL_END_STONE)
 					.pattern("##")
 					.pattern("##").unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
-					.save(recipeOutput);
+					.save(output);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE_BRICKS);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_END_STONE_BRICKS, Blocks.END_STONE);
@@ -546,7 +544,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.requires(Items.CHORUS_FRUIT)
 					.group("choral_end_stone")
 					.unlockedBy("has_chorus_fruit", has(Items.CHORUS_FRUIT))
-					.save(recipeOutput, getConversionRecipeName(TTBlocks.CHORAL_END_STONE, Items.CHORUS_FRUIT));
+					.save(output, getConversionRecipeName(TTBlocks.CHORAL_END_STONE, Items.CHORUS_FRUIT));
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_STAIRS, TTBlocks.CHORAL_END_STONE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_SLAB, TTBlocks.CHORAL_END_STONE, 2);
@@ -571,7 +569,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_undead_armor_trim_smithing_template", has(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// MATRIX SMITHING TEMPLATE
 
@@ -583,7 +581,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_matrix_armor_trim_smithing_template", has(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// GEODE SMITHING TEMPLATE
 
@@ -595,7 +593,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_geode_armor_trim_smithing_template", has(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// OVERGROWTH SMITHING TEMPLATE
 
@@ -607,7 +605,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_overgrowth_armor_trim_smithing_template", has(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// MARTYR SMITHING TEMPLATE
 
@@ -619,7 +617,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_martyr_armor_trim_smithing_template", has(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// ZEPHYR SMITHING TEMPLATE
 
@@ -631,7 +629,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_zephyr_armor_trim_smithing_template", has(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// COT SMITHING TEMPLATE
 
@@ -643,7 +641,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_cot_armor_trim_smithing_template", has(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				// EMBRACE SMITHING TEMPLATE
 
@@ -655,7 +653,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.pattern("#C#")
 					.pattern("###")
 					.unlockedBy("has_embrace_armor_trim_smithing_template", has(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE))
-					.save(recipeOutput);
+					.save(output);
 
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}
@@ -677,7 +675,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	@NotNull
 	public String getName() {
 		return "Trailier Tales Recipes";
 	}

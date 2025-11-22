@@ -30,6 +30,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -43,14 +44,12 @@ import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import net.minecraft.util.Util;
 
 public enum CoffinWobbleEvent {
-	EJECT_LOOT(1F, true, (coffinBlockEntity, blockState) -> !coffinBlockEntity.isEmpty() && TTBlockConfig.get().coffin.wobble_loot),
-	ACTIVATE(0.2F, false, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_activate),
-	POTION(0.1F, true, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_potion),
-	EXPERIENCE_BOTTLE(0.1F, true, (coffinBlockEntity, blockState) -> TTBlockConfig.get().coffin.wobble_experience_bottle);
+	EJECT_LOOT(1F, true, (coffin, state) -> !coffin.isEmpty() && TTBlockConfig.get().coffin.wobble_loot),
+	ACTIVATE(0.2F, false, (coffin, state) -> TTBlockConfig.get().coffin.wobble_activate),
+	POTION(0.1F, true, (coffin, state) -> TTBlockConfig.get().coffin.wobble_potion),
+	EXPERIENCE_BOTTLE(0.1F, true, (coffin, state) -> TTBlockConfig.get().coffin.wobble_experience_bottle);
 
 	private static final WeightedList<MobEffectInstance> MOB_EFFECTS = WeightedList.<MobEffectInstance>builder()
 		.add(new MobEffectInstance(MobEffects.MINING_FATIGUE, 120 * 20), 2)
@@ -79,102 +78,99 @@ public enum CoffinWobbleEvent {
 		return this.playsLidAnim;
 	}
 
-	public boolean checkExtraConditions(CoffinBlockEntity coffinBlockEntity, BlockState blockState) {
-		return this.extraConditions.apply(coffinBlockEntity, blockState);
+	public boolean checkExtraConditions(CoffinBlockEntity coffin, BlockState state) {
+		return this.extraConditions.apply(coffin, state);
 	}
 
-	public static void onWobble(ServerLevel level, BlockPos pos, BlockState state, CoffinBlockEntity coffinBlockEntity, RandomSource random) {
+	public static void onWobble(ServerLevel level, BlockPos pos, BlockState state, CoffinBlockEntity coffin, RandomSource random) {
 		final CoffinWobbleEvent event = Util.getRandom(CoffinWobbleEvent.values(), random);
-		if (random.nextFloat() <= event.getChance() && event.checkExtraConditions(coffinBlockEntity, state)) {
-			final Vec3 centerPos = CoffinBlock.getCenter(state, pos);
 
+		if (random.nextFloat() <= event.getChance() && event.checkExtraConditions(coffin, state)) {
+			final Vec3 center = CoffinBlock.getCenter(state, pos);
 			switch (event) {
 				case EJECT_LOOT:
-					ejectRandomItem(level, centerPos, coffinBlockEntity);
+					ejectRandomItem(level, center, coffin);
 					break;
 				case ACTIVATE:
-					coffinBlockEntity.getCoffinSpawner().immediatelyActivate(level, pos);
+					coffin.getCoffinSpawner().immediatelyActivate(level, pos);
 					break;
 				case POTION:
-					ejectProjectile(level, centerPos, createItemStackForMobEffect(Items.LINGERING_POTION, MOB_EFFECTS.getRandomOrThrow(random)), coffinBlockEntity);
+					ejectProjectile(level, center, createItemStackForMobEffect(Items.LINGERING_POTION, MOB_EFFECTS.getRandomOrThrow(random)), coffin);
 					break;
 				case EXPERIENCE_BOTTLE:
-					ejectProjectile(level, centerPos, new ItemStack(Items.EXPERIENCE_BOTTLE), coffinBlockEntity);
+					ejectProjectile(level, center, new ItemStack(Items.EXPERIENCE_BOTTLE), coffin);
 					break;
 				default: throw new IllegalStateException("Unexpected value: " + event.name());
 			}
 
 			if (event.playsLidAnim()) {
-				coffinBlockEntity.coffinWobbleLidAnimTicks = 4;
-				final Direction coffinOrientation = CoffinBlock.getCoffinOrientation(level, pos);
-				if (coffinOrientation != null) {
+				coffin.coffinWobbleLidAnimTicks = 4;
+				final Direction orientation = CoffinBlock.getCoffinOrientation(level, pos);
+				if (orientation != null) {
 					CoffinBlock.spawnParticlesFrom(
 						level,
 						ParticleTypes.DUST_PLUME,
 						level.random.nextInt(8, 14),
 						0.02D,
-						coffinOrientation,
+						orientation,
 						pos,
 						0.375D
 					);
 				}
 			}
 
-			coffinBlockEntity.markUpdated();
+			coffin.markUpdated();
 		} else if (random.nextBoolean()) {
-			onWobble(level, pos, state, coffinBlockEntity, random);
+			onWobble(level, pos, state, coffin, random);
 		}
 	}
 
-	private static void ejectRandomItem(@NotNull ServerLevel serverLevel, Vec3 centerPos, @NotNull CoffinBlockEntity coffinBlockEntity) {
-		coffinBlockEntity.unpackLootTable(null);
-		for (ItemStack coffinStack : Util.shuffledCopy(coffinBlockEntity.getItems().toArray(new ItemStack[0]), serverLevel.random)) {
-			if (!coffinStack.isEmpty()) {
-				final ItemStack splitStack = coffinStack.split(1);
-				final ItemEntity itemEntity = new ItemEntity(
-					serverLevel,
-					centerPos.x,
-					centerPos.y,
-					centerPos.z,
-					splitStack
-				);
-				serverLevel.addFreshEntity(itemEntity);
-				return;
-			}
-		}
-	}
+	private static void ejectRandomItem(ServerLevel level, Vec3 centerPos, CoffinBlockEntity coffin) {
+		coffin.unpackLootTable(null);
+		for (ItemStack coffinStack : Util.shuffledCopy(coffin.getItems().toArray(new ItemStack[0]), level.random)) {
+			if (coffinStack.isEmpty()) continue;
 
-	public static @NotNull ItemStack createItemStackForMobEffect(Item item, MobEffectInstance effect) {
-		final ItemStack itemStack = new ItemStack(item);
-		itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), List.of(effect), Optional.empty()));
-		return itemStack;
-	}
-
-	private static void ejectProjectile(@NotNull ServerLevel serverLevel, Vec3 centerPos, @NotNull ItemStack stack, CoffinBlockEntity coffinBlockEntity) {
-		if (stack.getItem() instanceof ProjectileItem projectileItem) {
-			Projectile projectile = projectileItem.asProjectile(serverLevel, centerPos, stack, Direction.UP);
-			Vec3 shootAngle = DEFAULT_SHOOT_ANGLE;
-			float shootSpeed = DEFAULT_SHOOT_SPEED;
-
-			final Optional<Player> closestPlayer = coffinBlockEntity.getCoffinSpawner().getData().getClosestPotentialPlayer(serverLevel, centerPos);
-			if (closestPlayer.isPresent()) {
-				shootAngle = (closestPlayer.get().getEyePosition().add(0D, 0.1D, 0D)).subtract(centerPos);
-				shootSpeed = PLAYER_SHOOT_SPEED;
-			}
-
-			projectileItem.shoot(
-				projectile,
-				shootAngle.x,
-				Math.max(0.1F, shootAngle.y),
-				shootAngle.z,
-				shootSpeed,
-				0F
+			final ItemStack splitStack = coffinStack.split(1);
+			final ItemEntity itemEntity = new ItemEntity(
+				level,
+				centerPos.x,centerPos.y, centerPos.z,
+				splitStack
 			);
-			serverLevel.addFreshEntity(projectile);
+			level.addFreshEntity(itemEntity);
 			return;
 		}
-		if (FrozenLibConstants.UNSTABLE_LOGGING) {
-			throw new IllegalStateException("Projectile item stack is not an instance of ProjectileItem!");
+	}
+
+	public static ItemStack createItemStackForMobEffect(Item item, MobEffectInstance effect) {
+		final ItemStack stack = new ItemStack(item);
+		stack.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), List.of(effect), Optional.empty()));
+		return stack;
+	}
+
+	private static void ejectProjectile(ServerLevel level, Vec3 centerPos, ItemStack stack, CoffinBlockEntity coffin) {
+		if (!(stack.getItem() instanceof ProjectileItem projectileItem)) {
+			if (FrozenLibConstants.UNSTABLE_LOGGING) throw new IllegalStateException("Projectile item stack is not an instance of ProjectileItem!");
+			return;
 		}
+
+		final Projectile projectile = projectileItem.asProjectile(level, centerPos, stack, Direction.UP);
+		Vec3 shootAngle = DEFAULT_SHOOT_ANGLE;
+		float shootSpeed = DEFAULT_SHOOT_SPEED;
+
+		final Optional<Player> closestPlayer = coffin.getCoffinSpawner().getData().getClosestPotentialPlayer(level, centerPos);
+		if (closestPlayer.isPresent()) {
+			shootAngle = (closestPlayer.get().getEyePosition().add(0D, 0.1D, 0D)).subtract(centerPos);
+			shootSpeed = PLAYER_SHOOT_SPEED;
+		}
+
+		projectileItem.shoot(
+			projectile,
+			shootAngle.x,
+			Math.max(0.1F, shootAngle.y),
+			shootAngle.z,
+			shootSpeed,
+			0F
+		);
+		level.addFreshEntity(projectile);
 	}
 }

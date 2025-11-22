@@ -19,7 +19,6 @@ package net.frozenblock.trailiertales.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import java.util.Set;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -46,9 +45,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
@@ -56,26 +53,25 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	private final CoffinModel headModel;
 	private final CoffinModel footModel;
 
-	public CoffinRenderer(@NotNull Context context) {
+	public CoffinRenderer(Context context) {
 		this(context.entityModelSet());
 	}
 
-	public CoffinRenderer(@NotNull EntityModelSet entityModelSet) {
+	public CoffinRenderer(EntityModelSet entityModelSet) {
 		this.headModel = new CoffinModel(entityModelSet.bakeLayer(TTModelLayers.COFFIN_HEAD));
 		this.footModel = new CoffinModel(entityModelSet.bakeLayer(TTModelLayers.COFFIN_FOOT));
 	}
 
-	@NotNull
-	public static Identifier getCoffinTexture(@NotNull CoffinPart part, CoffinSpawnerState state) {
+	public static Identifier getCoffinTexture(CoffinPart part, CoffinSpawnerState state) {
 		return part == CoffinPart.HEAD ? state.getHeadTexture() : state.getFootTexture();
 	}
 
 	@Override
 	public void submit(
-		@NotNull CoffinRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		CoffinRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
 	) {
 		float openProg = renderState.openProgress;
 		openProg = 1F - openProg;
@@ -83,7 +79,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 
 		this.submitPiece(
 			poseStack,
-			submitNodeCollector,
+			collector,
 			renderState.part == CoffinPart.HEAD ? this.headModel : this.footModel,
 			getCoffinTexture(renderState.part, renderState.spawnerState),
 			null,
@@ -99,7 +95,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	public void renderInHand(
-		@NotNull PoseStack poseStack,
+		PoseStack poseStack,
 		SubmitNodeCollector collector,
 		int packedLight,
 		int packedOverlay,
@@ -114,10 +110,10 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	private void submitPiece(
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector collector,
-		@NotNull CoffinModel model,
-		@NotNull Identifier texture,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CoffinModel model,
+		Identifier texture,
 		@Nullable Identifier glowingTexture,
 		float openProgress,
 		float wobbleProgress,
@@ -159,9 +155,9 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	private static float setupPoseStackAndCalculateOpenProgress(
-		@NotNull PoseStack poseStack,
+		PoseStack poseStack,
 		boolean renderAsOffsetFoot,
-		@NotNull Direction direction,
+		Direction direction,
 		float openProgress,
 		float wobbleProgress
 	) {
@@ -170,13 +166,13 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
 
 		if (wobbleProgress >= 0F && wobbleProgress <= 1F) {
-			float coffinWobble = wobbleProgress * Mth.PI * 2.5F;
-			float wobbleDampen = 1F - wobbleProgress;
+			final float coffinWobble = wobbleProgress * Mth.PI * 2.5F;
+			final float wobbleDampen = 1F - wobbleProgress;
 
-			float wobble = -3F * Mth.cos(coffinWobble) * Mth.sin(coffinWobble) * wobbleDampen;
+			final float wobble = -3F * Mth.cos(coffinWobble) * Mth.sin(coffinWobble) * wobbleDampen;
 			poseStack.rotateAround(Axis.ZP.rotation(wobble * 0.015625F), 0.5F, 0F, 0.5F);
 
-			float lidWobble = (wobbleProgress + (2.5F / CoffinBlockEntity.WOBBLE_DURATION)) * Mth.PI * 2.5F;
+			final float lidWobble = (wobbleProgress + (2.5F / CoffinBlockEntity.WOBBLE_DURATION)) * Mth.PI * 2.5F;
 			openProgress += Math.max(0F, (Mth.cos(lidWobble) * -0.25F) * (Mth.sin(lidWobble) * -0.25F)) * wobbleDampen;
 		}
 
@@ -186,7 +182,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	public void getExtents(Consumer<Vector3fc> set) {
-		PoseStack poseStack = new PoseStack();
+		final PoseStack poseStack = new PoseStack();
 		setupPoseStackAndCalculateOpenProgress(poseStack, false, Direction.SOUTH, 0F, 0F);
 		this.headModel.root().getExtentsForGui(poseStack, set);
 		poseStack.setIdentity();
@@ -195,14 +191,14 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 	}
 
 	@Override
-	public @NotNull CoffinRenderState createRenderState() {
+	public CoffinRenderState createRenderState() {
 		return new CoffinRenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		@NotNull CoffinBlockEntity coffin,
-		@NotNull CoffinRenderState renderState,
+		CoffinBlockEntity coffin,
+		CoffinRenderState renderState,
 		float partialTick,
 		Vec3 cameraPos,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay

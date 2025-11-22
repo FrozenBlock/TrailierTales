@@ -46,20 +46,19 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBloc
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import org.jetbrains.annotations.NotNull;
 
 public class DeepslateRuinsGenerator {
 	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = TTStructures.ofSet("ruins_deepslate");
 	public static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = TTStructures.createKey("ruins_deepslate");
 
-	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
-		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
+	public static void bootstrap(BootstrapContext<Structure> context) {
+		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 
 		context.register(
 			DEEPSLATE_RUIN_KEY,
 			new RuinsStructure(
 				TTStructures.structure(
-					holderGetter.getOrThrow(TTBiomeTags.HAS_DEEPSLATE_RUINS),
+					biomes.getOrThrow(TTBiomeTags.HAS_DEEPSLATE_RUINS),
 					GenerationStep.Decoration.UNDERGROUND_STRUCTURES,
 					TerrainAdjustment.BEARD_THIN
 				),
@@ -71,13 +70,13 @@ public class DeepslateRuinsGenerator {
 		);
 	}
 
-	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
-		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
+	public static void bootstrapStructureSet(BootstrapContext<StructureSet> context) {
+		final HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
 		context.register(
 			DEEPSLATE_RUINS_KEY,
 			new StructureSet(
-				structure.getOrThrow(DEEPSLATE_RUIN_KEY),
+				structures.getOrThrow(DEEPSLATE_RUIN_KEY),
 				new RandomSpreadStructurePlacement(15, 10, RandomSpreadType.LINEAR, 4684896)
 			)
 		);

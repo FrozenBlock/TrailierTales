@@ -54,11 +54,11 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 	)
 	void trailierTales$injectBrushAnim(
 		S renderState,
-		ItemStackRenderState itemStackRenderState,
+		ItemStackRenderState stackRrenderState,
 		ItemStack stack,
 		HumanoidArm arm,
 		PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
+		SubmitNodeCollector collector,
 		int i,
 		CallbackInfo info
 	) {

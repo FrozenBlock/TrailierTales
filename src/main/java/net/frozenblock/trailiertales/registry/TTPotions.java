@@ -27,7 +27,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTPotions {
 	public static final Holder.Reference<Potion> TRANSFIGURING = register(
@@ -35,18 +34,16 @@ public final class TTPotions {
 	);
 
 	public static void init() {
-		FabricBrewingRecipeRegistryBuilder.BUILD.register(boringBuilder -> {
-			if (boringBuilder instanceof FabricBrewingRecipeRegistryBuilder builder) {
-				builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(TTItems.ECTOPLASM), TRANSFIGURING);
-			}
+		FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
+			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(TTItems.ECTOPLASM), TRANSFIGURING);
 		});
 	}
 
-	private static @NotNull Holder.Reference<Potion> register(String key, Potion potion) {
+	private static Holder.Reference<Potion> register(String key, Potion potion) {
 		return Registry.registerForHolder(BuiltInRegistries.POTION, TTConstants.id(key), potion);
 	}
 
-	private static @NotNull Holder.Reference<Potion> register(ResourceKey<Potion> key, Potion potion) {
+	private static Holder.Reference<Potion> register(ResourceKey<Potion> key, Potion potion) {
 		return Registry.registerForHolder(BuiltInRegistries.POTION, key, potion);
 	}
 }

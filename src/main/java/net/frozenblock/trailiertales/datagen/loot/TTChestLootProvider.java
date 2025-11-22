@@ -45,7 +45,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 
 public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 
@@ -57,8 +56,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	@Override
-	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> registry) {
-		HolderLookup.Provider registries = registryLookup.join();
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> registry) {
+		final HolderLookup.Provider registries = registryLookup.join();
 
 		registry.accept(
 			TTLootTables.CATACOMBS_CORRIDOR,

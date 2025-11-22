@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class DawntrailCropBlock extends CropBlock {
 	public static final MapCodec<DawntrailCropBlock> CODEC = simpleCodec(DawntrailCropBlock::new);
@@ -51,28 +50,25 @@ public class DawntrailCropBlock extends CropBlock {
 	private static final int BONEMEAL_INCREASE = 1;
 
 	@Override
-	@NotNull
 	public MapCodec<DawntrailCropBlock> codec() {
 		return CODEC;
 	}
 
-	public DawntrailCropBlock(Properties settings) {
-		super(settings);
+	public DawntrailCropBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AGE);
 	}
 
 	@Override
-	@NotNull
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE_BY_AGE[this.getAge(state)];
 	}
 
 	@Override
-	@NotNull
 	protected IntegerProperty getAgeProperty() {
 		return AGE;
 	}
@@ -83,13 +79,11 @@ public class DawntrailCropBlock extends CropBlock {
 	}
 
 	@Override
-	@NotNull
 	protected ItemLike getBaseSeedId() {
 		return TTItems.DAWNTRAIL_SEEDS;
 	}
 
 	@Override
-	@NotNull
 	public BlockState getStateForAge(int age) {
 		return age == MAX_AGE ?
 			TTBlocks.DAWNTRAIL.defaultBlockState().setValue(DawntrailBlock.getFaceProperty(Direction.DOWN), true).setValue(DawntrailBlock.AGE, DawntrailBlock.MAX_AGE)
@@ -97,7 +91,7 @@ public class DawntrailCropBlock extends CropBlock {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(3) != 0) super.randomTick(state, level, pos, random);
 	}
 

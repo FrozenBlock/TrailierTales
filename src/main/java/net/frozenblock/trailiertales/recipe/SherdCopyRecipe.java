@@ -29,7 +29,6 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 public class SherdCopyRecipe extends CustomRecipe {
 	private static final Pair<Boolean, ItemStack> EMPTY = Pair.of(false, ItemStack.EMPTY);
@@ -39,16 +38,16 @@ public class SherdCopyRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput input, Level level) {
+	public boolean matches(CraftingInput input, Level level) {
 		return getCraftingOutput(input).getFirst();
 	}
 
-	@Override @NotNull
-	public ItemStack assemble(@NotNull CraftingInput input, HolderLookup.Provider provider) {
+	@Override
+	public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
 		return getCraftingOutput(input).getSecond();
 	}
 
-	private static Pair<Boolean, ItemStack> getCraftingOutput(@NotNull CraftingInput input) {
+	private static Pair<Boolean, ItemStack> getCraftingOutput(CraftingInput input) {
 		if (!TTItemConfig.SHERD_DUPLICATION_RECIPE || input.ingredientCount() != 2) return EMPTY;
 
 		int bricks = 0;
@@ -73,7 +72,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 		return result;
 	}
 
-	@Override @NotNull
+	@Override
 	public RecipeSerializer<? extends CustomRecipe> getSerializer() {
 		return TTRecipeTypes.SHERD_COPY_RECIPE;
 	}

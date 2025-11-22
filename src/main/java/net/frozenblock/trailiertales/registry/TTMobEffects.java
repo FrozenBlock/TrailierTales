@@ -26,7 +26,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTMobEffects {
 	public static final Holder<MobEffect> TRANSFIGURING = register(
@@ -55,7 +54,7 @@ public final class TTMobEffects {
 	public static void init() {
 	}
 
-	private static @NotNull Holder<MobEffect> register(String id, MobEffect entry) {
+	private static Holder<MobEffect> register(String id, MobEffect entry) {
 		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, TTConstants.id(id), entry);
 	}
 }

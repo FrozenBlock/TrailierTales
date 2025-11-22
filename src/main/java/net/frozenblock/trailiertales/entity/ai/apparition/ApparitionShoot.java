@@ -30,7 +30,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionShoot extends Behavior<Apparition> {
 
@@ -50,26 +49,26 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel world, @NotNull Apparition apparition) {
+	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
 		return !apparition.getInventory().getItems().getFirst().isEmpty() && !apparition.isHiding()
 			&& apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(livingEntity -> isTargetWithinRange(apparition, livingEntity)).orElse(false);
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected boolean canStillUse(ServerLevel level, Apparition apparition, long l) {
 		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
 			&& !apparition.getInventory().getItems().getFirst().isEmpty();
 	}
 
 	@Override
-	protected void start(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected void start(ServerLevel level, Apparition apparition, long l) {
 		apparition.playSound(TTSounds.APPARITION_HOLDING_ITEM, apparition.getSoundVolume(), apparition.getVoicePitch());
 		apparition.setAggressive(true);
 		apparition.setPoltergeistAnimProgress(1F);
 	}
 
 	@Override
-	protected void stop(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected void stop(ServerLevel level, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		apparition.setAggressive(false);
 		brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
@@ -82,7 +81,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected void tick(ServerLevel level, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity == null) return;
@@ -162,7 +161,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 				if (chargingTicks++ >= 20) {
 					chargingTicks = 0;
 					apparition.performRangedAttack(livingEntity, 0.3F + (apparition.getRandom().nextFloat() * 1.4F));
-					this.doStop(world, apparition, l);
+					this.doStop(level, apparition, l);
 				}
 			}
 		} else if (seeTime >= -60) {
@@ -171,8 +170,8 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		brain.setMemory(TTMemoryModuleTypes.CHARGING_TICKS, chargingTicks);
 	}
 
-	private static boolean isTargetWithinRange(@NotNull Apparition apparition, @NotNull LivingEntity target) {
-		final double d = apparition.position().distanceToSqr(target.position());
-		return d > 4D && d < 256D;
+	private static boolean isTargetWithinRange(Apparition apparition, LivingEntity target) {
+		final double distance = apparition.position().distanceToSqr(target.position());
+		return distance > 4D && distance < 256D;
 	}
 }

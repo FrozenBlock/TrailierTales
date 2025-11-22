@@ -29,7 +29,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTEntityTypes {
 	public static final EntityType<Apparition> APPARITION = register(
@@ -58,8 +57,7 @@ public final class TTEntityTypes {
 	public static void init() {
 	}
 
-	@NotNull
-	private static <E extends Entity, T extends EntityType<E>> T register(@NotNull String path, @NotNull T entityType) {
+	private static <E extends Entity, T extends EntityType<E>> T register(String path, T entityType) {
 		return Registry.register(BuiltInRegistries.ENTITY_TYPE, TTConstants.id(path), entityType);
 	}
 }

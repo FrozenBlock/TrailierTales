@@ -73,11 +73,11 @@ public class BlockBehaviorMixin {
 	@Inject(method = "affectNeighborsAfterRemoval", at = @At("HEAD"))
 	public void trailierTales$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean moved, CallbackInfo info) {
 		if (!(state.getBlock() instanceof BrushableBlock)) return;
-		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlockEntity
-			&& brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface
-			&& brushableBlockEntityInterface.trailierTales$hasCustomItem()
+		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlock
+			&& brushableBlock instanceof BrushableBlockEntityInterface brushableBlockInterface
+			&& brushableBlockInterface.trailierTales$hasCustomItem()
 		) {
-			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), brushableBlockEntity.getItem());
+			Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), brushableBlock.getItem());
 		}
 	}
 }

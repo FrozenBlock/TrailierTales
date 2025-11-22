@@ -24,7 +24,6 @@ import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.config.TTMixinsConfig;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -47,7 +46,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 	}
 
 	@Override
-	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
+	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 		if (mixinClassName.contains("apparition.")) return this.mixinsConfig.apparition;
 		if (mixinClassName.contains("armor_stand.")) return this.mixinsConfig.armor_stand;
 		if (mixinClassName.contains("boat.")) return this.mixinsConfig.boat;

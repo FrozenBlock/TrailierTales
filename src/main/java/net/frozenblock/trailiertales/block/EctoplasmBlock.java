@@ -30,7 +30,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class EctoplasmBlock extends HalfTransparentBlock {
 	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
@@ -39,26 +38,23 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 		propertiesCodec()
 	).apply(instance, EctoplasmBlock::new));
 
-	public EctoplasmBlock(@NotNull Properties properties) {
+	public EctoplasmBlock(Properties properties) {
 		super(properties);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends EctoplasmBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		VoxelShape shape = Shapes.empty();
 
 		if (!(context instanceof EntityCollisionContext entityCollisionContext) || !(entityCollisionContext.getEntity() instanceof Apparition)) return shape;
 		for (Direction direction : Direction.values()) {
-			if (!blockGetter.getBlockState(pos.relative(direction)).is(this)) {
-				shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
-			}
+			if (level.getBlockState(pos.relative(direction)).is(this)) continue;
+			shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
 		}
 
 		return shape;

@@ -74,7 +74,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 public final class CoffinSpawner {
@@ -102,7 +101,7 @@ public final class CoffinSpawner {
 	private boolean attemptingToSpawnMob;
 
 	@Contract(" -> new")
-	public @NotNull MapCodec<CoffinSpawner> mapCodec() {
+	public MapCodec<CoffinSpawner> mapCodec() {
 		return RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 				CoffinSpawnerConfig.CODEC.optionalFieldOf("normal_config", CoffinSpawnerConfig.DEFAULT).forGetter(CoffinSpawner::getNormalConfig),
@@ -191,12 +190,12 @@ public final class CoffinSpawner {
 		return this.ominousConfig;
 	}
 
-	public void applyOminous(ServerLevel world) {
-		this.setState(world, CoffinSpawnerState.OMINOUS);
+	public void applyOminous(ServerLevel level) {
+		this.setState(level, CoffinSpawnerState.OMINOUS);
 	}
 
-	public void removeOminous(ServerLevel world) {
-		this.setState(world, CoffinSpawnerState.getStateForPower(world, this));
+	public void removeOminous(ServerLevel level) {
+		this.setState(level, CoffinSpawnerState.getStateForPower(level, this));
 	}
 
 	public boolean isOminous() {
@@ -227,7 +226,7 @@ public final class CoffinSpawner {
 		return this.attemptingToSpawnMob;
 	}
 
-	public void addPower(int i, @NotNull Level level) {
+	public void addPower(int i, Level level) {
 		this.data.power += i;
 		this.data.powerCooldownEndsAt = level.getGameTime() + this.powerCooldownLength;
 	}
@@ -256,12 +255,12 @@ public final class CoffinSpawner {
 		return ENTITY_SELECTOR;
 	}
 
-	public boolean canSpawnInLevel(@NotNull ServerLevel level) {
+	public boolean canSpawnInLevel(ServerLevel level) {
 		return level.getDifficulty() != Difficulty.PEACEFUL
 			&& (TTBlockConfig.COFFIN_IGNORE_DOMOBSPAWNING || level.getGameRules().get(GameRules.SPAWN_MOBS));
 	}
 
-	public Optional<UUID> spawnMob(@NotNull ServerLevel level, BlockPos pos) {
+	public Optional<UUID> spawnMob(ServerLevel level, BlockPos pos) {
 		final RandomSource random = level.getRandom();
 		final SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
 
@@ -270,7 +269,7 @@ public final class CoffinSpawner {
 			final Optional<EntityType<?>> optional = EntityType.by(valueInput);
 			if (optional.isEmpty()) return Optional.empty();
 
-			final Vec3 vec3 = valueInput.read("Pos", Vec3.CODEC).orElseGet(() -> {
+			final Vec3 spawnVec3 = valueInput.read("Pos", Vec3.CODEC).orElseGet(() -> {
 				CoffinSpawnerConfig config = this.getConfig();
 				return new Vec3(
 					pos.getX() + (random.nextDouble() - random.nextDouble()) * (double)config.spawnRange() + (double)0.5F,
@@ -278,26 +277,26 @@ public final class CoffinSpawner {
 					pos.getZ() + (random.nextDouble() - random.nextDouble()) * (double)config.spawnRange() + (double)0.5F
 				);
 			});
-			if (!level.noCollision(optional.get().getSpawnAABB(vec3.x, vec3.y, vec3.z))) return Optional.empty();
+			if (!level.noCollision(optional.get().getSpawnAABB(spawnVec3.x, spawnVec3.y, spawnVec3.z))) return Optional.empty();
 
-			if (!inLineOfSight(level, pos.getCenter(), vec3)) return Optional.empty();
+			if (!inLineOfSight(level, pos.getCenter(), spawnVec3)) return Optional.empty();
 
-			final BlockPos blockPos = BlockPos.containing(vec3);
-			if (!SpawnPlacements.checkSpawnRules(optional.get(), level, EntitySpawnReason.TRIAL_SPAWNER, blockPos, level.getRandom())) return Optional.empty();
+			final BlockPos spawnBlockPos = BlockPos.containing(spawnVec3);
+			if (!SpawnPlacements.checkSpawnRules(optional.get(), level, EntitySpawnReason.TRIAL_SPAWNER, spawnBlockPos, level.getRandom())) return Optional.empty();
 
 			if (spawnData.getCustomSpawnRules().isPresent()) {
 				SpawnData.CustomSpawnRules customSpawnRules = spawnData.getCustomSpawnRules().get();
-				if (!customSpawnRules.isValidPosition(blockPos, level)) return Optional.empty();
+				if (!customSpawnRules.isValidPosition(spawnBlockPos, level)) return Optional.empty();
 			}
 
-			final int lightAtPos = level.getRawBrightness(blockPos, 0);
+			final int lightAtPos = level.getRawBrightness(spawnBlockPos, 0);
 			final int lightToleranceDifference = Math.max(this.data.maxActiveLightLevel, lightAtPos) - this.data.maxActiveLightLevel;
 			if (lightToleranceDifference > 0 && random.nextInt(lightToleranceDifference * 25) > 0) return Optional.empty();
 
-			if (level.getBlockState(blockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) return Optional.empty();
+			if (level.getBlockState(spawnBlockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) return Optional.empty();
 
 			final Entity entity = EntityType.loadEntityRecursive(valueInput, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
-				entityx.snapTo(vec3, random.nextFloat() * 360F, 0F);
+				entityx.snapTo(spawnVec3, random.nextFloat() * 360F, 0F);
 				return entityx;
 			});
 			if (entity == null) return Optional.empty();
@@ -320,7 +319,7 @@ public final class CoffinSpawner {
 				(random.nextFloat() - random.nextFloat()) * 0.2F + 1F
 			);
 			if (entity instanceof Mob mob) mob.spawnAnim();
-			level.gameEvent(entity, GameEvent.ENTITY_PLACE, blockPos);
+			level.gameEvent(entity, GameEvent.ENTITY_PLACE, spawnBlockPos);
 			this.appendCoffinSpawnAttributes(entity, level, pos, false);
 			return Optional.of(entity.getUUID());
 		}
@@ -336,18 +335,17 @@ public final class CoffinSpawner {
 			final Vec3 vec3 = Vec3.atCenterOf(pos);
 			final Optional<Player> optionalPlayer = data.getClosestPotentialPlayer(level, vec3);
 			if (ignoreChance) return true;
-			if (optionalPlayer.isPresent()) {
-				final double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
-				final double playerRange = this.getRequiredPlayerRange();
-				double chance = playerRange - distance;
-				chance = (0.000425D / playerRange) * chance;
-				return level.getRandom().nextDouble() < chance;
-			}
+			if (optionalPlayer.isEmpty()) return false;
+			final double distance = Math.sqrt(optionalPlayer.get().distanceToSqr(vec3));
+			final double playerRange = this.getRequiredPlayerRange();
+			double chance = playerRange - distance;
+			chance = (0.000425D / playerRange) * chance;
+			return level.getRandom().nextDouble() < chance;
 		}
 		return false;
 	}
 
-	public void spawnApparition(@NotNull ServerLevel level, @NotNull BlockPos pos) {
+	public void spawnApparition(ServerLevel level, BlockPos pos) {
 		final Apparition apparition = TTEntityTypes.APPARITION.create(level, null, pos, EntitySpawnReason.TRIAL_SPAWNER, true, false);
 		if (apparition == null || !level.addFreshEntity(apparition)) return;
 		apparition.hiddenTicks = 100;
@@ -360,22 +358,23 @@ public final class CoffinSpawner {
 		if (entity instanceof Mob mob) {
 			mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE)
 				.addPermanentModifier(new AttributeModifier(CoffinBlock.ATTRIBUTE_COFFIN_FOLLOW_RANGE, 24D, AttributeModifier.Operation.ADD_VALUE));
-			Optional<Player> closestDetectedPlayer = usePotentialPlayers ? this.data.getClosestPotentialPlayer(level, entity.position()) :  this.data.getClosestDetectedPlayer(level, entity.position());
+			final Optional<Player> closestDetectedPlayer = usePotentialPlayers
+				? this.data.getClosestPotentialPlayer(level, entity.position())
+				: this.data.getClosestDetectedPlayer(level, entity.position());
 			closestDetectedPlayer.ifPresent(mob::setTarget);
 		}
 		if (entity instanceof EntityCoffinInterface entityInterface) entityInterface.trailierTales$setCoffinData(new EntityCoffinData(pos, this.uuid, level.getGameTime()));
 		if (entity instanceof Apparition apparition) ApparitionAi.rememberHome(apparition, level, pos);
 	}
 
-	public void updateAttemptingToSpawn(@NotNull ServerLevel level) {
+	public void updateAttemptingToSpawn(ServerLevel level) {
 		final boolean isAttempting = this.isAttemptingToSpawnMob(level);
-		if (isAttempting != this.attemptingToSpawnMob) {
-			this.attemptingToSpawnMob = isAttempting;
-			this.markUpdated();
-		}
+		if (isAttempting == this.attemptingToSpawnMob) return;
+		this.attemptingToSpawnMob = isAttempting;
+		this.markUpdated();
 	}
 
-	public boolean isAttemptingToSpawnMob(@NotNull ServerLevel level) {
+	public boolean isAttemptingToSpawnMob(ServerLevel level) {
 		final int additionalPlayers = this.data.countAdditionalPlayers();
 		final boolean isPreparing = this.data.isPreparingToSpawnNextMob(level, this.getConfig(), additionalPlayers, 45);
 		final boolean finishedSpawningMobs = this.data.hasFinishedSpawningAllMobs(this.getConfig(), additionalPlayers);
@@ -386,33 +385,36 @@ public final class CoffinSpawner {
 	public void tickServer(ServerLevel level, BlockPos pos, BlockState state, CoffinPart part, boolean ominous) {
 		if (part == CoffinPart.HEAD) return;
 
-		final Direction coffinOrientation = CoffinBlock.getCoffinOrientation(level, pos);
-		if (coffinOrientation != null) {
-			this.getState().emitParticles(level, pos, coffinOrientation);
-			if (!this.data.soulsToSpawn.isEmpty()) {
-				final IntArrayList newList = new IntArrayList();
-				this.data.soulsToSpawn.forEach(spawnTime -> {
-					if (spawnTime <= 0) {
-						CoffinBlock.spawnParticlesFrom(level, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, coffinOrientation, pos, 0.35D);
-						this.addPower(1, level);
-					} else {
-						newList.add(spawnTime - 1);
-					}
-				});
-				this.data.soulsToSpawn.clear();
-				this.data.soulsToSpawn.addAll(newList);
-			}
+		final Direction orientation = CoffinBlock.getCoffinOrientation(level, pos);
+
+		handleSouls: {
+			if (orientation == null) break handleSouls;
+
+			this.getState().emitParticles(level, pos, orientation);
+			if (this.data.soulsToSpawn.isEmpty()) break handleSouls;
+
+			final IntArrayList newList = new IntArrayList();
+			this.data.soulsToSpawn.forEach(spawnTime -> {
+				if (spawnTime <= 0) {
+					CoffinBlock.spawnParticlesFrom(level, TTParticleTypes.COFFIN_SOUL_ENTER, 4, 0D, orientation, pos, 0.35D);
+					this.addPower(1, level);
+				} else {
+					newList.add(spawnTime - 1);
+				}
+			});
+			this.data.soulsToSpawn.clear();
+			this.data.soulsToSpawn.addAll(newList);
 		}
 
-		final Direction connectedDirection = CoffinBlock.getConnectedDirection(state);
-		if (connectedDirection != null) {
+		cleanupOtherHalfBreaking: {
+			final Direction connectedDirection = CoffinBlock.getConnectedDirection(state);
+			if (connectedDirection == null) break cleanupOtherHalfBreaking;
 			final BlockPos connectedPos = pos.relative(connectedDirection);
-			if (level.isLoaded(connectedPos)) {
-				if (coffinOrientation == null || !level.getBlockState(connectedPos).is(TTBlocks.COFFIN)) {
-					level.destroyBlock(pos, false);
-					return;
-				}
-			}
+			if (!level.isLoaded(connectedPos)) break cleanupOtherHalfBreaking;
+			if (orientation != null && level.getBlockState(connectedPos).is(TTBlocks.COFFIN)) break cleanupOtherHalfBreaking;
+
+			level.destroyBlock(pos, false);
+			return;
 		}
 
 		this.data.currentMobs.removeIf(uiid -> {
@@ -429,7 +431,7 @@ public final class CoffinSpawner {
 			return shouldUntrack;
 		});
 
-		CoffinSpawnerState currentState = this.getState();
+		final CoffinSpawnerState currentState = this.getState();
 
 		if (!this.canSpawnInLevel(level)) {
 			if (this.getState() != CoffinSpawnerState.COOLDOWN) this.setState(level, CoffinSpawnerState.COOLDOWN);
@@ -440,32 +442,31 @@ public final class CoffinSpawner {
 		this.updateAttemptingToSpawn(level);
 	}
 
-	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, UUID uuid) {
+	private static boolean shouldMobBeUntracked(ServerLevel level, BlockPos pos, UUID uuid) {
 		return shouldMobBeUntracked(level, pos, level.getEntity(uuid));
 	}
 
-	private static boolean shouldMobBeUntracked(@NotNull ServerLevel level, BlockPos pos, Entity entity) {
+	private static boolean shouldMobBeUntracked(ServerLevel level, BlockPos pos, Entity entity) {
 		return entity == null
 			|| !entity.level().dimension().equals(level.dimension())
 			|| entity.blockPosition().distSqr(pos) > (double)MAX_MOB_TRACKING_DISTANCE_SQR
 			|| entity.isRemoved();
 	}
 
-	private static boolean inLineOfSight(@NotNull Level level, Vec3 spawnerPos, Vec3 mobPos) {
+	private static boolean inLineOfSight(Level level, Vec3 spawnerPos, Vec3 mobPos) {
 		final BlockHitResult hitResult = level.clip(new ClipContext(mobPos, spawnerPos, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, CollisionContext.empty()));
 		return !(hitResult.getBlockPos().equals(BlockPos.containing(spawnerPos)) || hitResult.getType() == HitResult.Type.MISS);
 	}
 
-	public static boolean isInCatacombsBounds(BlockPos pos, @NotNull StructureManager structureManager) {
+	public static boolean isInCatacombsBounds(BlockPos pos, StructureManager structureManager) {
 		final ResourceKey<Structure> structureKey = TTResources.HAS_STRONGHOLD_OVERRIDE_PACK ? BuiltinStructures.STRONGHOLD : CatacombsGenerator.CATACOMBS_KEY;
 		final Structure structure = structureManager.registryAccess().lookupOrThrow(Registries.STRUCTURE).getValue(structureKey);
 		return structure != null && structureManager.structureHasPieceAt(pos, structureManager.getStructureAt(pos, structure));
 	}
 
-	public void onApparitionRemovedOrKilled(@NotNull Level level) {
-		if (level instanceof ServerLevel serverLevel) {
-			this.data.nextApparitionSpawnsAt = serverLevel.getGameTime() + this.getConfig().ticksBetweenApparitionSpawn();
-		}
+	public void onApparitionRemovedOrKilled(Level level) {
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		this.data.nextApparitionSpawnsAt = serverLevel.getGameTime() + this.getConfig().ticksBetweenApparitionSpawn();
 	}
 
 	public void immediatelyActivate(Level level, BlockPos pos) {

@@ -48,10 +48,8 @@ public class ShearsDispenseItemBehaviorMixin {
 	@Unique
 	private static boolean trailierTales$tryShearDawntrail(@NotNull ServerLevel level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
-		if (state.getBlock() == TTBlocks.DAWNTRAIL && DawntrailBlock.isMaxAge(state)) {
-			DawntrailBlock.shear(level, pos, state, null);
-			return true;
-		}
-		return false;
+		if (!state.is(TTBlocks.DAWNTRAIL) || !DawntrailBlock.isMaxAge(state)) return false;
+		DawntrailBlock.shear(level, pos, state, null);
+		return true;
 	}
 }

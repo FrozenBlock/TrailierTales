@@ -27,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DecoratedPotBlockEntity.class)
 public class DecoratedPotBlockEntityMixin implements DecoratedPotBlockEntityInterface {
-
 	@Unique
 	private boolean trailierTales$flipWobble = false;
 

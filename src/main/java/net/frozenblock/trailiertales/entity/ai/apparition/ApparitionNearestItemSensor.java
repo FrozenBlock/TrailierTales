@@ -28,26 +28,25 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.item.ItemEntity;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionNearestItemSensor extends Sensor<Apparition> {
 	private static final double RADIUS = 24D;
 	private static final double Y_RANGE = 24D;
 
 	@Override
-	public @NotNull Set<MemoryModuleType<?>> requires() {
+	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull Apparition apparition) {
+	protected void doTick(ServerLevel level, Apparition apparition) {
 		final Brain<?> brain = apparition.getBrain();
 		final List<ItemEntity> list = level.getEntitiesOfClass(ItemEntity.class, apparition.getBoundingBox().inflate(RADIUS, Y_RANGE, RADIUS), itemEntity -> true);
 		list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
-		Optional<ItemEntity> optional = list.stream()
+		final Optional<ItemEntity> optionalItemEntity = list.stream()
 			.filter(item -> apparition.wantsToPickUp(level, item))
 			.filter(itemEntity -> itemEntity.closerThan(apparition, RADIUS))
 			.findFirst();
-		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, optional);
+		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, optionalItemEntity);
 	}
 }

@@ -21,7 +21,6 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public class TTBiomeTags {
 	public static final TagKey<Biome> HAS_BADLANDS_RUINS = bind("has_structure/badlands_ruins");
@@ -33,8 +32,7 @@ public class TTBiomeTags {
 	public static final TagKey<Biome> HAS_RUINS = bind("has_structure/ruins");
 	public static final TagKey<Biome> HAS_SNOWY_RUINS = bind("has_structure/snowy_ruins");
 
-	@NotNull
-	private static TagKey<Biome> bind(@NotNull String path) {
+	private static TagKey<Biome> bind(String path) {
 		return TagKey.create(Registries.BIOME, TTConstants.id(path));
 	}
 

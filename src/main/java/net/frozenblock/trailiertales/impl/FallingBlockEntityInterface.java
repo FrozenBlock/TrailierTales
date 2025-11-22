@@ -20,9 +20,7 @@ package net.frozenblock.trailiertales.impl;
 import net.minecraft.world.item.ItemStack;
 
 public interface FallingBlockEntityInterface {
-	boolean trailierTales$setItem(ItemStack itemStack);
-
+	boolean trailierTales$setItem(ItemStack stack);
 	ItemStack trailierTales$getItem();
-
 	void trailierTales$overrideBreak();
 }

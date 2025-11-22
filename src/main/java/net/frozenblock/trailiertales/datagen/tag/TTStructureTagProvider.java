@@ -23,16 +23,15 @@ import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.StructureTagsProvider;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTStructureTagProvider extends StructureTagsProvider {
 
-	public TTStructureTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture registries) {
+	public TTStructureTagProvider(FabricDataOutput output, CompletableFuture registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.tag(TTStructureTags.ON_CATACOMBS_EXPLORER_MAPS)
 			.add(CatacombsGenerator.CATACOMBS_KEY);
 

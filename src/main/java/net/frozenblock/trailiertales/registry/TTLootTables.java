@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.registry;
 
-import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
@@ -36,7 +35,6 @@ import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.functions.SetStewEffectFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTLootTables {
 	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
@@ -180,24 +178,14 @@ public final class TTLootTables {
 		});
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.SNIFFER_DIGGING.equals(key)) {
-				if (TTEntityConfig.get().sniffer.cyan_rose_seeds) {
-					((FabricLootTableBuilder) tableBuilder)
-						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS)));
-				}
-				if (TTEntityConfig.get().sniffer.manedrop_germs) {
-					((FabricLootTableBuilder) tableBuilder)
-						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
-				}
-				if (TTEntityConfig.get().sniffer.dawntrail_seeds) {
-					((FabricLootTableBuilder) tableBuilder)
-						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
-				}
-			}
+			if (!BuiltInLootTables.SNIFFER_DIGGING.equals(key)) return;
+			if (TTEntityConfig.get().sniffer.cyan_rose_seeds) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS)));
+			if (TTEntityConfig.get().sniffer.manedrop_germs) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
+			if (TTEntityConfig.get().sniffer.dawntrail_seeds) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
 		});
 	}
 
-	private static @NotNull ResourceKey<LootTable> register(String path) {
+	private static ResourceKey<LootTable> register(String path) {
 		return ResourceKey.create(Registries.LOOT_TABLE, TTConstants.id(path));
 	}
 }

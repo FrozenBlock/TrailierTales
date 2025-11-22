@@ -36,7 +36,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -77,9 +76,7 @@ public class HalfBrushMixin {
 	}
 
 	@Unique
-	public void trailierTales$spawnOppositeDustParticles(
-		@NotNull Level level, @NotNull BlockHitResult hitResult, @NotNull BlockState state, @NotNull Vec3 vec3, @NotNull HumanoidArm arm
-	) {
+	public void trailierTales$spawnOppositeDustParticles(Level level, BlockHitResult hitResult, BlockState state, Vec3 vec3, HumanoidArm arm) {
 		final RandomSource random = level.getRandom();
 		final int particleCount = random.nextInt(2, 6);
 		final BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, state);

@@ -28,9 +28,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -45,14 +42,12 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DawntrailBlock extends MultifaceSpreadeableBlock implements BonemealableBlock {
@@ -63,12 +58,12 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	private final MultifaceSpreader spreader = new DawntrailSpreader(this);
 
 	@Override
-	public @NotNull MapCodec<DawntrailBlock> codec() {
+	public MapCodec<DawntrailBlock> codec() {
 		return CODEC;
 	}
 
-	public DawntrailBlock(BlockBehaviour.Properties settings) {
-		super(settings);
+	public DawntrailBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -77,81 +72,88 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 		builder.add(AGE);
 	}
 
-	public static boolean canAttachTo(BlockGetter world, @NotNull Direction direction, BlockPos pos, @NotNull BlockState state) {
-		return MultifaceBlock.canAttachTo(world, direction, pos, state) || state.is(Blocks.FARMLAND);
+	public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+		return MultifaceBlock.canAttachTo(level, direction, pos, state) || state.is(Blocks.FARMLAND);
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+	protected BlockState updateShape(
+		BlockState state,
+		LevelReader level,
+		ScheduledTickAccess tickAccess,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
+	) {
 		if (!hasAnyFace(state)) return Blocks.AIR.defaultBlockState();
 		return hasFace(state, direction) && !canAttachTo(level, direction, neighborPos, neighborState) ? removeFace(state, getFaceProperty(direction)) : state;
 	}
 
 	@Override
-	protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-		boolean bl = false;
+	protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+		boolean canSurvive = false;
 		for (Direction direction : DIRECTIONS) {
-			if (hasFace(state, direction)) {
-				BlockPos blockPos = pos.relative(direction);
-				if (!canAttachTo(world, direction, blockPos, world.getBlockState(blockPos))) return false;
-				bl = true;
-			}
+			if (!hasFace(state, direction)) continue;
+			final BlockPos offsetPos = pos.relative(direction);
+			if (!canAttachTo(level, direction, offsetPos, level.getBlockState(offsetPos))) return false;
+			canSurvive = true;
 		}
-		return bl;
-	}
-
-	@Override
-	public boolean isValidStateForPlacement(BlockGetter view, @NotNull BlockState state, BlockPos pos, Direction dir) {
-		if (!state.getFluidState().isEmpty()) return false;
-		if (this.isFaceSupported(dir) && (!state.is(this) || !hasFace(state, dir))) {
-			final BlockPos offsetPos = pos.relative(dir);
-			return canAttachTo(view, dir, offsetPos, view.getBlockState(offsetPos));
-		}
-		return false;
-	}
-
-	public static boolean isMaxAge(@NotNull BlockState state) {
-		return state.getValue(AGE) >= MAX_AGE;
-	}
-
-	private void grow(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), UPDATE_CLIENTS);
-	}
-
-	@Override
-	protected boolean canBeReplaced(BlockState state, @NotNull BlockPlaceContext context) {
-		return context.getItemInHand().is(this.asItem()) && super.canBeReplaced(state, context);
-	}
-
-	@Override
-	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-		return !isMaxAge(state) || Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, world, pos, direction.getOpposite()));
-	}
-
-	@Override
-	public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
-		if (!isMaxAge(state)) {
-			this.grow(world, pos, state);
-			return;
+	public boolean isValidStateForPlacement(BlockGetter level, BlockState state, BlockPos pos, Direction direction) {
+		if (!state.getFluidState().isEmpty()) return false;
+		if (this.isFaceSupported(direction) && (!state.is(this) || !hasFace(state, direction))) {
+			final BlockPos offsetPos = pos.relative(direction);
+			return canAttachTo(level, direction, offsetPos, level.getBlockState(offsetPos));
 		}
-		this.spreader.spreadFromRandomFaceTowardRandomDirection(state, world, pos, random);
+		return false;
+	}
+
+	public static boolean isMaxAge(BlockState state) {
+		return state.getValue(AGE) >= MAX_AGE;
+	}
+
+	private void grow(Level level, BlockPos pos, BlockState state) {
+		level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), UPDATE_CLIENTS);
 	}
 
 	@Override
-	@NotNull
+	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+		return context.getItemInHand().is(this.asItem()) && super.canBeReplaced(state, context);
+	}
+
+	@Override
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+		return !isMaxAge(state) || Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
+	}
+
+	@Override
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return true;
+	}
+
+	@Override
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+		if (!isMaxAge(state)) {
+			this.grow(level, pos, state);
+			return;
+		}
+		this.spreader.spreadFromRandomFaceTowardRandomDirection(state, level, pos, random);
+	}
+
+	@Override
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (level instanceof ServerLevel && isMaxAge(state) && stack.is(Items.SHEARS)) {
 			stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
@@ -160,7 +162,7 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static void shear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
+	public static void shear(Level level, BlockPos pos, BlockState state, @Nullable Player player) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 		final ItemStack seeds = new ItemStack(TTItems.DAWNTRAIL_SEEDS);
 		seeds.setCount(availableFaces(state).size());
@@ -171,12 +173,12 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	}
 
 	@Override
-	public @NotNull MultifaceSpreader getSpreader() {
+	public MultifaceSpreader getSpreader() {
 		return this.spreader;
 	}
 
 	public static class DawntrailSpreader extends MultifaceSpreader {
-		public DawntrailSpreader(@NotNull DawntrailBlock block) {
+		public DawntrailSpreader(DawntrailBlock block) {
 			super(new DefaultSpreaderConfig(block));
 		}
 	}

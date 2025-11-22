@@ -34,10 +34,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class RaftRendererMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, CallbackInfo info) {
+	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelLayer, CallbackInfo info) {
 		if (!(AbstractBoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface)) return;
 		abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
-			modelLayerLocation.model().withPath((string) -> {
+			modelLayer.model().withPath((string) -> {
 				string = string.substring(Math.max(0, string.indexOf("/")));
 				return "textures/entity/boat/banner_base/" + string + ".png";
 			})

@@ -26,21 +26,19 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTEnchantmentTagProvider extends EnchantmentTagsProvider {
 
-	public TTEnchantmentTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public TTEnchantmentTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
-	@NotNull
 	private TagKey<Enchantment> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.tag(EnchantmentTags.TREASURE)
 			.add(TTEnchantments.REBRUSH);
 	}

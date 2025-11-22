@@ -24,7 +24,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.saveddata.maps.MapDecorationType;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTMapDecorationTypes {
 	public static final Holder<MapDecorationType> CATACOMBS = register(
@@ -39,11 +38,11 @@ public final class TTMapDecorationTypes {
 	public static void init() {
 	}
 
-	private static @NotNull Holder<MapDecorationType> register(String string, String string2, boolean showOnItemFrame, boolean trackCount) {
+	private static Holder<MapDecorationType> register(String string, String string2, boolean showOnItemFrame, boolean trackCount) {
 		return register(string, string2, showOnItemFrame, -1, trackCount, false);
 	}
 
-	private static @NotNull Holder<MapDecorationType> register(
+	private static Holder<MapDecorationType> register(
 		String string, String string2, boolean showOnItemFrame, int mapColor, boolean trackCount, boolean explorationMapElement
 	) {
 		ResourceKey<MapDecorationType> resourceKey = ResourceKey.create(Registries.MAP_DECORATION_TYPE, TTConstants.id(string));

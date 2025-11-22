@@ -29,16 +29,15 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
-	public TTBiomeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture registries) {
+	public TTBiomeTagProvider(FabricDataOutput output, CompletableFuture registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.builder(TTBiomeTags.HAS_BADLANDS_RUINS)
 			.add(Biomes.BADLANDS)
 			.add(Biomes.WOODED_BADLANDS)
@@ -83,7 +82,6 @@ public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SNOWY_TAIGA);
 	}
 
-	@NotNull
 	private TagKey<Biome> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}

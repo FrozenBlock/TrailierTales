@@ -67,8 +67,8 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 
 	@Unique
 	@Override
-	public void trailierTales$setCoffinData(EntityCoffinData entityCoffinData) {
-		this.trailierTales$entityCoffinData = entityCoffinData;
+	public void trailierTales$setCoffinData(EntityCoffinData coffinData) {
+		this.trailierTales$entityCoffinData = coffinData;
 	}
 
 	@WrapOperation(
@@ -109,9 +109,7 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		ServerLevel serverLevel,
 		@Nullable Entity entity
 	) {
-		if (this.trailierTales$entityCoffinData != null && entity instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) {
-			return original * 2;
-		}
+		if (this.trailierTales$entityCoffinData != null && entity instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) return original * 2;
 		return original;
 	}
 

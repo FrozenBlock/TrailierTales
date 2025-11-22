@@ -31,7 +31,7 @@ import net.minecraft.client.particle.SoulParticle;
 public class TTParticleEngine {
 
 	public static void init() {
-		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
+		final ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 
 		particleRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
 		particleRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);

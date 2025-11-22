@@ -56,24 +56,22 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTStructures {
 
 	private TTStructures() {
-		throw new UnsupportedOperationException("RegisterStructures contains only static declarations.");
+		throw new UnsupportedOperationException("TTStructures contains only static declarations.");
 	}
 
-	@NotNull
-	public static ResourceKey<StructureSet> ofSet(@NotNull String id) {
+	public static ResourceKey<StructureSet> ofSet(String id) {
 		return ResourceKey.create(Registries.STRUCTURE_SET, TTConstants.id(id));
 	}
 
-	public static void bootstrapTemplatePool(@NotNull BootstrapContext<StructureTemplatePool> context) {
+	public static void bootstrapTemplatePool(BootstrapContext<StructureTemplatePool> context) {
 		CatacombsGenerator.bootstrapTemplatePool(context);
 	}
 
-	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
+	public static void bootstrap(BootstrapContext<Structure> context) {
 		BadlandsRuinsGenerator.bootstrap(context);
 		CatacombsGenerator.bootstrap(context);
 		DesertRuinsGenerator.bootstrap(context);
@@ -84,7 +82,7 @@ public final class TTStructures {
 		DeepslateRuinsGenerator.bootstrap(context);
 	}
 
-	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
+	public static void bootstrapStructureSet(BootstrapContext<StructureSet> context) {
 		BadlandsRuinsGenerator.bootstrapStructureSet(context);
 		CatacombsGenerator.bootstrapStructureSet(context);
 		DesertRuinsGenerator.bootstrapStructureSet(context);
@@ -95,12 +93,12 @@ public final class TTStructures {
 		DeepslateRuinsGenerator.bootstrapStructureSet(context);
 	}
 
-	public static void bootstrapProcessor(@NotNull BootstrapContext<StructureProcessorList> context) {
+	public static void bootstrapProcessor(BootstrapContext<StructureProcessorList> context) {
 		CatacombsGenerator.bootstrapProcessor(context);
 	}
 
 	@Contract("_, _, _, _ -> new")
-	public static @NotNull RuleProcessor archyLootProcessor(Block original, @NotNull Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
+	public static RuleProcessor archyLootProcessor(Block original, Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
 		return new RuleProcessor(
 			ImmutableList.of(
 				archyProcessorRule(original, suspicious, registryKey, chance)
@@ -109,7 +107,7 @@ public final class TTStructures {
 	}
 
 	@Contract("_, _, _, _ -> new")
-	public static @NotNull ProcessorRule archyProcessorRule(Block original, @NotNull Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
+	public static ProcessorRule archyProcessorRule(Block original, Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
 		return new ProcessorRule(
 			new RandomBlockMatchTest(original, chance),
 			AlwaysTrueTest.INSTANCE,
@@ -120,7 +118,7 @@ public final class TTStructures {
 	}
 
 	@Contract("_, _ -> new")
-	public static @NotNull BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, Item... sherds) {
+	public static BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, Item... sherds) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
 				new BlockStateRespectingProcessorRule(
@@ -134,31 +132,28 @@ public final class TTStructures {
 		);
 	}
 
-	@NotNull
-	public static ResourceKey<Structure> createKey(@NotNull String id) {
+	public static ResourceKey<Structure> createKey(String id) {
 		return ResourceKey.create(Registries.STRUCTURE, TTConstants.id(id));
 	}
 
-	@NotNull
 	public static Structure.StructureSettings structure(
-		@NotNull HolderSet<Biome> holderSet,
-		@NotNull Map<MobCategory, StructureSpawnOverride> spawns,
-		@NotNull GenerationStep.Decoration featureStep,
-		@NotNull TerrainAdjustment terrainAdaptation
+		HolderSet<Biome> holderSet,
+		Map<MobCategory, StructureSpawnOverride> spawns,
+		GenerationStep.Decoration featureStep,
+		TerrainAdjustment terrainAdaptation
 	) {
 		return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
 	}
 
-	@NotNull
 	public static Structure.StructureSettings structure(
-		@NotNull HolderSet<Biome> holderSet,
-		@NotNull GenerationStep.Decoration featureStep,
-		@NotNull TerrainAdjustment terrainAdaptation
+		HolderSet<Biome> holderSet,
+		GenerationStep.Decoration featureStep,
+		TerrainAdjustment terrainAdaptation
 	) {
 		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
 	}
 
-	public static void register(@NotNull BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
+	public static void register(BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
 		pool.register(Pools.parseKey(location), templatePool);
 	}
 

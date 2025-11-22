@@ -36,24 +36,22 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.NotNull;
 
 public class ThrownItemProjectile extends ThrowableItemProjectile {
 
-	public ThrownItemProjectile(@NotNull EntityType<? extends ThrownItemProjectile> entityType, @NotNull Level level) {
+	public ThrownItemProjectile(EntityType<? extends ThrownItemProjectile> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	public ThrownItemProjectile(@NotNull Level level, LivingEntity shooter, ItemStack stack) {
+	public ThrownItemProjectile(Level level, LivingEntity shooter, ItemStack stack) {
 		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, shooter, level, stack);
 	}
 
-	public ThrownItemProjectile(double x, double y, double z, Level level, @NotNull ItemStack stack) {
+	public ThrownItemProjectile(double x, double y, double z, Level level, ItemStack stack) {
 		super(TTEntityTypes.THROWN_ITEM_PROJECTILE, x, y, z, level, stack);
 	}
 
 	@Override
-	@NotNull
 	protected Item getDefaultItem() {
 		return Items.COBBLESTONE;
 	}
@@ -61,9 +59,9 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == EntityEvent.DEATH) {
-			final ParticleOptions particleOptions = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
+			final ParticleOptions options = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
 			for (int i = 0; i < 8; ++i) {
-				this.level().addParticle(particleOptions, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
+				this.level().addParticle(options, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
 			}
 		} else {
 			super.handleEntityEvent(id);
@@ -71,7 +69,7 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void onHitEntity(@NotNull EntityHitResult result) {
+	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
 		final Entity entity = result.getEntity();
 		if (entity instanceof Apparition apparition) {
@@ -85,7 +83,7 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void onHitBlock(@NotNull BlockHitResult result) {
+	protected void onHitBlock(BlockHitResult result) {
 		super.onHitBlock(result);
 		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
 		this.discard();

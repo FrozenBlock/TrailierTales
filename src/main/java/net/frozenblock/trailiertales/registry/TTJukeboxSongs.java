@@ -24,9 +24,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.JukeboxSong;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.util.Util;
+import net.minecraft.world.item.JukeboxSong;
 
 public final class TTJukeboxSongs {
 	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = create("fausse_vie");
@@ -36,12 +35,12 @@ public final class TTJukeboxSongs {
 	public static void init() {
 	}
 
-	private static @NotNull ResourceKey<JukeboxSong> create(String path) {
+	private static ResourceKey<JukeboxSong> create(String path) {
 		return ResourceKey.create(Registries.JUKEBOX_SONG, TTConstants.id(path));
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<JukeboxSong> context,
+		BootstrapContext<JukeboxSong> context,
 		ResourceKey<JukeboxSong> registryKey,
 		Holder.Reference<SoundEvent> soundEvent,
 		int lengthInSeconds,

@@ -24,7 +24,6 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(Entity.class)
 public class EntityMixin implements InEctoplasmBlockInterface {
-
 	@Unique
 	private boolean trailierTales$clipInEctoplasm;
 

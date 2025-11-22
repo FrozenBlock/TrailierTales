@@ -37,12 +37,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 	@Override
-	public @NotNull Set<MemoryModuleType<?>> requires() {
+	public Set<MemoryModuleType<?>> requires() {
 		return Set.of(
 			TTMemoryModuleTypes.NEARBY_AIDABLES,
 			TTMemoryModuleTypes.NEAREST_AIDABLE
@@ -54,7 +53,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 			&& this.isAidable(apparition, target, takenUUIDs);
 	}
 
-	private boolean isAidable(@NotNull Apparition apparition, @NotNull LivingEntity entity, List<UUID> takenUUIDs) {
+	private boolean isAidable(Apparition apparition, LivingEntity entity, List<UUID> takenUUIDs) {
 		final LivingEntity newTarget = apparition.getTarget();
 		if (entity instanceof Mob mob
 				&& newTarget != null
@@ -65,7 +64,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		) {
 			final Brain<Apparition> brain = apparition.getBrain();
 			if (brain.hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME)) {
-				Optional<List<UUID>> trackingUUIDs = brain.getMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
+				final Optional<List<UUID>> trackingUUIDs = brain.getMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
 				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) return false;
 			}
 			final LivingEntity currentTarget = mob.getTarget();
@@ -78,48 +77,46 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		return false;
 	}
 
-	private boolean isClose(Apparition apparition, @NotNull LivingEntity target) {
+	private boolean isClose(Apparition apparition, LivingEntity target) {
 		return target.distanceTo(apparition) <= apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel world, @NotNull Apparition apparition) {
+	protected void doTick(ServerLevel level, Apparition apparition) {
 		final Brain<?> brain = apparition.getBrain();
 		final LivingEntity attackTarget = apparition.getTarget();
-		if (attackTarget != null) {
-			List<UUID> takenUUIDs = new ArrayList<>();
-			world.getAllEntities().forEach(
-				entity -> {
-					if (entity instanceof Apparition otherApparition && otherApparition != apparition) {
-						otherApparition.getBrain().getMemory(TTMemoryModuleTypes.AIDING_ENTITIES).ifPresent(takenUUIDs::addAll);
-					}
-				}
-			);
-
-			final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
-			final AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
-			final List<LivingEntity> list = world.getEntitiesOfClass(
-				LivingEntity.class,
-				aABB,
-				livingEntity2 -> isMatchingEntity(apparition, livingEntity2, takenUUIDs)
-			);
-			list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
-			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, list);
-			brain.setMemory(TTMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
-		} else {
+		if (attackTarget == null) {
 			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
 			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE);
+			return;
 		}
+
+		List<UUID> takenUUIDs = new ArrayList<>();
+		level.getAllEntities().forEach(entity -> {
+			if (!(entity instanceof Apparition otherApparition) || otherApparition == apparition) return;
+			otherApparition.getBrain().getMemory(TTMemoryModuleTypes.AIDING_ENTITIES).ifPresent(takenUUIDs::addAll);
+		});
+
+		final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
+		final AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
+		final List<LivingEntity> entities = level.getEntitiesOfClass(
+			LivingEntity.class,
+			aABB,
+			livingEntity2 -> isMatchingEntity(apparition, livingEntity2, takenUUIDs)
+		);
+		entities.sort(Comparator.comparingDouble(apparition::distanceToSqr));
+		brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, entities);
+		brain.setMemory(TTMemoryModuleTypes.NEAREST_AIDABLE, this.getNearestEntity(apparition));
 	}
 
-	private Optional<LivingEntity> getNearestEntity(@NotNull Apparition apparition) {
+	private Optional<LivingEntity> getNearestEntity(Apparition apparition) {
 		return apparition.getBrain().getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES)
-			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> true));
+			.flatMap(entities -> this.findClosest(entities, livingEntity -> true));
 	}
 
-	private Optional<LivingEntity> findClosest(@NotNull List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
-		for (LivingEntity livingEntity : livingEntities) {
-			if (predicate.test(livingEntity)) return Optional.of(livingEntity);
+	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
+		for (LivingEntity entity : livingEntities) {
+			if (predicate.test(entity)) return Optional.of(entity);
 		}
 
 		return Optional.empty();

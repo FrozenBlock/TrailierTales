@@ -28,7 +28,6 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTBlockConfig {
-
 	public static final Config<TTBlockConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			TTConstants.MOD_ID,

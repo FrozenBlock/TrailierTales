@@ -48,7 +48,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public static BlockFamily FAMILY_CALCITE;
@@ -72,7 +71,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
+	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
 		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_SANDSTONE_WALL);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_SANDSTONE_STAIRS);
 		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_SANDSTONE_WALL);
@@ -121,7 +120,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		TTConstants.log("Building datagen registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, TTFeatureBootstrap::bootstrapConfigured);

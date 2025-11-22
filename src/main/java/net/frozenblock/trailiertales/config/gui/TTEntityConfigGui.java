@@ -25,15 +25,15 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class TTEntityConfigGui {
+
 	private TTEntityConfigGui() {
 		throw new UnsupportedOperationException("TTEntityConfigGui contains only static declarations.");
 	}
 
-	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
 		var config = TTEntityConfig.get(true);
 		var modifiedConfig = TTEntityConfig.getWithSync();
 		Config<? extends TTEntityConfig> configInstance = TTEntityConfig.INSTANCE;

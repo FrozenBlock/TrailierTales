@@ -61,7 +61,7 @@ public class BrushableBlockRendererMixin {
 		at = @At("TAIL")
 	)
 	private void trailierTales$extractBrushableBlockRenderState(
-		BrushableBlockEntity brushableBlockEntity,
+		BrushableBlockEntity brushableBlock,
 		BrushableBlockRenderState renderState,
 		float partialTick,
 		Vec3 vec3,
@@ -69,7 +69,7 @@ public class BrushableBlockRendererMixin {
 		CallbackInfo info
 	) {
 		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS
-			&& brushableBlockEntity instanceof BrushableBlockEntityInterface blockInterface
+			&& brushableBlock instanceof BrushableBlockEntityInterface blockInterface
 			&& renderState instanceof BrushableBlockRenderStateInterface stateInterface
 		) {
 			stateInterface.trailierTales$setXOffset(blockInterface.trailierTales$getXOffset(partialTick));
@@ -88,8 +88,8 @@ public class BrushableBlockRendererMixin {
 	public void trailierTales$cancelIfItemIsTooSmall(
 		BrushableBlockRenderState renderState,
 		PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
-		CameraRenderState cameraRenderState,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState,
 		CallbackInfo info
 	) {
 		if (!TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS || !(renderState instanceof BrushableBlockRenderStateInterface stateInterface)) return;

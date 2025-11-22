@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.block.impl;
 
 import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
 
 public enum CoffinPart implements StringRepresentable {
 	HEAD("head"),
@@ -30,12 +29,13 @@ public enum CoffinPart implements StringRepresentable {
 		this.name = name;
 	}
 
+	@Override
 	public String toString() {
 		return this.name;
 	}
 
 	@Override
-	public @NotNull String getSerializedName() {
+	public String getSerializedName() {
 		return this.name;
 	}
 }

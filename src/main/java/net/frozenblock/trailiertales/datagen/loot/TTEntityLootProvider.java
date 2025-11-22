@@ -33,7 +33,6 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 
 public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
@@ -44,8 +43,8 @@ public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	@Override
-	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		HolderLookup.Provider registryLookup = this.registries.join();
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		final HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
 			TTEntityTypes.APPARITION.getDefaultLootTable().orElseThrow(),

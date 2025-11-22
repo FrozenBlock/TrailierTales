@@ -21,7 +21,6 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
 
 public class TTBlockTags {
 	public static final TagKey<Block> SOUND_UNPOLISHED_BRICKS = bind("sound/unpolished_bricks");
@@ -39,8 +38,7 @@ public class TTBlockTags {
 	public static final TagKey<Block> SURVEYOR_CAN_SEE_THROUGH = bind("surveyor_can_see_through");
 	public static final TagKey<Block> SURVEYOR_CANNOT_SEE_THROUGH = bind("surveyor_cannot_see_through");
 
-	@NotNull
-	private static TagKey<Block> bind(@NotNull String path) {
+	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registries.BLOCK, TTConstants.id(path));
 	}
 

@@ -33,7 +33,6 @@ import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTItems {
 	public static final SpawnEggItem APPARITION_SPAWN_EGG = register("apparition_spawn_egg",
@@ -360,18 +359,18 @@ public final class TTItems {
 	public static void init() {
 	}
 
-	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
+	private static <T extends Item> T register(String name, Function<Properties, Item> function, Item.Properties properties) {
 		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name)), function, properties);
 	}
 
-	private static @NotNull <T extends Item> T registerSherd(String name, @NotNull Function<Properties, Item> function, Item.@NotNull Properties properties) {
-		T item = (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name + "_pottery_sherd")), function, properties);
+	private static <T extends Item> T registerSherd(String name, Function<Properties, Item> function, Item.Properties properties) {
+		final T item = (T) Items.registerItem(ResourceKey.create(Registries.ITEM, TTConstants.id(name + "_pottery_sherd")), function, properties);
 		SherdRegistry.register(item, TTConstants.id(name));
 		return item;
 	}
 
 	@Contract(pure = true)
-	public static @NotNull Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
+	public static Function<Properties, Item> createBlockItemWithCustomItemName(Block block) {
 		return properties -> new BlockItem(block, properties.useItemDescriptionPrefix());
 	}
 

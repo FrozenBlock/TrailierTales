@@ -29,10 +29,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTResources {
-
 	public static boolean HAS_STRONGHOLD_OVERRIDE_PACK = false;
 
 	public static void init(ModContainer container) {
@@ -50,12 +48,10 @@ public final class TTResources {
 			}
 
 			@Override
-			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
+			public void onResourceManagerReload(ResourceManager resourceManager) {
 				RuinsStructure.onServerDataReload(resourceManager);
 				HAS_STRONGHOLD_OVERRIDE_PACK = resourceManager.listPacks().anyMatch(packResources -> {
-					if (packResources.knownPackInfo().isPresent()) {
-						return packResources.knownPackInfo().get().id().equals(TTConstants.string("stronghold_catacombs"));
-					}
+					if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(TTConstants.string("stronghold_catacombs"));
 					return false;
 				});
 				TTConstants.log(HAS_STRONGHOLD_OVERRIDE_PACK ? "Has stronghold override pack!" : "Does not have stronghold override pack!", TTConstants.UNSTABLE_LOGGING);

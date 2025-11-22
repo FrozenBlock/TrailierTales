@@ -28,7 +28,6 @@ import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public final class TTMixinsConfig {
-
 	public static final Config<TTMixinsConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,

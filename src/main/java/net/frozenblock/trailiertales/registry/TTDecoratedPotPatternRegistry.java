@@ -23,7 +23,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistryEntrypoint {
 
@@ -65,7 +64,7 @@ public final class TTDecoratedPotPatternRegistry implements DecoratedPotPatternR
 		register(registry, "wither");
 	}
 
-	private static void register(@NotNull Registry<DecoratedPotPattern> registry, String sherdName) {
+	private static void register(Registry<DecoratedPotPattern> registry, String sherdName) {
 		DecoratedPotPatternRegistryEntrypoint.register(
 			registry,
 			ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(sherdName)),

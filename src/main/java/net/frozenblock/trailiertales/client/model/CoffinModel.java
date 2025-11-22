@@ -28,7 +28,6 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class CoffinModel extends Model<Float> {
@@ -43,17 +42,17 @@ public class CoffinModel extends Model<Float> {
 		this.lid = root.getChild(LID);
 	}
 
-	public static @NotNull LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createLayerDefinition() {
 		final MeshDefinition modelData = new MeshDefinition();
-		final PartDefinition modelPartData = modelData.getRoot();
-		modelPartData.addOrReplaceChild(
+		final PartDefinition root = modelData.getRoot();
+		root.addOrReplaceChild(
 			BASE,
 			CubeListBuilder.create()
 				.texOffs(0, 18)
 				.addBox(0F, 0F, 0F, 16F, 12F, 16F),
 			PartPose.ZERO
 		);
-		modelPartData.addOrReplaceChild(
+		root.addOrReplaceChild(
 			LID,
 			CubeListBuilder.create()
 				.texOffs(0, 0)

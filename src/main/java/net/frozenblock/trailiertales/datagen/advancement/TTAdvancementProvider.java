@@ -35,18 +35,18 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public class TTAdvancementProvider extends FabricAdvancementProvider {
+
 	public TTAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
-	public void generateAdvancement(HolderLookup.@NotNull Provider registries, Consumer<AdvancementHolder> writer) {
-		AdvancementHolder adventure = Advancement.Builder.advancement().build(TTConstants.vanillaId("adventure/root"));
+	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
+		final AdvancementHolder adventure = Advancement.Builder.advancement().build(TTConstants.vanillaId("adventure/root"));
 
-		AdvancementHolder enterCatacombs = Advancement.Builder.advancement()
+		final AdvancementHolder enterCatacombs = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
 				Blocks.DEEPSLATE_BRICKS,

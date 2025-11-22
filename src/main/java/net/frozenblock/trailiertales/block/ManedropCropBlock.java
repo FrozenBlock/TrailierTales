@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -47,7 +46,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ManedropCropBlock extends DoublePlantBlock implements BonemealableBlock {
@@ -67,46 +65,54 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	};
 
 	@Override
-	public @NotNull MapCodec<ManedropCropBlock> codec() {
+	public MapCodec<ManedropCropBlock> codec() {
 		return CODEC;
 	}
 
-	public ManedropCropBlock(BlockBehaviour.Properties settings) {
-		super(settings);
+	public ManedropCropBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState();
 	}
 
 	@Override
-	public @NotNull VoxelShape getShape(@NotNull BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(HALF) == DoubleBlockHalf.UPPER
 			? UPPER_SHAPE_BY_AGE[Math.min(Math.abs(MAX_AGE - (state.getValue(AGE) + 1)), UPPER_SHAPE_BY_AGE.length - 1)]
 			: LOWER_SHAPE_BY_AGE[state.getValue(AGE)];
 	}
 
 	@Override
-	@NotNull
-	protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState blockState2, RandomSource randomSource) {
-		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, blockState2, randomSource);
+	protected BlockState updateShape(
+		BlockState state,
+		LevelReader level,
+		ScheduledTickAccess tickAccess,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
+	) {
+		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
 		return state.canSurvive(level, pos) ? state : Blocks.AIR.defaultBlockState();
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-		return (!isLower(state) || sufficientLight(world, pos)) && super.canSurvive(state, world, pos);
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+		return (!isLower(state) || sufficientLight(level, pos)) && super.canSurvive(state, level, pos);
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState floor, BlockGetter level, BlockPos pos) {
-		return floor.is(Blocks.FARMLAND);
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.is(Blocks.FARMLAND);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AGE);
 		super.createBlockStateDefinition(builder);
 	}
@@ -127,26 +133,26 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public boolean isRandomlyTicking(@NotNull BlockState state) {
+	public boolean isRandomlyTicking(BlockState state) {
 		return state.getValue(HALF) == DoubleBlockHalf.LOWER && !this.isMaxAge(state);
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		float growthSpeed = CropBlock.getGrowthSpeed(this, level, pos);
 		if (random.nextInt((int)(25F / growthSpeed) + 1) == 0) this.grow(level, state, pos, 1);
 	}
 
-	private void grow(ServerLevel world, @NotNull BlockState state, BlockPos pos, int amount) {
+	private void grow(ServerLevel level, BlockState state, BlockPos pos, int amount) {
 		final int grownAge = Math.min(state.getValue(AGE) + amount, MAX_AGE);
-		if (!this.canGrow(world, pos, state, grownAge)) return;
+		if (!this.canGrow(level, pos, state, grownAge)) return;
 
 		final BlockState newState = state.setValue(AGE, grownAge);
-		world.setBlock(pos, newState, UPDATE_CLIENTS);
-		if (isDouble(grownAge)) world.setBlock(pos.above(), newState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
+		level.setBlock(pos, newState, UPDATE_CLIENTS);
+		if (isDouble(grownAge)) level.setBlock(pos.above(), newState.setValue(HALF, DoubleBlockHalf.UPPER), UPDATE_ALL);
 	}
 
-	private static boolean canGrowInto(@NotNull LevelReader level, BlockPos pos) {
+	private static boolean canGrowInto(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		return state.isAir() || state.is(TTBlocks.MANEDROP_CROP);
 	}
@@ -155,7 +161,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 		return CropBlock.hasSufficientLight(level, pos);
 	}
 
-	private static boolean isLower(@NotNull BlockState state) {
+	private static boolean isLower(BlockState state) {
 		return state.is(TTBlocks.MANEDROP_CROP) && state.getValue(HALF) == DoubleBlockHalf.LOWER;
 	}
 
@@ -167,7 +173,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 		return !this.isMaxAge(state) && sufficientLight(level, pos) && (!isDouble(age) || canGrowInto(level, pos.above()));
 	}
 
-	private boolean isMaxAge(@NotNull BlockState state) {
+	private boolean isMaxAge(BlockState state) {
 		return state.getValue(AGE) >= MAX_AGE;
 	}
 
@@ -181,8 +187,8 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		PosAndState posAndState = this.getLowerHalf(level, pos, state);
-		return posAndState != null && this.canGrow(level, posAndState.pos, state, posAndState.state.getValue(AGE) + 1);
+		final PosAndState lowerHalf = this.getLowerHalf(level, pos, state);
+		return lowerHalf != null && this.canGrow(level, lowerHalf.pos, state, lowerHalf.state.getValue(AGE) + 1);
 	}
 
 	@Override

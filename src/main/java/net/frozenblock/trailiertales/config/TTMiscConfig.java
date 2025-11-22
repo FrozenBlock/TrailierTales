@@ -27,7 +27,6 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTMiscConfig {
-
 	public static final Config<TTMiscConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			TTConstants.MOD_ID,

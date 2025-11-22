@@ -43,7 +43,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class SurveyorBlockEntity extends BlockEntity {
 	private int detectionCooldown;
@@ -53,20 +52,20 @@ public class SurveyorBlockEntity extends BlockEntity {
 		super(TTBlockEntityTypes.SURVEYOR, pos, state);
 	}
 
-	private static Vec3 chooseClosestPos(@NotNull Vec3 origin, Vec3 posA, Vec3 posB) {
+	private static Vec3 chooseClosestPos(Vec3 origin, Vec3 posA, Vec3 posB) {
 		if (origin.distanceTo(posA) > origin.distanceTo(posB)) return posB;
 		return posA;
 	}
 
-	public static @NotNull Vec3 getEyePosition(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public static Vec3 getEyePosition(BlockPos pos, BlockState state) {
 		return getEyePosition(pos, state, 0.55D);
 	}
 
-	public static @NotNull Vec3 getViewEndPosition(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public static Vec3 getViewEndPosition(BlockPos pos, BlockState state) {
 		return getEyePosition(pos, state, 15.5D);
 	}
 
-	public static @NotNull Vec3 getEyePosition(@NotNull BlockPos pos, @NotNull BlockState state, double distanceFromCenter) {
+	public static Vec3 getEyePosition(BlockPos pos, BlockState state, double distanceFromCenter) {
 		final Direction direction = state.getValue(SurveyorBlock.FACING);
 		return pos.getCenter()
 			.add(
@@ -90,7 +89,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 		valueOutput.putInt("detection_cooldown", this.detectionCooldown);
 	}
 
-	public void tickServer(ServerLevel serverLevel, BlockPos pos, BlockState state) {
+	public void tickServer(ServerLevel level, BlockPos pos, BlockState state) {
 		if (TTPreLoadConstants.STRUCTURE_BUILDING_MODE) return;
 
 		if (this.detectionCooldown > 0) {
@@ -103,8 +102,8 @@ public class SurveyorBlockEntity extends BlockEntity {
 
 		final Direction facing = state.getValue(SurveyorBlock.FACING);
 		final BlockPos inFrontPos = pos.relative(facing);
-		final BlockState inFrontState = serverLevel.getBlockState(pos.relative(facing));
-		final boolean isBlocked = !canSeeThroughBlock(serverLevel, inFrontState, inFrontPos);
+		final BlockState inFrontState = level.getBlockState(pos.relative(facing));
+		final boolean isBlocked = !canSeeThroughBlock(level, inFrontState, inFrontPos);
 
 		if (!isBlocked) {
 			final Vec3 surveyorCenterPos = Vec3.atCenterOf(pos);
@@ -114,7 +113,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 			final BlockPos endBlockPos = BlockPos.containing(endClipPos);
 
 			final AABB detectionBox = AABB.encapsulatingFullBlocks(startBlockPos, endBlockPos);
-			List<Player> players = serverLevel.getEntities(
+			List<Player> players = level.getEntities(
 				EntityTypeTest.forClass(Player.class),
 				detectionBox,
 				EntitySelector.NO_SPECTATORS
@@ -124,26 +123,26 @@ public class SurveyorBlockEntity extends BlockEntity {
 				Vec3 closestPoint = closestPointTo(player.getBoundingBox(), startClipPos);
 				Optional<Vec3> headPoint = Optional.empty();
 				Optional<Vec3> footPoint = Optional.empty();
-				if (player.isInvisible()) {
-					if (player.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && player.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
-						if (!player.getItemBySlot(EquipmentSlot.FEET).isEmpty() && detectionBox.contains(player.position())) {
-							footPoint = Optional.of(player.position());
-						}
-						if (!player.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && detectionBox.contains(player.getEyePosition())) {
-							headPoint = Optional.of(player.getEyePosition());
-						}
 
-						if (headPoint.isPresent() && footPoint.isPresent()) {
-							closestPoint = chooseClosestPos(closestPoint, headPoint.get(), footPoint.get());
-						} else if (headPoint.isPresent()) {
-							closestPoint = headPoint.get();
-						} else if (footPoint.isPresent()) {
-							closestPoint = footPoint.get();
-						} else {
-							continue;
-						}
+				tryMakingInvisibilityPoints: {
+					if (!player.isInvisible()) break tryMakingInvisibilityPoints;
+					if (!player.getItemBySlot(EquipmentSlot.LEGS).isEmpty() || !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) break tryMakingInvisibilityPoints;
+
+					if (!player.getItemBySlot(EquipmentSlot.FEET).isEmpty() && detectionBox.contains(player.position())) footPoint = Optional.of(player.position());
+					if (!player.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && detectionBox.contains(player.getEyePosition())) headPoint = Optional.of(player.getEyePosition());
+
+					if (headPoint.isPresent() && footPoint.isPresent()) {
+						closestPoint = chooseClosestPos(closestPoint, headPoint.get(), footPoint.get());
+					} else if (headPoint.isPresent()) {
+						closestPoint = headPoint.get();
+					} else if (footPoint.isPresent()) {
+						closestPoint = footPoint.get();
+					} else {
+						continue;
 					}
 				}
+
+
 				final int distance = (int) closestPoint.distanceTo(startClipPos);
 				if (distance < closestDetection) {
 					final HitResult hitResult = ProjectileUtil.getHitResult(
@@ -151,7 +150,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 						player,
 						EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible() && !entity.getType().is(TTEntityTags.SURVEYOR_IGNORES)),
 						surveyorCenterPos.subtract(closestPoint),
-						serverLevel,
+						level,
 						0F,
 						TTClipContextShapeGetters.SURVEYOR_SIGHT
 					);
@@ -166,21 +165,21 @@ public class SurveyorBlockEntity extends BlockEntity {
 		final int previousDetection = this.lastDetectionPower;
 		this.lastDetectionPower = Math.clamp(15 - closestDetection, 0, 15);
 		final boolean updateNeighbors = previousDetection != this.lastDetectionPower;
-		SurveyorBlock.updatePower(serverLevel, pos, state, this.lastDetectionPower, updateNeighbors);
+		SurveyorBlock.updatePower(level, pos, state, this.lastDetectionPower, updateNeighbors);
 	}
 
-	public static boolean canSeeThroughBlock(BlockGetter level, @NotNull BlockState state, BlockPos pos) {
+	public static boolean canSeeThroughBlock(BlockGetter level, BlockState state, BlockPos pos) {
 		if (state.is(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH) && !state.is(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)) return true;
 		return !state.isCollisionShapeFullBlock(level, pos);
 	}
 
-	private Vec3 closestPointTo(@NotNull AABB aabb, @NotNull Vec3 point) {
-		Vec3[] vec3s = new Vec3[1];
-		double d = Mth.clamp(point.x(), aabb.minX, aabb.maxX);
-		double e = Mth.clamp(point.y(), aabb.minY, aabb.maxY);
-		double f = Mth.clamp(point.z(), aabb.minZ, aabb.maxZ);
-		if (vec3s[0] == null || point.distanceToSqr(d, e, f) < point.distanceToSqr(vec3s[0])) {
-			vec3s[0] = new Vec3(d, e, f);
+	private Vec3 closestPointTo(AABB aabb, Vec3 point) {
+		final Vec3[] vec3s = new Vec3[1];
+		final double clampedX = Mth.clamp(point.x(), aabb.minX, aabb.maxX);
+		final double clampedY = Mth.clamp(point.y(), aabb.minY, aabb.maxY);
+		final double clampedZ = Mth.clamp(point.z(), aabb.minZ, aabb.maxZ);
+		if (vec3s[0] == null || point.distanceToSqr(clampedX, clampedY, clampedZ) < point.distanceToSqr(vec3s[0])) {
+			vec3s[0] = new Vec3(clampedX, clampedY, clampedZ);
 		}
 		return vec3s[0];
 	}

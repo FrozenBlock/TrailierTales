@@ -26,21 +26,20 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 public class TTParticleProviders {
 
 	@Environment(EnvType.CLIENT)
-	public record SuspiciousConnectionProvider(SpriteSet sprite) implements ParticleProvider<SimpleParticleType> {
+	public record SuspiciousConnectionProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		public Particle createParticle(
-			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			FlyTowardsPositionParticle flyTowardsPositionParticle = new FlyTowardsPositionParticle(
-				level, x, y, z, xd, yd, zd, true, new Particle.LifetimeAlpha(1F, 0F, 0F, 1F), this.sprite.get(random)
+			final FlyTowardsPositionParticle flyTowardsPositionParticle = new FlyTowardsPositionParticle(
+				level, x, y, z, xd, yd, zd, true, new Particle.LifetimeAlpha(1F, 0F, 0F, 1F), this.spriteSet.get(random)
 			);
 			flyTowardsPositionParticle.scale(1.75F);
 			return flyTowardsPositionParticle;

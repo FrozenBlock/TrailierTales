@@ -33,12 +33,11 @@ import net.frozenblock.trailiertales.config.gui.TTItemConfigGui;
 import net.frozenblock.trailiertales.config.gui.TTMiscConfigGui;
 import net.frozenblock.trailiertales.config.gui.TTWorldgenConfigGui;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ConfigGuiBuilder {
 
-	public static Screen buildScreen(@NotNull Screen parent) {
+	public static Screen buildScreen(Screen parent) {
 		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TTConstants.text("component.title"));
 
 		configBuilder.setSavingRunnable(() -> {

@@ -29,7 +29,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.state.QuadParticleRenderState;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
@@ -38,7 +37,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 	private final Vector3f toColor;
 
 	public GlowingColorTransitionParticle(
-		@NotNull ClientLevel level,
+		ClientLevel level,
 		double x, double y, double z,
 		double xd, double yd, double zd,
 		GlowingDustColorTransitionOptions options,
@@ -51,7 +50,7 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 	}
 
 	@Contract("_, _ -> new")
-	private @NotNull Vector3f randomizeColor(@NotNull Vector3f color, float factor) {
+	private Vector3f randomizeColor(Vector3f color, float factor) {
 		return new Vector3f(this.randomizeColor(color.x(), factor), this.randomizeColor(color.y(), factor), this.randomizeColor(color.z(), factor));
 	}
 
@@ -77,13 +76,13 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<GlowingDustColorTransitionOptions> {
 		@Override
 		public Particle createParticle(
-			GlowingDustColorTransitionOptions dustColorTransitionOptions,
-			@NotNull ClientLevel level,
+			GlowingDustColorTransitionOptions options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new GlowingColorTransitionParticle(level, x, y, z, xd, yd, zd, dustColorTransitionOptions, this.spriteSet);
+			return new GlowingColorTransitionParticle(level, x, y, z, xd, yd, zd, options, this.spriteSet);
 		}
 	}
 }

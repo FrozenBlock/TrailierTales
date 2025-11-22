@@ -24,22 +24,23 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 
 public final class TTVillagerTrades {
+
 	public static void init() {
-		if (TTEntityConfig.get().villager.sell_catacombs_map) {
-			TradeOfferHelper.registerVillagerOffers(
-				VillagerProfession.CARTOGRAPHER,
-				3,
-				(factories, rebalanced) -> factories.add(
-					new VillagerTrades.TreasureMapForEmeralds(
-						12,
-						TTStructureTags.ON_CATACOMBS_EXPLORER_MAPS,
-						"filled_map.trailiertales.catacombs",
-						TTMapDecorationTypes.CATACOMBS,
-						12,
-						10
-					)
+		if (!TTEntityConfig.get().villager.sell_catacombs_map) return;
+
+		TradeOfferHelper.registerVillagerOffers(
+			VillagerProfession.CARTOGRAPHER,
+			3,
+			(trades, rebalanced) -> trades.add(
+				new VillagerTrades.TreasureMapForEmeralds(
+					12,
+					TTStructureTags.ON_CATACOMBS_EXPLORER_MAPS,
+					"filled_map.trailiertales.catacombs",
+					TTMapDecorationTypes.CATACOMBS,
+					12,
+					10
 				)
-			);
-		}
+			)
+		);
 	}
 }

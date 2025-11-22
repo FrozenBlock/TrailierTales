@@ -45,10 +45,8 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
-import org.jetbrains.annotations.NotNull;
 
 public class TTFeatureBootstrap {
-
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create(
 		Registries.CONFIGURED_FEATURE,
 			TTConstants.id("torchflower")
@@ -94,9 +92,10 @@ public class TTFeatureBootstrap {
 		TTConstants.id("dawntrail")
 	);
 
-	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+
 		register(
 			entries,
 			TORCHFLOWER,
@@ -172,7 +171,7 @@ public class TTFeatureBootstrap {
 		);
 	}
 
-	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
+	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		register(

@@ -115,8 +115,8 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	public void trailierTales$renderBoatBanner(
 		BoatRenderState renderState,
 		PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
-		CameraRenderState cameraRenderState,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState,
 		CallbackInfo info
 	) {
 		if (!(renderState instanceof BoatRenderStateInterface stateInterface)) return;
@@ -130,7 +130,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		this.trailierTales$boatBannerModel.submitFlag(
 			this.materials,
 			poseStack,
-			submitNodeCollector,
+			collector,
 			renderState,
 			OverlayTexture.NO_OVERLAY,
 			bannerItem.getColor(),

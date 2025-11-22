@@ -28,7 +28,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBase {
@@ -58,7 +57,7 @@ public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBa
 	}
 
 	@Contract("_, _ -> new")
-	public static @NotNull GlowingDustColorTransitionOptions ofSingleColor(int color, float scale) {
+	public static GlowingDustColorTransitionOptions ofSingleColor(int color, float scale) {
 		return new GlowingDustColorTransitionOptions(color, color, scale);
 	}
 
@@ -71,7 +70,7 @@ public class GlowingDustColorTransitionOptions extends ScalableParticleOptionsBa
 	}
 
 	@Override
-	public @NotNull ParticleType<GlowingDustColorTransitionOptions> getType() {
+	public ParticleType<GlowingDustColorTransitionOptions> getType() {
 		return TTParticleTypes.GLOWING_DUST_COLOR_TRANSITION;
 	}
 }

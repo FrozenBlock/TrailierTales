@@ -26,17 +26,16 @@ import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class GlowingColorBubbleParticle extends SingleQuadParticle {
 	private final SpriteSet spriteSet;
 
 	public GlowingColorBubbleParticle(
-		@NotNull ClientLevel level,
+		ClientLevel level,
 		double x, double y, double z,
 		double xd, double yd, double zd,
-		@NotNull SpriteSet spriteSet
+		SpriteSet spriteSet
 	) {
 		super(level, x, y, z, spriteSet.first());
 		this.spriteSet = spriteSet;
@@ -72,21 +71,21 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	@NotNull
 	protected Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<ColorParticleOption> {
+		@Override
 		public Particle createParticle(
-			@NotNull ColorParticleOption colorParticleOption,
-			@NotNull ClientLevel level,
+			ColorParticleOption options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
 			final GlowingColorBubbleParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
-			particle.setColor(colorParticleOption.getRed(), colorParticleOption.getGreen(), colorParticleOption.getBlue());
+			particle.setColor(options.getRed(), options.getGreen(), options.getBlue());
 			return particle;
 		}
 	}

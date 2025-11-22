@@ -33,7 +33,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionPlayerSensor extends Sensor<Apparition> {
 	private static final TargetingConditions TARGET_CONDITIONS = TargetingConditions.forNonCombat()
@@ -48,35 +47,43 @@ public class ApparitionPlayerSensor extends Sensor<Apparition> {
 		.ignoreInvisibilityTesting();
 
 	@Override
-	public @NotNull Set<MemoryModuleType<?>> requires() {
+	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull Apparition apparition) {
+	protected void doTick(ServerLevel level, Apparition apparition) {
+		final Brain<?> brain = apparition.getBrain();
 		final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
-		final List<Player> list = level.players()
+
+		final List<Player> nearestPlayers = level.players()
 			.stream()
 			.filter(EntitySelector.NO_SPECTATORS)
 			.filter(player -> apparition.closerThan(player, range))
 			.sorted(Comparator.comparingDouble(apparition::distanceToSqr))
 			.collect(Collectors.toList());
+		brain.setMemory(MemoryModuleType.NEAREST_PLAYERS, nearestPlayers);
 
-		final Brain<?> brain = apparition.getBrain();
-		brain.setMemory(MemoryModuleType.NEAREST_PLAYERS, list);
-		final List<Player> list2 = list.stream().filter(player -> isEntityTargetable(level, apparition, player, range)).toList();
-		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, list2.isEmpty() ? null : list2.getFirst());
-		final Optional<Player> optional = list2.stream().filter(player -> isEntityAttackable(level, apparition, player, range)).findFirst();
-		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, optional);
+		final List<Player> nearestVisiblePlayers = nearestPlayers
+			.stream()
+			.filter(player -> isEntityTargetable(level, apparition, player, range))
+			.toList();
+		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, nearestVisiblePlayers.isEmpty() ? null : nearestVisiblePlayers.getFirst());
+
+		final Optional<Player> nearestVisibleAttackablePlayer = nearestVisiblePlayers
+			.stream()
+			.filter(player -> isEntityAttackable(level, apparition, player, range))
+			.findFirst();
+		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, nearestVisibleAttackablePlayer);
 	}
 
-	public static boolean isEntityTargetable(ServerLevel level, @NotNull LivingEntity entity, LivingEntity target, double range) {
+	public static boolean isEntityTargetable(ServerLevel level, LivingEntity entity, LivingEntity target, double range) {
 		return entity.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, target)
 			? TARGET_CONDITIONS_IGNORE_INVISIBILITY_TESTING.range(range).test(level, entity, target)
 			: TARGET_CONDITIONS.range(range).test(level, entity, target);
 	}
 
-	public static boolean isEntityAttackable(ServerLevel level, @NotNull LivingEntity entity, LivingEntity target, double range) {
+	public static boolean isEntityAttackable(ServerLevel level, LivingEntity entity, LivingEntity target, double range) {
 		return entity.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, target)
 			? ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY.range(range).test(level, entity, target)
 			: ATTACK_TARGET_CONDITIONS.range(range).test(level, entity, target);

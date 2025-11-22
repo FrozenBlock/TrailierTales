@@ -32,7 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,33 +43,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BrushableBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"), cancellable = true)
-	public void trailierTales$animateTick(BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (TTBlockConfig.SUSPICIOUS_BLOCK_PARTICLES) trailierTales$emitConnectionParticlesForPlayer(world, pos, random);
+	public void trailierTales$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_PARTICLES) trailierTales$emitConnectionParticlesForPlayer(level, pos, random);
 		if (BrushableBlock.class.cast(this) instanceof NonFallingBrushableBlock) info.cancel();
 	}
 
 	@Unique
-	private static void trailierTales$emitConnectionParticlesForPlayer(@NotNull Level world, BlockPos pos, RandomSource random) {
+	private static void trailierTales$emitConnectionParticlesForPlayer(Level level, BlockPos pos, RandomSource random) {
 		final Player player = Minecraft.getInstance().player;
 		if (player == null || !player.isHolding(Items.BRUSH)) return;
 
-		final Vec3 vec3 = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
-		final double playerDistance = vec3.distanceTo(player.position());
+		final Vec3 center = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
+		final double playerDistance = center.distanceTo(player.position());
 		final double distanceThreshold = random.nextDouble() * player.blockInteractionRange() * 1.5D;
 		if (playerDistance >= distanceThreshold) return;
 
 		boolean canCreateParticle = false;
-		final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.values()) {
-			final BlockState state = world.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
-			if (!(state.isAir() || !state.isFaceSturdy(world, mutableBlockPos, direction.getOpposite()))) continue;
+			final BlockState state = level.getBlockState(mutable.setWithOffset(pos, direction));
+			if (!(state.isAir() || !state.isFaceSturdy(level, mutable, direction.getOpposite()))) continue;
 			canCreateParticle = true;
 		}
 
 		if (canCreateParticle) {
-			final Vec3 halfPlayerHeight = vec3.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
+			final Vec3 halfPlayerHeight = center.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
 			final Vec3 startPos = halfPlayerHeight.offsetRandom(random, 1F);
-			world.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION, vec3.x(), vec3.y(), vec3.z(), startPos.x(), startPos.y(), startPos.z());
+			level.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION, center.x(), center.y(), center.z(), startPos.x(), startPos.y(), startPos.z());
 		}
 	}
 

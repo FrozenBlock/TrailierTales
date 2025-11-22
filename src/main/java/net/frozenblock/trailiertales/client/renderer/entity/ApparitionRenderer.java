@@ -38,7 +38,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.lighting.LightEngine;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -82,12 +81,12 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 
 	@Override
 	public void submit(
-		@NotNull ApparitionRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		ApparitionRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
 	) {
-		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
+		super.submit(renderState, poseStack, collector, cameraState);
 
 		if (renderState.item.isEmpty()) return;
 		poseStack.pushPose();
@@ -95,24 +94,23 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
 		poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
 		poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
-		renderState.item.submit(poseStack, submitNodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
+		renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
 		poseStack.popPose();
 	}
 
 	@Override
-	protected void setupRotations(@NotNull ApparitionRenderState renderState, @NotNull PoseStack poseStack, float bodyYaw, float scale) {
+	protected void setupRotations(ApparitionRenderState renderState, PoseStack poseStack, float bodyYaw, float scale) {
 		super.setupRotations(renderState, poseStack, bodyYaw, scale);
 		this.itemYaw = bodyYaw;
 		this.shadowStrength = renderState.totalTransparency;
 	}
 
 	@Override
-	protected @Nullable RenderType getRenderType(@NotNull ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
+	protected @Nullable RenderType getRenderType(ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
 		return null;
 	}
 
 	@Override
-	@NotNull
 	public Identifier getTextureLocation(ApparitionRenderState renderState) {
 		return TEXTURE;
 	}
@@ -123,13 +121,12 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	@NotNull
 	public ApparitionRenderState createRenderState() {
 		return new ApparitionRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Apparition apparition, @NotNull ApparitionRenderState renderState, float partialTick) {
+	public void extractRenderState(Apparition apparition, ApparitionRenderState renderState, float partialTick) {
 		super.extractRenderState(apparition, renderState, partialTick);
 		renderState.lightCoords = 15728640;
 		renderState.itemYRot = apparition.getItemYRot(partialTick);

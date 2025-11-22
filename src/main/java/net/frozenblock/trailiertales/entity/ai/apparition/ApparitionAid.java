@@ -37,7 +37,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionAid extends Behavior<Apparition> {
 
@@ -56,12 +55,12 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, @NotNull Apparition apparition) {
+	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
 		return apparition.getBrain().hasMemoryValue(TTMemoryModuleTypes.NEAREST_AIDABLE) && !apparition.isHiding();
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, @NotNull Apparition apparition, long l) {
+	protected boolean canStillUse(ServerLevel level, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
 			&& brain.hasMemoryValue(TTMemoryModuleTypes.NEAREST_AIDABLE)
@@ -69,7 +68,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void start(ServerLevel level, @NotNull Apparition apparition, long l) {
+	protected void start(ServerLevel level, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		apparition.playSound(TTSounds.APPARITION_AID, apparition.getSoundVolume(), apparition.getVoicePitch());
 		brain.setMemory(TTMemoryModuleTypes.AIDING_TIME, 61);
@@ -81,7 +80,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, @NotNull Apparition apparition, long l) {
+	protected void stop(ServerLevel level, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		brain.setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
 		brain.eraseMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
@@ -92,7 +91,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	public static final ParticleOptions EFFECT_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_ENTITY_EFFECT, 162F / 255F, 181F/ 255F, 217F / 255F);
 
 	@Override
-	protected void tick(ServerLevel level, @NotNull Apparition apparition, long l) {
+	protected void tick(ServerLevel level, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		final List<LivingEntity> entities = brain.getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
 		final List<UUID> trackingUUIDs = new ArrayList<>();
@@ -116,25 +115,20 @@ public class ApparitionAid extends Behavior<Apparition> {
 			return;
 		} else if (aidingTime == 1) {
 			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
-				if (livingEntity instanceof Mob mob) {
-					mob.setTarget(attackTarget);
-					spawnParticles(level, livingEntity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
-				}
+				if (!(livingEntity instanceof Mob mob)) return;
+				mob.setTarget(attackTarget);
+				spawnParticles(level, livingEntity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
 			}));
 		}
 		this.doStop(level, apparition, l);
 	}
 
-	private static void spawnParticles(@NotNull ServerLevel level, @NotNull LivingEntity entity, int count, ParticleOptions particleOptions) {
+	private static void spawnParticles(ServerLevel level, LivingEntity entity, int count, ParticleOptions options) {
 		level.sendParticles(
-			particleOptions,
-			entity.getX(),
-			entity.getY(0.6666666666666666D),
-			entity.getZ(),
+			options,
+			entity.getX(), entity.getY(0.6666666666666666D), entity.getZ(),
 			count,
-			entity.getBbWidth() / 4F,
-			entity.getBbHeight() / 4F,
-			entity.getBbWidth() / 4F,
+			entity.getBbWidth() / 4F, entity.getBbHeight() / 4F, entity.getBbWidth() / 4F,
 			0.05D
 		);
 	}

@@ -50,7 +50,6 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class RuinsStructure extends Structure {
 	public static final MapCodec<RuinsStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -107,66 +106,65 @@ public class RuinsStructure extends Structure {
 
 	public int getHeight(
 		BlockPos pos,
-		Structure.@NotNull GenerationContext context
+		Structure.GenerationContext context
 	) {
-		LevelHeightAccessor heightAccessor = context.heightAccessor();
-		ChunkGenerator chunkGenerator = context.chunkGenerator();
-		Heightmap.Types heightmapType = this.heightmap.orElseGet(() -> this.heightProvider.isEmpty() ? Heightmap.Types.OCEAN_FLOOR_WG : null);
-		if (heightmapType != null) {
-			return chunkGenerator.getFirstOccupiedHeight(pos.getX(), pos.getZ(), heightmapType, heightAccessor, context.randomState());
-		}
+		final LevelHeightAccessor heightAccessor = context.heightAccessor();
+		final ChunkGenerator chunkGenerator = context.chunkGenerator();
+		final Heightmap.Types heightmapType = this.heightmap.orElseGet(() -> this.heightProvider.isEmpty() ? Heightmap.Types.OCEAN_FLOOR_WG : null);
+		if (heightmapType != null) return chunkGenerator.getFirstOccupiedHeight(pos.getX(), pos.getZ(), heightmapType, heightAccessor, context.randomState());
+
 		WorldGenerationContext worldGenerationContext = new WorldGenerationContext(chunkGenerator, heightAccessor);
-		int y = this.heightProvider.get().sample(context.random().forkPositional().at(pos), worldGenerationContext);
+		final int y = this.heightProvider.get().sample(context.random().forkPositional().at(pos), worldGenerationContext);
 		this.providedHeight = Optional.of(y);
 		return y;
 	}
 
 	@Override
-	public @NotNull Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
-		ChunkPos chunkPos = context.chunkPos();
-		int x = chunkPos.getMiddleBlockX();
-		int z = chunkPos.getMiddleBlockZ();
-		int y = this.getHeight(new BlockPos(x, 0, z), context);
-		BlockPos startPos = new BlockPos(x, y, z);
+	public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
+		final ChunkPos chunkPos = context.chunkPos();
+		final int x = chunkPos.getMiddleBlockX();
+		final int z = chunkPos.getMiddleBlockZ();
+		final int y = this.getHeight(new BlockPos(x, 0, z), context);
+		final BlockPos startPos = new BlockPos(x, y, z);
 		return Optional.of(new Structure.GenerationStub(startPos, this.generatePieces(startPos, context)));
 	}
 
 	@Contract(pure = true)
-	private @NotNull Consumer<StructurePiecesBuilder> generatePieces(BlockPos startPos, Structure.@NotNull GenerationContext context) {
+	private Consumer<StructurePiecesBuilder> generatePieces(BlockPos startPos, Structure.GenerationContext context) {
 		return structurePiecesBuilder -> {
-			List<RuinsPieces.RuinPiece> list = Lists.newArrayList();
-			int x = startPos.getX();
-			int y = startPos.getY();
-			int z = startPos.getZ();
-			LevelHeightAccessor heightAccessor = context.heightAccessor();
-				BoundingBox box = new BoundingBox(
-					x - 128,
-					Math.max(y - 128, heightAccessor.getMinY() + 7),
-					z - 128,
-					x + 128 + 1,
-					Math.min(y + 128 + 1, heightAccessor.getMaxY()),
-					z + 128 + 1
-				);
-				RuinsPieces.addPieces(
-					context.structureTemplateManager(),
-					heightAccessor,
-					startPos,
-					Rotation.getRandom(context.random()),
-					context.random(),
-					this,
-					list,
-					box
-				);
-				list.forEach(structurePiecesBuilder::addPiece);
+			final List<RuinsPieces.RuinPiece> list = Lists.newArrayList();
+			final int x = startPos.getX();
+			final int y = startPos.getY();
+			final int z = startPos.getZ();
+			final LevelHeightAccessor heightAccessor = context.heightAccessor();
+			final BoundingBox box = new BoundingBox(
+				x - 128,
+				Math.max(y - 128, heightAccessor.getMinY() + 7),
+				z - 128,
+				x + 128 + 1,
+				Math.min(y + 128 + 1, heightAccessor.getMaxY()),
+				z + 128 + 1
+			);
+			RuinsPieces.addPieces(
+				context.structureTemplateManager(),
+				heightAccessor,
+				startPos,
+				Rotation.getRandom(context.random()),
+				context.random(),
+				this,
+				list,
+				box
+			);
+			list.forEach(structurePiecesBuilder::addPiece);
 		};
 	}
 
 	@Override
-	public @NotNull StructureType<?> type() {
+	public StructureType<?> type() {
 		return TTStructureTypes.RUINS;
 	}
 
-	public static void onServerDataReload(@NotNull ResourceManager resourceManager) {
+	public static void onServerDataReload(ResourceManager resourceManager) {
 		Arrays.stream(Type.values()).toList().forEach(type -> type.getPieceHandler().onDataReload(resourceManager));
 	}
 
@@ -209,7 +207,7 @@ public class RuinsStructure extends Structure {
 		}
 
 		@Override
-		public @NotNull String getSerializedName() {
+		public String getSerializedName() {
 			return this.name;
 		}
 	}

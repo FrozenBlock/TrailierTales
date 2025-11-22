@@ -31,6 +31,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
@@ -50,9 +51,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.FluidState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.util.Util;
 
 public class RuinsPieces {
 
@@ -61,31 +60,30 @@ public class RuinsPieces {
 		LevelHeightAccessor heightAccessor,
 		BlockPos pos,
 		Rotation rotation,
-		@NotNull RandomSource random,
-		@NotNull RuinsStructure feature,
+		RandomSource random,
+		RuinsStructure feature,
 		List<RuinsPieces.RuinPiece> pieces,
 		BoundingBox box
 	) {
-		RuinPiece ruinPiece = addStarterPiece(structureTemplateManager, pos, rotation, pieces, random, feature);
-		if (random.nextFloat() <= feature.clusterProbability) {
-			addClusterRuins(structureTemplateManager, ruinPiece.getBoundingBox(), random, pos, feature, pieces, box);
-		}
+		final RuinPiece ruinPiece = addStarterPiece(structureTemplateManager, pos, rotation, pieces, random, feature);
+		if (random.nextFloat() > feature.clusterProbability) return;
+		addClusterRuins(structureTemplateManager, ruinPiece.getBoundingBox(), random, pos, feature, pieces, box);
 	}
 
 	private static void addClusterRuins(
 		StructureTemplateManager structureTemplateManager,
 		BoundingBox boundingBox,
 		RandomSource random,
-		@NotNull BlockPos pos,
-		@NotNull RuinsStructure feature,
-		@NotNull List<RuinsPieces.RuinPiece> pieces,
+		BlockPos pos,
+		RuinsStructure feature,
+		List<RuinsPieces.RuinPiece> pieces,
 		BoundingBox box
 	) {
-		ObjectArrayList<BoundingBox> boundingBoxes = new ObjectArrayList<>();
+		final ObjectArrayList<BoundingBox> boundingBoxes = new ObjectArrayList<>();
 		boundingBoxes.add(boundingBox);
 		int totalPieces = feature.clusterPieces.sample(random);
 		for (int pieceNumber = 0; pieceNumber < totalPieces; pieceNumber++) {
-			Rotation newRotation = Rotation.getRandom(random);
+			final Rotation newRotation = Rotation.getRandom(random);
 			addPiece(structureTemplateManager, boundingBoxes, pos, newRotation, pieces, random, feature, box, 7);
 		}
 	}
@@ -93,11 +91,11 @@ public class RuinsPieces {
 	private static @Nullable RuinPiece addPiece(
 		StructureTemplateManager structureTemplateManager,
 		ObjectArrayList<BoundingBox> boundingBoxes,
-		@NotNull BlockPos pos,
+		BlockPos pos,
 		Rotation rotation,
-		@NotNull List<RuinsPieces.RuinPiece> pieces,
+		List<RuinsPieces.RuinPiece> pieces,
 		RandomSource random,
-		@NotNull RuinsStructure structure,
+		RuinsStructure structure,
 		BoundingBox box,
 		int maxAttempts
 	) {
@@ -105,23 +103,24 @@ public class RuinsPieces {
 		maxAttempts += 1;
 
 		RuinPiece potentialPiece;
-		Identifier pieceId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		final Identifier pieceId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 
 		for (int i = 0; i < maxAttempts; i++) {
 			potentialPiece = new RuinPiece(
 				structureTemplateManager,
 				pieceId,
-				mutableBlockPos,
+				mutable,
 				rotation,
 				structure.ruinsType,
 				structure.heightmap,
 				structure.providedHeight
 			);
-			BoundingBox currentBox = potentialPiece.getBoundingBox();
-			AtomicReference<BoundingBox> inflatedBox = new AtomicReference<>(currentBox.inflatedBy(2));
-			List<BoundingBox> shuffledBoxes = Util.shuffledCopy(boundingBoxes, random);
-			AtomicBoolean intersected = new AtomicBoolean(false);
+
+			final BoundingBox currentBox = potentialPiece.getBoundingBox();
+			final AtomicReference<BoundingBox> inflatedBox = new AtomicReference<>(currentBox.inflatedBy(2));
+			final List<BoundingBox> shuffledBoxes = Util.shuffledCopy(boundingBoxes, random);
+			final AtomicBoolean intersected = new AtomicBoolean(false);
 
 			shuffledBoxes.forEach(boundingBox -> {
 				AtomicBoolean withinBox = new AtomicBoolean(true);
@@ -135,16 +134,16 @@ public class RuinsPieces {
 
 				if (boundingBox.intersects(inflatedBox.get()) || !withinBox.get()) {
 					intersected.set(true);
-					BlockPos center = boundingBox.getCenter();
-					boolean useXSpan = random.nextBoolean();
-					boolean useZSpan = !useXSpan || random.nextBoolean();
-					int xDirection = random.nextBoolean() ? 1 : -1;
-					int zDirection = random.nextBoolean() ? 1 : -1;
-					double xSpanScale = useXSpan ? 0.5D : 0.1D;
-					double zSpanScale = useZSpan ? 0.5D : 0.1D;
-					int xStep = (int) ((boundingBox.getXSpan() * xSpanScale) + (currentBox.getXSpan() * xSpanScale) + random.nextInt(0, 6));
-					int zStep = (int) ((boundingBox.getZSpan() * zSpanScale) + (currentBox.getZSpan() * zSpanScale) + random.nextInt(0, 6));
-					mutableBlockPos.set(center).move(xStep * xDirection, 0, zStep * zDirection);
+					final BlockPos center = boundingBox.getCenter();
+					final boolean useXSpan = random.nextBoolean();
+					final boolean useZSpan = !useXSpan || random.nextBoolean();
+					final int xDirection = random.nextBoolean() ? 1 : -1;
+					final int zDirection = random.nextBoolean() ? 1 : -1;
+					final double xSpanScale = useXSpan ? 0.5D : 0.1D;
+					final double zSpanScale = useZSpan ? 0.5D : 0.1D;
+					final int xStep = (int) ((boundingBox.getXSpan() * xSpanScale) + (currentBox.getXSpan() * xSpanScale) + random.nextInt(0, 6));
+					final int zStep = (int) ((boundingBox.getZSpan() * zSpanScale) + (currentBox.getZSpan() * zSpanScale) + random.nextInt(0, 6));
+					mutable.set(center).move(xStep * xDirection, 0, zStep * zDirection);
 					inflatedBox.set(inflatedBox.get().moved(xStep * xDirection, 0, zStep * zDirection));
 				}
 			});
@@ -160,16 +159,16 @@ public class RuinsPieces {
 		return ruinPiece;
 	}
 
-	private static @NotNull RuinPiece addStarterPiece(
+	private static RuinPiece addStarterPiece(
 		StructureTemplateManager structureTemplateManager,
-		@NotNull BlockPos pos,
+		BlockPos pos,
 		Rotation rotation,
-		@NotNull List<RuinsPieces.RuinPiece> pieces,
+		List<RuinsPieces.RuinPiece> pieces,
 		RandomSource random,
-		@NotNull RuinsStructure structure
+		RuinsStructure structure
 	) {
-		Identifier structureId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
-		RuinPiece piece = new RuinPiece(
+		final Identifier structureId = structure.ruinsType.getPieceHandler().getRandomPiece(random);
+		final RuinPiece piece = new RuinPiece(
 			structureTemplateManager,
 			structureId,
 			pos,
@@ -247,7 +246,7 @@ public class RuinsPieces {
 			this.adjustedHeight = adjustedHeight;
 		}
 
-		private static @NotNull StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.@NotNull Type ruinsType) {
+		private static StructurePlaceSettings makeSettings(Rotation rotation, RuinsStructure.Type ruinsType) {
 			StructurePlaceSettings placeSettings = new StructurePlaceSettings()
 				.setRotation(rotation)
 				.setMirror(Mirror.NONE)
@@ -257,45 +256,45 @@ public class RuinsPieces {
 			return placeSettings;
 		}
 
-		public static @NotNull RuinPiece create(StructureTemplateManager templateManager, @NotNull CompoundTag nbt) {
-			Rotation rotation = Rotation.valueOf(nbt.getStringOr("Rot", ""));
+		public static RuinPiece create(StructureTemplateManager templateManager, CompoundTag tag) {
+			final Rotation rotation = Rotation.valueOf(tag.getStringOr("Rot", ""));
 
 			RuinsStructure.Type type = RuinsStructure.Type.GENERIC;
-			if (nbt.contains("RuinsType")) {
-				type = RuinsStructure.Type.valueOf(nbt.getStringOr("RuinsType", ""));
-			} else if (nbt.contains("BiomeType")) {
-				type = RuinsStructure.Type.valueOf(nbt.getStringOr("BiomeType", ""));
+			if (tag.contains("RuinsType")) {
+				type = RuinsStructure.Type.valueOf(tag.getStringOr("RuinsType", ""));
+			} else if (tag.contains("BiomeType")) {
+				type = RuinsStructure.Type.valueOf(tag.getStringOr("BiomeType", ""));
 			}
 
 			Heightmap.Types heightmap = null;
-			if (nbt.contains("HeightmapType")) heightmap = Heightmap.Types.valueOf(nbt.getStringOr("HeightmapType", ""));
+			if (tag.contains("HeightmapType")) heightmap = Heightmap.Types.valueOf(tag.getStringOr("HeightmapType", ""));
 
 			Integer providedHeight = null;
-			if (nbt.contains("ProvidedHeight")) providedHeight = nbt.getIntOr("ProvidedHeight", 0);
+			if (tag.contains("ProvidedHeight")) providedHeight = tag.getIntOr("ProvidedHeight", 0);
 
 			boolean adjustedHeight = false;
-			if (nbt.contains("AdjustedHeight")) adjustedHeight = nbt.getBooleanOr("AdjustedHeight", false);
+			if (tag.contains("AdjustedHeight")) adjustedHeight = tag.getBooleanOr("AdjustedHeight", false);
 
-			return new RuinPiece(templateManager, nbt, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight), adjustedHeight);
+			return new RuinPiece(templateManager, tag, rotation, type, Optional.ofNullable(heightmap), Optional.ofNullable(providedHeight), adjustedHeight);
 		}
 
 		@Override
-		protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
-			super.addAdditionalSaveData(context, nbt);
-			nbt.putString("Rot", this.placeSettings.getRotation().name());
-			nbt.putString("RuinsType", this.ruinsType.toString());
-			this.heightmap.ifPresent(types -> nbt.putString("HeightmapType", types.toString()));
-			this.providedHeight.ifPresent(height -> nbt.putInt("ProvidedHeight", height));
-			nbt.putBoolean("AdjustedHeight", this.adjustedHeight);
+		protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
+			super.addAdditionalSaveData(context, tag);
+			tag.putString("Rot", this.placeSettings.getRotation().name());
+			tag.putString("RuinsType", this.ruinsType.toString());
+			this.heightmap.ifPresent(types -> tag.putString("HeightmapType", types.toString()));
+			this.providedHeight.ifPresent(height -> tag.putInt("ProvidedHeight", height));
+			tag.putBoolean("AdjustedHeight", this.adjustedHeight);
 		}
 
 		@Override
-		protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor world, RandomSource random, BoundingBox boundingBox) {
+		protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox boundingBox) {
 		}
 
 		@Override
 		public void postProcess(
-			@NotNull WorldGenLevel world,
+			WorldGenLevel level,
 			StructureManager structureManager,
 			ChunkGenerator chunkGenerator,
 			RandomSource random,
@@ -305,20 +304,18 @@ public class RuinsPieces {
 		) {
 			if (!this.adjustedHeight) {
 				this.adjustedHeight = true;
-				int startHeight = this.templatePosition.getY();
+				final int startHeight = this.templatePosition.getY();
 
 				int offset = -2;
-				OptionalInt optionalOffset  = RuinsPieceHandler.getPieceOffset(this);
-				if (optionalOffset.isPresent()) {
-					offset = -this.getBoundingBox().getYSpan() + optionalOffset.getAsInt();
-				}
+				final OptionalInt optionalOffset  = RuinsPieceHandler.getPieceOffset(this);
+				if (optionalOffset.isPresent()) offset = -this.getBoundingBox().getYSpan() + optionalOffset.getAsInt();
 
 				if (!this.ruinsType.isUnderground()) {
-					int i = this.getGenHeight(world, this.templatePosition, random, 5);
+					final int genHeight = this.getGenHeight(level, this.templatePosition, random, 5);
 
-					this.templatePosition = new BlockPos(this.templatePosition.getX(), i, this.templatePosition.getZ());
+					this.templatePosition = new BlockPos(this.templatePosition.getX(), genHeight, this.templatePosition.getZ());
 
-					BlockPos endPos = StructureTemplate.transform(
+					final BlockPos endPos = StructureTemplate.transform(
 						new BlockPos(this.template.getSize().getX() - 1, 0, this.template.getSize().getZ() - 1),
 						Mirror.NONE,
 						this.placeSettings.getRotation(),
@@ -327,7 +324,7 @@ public class RuinsPieces {
 
 					this.templatePosition = new BlockPos(
 						this.templatePosition.getX(),
-						this.getFinalHeight(this.templatePosition, world, endPos),
+						this.getFinalHeight(this.templatePosition, level, endPos),
 						this.templatePosition.getZ()
 					);
 				}
@@ -336,51 +333,45 @@ public class RuinsPieces {
 				int yDifference = startHeight - this.templatePosition.getY();
 				this.boundingBox.move(0, yDifference, 0);
 			}
-			if (this.boundingBox.minY() <= world.getMinY()) {
-				return;
-			}
-			super.postProcess(world, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
+
+			if (this.boundingBox.minY() <= level.getMinY()) return;
+
+			super.postProcess(level, structureManager, chunkGenerator, random, boundingBox, chunkPos, pos);
 		}
 
-		public int getGenHeight(@NotNull WorldGenLevel world, BlockPos pos, RandomSource random, int providerOffset) {
-			Heightmap.Types heightmapType = this.heightmap.orElseGet(() -> this.providedHeight.isEmpty() ? Heightmap.Types.OCEAN_FLOOR_WG : null);
-			if (heightmapType != null) {
-				return world.getHeight(heightmapType, pos.getX(), pos.getZ());
-			}
+		public int getGenHeight(WorldGenLevel level, BlockPos pos, RandomSource random, int providerOffset) {
+			final Heightmap.Types heightmapType = this.heightmap.orElseGet(() -> this.providedHeight.isEmpty() ? Heightmap.Types.OCEAN_FLOOR_WG : null);
+			if (heightmapType != null) return level.getHeight(heightmapType, pos.getX(), pos.getZ());
 			return this.providedHeight.get() + (random.nextInt(providerOffset) * (random.nextBoolean() ? 1 : -1));
 		}
 
-		private int getFinalHeight(@NotNull BlockPos start, BlockGetter world, BlockPos end) {
+		private int getFinalHeight(BlockPos start, BlockGetter level, BlockPos end) {
 			int i = start.getY();
 			int j = 512;
 			int k = i - 1;
 			int l = 0;
 
-			for (BlockPos blockPos : BlockPos.betweenClosed(start, end)) {
-				int m = blockPos.getX();
-				int n = blockPos.getZ();
-				int o = start.getY() - 1;
-				BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(m, o, n);
-				BlockState blockState = world.getBlockState(mutableBlockPos);
+			for (BlockPos pos : BlockPos.betweenClosed(start, end)) {
+				final int x = pos.getX();
+				final int z = pos.getZ();
+				int y = start.getY() - 1;
+				BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(x, y, z);
+				BlockState blockState = level.getBlockState(mutableBlockPos);
 
-				for (FluidState fluidState = world.getFluidState(mutableBlockPos);
-					 (blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > world.getMinY() + 1;
-					 fluidState = world.getFluidState(mutableBlockPos)
+				for (FluidState fluidState = level.getFluidState(mutableBlockPos);
+					 (blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && y > level.getMinY() + 1;
+					 fluidState = level.getFluidState(mutableBlockPos)
 				) {
-					mutableBlockPos.set(m, --o, n);
-					blockState = world.getBlockState(mutableBlockPos);
+					mutableBlockPos.set(x, --y, z);
+					blockState = level.getBlockState(mutableBlockPos);
 				}
 
-				j = Math.min(j, o);
-				if (o < k - 2) {
-					l++;
-				}
+				j = Math.min(j, y);
+				if (y < k - 2) l++;
 			}
 
-			int p = Math.abs(start.getX() - end.getX());
-			if (k - j > 2 && l > p - 2) {
-				i = j + 1;
-			}
+			final int xDifference = Math.abs(start.getX() - end.getX());
+			if (k - j > 2 && l > xDifference - 2) i = j + 1;
 
 			return i;
 		}

@@ -30,7 +30,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import org.jetbrains.annotations.NotNull;
 
 public class ApparitionHaunt extends Behavior<Apparition> {
 
@@ -44,12 +43,12 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected boolean canStillUse(ServerLevel world, Apparition apparition, long l) {
 		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
 	}
 
 	@Override
-	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected void tick(ServerLevel world, Apparition apparition, long l) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity == null) return;

@@ -67,8 +67,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -190,80 +190,80 @@ public class FrozenLibIntegration extends ModIntegration {
 		}
 
 		AdvancementEvents.INIT.register((holder, registries) -> {
-			HolderLookup<EntityType<?>> entity = registries.lookupOrThrow(Registries.ENTITY_TYPE);
-			Advancement advancement = holder.value();
-			if (TTMiscConfig.get().modify_advancements) {
-				switch (holder.id().toString()) {
-					case "minecraft:adventure/kill_a_mob" -> {
-						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION)).triggerInstance())
-						);
-						AdvancementAPI.addRequirementsToList(advancement,
+			final HolderLookup<EntityType<?>> entity = registries.lookupOrThrow(Registries.ENTITY_TYPE);
+			final Advancement advancement = holder.value();
+			if (!TTMiscConfig.get().modify_advancements) return;
+
+			switch (holder.id().toString()) {
+				case "minecraft:adventure/kill_a_mob" -> {
+					AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION)).triggerInstance())
+					);
+					AdvancementAPI.addRequirementsToList(advancement,
+						List.of(TTConstants.string("apparition"))
+					);
+				}
+				case "minecraft:adventure/kill_all_mobs" -> {
+					AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION)).triggerInstance())
+					);
+					AdvancementAPI.addRequirementsAsNewList(advancement,
+						new AdvancementRequirements(List.of(
 							List.of(TTConstants.string("apparition"))
-						);
+						))
+					);
+				}
+				case "minecraft:husbandry/plant_any_sniffer_seed" -> {
+					AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.CYAN_ROSE_CROP).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "trailiertales:manedrop", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.MANEDROP_CROP).triggerInstance())
+					);
+					AdvancementAPI.addCriteria(advancement, "trailiertales:dawntrail", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.DAWNTRAIL_CROP).triggerInstance())
+					);
+					AdvancementAPI.addRequirementsToList(advancement,
+						List.of(
+							"trailiertales:cyan_rose",
+							"trailiertales:manedrop",
+							"trailiertales:dawntrail"
+						)
+					);
+				}
+				case "minecraft:adventure/salvage_sherd" -> {
+					addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.identifier().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier().toString(), TTLootTables.SNOWY_RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.identifier().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
+					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB);
+					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE);
+					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR);
+				}
+				case "minecraft:nether/all_potions" -> {
+					if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+						Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+						map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
+						predicate.effectMap = map;
 					}
-					case "minecraft:adventure/kill_all_mobs" -> {
-						AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION)).triggerInstance())
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(TTConstants.string("apparition"))
-							))
-						);
+				}
+				case "minecraft:nether/all_effects" -> {
+					if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+						Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+						map.put(TTMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
+						map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
+						map.put(TTMobEffects.SIEGE_OMEN, new MobEffectsPredicate.MobEffectInstancePredicate());
+						predicate.effectMap = map;
 					}
-					case "minecraft:husbandry/plant_any_sniffer_seed" -> {
-						AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.CYAN_ROSE_CROP).triggerInstance())
-						);
-						AdvancementAPI.addCriteria(advancement, "trailiertales:manedrop", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.MANEDROP_CROP).triggerInstance())
-						);
-						AdvancementAPI.addCriteria(advancement, "trailiertales:dawntrail", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.DAWNTRAIL_CROP).triggerInstance())
-						);
-						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								"trailiertales:cyan_rose",
-								"trailiertales:manedrop",
-								"trailiertales:dawntrail"
-							)
-						);
-					}
-					case "minecraft:adventure/salvage_sherd" -> {
-						addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.identifier().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier().toString(), TTLootTables.SNOWY_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.identifier().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
-						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB);
-						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE);
-						addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR);
-					}
-					case "minecraft:nether/all_potions" -> {
-						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
-							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
-							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
-							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
-							predicate.effectMap = map;
-						}
-					}
-					case "minecraft:nether/all_effects" -> {
-						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
-							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
-							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
-							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(TTMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
-							map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
-							map.put(TTMobEffects.SIEGE_OMEN, new MobEffectsPredicate.MobEffectInstancePredicate());
-							predicate.effectMap = map;
-						}
-					}
-					default -> {
-					}
+				}
+				default -> {
 				}
 			}
 		});
@@ -279,22 +279,22 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	private static void addLootRequirementToList(Advancement advancement, String requirement) {
 		AdvancementAPI.setupRequirements(advancement);
-		final List<List<String>> list = new ArrayList<>(advancement.requirements().requirements);
-		if (list.isEmpty()) {
-			list.add(List.of(requirement));
+		final List<List<String>> requirementsList = new ArrayList<>(advancement.requirements().requirements);
+		if (requirementsList.isEmpty()) {
+			requirementsList.add(List.of(requirement));
 		} else {
-			for (List<String> requirements : list) {
-				if (!requirements.contains("has_sherd")) {
-					final List<String> finalList = new ArrayList<>(requirements);
-					finalList.add(requirement);
-					list.add(Collections.unmodifiableList(finalList));
-					list.remove(requirements);
-					break;
-				}
+			for (List<String> requirements : requirementsList) {
+				if (requirements.contains("has_sherd")) continue;
+
+				final List<String> finalList = new ArrayList<>(requirements);
+				finalList.add(requirement);
+				requirementsList.add(Collections.unmodifiableList(finalList));
+				requirementsList.remove(requirements);
+				break;
 			}
 		}
 
-		advancement.requirements().requirements = Collections.unmodifiableList(list);
+		advancement.requirements().requirements = Collections.unmodifiableList(requirementsList);
 	}
 
 	@Environment(EnvType.CLIENT)

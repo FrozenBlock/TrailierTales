@@ -67,16 +67,15 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		)
 	)
 	public void trailierTales$setHasCustomItemForFalling(
-		BrushableBlockEntity brushableBlockEntity, ServerLevel level, Operation<Void> original,
+		BrushableBlockEntity brushableBlock, ServerLevel level, Operation<Void> original,
 		BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random,
-		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
+		@Share("trailierTales$brushableBlock") LocalRef<BrushableBlockEntity> blockEntityRef,
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem
 	) {
-		original.call(brushableBlockEntity, level);
-		blockEntityRef.set(brushableBlockEntity);
-		if (brushableBlockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface &&
-			(brushableBlockEntityInterface.trailierTales$hasCustomItem() ||
-				(state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM)))
+		original.call(brushableBlock, level);
+		blockEntityRef.set(brushableBlock);
+		if (brushableBlock instanceof BrushableBlockEntityInterface brushableBlockInterface
+			&& (brushableBlockInterface.trailierTales$hasCustomItem() || (state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM)))
 		) {
 			hasCustomItem.set(true);
 		}
@@ -91,7 +90,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		)
 	)
 	public void trailierTales$getFallingBlockItem(
-		BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo info,
+		BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
 		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack

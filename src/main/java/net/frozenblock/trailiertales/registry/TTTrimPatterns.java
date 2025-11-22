@@ -23,7 +23,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import net.minecraft.world.item.equipment.trim.TrimPatterns;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTTrimPatterns {
 	public static final ResourceKey<TrimPattern> UNDEAD = create("undead");
@@ -38,7 +37,7 @@ public final class TTTrimPatterns {
 	public static void init() {
 	}
 
-	private static @NotNull ResourceKey<TrimPattern> create(String path) {
+	private static ResourceKey<TrimPattern> create(String path) {
 		return ResourceKey.create(Registries.TRIM_PATTERN, TTConstants.id(path));
 	}
 

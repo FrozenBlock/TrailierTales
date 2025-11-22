@@ -24,16 +24,15 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import org.jetbrains.annotations.NotNull;
 
 final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 
-	TTRegistryProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TTRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
 	@Override
-	protected void configure(@NotNull HolderLookup.Provider registries, @NotNull Entries entries) {
+	protected void configure(HolderLookup.Provider registries, Entries entries) {
 		entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
 		entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
 		entries.addAll(registries.lookupOrThrow(Registries.JUKEBOX_SONG));
@@ -43,7 +42,7 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		bootstrap(entries);
 	}
 
-	public static void bootstrap(@NotNull Entries entries) {
+	public static void bootstrap(Entries entries) {
 		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
 		final var placedFeatures = asLookup(entries.placedFeatures());
 		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
@@ -76,7 +75,6 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 	}
 
 	@Override
-	@NotNull
 	public String getName() {
 		return "Trailier Tales Dynamic Registries";
 	}

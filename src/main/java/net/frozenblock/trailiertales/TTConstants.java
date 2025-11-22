@@ -21,7 +21,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,27 +40,26 @@ public class TTConstants {
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull Identifier id(String path) {
+	public static Identifier id(String path) {
 		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
-	public static @NotNull Identifier idOrDefault(String path, String fallback) {
+	public static Identifier idOrDefault(String path, String fallback) {
 		if (Identifier.isValidPath(path)) return id(path);
 		return id(fallback);
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull Identifier vanillaId(String path) {
+	public static Identifier vanillaId(String path) {
 		return Identifier.withDefaultNamespace(path);
 	}
 
-	@NotNull
-	public static String string(@NotNull String path) {
+	public static String string(String path) {
 		return TTConstants.id(path).toString();
 	}
 
 	@Contract(pure = true)
-	public static @NotNull String safeString(String path) {
+	public static String safeString(String path) {
 		return MOD_ID + "_" + path;
 	}
 
@@ -69,7 +67,7 @@ public class TTConstants {
 	 * @return A text component for use in a Config GUI
 	 */
 	@Contract(value = "_ -> new", pure = true)
-	public static @NotNull Component text(String key) {
+	public static Component text(String key) {
 		return Component.translatable("option." + MOD_ID + "." + key);
 	}
 
@@ -77,7 +75,7 @@ public class TTConstants {
 	 * @return A tooltip component for use in a Config GUI
 	 */
 	@Contract(value = "_ -> new", pure = true)
-	public static @NotNull Component tooltip(String key) {
+	public static Component tooltip(String key) {
 		return Component.translatable("tooltip." + MOD_ID + "." + key);
 	}
 }

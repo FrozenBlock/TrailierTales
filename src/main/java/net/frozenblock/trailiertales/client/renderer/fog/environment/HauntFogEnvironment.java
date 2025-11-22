@@ -30,26 +30,26 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class HauntFogEnvironment extends MobEffectFogEnvironment {
 
 	@Override
-	public @NotNull Holder<MobEffect> getMobEffect() {
+	public Holder<MobEffect> getMobEffect() {
 		return TTMobEffects.HAUNT;
 	}
 
 	@Override
-	public void setupFog(FogData fogData, @NotNull Camera camera, ClientLevel level, float viewDistance, DeltaTracker deltaTracker) {
+	public void setupFog(FogData fogData, Camera camera, ClientLevel level, float viewDistance, DeltaTracker deltaTracker) {
 		if (!(camera.entity() instanceof LivingEntity livingEntity)) return;
 
-		final MobEffectInstance mobEffectInstance = livingEntity.getEffect(this.getMobEffect());
-		if (mobEffectInstance == null) return;
+		final MobEffectInstance effect = livingEntity.getEffect(this.getMobEffect());
+		if (effect == null) return;
+
 		final float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(false);
 		final float entityProgress = livingEntity.tickCount + tickDelta;
 		final float fogCos = (Mth.cos((entityProgress * Mth.PI) / 48F) * 4F) + 12F;
-		final float fogDistance = Mth.lerp(mobEffectInstance.getBlendFactor(livingEntity, tickDelta), viewDistance, fogCos);
+		final float fogDistance = Mth.lerp(effect.getBlendFactor(livingEntity, tickDelta), viewDistance, fogCos);
 		fogData.environmentalStart = fogDistance * 0.75F;
 		fogData.environmentalEnd = fogDistance;
 		fogData.skyEnd = fogDistance;
@@ -57,8 +57,8 @@ public class HauntFogEnvironment extends MobEffectFogEnvironment {
 	}
 
 	@Override
-	public float getModifiedDarkness(@NotNull LivingEntity entity, float f, float g) {
-		final MobEffectInstance mobEffectInstance = entity.getEffect(this.getMobEffect());
-		return mobEffectInstance != null ? Math.max(mobEffectInstance.getBlendFactor(entity, g), f) : f;
+	public float getModifiedDarkness(LivingEntity entity, float f, float g) {
+		final MobEffectInstance effect = entity.getEffect(this.getMobEffect());
+		return effect != null ? Math.max(effect.getBlendFactor(entity, g), f) : f;
 	}
 }

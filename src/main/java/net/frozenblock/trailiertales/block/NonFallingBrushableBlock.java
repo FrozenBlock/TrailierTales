@@ -24,18 +24,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class NonFallingBrushableBlock extends BrushableBlock {
 
-	public NonFallingBrushableBlock(Block block, SoundEvent soundEvent, SoundEvent soundEvent2, BlockBehaviour.Properties properties) {
-		super(block, soundEvent, soundEvent2, properties);
+	public NonFallingBrushableBlock(Block block, SoundEvent brushSound, SoundEvent brushCompletedSound, Properties properties) {
+		super(block, brushSound, brushCompletedSound, properties);
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlockEntity) brushableBlockEntity.checkReset(level);
 	}
 }

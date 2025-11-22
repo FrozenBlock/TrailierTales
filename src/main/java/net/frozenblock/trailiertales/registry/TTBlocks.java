@@ -37,8 +37,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
@@ -58,10 +58,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTBlocks {
-
 	public static final Block SUSPICIOUS_RED_SAND = register("suspicious_red_sand",
 		properties -> new BrushableBlock(
 			Blocks.RED_SAND,
@@ -826,25 +824,23 @@ public final class TTBlocks {
 		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), COFFIN);
 	}
 
-	private static <T extends Block> @NotNull T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
-		Identifier id = TTConstants.id(path);
+	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
+		final Identifier id = TTConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
-	private static <T extends Block> @NotNull T register(String path, Function<Properties, T> block, Properties properties) {
-		T registered = registerWithoutItem(path, block, properties);
+	private static <T extends Block> T register(String path, Function<Properties, T> block, Properties properties) {
+		final T registered = registerWithoutItem(path, block, properties);
 		Items.registerBlock(registered);
 		return registered;
 	}
 
-	private static <T extends Block> @NotNull T doRegister(Identifier id, T block) {
-		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
-			return Registry.register(BuiltInRegistries.BLOCK, id, block);
-		}
+	private static <T extends Block> T doRegister(Identifier id, T block) {
+		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
 	}
 
-	private static <T extends Block> T makeBlock(@NotNull Function<Properties, T> function, @NotNull Properties properties, Identifier id) {
+	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, Identifier id) {
 		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
 	}
 

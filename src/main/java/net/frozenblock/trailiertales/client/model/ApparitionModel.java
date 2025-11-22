@@ -33,7 +33,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ApparitionModel extends EntityModel<ApparitionRenderState> {
@@ -42,19 +41,18 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	public final ModelPart outline;
 	public final ModelPart outer;
 
-	public ApparitionModel(@NotNull ModelPart root) {
+	public ApparitionModel(ModelPart root) {
 		this(FrozenLibRenderTypes::apparitionOuter, root);
 	}
 
-	public ApparitionModel(Function<Identifier, RenderType> function, @NotNull ModelPart root) {
-		super(root, function);
+	public ApparitionModel(Function<Identifier, RenderType> renderType, ModelPart root) {
+		super(root, renderType);
 		this.core = root.getChild("core");
 		this.inner = this.core.getChild("inner");
 		this.outline = this.core.getChild("outline");
 		this.outer = root.getChild("outer");
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshdefinition = new MeshDefinition();
 		final PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.ZERO);
@@ -64,7 +62,7 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 				.addBox(-5F, -5F, -5F, 10F, 10F, 10F),
 			PartPose.offset(0F, 17F, 0F)
 		);
-		PartDefinition outline = core.addOrReplaceChild("outline", CubeListBuilder.create()
+		final PartDefinition outline = core.addOrReplaceChild("outline", CubeListBuilder.create()
 				.texOffs(0, 48)
 				.addBox(-5.5F, -5.5F, -5.5F, 11F, 11F, 11F)
 				.mirror(),
@@ -82,7 +80,7 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull ApparitionRenderState renderState) {
+	public void setupAnim(ApparitionRenderState renderState) {
 		final float limbAngle = renderState.walkAnimationPos;
 		final float limbDistance = renderState.walkAnimationSpeed;
 		final float headYaw = renderState.yRot;

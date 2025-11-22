@@ -32,17 +32,16 @@ import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.MultiplyValue;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTEnchantments {
 	public static final ResourceKey<Enchantment> REBRUSH = key("rebrush");
 	public static final ResourceKey<Enchantment> REAPING = key("reaping");
 
-	public static void bootstrap(@NotNull BootstrapContext<Enchantment> context) {
-		HolderGetter<DamageType> damageTypeHolder = context.lookup(Registries.DAMAGE_TYPE);
-		HolderGetter<Enchantment> enchantmentHolder = context.lookup(Registries.ENCHANTMENT);
-		HolderGetter<Item> itemHolder = context.lookup(Registries.ITEM);
-		HolderGetter<Block> blockHolder = context.lookup(Registries.BLOCK);
+	public static void bootstrap(BootstrapContext<Enchantment> context) {
+		final HolderGetter<DamageType> damageTypeHolder = context.lookup(Registries.DAMAGE_TYPE);
+		final HolderGetter<Enchantment> enchantmentHolder = context.lookup(Registries.ENCHANTMENT);
+		final HolderGetter<Item> itemHolder = context.lookup(Registries.ITEM);
+		final HolderGetter<Block> blockHolder = context.lookup(Registries.BLOCK);
 
 		register(
 			context,
@@ -83,11 +82,11 @@ public final class TTEnchantments {
 	public static void init() {
 	}
 
-	private static void register(@NotNull BootstrapContext<Enchantment> context, ResourceKey<Enchantment> registryKey, Enchantment.@NotNull Builder builder) {
+	private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> registryKey, Enchantment.Builder builder) {
 		context.register(registryKey, builder.build(registryKey.identifier()));
 	}
 
-	private static @NotNull ResourceKey<Enchantment> key(String path) {
+	private static ResourceKey<Enchantment> key(String path) {
 		return ResourceKey.create(Registries.ENCHANTMENT, TTConstants.id(path));
 	}
 }

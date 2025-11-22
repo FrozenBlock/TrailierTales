@@ -49,20 +49,19 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBloc
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import org.jetbrains.annotations.NotNull;
 
 public class GenericRuinsGenerator {
 	public static final ResourceKey<StructureSet> RUINS_KEY = TTStructures.ofSet("ruins");
 	public static final ResourceKey<Structure> RUIN_KEY = TTStructures.createKey("ruins");
 
-	public static void bootstrap(@NotNull BootstrapContext<Structure> context) {
-		HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
+	public static void bootstrap(BootstrapContext<Structure> context) {
+		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 
 		context.register(
 			RUIN_KEY,
 			new RuinsStructure(
 				TTStructures.structure(
-					holderGetter.getOrThrow(TTBiomeTags.HAS_RUINS),
+					biomes.getOrThrow(TTBiomeTags.HAS_RUINS),
 					GenerationStep.Decoration.SURFACE_STRUCTURES,
 					TerrainAdjustment.NONE
 				),
@@ -74,13 +73,13 @@ public class GenericRuinsGenerator {
 		);
 	}
 
-	public static void bootstrapStructureSet(@NotNull BootstrapContext<StructureSet> context) {
-		HolderGetter<Structure> structure = context.lookup(Registries.STRUCTURE);
+	public static void bootstrapStructureSet(BootstrapContext<StructureSet> context) {
+		final HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
 		context.register(
 			RUINS_KEY,
 			new StructureSet(
-				structure.getOrThrow(RUIN_KEY),
+				structures.getOrThrow(RUIN_KEY),
 				new RandomSpreadStructurePlacement(34, 18, RandomSpreadType.LINEAR, 68415318)
 			)
 		);

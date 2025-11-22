@@ -21,7 +21,6 @@ import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
@@ -33,11 +32,11 @@ public class TTDataFixer {
 		throw new UnsupportedOperationException("TrailierDataFixer contains only static declarations.");
 	}
 
-	public static void applyDataFixes(final @NotNull ModContainer mod) {
+	public static void applyDataFixes(final ModContainer mod) {
 		var builder = new QuiltDataFixerBuilder(DATA_VERSION);
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
-		Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
+		final Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
 		// GRANITE
 		SimpleFixes.addBlockRenameFix(
 			builder,
@@ -254,7 +253,7 @@ public class TTDataFixer {
 			schemaV1
 		);
 
-		Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
+		final Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
 		SimpleFixes.addEntityRenameFix(
 			builder,
 			"Rename damaging_throwable_item_projectile to thrown_item",

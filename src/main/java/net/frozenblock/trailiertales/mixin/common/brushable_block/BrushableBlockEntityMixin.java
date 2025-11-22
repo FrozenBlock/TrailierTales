@@ -27,8 +27,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,7 +44,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -57,7 +56,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BrushableBlockEntity.class)
 public abstract class BrushableBlockEntityMixin extends BlockEntity implements BrushableBlockEntityInterface {
-
 	@Unique
 	private float trailierTales$targetXLerp = 0.5F;
 	@Unique
@@ -109,13 +107,13 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	@Shadow
 	private int brushCount;
 
-	public BrushableBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-		super(blockEntityType, blockPos, blockState);
+	public BrushableBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Contract(pure = true)
 	@Unique
-	private static float @NotNull [] trailierTales$translations(@NotNull Direction direction, int i) {
+	private static float [] trailierTales$translations(Direction direction, int i) {
 		float[] fs = new float[]{0.5F, 0F, 0.5F};
 		float f = (float) i / 9F;
 		switch (direction) {
@@ -308,7 +306,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	}
 
 	@Unique
-	public void trailierTales$readTT(@NotNull ValueInput valueInput) {
+	public void trailierTales$readTT(ValueInput valueInput) {
 		this.trailierTales$hitDirection = Direction.byName(valueInput.getStringOr("TTHitDirection", ""));
 		this.trailierTales$targetXLerp = valueInput.getFloatOr("TargetXLerp", 0);
 		this.trailierTales$targetYLerp = valueInput.getFloatOr("TargetYLerp", 0);
@@ -330,8 +328,8 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 
 	@Unique
 	@Override
-	public boolean trailierTales$setItem(@NotNull ItemStack itemStack) {
-		this.item = itemStack;
+	public boolean trailierTales$setItem(ItemStack stack) {
+		this.item = stack;
 		this.trailierTales$hasCustomItem = true;
 		this.trailierTales$storedLootTable = null;
 		return true;

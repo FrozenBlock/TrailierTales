@@ -28,9 +28,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTSensorTypes {
+
 	private TTSensorTypes() {
 		throw new UnsupportedOperationException("RegisterSensorTypes contains only static declarations.");
 	}
@@ -45,7 +45,6 @@ public final class TTSensorTypes {
 	public static final SensorType<ApparitionPlayerSensor> APPARITION_PLAYER_SENSOR = register("apparition_player_sensor", ApparitionPlayerSensor::new);
 	public static final SensorType<ApparitionAidablesSensor> APPARITION_AIDABLES_SENSOR = register("apparition_aidables_sensor", ApparitionAidablesSensor::new);
 
-	@NotNull
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {
 		return Registry.register(BuiltInRegistries.SENSOR_TYPE, TTConstants.id(key), new SensorType<>(sensorSupplier));
 	}

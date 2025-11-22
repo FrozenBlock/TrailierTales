@@ -44,7 +44,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
 import net.minecraft.world.level.redstone.Orientation;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SurveyorBlock extends BaseEntityBlock {
@@ -55,7 +54,7 @@ public class SurveyorBlock extends BaseEntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
 	@Override
-	public @NotNull MapCodec<SurveyorBlock> codec() {
+	public MapCodec<SurveyorBlock> codec() {
 		return CODEC;
 	}
 
@@ -65,22 +64,22 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, POWERED);
 	}
 
 	@Override
-	protected @NotNull BlockState rotate(@NotNull BlockState state, @NotNull Rotation rotation) {
+	protected BlockState rotate(BlockState state, Rotation rotation) {
 		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	protected @NotNull BlockState mirror(@NotNull BlockState state, @NotNull Mirror mirror) {
+	protected BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 
 	@Override
-	protected @NotNull RenderShape getRenderShape(BlockState state) {
+	protected RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
 	}
 
@@ -89,12 +88,12 @@ public class SurveyorBlock extends BaseEntityBlock {
 		return new SurveyorBlockEntity(pos, state);
 	}
 
-	protected void updateNeighborsInFront(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		Direction direction = state.getValue(FACING);
-		BlockPos blockPos = pos.relative(direction.getOpposite());
-		Orientation orientation = ExperimentalRedstoneUtils.initialOrientation(level, direction.getOpposite(), null);
-		level.neighborChanged(blockPos, this, orientation);
-		level.updateNeighborsAtExceptFromFacing(blockPos, this, direction, orientation);
+	protected void updateNeighborsInFront(Level level, BlockPos pos, BlockState state) {
+		final Direction direction = state.getValue(FACING);
+		final BlockPos frontPos = pos.relative(direction.getOpposite());
+		final Orientation orientation = ExperimentalRedstoneUtils.initialOrientation(level, direction.getOpposite(), null);
+		level.neighborChanged(frontPos, this, orientation);
+		level.updateNeighborsAtExceptFromFacing(frontPos, this, direction, orientation);
 	}
 
 	@Override
@@ -103,12 +102,12 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getDirectSignal(@NotNull BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+	protected int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		return state.getSignal(level, pos, direction);
 	}
 
 	@Override
-	protected int getSignal(@NotNull BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+	protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		if (TTPreLoadConstants.STRUCTURE_BUILDING_MODE) return 0;
 		return state.getValue(POWERED) && state.getValue(FACING) == direction ? 15 : 0;
 	}
@@ -119,32 +118,28 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(BlockState state, @NotNull Level level, BlockPos pos, Direction direction) {
-		if (level.getBlockEntity(pos) instanceof SurveyorBlockEntity surveyorBlockEntity) {
-			return state.getValue(POWERED) ? surveyorBlockEntity.getLastDetectionPower() : 0;
-		}
-		return 0;
+	protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+		if (!(level.getBlockEntity(pos) instanceof SurveyorBlockEntity surveyorBlockEntity)) return 0;
+		return state.getValue(POWERED) ? surveyorBlockEntity.getLastDetectionPower() : 0;
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos blockPos, boolean bl) {
-		if (!state.is(level.getBlockState(blockPos).getBlock()) && state.getValue(POWERED)) {
-			this.updateNeighborsInFront(level, blockPos, state.setValue(POWERED, false));
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		if (!state.is(level.getBlockState(pos).getBlock()) && state.getValue(POWERED)) {
+			this.updateNeighborsInFront(level, pos, state.setValue(POWERED, false));
 		}
-		super.affectNeighborsAfterRemoval(state, level, blockPos, bl);
+		super.affectNeighborsAfterRemoval(state, level, pos, bl);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite().getOpposite());
 	}
 
-	public static void updatePower(@NotNull Level level, BlockPos pos, @NotNull BlockState state, int lastDetectionPower, boolean updateNeighbors) {
-		boolean shouldPower = lastDetectionPower > 0;
+	public static void updatePower(Level level, BlockPos pos, BlockState state, int lastDetectionPower, boolean updateNeighbors) {
+		final boolean shouldPower = lastDetectionPower > 0;
 		if (shouldPower != state.getValue(POWERED)) level.setBlockAndUpdate(pos, state.setValue(POWERED, shouldPower));
-		if (updateNeighbors && state.getBlock() instanceof SurveyorBlock surveyorBlock) {
-			surveyorBlock.updateNeighborsInFront(level, pos, state);
-		}
+		if (updateNeighbors && state.getBlock() instanceof SurveyorBlock surveyorBlock) surveyorBlock.updateNeighborsInFront(level, pos, state);
 	}
 
 	@Override

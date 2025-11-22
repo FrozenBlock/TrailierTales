@@ -25,25 +25,25 @@ import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-	public TTBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+
+	public TTBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
-	@NotNull private ResourceKey<Block> getKey(String namespace, String path) {
+	private ResourceKey<Block> getKey(String namespace, String path) {
 		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(TTBlocks.CHISELED_GRANITE_BRICKS)
 			.add(TTBlocks.GRANITE_BRICKS)
@@ -512,7 +512,6 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL);
 	}
 
-	@NotNull
 	private TagKey<Block> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}

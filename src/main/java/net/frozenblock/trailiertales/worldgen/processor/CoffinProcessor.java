@@ -26,23 +26,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifier;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.RuleBlockEntityModifierType;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.util.Util;
 
-public class CoffinProcessor implements RuleBlockEntityModifier {
+public record CoffinProcessor(List<EntityType<?>> entities, boolean withinCatacombs) implements RuleBlockEntityModifier {
 	public static final MapCodec<CoffinProcessor> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 			BuiltInRegistries.ENTITY_TYPE.byNameCodec().listOf().fieldOf("entities").forGetter(modifier -> modifier.entities),
 			Codec.BOOL.fieldOf("within_catacombs").orElse(false).forGetter(modifier -> modifier.withinCatacombs)
-			).apply(instance, CoffinProcessor::new)
+		).apply(instance, CoffinProcessor::new)
 	);
-	private final List<EntityType<?>> entities;
-	private final boolean withinCatacombs;
 
 	public CoffinProcessor(boolean withinCatacombs, EntityType<?>... entities) {
 		this(List.of(entities), withinCatacombs);
@@ -51,42 +48,40 @@ public class CoffinProcessor implements RuleBlockEntityModifier {
 	public CoffinProcessor(List<EntityType<?>> entities, boolean withinCatacombs) {
 		this.entities = entities;
 		this.withinCatacombs = withinCatacombs;
-		if (this.entities.isEmpty()) {
-			throw new IllegalArgumentException("CoffinProcessor requires at least one EntityType!");
-		}
+		if (this.entities.isEmpty()) throw new IllegalArgumentException("CoffinProcessor requires at least one EntityType!");
 	}
 
 	@Override
-	public CompoundTag apply(@NotNull RandomSource random, @Nullable CompoundTag nbt) {
-		CompoundTag compoundTag = nbt == null ? new CompoundTag() : nbt.copy();
-		if (compoundTag.contains("uuid")) {
-			compoundTag.remove("uuid");
-			compoundTag.remove("max_active_light_level");
-			compoundTag.putBoolean("within_catacombs", this.withinCatacombs);
+	public CompoundTag apply(RandomSource random, @Nullable CompoundTag possibleTag) {
+		final CompoundTag compoundTag = possibleTag == null ? new CompoundTag() : possibleTag.copy();
+		if (!compoundTag.contains("uuid")) return compoundTag;
 
-			EntityType<?> entityType = this.getRandomEntity(random);
-			SpawnData spawnData = createSpawnData(entityType);
-			SpawnData.CODEC
-				.encodeStart(NbtOps.INSTANCE, spawnData)
-				.resultOrPartial()
-				.ifPresent(tag -> compoundTag.put("spawn_data", tag));
-		}
+		compoundTag.remove("uuid");
+		compoundTag.remove("max_active_light_level");
+		compoundTag.putBoolean("within_catacombs", this.withinCatacombs);
+
+		final EntityType<?> entityType = this.getRandomEntity(random);
+		final SpawnData spawnData = createSpawnData(entityType);
+		SpawnData.CODEC
+			.encodeStart(NbtOps.INSTANCE, spawnData)
+			.resultOrPartial()
+			.ifPresent(tag -> compoundTag.put("spawn_data", tag));
 
 		return compoundTag;
 	}
 
-	public EntityType<?> getRandomEntity(@NotNull RandomSource random) {
+	public EntityType<?> getRandomEntity(RandomSource random) {
 		return Util.getRandom(this.entities, random);
 	}
 
-	private static @NotNull SpawnData createSpawnData(EntityType<?> type) {
-		SpawnData spawnData = new SpawnData();
+	private static SpawnData createSpawnData(EntityType<?> type) {
+		final SpawnData spawnData = new SpawnData();
 		spawnData.getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
 		return spawnData;
 	}
 
 	@Override
-	public @NotNull RuleBlockEntityModifierType<?> getType() {
+	public RuleBlockEntityModifierType<?> getType() {
 		return TTRuleBlockEntityModifiers.COFFIN_PROCESSOR;
 	}
 }

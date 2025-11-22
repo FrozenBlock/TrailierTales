@@ -64,7 +64,7 @@ public class ClipContextBlockMixin {
 	)
 	private static void trailierTales$addCustomBlock(CallbackInfo info) {
 		final var blocks = new ArrayList<>(Arrays.asList($VALUES));
-		var last = blocks.get(blocks.size() - 1);
+		final var last = blocks.get(blocks.size() - 1);
 
 		final ClipContext.ShapeGetter surveyorShapeGetter = (state, blockGetter, pos, collisionContext) -> {
 			if (state.is(TTBlockTags.SURVEYOR_CAN_SEE_THROUGH) && !state.is(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)) return Shapes.empty();

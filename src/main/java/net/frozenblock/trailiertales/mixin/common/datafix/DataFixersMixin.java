@@ -49,7 +49,7 @@ public class DataFixersMixin {
 		)
 	)
 	private static Schema trailierTales$addFixers3689(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
-		Schema schema = original.call(builder, version, factory);
+		final Schema schema = original.call(builder, version, factory);
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("coffin"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("surveyor"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("apparition"), References.ENTITY));

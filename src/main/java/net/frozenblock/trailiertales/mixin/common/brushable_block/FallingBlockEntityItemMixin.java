@@ -34,15 +34,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FallingBlockEntity.class)
 public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface {
-
 	@Unique
 	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
 	@Unique
 	private boolean trailierTales$overrideBreak = false;
 
 	@Override
-	public boolean trailierTales$setItem(ItemStack itemStack) {
-		this.trailierTales$itemStack = itemStack;
+	public boolean trailierTales$setItem(ItemStack stack) {
+		this.trailierTales$itemStack = stack;
 		return true;
 	}
 
@@ -69,22 +68,17 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 
 	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
 	public void trailierTales$spawnCustomItemAfterBroken(Block block, BlockPos pos, CallbackInfo info) {
-		final FallingBlockEntity fallingBlockEntity = FallingBlockEntity.class.cast(this);
-		if (fallingBlockEntity.level() instanceof ServerLevel level && this.trailierTales$itemStack != ItemStack.EMPTY) {
-			fallingBlockEntity.spawnAtLocation(level, this.trailierTales$itemStack.copy());
+		final FallingBlockEntity fallingBlock = FallingBlockEntity.class.cast(this);
+		if (fallingBlock.level() instanceof ServerLevel level && this.trailierTales$itemStack != ItemStack.EMPTY) {
+			fallingBlock.spawnAtLocation(level, this.trailierTales$itemStack.copy());
 			this.trailierTales$itemStack = ItemStack.EMPTY;
 		}
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void trailierTales$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
-		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) {
-			valueOutput.store("TrailierTalesItem", ItemStack.CODEC, this.trailierTales$itemStack);
-		}
-
-		if (this.trailierTales$overrideBreak) {
-			valueOutput.putBoolean("TrailierTalesOverrideBreak", true);
-		}
+		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) valueOutput.store("TrailierTalesItem", ItemStack.CODEC, this.trailierTales$itemStack);
+		if (this.trailierTales$overrideBreak) valueOutput.putBoolean("TrailierTalesOverrideBreak", true);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))

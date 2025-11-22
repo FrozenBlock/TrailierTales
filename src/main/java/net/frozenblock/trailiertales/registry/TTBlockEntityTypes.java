@@ -28,7 +28,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import org.jetbrains.annotations.NotNull;
 
 public final class TTBlockEntityTypes {
 
@@ -38,14 +37,13 @@ public final class TTBlockEntityTypes {
 	public static void register() {
 		TTConstants.log("Registering BlockEntities for Trailier Tales.", TTConstants.UNSTABLE_LOGGING);
 
-		FabricBlockEntityType fabricBrushableBlock = (FabricBlockEntityType) BlockEntityType.BRUSHABLE_BLOCK;
-		fabricBrushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_DIRT);
-		fabricBrushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_CLAY);
-		fabricBrushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_RED_SAND);
+		final FabricBlockEntityType brushableBlock = BlockEntityType.BRUSHABLE_BLOCK;
+		brushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_DIRT);
+		brushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_CLAY);
+		brushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_RED_SAND);
 	}
 
-	@NotNull
-	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, @NotNull BlockEntityType.BlockEntitySupplier<T> factory, @NotNull Block... blocks) {
+	private static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, TTConstants.id(path), new BlockEntityType<>(factory, Arrays.stream(blocks).collect(Collectors.toSet())));
 	}
 }

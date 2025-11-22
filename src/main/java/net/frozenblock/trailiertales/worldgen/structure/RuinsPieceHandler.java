@@ -27,7 +27,6 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.util.Util;
 
 public class RuinsPieceHandler {
@@ -53,22 +52,22 @@ public class RuinsPieceHandler {
 		this.type = type;
 	}
 
-	public Identifier getRandomPiece(@NotNull RandomSource randomSource) {
-		return Util.getRandom(this.ruinsPieces, randomSource);
+	public Identifier getRandomPiece(RandomSource random) {
+		return Util.getRandom(this.ruinsPieces, random);
 	}
 
-	public void onDataReload(@NotNull ResourceManager resourceManager) {
+	public void onDataReload(ResourceManager resourceManager) {
 		this.ruinsPieces.clear();
 		this.ruinsPieces.addAll(this.getLoadedPieces(resourceManager));
 	}
 
-	private @NotNull List<Identifier> getLoadedPieces(@NotNull ResourceManager resourceManager) {
-		Set<Identifier> foundPieces = resourceManager.listResources(
+	private List<Identifier> getLoadedPieces(ResourceManager resourceManager) {
+		final Set<Identifier> foundPieces = resourceManager.listResources(
 			"structure/ruins/" + this.type.getName(),
 			identifier -> identifier.getPath().endsWith(".nbt") && identifier.getNamespace().equals(TTConstants.MOD_ID)
 		).keySet();
 
-		ArrayList<Identifier> convertedLocations = new ArrayList<>();
+		final ArrayList<Identifier> convertedLocations = new ArrayList<>();
 		foundPieces.forEach(identifier -> {
 			String newPath = identifier.getPath();
 			newPath = newPath.replace(".nbt", "");
@@ -81,15 +80,13 @@ public class RuinsPieceHandler {
 		return convertedLocations;
 	}
 
-	public static OptionalInt getPieceOffset(RuinsPieces.@NotNull RuinPiece piece) {
-		Identifier pieceLocation = piece.makeTemplateLocation();
-		String piecePath = pieceLocation.getPath();
+	public static OptionalInt getPieceOffset(RuinsPieces.RuinPiece piece) {
+		final Identifier pieceLocation = piece.makeTemplateLocation();
+		final String piecePath = pieceLocation.getPath();
 
 		for (Map.Entry<String, Integer> offsetMapEntry : DIRECTORY_TO_PIECE_OFFSET_MAP.entrySet()) {
-			String pieceDirectory = offsetMapEntry.getKey();
-			if (piecePath.contains(pieceDirectory + "/")) {
-				return OptionalInt.of(offsetMapEntry.getValue());
-			}
+			final String pieceDirectory = offsetMapEntry.getKey();
+			if (piecePath.contains(pieceDirectory + "/")) return OptionalInt.of(offsetMapEntry.getValue());
 		}
 
 		return OptionalInt.empty();
