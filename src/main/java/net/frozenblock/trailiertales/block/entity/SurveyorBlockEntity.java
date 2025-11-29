@@ -142,7 +142,6 @@ public class SurveyorBlockEntity extends BlockEntity {
 					}
 				}
 
-
 				final int distance = (int) closestPoint.distanceTo(startClipPos);
 				if (distance < closestDetection) {
 					final HitResult hitResult = ProjectileUtil.getHitResult(

@@ -17,17 +17,17 @@
 
 package net.frozenblock.trailiertales.client.renderer.debug;
 
-import com.google.common.collect.Maps;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
+import net.frozenblock.trailiertales.registry.TTDebugSubscriptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.gizmos.GizmoStyle;
+import net.minecraft.gizmos.Gizmos;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.entity.Entity;
@@ -35,116 +35,42 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
-	// TODO: fucking fix me.
 	private static final int CONNECTION_COLOR = ARGB.color(255, 50, 125, 90);
 	private static final int SELECTED_CONNECTION_COLOR = ARGB.color(255, 255, 50, 255);
+	private static final int COFFIN_HIGHLIGHT_COLOR = ARGB.colorFromFloat(0.2F, 0.2F, 1F, 0.3F);
 	private static final int TEXT_COLOR = ARGB.color(255, 255, 255, 255);
 	private final Minecraft minecraft;
-	private final IntArrayList scheduledRemovals = new IntArrayList();
-	private final Map<Integer, EntityCoffinData> connections = Maps.newHashMap();
 	@Nullable
-	private Integer lastLookedAtId;
-	private long gameTime;
+	private UUID lastLookedAtUuid;
 
 	public CoffinDebugRenderer(Minecraft client) {
 		this.minecraft = client;
 	}
 
-	private void clearRemovedEntities() {
-		this.connections.entrySet().removeIf(entry -> {
-			int id = entry.getKey();
-			if (scheduledRemovals.contains(id)) return true;
-			Entity entity = this.minecraft.level.getEntity(id);
-			return entity == null || entity.isRemoved();
-		});
-	}
-
-	public void addConnection(int entityId, BlockPos coffinPos, long lastInteractionTime, long gameTime) {
-		this.connections.put(entityId, new EntityCoffinData(coffinPos, UUID.randomUUID(), lastInteractionTime));
-		this.gameTime = gameTime;
-	}
-
-	public void scheduleRemoval(int entityId) {
-		scheduledRemovals.add(entityId);
-	}
-
-
 	@Override
-	public void emitGizmos(
-		double cameraX,
-		double cameraY,
-		double cameraZ,
-		DebugValueAccess debugValueAccess,
-		Frustum frustum,
-		float unknown
-	) {
-		this.clearRemovedEntities();
-		this.scheduledRemovals.removeIf(id -> true);
+	public void emitGizmos(double cameraX, double cameraY, double cameraZ, DebugValueAccess debugValueAccess, Frustum frustum, float partialTick) {
+		debugValueAccess.forEachEntity(TTDebugSubscriptions.COFFINS, (entity, debugInfo) -> {
+			final boolean selected = isEntitySelected(entity);
+			final BlockPos coffinPos = debugInfo.coffinPos();
+
+			if (selected) {
+				Gizmos.cuboid(coffinPos, 0.05F, GizmoStyle.fill(COFFIN_HIGHLIGHT_COLOR));
+				Gizmos.billboardTextOverMob(entity, 3, entity.getDisplayName().getString(), TEXT_COLOR, 0.48F);
+				Gizmos.billboardTextOverMob(entity, 2, "Last Interaction: " + debugInfo.lastInteractionDifference(), TEXT_COLOR, 0.48F);
+			}
+
+			Gizmos.arrow(entity.getPosition(partialTick), coffinPos.getCenter(), selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR);
+		});
 
 		if (!this.minecraft.player.isSpectator()) this.updateLastLookedAtUuid();
+	}
 
-		for (Map.Entry<Integer, EntityCoffinData> connectionInfo : this.connections.entrySet()) {
-			EntityCoffinData coffinData = connectionInfo.getValue();
-			boolean selected = false;
-			Integer id = connectionInfo.getKey();
-			if (id != null) {
-				Entity entity = this.minecraft.level.getEntity(id);
-				if (entity != null) {
-					// TODO port
-					/*if (id.equals(this.lastLookedAtId)) {
-						selected = true;
-						highlightPos(matrices, vertexConsumers, coffinData.getPos());
-						Vec3 entityTextPos = entity.getEyePosition(DebugRenderManager.PARTIAL_TICK);
-						renderTextOverPos(matrices, vertexConsumers, entity.getDisplayName().getString(), entityTextPos, 3, TEXT_COLOR);
-						renderTextOverPos(
-							matrices,
-							vertexConsumers,
-							"Last Interaction: " + (this.gameTime - coffinData.lastInteraction()),
-							entityTextPos,
-							2,
-							TEXT_COLOR
-						);
-					}
-					drawLine(
-						matrices,
-						vertexConsumers,
-						cameraX, cameraY, cameraZ,
-						entity.getEyePosition(DebugRenderManager.PARTIAL_TICK), Vec3.atCenterOf(coffinData.getPos()),
-						selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR
-					);*/
-				}
-			}
-		}
+	private boolean isEntitySelected(Entity entity) {
+		return Objects.equals(this.lastLookedAtUuid, entity.getUUID());
 	}
 
 	private void updateLastLookedAtUuid() {
-		DebugRenderer.getTargetedEntity(this.minecraft.getCameraEntity(), 8).ifPresent(entity -> this.lastLookedAtId = entity.getId());
+		DebugRenderer.getTargetedEntity(this.minecraft.getCameraEntity(), 8).ifPresent(entity -> this.lastLookedAtUuid = entity.getUUID());
 	}
 
-	/*
-	private static void highlightPos(PoseStack matrices, MultiBufferSource vertexConsumers, BlockPos pos) {
-		DebugRenderer.renderFilledBox(matrices, vertexConsumers, pos, 0.05F, 0.2F, 0.2F, 1.0F, 0.3F);
-		renderTextOverPos(matrices, vertexConsumers, "Coffin", pos.getCenter(), 0, TEXT_COLOR);
-	}
-
-	private static void drawLine(
-		@NotNull PoseStack matrices,
-		@NotNull MultiBufferSource vertexConsumers,
-		double cameraX,
-		double cameraY,
-		double cameraZ,
-		@NotNull Vec3 start,
-		@NotNull Vec3 target,
-		int color
-	) {
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderType.debugLineStrip(4D));
-		vertexConsumer.addVertex(matrices.last(), (float)(start.x - cameraX), (float)(start.y - cameraY), (float)(start.z - cameraZ)).setColor(color);
-		vertexConsumer.addVertex(matrices.last(), (float)(target.x - cameraX), (float)(target.y - cameraY), (float)(target.z - cameraZ)).setColor(color);
-	}
-
-	private static void renderTextOverPos(PoseStack matrices, MultiBufferSource vertexConsumers, String string, @NotNull Vec3 pos, int offsetY, int color) {
-		double g = pos.y + (double)offsetY * 0.2;
-		DebugRenderer.renderFloatingText(matrices, vertexConsumers, string, pos.x, g, pos.z, color, 0.02F, true, 0.0F, true);
-	}
-	 */
 }

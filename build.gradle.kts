@@ -27,6 +27,7 @@ plugins {
     idea
     `java-library`
     java
+    checkstyle
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -80,6 +81,12 @@ loom {
         enableDependencyInterfaceInjection.set(true)
     }
 }
+
+checkstyle {
+    configFile = rootProject.file("checkstyle.xml")
+    toolVersion = "10.20.2"
+}
+
 
 sourceSets {
     main {

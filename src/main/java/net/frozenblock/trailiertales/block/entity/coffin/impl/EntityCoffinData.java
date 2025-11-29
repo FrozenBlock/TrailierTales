@@ -70,19 +70,10 @@ public class EntityCoffinData {
 			return;
 		}
 
-		// TODO port
-		/*if (FrozenLibConfig.IS_DEBUG) {
-			FrozenNetworking.sendPacketToAllPlayers(
-				serverLevel,
-				new CoffinDebugPacket(entity.getId(), this.lastInteractionAt, this.pos, gameTime)
-			);
-		}*/
-		if (entity instanceof Mob mob) {
-			if (optionalCoffinSpawner.get().isOminous()) {
-				final CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
-				final Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
-				optionalPlayer.ifPresent(mob::setTarget);
-			}
+		if (entity instanceof Mob mob && optionalCoffinSpawner.get().isOminous()) {
+			final CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
+			final Optional<Player> optionalPlayer = coffinSpawner.getData().getClosestDetectedPlayer(level, entity.position());
+			optionalPlayer.ifPresent(mob::setTarget);
 		}
 	}
 

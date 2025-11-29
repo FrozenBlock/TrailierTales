@@ -53,6 +53,9 @@ public final class TTMixinsConfig {
 	@Comment("Required for the Rebrush enchantment and smooth animations to work")
 	public boolean brushable_block = true;
 
+	@Comment("Required for Trailier Tales' debug renderers to work")
+	public boolean debug = true;
+
 	@Comment("Required to let the Camel spawn naturally")
 	public boolean camel = true;
 

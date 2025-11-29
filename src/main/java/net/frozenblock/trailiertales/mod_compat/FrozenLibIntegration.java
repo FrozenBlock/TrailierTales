@@ -115,7 +115,6 @@ public class FrozenLibIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_UNPOLISHED_BRICKS, TTSounds.BRICKS, () -> TTBlockConfig.get().blockSounds.unpolished_bricks);
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BRICKS, TTSounds.POLISHED_BRICKS, () -> TTBlockConfig.get().blockSounds.polished_bricks);
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_CALCITE, TTSounds.POLISHED_CALCITE, () -> TTBlockConfig.get().blockSounds.polished_calcite);
@@ -125,7 +124,6 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_TUFF, TTSounds.POLISHED_TUFF, () -> TTBlockConfig.get().blockSounds.polished_tuff);
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BASALT, TTSounds.POLISHED_BASALT, () -> TTBlockConfig.get().blockSounds.polished_basalt);
 		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_RESIN, TTSounds.POLISHED_RESIN, () -> TTBlockConfig.get().blockSounds.polished);
-
 
 		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_CATACOMBS);
 		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_BADLANDS_RUINS);

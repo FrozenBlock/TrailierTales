@@ -37,7 +37,7 @@ import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.WalkAnimationState;
-import net.minecraft.world.entity.vehicle.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -55,8 +55,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	protected abstract EntityModel<BoatRenderState> model();
 
 	@Unique
-	private MaterialSet materials;
-
+	private MaterialSet trailierTales$materials;
 	@Unique
 	private Identifier trailierTales$bannerTexture;
 	@Unique
@@ -64,13 +63,13 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	@Unique
 	private boolean trailierTales$raft;
 
-	protected AbstractBoatRendererMixin(EntityRendererProvider.Context ctx) {
-		super(ctx);
+	protected AbstractBoatRendererMixin(EntityRendererProvider.Context context) {
+		super(context);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, CallbackInfo info) {
-		this.materials = context.getMaterials();
+		this.trailierTales$materials = context.getMaterials();
 		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TTModelLayers.BOAT_BANNER));
 	}
 
@@ -93,7 +92,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	}
 
 	@Inject(
-		method = "extractRenderState(Lnet/minecraft/world/entity/vehicle/AbstractBoat;Lnet/minecraft/client/renderer/entity/state/BoatRenderState;F)V",
+		method = "extractRenderState(Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;Lnet/minecraft/client/renderer/entity/state/BoatRenderState;F)V",
 		at = @At("TAIL")
 	)
 	public void trailierTales$extractRenderState(AbstractBoat abstractBoat, BoatRenderState renderState, float partialTick, CallbackInfo info) {
@@ -128,7 +127,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		this.trailierTales$boatBannerModel.preparePoseStack(poseStack);
 		this.trailierTales$boatBannerModel.setupAnim(renderState);
 		this.trailierTales$boatBannerModel.submitFlag(
-			this.materials,
+			this.trailierTales$materials,
 			poseStack,
 			collector,
 			renderState,

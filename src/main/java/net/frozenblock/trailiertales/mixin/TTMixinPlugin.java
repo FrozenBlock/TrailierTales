@@ -23,7 +23,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.config.TTMixinsConfig;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -39,9 +38,9 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		this.hasLithium = FabricLoader.getInstance().isModLoaded("lithium");
 	}
 
-	@Contract(pure = true)
 	@Override
-	public @Nullable String getRefMapperConfig() {
+	@Nullable
+	public String getRefMapperConfig() {
 		return null;
 	}
 
@@ -52,6 +51,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("boat.")) return this.mixinsConfig.boat;
 		if (mixinClassName.contains("brush.")) return this.mixinsConfig.brush;
 		if (mixinClassName.contains("brushable_block.")) return this.mixinsConfig.brushable_block;
+		if (mixinClassName.contains("debug.")) return this.mixinsConfig.debug;
 		if (mixinClassName.contains("camel.")) return this.mixinsConfig.camel;
 		if (mixinClassName.contains("coffin.")) return this.mixinsConfig.coffin;
 		if (mixinClassName.contains("datafix.")) return this.mixinsConfig.datafix;
@@ -71,9 +71,9 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 
-	@Contract(pure = true)
 	@Override
-	public @Nullable List<String> getMixins() {
+	@Nullable
+	public List<String> getMixins() {
 		return null;
 	}
 

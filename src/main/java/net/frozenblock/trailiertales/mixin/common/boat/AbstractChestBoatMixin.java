@@ -25,8 +25,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractBoat;
-import net.minecraft.world.entity.vehicle.AbstractChestBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -58,7 +58,6 @@ public abstract class AbstractChestBoatMixin extends AbstractBoat {
 			info.setReturnValue(InteractionResult.SUCCESS);
 			return;
 		}
-
 
 		if (this.level() instanceof ServerLevel serverLevel) this.spawnAtLocation(serverLevel, bannerInterface.trailierTales$getBanner(), 0.6F);
 		bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);

@@ -29,6 +29,7 @@ import net.frozenblock.trailiertales.networking.TTNetworking;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTCreativeInventorySorting;
+import net.frozenblock.trailiertales.registry.TTDebugSubscriptions;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTItems;
@@ -87,6 +88,7 @@ public class TrailierTales extends FrozenModInitializer {
 		TTRuleBlockEntityModifiers.init();
 		TTVillagerTrades.init();
 		TTNetworking.init();
+		TTDebugSubscriptions.init();
 
 		TTBlocks.registerBlockProperties();
 

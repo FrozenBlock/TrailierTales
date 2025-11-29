@@ -39,7 +39,6 @@ public final class TTEntityConfig {
 	@CollapsibleObject
 	public final Apparition apparition = new Apparition();
 
-
 	@CollapsibleObject
 	public final Sniffer sniffer = new Sniffer();
 

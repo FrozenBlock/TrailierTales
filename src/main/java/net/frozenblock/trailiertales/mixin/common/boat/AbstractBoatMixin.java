@@ -29,7 +29,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.WalkAnimationState;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -115,16 +115,16 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 	)
 	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
 		if (!player.isSecondaryUseActive()) return;
+
 		if (this.trailierTales$getBanner().isEmpty()) {
 			final ItemStack stack = player.getItemInHand(hand);
-			if (stack.is(ItemTags.BANNERS)) {
-				if (this.level() instanceof ServerLevel serverLevel) {
-					this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
-					this.trailierTales$setBanner(stack.split(1));
-					this.gameEvent(GameEvent.ENTITY_INTERACT, player);
-				}
-				info.setReturnValue(InteractionResult.SUCCESS);
+			if (!stack.is(ItemTags.BANNERS)) return;
+			if (this.level() instanceof ServerLevel serverLevel) {
+				this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
+				this.trailierTales$setBanner(stack.split(1));
+				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
 			}
+			info.setReturnValue(InteractionResult.SUCCESS);
 		} else {
 			if (this.level() instanceof ServerLevel serverLevel) this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
 			this.trailierTales$setBanner(ItemStack.EMPTY);

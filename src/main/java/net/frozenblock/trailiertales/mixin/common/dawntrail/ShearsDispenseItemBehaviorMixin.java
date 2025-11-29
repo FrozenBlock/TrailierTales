@@ -26,7 +26,6 @@ import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,7 +45,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	}
 
 	@Unique
-	private static boolean trailierTales$tryShearDawntrail(@NotNull ServerLevel level, BlockPos pos) {
+	private static boolean trailierTales$tryShearDawntrail(ServerLevel level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		if (!state.is(TTBlocks.DAWNTRAIL) || !DawntrailBlock.isMaxAge(state)) return false;
 		DawntrailBlock.shear(level, pos, state, null);

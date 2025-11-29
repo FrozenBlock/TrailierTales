@@ -71,9 +71,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.npc.InventoryCarrier;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
@@ -461,19 +461,22 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
-		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
-			if (source.getDirectEntity() instanceof Projectile projectile) {
-				if (projectile instanceof AbstractArrow abstractArrow) {
-					this.swapItem(abstractArrow.getPickupItemStackOrigin());
-					abstractArrow.discard();
-					return false;
-				} else if (projectile instanceof ItemSupplier itemSupplier) {
-					this.swapItem(itemSupplier.getItem());
-					projectile.discard();
-					return false;
-				}
+		catchProjectile: {
+			if (!source.is(DamageTypeTags.IS_PROJECTILE)) break catchProjectile;
+			if (!(source.getDirectEntity() instanceof Projectile projectile)) break catchProjectile;
+
+			if (projectile instanceof AbstractArrow abstractArrow) {
+				this.swapItem(abstractArrow.getPickupItemStackOrigin());
+			} else if (projectile instanceof ItemSupplier itemSupplier) {
+				this.swapItem(itemSupplier.getItem());
+			} else {
+				break catchProjectile;
 			}
+
+			projectile.discard();
+			return false;
 		}
+
 		final boolean hurtServer = super.hurtServer(level, source, amount);
 		if (hurtServer && source.getEntity() instanceof LivingEntity livingEntity) ApparitionAi.wasHurtBy(level, this, livingEntity);
 		return hurtServer;
@@ -491,8 +494,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public AABB getAttackBoundingBox() { // Extends access for outside-package classes
-		return super.getAttackBoundingBox();
+	public AABB getAttackBoundingBox(double horizontalInflation) { // Extends access for outside-package classes
+		return super.getAttackBoundingBox(horizontalInflation);
 	}
 
 	private static final double BRIGHTNESS_OFFSET = 6D;

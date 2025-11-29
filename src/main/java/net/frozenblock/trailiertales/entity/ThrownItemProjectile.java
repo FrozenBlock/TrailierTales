@@ -29,7 +29,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -60,9 +60,7 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	public void handleEntityEvent(byte id) {
 		if (id == EntityEvent.DEATH) {
 			final ParticleOptions options = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
-			for (int i = 0; i < 8; ++i) {
-				this.level().addParticle(options, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
-			}
+			for (int i = 0; i < 8; ++i) this.level().addParticle(options, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
 		} else {
 			super.handleEntityEvent(id);
 		}
@@ -83,8 +81,8 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void onHitBlock(BlockHitResult result) {
-		super.onHitBlock(result);
+	protected void onHitBlock(BlockHitResult hitResult) {
+		super.onHitBlock(hitResult);
 		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
 		this.discard();
 	}

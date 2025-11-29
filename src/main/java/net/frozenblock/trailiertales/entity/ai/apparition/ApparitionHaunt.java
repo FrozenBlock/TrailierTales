@@ -54,7 +54,7 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 		if (livingEntity == null) return;
 
 		int hauntingTicks = brain.getMemory(TTMemoryModuleTypes.HAUNTING_TICKS).orElse(0);
-		if (!livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox())) {
+		if (!livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox(0D))) {
 			hauntingTicks += 2;
 			if (hauntingTicks >= 150) {
 				apparition.playSound(TTSounds.APPARITION_HAUNT, apparition.getSoundVolume(), apparition.getVoicePitch());
