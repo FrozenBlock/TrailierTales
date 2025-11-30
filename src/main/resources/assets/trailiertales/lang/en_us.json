@@ -359,8 +359,8 @@
 
   "option.trailiertales.villager": "Villager",
   "tooltip.trailiertales.villager": "Contains options related to the Villager.",
-  "option.trailiertales.villagers_sell_catacombs_map": "Catacombs Map Trade",
-  "tooltip.trailiertales.villagers_sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
+  "option.trailiertales.sell_catacombs_map": "Catacombs Map Trade",
+  "tooltip.trailiertales.sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
 
   "option.trailiertales.armor_stand": "Armor Stand",
   "tooltip.trailiertales.armor_stand": "Contains options related to the Armor Stand.",
