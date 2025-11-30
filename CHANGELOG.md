@@ -23,8 +23,9 @@ hi
 - Added a config option to toggle whether Apparitions can catch projectiles.
 - Added a config option to toggle whether Apparitions can "hypnotize" mobs.
 - Added a config option to toggle whether Apparitions can give players the Haunt effect.
-- Added four config options to toggle the features of the Haunt effect.
-    - Fog
-    - Lightmap Dimming
-    - Lower Sound Attenuation Distance
-    - Obscured Stats In HUD
+- Added five config options to toggle the features of the Haunt effect.
+  - Nearby Coffin Activation
+  - Fog
+  - Lightmap Dimming
+  - Lower Sound Attenuation Distance
+  - Obscured Stats In HUD

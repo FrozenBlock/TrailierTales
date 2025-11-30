@@ -83,6 +83,8 @@ public final class TTEntityConfig {
 		public boolean hypnotizes_mobs = true;
 		@EntrySyncData(value = "haunts_players")
 		public boolean haunts_players = true;
+		@EntrySyncData(value = "haunted_coffins")
+		public boolean haunted_coffins = true;
 		@EntrySyncData(value = "haunted_fog")
 		public boolean haunted_fog = true;
 		@EntrySyncData(value = "haunted_lightmap")

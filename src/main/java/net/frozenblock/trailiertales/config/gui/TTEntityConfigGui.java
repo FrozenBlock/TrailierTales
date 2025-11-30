@@ -92,6 +92,16 @@ public final class TTEntityConfigGui {
 			"haunts_players",
 			configInstance
 		);
+		var hauntedCoffins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_coffins"), modifiedApparition.haunted_coffins)
+				.setDefaultValue(defaultConfig.apparition.haunted_coffins)
+				.setSaveConsumer(newValue -> apparition.haunted_coffins = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_coffins"))
+				.build(),
+			apparition.getClass(),
+			"haunted_coffins",
+			configInstance
+		);
 		var hauntedFog = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("haunted_fog"), modifiedApparition.haunted_fog)
 				.setDefaultValue(defaultConfig.apparition.haunted_fog)
@@ -137,7 +147,7 @@ public final class TTEntityConfigGui {
 			false,
 			TTConstants.tooltip("apparition"),
 			picksUpItems, catchesProjectiles, ignoreMobGriefing, hypnotizesMobs,
-			hauntsPlayers, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
+			hauntsPlayers, hauntedCoffins, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
 		);
 
 		var sniffer = config.sniffer;

@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
@@ -281,35 +282,38 @@ public class CoffinSpawnerData {
 		return nearbyPlayers;
 	}
 
-	public void tryDetectPlayers(@NotNull ServerLevel world, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
-		boolean isSecondForPos = (pos.asLong() + world.getGameTime()) % 20L == 0L;
+	public void tryDetectPlayers(@NotNull ServerLevel level, @NotNull BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
+		boolean isSecondForPos = (pos.asLong() + level.getGameTime()) % 20L == 0L;
 		if (!isSecondForPos) return;
 		List<UUID> list = coffinSpawner.getPlayerDetector()
-			.detect(world, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
+			.detect(level, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);
 		this.potentialPlayers.addAll(list);
 
 		if (!coffinSpawner.isOminous() && !list.isEmpty()) {
-			Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(world, list);
+			Optional<Pair<Player, Holder<MobEffect>>> optional = findPlayerWithOminousEffect(level, list);
 			optional.ifPresent(pair -> {
 				Player player = pair.getFirst();
 				if (pair.getSecond() == MobEffects.BAD_OMEN) transformBadOmenIntoSiegeOmen(player);
-				coffinSpawner.applyOminous(world);
+				coffinSpawner.applyOminous(level);
 			});
 		}
 
 		List<UUID> detectedList = new ArrayList<>(list);
-		detectedList.removeIf(uuid -> !(world.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
+		detectedList.removeIf(uuid ->
+			!(level.getPlayerByUUID(uuid) instanceof Player player)
+			|| !((TTEntityConfig.get().apparition.haunted_coffins && player.hasEffect(TTMobEffects.HAUNT)) || player.hasEffect(TTMobEffects.SIEGE_OMEN))
+		);
 		for (UUID uuid : this.currentApparitions) {
-			if (world.getEntity(uuid) instanceof Apparition apparition) {
+			if (level.getEntity(uuid) instanceof Apparition apparition) {
 				LivingEntity target = apparition.getTarget();
 				if (target instanceof Player player) detectedList.add(player.getUUID());
 			}
 		}
 
 		if (this.detectedPlayers.addAll(detectedList)) {
-			RandomSource randomSource = world.random;
-			CoffinBlock.spawnParticlesFrom(world, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
-			world.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
+			RandomSource randomSource = level.random;
+			CoffinBlock.spawnParticlesFrom(level, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
+			level.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F);
 		}
 
 		this.detectedPlayers.removeIf(uuid -> !detectedList.contains(uuid));

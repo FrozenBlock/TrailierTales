@@ -330,6 +330,8 @@
   "tooltip.trailiertales.hypnotizes_mobs": "Whether Apparitions can \"hypnotize\" mobs.\nNearby mobs will target the player, even if not in their line of sight.",
   "option.trailiertales.haunts_players": "Haunt Players",
   "tooltip.trailiertales.haunts_players": "Whether Apparitions can give players the Haunt effect.",
+  "option.trailiertales.haunted_coffins": "Haunted Coffins",
+  "tooltip.trailiertales.haunted_coffins": "Whether the Haunt effect will activate all nearby Coffins.",
   "option.trailiertales.haunted_fog": "Haunted Fog",
   "tooltip.trailiertales.haunted_fog": "Whether the Haunt effect will create dark, nearby fog.",
   "option.trailiertales.haunted_lightmap": "Haunted Lightmap",
