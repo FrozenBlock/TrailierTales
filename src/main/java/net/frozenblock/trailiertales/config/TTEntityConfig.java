@@ -112,7 +112,7 @@ public final class TTEntityConfig {
 	}
 
 	public static class Villager {
-		@EntrySyncData(value = "villagers_sell_catacombs_map")
+		@EntrySyncData(value = "sell_catacombs_map")
 		public boolean sell_catacombs_map = true;
 	}
 

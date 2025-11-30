@@ -229,14 +229,14 @@ public final class TTEntityConfigGui {
 		var modifiedVillager = modifiedConfig.villager;
 
 		var villagersSellCatacombsMap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TTConstants.text("villagers_sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
+			entryBuilder.startBooleanToggle(TTConstants.text("sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
 				.setDefaultValue(defaultConfig.villager.sell_catacombs_map)
 				.setSaveConsumer(newValue -> villager.sell_catacombs_map = newValue)
-				.setTooltip(TTConstants.tooltip("villagers_sell_catacombs_map"))
+				.setTooltip(TTConstants.tooltip("sell_catacombs_map"))
 				.requireRestart()
 				.build(),
 			villager.getClass(),
-			"villagers_sell_catacombs_map",
+			"sell_catacombs_map",
 			configInstance
 		);
 
