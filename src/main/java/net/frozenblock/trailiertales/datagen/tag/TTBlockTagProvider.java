@@ -166,7 +166,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CYAN_ROSE);
 
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP);
+			.add(TTBlocks.MANEDROP)
+			.add(TTBlocks.GUZMANIA);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(TTBlocks.DAWNTRAIL);
@@ -177,12 +178,14 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.CROPS)
 			.add(TTBlocks.CYAN_ROSE_CROP)
 			.add(TTBlocks.MANEDROP_CROP)
+			.add(TTBlocks.GUZMANIA_CROP)
 			.add(TTBlocks.DAWNTRAIL_CROP);
 
 		this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND)
 			.add(TTBlocks.CYAN_ROSE_CROP)
 			.add(TTBlocks.CYAN_ROSE)
 			.add(TTBlocks.MANEDROP_CROP)
+			.add(TTBlocks.GUZMANIA_CROP)
 			.add(TTBlocks.DAWNTRAIL_CROP)
 			.add(TTBlocks.DAWNTRAIL);
 

@@ -28,6 +28,7 @@ import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
@@ -133,6 +134,27 @@ public final class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block MANEDROP = new DoublePlantBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.ignitedByLava()
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block GUZMANIA_CROP = new GuzmaniaCropBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollission()
+			.instabreak()
+			.sound(SoundType.CROP)
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block GUZMANIA = new DoublePlantBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
@@ -558,6 +580,9 @@ public final class TTBlocks {
 
 		registerBlockAfter(Blocks.PITCHER_PLANT, "manedrop", MANEDROP, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("manedrop_crop", MANEDROP_CROP);
+
+		registerBlockAfter(MANEDROP, "guzmania", GUZMANIA, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("guzmania_crop", GUZMANIA_CROP);
 
 		registerBlockAfter(Blocks.GLOW_LICHEN, "dawntrail", DAWNTRAIL, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("dawntrail_crop", DAWNTRAIL_CROP);

@@ -20,6 +20,7 @@ package net.frozenblock.trailiertales.datagen.loot;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
@@ -97,6 +98,57 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 									)
 									.when(
 										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+					)
+			)
+		);
+
+		this.add(
+			TTBlocks.GUZMANIA,
+			this.applyExplosionDecay(
+				TTBlocks.GUZMANIA,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(TTBlocks.GUZMANIA)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+					)
+			)
+		);
+		this.add(
+			TTBlocks.GUZMANIA_CROP,
+			this.applyExplosionDecay(
+				TTBlocks.GUZMANIA_CROP,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
+											.invert()
+									)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+							.add(
+								LootItem.lootTableItem(TTBlocks.GUZMANIA)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
+									)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)

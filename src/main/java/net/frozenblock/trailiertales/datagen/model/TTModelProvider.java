@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -91,6 +92,9 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		createManedropCrop(generator);
 		generator.createDoublePlant(TTBlocks.MANEDROP, BlockModelGenerators.TintState.NOT_TINTED);
+
+		createGuzmaniaCrop(generator);
+		generator.createDoublePlant(TTBlocks.GUZMANIA, BlockModelGenerators.TintState.NOT_TINTED);
 
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
@@ -289,6 +293,54 @@ public final class TTModelProvider extends FabricModelProvider {
 							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+			};
+		});
+		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
+	}
+
+	private static void createGuzmaniaCrop(BlockModelGenerators generator) {
+		final Block block = TTBlocks.GUZMANIA_CROP;
+		generator.createSimpleFlatItemModel(block.asItem());
+		PropertyDispatch propertyDispatch = PropertyDispatch.properties(GuzmaniaCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
+			return switch (half) {
+				case UPPER -> {
+					if (age < GuzmaniaCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TTConstants.id("block/guzmania_crop_top_empty")
+						);
+					} else if (age == GuzmaniaCropBlock.MAX_AGE) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TTConstants.id("block/guzmania_top")
+						);
+					} else {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+								TTConstants.id("block/guzmania_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_top_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+				case LOWER -> {
+					if (age == GuzmaniaCropBlock.MAX_AGE) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TTConstants.id("block/guzmania_bottom")
+						);
+					} else {
+						yield Variant.variant().with(VariantProperties.MODEL,
+							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_bottom_stage_" + age)),
 								generator.modelOutput
 							)
 						);

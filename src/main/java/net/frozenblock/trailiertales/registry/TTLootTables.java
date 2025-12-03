@@ -189,6 +189,10 @@ public final class TTLootTables {
 					((FabricLootTableBuilder) tableBuilder)
 						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
 				}
+				if (TTEntityConfig.get().sniffer.guzmania_seeds) {
+					((FabricLootTableBuilder) tableBuilder)
+						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS)));
+				}
 				if (TTEntityConfig.get().sniffer.dawntrail_seeds) {
 					((FabricLootTableBuilder) tableBuilder)
 						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
