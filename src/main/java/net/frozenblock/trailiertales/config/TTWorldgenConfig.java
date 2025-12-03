@@ -113,6 +113,9 @@ public final class TTWorldgenConfig {
 		@EntrySyncData("generateManedrop")
 		public boolean generateManedrop = false;
 
+		@EntrySyncData("generateGuzmania")
+		public boolean generateGuzmania = false;
+
 		@EntrySyncData("generateDawntrail")
 		public boolean generateDawntrail = false;
 	}

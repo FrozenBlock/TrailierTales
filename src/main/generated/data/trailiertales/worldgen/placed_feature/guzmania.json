@@ -1,9 +1,9 @@
 {
-  "feature": "trailiertales:pitcher",
+  "feature": "trailiertales:guzmania",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 8
+      "chance": 5
     },
     {
       "type": "minecraft:in_square"

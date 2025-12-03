@@ -86,6 +86,15 @@ public class TTFeatureBootstrap {
 		TTConstants.id("manedrop")
 	);
 
+	public static final ResourceKey<ConfiguredFeature<?, ?>> GUZMANIA = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
+		TTConstants.id("guzmania")
+	);
+	public static final ResourceKey<PlacedFeature> GUZMANIA_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TTConstants.id("guzmania")
+	);
+
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DAWNTRAIL = ResourceKey.create(
 		Registries.CONFIGURED_FEATURE,
 		TTConstants.id("dawntrail")
@@ -142,10 +151,23 @@ public class TTFeatureBootstrap {
 			MANEDROP,
 			Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
-				10,
+				12,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.MANEDROP))
+				)
+			)
+		);
+
+		register(
+			entries,
+			GUZMANIA,
+			Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				18,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.GUZMANIA))
 				)
 			)
 		);
@@ -176,13 +198,14 @@ public class TTFeatureBootstrap {
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		final var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+
 		register(
 			entries,
 			TORCHFLOWER_PLACED,
 			configuredFeatures.getOrThrow(TORCHFLOWER),
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -192,7 +215,7 @@ public class TTFeatureBootstrap {
 			configuredFeatures.getOrThrow(PITCHER),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -202,7 +225,7 @@ public class TTFeatureBootstrap {
 			configuredFeatures.getOrThrow(CYAN_ROSE),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -210,9 +233,19 @@ public class TTFeatureBootstrap {
 			entries,
 			MANEDROP_PLACED,
 			configuredFeatures.getOrThrow(MANEDROP),
-			RarityFilter.onAverageOnceEvery(7),
+			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP,
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			GUZMANIA_PLACED,
+			configuredFeatures.getOrThrow(GUZMANIA),
+			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
@@ -223,7 +256,7 @@ public class TTFeatureBootstrap {
 			CountPlacement.of(UniformInt.of(52, 90)),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			InSquarePlacement.spread(),
-			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, -6, 64),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, -6, 64),
 			BiomeFilter.biome()
 		);
 	}

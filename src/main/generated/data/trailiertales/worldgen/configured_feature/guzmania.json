@@ -8,7 +8,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "trailiertales:manedrop",
+              "Name": "trailiertales:guzmania",
               "Properties": {
                 "half": "lower"
               }
@@ -26,7 +26,7 @@
         }
       ]
     },
-    "tries": 12,
+    "tries": 18,
     "xz_spread": 7,
     "y_spread": 3
   }

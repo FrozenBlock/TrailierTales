@@ -53,7 +53,7 @@ public class GuzmaniaCropBlock extends DoublePlantBlock implements BonemealableB
 	public static final int MAX_AGE = 3;
 	public static final int DOUBLE_PLANT_AGE_INTERSECTION = 2;
 	private static final VoxelShape[] UPPER_SHAPE_BY_AGE = new VoxelShape[]{
-		Block.box(3, 0, 3, 13, 9, 13),
+		Block.box(3, 0, 3, 13, 11, 13),
 		Block.box(2, 0, 2, 14, 16, 14)
 	};
 	private static final VoxelShape[] LOWER_SHAPE_BY_AGE = new VoxelShape[]{
