@@ -19,10 +19,10 @@
       "model": "trailiertales:block/manedrop_crop_top_stage_2"
     },
     "age=3,half=lower": {
-      "model": "trailiertales:block/manedrop_bottom"
+      "model": "trailiertales:block/manedrop_crop_bottom_stage_3"
     },
     "age=3,half=upper": {
-      "model": "trailiertales:block/manedrop_top"
+      "model": "trailiertales:block/manedrop_crop_top_stage_3"
     }
   }
 }

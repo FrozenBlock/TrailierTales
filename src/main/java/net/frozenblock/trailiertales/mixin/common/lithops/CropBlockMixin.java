@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.mixin.common.lithops;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.trailiertales.block.LithopsBlock;
 import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.core.BlockPos;
@@ -42,10 +41,7 @@ public class CropBlockMixin {
 		BlockState original,
 		BlockState state
 	) {
-		if (state.is(TTBlocks.LITHOPS_CROP)) {
-			if (original.is(TTBlocks.LITHOPS)) original.setValue(LithopsBlock.FACING, state.getValue(LithopsCropBlock.FACING));
-			return original.setValue(LithopsCropBlock.FACING, state.getValue(LithopsCropBlock.FACING));
-		}
+		if (state.is(TTBlocks.LITHOPS_CROP)) return original.setValue(LithopsCropBlock.FACING, state.getValue(LithopsCropBlock.FACING));
 		return original;
 	}
 
@@ -60,10 +56,7 @@ public class CropBlockMixin {
 		BlockState original,
 		Level level, BlockPos pos, BlockState state
 	) {
-		if (state.is(TTBlocks.LITHOPS_CROP)) {
-			if (original.is(TTBlocks.LITHOPS)) original.setValue(LithopsBlock.FACING, state.getValue(LithopsCropBlock.FACING));
-			return original.setValue(LithopsCropBlock.FACING, state.getValue(LithopsCropBlock.FACING));
-		}
+		if (state.is(TTBlocks.LITHOPS_CROP)) return original.setValue(LithopsCropBlock.FACING, state.getValue(LithopsCropBlock.FACING));
 		return original;
 	}
 
