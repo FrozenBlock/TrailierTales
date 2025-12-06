@@ -36,6 +36,7 @@ import net.frozenblock.lib.worldgen.structure.api.StructurePlacementExclusionApi
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -224,14 +225,22 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "trailiertales:manedrop", CriteriaTriggers.PLACED_BLOCK.createCriterion(
 							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.MANEDROP_CROP).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "trailiertales:guzmania", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.GUZMANIA_CROP).triggerInstance())
+						);
 						AdvancementAPI.addCriteria(advancement, "trailiertales:dawntrail", CriteriaTriggers.PLACED_BLOCK.createCriterion(
 							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.DAWNTRAIL_CROP).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "trailiertales:lithops", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.LITHOPS_CROP).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
 								"trailiertales:cyan_rose",
 								"trailiertales:manedrop",
-								"trailiertales:dawntrail"
+								"trailiertales:guzmania",
+								"trailiertales:dawntrail",
+								"trailiertales:lithops"
 							)
 						);
 					}
@@ -261,7 +270,7 @@ public class FrozenLibIntegration extends ModIntegration {
 							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
 							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
-							map.put(TTMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
+							if (TTEntityConfig.get().apparition.haunts_players) map.put(TTMobEffects.HAUNT, new MobEffectsPredicate.MobEffectInstancePredicate());
 							map.put(TTMobEffects.TRANSFIGURING, new MobEffectsPredicate.MobEffectInstancePredicate());
 							map.put(TTMobEffects.SIEGE_OMEN, new MobEffectsPredicate.MobEffectInstancePredicate());
 							predicate.effectMap = map;

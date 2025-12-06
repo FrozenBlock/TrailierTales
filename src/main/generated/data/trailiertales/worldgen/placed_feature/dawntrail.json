@@ -26,7 +26,7 @@
     },
     {
       "type": "minecraft:surface_relative_threshold_filter",
-      "heightmap": "OCEAN_FLOOR_WG",
+      "heightmap": "WORLD_SURFACE_WG",
       "max_inclusive": 64,
       "min_inclusive": -6
     },

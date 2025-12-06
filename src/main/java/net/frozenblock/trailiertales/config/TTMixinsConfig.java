@@ -75,6 +75,9 @@ public final class TTMixinsConfig {
 	@Comment("Required for Apparitions to not collide with all blocks when Lithium is installed")
 	public boolean lithium = true;
 
+	@Comment("Required for Lithops Crops to grow into properly-rotated Lithops")
+	public boolean lithops = true;
+
 	@Comment("Required for a structure gen bugfix related to rail rotation")
 	public boolean rail = true;
 

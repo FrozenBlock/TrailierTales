@@ -31,6 +31,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
+import net.frozenblock.trailiertales.block.LithopsBlock;
+import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
@@ -39,8 +42,10 @@ import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.Util;
 import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -104,8 +109,14 @@ public final class TTModelProvider extends FabricModelProvider {
 		createManedropCrop(generator);
 		generator.createDoublePlantWithDefaultItem(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
 
+		createGuzmaniaCrop(generator);
+		generator.createDoublePlantWithDefaultItem(TTBlocks.GUZMANIA, BlockModelGenerators.PlantType.NOT_TINTED);
+
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
+
+		createLithopsCrop(generator);
+		createLithops(generator);
 
 		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_RED_SAND);
 		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_DIRT);
@@ -322,6 +333,54 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
 	}
 
+	private static void createGuzmaniaCrop(BlockModelGenerators generator) {
+		final Block block = TTBlocks.GUZMANIA_CROP;
+		generator.registerSimpleFlatItemModel(block.asItem());
+		PropertyDispatch propertyDispatch = PropertyDispatch.properties(GuzmaniaCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
+			return switch (half) {
+				case UPPER -> {
+					if (age < GuzmaniaCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TTConstants.id("block/guzmania_crop_top_empty")
+						);
+					} else if (age == GuzmaniaCropBlock.MAX_AGE) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TTConstants.id("block/guzmania_top")
+						);
+					} else {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+								TTConstants.id("block/guzmania_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_top_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+				case LOWER -> {
+					if (age == GuzmaniaCropBlock.MAX_AGE) {
+						yield Variant.variant().with(
+							VariantProperties.MODEL,
+							TTConstants.id("block/guzmania_bottom")
+						);
+					} else {
+						yield Variant.variant().with(VariantProperties.MODEL,
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_bottom_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+			};
+		});
+		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
+	}
+
 	private static void createDawntrail(@NotNull BlockModelGenerators generator) {
 		Block block = TTBlocks.DAWNTRAIL;
 		generator.registerSimpleFlatItemModel(block);
@@ -364,6 +423,171 @@ public final class TTModelProvider extends FabricModelProvider {
 				}
 				);
 		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(crop).with(propertyDispatch));
+	}
+
+	private static void createLithopsCrop(BlockModelGenerators generator) {
+		final Block crop = TTBlocks.LITHOPS_CROP;
+		generator.registerSimpleFlatItemModel(crop.asItem());
+
+		final ResourceLocation cropModel = generator.createSuffixedVariant(crop, "_stage_0", ModelTemplates.CROP, TextureMapping::crop);
+		final ResourceLocation model1 = ModelLocationUtils.getModelLocation(crop, "_1_stage_1");
+		final ResourceLocation model2 = ModelLocationUtils.getModelLocation(crop, "_2_stage_1");
+		final ResourceLocation model3 = ModelLocationUtils.getModelLocation(crop, "_3_stage_1");
+		final ResourceLocation model4 = ModelLocationUtils.getModelLocation(crop, "_4_stage_1");
+		generator.blockStateOutput
+			.accept(
+				MultiPartGenerator.multiPart(crop)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 0),
+						Variant.variant().with(VariantProperties.MODEL, cropModel)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model1)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model2)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model3)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model4)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+			);
+	}
+
+	private static void createLithops(BlockModelGenerators generator) {
+		final Block block = TTBlocks.LITHOPS;
+		generator.registerSimpleFlatItemModel(block.asItem());
+
+		final ResourceLocation model1 = ModelLocationUtils.getModelLocation(block, "_1");
+		final ResourceLocation model2 = ModelLocationUtils.getModelLocation(block, "_2");
+		final ResourceLocation model3 = ModelLocationUtils.getModelLocation(block, "_3");
+		final ResourceLocation model4 = ModelLocationUtils.getModelLocation(block, "_4");
+		generator.blockStateOutput
+			.accept(
+				MultiPartGenerator.multiPart(block)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 1, 2, 3, 4).term(LithopsBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model1)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 1, 2, 3, 4).term(LithopsBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 1, 2, 3, 4).term(LithopsBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 1, 2, 3, 4).term(LithopsBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 2, 3, 4).term(LithopsBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model2)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 2, 3, 4).term(LithopsBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 2, 3, 4).term(LithopsBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 2, 3, 4).term(LithopsBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 3, 4).term(LithopsBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model3)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 3, 4).term(LithopsBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 3, 4).term(LithopsBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 3, 4).term(LithopsBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 4).term(LithopsBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model4)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 4).term(LithopsBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 4).term(LithopsBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					)
+					.with(
+						Condition.condition().term(LithopsBlock.AMOUNT, 4).term(LithopsBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+			);
+
+		final Block pottedBlock = TTBlocks.POTTED_LITHOPS;
+		final ResourceLocation pottedModel = ModelLocationUtils.getModelLocation(pottedBlock);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pottedModel));
 	}
 
 	private static void createEctoplasmBlock(@NotNull BlockModelGenerators generator) {

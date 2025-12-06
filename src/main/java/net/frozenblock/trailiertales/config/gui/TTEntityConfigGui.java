@@ -42,7 +42,27 @@ public final class TTEntityConfigGui {
 		var apparition = config.apparition;
 		var modifiedApparition = modifiedConfig.apparition;
 
-		var ignore_mob_griefing = FrozenClothConfig.syncedEntry(
+		var picksUpItems = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("picks_up_items"), modifiedApparition.picks_up_items)
+				.setDefaultValue(defaultConfig.apparition.picks_up_items)
+				.setSaveConsumer(newValue -> apparition.picks_up_items = newValue)
+				.setTooltip(TTConstants.tooltip("picks_up_items"))
+				.build(),
+			apparition.getClass(),
+			"picks_up_items",
+			configInstance
+		);
+		var catchesProjectiles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("catches_projectiles"), modifiedApparition.catches_projectiles)
+				.setDefaultValue(defaultConfig.apparition.catches_projectiles)
+				.setSaveConsumer(newValue -> apparition.catches_projectiles = newValue)
+				.setTooltip(TTConstants.tooltip("catches_projectiles"))
+				.build(),
+			apparition.getClass(),
+			"catches_projectiles",
+			configInstance
+		);
+		var ignoreMobGriefing = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("ignore_mob_griefing"), modifiedApparition.ignore_mob_griefing)
 				.setDefaultValue(defaultConfig.apparition.ignore_mob_griefing)
 				.setSaveConsumer(newValue -> apparition.ignore_mob_griefing = newValue)
@@ -52,11 +72,82 @@ public final class TTEntityConfigGui {
 			"ignore_mob_griefing",
 			configInstance
 		);
+		var hypnotizesMobs = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("hypnotizes_mobs"), modifiedApparition.hypnotizes_mobs)
+				.setDefaultValue(defaultConfig.apparition.hypnotizes_mobs)
+				.setSaveConsumer(newValue -> apparition.hypnotizes_mobs = newValue)
+				.setTooltip(TTConstants.tooltip("hypnotizes_mobs"))
+				.build(),
+			apparition.getClass(),
+			"hypnotizes_mobs",
+			configInstance
+		);
+		var hauntsPlayers = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunts_players"), modifiedApparition.haunts_players)
+				.setDefaultValue(defaultConfig.apparition.haunts_players)
+				.setSaveConsumer(newValue -> apparition.haunts_players = newValue)
+				.setTooltip(TTConstants.tooltip("haunts_players"))
+				.build(),
+			apparition.getClass(),
+			"haunts_players",
+			configInstance
+		);
+		var hauntedCoffins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_coffins"), modifiedApparition.haunted_coffins)
+				.setDefaultValue(defaultConfig.apparition.haunted_coffins)
+				.setSaveConsumer(newValue -> apparition.haunted_coffins = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_coffins"))
+				.build(),
+			apparition.getClass(),
+			"haunted_coffins",
+			configInstance
+		);
+		var hauntedFog = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_fog"), modifiedApparition.haunted_fog)
+				.setDefaultValue(defaultConfig.apparition.haunted_fog)
+				.setSaveConsumer(newValue -> apparition.haunted_fog = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_fog"))
+				.build(),
+			apparition.getClass(),
+			"haunted_fog",
+			configInstance
+		);
+		var hauntedLightmap = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_lightmap"), modifiedApparition.haunted_lightmap)
+				.setDefaultValue(defaultConfig.apparition.haunted_lightmap)
+				.setSaveConsumer(newValue -> apparition.haunted_lightmap = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_lightmap"))
+				.build(),
+			apparition.getClass(),
+			"haunted_lightmap",
+			configInstance
+		);
+		var hauntedSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_sounds"), modifiedApparition.haunted_sounds)
+				.setDefaultValue(defaultConfig.apparition.haunted_sounds)
+				.setSaveConsumer(newValue -> apparition.haunted_sounds = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_sounds"))
+				.build(),
+			apparition.getClass(),
+			"haunted_sounds",
+			configInstance
+		);
+		var hauntedHUD = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_hud"), modifiedApparition.haunted_hud)
+				.setDefaultValue(defaultConfig.apparition.haunted_hud)
+				.setSaveConsumer(newValue -> apparition.haunted_hud = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_hud"))
+				.build(),
+			apparition.getClass(),
+			"haunted_hud",
+			configInstance
+		);
 
 		var apparitionCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("apparition"),
 			false,
 			TTConstants.tooltip("apparition"),
-			ignore_mob_griefing
+			picksUpItems, catchesProjectiles, ignoreMobGriefing, hypnotizesMobs,
+			hauntsPlayers, hauntedCoffins, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
 		);
 
 		var sniffer = config.sniffer;
@@ -84,6 +175,17 @@ public final class TTEntityConfigGui {
 			"dig_manedrop_germs",
 			configInstance
 		);
+		var snifferDigsGuzmaniaSeeds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_guzmania_seeds"), modifiedSniffer.guzmania_seeds)
+				.setDefaultValue(defaultConfig.sniffer.manedrop_germs)
+				.setSaveConsumer(newValue -> sniffer.guzmania_seeds = newValue)
+				.setTooltip(TTConstants.tooltip("sniffer_digs_guzmania_seeds"))
+				.requireRestart()
+				.build(),
+			sniffer.getClass(),
+			"dig_guzmania_seeds",
+			configInstance
+		);
 		var sniffersDigDawntrailSeeds = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_dawntrail_seeds"), modifiedSniffer.dawntrail_seeds)
 				.setDefaultValue(defaultConfig.sniffer.dawntrail_seeds)
@@ -93,6 +195,17 @@ public final class TTEntityConfigGui {
 				.build(),
 			sniffer.getClass(),
 			"dig_dawntrail_seeds",
+			configInstance
+		);
+		var sniffersDigLithopsSeeds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_lithops_seeds"), modifiedSniffer.lithops_seeds)
+				.setDefaultValue(defaultConfig.sniffer.lithops_seeds)
+				.setSaveConsumer(newValue -> sniffer.lithops_seeds = newValue)
+				.setTooltip(TTConstants.tooltip("sniffer_digs_lithops_seeds"))
+				.requireRestart()
+				.build(),
+			sniffer.getClass(),
+			"dig_lithops_seeds",
 			configInstance
 		);
 		var spawnSniffer = FrozenClothConfig.syncedEntry(
@@ -110,7 +223,8 @@ public final class TTEntityConfigGui {
 		var snifferCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("sniffer"),
 			false,
 			TTConstants.tooltip("sniffer"),
-			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, sniffersDigDawntrailSeeds, spawnSniffer
+			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, snifferDigsGuzmaniaSeeds, sniffersDigLithopsSeeds, sniffersDigDawntrailSeeds,
+			spawnSniffer
 		);
 
 		var camel = config.camel;
@@ -138,14 +252,14 @@ public final class TTEntityConfigGui {
 		var modifiedVillager = modifiedConfig.villager;
 
 		var villagersSellCatacombsMap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TTConstants.text("villagers_sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
+			entryBuilder.startBooleanToggle(TTConstants.text("sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
 				.setDefaultValue(defaultConfig.villager.sell_catacombs_map)
 				.setSaveConsumer(newValue -> villager.sell_catacombs_map = newValue)
-				.setTooltip(TTConstants.tooltip("villagers_sell_catacombs_map"))
+				.setTooltip(TTConstants.tooltip("sell_catacombs_map"))
 				.requireRestart()
 				.build(),
 			villager.getClass(),
-			"villagers_sell_catacombs_map",
+			"sell_catacombs_map",
 			configInstance
 		);
 

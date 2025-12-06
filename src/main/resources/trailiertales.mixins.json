@@ -29,6 +29,7 @@
     "common.ectoplasm_block.BlockGetterMixin",
     "common.ectoplasm_block.EntityMixin",
     "common.lithium.LithiumEntityCollisionsMixin",
+    "common.lithops.CropBlockMixin",
     "common.rail.RailStructureRotationFix",
     "common.surveyor.ClipContextBlockMixin",
     "common.surveyor.RedStoneWireBlockMixin",

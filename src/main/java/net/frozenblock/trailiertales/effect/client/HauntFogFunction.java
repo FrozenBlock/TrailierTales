@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.effect.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.Holder;
@@ -34,6 +35,12 @@ public class HauntFogFunction implements FogRenderer.MobEffectFogFunction {
 	@Override
 	public @NotNull Holder<MobEffect> getMobEffect() {
 		return TTMobEffects.HAUNT;
+	}
+
+	@Override
+	public boolean isEnabled(LivingEntity entity, float tickDelta) {
+		if (!TTEntityConfig.HAUNTED_FOG) return false;
+		return FogRenderer.MobEffectFogFunction.super.isEnabled(entity, tickDelta);
 	}
 
 	@Override
