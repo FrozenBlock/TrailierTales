@@ -1,12 +1,12 @@
 {
-  "ambientocclusion": false,
+	"ambientocclusion": false,
 	"textures": {
-		"flowerbed": "trailiertales:block/lithops_crop_stage_1",
-		"green_stem": "trailiertales:block/lithops_crop_stem_green",
-    "cyan_stem": "trailiertales:block/lithops_crop_stem_cyan",
-    "red_orange_stem": "trailiertales:block/lithops_crop_stem_red_orange",
+    "flowerbed": "trailiertales:block/lithops",
+    "green_stem": "trailiertales:block/lithops_stem_green",
+    "cyan_stem": "trailiertales:block/lithops_stem_cyan",
+    "red_orange_stem": "trailiertales:block/lithops_stem_red_orange",
     "particle": "#flowerbed"
-  },
+	},
 	"elements": [
 		{
 			"from": [0, 1.99, 0],
@@ -26,36 +26,36 @@
 			}
 		},
 		{
-			"from": [3.75, -1, -2.1],
-			"to": [5.75, 1.99, -2.1],
-			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 0]},
+			"from": [3.45, -1, -2.45],
+			"to": [5.45, 1.99, -2.45],
+			"rotation": {"angle": -45, "axis": "y", "origin": [-0.3, 0, -0.35]},
 			"faces": {
 				"north": {"uv": [2, 4, 0, 7], "texture": "#green_stem"},
 				"south": {"uv": [0, 4, 2, 7], "texture": "#green_stem"}
 			}
 		},
 		{
-			"from": [5.9, -1, 3.3],
-			"to": [5.9, 1.99, 4.3],
-			"rotation": {"angle": -45, "axis": "y", "origin": [1, 0, 1]},
+			"from": [4.95, -1, 2.35],
+			"to": [4.95, 1.99, 3.35],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0.05, 0, 0.05]},
 			"faces": {
 				"east": {"uv": [0, 4, 1, 7], "texture": "#cyan_stem"},
 				"west": {"uv": [0, 4, 1, 7], "texture": "#cyan_stem"}
 			}
 		},
 		{
-			"from": [4.4, -1, 3.8],
-			"to": [6.4, 1.99, 3.8],
-			"rotation": {"angle": -45, "axis": "y", "origin": [1, 0, 1]},
+			"from": [3.8, -1, 3.2],
+			"to": [5.8, 1.99, 3.2],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0.4, 0, 0.4]},
 			"faces": {
 				"north": {"uv": [0, 4, 2, 7], "texture": "#cyan_stem"},
 				"south": {"uv": [2, 4, 0, 7], "texture": "#cyan_stem"}
 			}
 		},
 		{
-			"from": [9.15, -1, -0.45],
-			"to": [9.15, 1.99, 1.55],
-			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 0]},
+			"from": [9.6, -1, -0.75],
+			"to": [9.6, 1.99, 1.25],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0.45, 0, -0.3]},
 			"faces": {
 				"east": {"uv": [2, 4, 0, 7], "texture": "#red_orange_stem"},
 				"west": {"uv": [0, 4, 2, 7], "texture": "#red_orange_stem"}

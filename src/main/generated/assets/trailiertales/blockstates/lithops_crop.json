@@ -163,6 +163,162 @@
         "age": "1",
         "facing": "west"
       }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_1_stage_2"
+      },
+      "when": {
+        "age": "2",
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_1_stage_2",
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_1_stage_2",
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_1_stage_2",
+        "y": 270
+      },
+      "when": {
+        "age": "2",
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_2_stage_2"
+      },
+      "when": {
+        "age": "2",
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_2_stage_2",
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_2_stage_2",
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_2_stage_2",
+        "y": 270
+      },
+      "when": {
+        "age": "2",
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_3_stage_2"
+      },
+      "when": {
+        "age": "2",
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_3_stage_2",
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_3_stage_2",
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_3_stage_2",
+        "y": 270
+      },
+      "when": {
+        "age": "2",
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_4_stage_2"
+      },
+      "when": {
+        "age": "2",
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_4_stage_2",
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_4_stage_2",
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "trailiertales:block/lithops_crop_4_stage_2",
+        "y": 270
+      },
+      "when": {
+        "age": "2",
+        "facing": "west"
+      }
     }
   ]
 }

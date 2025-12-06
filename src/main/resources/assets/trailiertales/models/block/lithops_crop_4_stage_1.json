@@ -7,16 +7,16 @@
 	},
 	"elements": [
 		{
-			"from": [8, 2, 0],
-			"to": [16, 2, 8],
+			"from": [8, 1, 0],
+			"to": [16, 1, 8],
 			"faces": {
 				"up": {"uv": [8, 0, 16, 8], "texture": "#flowerbed"},
 				"down": {"uv": [8, 8, 16, 0], "texture": "#flowerbed"}
 			}
 		},
 		{
-			"from": [13.4, 0, -8.2],
-			"to": [13.4, 2, -6.2],
+			"from": [13.4, -1, -8.2],
+			"to": [13.4, 1, -6.2],
 			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, -3.5]},
 			"faces": {
 				"east": {"uv": [2, 4, 0, 6], "texture": "#red_stem"},
@@ -24,8 +24,8 @@
 			}
 		},
 		{
-			"from": [12.9, 0, -7.7],
-			"to": [13.9, 2, -7.7],
+			"from": [12.9, -1, -7.7],
+			"to": [13.9, 1, -7.7],
 			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, -3.5]},
 			"faces": {
 				"north": {"uv": [0, 4, 1, 6], "texture": "#red_stem"},

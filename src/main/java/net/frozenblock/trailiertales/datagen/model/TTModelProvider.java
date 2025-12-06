@@ -22,6 +22,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -46,6 +47,7 @@ import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
@@ -85,6 +87,7 @@ public final class TTModelProvider extends FabricModelProvider {
 				.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 		)
 	);
+	public static final ModelTemplate CROP_CROSS = create("template_crop_cross", TextureSlot.CROSS);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -262,8 +265,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.MUSIC_DISC_OSSUAIRE, ModelTemplates.FLAT_ITEM);
 	}
 
-	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
-		Block block = TTBlocks.MANEDROP_CROP;
+	private static void createManedropCrop(BlockModelGenerators generator) {
+		final Block block = TTBlocks.MANEDROP_CROP;
 		generator.createSimpleFlatItemModel(block.asItem());
 		PropertyDispatch propertyDispatch = PropertyDispatch.properties(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
@@ -276,12 +279,16 @@ public final class TTModelProvider extends FabricModelProvider {
 					} else if (age == ManedropCropBlock.MAX_AGE) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TTConstants.id("block/manedrop_top")
+							CROP_CROSS.create(
+								TTConstants.id("block/manedrop_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_top")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_top_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_top_stage_" + age)),
 								generator.modelOutput
@@ -293,11 +300,15 @@ public final class TTModelProvider extends FabricModelProvider {
 					if (age == ManedropCropBlock.MAX_AGE) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TTConstants.id("block/manedrop_bottom")
+							CROP_CROSS.create(
+								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_bottom")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield Variant.variant().with(VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
 								generator.modelOutput
@@ -324,12 +335,16 @@ public final class TTModelProvider extends FabricModelProvider {
 					} else if (age == GuzmaniaCropBlock.MAX_AGE) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TTConstants.id("block/guzmania_top")
+							CROP_CROSS.create(
+								TTConstants.id("block/guzmania_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_top")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_top_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_top_stage_" + age)),
 								generator.modelOutput
@@ -341,11 +356,15 @@ public final class TTModelProvider extends FabricModelProvider {
 					if (age == GuzmaniaCropBlock.MAX_AGE) {
 						yield Variant.variant().with(
 							VariantProperties.MODEL,
-							TTConstants.id("block/guzmania_bottom")
+							CROP_CROSS.create(
+								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_bottom")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield Variant.variant().with(VariantProperties.MODEL,
-							BlockModelGenerators.TintState.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_bottom_stage_" + age)),
 								generator.modelOutput
@@ -411,76 +430,81 @@ public final class TTModelProvider extends FabricModelProvider {
 		final ResourceLocation model2 = ModelLocationUtils.getModelLocation(crop, "_2_stage_1");
 		final ResourceLocation model3 = ModelLocationUtils.getModelLocation(crop, "_3_stage_1");
 		final ResourceLocation model4 = ModelLocationUtils.getModelLocation(crop, "_4_stage_1");
+		final ResourceLocation model12 = ModelLocationUtils.getModelLocation(crop, "_1_stage_2");
+		final ResourceLocation model22 = ModelLocationUtils.getModelLocation(crop, "_2_stage_2");
+		final ResourceLocation model32 = ModelLocationUtils.getModelLocation(crop, "_3_stage_2");
+		final ResourceLocation model42 = ModelLocationUtils.getModelLocation(crop, "_4_stage_2");
 		generator.blockStateOutput
 			.accept(
 				MultiPartGenerator.multiPart(crop)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 0),
-						Variant.variant().with(VariantProperties.MODEL, cropModel)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+					.with(Condition.condition().term(LithopsCropBlock.AGE, 0), Variant.variant().with(VariantProperties.MODEL, cropModel))
+
+					.with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
 						Variant.variant().with(VariantProperties.MODEL, model1)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
 						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
 						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
 						Variant.variant().with(VariantProperties.MODEL, model1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
 						Variant.variant().with(VariantProperties.MODEL, model2)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
 						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
 						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
 						Variant.variant().with(VariantProperties.MODEL, model2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
 						Variant.variant().with(VariantProperties.MODEL, model3)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
 						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
 						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
 						Variant.variant().with(VariantProperties.MODEL, model3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.NORTH),
 						Variant.variant().with(VariantProperties.MODEL, model4)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.EAST),
 						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.SOUTH),
 						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-					)
-					.with(
-						Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 1).term(LithopsCropBlock.FACING, Direction.WEST),
 						Variant.variant().with(VariantProperties.MODEL, model4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					)
+
+					.with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model12)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model12).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model12).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model12).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model22)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model22).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model22).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model22).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model32)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model32).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model32).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model32).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.NORTH),
+						Variant.variant().with(VariantProperties.MODEL, model42)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.EAST),
+						Variant.variant().with(VariantProperties.MODEL, model42).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.SOUTH),
+						Variant.variant().with(VariantProperties.MODEL, model42).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+					).with(Condition.condition().term(LithopsCropBlock.AGE, 2).term(LithopsCropBlock.FACING, Direction.WEST),
+						Variant.variant().with(VariantProperties.MODEL, model42).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
 					)
 			);
 	}
@@ -573,5 +597,9 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, model));
 		generator.delegateItemModel(block, model);
+	}
+
+	private static ModelTemplate create(String parent, TextureSlot... requiredTextures) {
+		return new ModelTemplate(Optional.of(TTConstants.id("block/" + parent)), Optional.empty(), requiredTextures);
 	}
 }
