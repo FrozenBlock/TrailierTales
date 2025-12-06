@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
+import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
@@ -166,7 +167,29 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(TTBlocks.POTTED_LITHOPS);
 		this.add(
 			TTBlocks.LITHOPS_CROP,
-			this.applyExplosionDecay(TTBlocks.LITHOPS_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.LITHOPS_SEEDS))))
+			this.applyExplosionDecay(
+				TTBlocks.LITHOPS_CROP,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(TTItems.LITHOPS_SEEDS)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
+											.invert()
+									)
+							)
+							.add(
+								LootItem.lootTableItem(TTBlocks.LITHOPS)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
+									)
+									.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4F), false))
+							)
+					)
+			)
 		);
 
 		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL);

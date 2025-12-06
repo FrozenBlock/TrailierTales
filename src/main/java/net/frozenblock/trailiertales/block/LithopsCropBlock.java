@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,12 +42,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class LithopsCropBlock extends CropBlock {
 	public static final MapCodec<LithopsCropBlock> CODEC = simpleCodec(LithopsCropBlock::new);
 	public static final int MAX_AGE = 2;
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
-		Block.box(0D, 0D, 0D, 16D, 2D, 16D),
-		Block.box(0D, 0D, 0D, 16D, 3D, 16D),
-		Block.box(0D, 0D, 0D, 16D, 3D, 16D),
+		Block.box(0D, -1D, 0D, 16D, 1D, 16D),
+		Block.box(0D, -1D, 0D, 16D, 2D, 16D),
+		Block.box(0D, -1D, 0D, 16D, 2D, 16D),
 	};
 	private static final int BONEMEAL_INCREASE = 1;
 
@@ -100,13 +99,6 @@ public class LithopsCropBlock extends CropBlock {
 	@Override
 	protected ItemLike getBaseSeedId() {
 		return TTItems.LITHOPS_SEEDS;
-	}
-
-	@Override
-	public BlockState getStateForAge(int age) {
-		return age == MAX_AGE
-			? TTBlocks.LITHOPS.defaultBlockState().setValue(LithopsBlock.AMOUNT, 4)
-			: super.getStateForAge(age);
 	}
 
 	@Override

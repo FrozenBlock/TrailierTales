@@ -78,6 +78,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		BlockStateProperties.DOWN, BlockModelGenerators.X_ROT_90
 	);
 	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
+	public static final ModelTemplate CROP_CROSS = create("template_crop_cross", TextureSlot.CROSS);
 
 	public TTModelProvider(FabricDataOutput output) {
 		super(output);
@@ -280,8 +281,8 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createManedropCrop(@NotNull BlockModelGenerators generator) {
-		Block block = TTBlocks.MANEDROP_CROP;
-		PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
+		final Block block = TTBlocks.MANEDROP_CROP;
+		final PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
 				case UPPER -> {
 					if (age < ManedropCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
@@ -290,11 +291,15 @@ public final class TTModelProvider extends FabricModelProvider {
 						);
 					} else if (age == ManedropCropBlock.MAX_AGE) {
 						yield BlockModelGenerators.plainVariant(
-							TTConstants.id("block/manedrop_top")
+							CROP_CROSS.create(
+								TTConstants.id("block/manedrop_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_top")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield BlockModelGenerators.plainVariant(
-							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_top_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_top_stage_" + age)),
 								generator.modelOutput
@@ -305,11 +310,15 @@ public final class TTModelProvider extends FabricModelProvider {
 				case LOWER -> {
 					if (age == ManedropCropBlock.MAX_AGE) {
 						yield BlockModelGenerators.plainVariant(
-							TTConstants.id("block/manedrop_bottom")
+							CROP_CROSS.create(
+								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_bottom")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield BlockModelGenerators.plainVariant(
-							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
 								generator.modelOutput
@@ -333,11 +342,15 @@ public final class TTModelProvider extends FabricModelProvider {
 						);
 					} else if (age == GuzmaniaCropBlock.MAX_AGE) {
 						yield BlockModelGenerators.plainVariant(
-							TTConstants.id("block/guzmania_top")
+							CROP_CROSS.create(
+								TTConstants.id("block/guzmania_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_top")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield BlockModelGenerators.plainVariant(
-							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_top_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_top_stage_" + age)),
 								generator.modelOutput
@@ -348,11 +361,15 @@ public final class TTModelProvider extends FabricModelProvider {
 				case LOWER -> {
 					if (age == GuzmaniaCropBlock.MAX_AGE) {
 						yield BlockModelGenerators.plainVariant(
-							TTConstants.id("block/guzmania_bottom")
+							CROP_CROSS.create(
+								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_bottom")),
+								generator.modelOutput
+							)
 						);
 					} else {
 						yield BlockModelGenerators.plainVariant(
-							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_bottom_stage_" + age)),
 								generator.modelOutput
@@ -419,27 +436,48 @@ public final class TTModelProvider extends FabricModelProvider {
 		final MultiVariant model2 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_2_stage_1"));
 		final MultiVariant model3 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_3_stage_1"));
 		final MultiVariant model4 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_4_stage_1"));
-		final Function<ConditionBuilder, ConditionBuilder> isGrown = conditionBuilder -> conditionBuilder.term(LithopsCropBlock.AGE, 1);
+		final MultiVariant model12 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_1_stage_2"));
+		final MultiVariant model22 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_2_stage_2"));
+		final MultiVariant model32 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_3_stage_2"));
+		final MultiVariant model42 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_4_stage_2"));
+		final Function<ConditionBuilder, ConditionBuilder> isStage1 = conditionBuilder -> conditionBuilder.term(LithopsCropBlock.AGE, 1);
+		final Function<ConditionBuilder, ConditionBuilder> isStage2 = conditionBuilder -> conditionBuilder.term(LithopsCropBlock.AGE, 2);
 
 		generator.blockStateOutput.accept(
 			MultiPartGenerator.multiPart(crop)
 				.with(BlockModelGenerators.condition().term(LithopsCropBlock.AGE, 0), cropModel)
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model1)
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model1.with(BlockModelGenerators.Y_ROT_90))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model1.with(BlockModelGenerators.Y_ROT_180))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model1.with(BlockModelGenerators.Y_ROT_270))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model2)
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model2.with(BlockModelGenerators.Y_ROT_90))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model2.with(BlockModelGenerators.Y_ROT_180))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model2.with(BlockModelGenerators.Y_ROT_270))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model3)
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model3.with(BlockModelGenerators.Y_ROT_90))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model3.with(BlockModelGenerators.Y_ROT_180))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model3.with(BlockModelGenerators.Y_ROT_270))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model4)
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model4.with(BlockModelGenerators.Y_ROT_90))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model4.with(BlockModelGenerators.Y_ROT_180))
-				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model4.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model1)
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model1.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model1.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model1.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model2)
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model2.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model2.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model2.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model3)
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model3.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model3.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model3.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model4)
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model4.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model4.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage1.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model4.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model12)
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model12.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model12.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model12.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model22)
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model22.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model22.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model22.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model32)
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model32.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model32.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model32.with(BlockModelGenerators.Y_ROT_270))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model42)
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model42.with(BlockModelGenerators.Y_ROT_90))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model42.with(BlockModelGenerators.Y_ROT_180))
+				.with(isStage2.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model42.with(BlockModelGenerators.Y_ROT_270))
 		);
 	}
 
@@ -476,5 +514,9 @@ public final class TTModelProvider extends FabricModelProvider {
 	@Contract("_, _ -> new")
 	private static @NotNull ModelTemplate createItem(String string, TextureSlot... textureSlots) {
 		return new ModelTemplate(Optional.of(TTConstants.id("item/" + string)), Optional.empty(), textureSlots);
+	}
+
+	private static ModelTemplate create(String parent, TextureSlot... requiredTextures) {
+		return new ModelTemplate(Optional.of(TTConstants.id("block/" + parent)), Optional.empty(), requiredTextures);
 	}
 }
