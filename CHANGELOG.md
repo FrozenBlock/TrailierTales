@@ -29,3 +29,8 @@ hi
   - Lightmap Dimming
   - Lower Sound Attenuation Distance
   - Obscured Stats In HUD
+- Added two new Sniffer plants!
+  - Guzmania
+    - A double-tall tropical flower.
+  - Lithops
+    - A flowerbed-like block, sporting multiple colors of Lithops.

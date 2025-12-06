@@ -20,7 +20,9 @@ package net.frozenblock.trailiertales.worldgen;
 import java.util.Arrays;
 import java.util.List;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.block.LithopsBlock;
 import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -28,17 +30,22 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
@@ -102,6 +109,19 @@ public class TTFeatureBootstrap {
 	public static final ResourceKey<PlacedFeature> DAWNTRAIL_PLACED = ResourceKey.create(
 		Registries.PLACED_FEATURE,
 		TTConstants.id("dawntrail")
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> LITHOPS = ResourceKey.create(
+		Registries.CONFIGURED_FEATURE,
+		TTConstants.id("lithops")
+	);
+	public static final ResourceKey<PlacedFeature> LITHOPS_PLACED = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TTConstants.id("lithops")
+	);
+	public static final ResourceKey<PlacedFeature> LITHOPS_PLACED_RARE = ResourceKey.create(
+		Registries.PLACED_FEATURE,
+		TTConstants.id("lithops_rare")
 	);
 
 	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -193,6 +213,27 @@ public class TTFeatureBootstrap {
 				)
 			)
 		);
+
+		final SimpleWeightedRandomList.Builder<BlockState> lithopsStates = SimpleWeightedRandomList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				lithopsStates.add(TTBlocks.LITHOPS.defaultBlockState().setValue(LithopsBlock.AMOUNT, i).setValue(LithopsBlock.FACING, direction), 1);
+			}
+		}
+		register(
+			entries,
+			LITHOPS,
+			Feature.FLOWER,
+			new RandomPatchConfiguration(
+				28,
+				6,
+				2,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(new WeightedStateProvider(lithopsStates))
+				)
+			)
+		);
 	}
 
 	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
@@ -257,6 +298,26 @@ public class TTFeatureBootstrap {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			InSquarePlacement.spread(),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, -6, 64),
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			LITHOPS_PLACED,
+			configuredFeatures.getOrThrow(LITHOPS),
+			RarityFilter.onAverageOnceEvery(11),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		register(
+			entries,
+			LITHOPS_PLACED_RARE,
+			configuredFeatures.getOrThrow(LITHOPS),
+			RarityFilter.onAverageOnceEvery(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 	}

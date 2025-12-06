@@ -162,6 +162,13 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			this.applyExplosionDecay(TTBlocks.DAWNTRAIL_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS))))
 		);
 
+		this.add(TTBlocks.LITHOPS, this.createPetalsDrops(TTBlocks.LITHOPS));
+		this.dropPottedContents(TTBlocks.POTTED_LITHOPS);
+		this.add(
+			TTBlocks.LITHOPS_CROP,
+			this.applyExplosionDecay(TTBlocks.LITHOPS_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.LITHOPS_SEEDS))))
+		);
+
 		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL);
 		this.dropSelf(TTBlocks.CHISELED_GRANITE_BRICKS);
 		this.dropSelf(TTBlocks.GRANITE_BRICKS);

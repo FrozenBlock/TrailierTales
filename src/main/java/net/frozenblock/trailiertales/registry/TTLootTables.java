@@ -197,6 +197,10 @@ public final class TTLootTables {
 					((FabricLootTableBuilder) tableBuilder)
 						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
 				}
+				if (TTEntityConfig.get().sniffer.lithops_seeds) {
+					((FabricLootTableBuilder) tableBuilder)
+						.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.LITHOPS_SEEDS)));
+				}
 			}
 		});
 	}

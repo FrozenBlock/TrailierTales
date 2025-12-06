@@ -118,6 +118,9 @@ public final class TTWorldgenConfig {
 
 		@EntrySyncData("generateDawntrail")
 		public boolean generateDawntrail = false;
+
+		@EntrySyncData("generateLithops")
+		public boolean generateLithops = false;
 	}
 
 	public static class EndCity {

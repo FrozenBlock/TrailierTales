@@ -93,19 +93,25 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
 			.add(TTItems.GUZMANIA_SEEDS)
-			.add(TTItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.DAWNTRAIL_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD)
-			.add(TTItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.PARROT_FOOD)
-			.add(TTItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
 			.add(TTItems.GUZMANIA_SEEDS)
-			.add(TTItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.DAWNTRAIL_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE.asItem());

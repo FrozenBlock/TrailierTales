@@ -104,6 +104,8 @@ public final class TTEntityConfig {
 		public boolean guzmania_seeds = true;
 		@EntrySyncData(value = "dig_dawntrail_seeds")
 		public boolean dawntrail_seeds = true;
+		@EntrySyncData(value = "dig_lithops_seeds")
+		public boolean lithops_seeds = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
 	}

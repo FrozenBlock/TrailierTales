@@ -201,11 +201,22 @@ public final class TTWorldgenConfigGui {
 			"generateDawntrail",
 			configInstance
 		);
+		var generateLithops = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("generate_lithops"), modifiedVegetation.generateLithops)
+				.setDefaultValue(defaultConfig.vegetation.generateLithops)
+				.setSaveConsumer(newValue -> vegetation.generateLithops = newValue)
+				.setTooltip(TTConstants.tooltip("generate_lithops"))
+				.requireRestart()
+				.build(),
+			vegetation.getClass(),
+			"generateLithops",
+			configInstance
+		);
 
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("vegetation"),
 			false,
 			TTConstants.tooltip("vegetation"),
-			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateGuzmania, generateDawntrail
+			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateGuzmania, generateLithops, generateDawntrail
 		);
 
 		var endCity = config.endCity;

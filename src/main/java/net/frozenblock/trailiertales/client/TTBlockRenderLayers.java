@@ -46,5 +46,10 @@ public class TTBlockRenderLayers {
 
 		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL_CROP, RenderType.cutout());
+
+		renderLayerRegistry.putBlock(TTBlocks.POTTED_LITHOPS, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.LITHOPS, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.LITHOPS_CROP, RenderType.cutout());
+
 	}
 }

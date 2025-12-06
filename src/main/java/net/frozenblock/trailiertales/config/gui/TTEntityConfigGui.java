@@ -197,6 +197,17 @@ public final class TTEntityConfigGui {
 			"dig_dawntrail_seeds",
 			configInstance
 		);
+		var sniffersDigLithopsSeeds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_lithops_seeds"), modifiedSniffer.lithops_seeds)
+				.setDefaultValue(defaultConfig.sniffer.lithops_seeds)
+				.setSaveConsumer(newValue -> sniffer.lithops_seeds = newValue)
+				.setTooltip(TTConstants.tooltip("sniffer_digs_lithops_seeds"))
+				.requireRestart()
+				.build(),
+			sniffer.getClass(),
+			"dig_lithops_seeds",
+			configInstance
+		);
 		var spawnSniffer = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_spawns_naturally"), modifiedSniffer.spawn)
 				.setDefaultValue(defaultConfig.sniffer.spawn)
@@ -212,7 +223,8 @@ public final class TTEntityConfigGui {
 		var snifferCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("sniffer"),
 			false,
 			TTConstants.tooltip("sniffer"),
-			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, snifferDigsGuzmaniaSeeds, sniffersDigDawntrailSeeds, spawnSniffer
+			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, snifferDigsGuzmaniaSeeds, sniffersDigLithopsSeeds, sniffersDigDawntrailSeeds,
+			spawnSniffer
 		);
 
 		var camel = config.camel;

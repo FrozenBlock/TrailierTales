@@ -73,6 +73,18 @@ public final class TTBiomeModifications {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.MANEDROP_PLACED);
 						}
 					}
+
+					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
+						if (worldgenConfig.vegetation.generateLithops) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED);
+						}
+					}
+
+					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_STONY_SHORES)) {
+						if (worldgenConfig.vegetation.generateLithops) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED_RARE);
+						}
+					}
 				})
 			);
 
