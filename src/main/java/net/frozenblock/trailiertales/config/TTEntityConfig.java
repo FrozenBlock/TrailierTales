@@ -34,12 +34,31 @@ public final class TTEntityConfig {
 			TTEntityConfig.class,
 			TTPreLoadConstants.configPath("entity", true),
 			JsonType.JSON5
-		)
+		) {
+			@Override
+			public void onSave() throws Exception {
+				super.onSave();
+				this.onSync(null);
+			}
+
+			@Override
+			public void onSync(TTEntityConfig syncInstance) {
+				final TTEntityConfig entityConfig = this.config();
+				TTEntityConfig.HAUNTED_FOG = entityConfig.apparition.haunted_fog;
+				TTEntityConfig.HAUNTED_LIGHTMAP = entityConfig.apparition.haunted_lightmap;
+				TTEntityConfig.HAUNTED_SOUNDS = entityConfig.apparition.haunted_sounds;
+				TTEntityConfig.HAUNTED_HUD = entityConfig.apparition.haunted_hud;
+			}
+		}
 	);
+
+	public static volatile boolean HAUNTED_FOG = true;
+	public static volatile boolean HAUNTED_LIGHTMAP = true;
+	public static volatile boolean HAUNTED_SOUNDS = true;
+	public static volatile boolean HAUNTED_HUD = true;
 
 	@CollapsibleObject
 	public final Apparition apparition = new Apparition();
-
 
 	@CollapsibleObject
 	public final Sniffer sniffer = new Sniffer();
@@ -51,8 +70,26 @@ public final class TTEntityConfig {
 	public final ArmorStand armorStand = new ArmorStand();
 
 	public static class Apparition {
+		@EntrySyncData(value = "picks_up_items")
+		public boolean picks_up_items = true;
+		@EntrySyncData(value = "catches_projectiles")
+		public boolean catches_projectiles = true;
 		@EntrySyncData(value = "ignore_mob_griefing")
 		public boolean ignore_mob_griefing = false;
+		@EntrySyncData(value = "hypnotizes_mobs")
+		public boolean hypnotizes_mobs = true;
+		@EntrySyncData(value = "haunts_players")
+		public boolean haunts_players = true;
+		@EntrySyncData(value = "haunted_coffins")
+		public boolean haunted_coffins = true;
+		@EntrySyncData(value = "haunted_fog")
+		public boolean haunted_fog = true;
+		@EntrySyncData(value = "haunted_lightmap")
+		public boolean haunted_lightmap = true;
+		@EntrySyncData(value = "haunted_sounds")
+		public boolean haunted_sounds = true;
+		@EntrySyncData(value = "haunted_hud")
+		public boolean haunted_hud = true;
 	}
 
 	public static class Sniffer {
@@ -60,14 +97,18 @@ public final class TTEntityConfig {
 		public boolean cyan_rose_seeds = true;
 		@EntrySyncData(value = "dig_manedrop_germs")
 		public boolean manedrop_germs = true;
+		@EntrySyncData(value = "dig_guzmania_seeds")
+		public boolean guzmania_seeds = true;
 		@EntrySyncData(value = "dig_dawntrail_seeds")
 		public boolean dawntrail_seeds = true;
+		@EntrySyncData(value = "dig_lithops_seeds")
+		public boolean lithops_seeds = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
 	}
 
 	public static class Villager {
-		@EntrySyncData(value = "villagers_sell_catacombs_map")
+		@EntrySyncData(value = "sell_catacombs_map")
 		public boolean sell_catacombs_map = true;
 	}
 

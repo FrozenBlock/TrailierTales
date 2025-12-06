@@ -31,7 +31,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class HauntFogEnvironment extends MobEffectFogEnvironment {
@@ -42,25 +41,25 @@ public class HauntFogEnvironment extends MobEffectFogEnvironment {
 	}
 
 	@Override
-	public void setupFog(FogData fogData, Entity entity, BlockPos blockPos, ClientLevel clientLevel, float viewDistance, DeltaTracker deltaTracker) {
-		if (entity instanceof LivingEntity livingEntity) {
-			MobEffectInstance mobEffectInstance = livingEntity.getEffect(this.getMobEffect());
-			if (mobEffectInstance != null) {
-				float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(false);
-				float entityProgress = entity.tickCount + tickDelta;
-				float fogCos = (Mth.cos((entityProgress * Mth.PI) / 48F) * 4F) + 12F;
-				float fogDistance = Mth.lerp(mobEffectInstance.getBlendFactor(livingEntity, tickDelta), viewDistance, fogCos);
-				fogData.environmentalStart = fogDistance * 0.75F;
-				fogData.environmentalEnd = fogDistance;
-				fogData.skyEnd = fogDistance;
-				fogData.cloudEnd = fogDistance;
-			}
-		}
+	public void setupFog(FogData data, Entity entity, BlockPos pos, ClientLevel level, float viewDistance, DeltaTracker deltaTracker) {
+		if (!(entity instanceof LivingEntity livingEntity)) return;
+
+		final MobEffectInstance mobEffectInstance = livingEntity.getEffect(this.getMobEffect());
+		if (mobEffectInstance == null) return;
+
+		final float tickDelta = deltaTracker.getGameTimeDeltaPartialTick(false);
+		final float entityProgress = entity.tickCount + tickDelta;
+		final float fogCos = (Mth.cos((entityProgress * Mth.PI) / 48F) * 4F) + 12F;
+		final float fogDistance = Mth.lerp(mobEffectInstance.getBlendFactor(livingEntity, tickDelta), viewDistance, fogCos);
+		data.environmentalStart = fogDistance * 0.75F;
+		data.environmentalEnd = fogDistance;
+		data.skyEnd = fogDistance;
+		data.cloudEnd = fogDistance;
 	}
 
 	@Override
-	public float getModifiedDarkness(@NotNull LivingEntity livingEntity, float f, float g) {
-		MobEffectInstance mobEffectInstance = livingEntity.getEffect(this.getMobEffect());
-		return mobEffectInstance != null ? Math.max(mobEffectInstance.getBlendFactor(livingEntity, g), f) : f;
+	public float getModifiedDarkness(LivingEntity entity, float f, float g) {
+		final MobEffectInstance effect = entity.getEffect(this.getMobEffect());
+		return effect != null ? Math.max(effect.getBlendFactor(entity, g), f) : f;
 	}
 }

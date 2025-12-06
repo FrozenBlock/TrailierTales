@@ -56,14 +56,14 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	public static final int MAX_AGE = 3;
 	public static final int DOUBLE_PLANT_AGE_INTERSECTION = 2;
 	private static final VoxelShape[] UPPER_SHAPE_BY_AGE = new VoxelShape[]{
-		Block.box(3, 0, 3, 13, 11, 13),
+		Block.box(3, 0, 3, 13, 10, 13),
 		Block.box(2, 0, 2, 14, 16, 14)
 	};
 	private static final VoxelShape[] LOWER_SHAPE_BY_AGE = new VoxelShape[]{
-		Block.box(6, -1, 6, 10, 5, 10),
-		Block.box(4, 0, 4, 12, 10, 13),
-		Block.box(3, 0, 3, 13, 16, 13),
-		Block.box(2, 0, 2, 14, 16, 14)
+		Block.box(6, -1, 6, 10, 4, 10),
+		Block.box(4, -1, 4, 12, 9, 13),
+		Block.box(3, -1, 3, 13, 16, 13),
+		Block.box(2, -1, 2, 14, 16, 14)
 	};
 
 	@Override

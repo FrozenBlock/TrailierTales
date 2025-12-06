@@ -1,0 +1,6 @@
+{
+  "parent": "trailiertales:block/template_crop_cross",
+  "textures": {
+    "cross": "trailiertales:block/manedrop_top"
+  }
+}

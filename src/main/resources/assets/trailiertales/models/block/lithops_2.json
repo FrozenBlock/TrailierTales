@@ -1,0 +1,44 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+    "flowerbed": "trailiertales:block/lithops",
+    "pale_green_stem": "trailiertales:block/lithops_stem_pale_green",
+    "particle": "#flowerbed"
+	},
+	"elements": [
+		{
+			"from": [0, 1, 8],
+			"to": [8, 1, 16],
+			"faces": {
+				"up": {"uv": [0, 8, 8, 16], "texture": "#flowerbed"},
+				"down": {"uv": [0, 16, 8, 8], "texture": "#flowerbed"}
+			}
+		},
+		{
+			"from": [0, 1, 8],
+			"to": [8, 1, 16],
+			"faces": {
+				"up": {"uv": [0, 8, 8, 16], "texture": "#flowerbed"},
+				"down": {"uv": [0, 16, 8, 8], "texture": "#flowerbed"}
+			}
+		},
+		{
+			"from": [9.1, 0, 5.1],
+			"to": [12.1, 1, 5.1],
+			"rotation": {"angle": -45, "axis": "y", "origin": [-0.05, 0, 0.85]},
+			"faces": {
+				"north": {"uv": [3, 5, 0, 6], "texture": "#pale_green_stem"},
+				"south": {"uv": [0, 5, 3, 6], "texture": "#pale_green_stem"}
+			}
+		},
+		{
+			"from": [10.65, 0, 3.65],
+			"to": [10.65, 1, 6.65],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 0.9]},
+			"faces": {
+				"east": {"uv": [0, 5, 3, 6], "texture": "#pale_green_stem"},
+				"west": {"uv": [0, 5, 3, 6], "texture": "#pale_green_stem"}
+			}
+		}
+	]
+}

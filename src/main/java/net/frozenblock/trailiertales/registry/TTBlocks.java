@@ -28,6 +28,9 @@ import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
+import net.frozenblock.trailiertales.block.LithopsBlock;
+import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
@@ -179,6 +182,50 @@ public final class TTBlocks {
 			.ignitedByLava()
 			.pushReaction(PushReaction.DESTROY)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block GUZMANIA_CROP = registerWithoutItem("guzmania_crop",
+		GuzmaniaCropBlock::new,
+		Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollision()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.CROP)
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block GUZMANIA = register("guzmania",
+		DoublePlantBlock::new,
+		Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollision()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.ignitedByLava()
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Block LITHOPS_CROP = registerWithoutItem("lithops_crop",
+		LithopsCropBlock::new,
+		Properties.of()
+			.mapColor(MapColor.PLANT)
+			.noCollision()
+			.instabreak()
+			.sound(SoundType.CROP)
+			.pushReaction(PushReaction.DESTROY)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final LithopsBlock LITHOPS = register("lithops",
+		LithopsBlock::new,
+		Properties.ofFullCopy(Blocks.PINK_PETALS)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Block POTTED_LITHOPS = registerWithoutItem("potted_lithops",
+		properties -> new FlowerPotBlock(LITHOPS, properties),
+		Blocks.flowerPotProperties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
 	// GRANITE
