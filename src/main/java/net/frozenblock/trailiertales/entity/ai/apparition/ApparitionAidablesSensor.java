@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.entity.ai.apparition;
 
-import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

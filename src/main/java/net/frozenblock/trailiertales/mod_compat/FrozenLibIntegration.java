@@ -36,7 +36,6 @@ import net.frozenblock.lib.worldgen.structure.api.StructurePlacementExclusionApi
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
-import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
