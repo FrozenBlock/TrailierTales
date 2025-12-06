@@ -1,0 +1,6 @@
+{
+  "parent": "trailiertales:block/template_crop_cross",
+  "textures": {
+    "cross": "trailiertales:block/guzmania_crop_bottom_stage_0"
+  }
+}

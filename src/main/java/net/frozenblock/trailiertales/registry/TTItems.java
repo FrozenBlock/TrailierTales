@@ -72,6 +72,18 @@ public final class TTItems {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	public static final Item GUZMANIA_SEEDS = register("guzmania_seeds",
+		createBlockItemWithCustomItemName(TTBlocks.GUZMANIA_CROP),
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
+	public static final Item LITHOPS_SEEDS = register("lithops_seeds",
+		createBlockItemWithCustomItemName(TTBlocks.LITHOPS_CROP),
+		new Properties()
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
 	/**
 	 * Don't forget to go to {@link TTDecoratedPotPatternRegistry} to register patterns!
 	 */

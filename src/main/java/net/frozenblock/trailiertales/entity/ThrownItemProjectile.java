@@ -70,19 +70,15 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
 		final Entity entity = result.getEntity();
-		if (entity instanceof Apparition apparition) {
-			apparition.swapItem(this.getItem().copy());
-		} else {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
-			entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
-			this.spawnParticles();
-		}
+		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
+		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
+		if (!(entity instanceof Apparition)) this.spawnParticles();
 		this.discard();
 	}
 
 	@Override
-	protected void onHitBlock(BlockHitResult hitResult) {
-		super.onHitBlock(hitResult);
+	protected void onHitBlock(BlockHitResult result) {
+		super.onHitBlock(result);
 		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
 		this.discard();
 	}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "trailiertales:block/guzmania_top"
+  }
+}

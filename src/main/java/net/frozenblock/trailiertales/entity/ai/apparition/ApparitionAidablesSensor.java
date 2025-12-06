@@ -17,6 +17,7 @@
 
 package net.frozenblock.trailiertales.entity.ai.apparition;
 
+import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
@@ -85,13 +87,13 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 	protected void doTick(ServerLevel level, Apparition apparition) {
 		final Brain<?> brain = apparition.getBrain();
 		final LivingEntity attackTarget = apparition.getTarget();
-		if (attackTarget == null) {
+		if (attackTarget == null || !TTEntityConfig.get().apparition.hypnotizes_mobs) {
 			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
 			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE);
 			return;
 		}
 
-		List<UUID> takenUUIDs = new ArrayList<>();
+		final List<UUID> takenUUIDs = new ArrayList<>();
 		level.getAllEntities().forEach(entity -> {
 			if (!(entity instanceof Apparition otherApparition) || otherApparition == apparition) return;
 			otherApparition.getBrain().getMemory(TTMemoryModuleTypes.AIDING_ENTITIES).ifPresent(takenUUIDs::addAll);

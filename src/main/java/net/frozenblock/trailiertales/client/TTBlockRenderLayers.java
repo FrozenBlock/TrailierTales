@@ -38,7 +38,14 @@ public class TTBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(TTBlocks.MANEDROP, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(TTBlocks.MANEDROP_CROP, ChunkSectionLayer.CUTOUT);
 
+		BlockRenderLayerMap.putBlock(TTBlocks.GUZMANIA, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TTBlocks.GUZMANIA_CROP, ChunkSectionLayer.CUTOUT);
+
 		BlockRenderLayerMap.putBlock(TTBlocks.DAWNTRAIL, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(TTBlocks.DAWNTRAIL_CROP, ChunkSectionLayer.CUTOUT);
+
+		BlockRenderLayerMap.putBlock(TTBlocks.POTTED_LITHOPS, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TTBlocks.LITHOPS, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(TTBlocks.LITHOPS_CROP, ChunkSectionLayer.CUTOUT);
 	}
 }

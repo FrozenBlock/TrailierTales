@@ -20,6 +20,7 @@ package net.frozenblock.trailiertales.mixin.client.haunt;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -43,7 +44,7 @@ public class LightTextureMixin {
 	)
 	private float trailierTales$modifyDarknessGamma(float darknessGamma, float tickDelta) {
 		final MobEffectInstance hauntInstance = this.minecraft.player.getEffect(TTMobEffects.HAUNT);
-		if (hauntInstance != null) return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, tickDelta) * 0.67F, darknessGamma);
+		if (hauntInstance != null && TTEntityConfig.HAUNTED_LIGHTMAP) return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, tickDelta) * 0.67F, darknessGamma);
 		return darknessGamma;
 	}
 

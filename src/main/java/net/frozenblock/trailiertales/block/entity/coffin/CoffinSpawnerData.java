@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
@@ -294,7 +295,10 @@ public class CoffinSpawnerData {
 		}
 
 		final List<UUID> detectedList = new ArrayList<>(list);
-		detectedList.removeIf(uuid -> !(level.getPlayerByUUID(uuid) instanceof Player player) || !(player.hasEffect(TTMobEffects.HAUNT) || player.hasEffect(TTMobEffects.SIEGE_OMEN)));
+		detectedList.removeIf(uuid ->
+			!(level.getPlayerByUUID(uuid) instanceof Player player)
+			|| !((TTEntityConfig.get().apparition.haunted_coffins && player.hasEffect(TTMobEffects.HAUNT)) || player.hasEffect(TTMobEffects.SIEGE_OMEN))
+		);
 		for (UUID uuid : this.currentApparitions) {
 			if (level.getEntity(uuid) instanceof Apparition apparition) {
 				final LivingEntity target = apparition.getTarget();

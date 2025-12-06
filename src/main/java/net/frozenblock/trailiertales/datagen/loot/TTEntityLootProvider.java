@@ -31,6 +31,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -54,9 +55,10 @@ public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
 							LootItem.lootTableItem(TTItems.ECTOPLASM)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
+						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 				)
 		);
 	}

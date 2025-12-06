@@ -40,8 +40,8 @@ public class CyanRoseCropBlock extends CropBlock {
 	public static final int MAX_AGE = 2;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
-		Block.box(5D, 0D, 5D, 11D, 6D, 11D),
-		Block.box(5D, 0D, 5D, 11D, 10D, 11D)
+		Block.box(5D, 0D, 5D, 11D, 5D, 11D),
+		Block.box(5D, 0D, 5D, 11D, 9D, 11D)
 	};
 	private static final int BONEMEAL_INCREASE = 1;
 

@@ -22,6 +22,7 @@ import java.util.Arrays;
 import net.frozenblock.lib.wind.api.WindDisturbingEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.mod_compat.FrozenLibIntegration;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
@@ -79,6 +80,7 @@ import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
@@ -280,7 +282,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean canPickUpLoot() {
-		return !this.isOnPickupCooldown();
+		return !this.isOnPickupCooldown() && TTEntityConfig.get().apparition.picks_up_items;
 	}
 
 	private boolean isOnPickupCooldown() {
@@ -293,6 +295,9 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean wantsToPickUp(ServerLevel level, ItemStack stack) {
+		final TTEntityConfig entityConfig = TTEntityConfig.get();
+		if (!entityConfig.apparition.picks_up_items) return false;
+		if (!(level.getGameRules().get(GameRules.MOB_GRIEFING) || entityConfig.apparition.ignore_mob_griefing)) return false;
 		return this.inventory.getItems().getFirst().isEmpty();
 	}
 
@@ -462,7 +467,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
 		catchProjectile: {
-			if (!source.is(DamageTypeTags.IS_PROJECTILE)) break catchProjectile;
+			if (!source.is(DamageTypeTags.IS_PROJECTILE) || !TTEntityConfig.get().apparition.catches_projectiles) break catchProjectile;
 			if (!(source.getDirectEntity() instanceof Projectile projectile)) break catchProjectile;
 
 			if (projectile instanceof AbstractArrow abstractArrow) {

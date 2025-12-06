@@ -20,6 +20,8 @@ package net.frozenblock.trailiertales.datagen.loot;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
+import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
@@ -30,7 +32,9 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 
@@ -98,10 +102,90 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			)
 		);
 
+		this.add(
+			TTBlocks.GUZMANIA,
+			this.applyExplosionDecay(
+				TTBlocks.GUZMANIA,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(TTBlocks.GUZMANIA)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+					)
+			)
+		);
+		this.add(
+			TTBlocks.GUZMANIA_CROP,
+			this.applyExplosionDecay(
+				TTBlocks.GUZMANIA_CROP,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
+											.invert()
+									)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+							.add(
+								LootItem.lootTableItem(TTBlocks.GUZMANIA)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
+									)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+									)
+							)
+					)
+			)
+		);
+
 		this.add(TTBlocks.DAWNTRAIL, this::createMultifaceBlockDrops);
 		this.add(
 			TTBlocks.DAWNTRAIL_CROP,
 			this.applyExplosionDecay(TTBlocks.DAWNTRAIL_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS))))
+		);
+
+		this.add(TTBlocks.LITHOPS, this.createSegmentedBlockDrops(TTBlocks.LITHOPS));
+		this.dropPottedContents(TTBlocks.POTTED_LITHOPS);
+		this.add(
+			TTBlocks.LITHOPS_CROP,
+			this.applyExplosionDecay(
+				TTBlocks.LITHOPS_CROP,
+				LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.add(
+								LootItem.lootTableItem(TTItems.LITHOPS_SEEDS)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
+											.invert()
+									)
+							)
+							.add(
+								LootItem.lootTableItem(TTBlocks.LITHOPS)
+									.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP)
+											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
+									)
+									.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4F), false))
+							)
+					)
+			)
 		);
 
 		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL);

@@ -27,6 +27,7 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -79,7 +80,7 @@ public class GuiMixin {
 	)
 	private void trailierTales$setHauntedInfo(CallbackInfo info) {
 		final Player player = this.minecraft.player;
-		trailierTales$isHaunted = player.hasEffect(TTMobEffects.HAUNT);
+		trailierTales$isHaunted = TTEntityConfig.HAUNTED_HUD && player.hasEffect(TTMobEffects.HAUNT);
 		if (trailierTales$isHaunted) {
 			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
 		} else {
