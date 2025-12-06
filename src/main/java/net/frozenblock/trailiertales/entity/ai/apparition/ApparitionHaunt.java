@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
@@ -44,12 +45,17 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel world, @NotNull Apparition apparition, long l) {
-		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
+		return super.checkExtraStartConditions(level, apparition) && TTEntityConfig.get().apparition.haunts_players;
 	}
 
 	@Override
-	protected void tick(ServerLevel world, @NotNull Apparition apparition, long l) {
+	protected boolean canStillUse(ServerLevel level, @NotNull Apparition apparition, long l) {
+		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && TTEntityConfig.get().apparition.haunts_players;
+	}
+
+	@Override
+	protected void tick(ServerLevel level, @NotNull Apparition apparition, long l) {
 		Brain<Apparition> brain = apparition.getBrain();
 		LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 

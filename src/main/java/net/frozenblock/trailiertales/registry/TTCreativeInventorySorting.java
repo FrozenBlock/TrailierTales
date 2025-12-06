@@ -33,6 +33,8 @@ public final class TTCreativeInventorySorting {
 
 		addAfterInNaturalBlocks(Blocks.TORCHFLOWER, TTBlocks.CYAN_ROSE);
 		addAfterInNaturalBlocks(Blocks.PITCHER_PLANT, TTBlocks.MANEDROP);
+		addAfterInNaturalBlocks(TTBlocks.MANEDROP, TTBlocks.GUZMANIA);
+		addAfterInNaturalBlocks(TTBlocks.GUZMANIA, TTBlocks.LITHOPS);
 		addAfterInNaturalBlocks(Blocks.GLOW_LICHEN, TTBlocks.DAWNTRAIL);
 
 		addAfterInBuildingBlocks(Blocks.POLISHED_GRANITE_SLAB, TTBlocks.POLISHED_GRANITE_WALL);
@@ -159,6 +161,8 @@ public final class TTCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.TORCHFLOWER_SEEDS, TTItems.CYAN_ROSE_SEEDS);
 		addAfterInNaturalBlocks(TTItems.CYAN_ROSE_SEEDS, TTItems.DAWNTRAIL_SEEDS);
 		addAfterInNaturalBlocks(Items.PITCHER_POD, TTItems.MANEDROP_GERM);
+		addAfterInNaturalBlocks(TTItems.MANEDROP_GERM, TTItems.GUZMANIA_SEEDS);
+		addAfterInNaturalBlocks(TTItems.GUZMANIA_SEEDS, TTItems.LITHOPS_SEEDS);
 
 		addAfterInIngredients(Items.ARMS_UP_POTTERY_SHERD, TTItems.AURORA_POTTERY_SHERD);
 		addBeforeInIngredients(Items.BLADE_POTTERY_SHERD, TTItems.BAIT_POTTERY_SHERD);

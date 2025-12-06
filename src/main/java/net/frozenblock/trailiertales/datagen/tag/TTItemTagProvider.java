@@ -92,24 +92,33 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
-			.add(TTItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.DAWNTRAIL_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD)
-			.add(TTItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.PARROT_FOOD)
-			.add(TTItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SNIFFER_FOOD)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
-			.add(TTItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.DAWNTRAIL_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP.asItem());
+			.add(TTBlocks.MANEDROP.asItem())
+			.add(TTBlocks.GUZMANIA.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.FLOWERS)
 			.add(TTBlocks.DAWNTRAIL.asItem());
