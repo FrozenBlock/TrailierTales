@@ -198,9 +198,9 @@ dependencies {
     // FrozenLib
     if (local_frozenlib) {
         api(project(":FrozenLib", configuration = "namedElements"))
-        modCompileOnly(project(":FrozenLib"))?.let { include(it) }
+        modCompileOnly(project(":FrozenLib"))
     } else
-        modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
+        modApi("maven.modrinth:frozenlib:$frozenlib_version")
 
     // Wilder Wild
     if (local_wilderwild)

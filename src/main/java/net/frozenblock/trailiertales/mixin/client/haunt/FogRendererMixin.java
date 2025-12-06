@@ -44,7 +44,7 @@ public class FogRendererMixin {
 
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void trailierTales$injectHauntEnvironment(CallbackInfo info) {
-		ArrayList<FogEnvironment> finalEnvironments = new ArrayList<>();
+		final ArrayList<FogEnvironment> finalEnvironments = new ArrayList<>();
 
 		for (FogEnvironment environment : FOG_ENVIRONMENTS) {
 			finalEnvironments.add(environment);

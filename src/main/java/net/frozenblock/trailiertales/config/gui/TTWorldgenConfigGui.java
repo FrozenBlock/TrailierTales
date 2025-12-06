@@ -179,6 +179,17 @@ public final class TTWorldgenConfigGui {
 			"generateManedrop",
 			configInstance
 		);
+		var generateGuzmania = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("generate_guzmania"), modifiedVegetation.generateGuzmania)
+				.setDefaultValue(defaultConfig.vegetation.generateGuzmania)
+				.setSaveConsumer(newValue -> vegetation.generateGuzmania = newValue)
+				.setTooltip(TTConstants.tooltip("generate_guzmania"))
+				.requireRestart()
+				.build(),
+			vegetation.getClass(),
+			"generateGuzmania",
+			configInstance
+		);
 		var generateDawntrail = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("generate_dawntrail"), modifiedVegetation.generateDawntrail)
 				.setDefaultValue(defaultConfig.vegetation.generateDawntrail)
@@ -190,11 +201,22 @@ public final class TTWorldgenConfigGui {
 			"generateDawntrail",
 			configInstance
 		);
+		var generateLithops = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("generate_lithops"), modifiedVegetation.generateLithops)
+				.setDefaultValue(defaultConfig.vegetation.generateLithops)
+				.setSaveConsumer(newValue -> vegetation.generateLithops = newValue)
+				.setTooltip(TTConstants.tooltip("generate_lithops"))
+				.requireRestart()
+				.build(),
+			vegetation.getClass(),
+			"generateLithops",
+			configInstance
+		);
 
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("vegetation"),
 			false,
 			TTConstants.tooltip("vegetation"),
-			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateDawntrail
+			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateGuzmania, generateLithops, generateDawntrail
 		);
 
 		var endCity = config.endCity;

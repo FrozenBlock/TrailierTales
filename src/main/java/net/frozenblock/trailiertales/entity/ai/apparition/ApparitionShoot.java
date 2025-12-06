@@ -78,7 +78,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME);
 		brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS);
 		apparition.setPoltergeistAnimProgress(0F);
-		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 300);
+		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 500);
 	}
 
 	@Override
