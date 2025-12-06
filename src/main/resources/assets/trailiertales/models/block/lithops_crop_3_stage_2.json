@@ -1,10 +1,10 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-    "flowerbed": "trailiertales:block/lithops_crop_stage_1",
-    "orange_stem": "trailiertales:block/lithops_crop_stem_orange",
-    "light_blue_stem": "trailiertales:block/lithops_crop_stem_light_blue",
-    "blue_stem": "trailiertales:block/lithops_crop_stem_blue",
+    "flowerbed": "trailiertales:block/lithops",
+    "orange_stem": "trailiertales:block/lithops_stem_orange",
+    "light_blue_stem": "trailiertales:block/lithops_stem_light_blue",
+    "blue_stem": "trailiertales:block/lithops_stem_blue",
     "particle": "#flowerbed"
 	},
 	"elements": [
@@ -26,9 +26,9 @@
 			}
 		},
 		{
-			"from": [17.65, -1, 0.9],
-			"to": [17.65, 1, 1.9],
-			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 0]},
+			"from": [17.9, -1, 1.15],
+			"to": [17.9, 1, 2.15],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0.25, 0, 0.25]},
 			"faces": {
 				"east": {"uv": [0, 4, 1, 6], "texture": "#orange_stem"},
 				"west": {"uv": [0, 4, 1, 6], "texture": "#orange_stem"}
@@ -44,9 +44,9 @@
 			}
 		},
 		{
-			"from": [16.15, -1, -2.85],
-			"to": [18.15, 1, -2.85],
-			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 0]},
+			"from": [16.4, -1, -2.6],
+			"to": [18.4, 1, -2.6],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0.25, 0, 0.25]},
 			"faces": {
 				"north": {"uv": [0, 4, 2, 6], "texture": "#light_blue_stem"},
 				"south": {"uv": [2, 4, 0, 6], "texture": "#light_blue_stem"}
@@ -58,7 +58,7 @@
 			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 0]},
 			"faces": {
 				"east": {"uv": [0, 4, 3, 6], "texture": "#blue_stem"},
-				"west": {"uv": [0, 4, 3, 6], "texture": "#blue_stem"}
+				"west": {"uv": [3, 4, 0, 6], "texture": "#blue_stem"}
 			}
 		},
 		{

@@ -34,3 +34,4 @@ hi
     - A double-tall tropical flower.
   - Lithops
     - A flowerbed-like block, sporting multiple colors of Lithops.
+- Fixed Trailier Tales' crop models floating one pixel above Farmland blocks.
