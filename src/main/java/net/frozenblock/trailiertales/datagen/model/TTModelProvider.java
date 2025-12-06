@@ -17,11 +17,9 @@
 
 package net.frozenblock.trailiertales.datagen.model;
 
-import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -32,31 +30,32 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
+import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
+import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
-import net.minecraft.Util;
-import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.blockstates.ConditionBuilder;
-import net.minecraft.client.data.models.model.ItemModelUtils;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
-import net.minecraft.client.data.models.model.ModelTemplate;
-import net.minecraft.client.renderer.block.model.VariantMutator;
-import net.minecraft.client.renderer.item.ItemModel;
-import net.minecraft.core.Direction;
-import net.minecraft.data.BlockFamilies;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.ConditionBuilder;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.VariantMutator;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.core.Direction;
+import net.minecraft.data.BlockFamilies;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -66,6 +65,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 @Environment(EnvType.CLIENT)
 public final class TTModelProvider extends FabricModelProvider {
@@ -90,8 +90,14 @@ public final class TTModelProvider extends FabricModelProvider {
 		createManedropCrop(generator);
 		generator.createDoublePlantWithDefaultItem(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
 
+		createGuzmaniaCrop(generator);
+		generator.createDoublePlantWithDefaultItem(TTBlocks.GUZMANIA, BlockModelGenerators.PlantType.NOT_TINTED);
+
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
+
+		createLithopsCrop(generator);
+		createLithops(generator);
 
 		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_RED_SAND);
 		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_DIRT);
@@ -264,6 +270,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MANEDROP_GERM, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.GUZMANIA_SEEDS, ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
@@ -305,6 +312,49 @@ public final class TTModelProvider extends FabricModelProvider {
 							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
 								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+			};
+		});
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(propertyDispatch));
+	}
+
+	private static void createGuzmaniaCrop(BlockModelGenerators generator) {
+		final Block block = TTBlocks.GUZMANIA_CROP;
+		final PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(GuzmaniaCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
+			return switch (half) {
+				case UPPER -> {
+					if (age < GuzmaniaCropBlock.DOUBLE_PLANT_AGE_INTERSECTION) {
+						yield BlockModelGenerators.plainVariant(
+							TTConstants.id("block/guzmania_crop_top_empty")
+						);
+					} else if (age == GuzmaniaCropBlock.MAX_AGE) {
+						yield BlockModelGenerators.plainVariant(
+							TTConstants.id("block/guzmania_top")
+						);
+					} else {
+						yield BlockModelGenerators.plainVariant(
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+								TTConstants.id("block/guzmania_crop_top_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_top_stage_" + age)),
+								generator.modelOutput
+							)
+						);
+					}
+				}
+				case LOWER -> {
+					if (age == GuzmaniaCropBlock.MAX_AGE) {
+						yield BlockModelGenerators.plainVariant(
+							TTConstants.id("block/guzmania_bottom")
+						);
+					} else {
+						yield BlockModelGenerators.plainVariant(
+							BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(
+								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
+								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_bottom_stage_" + age)),
 								generator.modelOutput
 							)
 						);
@@ -358,6 +408,60 @@ public final class TTModelProvider extends FabricModelProvider {
 				}
 				);
 		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(crop).with(propertyDispatch));
+	}
+
+	private static void createLithopsCrop(BlockModelGenerators generator) {
+		final Block crop = TTBlocks.LITHOPS_CROP;
+		generator.registerSimpleFlatItemModel(crop.asItem());
+
+		final MultiVariant cropModel = BlockModelGenerators.plainVariant(generator.createSuffixedVariant(crop, "_stage_0", ModelTemplates.CROP, TextureMapping::crop));
+		final MultiVariant model1 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_1_stage_1"));
+		final MultiVariant model2 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_2_stage_1"));
+		final MultiVariant model3 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_3_stage_1"));
+		final MultiVariant model4 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(crop, "_4_stage_1"));
+		final Function<ConditionBuilder, ConditionBuilder> isGrown = conditionBuilder -> conditionBuilder.term(LithopsCropBlock.AGE, 1);
+
+		generator.blockStateOutput.accept(
+			MultiPartGenerator.multiPart(crop)
+				.with(BlockModelGenerators.condition().term(LithopsCropBlock.AGE, 0), cropModel)
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model1)
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model1.with(BlockModelGenerators.Y_ROT_90))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model1.with(BlockModelGenerators.Y_ROT_180))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model1.with(BlockModelGenerators.Y_ROT_270))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model2)
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model2.with(BlockModelGenerators.Y_ROT_90))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model2.with(BlockModelGenerators.Y_ROT_180))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model2.with(BlockModelGenerators.Y_ROT_270))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model3)
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model3.with(BlockModelGenerators.Y_ROT_90))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model3.with(BlockModelGenerators.Y_ROT_180))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model3.with(BlockModelGenerators.Y_ROT_270))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)), model4)
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)), model4.with(BlockModelGenerators.Y_ROT_90))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)), model4.with(BlockModelGenerators.Y_ROT_180))
+				.with(isGrown.apply(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)), model4.with(BlockModelGenerators.Y_ROT_270))
+		);
+	}
+
+	private static void createLithops(BlockModelGenerators generator) {
+		final Block block = TTBlocks.LITHOPS;
+		generator.registerSimpleFlatItemModel(block.asItem());
+
+		final MultiVariant model1 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_1"));
+		final MultiVariant model2 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_2"));
+		final MultiVariant model3 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_3"));
+		final MultiVariant model4 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_4"));
+		generator.createSegmentedBlock(
+			block,
+			model1, BlockModelGenerators.FLOWER_BED_MODEL_1_SEGMENT_CONDITION,
+			model2, BlockModelGenerators.FLOWER_BED_MODEL_2_SEGMENT_CONDITION,
+			model3, BlockModelGenerators.FLOWER_BED_MODEL_3_SEGMENT_CONDITION,
+			model4, BlockModelGenerators.FLOWER_BED_MODEL_4_SEGMENT_CONDITION
+		);
+
+		final Block pottedBlock = TTBlocks.POTTED_LITHOPS;
+		final MultiVariant pottedModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(pottedBlock));
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pottedModel));
 	}
 
 	private static void createEctoplasmBlock(@NotNull BlockModelGenerators generator) {

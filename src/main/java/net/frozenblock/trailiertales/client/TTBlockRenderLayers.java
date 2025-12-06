@@ -39,7 +39,15 @@ public class TTBlockRenderLayers {
 		renderLayerRegistry.putBlock(TTBlocks.MANEDROP, RenderType.cutout());
 		renderLayerRegistry.putBlock(TTBlocks.MANEDROP_CROP, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(TTBlocks.GUZMANIA, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.GUZMANIA_CROP, RenderType.cutout());
+
 		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(TTBlocks.DAWNTRAIL_CROP, RenderType.cutout());
+
+		renderLayerRegistry.putBlock(TTBlocks.POTTED_LITHOPS, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.LITHOPS, RenderType.cutout());
+		renderLayerRegistry.putBlock(TTBlocks.LITHOPS_CROP, RenderType.cutout());
+
 	}
 }

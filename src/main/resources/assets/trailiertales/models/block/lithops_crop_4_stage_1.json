@@ -1,0 +1,36 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+    "flowerbed": "trailiertales:block/lithops_crop_stage_1",
+    "red_stem": "trailiertales:block/lithops_crop_stem_red",
+    "particle": "#flowerbed"
+	},
+	"elements": [
+		{
+			"from": [8, 2, 0],
+			"to": [16, 2, 8],
+			"faces": {
+				"up": {"uv": [8, 0, 16, 8], "texture": "#flowerbed"},
+				"down": {"uv": [8, 8, 16, 0], "texture": "#flowerbed"}
+			}
+		},
+		{
+			"from": [13.4, 0, -8.2],
+			"to": [13.4, 2, -6.2],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, -3.5]},
+			"faces": {
+				"east": {"uv": [2, 4, 0, 6], "texture": "#red_stem"},
+				"west": {"uv": [0, 4, 2, 6], "texture": "#red_stem"}
+			}
+		},
+		{
+			"from": [12.9, 0, -7.7],
+			"to": [13.9, 2, -7.7],
+			"rotation": {"angle": -45, "axis": "y", "origin": [0, 0, -3.5]},
+			"faces": {
+				"north": {"uv": [0, 4, 1, 6], "texture": "#red_stem"},
+				"south": {"uv": [0, 4, 1, 6], "texture": "#red_stem"}
+			}
+		}
+	]
+}

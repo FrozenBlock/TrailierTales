@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "trailiertales:block/lithops_crop_stage_0"
+  }
+}

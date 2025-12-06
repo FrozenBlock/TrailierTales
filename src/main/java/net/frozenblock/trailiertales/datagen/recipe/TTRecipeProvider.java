@@ -17,9 +17,9 @@
 
 package net.frozenblock.trailiertales.datagen.recipe;
 
+import com.mojang.datafixers.util.Pair;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
-import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;
@@ -124,6 +124,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.oneToOneConversionRecipe(Items.CYAN_DYE, TTBlocks.CYAN_ROSE, "cyan_dye");
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTBlocks.MANEDROP, "purple_dye", 2);
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTItems.DAWNTRAIL_SEEDS, "purple_dye");
+				this.oneToOneConversionRecipe(Items.MAGENTA_DYE, TTBlocks.GUZMANIA, "magenta_dye", 2);
+
 				// GRANITE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_GRANITE_WALL, Blocks.GRANITE);

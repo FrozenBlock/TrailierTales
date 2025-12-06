@@ -62,6 +62,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
 		if (mixinClassName.contains("lithium.")) return this.mixinsConfig.lithium && this.hasLithium;
+		if (mixinClassName.contains("lithops.")) return this.mixinsConfig.lithops;
 		if (mixinClassName.contains("rail.")) return this.mixinsConfig.rail;
 
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
