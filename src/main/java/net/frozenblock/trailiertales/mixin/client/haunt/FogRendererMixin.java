@@ -40,7 +40,7 @@ public class FogRendererMixin {
 		)
 	)
 	private static ArrayList<FogEnvironment> trailierTales$injectHauntEnvironment(ArrayList<FogEnvironment> original) {
-		ArrayList<FogEnvironment> finalEnvironments = new ArrayList<>();
+		final ArrayList<FogEnvironment> finalEnvironments = new ArrayList<>();
 
 		for (FogEnvironment environment : original) {
 			finalEnvironments.add(environment);

@@ -92,26 +92,35 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
-			.add(TTItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.DAWNTRAIL_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.valueLookupBuilder(ItemTags.CHICKEN_FOOD)
-			.add(TTItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.valueLookupBuilder(ItemTags.PARROT_FOOD)
-			.add(TTItems.CYAN_ROSE_SEEDS);
+			.add(TTItems.CYAN_ROSE_SEEDS)
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.valueLookupBuilder(ItemTags.SNIFFER_FOOD)
 			.add(TTItems.CYAN_ROSE_SEEDS)
 			.add(TTItems.MANEDROP_GERM)
-			.add(TTItems.DAWNTRAIL_SEEDS);
+			.add(TTItems.GUZMANIA_SEEDS)
+			.add(TTItems.DAWNTRAIL_SEEDS)
+			.add(TTItems.LITHOPS_SEEDS);
 
 		this.valueLookupBuilder(ItemTags.SMALL_FLOWERS)
 			.add(TTBlocks.CYAN_ROSE.asItem())
 			.add(TTBlocks.DAWNTRAIL.asItem());
 
 		this.valueLookupBuilder(ItemTags.BEE_FOOD)
+			.add(TTBlocks.CYAN_ROSE.asItem())
 			.add(TTBlocks.MANEDROP.asItem())
-			.add(TTBlocks.CYAN_ROSE.asItem());
+			.add(TTBlocks.GUZMANIA.asItem());
 
 		this.valueLookupBuilder(ItemTags.STAIRS)
 			.add(TTBlocks.GRANITE_BRICK_STAIRS.asItem())

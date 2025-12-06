@@ -21,6 +21,8 @@ Zhen
       - All new Calcite variants
       - Cracked and Mossy Bricks
       - Dawntrail name and textures
+      - Guzmania
+      - Lithops
       - Polished Resin Block
       - Bait Pottery Sherd/Pattern
       - Bolt Pottery Sherd/Pattern
