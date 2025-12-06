@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.client.renderer.fog.environment;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
@@ -30,6 +31,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.material.FogType;
 
 @Environment(EnvType.CLIENT)
 public class HauntFogEnvironment extends MobEffectFogEnvironment {
@@ -60,5 +62,10 @@ public class HauntFogEnvironment extends MobEffectFogEnvironment {
 	public float getModifiedDarkness(LivingEntity entity, float f, float g) {
 		final MobEffectInstance effect = entity.getEffect(this.getMobEffect());
 		return effect != null ? Math.max(effect.getBlendFactor(entity, g), f) : f;
+	}
+
+	@Override
+	public boolean isApplicable(FogType fogType, Entity entity) {
+		return TTEntityConfig.HAUNTED_FOG && super.isApplicable(fogType, entity);
 	}
 }
