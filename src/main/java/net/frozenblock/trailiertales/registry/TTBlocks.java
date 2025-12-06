@@ -55,7 +55,6 @@ import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -197,7 +196,7 @@ public final class TTBlocks {
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 	public static final Block GUZMANIA = register("guzmania",
-		TallFlowerBlock::new,
+		DoublePlantBlock::new,
 		Properties.of()
 			.mapColor(MapColor.PLANT)
 			.noCollission()
