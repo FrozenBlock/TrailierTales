@@ -3,6 +3,7 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
+- Bumped Trailier Tales' protocol version to 3.
 - FrozenLib is no longer embedded in Trailier Tales.
   - It must now be downloaded separately.
 - Fixed the Sherd Duplication recipe sometimes failing to produce an output.
