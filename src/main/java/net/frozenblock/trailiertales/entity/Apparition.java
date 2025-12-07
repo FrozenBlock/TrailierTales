@@ -542,12 +542,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setOuterTransparency(this.outerTransparency);
 	}
 
-	public float getInnerTransparency(float partialTick) {
-		return Mth.lerp(partialTick, this.prevTransparency, this.transparency) * 0.8F * (1F - this.getOtherAnimProgress(partialTick));
+	public float getInnerTransparency(float nightVisionBlend, float partialTick) {
+		return Math.max(Mth.lerp(partialTick, this.prevTransparency, this.transparency), nightVisionBlend) * 0.8F * (1F - this.getOtherAnimProgress(partialTick));
 	}
 
-	public float getOuterTransparency(float partialTick) {
-		return Mth.lerp(partialTick, this.prevOuterTransparency, this.outerTransparency) * 0.75F * (1F - this.getOtherAnimProgress(partialTick));
+	public float getOuterTransparency(float nightVisionBlend, float partialTick) {
+		return Math.max(Mth.lerp(partialTick, this.prevOuterTransparency, this.outerTransparency), nightVisionBlend) * 0.75F * (1F - this.getOtherAnimProgress(partialTick));
 	}
 
 	private float getOtherAnimProgress(float partialTick) {
@@ -562,8 +562,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return Mth.lerp(partialTick, this.prevPoltergeistAnimProgress, this.poltergeistAnimProgress) * 0.85F;
 	}
 
-	public float totalTransparency(float partialTick) {
-		return Math.max(Math.max(this.getInnerTransparency(partialTick), this.getPoltergeistAnimProgress(partialTick)), this.getAidAnimProgress(partialTick));
+	public float totalTransparency(float nightVisionBlend, float partialTick) {
+		return Math.max(Math.max(this.getInnerTransparency(nightVisionBlend, partialTick), this.getPoltergeistAnimProgress(partialTick)), this.getAidAnimProgress(partialTick));
 	}
 
 	@Nullable
