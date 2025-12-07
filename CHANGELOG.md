@@ -18,7 +18,7 @@ hi
   - Aggressive: 50 seconds -> 60 seconds
 - Ominous Coffins now only spawn 1 Apparition at a time, instead of 2.
 - Apparitions now drop Ectoplasm upon death more commonly, and is now consistent with other vanilla mobs.
-- Apparitions now must be killed my a player to drop Ectoplasm.
+- Apparitions now must be killed by a player to drop Ectoplasm.
 - The cooldown before an Apparition can pick up another item is now 25 seconds, instead of 15.
 - Apparitions are now always visible when using Night Vision on 1.21.2+.
 - Added a config option to toggle whether Apparitions can pick up items.
