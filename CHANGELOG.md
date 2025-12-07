@@ -20,6 +20,7 @@ hi
 - Apparitions now drop Ectoplasm upon death more commonly, and is now consistent with other vanilla mobs.
 - Apparitions now must be killed my a player to drop Ectoplasm.
 - The cooldown before an Apparition can pick up another item is now 25 seconds, instead of 15.
+- Apparitions are now always visible when using Night Vision on 1.21.2+.
 - Added a config option to toggle whether Apparitions can pick up items.
 - Added a config option to toggle whether Apparitions can catch projectiles.
 - Added a config option to toggle whether Apparitions can "hypnotize" mobs.
