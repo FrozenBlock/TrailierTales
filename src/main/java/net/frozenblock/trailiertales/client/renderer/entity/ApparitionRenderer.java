@@ -36,6 +36,9 @@ import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.lighting.LightEngine;
 import org.jetbrains.annotations.NotNull;
@@ -134,9 +137,14 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		renderState.lightCoords = 15728640;
 		renderState.itemYRot = apparition.getItemYRot(partialTick);
 		renderState.itemZRot = apparition.getItemZRot(partialTick);
-		renderState.totalTransparency = apparition.totalTransparency(partialTick);
-		renderState.innerTransparency = apparition.getInnerTransparency(partialTick);
-		renderState.outerTransparency = apparition.getOuterTransparency(partialTick);
+
+		final Minecraft minecraft = Minecraft.getInstance();
+		final Player player = minecraft.player;
+		final MobEffectInstance nightVision = player != null ? player.getEffect(MobEffects.NIGHT_VISION) : null;
+		final float nightVisionBlend = nightVision != null ? nightVision.getBlendFactor(player, partialTick) : 0F;
+		renderState.totalTransparency = apparition.totalTransparency(nightVisionBlend, partialTick);
+		renderState.innerTransparency = apparition.getInnerTransparency(nightVisionBlend, partialTick);
+		renderState.outerTransparency = apparition.getOuterTransparency(nightVisionBlend, partialTick);
 		renderState.flicker = apparition.getFlicker(partialTick);
 
 		this.itemModelResolver.updateForLiving(renderState.item, apparition.getVisibleItem(), ItemDisplayContext.GROUND, apparition);
