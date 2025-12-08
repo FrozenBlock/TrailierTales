@@ -41,6 +41,7 @@ hi
 - Fixed Trailier Tales' crop models floating one pixel above Farmland blocks.
 - Updated the Chiseled, Cracked, and Mossy Calcite Bricks textures.
 - Updated the Chiseled, Cracked, and Mossy Granite Bricks textures.
+- Updated the Cracked, Mossy, and Normal Andesite Bricks textures.
 - Updated the Cracked, Mossy, and Normal Diorite Bricks textures.
 - Updated the Chiseled Purpur Block texture.
 - Updated the Choral End Stone Bricks texture.
