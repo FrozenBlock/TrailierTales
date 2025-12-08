@@ -83,6 +83,8 @@ public final class TTEntityConfig {
 		public boolean hypnotizes_mobs = true;
 		@EntrySyncData(value = "haunts_players")
 		public boolean haunts_players = true;
+		@EntrySyncData(value = "haunted_coffins")
+		public boolean haunted_coffins = true;
 		@EntrySyncData(value = "haunted_fog")
 		public boolean haunted_fog = true;
 		@EntrySyncData(value = "haunted_lightmap")
@@ -98,8 +100,12 @@ public final class TTEntityConfig {
 		public boolean cyan_rose_seeds = true;
 		@EntrySyncData(value = "dig_manedrop_germs")
 		public boolean manedrop_germs = true;
+		@EntrySyncData(value = "dig_guzmania_seeds")
+		public boolean guzmania_seeds = true;
 		@EntrySyncData(value = "dig_dawntrail_seeds")
 		public boolean dawntrail_seeds = true;
+		@EntrySyncData(value = "dig_lithops_seeds")
+		public boolean lithops_seeds = true;
 		@EntrySyncData(value = "spawn_sniffer")
 		public boolean spawn = false;
 	}
@@ -110,7 +116,7 @@ public final class TTEntityConfig {
 	}
 
 	public static class Villager {
-		@EntrySyncData(value = "villagers_sell_catacombs_map")
+		@EntrySyncData(value = "sell_catacombs_map")
 		public boolean sell_catacombs_map = true;
 	}
 

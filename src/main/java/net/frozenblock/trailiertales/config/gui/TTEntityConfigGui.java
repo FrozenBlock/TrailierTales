@@ -92,6 +92,16 @@ public final class TTEntityConfigGui {
 			"haunts_players",
 			configInstance
 		);
+		var hauntedCoffins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("haunted_coffins"), modifiedApparition.haunted_coffins)
+				.setDefaultValue(defaultConfig.apparition.haunted_coffins)
+				.setSaveConsumer(newValue -> apparition.haunted_coffins = newValue)
+				.setTooltip(TTConstants.tooltip("haunted_coffins"))
+				.build(),
+			apparition.getClass(),
+			"haunted_coffins",
+			configInstance
+		);
 		var hauntedFog = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("haunted_fog"), modifiedApparition.haunted_fog)
 				.setDefaultValue(defaultConfig.apparition.haunted_fog)
@@ -137,7 +147,7 @@ public final class TTEntityConfigGui {
 			false,
 			TTConstants.tooltip("apparition"),
 			picksUpItems, catchesProjectiles, ignoreMobGriefing, hypnotizesMobs,
-			hauntsPlayers, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
+			hauntsPlayers, hauntedCoffins, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
 		);
 
 		var sniffer = config.sniffer;
@@ -165,6 +175,17 @@ public final class TTEntityConfigGui {
 			"dig_manedrop_germs",
 			configInstance
 		);
+		var snifferDigsGuzmaniaSeeds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_guzmania_seeds"), modifiedSniffer.guzmania_seeds)
+				.setDefaultValue(defaultConfig.sniffer.manedrop_germs)
+				.setSaveConsumer(newValue -> sniffer.guzmania_seeds = newValue)
+				.setTooltip(TTConstants.tooltip("sniffer_digs_guzmania_seeds"))
+				.requireRestart()
+				.build(),
+			sniffer.getClass(),
+			"dig_guzmania_seeds",
+			configInstance
+		);
 		var sniffersDigDawntrailSeeds = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_dawntrail_seeds"), modifiedSniffer.dawntrail_seeds)
 				.setDefaultValue(defaultConfig.sniffer.dawntrail_seeds)
@@ -174,6 +195,17 @@ public final class TTEntityConfigGui {
 				.build(),
 			sniffer.getClass(),
 			"dig_dawntrail_seeds",
+			configInstance
+		);
+		var sniffersDigLithopsSeeds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(TTConstants.text("sniffer_digs_lithops_seeds"), modifiedSniffer.lithops_seeds)
+				.setDefaultValue(defaultConfig.sniffer.lithops_seeds)
+				.setSaveConsumer(newValue -> sniffer.lithops_seeds = newValue)
+				.setTooltip(TTConstants.tooltip("sniffer_digs_lithops_seeds"))
+				.requireRestart()
+				.build(),
+			sniffer.getClass(),
+			"dig_lithops_seeds",
 			configInstance
 		);
 		var spawnSniffer = FrozenClothConfig.syncedEntry(
@@ -191,7 +223,8 @@ public final class TTEntityConfigGui {
 		var snifferCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("sniffer"),
 			false,
 			TTConstants.tooltip("sniffer"),
-			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, sniffersDigDawntrailSeeds, spawnSniffer
+			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, snifferDigsGuzmaniaSeeds, sniffersDigLithopsSeeds, sniffersDigDawntrailSeeds,
+			spawnSniffer
 		);
 
 		var camel = config.camel;
@@ -219,14 +252,14 @@ public final class TTEntityConfigGui {
 		var modifiedVillager = modifiedConfig.villager;
 
 		var villagersSellCatacombsMap = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TTConstants.text("villagers_sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
+			entryBuilder.startBooleanToggle(TTConstants.text("sell_catacombs_map"), modifiedVillager.sell_catacombs_map)
 				.setDefaultValue(defaultConfig.villager.sell_catacombs_map)
 				.setSaveConsumer(newValue -> villager.sell_catacombs_map = newValue)
-				.setTooltip(TTConstants.tooltip("villagers_sell_catacombs_map"))
+				.setTooltip(TTConstants.tooltip("sell_catacombs_map"))
 				.requireRestart()
 				.build(),
 			villager.getClass(),
-			"villagers_sell_catacombs_map",
+			"sell_catacombs_map",
 			configInstance
 		);
 

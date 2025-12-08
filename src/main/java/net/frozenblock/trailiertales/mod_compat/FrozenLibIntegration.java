@@ -218,14 +218,22 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "trailiertales:manedrop", CriteriaTriggers.PLACED_BLOCK.createCriterion(
 							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.MANEDROP_CROP).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "trailiertales:guzmania", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.GUZMANIA_CROP).triggerInstance())
+						);
 						AdvancementAPI.addCriteria(advancement, "trailiertales:dawntrail", CriteriaTriggers.PLACED_BLOCK.createCriterion(
 							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.DAWNTRAIL_CROP).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "trailiertales:lithops", CriteriaTriggers.PLACED_BLOCK.createCriterion(
+							ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.LITHOPS_CROP).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement,
 							List.of(
 								"trailiertales:cyan_rose",
 								"trailiertales:manedrop",
-								"trailiertales:dawntrail"
+								"trailiertales:guzmania",
+								"trailiertales:dawntrail",
+								"trailiertales:lithops"
 							)
 						);
 					}

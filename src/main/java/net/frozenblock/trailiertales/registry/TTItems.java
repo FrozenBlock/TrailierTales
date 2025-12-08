@@ -55,7 +55,13 @@ public final class TTItems {
 	public static final Item MANEDROP_GERM = new ItemNameBlockItem(TTBlocks.MANEDROP_CROP, new Item.Properties()
 		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+	public static final Item GUZMANIA_SEEDS = new ItemNameBlockItem(TTBlocks.GUZMANIA_CROP, new Item.Properties()
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
 	public static final Item DAWNTRAIL_SEEDS = new ItemNameBlockItem(TTBlocks.DAWNTRAIL_CROP, new Item.Properties()
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+	public static final Item LITHOPS_SEEDS = new ItemNameBlockItem(TTBlocks.LITHOPS_CROP, new Item.Properties()
 		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
@@ -155,8 +161,10 @@ public final class TTItems {
 		registerItemAfter(Items.WAXED_OXIDIZED_COPPER_BULB, ECTOPLASM_BLOCK, "ectoplasm_block", CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerItemAfter(Items.TORCHFLOWER_SEEDS, CYAN_ROSE_SEEDS, "cyan_rose_seeds", CreativeModeTabs.NATURAL_BLOCKS);
-		registerItemAfter(CYAN_ROSE_SEEDS, DAWNTRAIL_SEEDS, "dawntrail_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.PITCHER_POD, MANEDROP_GERM, "manedrop_germ", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(MANEDROP_GERM, GUZMANIA_SEEDS, "guzmania_seeds", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(GUZMANIA_SEEDS, LITHOPS_SEEDS, "lithops_seeds", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(LITHOPS_SEEDS, DAWNTRAIL_SEEDS, "dawntrail_seeds", CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerSherdAfter(Items.ARMS_UP_POTTERY_SHERD, AURORA_POTTERY_SHERD, "aurora_pottery_sherd", CreativeModeTabs.INGREDIENTS);
 		registerSherdBefore(Items.BLADE_POTTERY_SHERD, BAIT_POTTERY_SHERD, "bait_pottery_sherd", CreativeModeTabs.INGREDIENTS);

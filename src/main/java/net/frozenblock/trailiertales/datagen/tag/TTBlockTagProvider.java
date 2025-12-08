@@ -156,6 +156,12 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.SUSPICIOUS_DIRT)
 			.add(TTBlocks.SUSPICIOUS_CLAY);
 
+		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
+			.add(TTBlocks.LITHOPS);
+
+		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
+			.add(TTBlocks.LITHOPS);
+
 		this.getOrCreateTagBuilder(BlockTags.SAND)
 			.add(TTBlocks.SUSPICIOUS_RED_SAND);
 
@@ -166,28 +172,40 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.CYAN_ROSE);
 
 		this.getOrCreateTagBuilder(BlockTags.TALL_FLOWERS)
-			.add(TTBlocks.MANEDROP);
+			.add(TTBlocks.MANEDROP)
+			.add(TTBlocks.GUZMANIA);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWERS)
 			.add(TTBlocks.DAWNTRAIL);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
-			.add(TTBlocks.POTTED_CYAN_ROSE);
+			.add(TTBlocks.POTTED_CYAN_ROSE)
+			.add(TTBlocks.POTTED_LITHOPS);
 
 		this.getOrCreateTagBuilder(BlockTags.CROPS)
 			.add(TTBlocks.CYAN_ROSE_CROP)
 			.add(TTBlocks.MANEDROP_CROP)
-			.add(TTBlocks.DAWNTRAIL_CROP);
+			.add(TTBlocks.GUZMANIA_CROP)
+			.add(TTBlocks.DAWNTRAIL_CROP)
+			.add(TTBlocks.LITHOPS_CROP);
 
 		this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND)
 			.add(TTBlocks.CYAN_ROSE_CROP)
 			.add(TTBlocks.CYAN_ROSE)
 			.add(TTBlocks.MANEDROP_CROP)
+			.add(TTBlocks.GUZMANIA_CROP)
 			.add(TTBlocks.DAWNTRAIL_CROP)
-			.add(TTBlocks.DAWNTRAIL);
+			.add(TTBlocks.DAWNTRAIL)
+			.add(TTBlocks.LITHOPS_CROP)
+			.add(TTBlocks.LITHOPS);
 
 		this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
-			.add(TTBlocks.DAWNTRAIL);
+			.add(TTBlocks.DAWNTRAIL)
+			.add(TTBlocks.LITHOPS);
+
+		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
+			.add(TTBlocks.DAWNTRAIL)
+			.add(TTBlocks.LITHOPS);
 
 		this.getOrCreateTagBuilder(BlockTags.STAIRS)
 			.add(TTBlocks.GRANITE_BRICK_STAIRS)
