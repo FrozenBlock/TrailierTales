@@ -36,4 +36,15 @@ hi
     - A double-tall tropical flower.
   - Lithops
     - A flowerbed-like block, sporting multiple colors of Lithops.
+
+### Assets
 - Fixed Trailier Tales' crop models floating one pixel above Farmland blocks.
+- Updated the Chiseled, Cracked, and Mossy Calcite Bricks textures.
+- Updated the Chiseled, Cracked, and Mossy Granite Bricks textures.
+- Updated the Cracked, Mossy, and Normal Diorite Bricks textures.
+- Updated the Chiseled Purpur Block texture.
+- Updated the Choral End Stone Bricks texture.
+- Updated the Ectoplasm item texture.
+- Updated the Fausse Vie, Ossuaire, and Stasis Music Disc textures.
+- Updated the icon and HUD textures of the Haunt mob effect.
+- Updated the icon of the Transfiguring mob effect.
