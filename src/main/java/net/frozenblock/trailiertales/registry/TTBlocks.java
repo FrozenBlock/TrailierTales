@@ -206,6 +206,11 @@ public final class TTBlocks {
 	);
 	public static final Block POTTED_LITHOPS = Blocks.flowerPot(LITHOPS);
 
+	// STONE
+
+	public static final Block STONE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+		.requiredFeatures(TTFeatureFlags.FEATURE_FLAG));
+
 	// GRANITE
 
 	public static final Block POLISHED_GRANITE_WALL = new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE)
@@ -607,6 +612,8 @@ public final class TTBlocks {
 
 		registerBlockAfter(Blocks.GLOW_LICHEN, "dawntrail", DAWNTRAIL, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("dawntrail_crop", DAWNTRAIL_CROP);
+
+		registerBlockAfter(Blocks.STONE_SLAB, "stone_wall", STONE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
 		registerBlockAfter(Blocks.POLISHED_GRANITE_SLAB, "polished_granite_wall", POLISHED_GRANITE_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(Blocks.GRANITE_SLAB, "granite_bricks", GRANITE_BRICKS, CreativeModeTabs.BUILDING_BLOCKS);
