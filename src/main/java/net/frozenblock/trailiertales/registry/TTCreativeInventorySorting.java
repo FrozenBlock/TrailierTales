@@ -27,9 +27,10 @@ public final class TTCreativeInventorySorting {
 
 	public static void init() {
 		// BLOCKS
-		addAfterInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_RED_SAND);
-		addAfterInFunctionalBlocks(TTBlocks.SUSPICIOUS_RED_SAND, TTBlocks.SUSPICIOUS_DIRT);
+
+		addBeforeInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_DIRT);
 		addAfterInFunctionalBlocks(TTBlocks.SUSPICIOUS_DIRT, TTBlocks.SUSPICIOUS_CLAY);
+		addAfterInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_RED_SAND);
 
 		addAfterInNaturalBlocks(Blocks.TORCHFLOWER, TTBlocks.CYAN_ROSE);
 		addAfterInNaturalBlocks(Blocks.PITCHER_PLANT, TTBlocks.MANEDROP);
@@ -155,6 +156,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInSpawnEggs(Blocks.TRIAL_SPAWNER, TTBlocks.COFFIN);
 		addAfterInRedstone(Blocks.OBSERVER, TTBlocks.SURVEYOR);
 		addAfterInFunctionalBlocks(Blocks.MAGMA_BLOCK, TTBlocks.ECTOPLASM_BLOCK);
+		addAfterInNaturalBlocks(Blocks.HONEY_BLOCK, TTBlocks.ECTOPLASM_BLOCK);
 
 		// ITEMS
 		addAfterInSpawnEggs(Items.ALLAY_SPAWN_EGG, TTItems.APPARITION_SPAWN_EGG);
@@ -217,6 +219,10 @@ public final class TTCreativeInventorySorting {
 		addAfterInToolsAndUtilities(TTItems.MUSIC_DISC_FAUSSE_VIE, TTItems.MUSIC_DISC_OSSUAIRE);
 	}
 
+	private static void addBeforeInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS);
+	}
+
 	private static void addAfterInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS);
 	}
@@ -231,6 +237,10 @@ public final class TTCreativeInventorySorting {
 
 	private static void addAfterInRedstone(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.REDSTONE_BLOCKS);
+	}
+
+	private static void addBeforeInFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
 	private static void addAfterInFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
