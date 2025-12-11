@@ -123,7 +123,11 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTBlocks.MANEDROP, "purple_dye", 2);
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTItems.DAWNTRAIL_SEEDS, "purple_dye");
 				this.oneToOneConversionRecipe(Items.MAGENTA_DYE, TTBlocks.GUZMANIA, "magenta_dye", 2);
-				
+
+				// STONE
+
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.STONE_WALL, Blocks.STONE);
+
 				// GRANITE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_GRANITE_WALL, Blocks.GRANITE);

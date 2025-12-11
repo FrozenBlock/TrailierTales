@@ -37,6 +37,8 @@ public final class TTCreativeInventorySorting {
 		addAfterInNaturalBlocks(TTBlocks.GUZMANIA, TTBlocks.LITHOPS);
 		addAfterInNaturalBlocks(Blocks.GLOW_LICHEN, TTBlocks.DAWNTRAIL);
 
+		addAfterInBuildingBlocks(Blocks.STONE_SLAB, TTBlocks.STONE_WALL);
+
 		addAfterInBuildingBlocks(Blocks.POLISHED_GRANITE_SLAB, TTBlocks.POLISHED_GRANITE_WALL);
 		addAfterInBuildingBlocks(TTBlocks.POLISHED_GRANITE_WALL, TTBlocks.GRANITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.GRANITE_BRICKS, TTBlocks.CRACKED_GRANITE_BRICKS);
