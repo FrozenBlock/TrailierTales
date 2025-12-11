@@ -17,11 +17,9 @@
 
 package net.frozenblock.trailiertales.mixin.common.datafix;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
-import java.util.function.BiFunction;
 import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.AddNewChoices;
@@ -33,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(DataFixers.class)
 public class DataFixersMixin {
 
-	@WrapOperation(
+	@ModifyExpressionValue(
 		method = "addFixers",
 		at = @At(
 			value = "INVOKE",
@@ -48,8 +46,7 @@ public class DataFixersMixin {
 			)
 		)
 	)
-	private static Schema trailierTales$addFixers3689(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
-		final Schema schema = original.call(builder, version, factory);
+	private static Schema trailierTales$addFixers3689(Schema schema, DataFixerBuilder builder) {
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("coffin"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("surveyor"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("apparition"), References.ENTITY));
