@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "trailiertales:polished_resin_block",
+  "result": {
+    "count": 2,
+    "id": "trailiertales:polished_resin_slab"
+  }
+}

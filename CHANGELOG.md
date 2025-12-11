@@ -37,6 +37,7 @@ hi
   - Lithops
     - A flowerbed-like block, sporting multiple colors of Lithops.
 - Finally added the fabled Stone wall after months of community request.
+- Added Polished Resin Stairs, Slabs, and Walls.
 - Fixed the ordering of Trailier Tales's new Granite, Diorite, and Andesite building blocks in the Creative Inventory in 1.21.2+. ([#25](https://github.com/FrozenBlock/TrailierTales/issues/25))
 - Added the Ectoplasm Block to the `Natural Blocks` tab of the Creative Inventory.
 - Changed the ordering of Trailier Tales' new suspicious blocks in the Creative Inventory.

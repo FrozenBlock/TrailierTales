@@ -109,6 +109,9 @@ public final class TTCreativeInventorySorting {
 
 		addBeforeInBuildingBlocks(Blocks.RESIN_BRICKS, Blocks.RESIN_BLOCK);
 		addAfterInBuildingBlocks(Blocks.RESIN_BLOCK, TTBlocks.POLISHED_RESIN_BLOCK);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_RESIN_BLOCK, TTBlocks.POLISHED_RESIN_STAIRS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_RESIN_STAIRS, TTBlocks.POLISHED_RESIN_SLAB);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_RESIN_SLAB, TTBlocks.POLISHED_RESIN_WALL);
 		addAfterInBuildingBlocks(Blocks.RESIN_BRICKS, TTBlocks.CRACKED_RESIN_BRICKS);
 		addAfterInBuildingBlocks(Blocks.RESIN_BRICK_WALL, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.PALE_MOSSY_RESIN_BRICKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS);

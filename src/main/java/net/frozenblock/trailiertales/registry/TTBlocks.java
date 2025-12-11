@@ -589,6 +589,23 @@ public final class TTBlocks {
 		Properties.ofFullCopy(Blocks.RESIN_BLOCK)
 			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
+	public static final Block POLISHED_RESIN_STAIRS = register("polished_resin_stairs",
+		properties -> new StairBlock(POLISHED_RESIN_BLOCK.defaultBlockState(), properties),
+		Properties.ofFullCopy(POLISHED_RESIN_BLOCK)
+	);
+	public static final Block POLISHED_RESIN_SLAB = register("polished_resin_slab",
+		SlabBlock::new,
+		Properties.ofFullCopy(POLISHED_RESIN_BLOCK)
+	);
+	public static final Block POLISHED_RESIN_WALL = register("polished_resin_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(POLISHED_RESIN_BLOCK)
+	);
+	public static final BlockFamily FAMILY_POLISHED_RESIN = BlockFamilies.familyBuilder(POLISHED_RESIN_BLOCK)
+		.stairs(POLISHED_RESIN_STAIRS)
+		.slab(POLISHED_RESIN_SLAB)
+		.wall(POLISHED_RESIN_WALL)
+		.getFamily();
 
 	public static final Block CRACKED_RESIN_BRICKS = register("cracked_resin_bricks",
 		Block::new,
