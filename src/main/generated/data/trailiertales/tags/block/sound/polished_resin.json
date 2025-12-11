@@ -1,5 +1,8 @@
 {
   "values": [
-    "trailiertales:polished_resin_block"
+    "trailiertales:polished_resin_block",
+    "trailiertales:polished_resin_stairs",
+    "trailiertales:polished_resin_slab",
+    "trailiertales:polished_resin_wall"
   ]
 }
