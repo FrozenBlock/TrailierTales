@@ -40,6 +40,8 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+			.add(TTBlocks.STONE_WALL)
+
 			.add(TTBlocks.CHISELED_GRANITE_BRICKS)
 			.add(TTBlocks.GRANITE_BRICKS)
 			.add(TTBlocks.CRACKED_GRANITE_BRICKS)
@@ -231,6 +233,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS)
+			.add(TTBlocks.POLISHED_RESIN_STAIRS)
 			.add(TTBlocks.CUT_SANDSTONE_STAIRS)
 			.add(TTBlocks.CUT_RED_SANDSTONE_STAIRS)
 			.add(TTBlocks.CHORAL_END_STONE_STAIRS)
@@ -254,11 +257,13 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB)
+			.add(TTBlocks.POLISHED_RESIN_SLAB)
 			.add(TTBlocks.CHORAL_END_STONE_SLAB)
 			.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB)
 			.add(TTBlocks.END_STONE_SLAB);
 
 		this.getOrCreateTagBuilder(BlockTags.WALLS)
+			.add(TTBlocks.STONE_WALL)
 			.add(TTBlocks.GRANITE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL)
 			.add(TTBlocks.POLISHED_GRANITE_WALL)
@@ -278,6 +283,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL)
+			.add(TTBlocks.POLISHED_RESIN_WALL)
 			.add(TTBlocks.SMOOTH_SANDSTONE_WALL)
 			.add(TTBlocks.CUT_SANDSTONE_WALL)
 			.add(TTBlocks.SMOOTH_RED_SANDSTONE_WALL)
@@ -513,7 +519,7 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.POLISHED_BASALT);
 
 		this.getOrCreateTagBuilder(TTBlockTags.SOUND_POLISHED_RESIN)
-			.add(TTBlocks.POLISHED_RESIN_BLOCK);
+			.add(TTBlocks.POLISHED_RESIN_BLOCK, TTBlocks.POLISHED_RESIN_STAIRS, TTBlocks.POLISHED_RESIN_SLAB, TTBlocks.POLISHED_RESIN_WALL);
 
 		// WILDER WILD
 
@@ -531,6 +537,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+
+		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_wall_replaceable"))
+			.add(TTBlocks.STONE_WALL);
 	}
 
 	@NotNull

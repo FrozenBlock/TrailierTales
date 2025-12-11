@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "trailiertales:block/polished_resin_block",
+    "side": "trailiertales:block/polished_resin_block",
+    "top": "trailiertales:block/polished_resin_block"
+  }
+}

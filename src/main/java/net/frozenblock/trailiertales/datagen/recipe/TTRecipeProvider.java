@@ -126,6 +126,10 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTItems.DAWNTRAIL_SEEDS, "purple_dye");
 				this.oneToOneConversionRecipe(Items.MAGENTA_DYE, TTBlocks.GUZMANIA, "magenta_dye", 2);
 
+				// STONE
+
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.STONE_WALL, Blocks.STONE);
+
 				// GRANITE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_GRANITE_WALL, Blocks.GRANITE);
@@ -373,6 +377,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				// RESIN
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_BLOCK, Blocks.RESIN_BLOCK);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_STAIRS, TTBlocks.POLISHED_RESIN_BLOCK);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_STAIRS, Blocks.RESIN_BLOCK);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_SLAB, TTBlocks.POLISHED_RESIN_BLOCK, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_SLAB, Blocks.RESIN_BLOCK, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_WALL, TTBlocks.POLISHED_RESIN_BLOCK);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_WALL, Blocks.RESIN_BLOCK);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_BLOCK, 4)
 					.define('#', Blocks.RESIN_BLOCK)

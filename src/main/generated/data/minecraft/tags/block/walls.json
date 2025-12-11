@@ -1,5 +1,6 @@
 {
   "values": [
+    "trailiertales:stone_wall",
     "trailiertales:granite_brick_wall",
     "trailiertales:mossy_granite_brick_wall",
     "trailiertales:polished_granite_wall",
@@ -19,6 +20,7 @@
     "trailiertales:mossy_cobbled_deepslate_wall",
     "trailiertales:mossy_deepslate_brick_wall",
     "trailiertales:mossy_deepslate_tile_wall",
+    "trailiertales:polished_resin_wall",
     "trailiertales:smooth_sandstone_wall",
     "trailiertales:cut_sandstone_wall",
     "trailiertales:smooth_red_sandstone_wall",
