@@ -228,6 +228,14 @@ public final class TTBlocks {
 		Blocks.flowerPotProperties().requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
 	);
 
+	// STONE
+
+	public static final Block STONE_WALL = register("stone_wall",
+		WallBlock::new,
+		Properties.ofFullCopy(Blocks.STONE)
+			.requiredFeatures(TTFeatureFlags.FEATURE_FLAG)
+	);
+
 	// GRANITE
 
 	public static final Block POLISHED_GRANITE_WALL = register("polished_granite_wall",

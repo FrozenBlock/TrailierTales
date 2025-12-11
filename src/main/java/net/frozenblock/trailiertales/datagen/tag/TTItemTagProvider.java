@@ -167,6 +167,7 @@ public final class TTItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TTBlocks.END_STONE_SLAB.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.WALLS)
+			.add(TTBlocks.STONE_WALL.asItem())
 			.add(TTBlocks.GRANITE_BRICK_WALL.asItem())
 			.add(TTBlocks.MOSSY_GRANITE_BRICK_WALL.asItem())
 			.add(TTBlocks.DIORITE_BRICK_WALL.asItem())

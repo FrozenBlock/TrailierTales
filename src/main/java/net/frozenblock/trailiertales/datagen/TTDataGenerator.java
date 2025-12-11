@@ -90,6 +90,8 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, TTBlocks.PURPUR_WALL);
 		BlockFamilies.PURPUR.generateRecipe = true;
 
+		BlockFamilies.STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.STONE_WALL);
+
 		BlockFamilies.POLISHED_GRANITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_GRANITE_WALL);
 		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_DIORITE_WALL);
 		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_ANDESITE_WALL);

@@ -57,6 +57,8 @@ Zhen
       - Martyr Armor Trim
       - Zephyr Armor Trim
       - Cot Armor Trim
+      - Updated Chiseled Purpur Block as of 1.2
+      - Updated Ossuare Music Disc as of 1.2
     - Came up with the Surveyor
     - Useful Apparition feedback/ideas
     - Came up with the functionality of the Reaping enchantment
@@ -88,8 +90,8 @@ Voxelotl
       - Fixed the Chiseled Andesite texture
       - Fixed the Chiseled Diorite texture
       - Embrace Armor Trim
-      - Block of Ectoplasm texture
-      - Ossuaire Music Disc Texture
+      - Block of Ectoplasm
+      - Ossuaire Music Disc
       - Resource/Data Pack Icon
 
 Willow/pictochats_:
