@@ -160,7 +160,7 @@ public final class TTCreativeInventorySorting {
 
 		// ITEMS
 		addAfterInSpawnEggs(Items.ALLAY_SPAWN_EGG, TTItems.APPARITION_SPAWN_EGG);
-		addBeforeInIngredients(Items.MAGMA_CREAM, TTItems.ECTOPLASM);
+		addAfterInIngredients(Items.SLIME_BALL, TTItems.ECTOPLASM);
 
 		addAfterInNaturalBlocks(Items.TORCHFLOWER_SEEDS, TTItems.CYAN_ROSE_SEEDS);
 		addAfterInNaturalBlocks(TTItems.CYAN_ROSE_SEEDS, TTItems.DAWNTRAIL_SEEDS);
