@@ -27,6 +27,7 @@ import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.frozenblock.trailiertales.client.renderer.entity.layers.ApparitionLayer;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

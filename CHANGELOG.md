@@ -18,7 +18,7 @@ hi
   - Aggressive: 50 seconds -> 60 seconds
 - Ominous Coffins now only spawn 1 Apparition at a time, instead of 2.
 - Apparitions now drop Ectoplasm upon death more commonly, and is now consistent with other vanilla mobs.
-- Apparitions now must be killed my a player to drop Ectoplasm.
+- Apparitions now must be killed by a player to drop Ectoplasm.
 - The cooldown before an Apparition can pick up another item is now 25 seconds, instead of 15.
 - Apparitions are now always visible when using Night Vision on 1.21.2+.
 - Added a config option to toggle whether Apparitions can pick up items.
@@ -36,4 +36,23 @@ hi
     - A double-tall tropical flower.
   - Lithops
     - A flowerbed-like block, sporting multiple colors of Lithops.
+- Finally added the fabled Stone wall after months of community request.
+- Added Polished Resin Stairs, Slabs, and Walls.
+- Fixed the ordering of Trailier Tales's new Granite, Diorite, and Andesite building blocks in the Creative Inventory in 1.21.2+. ([#25](https://github.com/FrozenBlock/TrailierTales/issues/25))
+- Added the Ectoplasm Block to the `Natural Blocks` tab of the Creative Inventory in 1.21.2+.
+- Changed the ordering of Trailier Tales' new suspicious blocks in the Creative Inventory in 1.21.2+.
+- Fixed the ordering of Trailier Tales' new Resin blocks in the Creative Inventory.
+- Adjusted the placement of Ectoplasm in the Creative Inventory in 1.21.2+.
+
+### Assets
 - Fixed Trailier Tales' crop models floating one pixel above Farmland blocks.
+- Updated the Chiseled, Cracked, and Mossy Calcite Bricks textures.
+- Updated the Chiseled, Cracked, and Mossy Granite Bricks textures.
+- Updated the Cracked, Mossy, and Normal Andesite Bricks textures.
+- Updated the Cracked, Mossy, and Normal Diorite Bricks textures.
+- Updated the Chiseled Purpur Block texture.
+- Updated the Choral End Stone Bricks texture.
+- Updated the Ectoplasm item texture.
+- Updated the Fausse Vie, Ossuaire, and Stasis Music Disc textures.
+- Updated the icon and HUD textures of the Haunt mob effect.
+- Updated the icon of the Transfiguring mob effect.

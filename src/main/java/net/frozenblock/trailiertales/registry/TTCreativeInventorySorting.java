@@ -27,9 +27,10 @@ public final class TTCreativeInventorySorting {
 
 	public static void init() {
 		// BLOCKS
-		addAfterInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_RED_SAND);
-		addAfterInFunctionalBlocks(TTBlocks.SUSPICIOUS_RED_SAND, TTBlocks.SUSPICIOUS_DIRT);
+
+		addBeforeInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_DIRT);
 		addAfterInFunctionalBlocks(TTBlocks.SUSPICIOUS_DIRT, TTBlocks.SUSPICIOUS_CLAY);
+		addAfterInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_RED_SAND);
 
 		addAfterInNaturalBlocks(Blocks.TORCHFLOWER, TTBlocks.CYAN_ROSE);
 		addAfterInNaturalBlocks(Blocks.PITCHER_PLANT, TTBlocks.MANEDROP);
@@ -37,8 +38,10 @@ public final class TTCreativeInventorySorting {
 		addAfterInNaturalBlocks(TTBlocks.GUZMANIA, TTBlocks.LITHOPS);
 		addAfterInNaturalBlocks(Blocks.GLOW_LICHEN, TTBlocks.DAWNTRAIL);
 
+		addAfterInBuildingBlocks(Blocks.STONE_SLAB, TTBlocks.STONE_WALL);
+
 		addAfterInBuildingBlocks(Blocks.POLISHED_GRANITE_SLAB, TTBlocks.POLISHED_GRANITE_WALL);
-		addAfterInBuildingBlocks(Blocks.GRANITE_SLAB, TTBlocks.GRANITE_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_GRANITE_WALL, TTBlocks.GRANITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.GRANITE_BRICKS, TTBlocks.CRACKED_GRANITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.CRACKED_GRANITE_BRICKS, TTBlocks.GRANITE_BRICK_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.GRANITE_BRICK_STAIRS, TTBlocks.GRANITE_BRICK_SLAB);
@@ -50,7 +53,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_GRANITE_BRICK_SLAB, TTBlocks.MOSSY_GRANITE_BRICK_WALL);
 
 		addAfterInBuildingBlocks(Blocks.POLISHED_DIORITE_SLAB, TTBlocks.POLISHED_DIORITE_WALL);
-		addAfterInBuildingBlocks(Blocks.DIORITE_SLAB, TTBlocks.DIORITE_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_DIORITE_WALL, TTBlocks.DIORITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.DIORITE_BRICKS, TTBlocks.CRACKED_DIORITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.CRACKED_DIORITE_BRICKS, TTBlocks.DIORITE_BRICK_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.DIORITE_BRICK_STAIRS, TTBlocks.DIORITE_BRICK_SLAB);
@@ -62,7 +65,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_DIORITE_BRICK_SLAB, TTBlocks.MOSSY_DIORITE_BRICK_WALL);
 
 		addAfterInBuildingBlocks(Blocks.POLISHED_ANDESITE_SLAB, TTBlocks.POLISHED_ANDESITE_WALL);
-		addAfterInBuildingBlocks(Blocks.ANDESITE_SLAB, TTBlocks.ANDESITE_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_ANDESITE_WALL, TTBlocks.ANDESITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.ANDESITE_BRICKS, TTBlocks.CRACKED_ANDESITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.CRACKED_ANDESITE_BRICKS, TTBlocks.ANDESITE_BRICK_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.ANDESITE_BRICK_STAIRS, TTBlocks.ANDESITE_BRICK_SLAB);
@@ -106,6 +109,9 @@ public final class TTCreativeInventorySorting {
 
 		addBeforeInBuildingBlocks(Blocks.RESIN_BRICKS, Blocks.RESIN_BLOCK);
 		addAfterInBuildingBlocks(Blocks.RESIN_BLOCK, TTBlocks.POLISHED_RESIN_BLOCK);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_RESIN_BLOCK, TTBlocks.POLISHED_RESIN_STAIRS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_RESIN_STAIRS, TTBlocks.POLISHED_RESIN_SLAB);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_RESIN_SLAB, TTBlocks.POLISHED_RESIN_WALL);
 		addAfterInBuildingBlocks(Blocks.RESIN_BRICKS, TTBlocks.CRACKED_RESIN_BRICKS);
 		addAfterInBuildingBlocks(Blocks.RESIN_BRICK_WALL, TTBlocks.PALE_MOSSY_RESIN_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.PALE_MOSSY_RESIN_BRICKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS);
@@ -161,10 +167,11 @@ public final class TTCreativeInventorySorting {
 		addAfterInSpawnEggs(Blocks.TRIAL_SPAWNER, TTBlocks.COFFIN);
 		addAfterInRedstone(Blocks.OBSERVER, TTBlocks.SURVEYOR);
 		addAfterInFunctionalBlocks(Blocks.MAGMA_BLOCK, TTBlocks.ECTOPLASM_BLOCK);
+		addAfterInNaturalBlocks(Blocks.HONEY_BLOCK, TTBlocks.ECTOPLASM_BLOCK);
 
 		// ITEMS
 		addAfterInSpawnEggs(Items.ALLAY_SPAWN_EGG, TTItems.APPARITION_SPAWN_EGG);
-		addBeforeInIngredients(Items.MAGMA_CREAM, TTItems.ECTOPLASM);
+		addAfterInIngredients(Items.SLIME_BALL, TTItems.ECTOPLASM);
 
 		addAfterInNaturalBlocks(Items.TORCHFLOWER_SEEDS, TTItems.CYAN_ROSE_SEEDS);
 		addAfterInNaturalBlocks(TTItems.CYAN_ROSE_SEEDS, TTItems.DAWNTRAIL_SEEDS);
@@ -223,6 +230,10 @@ public final class TTCreativeInventorySorting {
 		addAfterInToolsAndUtilities(TTItems.MUSIC_DISC_FAUSSE_VIE, TTItems.MUSIC_DISC_OSSUAIRE);
 	}
 
+	private static void addBeforeInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS);
+	}
+
 	private static void addAfterInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS);
 	}
@@ -237,6 +248,10 @@ public final class TTCreativeInventorySorting {
 
 	private static void addAfterInRedstone(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.REDSTONE_BLOCKS);
+	}
+
+	private static void addBeforeInFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
 	private static void addAfterInFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
