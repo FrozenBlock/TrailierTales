@@ -4,5 +4,8 @@
     "enchantment.trailiertales.rebrush": "重刷",
     "enchantment.trailiertales.rebrush.desc": "有概率保留可疑的方块中未发现的战利品。",
     "enchantment.trailiertales.reaping": "收割",
-    "enchantment.trailiertales.reaping.desc": "受击者死亡后掉落更多经验。"
+    "enchantment.trailiertales.reaping.desc": "受击者死亡后掉落更多经验。",
+    "item.trailiertales.apparition_spawn_egg": "幽灵刷怪蛋",
+    "item.trailiertales.ectoplasm": "灵质",
+    "block.trailiertales.ectoplasm_block": "灵质块"
 }
