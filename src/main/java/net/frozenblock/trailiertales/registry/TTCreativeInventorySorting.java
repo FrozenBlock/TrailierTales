@@ -38,7 +38,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInNaturalBlocks(Blocks.GLOW_LICHEN, TTBlocks.DAWNTRAIL);
 
 		addAfterInBuildingBlocks(Blocks.POLISHED_GRANITE_SLAB, TTBlocks.POLISHED_GRANITE_WALL);
-		addAfterInBuildingBlocks(Blocks.GRANITE_SLAB, TTBlocks.GRANITE_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_GRANITE_WALL, TTBlocks.GRANITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.GRANITE_BRICKS, TTBlocks.CRACKED_GRANITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.CRACKED_GRANITE_BRICKS, TTBlocks.GRANITE_BRICK_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.GRANITE_BRICK_STAIRS, TTBlocks.GRANITE_BRICK_SLAB);
@@ -50,7 +50,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_GRANITE_BRICK_SLAB, TTBlocks.MOSSY_GRANITE_BRICK_WALL);
 
 		addAfterInBuildingBlocks(Blocks.POLISHED_DIORITE_SLAB, TTBlocks.POLISHED_DIORITE_WALL);
-		addAfterInBuildingBlocks(Blocks.DIORITE_SLAB, TTBlocks.DIORITE_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_DIORITE_WALL, TTBlocks.DIORITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.DIORITE_BRICKS, TTBlocks.CRACKED_DIORITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.CRACKED_DIORITE_BRICKS, TTBlocks.DIORITE_BRICK_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.DIORITE_BRICK_STAIRS, TTBlocks.DIORITE_BRICK_SLAB);
@@ -62,7 +62,7 @@ public final class TTCreativeInventorySorting {
 		addAfterInBuildingBlocks(TTBlocks.MOSSY_DIORITE_BRICK_SLAB, TTBlocks.MOSSY_DIORITE_BRICK_WALL);
 
 		addAfterInBuildingBlocks(Blocks.POLISHED_ANDESITE_SLAB, TTBlocks.POLISHED_ANDESITE_WALL);
-		addAfterInBuildingBlocks(Blocks.ANDESITE_SLAB, TTBlocks.ANDESITE_BRICKS);
+		addAfterInBuildingBlocks(TTBlocks.POLISHED_ANDESITE_WALL, TTBlocks.ANDESITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.ANDESITE_BRICKS, TTBlocks.CRACKED_ANDESITE_BRICKS);
 		addAfterInBuildingBlocks(TTBlocks.CRACKED_ANDESITE_BRICKS, TTBlocks.ANDESITE_BRICK_STAIRS);
 		addAfterInBuildingBlocks(TTBlocks.ANDESITE_BRICK_STAIRS, TTBlocks.ANDESITE_BRICK_SLAB);
