@@ -521,6 +521,9 @@ public final class TTBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+
+		this.getOrCreateTagBuilder(getTag("wilderwild:sculk_wall_replaceable"))
+			.add(TTBlocks.STONE_WALL);
 	}
 
 	@NotNull
