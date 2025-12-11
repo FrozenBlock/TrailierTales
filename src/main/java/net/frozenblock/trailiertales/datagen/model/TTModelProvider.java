@@ -105,6 +105,8 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		createEctoplasmBlock(generator);
 
+		generator.family(Blocks.STONE).generateFor(BlockFamilies.STONE);
+
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(TTBlocks.GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_GRANITE_BRICK);
 		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_GRANITE_BRICK);
@@ -133,7 +135,7 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(TTBlocks.CRACKED_BRICKS);
 		generator.family(TTBlocks.MOSSY_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_BRICKS);
 
-		generator.createTrivialCube(TTBlocks.POLISHED_RESIN_BLOCK);
+		generator.family(TTBlocks.POLISHED_RESIN_BLOCK).generateFor(TTBlocks.FAMILY_POLISHED_RESIN);
 		generator.createTrivialCube(TTBlocks.CRACKED_RESIN_BRICKS);
 		generator.family(TTBlocks.PALE_MOSSY_RESIN_BRICKS).generateFor(TTBlocks.FAMILY_PALE_MOSSY_RESIN_BRICKS);
 

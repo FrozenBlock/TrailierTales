@@ -110,7 +110,8 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	protected @Nullable RenderType getRenderType(ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
+	@Nullable
+	protected RenderType getRenderType(ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
 		return null;
 	}
 
