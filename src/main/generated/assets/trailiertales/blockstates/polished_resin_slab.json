@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "trailiertales:block/polished_resin_slab"
+    },
+    "type=double": {
+      "model": "trailiertales:block/polished_resin_block"
+    },
+    "type=top": {
+      "model": "trailiertales:block/polished_resin_slab_top"
+    }
+  }
+}

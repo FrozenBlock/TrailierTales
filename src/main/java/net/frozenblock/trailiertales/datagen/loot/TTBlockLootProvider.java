@@ -192,6 +192,8 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			)
 		);
 
+		this.dropSelf(TTBlocks.STONE_WALL);
+
 		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL);
 		this.dropSelf(TTBlocks.CHISELED_GRANITE_BRICKS);
 		this.dropSelf(TTBlocks.GRANITE_BRICKS);
@@ -259,6 +261,9 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(TTBlocks.MOSSY_BRICK_WALL);
 
 		this.dropSelf(TTBlocks.POLISHED_RESIN_BLOCK);
+		this.dropSelf(TTBlocks.POLISHED_RESIN_STAIRS);
+		this.add(TTBlocks.POLISHED_RESIN_SLAB, this::createSlabItemTable);
+		this.dropSelf(TTBlocks.POLISHED_RESIN_WALL);
 		this.dropSelf(TTBlocks.CRACKED_RESIN_BRICKS);
 		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICKS);
 		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS);
