@@ -192,6 +192,8 @@ public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
 			)
 		);
 
+		this.dropSelf(TTBlocks.STONE_WALL);
+
 		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL);
 		this.dropSelf(TTBlocks.CHISELED_GRANITE_BRICKS);
 		this.dropSelf(TTBlocks.GRANITE_BRICKS);

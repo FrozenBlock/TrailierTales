@@ -115,6 +115,8 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		createEctoplasmBlock(generator);
 
+		generator.family(Blocks.STONE).generateFor(BlockFamilies.STONE);
+
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
 		generator.family(TTBlocks.GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_GRANITE_BRICK);
 		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_GRANITE_BRICK);
