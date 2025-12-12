@@ -121,5 +121,20 @@
     "effect.trailiertales.haunt": "缠魂",
     "effect.trailiertales.siege_omen": "围攻之兆",
     "effect.trailiertales.transfiguring": "显灵",
-    "item.minecraft.potion.effect.transfiguring": "显灵药水"
+    "item.minecraft.potion.effect.transfiguring": "显灵药水",
+    "item.minecraft.splash_potion.effect.transfiguring": "喷溅型显灵药水",
+    "item.minecraft.lingering_potion.effect.transfiguring": "滞留型显灵药水",
+    "item.minecraft.tipped_arrow.effect.transfiguring": "显灵之箭",
+    "filled_map.trailiertales.catacombs": "地下墓穴探险家地图",
+    "item.trailiertales.aurora_pottery_sherd": "极光纹样陶片",
+    "item.trailiertales.bait_pottery_sherd": "鱼饵纹样陶片",
+    "item.trailiertales.bloom_pottery_sherd": "绽放纹样陶片",
+    "item.trailiertales.bolt_pottery_sherd": "闪电纹样陶片",
+    "item.trailiertales.bullseye_pottery_sherd": "靶心纹样陶片",
+    "item.trailiertales.carrier_pottery_sherd": "搬运纹样陶片",
+    "item.trailiertales.cluck_pottery_sherd": "鸡鸣纹样陶片",
+    "item.trailiertales.crawl_pottery_sherd": "爬行纹样陶片",
+    "item.trailiertales.crescent_pottery_sherd": "新月纹样陶片",
+    "item.trailiertales.cultivator_pottery_sherd": "耕作纹样陶片",
+    "item.trailiertales.drought_pottery_sherd": "荒旱纹样陶片"
 }
