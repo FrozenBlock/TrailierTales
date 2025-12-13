@@ -136,5 +136,21 @@
     "item.trailiertales.crawl_pottery_sherd": "爬行纹样陶片",
     "item.trailiertales.crescent_pottery_sherd": "新月纹样陶片",
     "item.trailiertales.cultivator_pottery_sherd": "耕作纹样陶片",
-    "item.trailiertales.drought_pottery_sherd": "荒旱纹样陶片"
+    "item.trailiertales.drought_pottery_sherd": "荒旱纹样陶片",
+    "item.trailiertales.enclosure_pottery_sherd": "围场纹样陶片",
+    "item.trailiertales.essence_pottery_sherd": "灵髓纹样陶片",
+    "item.trailiertales.eye_pottery_sherd": "注视纹样陶片",
+    "item.trailiertales.focus_pottery_sherd": "透镜纹样陶片",
+    "item.trailiertales.frost_pottery_sherd": "冰霜纹样陶片",
+    "item.trailiertales.hare_pottery_sherd": "野兔纹样陶片",
+    "item.trailiertales.height_pottery_sherd": "高地纹样陶片",
+    "item.trailiertales.hump_pottery_sherd": "驼峰纹样陶片",
+    "item.trailiertales.illuminator_pottery_sherd": "光源纹样陶片",
+    "item.trailiertales.incidence_pottery_sherd": "海啸纹样陶片",
+    "item.trailiertales.lumber_pottery_sherd": "木材纹样陶片",
+    "item.trailiertales.navigator_pottery_sherd": "导航纹样陶片",
+    "item.trailiertales.needles_pottery_sherd": "针刺纹样陶片",
+    "item.trailiertales.omen_pottery_sherd": "凶兆纹样陶片",
+    "item.trailiertales.plume_pottery_sherd": "鸟羽纹样陶片",
+    "item.trailiertales.protection_pottery_sherd": "护甲纹样陶片"
 }
