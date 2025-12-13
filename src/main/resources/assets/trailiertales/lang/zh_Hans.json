@@ -178,5 +178,17 @@
     "trim_pattern.trailiertales.embrace": "拥抱盔甲纹饰",
     "block.trailiertales.coffin": "灵柩",
     "container.coffin": "灵柩",
-    "debug.coffin": "灵柩"
+    "debug.coffin": "灵柩",
+    "block.trailiertales.surveyor": "观测器",
+    "tag.trailiertales.brush_enchantable": "可附魔刷子",
+    "block.trailiertales.potted_cyan_rose": "青色玫瑰盆栽",
+    "block.trailiertales.cyan_rose": "青色玫瑰",
+    "item.trailiertales.cyan_rose_seeds": "青色玫瑰种子",
+    "block.trailiertales.cyan_rose_crop": "青色玫瑰植株",
+    "block.trailiertales.manedrop": "鬃落草",
+    "block.trailiertales.manedrop_crop": "鬃落草植株",
+    "item.trailiertales.manedrop_germ": "鬃落草胚芽",
+    "block.trailiertales.guzmania": "星花凤梨",
+    "block.trailiertales.guzmania_crop": "星花凤梨植株",
+    "item.trailiertales.guzmania_seeds": "星花凤梨种子"
 }
