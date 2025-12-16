@@ -35,5 +35,14 @@
     "block.trailiertales.mossy_deepslate_tiles": "Zamszone łupkowe kafelki",
     "block.trailiertales.mossy_deepslate_tile_stairs": "Zamszone łupkowe kafelkowe schody",
     "block.trailiertales.mossy_deepslate_tile_slab": "Zamszona łupkowa kafelkowa płyta",
-    "block.trailiertales.mossy_deepslate_tile_wall": "Zamszony łupkowy kafelkowy murek"
+    "block.trailiertales.mossy_deepslate_tile_wall": "Zamszony łupkowy kafelkowy murek",
+    "entity.trailiertales.apparition": "Zjawa",
+    "entity.trailiertales.damaging_throwable_item_projectile": "Rzucony przedmiot",
+    "effect.trailiertales.haunt": "Nawiedzenie",
+    "effect.trailiertales.siege_omen": "Omen oblężenia",
+    "effect.trailiertales.transfiguring": "Przeistoczenie",
+    "item.minecraft.potion.effect.transfiguring": "Mikstura przeistoczenia",
+    "item.minecraft.splash_potion.effect.transfiguring": "Miotana mikstura przeistoczenia",
+    "item.minecraft.lingering_potion.effect.transfiguring": "Trwała mikstura przeistoczenia",
+    "item.minecraft.tipped_arrow.effect.transfiguring": "Strzała przeistoczenia"
 }
