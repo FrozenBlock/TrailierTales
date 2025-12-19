@@ -1,7 +1,8 @@
 {
    "pack": {
-     "pack_format": 34,
-     "supported_formats": {"min_inclusive": 34, "max_inclusive": 100},
+     "pack_format": 89,
+     "min_format": 89,
+     "max_format": 130,
      "description": "Catacombs have End Portals and replace Strongholds"
    }
 }

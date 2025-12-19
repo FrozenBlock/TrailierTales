@@ -23,7 +23,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.LightmapRenderStateExtractor;
+import net.minecraft.client.renderer.state.LightmapRenderState;
 import net.minecraft.world.effect.MobEffectInstance;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +32,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LightTexture.class)
+@Mixin(LightmapRenderStateExtractor.class)
 public class LightTextureMixin {
 
 	@Shadow
@@ -39,10 +40,10 @@ public class LightTextureMixin {
 	private Minecraft minecraft;
 
 	@ModifyExpressionValue(
-		method = "updateLightTexture",
+		method = "extract",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getEffectBlendFactor(Lnet/minecraft/core/Holder;F)F")
 	)
-	private float trailierTales$modifyDarknessGamma(float darknessGamma, float tickDelta) {
+	private float trailierTales$modifyDarknessGamma(float darknessGamma, LightmapRenderState renderState, float tickDelta) {
 		final MobEffectInstance hauntInstance = this.minecraft.player.getEffect(TTMobEffects.HAUNT);
 		if (hauntInstance != null && TTEntityConfig.HAUNTED_LIGHTMAP) return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, tickDelta) * 0.67F, darknessGamma);
 		return darknessGamma;

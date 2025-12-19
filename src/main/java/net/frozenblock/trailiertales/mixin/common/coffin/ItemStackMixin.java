@@ -30,7 +30,7 @@ public class ItemStackMixin {
 		method = "addDetailsToTooltip",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z",
+			target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		)
 	)

@@ -17,7 +17,8 @@
 
 package net.frozenblock.trailiertales.mixin.common.lithium;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+// TODO: re-enable when lithium is unobfuscated
+/*import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -53,3 +54,4 @@ public class LithiumEntityCollisionsMixin {
 	}
 
 }
+*/

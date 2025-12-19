@@ -48,7 +48,6 @@ import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.registry.TTStructurePieceTypes;
 import net.frozenblock.trailiertales.registry.TTStructureTypes;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
-import net.frozenblock.trailiertales.registry.TTVillagerTrades;
 import net.frozenblock.trailiertales.worldgen.TTBiomeModifications;
 
 public class TrailierTales extends FrozenModInitializer {
@@ -86,7 +85,8 @@ public class TrailierTales extends FrozenModInitializer {
 		TTPotions.init();
 		TTJukeboxSongs.init();
 		TTRuleBlockEntityModifiers.init();
-		TTVillagerTrades.init();
+		//TODO port villager trades
+		//TTVillagerTrades.init();
 		TTNetworking.init();
 		TTDebugSubscriptions.init();
 

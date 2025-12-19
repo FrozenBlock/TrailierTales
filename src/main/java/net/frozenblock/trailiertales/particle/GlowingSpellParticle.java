@@ -41,7 +41,7 @@ public class GlowingSpellParticle extends SpellParticle {
 	}
 
 	@Override
-	protected int getLightColor(float tint) {
+	protected int getLightCoords(float tint) {
 		return 240;
 	}
 

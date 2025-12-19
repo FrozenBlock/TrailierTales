@@ -217,7 +217,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		final BlockState neighborState = level.getBlockState(neighborPos);
 		if (neighborState.is(state.getBlock())) level.blockEvent(neighborPos, state.getBlock(), 1, 0);
 
-		level.playSound(null, pos, TTSounds.COFFIN_WOBBLE, SoundSource.BLOCKS, 0.5F, 0.9F + level.random.nextFloat() * 0.2F);
+		level.playSound(null, pos, TTSounds.COFFIN_WOBBLE, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 		level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 	}
 

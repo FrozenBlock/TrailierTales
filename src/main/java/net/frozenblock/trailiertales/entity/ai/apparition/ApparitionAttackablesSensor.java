@@ -38,7 +38,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	private boolean isHostileTarget(LivingEntity entity) {
-		return entity.getType().is(TTEntityTags.APPARITION_TARGETABLE);
+		return entity.is(TTEntityTags.APPARITION_TARGETABLE);
 	}
 
 	private boolean isClose(LivingEntity apparition, LivingEntity target) {

@@ -46,12 +46,12 @@
   "mixins": [
     "trailiertales.mixins.json"
   ],
-  "accessWidener": "trailiertales.accesswidener",
+  "accessWidener": "trailiertales.classtweaker",
   "depends": {
     "frozenlib": "${frozenlib_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
-    "java": ">=21"
+    "java": ">=25"
   },
   "suggests": {
     "cloth-config": "*",

@@ -168,7 +168,7 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 		seeds.setCount(availableFaces(state).size());
 		popResource(level, pos, seeds);
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-		level.playSound(null, pos, TTSounds.DAWNTRAIL_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+		level.playSound(null, pos, TTSounds.DAWNTRAIL_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
 		level.gameEvent(player, GameEvent.SHEAR, pos);
 	}
 

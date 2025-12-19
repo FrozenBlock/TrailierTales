@@ -60,7 +60,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				&& newTarget != null
 				&& mob.getType() != TTEntityTypes.APPARITION
 				&& !mob.getType().getCategory().isFriendly()
-				&& !mob.getType().is(ConventionalEntityTypeTags.BOSSES)
+				&& !mob.is(ConventionalEntityTypeTags.BOSSES)
 				&& !takenUUIDs.contains(mob.getUUID())
 		) {
 			final Brain<Apparition> brain = apparition.getBrain();

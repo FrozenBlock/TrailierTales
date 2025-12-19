@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -55,13 +54,10 @@ public final class TTBlockConfig {
 	public static volatile boolean SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = true;
 	public static volatile boolean SUSPICIOUS_BLOCK_PARTICLES = false;
 
-	@CollapsibleObject
 	public final SuspiciousBlocks suspiciousBlocks = new SuspiciousBlocks();
 
-	@CollapsibleObject
 	public final Coffin coffin = new Coffin();
 
-	@CollapsibleObject
 	public final BlockSounds blockSounds = new BlockSounds();
 
 	public static class SuspiciousBlocks {

@@ -17,7 +17,8 @@
 
 package net.frozenblock.trailiertales.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+// TODO port villager trades to datagen
+/*import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
@@ -44,3 +45,4 @@ public final class TTVillagerTrades {
 		);
 	}
 }
+*/

@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -58,7 +57,6 @@ public final class TTItemConfig {
 	@EntrySyncData(value = "sherd_duplication_recipe")
 	public boolean sherd_duplication_recipe = false;
 
-	@CollapsibleObject
 	public final Brush brush = new Brush();
 
 	public static class Brush {

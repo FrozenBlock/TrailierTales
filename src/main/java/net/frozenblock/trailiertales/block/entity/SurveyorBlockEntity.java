@@ -147,7 +147,7 @@ public class SurveyorBlockEntity extends BlockEntity {
 					final HitResult hitResult = ProjectileUtil.getHitResult(
 						closestPoint,
 						player,
-						EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible() && !entity.getType().is(TTEntityTags.SURVEYOR_IGNORES)),
+						EntitySelector.NO_SPECTATORS.and(entity -> !entity.isInvisible() && !entity.is(TTEntityTags.SURVEYOR_IGNORES)),
 						surveyorCenterPos.subtract(closestPoint),
 						level,
 						0F,

@@ -65,7 +65,7 @@ public class TransfiguringMobEffect extends MobEffect {
 			TTSounds.APPARITION_VANISH,
 			SoundSource.HOSTILE,
 			0.6F,
-			0.9F + (entity.level().random.nextFloat() * 0.2F)
+			0.9F + (entity.level().getRandom().nextFloat() * 0.2F)
 		);
 		apparition.dropItem();
 		entity.remove(Entity.RemovalReason.DISCARDED);

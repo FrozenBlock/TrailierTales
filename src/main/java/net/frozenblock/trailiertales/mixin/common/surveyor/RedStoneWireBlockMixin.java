@@ -20,7 +20,6 @@ package net.frozenblock.trailiertales.mixin.common.surveyor;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +33,7 @@ public class RedStoneWireBlockMixin {
 		method = "shouldConnectTo(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		slice = @Slice(
@@ -44,7 +43,7 @@ public class RedStoneWireBlockMixin {
 			)
 		)
 	)
-	private static boolean trailierTales$shouldConnectTo(BlockState instance, Block block, Operation<Boolean> original) {
+	private static boolean trailierTales$shouldConnectTo(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block) || instance.is(TTBlocks.SURVEYOR);
 	}
 

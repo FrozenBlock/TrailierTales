@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -64,13 +63,10 @@ public final class TTWorldgenConfig {
 	public static volatile boolean GENERATE_BADLANDS_RUINS = true;
 	public static volatile boolean GENERATE_DEEPSLATE_RUINS = true;
 
-	@CollapsibleObject
 	public final Ruins ruins = new Ruins();
 
-	@CollapsibleObject
 	public final Vegetation vegetation = new Vegetation();
 
-	@CollapsibleObject
 	public final EndCity endCity = new EndCity();
 
 	@EntrySyncData("catacombs")

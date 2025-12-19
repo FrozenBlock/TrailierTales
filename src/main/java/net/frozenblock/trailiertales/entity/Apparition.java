@@ -633,7 +633,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
-			&& entity.getType().is(TTEntityTags.APPARITION_TARGETABLE)
+			&& entity.is(TTEntityTags.APPARITION_TARGETABLE)
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()

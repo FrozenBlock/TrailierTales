@@ -110,7 +110,7 @@ public enum CoffinWobbleEvent {
 					CoffinBlock.spawnParticlesFrom(
 						level,
 						ParticleTypes.DUST_PLUME,
-						level.random.nextInt(8, 14),
+						level.getRandom().nextInt(8, 14),
 						0.02D,
 						orientation,
 						pos,
@@ -127,7 +127,7 @@ public enum CoffinWobbleEvent {
 
 	private static void ejectRandomItem(ServerLevel level, Vec3 centerPos, CoffinBlockEntity coffin) {
 		coffin.unpackLootTable(null);
-		for (ItemStack coffinStack : Util.shuffledCopy(coffin.getItems().toArray(new ItemStack[0]), level.random)) {
+		for (ItemStack coffinStack : Util.shuffledCopy(coffin.getItems().toArray(new ItemStack[0]), level.getRandom())) {
 			if (coffinStack.isEmpty()) continue;
 
 			final ItemStack splitStack = coffinStack.split(1);

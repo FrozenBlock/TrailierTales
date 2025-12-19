@@ -84,7 +84,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	private static CoffinSpawnerState getInactiveState(BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		if (!coffinSpawnerData.hasMobToSpawn(level.random) || coffinSpawnerData.isOnCooldown(level)) return getCooldownOrInactiveState(level, spawner);
+		if (!coffinSpawnerData.hasMobToSpawn(level.getRandom()) || coffinSpawnerData.isOnCooldown(level)) return getCooldownOrInactiveState(level, spawner);
 
 		final Direction direction = CoffinBlock.getConnectedDirection(state);
 		coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
@@ -95,7 +95,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	private static CoffinSpawnerState activeTickAndGetNext(CoffinSpawnerState spawnerState, BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		final CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
-		if (!coffinSpawnerData.hasMobToSpawn(level.random)) return getCooldownOrInactiveState(level, spawner);
+		if (!coffinSpawnerData.hasMobToSpawn(level.getRandom())) return getCooldownOrInactiveState(level, spawner);
 
 		final Direction direction = CoffinBlock.getConnectedDirection(state);
 		coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
@@ -108,7 +108,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		if (!spawnerState.finalWave && !coffinSpawnerData.isPowerCooldownFinished(level) && coffinSpawnerData.power >= coffinSpawnerConfig.powerForNextLevel()) {
 			coffinSpawnerData.powerCooldownEndsAt = level.getGameTime() + (long)spawner.getPowerCooldownLength();
 			coffinSpawnerData.power = spawnerState == AGGRESSIVE ? spawner.getConfig().powerForNextLevel() : coffinSpawnerData.power;
-			level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.random.nextFloat() * 0.2F));
+			level.playSound(null, pos, TTSounds.COFFIN_INCREASE_POWER, SoundSource.BLOCKS, 0.5F, 0.9F + (level.getRandom().nextFloat() * 0.2F));
 			return spawnerState.getNextPowerState();
 		}
 
@@ -141,11 +141,11 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	public void emitParticles(ServerLevel level, BlockPos pos, Direction coffinOrientation) {
 		this.getParticleOptionsForState().ifPresent(options -> {
-			if (level.random.nextFloat() > 0.05F) return;
+			if (level.getRandom().nextFloat() > 0.05F) return;
 			CoffinBlock.spawnParticlesFrom(
 				level,
 				options,
-				level.random.nextInt(1, 2),
+				level.getRandom().nextInt(1, 2),
 				0.5D,
 				coffinOrientation,
 				pos,

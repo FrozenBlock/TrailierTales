@@ -17,7 +17,8 @@
 
 package net.frozenblock.trailiertales.config.modmenu;
 
-import me.shedaniel.clothconfig2.api.ConfigBuilder;
+// TODO: re-enable when cloth config is unobfuscated
+/*import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -68,3 +69,4 @@ public class ConfigGuiBuilder {
 		return configBuilder.build();
 	}
 }
+*/

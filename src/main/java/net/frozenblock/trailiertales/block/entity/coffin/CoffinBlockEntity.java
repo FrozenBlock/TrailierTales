@@ -203,7 +203,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 				CoffinBlock.spawnParticlesFrom(
 					serverLevel,
 					particleOptions,
-					this.level.random.nextInt(1, 5),
+					this.level.getRandom().nextInt(1, 5),
 					0.5D,
 					coffinOrientation,
 					finalPos,
@@ -213,7 +213,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			CoffinBlock.spawnParticlesFrom(
 				serverLevel,
 				TTParticleTypes.COFFIN_SOUL_ENTER,
-				this.level.random.nextInt(1, 2),
+				this.level.getRandom().nextInt(1, 2),
 				0D,
 				coffinOrientation,
 				finalPos,
@@ -252,9 +252,9 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			this.wobbleStartedAtTick = this.level.getGameTime();
 			if (this.level instanceof ServerLevel serverLevel
 				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
-				&& this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.random)
+				&& this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.getRandom())
 			) {
-				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.random);
+				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.getRandom());
 			}
 			return true;
 		}

@@ -307,7 +307,7 @@ public class CoffinSpawnerData {
 		}
 
 		if (this.detectedPlayers.addAll(detectedList)) {
-			final RandomSource random = level.random;
+			final RandomSource random = level.getRandom();
 			CoffinBlock.spawnParticlesFrom(level, TTParticleTypes.COFFIN_SOUL, 8 + Math.min(this.countAdditionalPlayers() * 3, 15), 0.015D, direction, pos, 0.45D);
 			level.playSound(null, pos, TTSounds.COFFIN_DETECT_PLAYER, SoundSource.BLOCKS, 2F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1F);
 		}

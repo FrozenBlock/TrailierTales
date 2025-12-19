@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -56,16 +55,12 @@ public final class TTEntityConfig {
 	public static volatile boolean HAUNTED_SOUNDS = true;
 	public static volatile boolean HAUNTED_HUD = true;
 
-	@CollapsibleObject
 	public final Apparition apparition = new Apparition();
 
-	@CollapsibleObject
 	public final Sniffer sniffer = new Sniffer();
 
-	@CollapsibleObject
 	public final Villager villager = new Villager();
 
-	@CollapsibleObject
 	public final ArmorStand armorStand = new ArmorStand();
 
 	public static class Apparition {
