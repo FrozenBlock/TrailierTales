@@ -231,5 +231,10 @@
     "advancements.adventure.tomb_raider.description": "Postaw nogę w katakumbach",
     "advancements.adventure.walk_in_ectoplasm_block.title": "To mały krok dla człowieka...",
     "advancements.adventure.walk_in_ectoplasm_block.description": "Doznaj nieważkości w bloku ektoplazmy",
-    "option.trailiertales.component.title": "Opcje moda Trailer Tales"
+    "option.trailiertales.component.title": "Opcje moda Trailer Tales",
+    "enchantment.trailiertales.rebrush": "Rzetelność",
+    "option.trailiertales.block": "Bloki",
+    "option.trailiertales.suspicious_blocks": "Podejrzane bloki",
+    "tooltip.trailiertales.suspicious_blocks": "Opcje dotyczące podejrzanych bloków.",
+    "option.trailiertales.smooth_suspicious_blocks": "Płynne animacje"
 }
