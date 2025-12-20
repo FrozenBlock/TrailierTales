@@ -236,5 +236,8 @@
     "option.trailiertales.block": "Bloki",
     "option.trailiertales.suspicious_blocks": "Podejrzane bloki",
     "tooltip.trailiertales.suspicious_blocks": "Opcje dotyczące podejrzanych bloków.",
-    "option.trailiertales.smooth_suspicious_blocks": "Płynne animacje"
+    "option.trailiertales.smooth_suspicious_blocks": "Płynne animacje",
+    "tooltip.trailiertales.smooth_suspicious_blocks": "Czy podejrzane bloki powinny używać płynniejszych animacji.",
+    "option.trailiertales.suspicious_block_particles": "Podejrzane bloki - dostępność",
+    "tooltip.trailiertales.suspicious_block_particles": "Czy podczas trzymania pędzla powinny pojawiać się cząstki wiodące do podejrzanych bloków.\nMa to na celu ułatwienie korzystania z archeologii osobów z problemami wzroku."
 }
