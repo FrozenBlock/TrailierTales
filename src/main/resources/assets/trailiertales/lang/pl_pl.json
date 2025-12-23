@@ -217,7 +217,7 @@
     "subtitles.block.coffin.ambient": "Dusze chrzęszczą",
     "subtitles.block.coffin.detect_player": "Trumna ożywa",
     "subtitles.block.coffin.increase_power": "Aura trumny nasila się",
-    "subtitles.block.coffin.wobble": "Trumna drże",
+    "subtitles.block.coffin.wobble": "Trumna trzęsie się",
     "subtitles.event.mob_effect.siege_omen": "Majaczenie złowieszczego oblężenia",
     "subtitles.entity.apparition.idle": "Zjawa wisi",
     "subtitles.entity.apparition.hurt": "Zjawa cierpi",
@@ -239,5 +239,16 @@
     "option.trailiertales.smooth_suspicious_blocks": "Płynne animacje",
     "tooltip.trailiertales.smooth_suspicious_blocks": "Czy podejrzane bloki powinny używać płynniejszych animacji.",
     "option.trailiertales.suspicious_block_particles": "Podejrzane bloki - dostępność",
-    "tooltip.trailiertales.suspicious_block_particles": "Czy podczas trzymania pędzla powinny pojawiać się cząstki wiodące do podejrzanych bloków.\nMa to na celu ułatwienie korzystania z archeologii osobów z problemami wzroku."
+    "tooltip.trailiertales.suspicious_block_particles": "Czy podczas trzymania pędzla powinny pojawiać się cząstki wiodące do podejrzanych bloków.\nMa to na celu ułatwienie korzystania z archeologii osobów z problemami wzroku.",
+    "option.trailiertales.place_items_in_suspicious_blocks": "Umieszczanie przedmiotów",
+    "tooltip.trailiertales.place_items_in_suspicious_blocks": "Czy przedmioty mogą być umieszczane w pustych podejrzanych blokach.",
+    "option.trailiertales.coffin": "Trumna",
+    "tooltip.trailiertales.coffin": "Opcje dotyczące trumien.",
+    "option.trailiertales.ignore_do_mob_spawning_gamerule": "Ignoruj doMobSpawning",
+    "tooltip.trailiertales.ignore_do_mob_spawning_gamerule": "Czy trumny powinny ignorować zasadę gry „doMobSpawnig”.",
+    "option.trailiertales.coffin_wobble": "Potrząśnięcie",
+    "tooltip.trailiertales.coffin_wobble": "Czy gracze mogą potrząść trumną poprzez kliknięcie.",
+    "option.trailiertales.coffin_wobble_activate": "Aktywacja po potrząsieniu",
+    "tooltip.trailiertales.coffin_wobble_activate": "Czy potrząśnięcie trumną może przywołać zjawę i aktywować trumnę.",
+    "option.trailiertales.coffin_wobble_experience_bottle": "Zaklęte butelki"
 }
