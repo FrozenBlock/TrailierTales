@@ -374,5 +374,9 @@
     "option.trailiertales.chiseled_end_city": "Rzeźbione bloki",
     "tooltip.trailiertales.chiseled_end_city": "Czy stosować rzeźbione bloki purpuru podczas generowania miast endu.",
     "option.trailiertales.misc": "Różne",
-    "option.trailiertales.modify_advancements": "Zmodyfikuj postępy"
+    "option.trailiertales.modify_advancements": "Zmodyfikuj postępy",
+    "tooltip.trailiertales.modify_advancements": "Czy postępy powinny być rozszerzone o wymagania z moda Trailier Tales.\nWyłącz w razie problemów ze zgodnością.",
+    "option.trailiertales.distorted_catacombs_music": "Zniekształcona muzyka katakumb",
+    "tooltip.trailiertales.distorted_catacombs_music": "Czy zniekształcona muzyka powinna być odtwarzana w katakumbach.",
+    "pack.trailiertales.strongholds_to_catacombs": "Zamień twierdze na katakumby"
 }
