@@ -24,7 +24,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 
 public class TTNetworking {
 	public static void init() {
-		final PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.playS2C();
+		final PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.clientboundPlay();
 		registry.register(CoffinDebugPacket.PACKET_TYPE, CoffinDebugPacket.CODEC);
 		registry.register(CoffinRemoveDebugPacket.PACKET_TYPE, CoffinRemoveDebugPacket.CODEC);
 	}

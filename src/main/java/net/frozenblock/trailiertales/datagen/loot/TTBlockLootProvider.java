@@ -18,8 +18,8 @@
 package net.frozenblock.trailiertales.datagen.loot;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
 import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
@@ -36,9 +36,9 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-public final class TTBlockLootProvider extends FabricBlockLootTableProvider {
+public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 
-	public TTBlockLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTBlockLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
 		super(dataOutput, registries);
 	}
 

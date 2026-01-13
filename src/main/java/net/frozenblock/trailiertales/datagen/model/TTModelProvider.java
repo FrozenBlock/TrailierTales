@@ -26,7 +26,7 @@ import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
 import net.frozenblock.trailiertales.block.DawntrailCropBlock;
@@ -79,7 +79,7 @@ public final class TTModelProvider extends FabricModelProvider {
 	private static final ModelTemplate COFFIN_INVENTORY = createItem("template_coffin", TextureSlot.PARTICLE);
 	public static final ModelTemplate CROP_CROSS = create("template_crop_cross", TextureSlot.CROSS);
 
-	public TTModelProvider(FabricDataOutput output) {
+	public TTModelProvider(FabricPackOutput output) {
 		super(output);
 	}
 

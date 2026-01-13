@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.datagen.advancement;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class TTAdvancementProvider extends FabricAdvancementProvider {
 
-	public TTAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

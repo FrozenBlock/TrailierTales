@@ -18,17 +18,17 @@
 package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 
-public final class TTEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
+public final class TTEntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider {
 
-	public TTEntityTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTEntityTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

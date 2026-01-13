@@ -19,8 +19,8 @@ package net.frozenblock.trailiertales.datagen.loot;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTLootTables;
 import net.minecraft.core.HolderLookup;
@@ -36,11 +36,11 @@ import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class TTArchaeologyLootProvider extends SimpleFabricLootTableProvider {
+public class TTArchaeologyLootProvider extends SimpleFabricLootTableSubProvider {
 
 	private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
-	public TTArchaeologyLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public TTArchaeologyLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup, LootContextParamSets.ARCHAEOLOGY);
 		this.registryLookup = registryLookup;
 	}

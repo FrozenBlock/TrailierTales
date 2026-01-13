@@ -17,7 +17,7 @@
 
 package net.frozenblock.trailiertales.registry;
 
-import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
+import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -34,7 +34,7 @@ public final class TTPotions {
 	);
 
 	public static void init() {
-		FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
+		FabricPotionBrewingBuilder.BUILD.register(builder -> {
 			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(TTItems.ECTOPLASM), TRANSFIGURING);
 		});
 	}

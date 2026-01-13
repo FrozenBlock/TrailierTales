@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
 import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
 import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
@@ -31,7 +31,7 @@ import net.minecraft.client.particle.SoulParticle;
 public class TTParticleEngine {
 
 	public static void init() {
-		final ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
+		final ParticleProviderRegistry particleRegistry = ParticleProviderRegistry.getInstance();
 
 		particleRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
 		particleRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);

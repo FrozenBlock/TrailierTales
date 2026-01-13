@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
@@ -29,7 +29,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 public final class TTEnchantmentTagProvider extends EnchantmentTagsProvider {
 
-	public TTEnchantmentTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTEnchantmentTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

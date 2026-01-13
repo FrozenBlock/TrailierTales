@@ -18,13 +18,13 @@
 package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.GameEventTagsProvider;
 
 public final class TTGameEventTagProvider extends GameEventTagsProvider {
 
-	public TTGameEventTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTGameEventTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

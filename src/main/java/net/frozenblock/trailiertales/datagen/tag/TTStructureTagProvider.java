@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.core.HolderLookup;
@@ -26,7 +26,7 @@ import net.minecraft.data.tags.StructureTagsProvider;
 
 public final class TTStructureTagProvider extends StructureTagsProvider {
 
-	public TTStructureTagProvider(FabricDataOutput output, CompletableFuture registries) {
+	public TTStructureTagProvider(FabricPackOutput output, CompletableFuture registries) {
 		super(output, registries);
 	}
 

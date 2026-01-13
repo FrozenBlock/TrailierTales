@@ -39,7 +39,7 @@ public final class TTBiomeModifications {
 				BiomeSelectors.all(),
 				((biomeSelectionContext, context) -> {
 					final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-					final BiomeModificationContext.SpawnSettingsContext spawnSettings = context.getSpawnSettings();
+					final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = context.getMobSpawnSettings();
 					final TTWorldgenConfig worldgenConfig = TTWorldgenConfig.get();
 
 					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {

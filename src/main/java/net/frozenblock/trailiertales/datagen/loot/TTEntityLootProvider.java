@@ -19,8 +19,8 @@ package net.frozenblock.trailiertales.datagen.loot;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.HolderLookup;
@@ -35,10 +35,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class TTEntityLootProvider extends SimpleFabricLootTableProvider {
+public class TTEntityLootProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
 
-	public TTEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTEntityLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, LootContextParamSets.ENTITY);
 		this.registries = registries;
 	}

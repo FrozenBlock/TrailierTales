@@ -38,9 +38,9 @@ public final class TTBlockEntityTypes {
 		TTConstants.log("Registering BlockEntities for Trailier Tales.", TTConstants.UNSTABLE_LOGGING);
 
 		final FabricBlockEntityType brushableBlock = BlockEntityType.BRUSHABLE_BLOCK;
-		brushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_DIRT);
-		brushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_CLAY);
-		brushableBlock.addSupportedBlock(TTBlocks.SUSPICIOUS_RED_SAND);
+		brushableBlock.addValidBlock(TTBlocks.SUSPICIOUS_DIRT);
+		brushableBlock.addValidBlock(TTBlocks.SUSPICIOUS_CLAY);
+		brushableBlock.addValidBlock(TTBlocks.SUSPICIOUS_RED_SAND);
 	}
 
 	private static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {

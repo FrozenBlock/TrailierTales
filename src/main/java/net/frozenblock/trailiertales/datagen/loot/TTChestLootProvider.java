@@ -19,8 +19,8 @@ package net.frozenblock.trailiertales.datagen.loot;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTLootTables;
@@ -46,11 +46,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class TTChestLootProvider extends SimpleFabricLootTableProvider {
+public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 
 	private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
-	public TTChestLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public TTChestLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup, LootContextParamSets.CHEST);
 		this.registryLookup = registryLookup;
 	}

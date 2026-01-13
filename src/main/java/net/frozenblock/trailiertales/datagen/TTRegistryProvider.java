@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.datagen;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.HolderGetter;
@@ -27,7 +27,7 @@ import net.minecraft.core.registries.Registries;
 
 final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 
-	TTRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	TTRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 

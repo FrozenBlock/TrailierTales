@@ -19,8 +19,8 @@ package net.frozenblock.trailiertales.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.client.model.ApparitionModel;
 import net.frozenblock.trailiertales.client.model.BoatBannerModel;
@@ -43,15 +43,15 @@ public class TTModelLayers {
 
 	public static void init() {
 		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN, CoffinRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinModel::createLayerDefinition);
-		EntityModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinModel::createLayerDefinition);
+		ModelLayerRegistry.registerModelLayer(COFFIN_HEAD, CoffinModel::createLayerDefinition);
+		ModelLayerRegistry.registerModelLayer(COFFIN_FOOT, CoffinModel::createLayerDefinition);
 
 		EntityRendererRegistry.register(TTEntityTypes.APPARITION, ApparitionRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
-		EntityModelLayerRegistry.registerModelLayer(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(APPARITION, ApparitionModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
 
 		EntityRendererRegistry.register(TTEntityTypes.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
-		EntityModelLayerRegistry.registerModelLayer(BOAT_BANNER, BoatBannerModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(BOAT_BANNER, BoatBannerModel::createBodyLayer);
 	}
 }

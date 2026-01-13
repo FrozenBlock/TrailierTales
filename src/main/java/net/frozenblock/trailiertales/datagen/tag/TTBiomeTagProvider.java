@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.frozenblock.lib.datagen.api.FrozenBiomeTagProvider;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
@@ -32,7 +32,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
 
-	public TTBiomeTagProvider(FabricDataOutput output, CompletableFuture registries) {
+	public TTBiomeTagProvider(FabricPackOutput output, CompletableFuture registries) {
 		super(output, registries);
 	}
 
