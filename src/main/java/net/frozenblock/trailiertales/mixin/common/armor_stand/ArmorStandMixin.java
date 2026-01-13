@@ -19,6 +19,7 @@ package net.frozenblock.trailiertales.mixin.common.armor_stand;
 
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,7 +45,8 @@ public class ArmorStandMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/world/entity/decoration/ArmorStand;DATA_CLIENT_FLAGS:Lnet/minecraft/network/syncher/EntityDataAccessor;"
+				target = "Lnet/minecraft/world/entity/decoration/ArmorStand;DATA_CLIENT_FLAGS:Lnet/minecraft/network/syncher/EntityDataAccessor;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)

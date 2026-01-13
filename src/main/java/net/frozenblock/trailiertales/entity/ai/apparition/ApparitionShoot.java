@@ -55,20 +55,20 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, Apparition apparition, long l) {
+	protected boolean canStillUse(ServerLevel level, Apparition apparition, long timestamp) {
 		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
 			&& !apparition.getInventory().getItems().getFirst().isEmpty();
 	}
 
 	@Override
-	protected void start(ServerLevel level, Apparition apparition, long l) {
+	protected void start(ServerLevel level, Apparition apparition, long timestamp) {
 		apparition.playSound(TTSounds.APPARITION_HOLDING_ITEM, apparition.getSoundVolume(), apparition.getVoicePitch());
 		apparition.setAggressive(true);
 		apparition.setPoltergeistAnimProgress(1F);
 	}
 
 	@Override
-	protected void stop(ServerLevel level, Apparition apparition, long l) {
+	protected void stop(ServerLevel level, Apparition apparition, long timestamp) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		apparition.setAggressive(false);
 		brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME);
@@ -81,7 +81,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Apparition apparition, long l) {
+	protected void tick(ServerLevel level, Apparition apparition, long timestamp) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity == null) return;
@@ -161,7 +161,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 				if (chargingTicks++ >= 20) {
 					chargingTicks = 0;
 					apparition.performRangedAttack(livingEntity, 0.3F + (apparition.getRandom().nextFloat() * 1.4F));
-					this.doStop(level, apparition, l);
+					this.doStop(level, apparition, timestamp);
 				}
 			}
 		} else if (seeTime >= -60) {

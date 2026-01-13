@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -97,7 +98,8 @@ public class GuiMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;"
+				target = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)
@@ -119,7 +121,8 @@ public class GuiMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;"
+				target = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)
@@ -226,7 +229,8 @@ public class GuiMixin {
 		method = "renderArmor",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/gui/Gui;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/Identifier;"
+			target = "Lnet/minecraft/client/gui/Gui;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/Identifier;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	private static Identifier trailierTales$hauntedFullArmor(Identifier original) {
@@ -237,7 +241,8 @@ public class GuiMixin {
 		method = "renderArmor",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/gui/Gui;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/Identifier;"
+			target = "Lnet/minecraft/client/gui/Gui;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/Identifier;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	private static Identifier trailierTales$hauntedHalfArmor(Identifier original) {
@@ -339,7 +344,8 @@ public class GuiMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/client/gui/Gui;AIR_SPRITE:Lnet/minecraft/resources/Identifier;"
+				target = "Lnet/minecraft/client/gui/Gui;AIR_SPRITE:Lnet/minecraft/resources/Identifier;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)

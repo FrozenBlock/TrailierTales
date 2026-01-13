@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.client.model;
+package net.frozenblock.trailiertales.client.model.object.coffin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,8 +43,8 @@ public class CoffinModel extends Model<Float> {
 	}
 
 	public static LayerDefinition createLayerDefinition() {
-		final MeshDefinition modelData = new MeshDefinition();
-		final PartDefinition root = modelData.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 		root.addOrReplaceChild(
 			BASE,
 			CubeListBuilder.create()
@@ -59,7 +59,7 @@ public class CoffinModel extends Model<Float> {
 				.addBox(0F, 0F, 0F, 16F, 2F, 16F),
 			PartPose.offset(0F, 12F, 0F)
 		);
-		return LayerDefinition.create(modelData, 64, 64);
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 
 	@Override

@@ -47,8 +47,8 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void submit(ItemDisplayContext context, PoseStack poseStack, SubmitNodeCollector collector, int i, int j, boolean bl, int k) {
-		this.coffinRenderer.renderInHand(poseStack, collector, i, j, this.headTexture, this.footTexture, this.openness, k);
+	public void submit(ItemDisplayContext context, PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, boolean hasFoil, final int outlineColor) {
+		this.coffinRenderer.renderInHand(poseStack, collector, light, overlay, this.headTexture, this.footTexture, this.openness, outlineColor);
 	}
 
 	@Override
@@ -59,11 +59,10 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	public record Unbaked(Identifier headTexture, Identifier footTexture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-					Identifier.CODEC.fieldOf("head_texture").forGetter(CoffinSpecialRenderer.Unbaked::headTexture),
-					Identifier.CODEC.fieldOf("foot_texture").forGetter(CoffinSpecialRenderer.Unbaked::footTexture),
-					Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(CoffinSpecialRenderer.Unbaked::openness)
-				)
-				.apply(instance, CoffinSpecialRenderer.Unbaked::new)
+				Identifier.CODEC.fieldOf("head_texture").forGetter(CoffinSpecialRenderer.Unbaked::headTexture),
+				Identifier.CODEC.fieldOf("foot_texture").forGetter(CoffinSpecialRenderer.Unbaked::footTexture),
+				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(CoffinSpecialRenderer.Unbaked::openness)
+			).apply(instance, CoffinSpecialRenderer.Unbaked::new)
 		);
 
 		public Unbaked(Identifier headTexture, Identifier footTexture) {
@@ -76,8 +75,8 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(BakingContext entityModelSet) {
-			return new CoffinSpecialRenderer(new CoffinRenderer(entityModelSet.entityModelSet()), this.headTexture, this.footTexture, this.openness);
+		public SpecialModelRenderer<?> bake(BakingContext context) {
+			return new CoffinSpecialRenderer(new CoffinRenderer(context.entityModelSet()), this.headTexture, this.footTexture, this.openness);
 		}
 	}
 }

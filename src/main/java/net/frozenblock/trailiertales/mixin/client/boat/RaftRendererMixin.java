@@ -35,13 +35,13 @@ public class RaftRendererMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelLayer, CallbackInfo info) {
-		if (!(AbstractBoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface)) return;
-		abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
+		if (!(AbstractBoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface rendererInterface)) return;
+		rendererInterface.trailierTales$setBannerBaseTexture(
 			modelLayer.model().withPath((string) -> {
 				string = string.substring(Math.max(0, string.indexOf("/")));
 				return "textures/entity/boat/banner_base/" + string + ".png";
 			})
 		);
-		abstractBoatRendererInterface.trailierTales$setRaft(true);
+		rendererInterface.trailierTales$setRaft(true);
 	}
 }

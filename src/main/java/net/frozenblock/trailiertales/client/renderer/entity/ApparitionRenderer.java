@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.client.TTModelLayers;
-import net.frozenblock.trailiertales.client.model.ApparitionModel;
+import net.frozenblock.trailiertales.client.model.monster.apparition.ApparitionModel;
 import net.frozenblock.trailiertales.client.renderer.entity.layers.ApparitionLayer;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.frozenblock.trailiertales.entity.Apparition;
@@ -103,15 +103,15 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	protected void setupRotations(ApparitionRenderState renderState, PoseStack poseStack, float bodyYaw, float scale) {
-		super.setupRotations(renderState, poseStack, bodyYaw, scale);
-		this.itemYaw = bodyYaw;
+	protected void setupRotations(ApparitionRenderState renderState, PoseStack poseStack, float bodyRot, float scale) {
+		super.setupRotations(renderState, poseStack, bodyRot, scale);
+		this.itemYaw = bodyRot;
 		this.shadowStrength = renderState.totalTransparency;
 	}
 
 	@Override
 	@Nullable
-	protected RenderType getRenderType(ApparitionRenderState renderState, boolean bl, boolean bl2, boolean bl3) {
+	protected RenderType getRenderType(ApparitionRenderState renderState, final boolean isBodyVisible, final boolean forceTransparent, final boolean appearGlowing) {
 		return null;
 	}
 

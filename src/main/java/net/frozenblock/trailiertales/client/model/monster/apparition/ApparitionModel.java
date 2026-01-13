@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.client.model;
+package net.frozenblock.trailiertales.client.model.monster.apparition;
 
 import java.util.function.Function;
 import net.fabricmc.api.EnvType;
@@ -54,15 +54,19 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshdefinition = new MeshDefinition();
-		final PartDefinition core = meshdefinition.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.ZERO);
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition core = mesh.getRoot().addOrReplaceChild("core", CubeListBuilder.create(), PartPose.ZERO);
 
-		core.addOrReplaceChild("inner", CubeListBuilder.create()
+		core.addOrReplaceChild(
+			"inner",
+			CubeListBuilder.create()
 				.texOffs(0, 28)
 				.addBox(-5F, -5F, -5F, 10F, 10F, 10F),
 			PartPose.offset(0F, 17F, 0F)
 		);
-		final PartDefinition outline = core.addOrReplaceChild("outline", CubeListBuilder.create()
+		final PartDefinition outline = core.addOrReplaceChild(
+			"outline",
+			CubeListBuilder.create()
 				.texOffs(0, 48)
 				.addBox(-5.5F, -5.5F, -5.5F, 11F, 11F, 11F)
 				.mirror(),
@@ -70,13 +74,14 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 		);
 		ModelPartInvertInterface.class.cast(outline).frozenLib$setInverted();
 
-		meshdefinition.getRoot().addOrReplaceChild("outer", CubeListBuilder.create()
+		mesh.getRoot().addOrReplaceChild("outer",
+			CubeListBuilder.create()
 				.texOffs(0, 0)
 				.addBox(-7F, -7F, -7F, 14F, 14F, 14F),
 			PartPose.offset(0F, 17F, 0F)
 		);
 
-		return LayerDefinition.create(meshdefinition, 80, 80);
+		return LayerDefinition.create(mesh, 80, 80);
 	}
 
 	@Override

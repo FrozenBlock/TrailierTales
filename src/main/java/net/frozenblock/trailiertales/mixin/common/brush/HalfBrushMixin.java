@@ -55,9 +55,9 @@ public class HalfBrushMixin {
 	)
 	public void trailierTales$onUseTick(
 		Level level, LivingEntity entity, ItemStack stack, int i, CallbackInfo info,
-		@Local(ordinal = 0) BlockHitResult hitResult
+		@Local(name = "blockHitResult") BlockHitResult blockHitResult
 	) {
-		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) this.trailierTales$halfBrush(level, entity, stack, hitResult, i);
+		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) this.trailierTales$halfBrush(level, entity, stack, blockHitResult, i);
 	}
 
 	@Unique

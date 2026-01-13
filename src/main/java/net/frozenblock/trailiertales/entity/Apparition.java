@@ -117,8 +117,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private float flicker;
 	private float prevFlicker;
 
-	public Apparition(EntityType<? extends Apparition> entityType, Level world) {
-		super(entityType, world);
+	public Apparition(EntityType<? extends Apparition> type, Level level) {
+		super(type, level);
 		this.xpReward = 3;
 		Arrays.stream(PathType.values()).forEach(pathType -> this.setPathfindingMalus(pathType, 0F));
 		this.setPathfindingMalus(PathType.BLOCKED, 8F);
@@ -409,7 +409,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void move(MoverType movementType, Vec3 movement) {
+	public void move(MoverType moverType, Vec3 movement) {
 		final ProfilerFiller profilerFiller = Profiler.get();
 		profilerFiller.push("move");
 
@@ -573,26 +573,26 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		this.readInventoryFromTag(valueInput);
-		this.setTransparency(valueInput.getFloatOr("Transparency", 0));
-		this.setOuterTransparency(valueInput.getFloatOr("OuterTransparency", 0));
-		this.setAidAnimProgress(valueInput.getFloatOr("AidAnimProgress", 0));
-		this.setPoltergeistAnimProgress(valueInput.getFloatOr("PoltergeistAnimProgress", 0));
-		this.setHiding(valueInput.getBooleanOr("Hiding", false));
-		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		this.writeInventoryToTag(output);
+		output.putFloat("Transparency", this.getInnerTransparency());
+		output.putFloat("OuterTransparency", this.getOuterTransparency());
+		output.putFloat("AidAnimProgress", this.getAidAnimProgress());
+		output.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());
+		output.putBoolean("Hiding", this.isHiding());
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		this.writeInventoryToTag(valueOutput);
-		valueOutput.putFloat("Transparency", this.getInnerTransparency());
-		valueOutput.putFloat("OuterTransparency", this.getOuterTransparency());
-		valueOutput.putFloat("AidAnimProgress", this.getAidAnimProgress());
-		valueOutput.putFloat("PoltergeistAnimProgress", this.getPoltergeistAnimProgress());
-		valueOutput.putBoolean("Hiding", this.isHiding());
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.readInventoryFromTag(input);
+		this.setTransparency(input.getFloatOr("Transparency", 0));
+		this.setOuterTransparency(input.getFloatOr("OuterTransparency", 0));
+		this.setAidAnimProgress(input.getFloatOr("AidAnimProgress", 0));
+		this.setPoltergeistAnimProgress(input.getFloatOr("PoltergeistAnimProgress", 0));
+		this.setHiding(input.getBooleanOr("Hiding", false));
+		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
 	@Override

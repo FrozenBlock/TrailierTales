@@ -62,8 +62,8 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
 		)
 	)
-	public void trailierTales$dropItem(CallbackInfo info, @Local ServerLevel level) {
-		FallingBlockEntity.class.cast(this).spawnAtLocation(level, this.trailierTales$itemStack);
+	public void trailierTales$dropItem(CallbackInfo info, @Local(name = "serverLevel") ServerLevel serverLevel) {
+		FallingBlockEntity.class.cast(this).spawnAtLocation(serverLevel, this.trailierTales$itemStack);
 	}
 
 	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
@@ -76,15 +76,15 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
-		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) valueOutput.store("TrailierTalesItem", ItemStack.CODEC, this.trailierTales$itemStack);
-		if (this.trailierTales$overrideBreak) valueOutput.putBoolean("TrailierTalesOverrideBreak", true);
+	public void trailierTales$addAdditionalSaveData(ValueOutput output, CallbackInfo info) {
+		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) output.store("TrailierTalesItem", ItemStack.CODEC, this.trailierTales$itemStack);
+		if (this.trailierTales$overrideBreak) output.putBoolean("TrailierTalesOverrideBreak", true);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
-		this.trailierTales$itemStack = valueInput.read("TrailierTalesItem", ItemStack.CODEC).orElse(ItemStack.EMPTY);
-		this.trailierTales$overrideBreak = valueInput.getBooleanOr("TrailierTalesOverrideBreak", false);
+	public void trailierTales$readAdditionalSaveData(ValueInput input, CallbackInfo info) {
+		this.trailierTales$itemStack = input.read("TrailierTalesItem", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		this.trailierTales$overrideBreak = input.getBooleanOr("TrailierTalesOverrideBreak", false);
 	}
 
 }

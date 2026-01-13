@@ -172,7 +172,8 @@ public class ApparitionAi {
 		return ((Apparition)apparition).shouldReturnToHome(pos);
 	}
 
-	public static @Nullable BlockPos getHome(Apparition apparition) {
+	@Nullable
+	public static BlockPos getHome(Apparition apparition) {
 		Optional<GlobalPos> optional = apparition.getBrain().getMemory(MemoryModuleType.HOME);
 		return optional.map(GlobalPos::pos).orElse(null);
 	}

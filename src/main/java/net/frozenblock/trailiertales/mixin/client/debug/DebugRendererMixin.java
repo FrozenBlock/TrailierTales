@@ -44,7 +44,7 @@ public class DebugRendererMixin {
 	@Inject(method = "refreshRendererList", at = @At("TAIL"))
 	public void trailierTales$addDebugRenderers(
 		CallbackInfo info,
-		@Local Minecraft minecraft
+		@Local(name = "minecraft") Minecraft minecraft
 	) {
 		if (TTConstants.DEBUG_COFFINS) this.renderers.add(new CoffinDebugRenderer(minecraft));
 	}

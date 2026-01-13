@@ -24,6 +24,7 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.registry.TTDebugSubscriptions;
 import net.minecraft.client.multiplayer.ClientDebugSubscriber;
 import net.minecraft.util.debug.DebugSubscription;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,7 +38,7 @@ import java.util.Set;
 public abstract class ClientDebugSubscriberMixin {
 
 	@Shadow
-	private static void addFlag(Set<DebugSubscription<?>> set, DebugSubscription<?> debugSubscription, boolean bl) {
+	private static void addFlag(Set<DebugSubscription<?>> output, DebugSubscription<?> subscription, boolean flag) {
 	}
 
 	@Inject(
@@ -50,13 +51,14 @@ public abstract class ClientDebugSubscriberMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/util/debug/DebugSubscriptions;BREEZES:Lnet/minecraft/util/debug/DebugSubscription;"
+				target = "Lnet/minecraft/util/debug/DebugSubscriptions;BREEZES:Lnet/minecraft/util/debug/DebugSubscription;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)
 	private void trailierTales$addDebugSubscriptions(
 		CallbackInfoReturnable<Set<DebugSubscription<?>>> info,
-		@Local Set set
+		@Local(name = "subscriptions") Set set
 	) {
 		addFlag(set, TTDebugSubscriptions.COFFINS, TTConstants.DEBUG_COFFINS);
 	}

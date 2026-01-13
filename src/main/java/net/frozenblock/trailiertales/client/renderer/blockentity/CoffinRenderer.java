@@ -27,7 +27,7 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.client.TTModelLayers;
-import net.frozenblock.trailiertales.client.model.CoffinModel;
+import net.frozenblock.trailiertales.client.model.object.coffin.CoffinModel;
 import net.frozenblock.trailiertales.client.renderer.blockentity.state.CoffinRenderState;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.client.model.geom.EntityModelSet;

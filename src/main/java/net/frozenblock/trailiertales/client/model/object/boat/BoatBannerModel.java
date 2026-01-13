@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.client.model;
+package net.frozenblock.trailiertales.client.model.object.boat;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -53,12 +53,12 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshDefinition = new MeshDefinition();
-		final PartDefinition root = meshDefinition.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 		root.addOrReplaceChild("flag", CubeListBuilder.create().texOffs(0, 0).addBox(-10F, 0F, -2F, 20F, 40F, 1F), PartPose.ZERO);
 		root.addOrReplaceChild("pole", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -30F, -1F, 2F, 42F, 2F), PartPose.ZERO);
 		root.addOrReplaceChild("bar", CubeListBuilder.create().texOffs(0, 42).addBox(-10F, -32F, -1F, 20F, 2F, 2F), PartPose.ZERO);
-		return LayerDefinition.create(meshDefinition, 64, 64);
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 
 	public void setRaft(boolean raft) {

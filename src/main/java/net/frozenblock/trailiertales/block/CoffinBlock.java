@@ -193,7 +193,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hitResult) {
 		if (stack.getItem() instanceof SpawnEggItem) return InteractionResult.CONSUME;
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
@@ -295,7 +295,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	public static void spawnParticlesFrom(
 		ServerLevel level,
-		ParticleOptions particleOptions,
+		ParticleOptions options,
 		int count,
 		double speed,
 		Direction coffinOrientation,
@@ -312,7 +312,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		final double xOffset = Math.max(0.5D, Math.abs(stepX)) * spread;
 		final double zOffset = Math.max(0.5D, Math.abs(stepZ)) * spread;
 		level.sendParticles(
-			particleOptions,
+			options,
 			pos.getX() + relativeX, pos.getY() + 0.95D, pos.getZ() + relativeZ,
 			count,
 			xOffset, 0D, zOffset,

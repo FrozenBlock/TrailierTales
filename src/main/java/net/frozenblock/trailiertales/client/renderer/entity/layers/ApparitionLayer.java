@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.frozenblock.lib.render.FrozenLibRenderTypes;
-import net.frozenblock.trailiertales.client.model.ApparitionModel;
+import net.frozenblock.trailiertales.client.model.monster.apparition.ApparitionModel;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -61,8 +61,8 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		SubmitNodeCollector collector,
 		int light,
 		ApparitionRenderState renderState,
-		float partialTick,
-		float color
+		float yRot,
+		float xRot
 	) {
 		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
 		final float innerTransparency = this.innerAlphaFunction.apply(renderState) * renderState.flicker;

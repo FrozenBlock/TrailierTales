@@ -60,7 +60,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, Apparition apparition, long l) {
+	protected boolean canStillUse(ServerLevel level, Apparition apparition, long timestamp) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
 			&& brain.hasMemoryValue(TTMemoryModuleTypes.NEAREST_AIDABLE)
@@ -68,7 +68,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void start(ServerLevel level, Apparition apparition, long l) {
+	protected void start(ServerLevel level, Apparition apparition, long timestamp) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		apparition.playSound(TTSounds.APPARITION_AID, apparition.getSoundVolume(), apparition.getVoicePitch());
 		brain.setMemory(TTMemoryModuleTypes.AIDING_TIME, 61);
@@ -80,7 +80,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, Apparition apparition, long l) {
+	protected void stop(ServerLevel level, Apparition apparition, long timestamp) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		brain.setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN, Unit.INSTANCE, 200L);
 		brain.eraseMemory(TTMemoryModuleTypes.AIDING_ENTITIES);
@@ -91,13 +91,13 @@ public class ApparitionAid extends Behavior<Apparition> {
 	public static final ParticleOptions EFFECT_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_ENTITY_EFFECT, 162F / 255F, 181F/ 255F, 217F / 255F);
 
 	@Override
-	protected void tick(ServerLevel level, Apparition apparition, long l) {
+	protected void tick(ServerLevel level, Apparition apparition, long timestamp) {
 		final Brain<Apparition> brain = apparition.getBrain();
 		final List<LivingEntity> entities = brain.getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES).orElse(ImmutableList.of());
 		final List<UUID> trackingUUIDs = new ArrayList<>();
 		entities.forEach(aidable -> trackingUUIDs.add(aidable.getUUID()));
 		if (trackingUUIDs.isEmpty()) {
-			this.doStop(level, apparition, l);
+			this.doStop(level, apparition, timestamp);
 			return;
 		}
 		brain.setMemory(TTMemoryModuleTypes.AIDING_ENTITIES, trackingUUIDs);
@@ -120,7 +120,7 @@ public class ApparitionAid extends Behavior<Apparition> {
 				spawnParticles(level, livingEntity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
 			}));
 		}
-		this.doStop(level, apparition, l);
+		this.doStop(level, apparition, timestamp);
 	}
 
 	private static void spawnParticles(ServerLevel level, LivingEntity entity, int count, ParticleOptions options) {

@@ -21,7 +21,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.TTModelLayers;
-import net.frozenblock.trailiertales.client.model.BoatBannerModel;
+import net.frozenblock.trailiertales.client.model.object.boat.BoatBannerModel;
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
 import net.frozenblock.trailiertales.impl.client.AbstractBoatRendererInterface;
 import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;

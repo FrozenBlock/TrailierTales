@@ -88,9 +88,9 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 		final EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
 		server.sendParticles(
 			new ItemParticleOption(ParticleTypes.ITEM, this.getItem()),
-			this.position().x + (dimensions.width() * 0.5),
-			this.position().y + (dimensions.height() * 0.5),
-			this.position().z + (dimensions.width() * 0.5),
+			this.position().x + (dimensions.width() * 0.5D),
+			this.position().y + (dimensions.height() * 0.5D),
+			this.position().z + (dimensions.width() * 0.5D),
 			this.random.nextInt(5, 10),
 			dimensions.width() / 4F,
 			dimensions.height() / 4F,
