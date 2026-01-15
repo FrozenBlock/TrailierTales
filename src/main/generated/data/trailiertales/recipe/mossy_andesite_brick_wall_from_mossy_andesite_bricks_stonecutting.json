@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "trailiertales:mossy_andesite_bricks",
   "result": {
-    "count": 1,
     "id": "trailiertales:mossy_andesite_brick_wall"
   }
 }

@@ -36,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -50,8 +51,8 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 	@Unique
 	private final WalkAnimationState trailierTales$walkAnimation = new WalkAnimationState();
 
-	public AbstractBoatMixin(EntityType<?> entityType, Level level) {
-		super(entityType, level);
+	public AbstractBoatMixin(EntityType<?> type, Level level) {
+		super(type, level);
 	}
 
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))
@@ -108,12 +109,12 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 		method = "interact",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResult;",
+			target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;",
 			shift = At.Shift.BEFORE
 		),
 		cancellable = true
 	)
-	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
+	public void trailierTales$interact(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> info) {
 		if (!player.isSecondaryUseActive()) return;
 
 		if (this.trailierTales$getBanner().isEmpty()) {

@@ -39,18 +39,18 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 	private final int minOrder;
 
 	public ApparitionLayer(
-		RenderLayerParent<ApparitionRenderState, ApparitionModel> renderLayerParent,
+		RenderLayerParent<ApparitionRenderState, ApparitionModel> parent,
 		ApparitionModel.AlphaFunction<ApparitionRenderState> innerAlphaFunction,
 		ApparitionModel.AlphaFunction<ApparitionRenderState> outerAlphaFunction,
 		Identifier texture,
 		int minOrder
 	) {
-		super(renderLayerParent);
+		super(parent);
 		this.innerRenderType = RenderTypes.entityTranslucentEmissive(texture);
 		this.outerRenderType = FrozenLibRenderTypes.apparitionOuter(texture);
 		this.innerAlphaFunction = innerAlphaFunction;
 		this.outerAlphaFunction = outerAlphaFunction;
-		this.model = renderLayerParent.getModel();
+		this.model = parent.getModel();
 
 		this.minOrder = minOrder * 2;
 	}

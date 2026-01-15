@@ -33,8 +33,8 @@ import net.minecraft.world.level.Level;
 public class SherdCopyRecipe extends CustomRecipe {
 	private static final Pair<Boolean, ItemStack> EMPTY = Pair.of(false, ItemStack.EMPTY);
 
-	public SherdCopyRecipe(CraftingBookCategory craftingBookCategory) {
-		super(craftingBookCategory);
+	public SherdCopyRecipe(CraftingBookCategory category) {
+		super(category);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
+	public ItemStack assemble(CraftingInput input) {
 		return getCraftingOutput(input).getSecond();
 	}
 

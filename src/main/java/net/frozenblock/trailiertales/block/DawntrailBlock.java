@@ -80,7 +80,7 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess tickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,

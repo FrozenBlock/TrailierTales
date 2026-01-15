@@ -34,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FallingBlockEntity.class)
 public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface {
+
 	@Unique
 	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
 	@Unique

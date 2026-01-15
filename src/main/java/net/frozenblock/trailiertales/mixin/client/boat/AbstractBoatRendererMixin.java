@@ -95,8 +95,8 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		method = "extractRenderState(Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;Lnet/minecraft/client/renderer/entity/state/BoatRenderState;F)V",
 		at = @At("TAIL")
 	)
-	public void trailierTales$extractRenderState(AbstractBoat abstractBoat, BoatRenderState renderState, float partialTick, CallbackInfo info) {
-		if (!(abstractBoat instanceof BoatBannerInterface bannerInterface && renderState instanceof BoatRenderStateInterface stateInterface)) return;
+	public void trailierTales$extractRenderState(AbstractBoat boat, BoatRenderState renderState, float partialTick, CallbackInfo info) {
+		if (!(boat instanceof BoatBannerInterface bannerInterface && renderState instanceof BoatRenderStateInterface stateInterface)) return;
 		final WalkAnimationState walkAnimationState = bannerInterface.trailierTales$getWalkAnimationState();
 		stateInterface.trailierTales$setWalkAnimationPos(walkAnimationState.position(partialTick));
 		stateInterface.trailierTales$setWalkAnimationSpeed(walkAnimationState.speed(partialTick));

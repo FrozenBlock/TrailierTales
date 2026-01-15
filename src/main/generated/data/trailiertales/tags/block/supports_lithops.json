@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:supports_dry_vegetation",
+      "required": false
+    },
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    }
+  ]
+}

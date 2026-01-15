@@ -73,29 +73,29 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	protected void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			this.coffinSpawner = valueInput.read(this.coffinSpawner.mapCodec()).orElse(this.coffinSpawner);
+			this.coffinSpawner = input.read(this.coffinSpawner.mapCodec()).orElse(this.coffinSpawner);
 
 			this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-			if (!this.tryLoadLootTable(valueInput)) ContainerHelper.loadAllItems(valueInput, this.items);
+			if (!this.tryLoadLootTable(input)) ContainerHelper.loadAllItems(input, this.items);
 		}
 
-		this.coffinWobbleLidAnimTicks = valueInput.getIntOr("coffin_wobble_lid_anim_ticks", 0);
+		this.coffinWobbleLidAnimTicks = input.getIntOr("coffin_wobble_lid_anim_ticks", 0);
 	}
 
 	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
 
 		if (this.getBlockState().getValue(TTBlockStateProperties.COFFIN_PART) == CoffinPart.FOOT) {
-			valueOutput.store(this.coffinSpawner.mapCodec(), this.coffinSpawner);
-			ContainerHelper.saveAllItems(valueOutput, this.items);
+			output.store(this.coffinSpawner.mapCodec(), this.coffinSpawner);
+			ContainerHelper.saveAllItems(output, this.items);
 		}
 
-		valueOutput.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
+		output.putInt("coffin_wobble_lid_anim_ticks", this.coffinWobbleLidAnimTicks);
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public void setEntityId(EntityType<?> entityType, RandomSource random) {
+	public void setEntityId(EntityType<?> type, RandomSource random) {
 		BlockPos pos = this.getBlockPos();
 		CoffinSpawner coffinSpawner = this.getCoffinSpawner();
 		final BlockState state = this.getBlockState();
@@ -194,7 +194,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			pos = pos.relative(CoffinBlock.getConnectedDirection(state));
 			if (this.level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity) coffinSpawner = coffinBlockEntity.getCoffinSpawner();
 		}
-		coffinSpawner.getData().setEntityId(entityType, random);
+		coffinSpawner.getData().setEntityId(type, random);
 
 		final Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
 		if (coffinOrientation != null && this.level instanceof ServerLevel serverLevel) {

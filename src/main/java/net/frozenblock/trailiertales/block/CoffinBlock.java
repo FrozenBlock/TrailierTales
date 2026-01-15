@@ -109,7 +109,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess tickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
@@ -122,7 +122,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 				? isThisFoot ? state : state.setValue(STATE, neighborState.getValue(STATE))
 				: Blocks.AIR.defaultBlockState();
 		} else {
-			return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
+			return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 		}
 	}
 
@@ -157,8 +157,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final Direction direction = context.getHorizontalDirection();
-		final BlockPos blockPos = context.getClickedPos();
-		final BlockPos offsetPos = blockPos.relative(direction);
+		final BlockPos pos = context.getClickedPos();
+		final BlockPos offsetPos = pos.relative(direction);
 		final Level level = context.getLevel();
 		return level.getBlockState(offsetPos).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(offsetPos)
 			? this.defaultBlockState().setValue(FACING, direction)

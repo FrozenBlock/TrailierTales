@@ -48,8 +48,8 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	}
 
 	@Override
-	public void emitGizmos(double cameraX, double cameraY, double cameraZ, DebugValueAccess debugValueAccess, Frustum frustum, float partialTick) {
-		debugValueAccess.forEachEntity(TTDebugSubscriptions.COFFINS, (entity, debugInfo) -> {
+	public void emitGizmos(double camX, double camY, double camZ, DebugValueAccess debugValues, Frustum frustum, float partialTicks) {
+		debugValues.forEachEntity(TTDebugSubscriptions.COFFINS, (entity, debugInfo) -> {
 			final boolean selected = isEntitySelected(entity);
 			final BlockPos coffinPos = debugInfo.coffinPos();
 
@@ -59,7 +59,7 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 				Gizmos.billboardTextOverMob(entity, 2, "Last Interaction: " + debugInfo.lastInteractionDifference(), TEXT_COLOR, 0.48F);
 			}
 
-			Gizmos.arrow(entity.getPosition(partialTick), coffinPos.getCenter(), selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR);
+			Gizmos.arrow(entity.getPosition(partialTicks), coffinPos.getCenter(), selected ? SELECTED_CONNECTION_COLOR : CONNECTION_COLOR);
 		});
 
 		if (!this.minecraft.player.isSpectator()) this.updateLastLookedAtUuid();

@@ -64,7 +64,7 @@ public class BrushableBlockRendererMixin {
 		BrushableBlockEntity brushableBlock,
 		BrushableBlockRenderState renderState,
 		float partialTick,
-		Vec3 vec3,
+		Vec3 cameraPosition,
 		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
 		CallbackInfo info
 	) {

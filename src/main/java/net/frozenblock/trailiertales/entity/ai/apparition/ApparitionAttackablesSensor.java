@@ -19,18 +19,17 @@ package net.frozenblock.trailiertales.entity.ai.apparition;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import net.frozenblock.trailiertales.tag.TTEntityTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 
-public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySensor {
+public class ApparitionAttackablesSensor extends Sensor<LivingEntity> {
 
-	@Override
 	protected boolean isMatchingEntity(ServerLevel level, LivingEntity entity, LivingEntity target) {
 		return this.isClose(entity, target)
 			&& this.isHostileTarget(target)
@@ -47,12 +46,12 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 
 	@Override
 	protected void doTick(ServerLevel level, LivingEntity entity) {
-		entity.getBrain().setMemory(this.getMemory(), this.getNearestEntityNoLineOfSight(level, entity));
+		entity.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, this.getNearestEntityNoLineOfSight(level, entity));
 	}
 
-	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, LivingEntity entity) {
-		return entity.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
-			.flatMap(livingEntities -> this.findClosest(livingEntities, livingEntity -> this.isMatchingEntity(level, entity, livingEntity)));
+	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, LivingEntity apparition) {
+		return apparition.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
+			.flatMap(entities -> this.findClosest(entities, entity -> this.isMatchingEntity(level, apparition, entity)));
 	}
 
 	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
@@ -64,7 +63,7 @@ public class ApparitionAttackablesSensor extends NearestVisibleLivingEntitySenso
 	}
 
 	@Override
-	protected MemoryModuleType<LivingEntity> getMemory() {
-		return MemoryModuleType.NEAREST_ATTACKABLE;
+	public Set<MemoryModuleType<?>> requires() {
+		return Set.of(MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.NEAREST_PLAYERS);
 	}
 }

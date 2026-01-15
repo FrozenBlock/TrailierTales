@@ -34,17 +34,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BoatRendererMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, CallbackInfo info) {
-		if (!(BoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface abstractBoatRendererInterface)) return;
+	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelId, CallbackInfo info) {
+		if (!(BoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface rendererInterface)) return;
 		try {
-			abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(
-				modelLayerLocation.model().withPath((string) -> {
+			rendererInterface.trailierTales$setBannerBaseTexture(
+				modelId.model().withPath((string) -> {
 					string = string.substring(Math.max(0, string.indexOf("/")));
 					return "textures/entity/boat/banner_base/" + string + ".png";
 				})
 			);
 		} catch (Exception ignored) {
-			abstractBoatRendererInterface.trailierTales$setBannerBaseTexture(TTConstants.vanillaId("textures/entity/boat/banner_base/oak.png"));
+			rendererInterface.trailierTales$setBannerBaseTexture(TTConstants.vanillaId("textures/entity/boat/banner_base/oak.png"));
 		}
 	}
 }

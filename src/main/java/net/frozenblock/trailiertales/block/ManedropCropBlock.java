@@ -90,14 +90,14 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess tickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
+		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 		return state.canSurvive(level, pos) ? state : Blocks.AIR.defaultBlockState();
 	}
 
@@ -118,9 +118,9 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean bl) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().get(GameRules.MOB_GRIEFING)) level.destroyBlock(pos, true, entity);
-		super.entityInside(state, level, pos, entity, applier, bl);
+		super.entityInside(state, level, pos, entity, effectApplier, isPrecise);
 	}
 
 	@Override

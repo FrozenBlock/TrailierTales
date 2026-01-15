@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
@@ -32,7 +31,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -47,9 +45,7 @@ import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 public class SurveyorBlock extends BaseEntityBlock {
-	public static final MapCodec<SurveyorBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(propertiesCodec()).apply(instance, SurveyorBlock::new)
-	);
+	public static final MapCodec<SurveyorBlock> CODEC = simpleCodec(SurveyorBlock::new);
 	public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
@@ -76,11 +72,6 @@ public class SurveyorBlock extends BaseEntityBlock {
 	@Override
 	protected BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(FACING)));
-	}
-
-	@Override
-	protected RenderShape getRenderShape(BlockState state) {
-		return RenderShape.MODEL;
 	}
 
 	@Override
@@ -124,11 +115,11 @@ public class SurveyorBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
 		if (!state.is(level.getBlockState(pos).getBlock()) && state.getValue(POWERED)) {
 			this.updateNeighborsInFront(level, pos, state.setValue(POWERED, false));
 		}
-		super.affectNeighborsAfterRemoval(state, level, pos, bl);
+		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
 
 	@Override

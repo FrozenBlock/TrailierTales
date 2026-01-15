@@ -320,6 +320,11 @@ public final class TTBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(TTBlocks.MOSSY_DEEPSLATE_BRICKS)
 			.add(TTBlocks.MOSSY_DEEPSLATE_TILES);
 
+		this.valueLookupBuilder(TTBlockTags.SUPPORTS_LITHOPS)
+			.addOptionalTag(BlockTags.SUPPORTS_DRY_VEGETATION)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
 		this.valueLookupBuilder(TTBlockTags.COFFIN_UNSPAWNABLE_ON)
 			.add(Blocks.REDSTONE_WIRE)
 			.add(Blocks.REDSTONE_TORCH)

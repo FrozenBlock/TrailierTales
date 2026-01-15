@@ -54,15 +54,15 @@ public class HalfBrushMixin {
 		)
 	)
 	public void trailierTales$onUseTick(
-		Level level, LivingEntity entity, ItemStack stack, int i, CallbackInfo info,
+		Level level, LivingEntity entity, ItemStack stack, int ticksRemaining, CallbackInfo info,
 		@Local(name = "blockHitResult") BlockHitResult blockHitResult
 	) {
-		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) this.trailierTales$halfBrush(level, entity, stack, blockHitResult, i);
+		if (TTItemConfig.EXTRA_BRUSH_PARTICLES) this.trailierTales$halfBrush(level, entity, stack, blockHitResult, ticksRemaining);
 	}
 
 	@Unique
-	public void trailierTales$halfBrush(Level level, LivingEntity entity, ItemStack stack, BlockHitResult hitResult, int i) {
-		final int brushTimer = BrushItem.class.cast(this).getUseDuration(stack, entity) - i + 1;
+	public void trailierTales$halfBrush(Level level, LivingEntity entity, ItemStack stack, BlockHitResult hitResult, int ticksRemaining) {
+		final int brushTimer = BrushItem.class.cast(this).getUseDuration(stack, entity) - ticksRemaining + 1;
 		if (brushTimer % 5 == 0 && brushTimer % 10 != 5 && hitResult != null && entity instanceof Player player) {
 			final BlockPos pos = hitResult.getBlockPos();
 			this.trailierTales$spawnOppositeDustParticles(

@@ -39,7 +39,7 @@ public abstract class VehicleEntityMixin extends Entity  {
 	}
 
 	@Inject(method = "destroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V", at = @At("HEAD"))
-	public void trailierTales$destroy(ServerLevel level, DamageSource damageSource, CallbackInfo info) {
+	public void trailierTales$destroy(ServerLevel level, DamageSource source, CallbackInfo info) {
 		if (!(VehicleEntity.class.cast(this) instanceof BoatBannerInterface bannerInterface)) return;
 		if (!level.getGameRules().get(GameRules.ENTITY_DROPS)) return;
 		final ItemStack stack = bannerInterface.trailierTales$getBanner();

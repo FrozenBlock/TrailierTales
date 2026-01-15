@@ -82,11 +82,11 @@ public final class CoffinSpawner {
 	private static final int MAX_MOB_TRACKING_DISTANCE = 64;
 	private static final int MAX_MOB_TRACKING_DISTANCE_SQR = Mth.square(MAX_MOB_TRACKING_DISTANCE);
 	private static final PlayerDetector.EntitySelector ENTITY_SELECTOR = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
-	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (world, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
-			world, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
+	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (level, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
+			level, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
 		)
 		.stream()
-		.filter(player -> !bl || isInCatacombsBounds(player.blockPosition(), world.structureManager()))
+		.filter(player -> !bl || isInCatacombsBounds(player.blockPosition(), level.structureManager()))
 		.map(Entity::getUUID)
 		.toList();
 	private final CoffinSpawnerConfig normalConfig;
@@ -265,11 +265,11 @@ public final class CoffinSpawner {
 		final SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
 
 		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(() -> "spawner@" + pos, LOGGER)) {
-			final ValueInput valueInput = TagValueInput.create(scopedCollector, level.registryAccess(), spawnData.entityToSpawn());
-			final Optional<EntityType<?>> optional = EntityType.by(valueInput);
-			if (optional.isEmpty()) return Optional.empty();
+			final ValueInput input = TagValueInput.create(scopedCollector, level.registryAccess(), spawnData.entityToSpawn());
+			final Optional<EntityType<?>> entityType = EntityType.by(input);
+			if (entityType.isEmpty()) return Optional.empty();
 
-			final Vec3 spawnVec3 = valueInput.read("Pos", Vec3.CODEC).orElseGet(() -> {
+			final Vec3 spawnVec3 = input.read("Pos", Vec3.CODEC).orElseGet(() -> {
 				CoffinSpawnerConfig config = this.getConfig();
 				return new Vec3(
 					pos.getX() + (random.nextDouble() - random.nextDouble()) * (double)config.spawnRange() + (double)0.5F,
@@ -277,12 +277,12 @@ public final class CoffinSpawner {
 					pos.getZ() + (random.nextDouble() - random.nextDouble()) * (double)config.spawnRange() + (double)0.5F
 				);
 			});
-			if (!level.noCollision(optional.get().getSpawnAABB(spawnVec3.x, spawnVec3.y, spawnVec3.z))) return Optional.empty();
+			if (!level.noCollision(entityType.get().getSpawnAABB(spawnVec3.x, spawnVec3.y, spawnVec3.z))) return Optional.empty();
 
 			if (!inLineOfSight(level, pos.getCenter(), spawnVec3)) return Optional.empty();
 
 			final BlockPos spawnBlockPos = BlockPos.containing(spawnVec3);
-			if (!SpawnPlacements.checkSpawnRules(optional.get(), level, EntitySpawnReason.TRIAL_SPAWNER, spawnBlockPos, level.getRandom())) return Optional.empty();
+			if (!SpawnPlacements.checkSpawnRules(entityType.get(), level, EntitySpawnReason.TRIAL_SPAWNER, spawnBlockPos, level.getRandom())) return Optional.empty();
 
 			if (spawnData.getCustomSpawnRules().isPresent()) {
 				SpawnData.CustomSpawnRules customSpawnRules = spawnData.getCustomSpawnRules().get();
@@ -295,7 +295,7 @@ public final class CoffinSpawner {
 
 			if (level.getBlockState(spawnBlockPos).is(TTBlockTags.COFFIN_UNSPAWNABLE_ON)) return Optional.empty();
 
-			final Entity entity = EntityType.loadEntityRecursive(valueInput, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
+			final Entity entity = EntityType.loadEntityRecursive(input, level, EntitySpawnReason.TRIAL_SPAWNER, entityx -> {
 				entityx.snapTo(spawnVec3, random.nextFloat() * 360F, 0F);
 				return entityx;
 			});

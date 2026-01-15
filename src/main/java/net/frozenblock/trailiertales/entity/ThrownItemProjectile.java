@@ -32,6 +32,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -59,7 +60,7 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == EntityEvent.DEATH) {
-			final ParticleOptions options = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
+			final ParticleOptions options = new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getItem()));
 			for (int i = 0; i < 8; ++i) this.level().addParticle(options, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
 		} else {
 			super.handleEntityEvent(id);
@@ -87,7 +88,7 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 		if (!(this.level() instanceof ServerLevel server)) return;
 		final EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
 		server.sendParticles(
-			new ItemParticleOption(ParticleTypes.ITEM, this.getItem()),
+			new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getItem())),
 			this.position().x + (dimensions.width() * 0.5D),
 			this.position().y + (dimensions.height() * 0.5D),
 			this.position().z + (dimensions.width() * 0.5D),

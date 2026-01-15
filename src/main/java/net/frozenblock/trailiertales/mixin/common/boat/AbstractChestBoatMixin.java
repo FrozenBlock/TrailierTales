@@ -31,6 +31,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,12 +40,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = AbstractChestBoat.class, priority = 100)
 public abstract class AbstractChestBoatMixin extends AbstractBoat {
 
-	public AbstractChestBoatMixin(EntityType<? extends AbstractBoat> entityType, Level level, Supplier<Item> supplier) {
-		super(entityType, level, supplier);
+	public AbstractChestBoatMixin(EntityType<? extends AbstractBoat> type, Level level, Supplier<Item> supplier) {
+		super(type, level, supplier);
 	}
 
 	@Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-	public void trailierTales$interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info) {
+	public void trailierTales$interact(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> info) {
 		if (!player.isSecondaryUseActive() || !(AbstractChestBoat.class.cast(this) instanceof BoatBannerInterface bannerInterface)) return;
 
 		if (bannerInterface.trailierTales$getBanner().isEmpty()) {

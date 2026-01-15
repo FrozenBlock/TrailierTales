@@ -68,7 +68,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	)
 	public void trailierTales$setHasCustomItemForFalling(
 		BrushableBlockEntity brushableBlock, ServerLevel level, Operation<Void> original,
-		BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random,
+		BlockState state,
 		@Share("trailierTales$brushableBlock") LocalRef<BrushableBlockEntity> blockEntityRef,
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem
 	) {

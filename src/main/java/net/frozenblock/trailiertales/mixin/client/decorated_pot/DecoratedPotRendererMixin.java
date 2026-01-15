@@ -48,7 +48,7 @@ public class DecoratedPotRendererMixin {
 		DecoratedPotBlockEntity decoratedPot,
 		DecoratedPotRenderState renderState,
 		float partialTick,
-		Vec3 cameraPos,
+		Vec3 cameraPosition,
 		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
 		CallbackInfo info
 	) {

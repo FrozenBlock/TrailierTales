@@ -99,8 +99,8 @@ public class EntityCoffinData {
 		this.lastInteractionAt = newTime;
 	}
 
-	public void save(ValueOutput valueOutput) {
-		final ValueOutput coffinData = valueOutput.child("TrailierTales_CoffinData");
+	public void save(ValueOutput output) {
+		final ValueOutput coffinData = output.child("TrailierTales_CoffinData");
 		coffinData.putInt("X", this.pos.getX());
 		coffinData.putInt("Y", this.pos.getY());
 		coffinData.putInt("Z", this.pos.getZ());
@@ -108,8 +108,9 @@ public class EntityCoffinData {
 		coffinData.putLong("LastInteractionAt", this.lastInteractionAt);
 	}
 
-	public static @Nullable EntityCoffinData load(ValueInput valueInput) {
-		final Optional<ValueInput> optional = valueInput.child("TrailierTales_CoffinData");
+	@Nullable
+	public static EntityCoffinData load(ValueInput input) {
+		final Optional<ValueInput> optional = input.child("TrailierTales_CoffinData");
 		if (optional.isEmpty()) return null;
 
 		final ValueInput coffinData = optional.get();

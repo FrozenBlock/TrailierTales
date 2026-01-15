@@ -62,17 +62,17 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 		int light,
 		CallbackInfo info
 	) {
-		if (!(renderState instanceof HumanoidRenderState humanoidRenderState)) return;
+		if (!(renderState instanceof HumanoidRenderState humanoidState)) return;
 
-		final InteractionHand interactionHand = arm == humanoidRenderState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+		final InteractionHand interactionHand = arm == humanoidState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 		if (stack != null
 			&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
-			&& humanoidRenderState.isUsingItem
-			&& humanoidRenderState.useItemHand == interactionHand
-			&& humanoidRenderState.attackTime < 1.0E-5F
+			&& humanoidState.isUsingItem
+			&& humanoidState.useItemHand == interactionHand
+			&& humanoidState.attackTime < 1.0E-5F
 			&& stack.is(Items.BRUSH)
 		) {
-			final float remainingTicks = humanoidRenderState.ticksUsingItem + 1F;
+			final float remainingTicks = humanoidState.ticksUsingItem + 1F;
 			final float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
 			final float brushProgress = remainingTicks + partialTick;
 			final float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;

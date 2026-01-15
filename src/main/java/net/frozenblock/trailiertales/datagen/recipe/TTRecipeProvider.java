@@ -37,6 +37,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 
@@ -326,7 +327,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// TUFF BRICKS
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_TUFF_BRICKS.asItem(), 0.1F, 200)
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, TTBlocks.CRACKED_TUFF_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_tuff_bricks", has(Blocks.TUFF_BRICKS))
 					.save(output);
 
@@ -350,7 +351,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// BRICKS
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_BRICKS.asItem(), 0.1F, 200)
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, TTBlocks.CRACKED_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_bricks", has(Blocks.BRICKS))
 					.save(output);
 
@@ -389,7 +390,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy("has_resin_block", has(Blocks.RESIN_BLOCK))
 					.save(output);
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.RESIN_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_RESIN_BRICKS.asItem(), 0.1F, 200)
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.RESIN_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, TTBlocks.CRACKED_RESIN_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_resin_bricks", has(Blocks.RESIN_BRICKS))
 					.save(this.output);
 
@@ -510,7 +511,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// END STONE BRICKS
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.END_STONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, TTBlocks.CRACKED_END_STONE_BRICKS.asItem(), 0.1F, 200)
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.END_STONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, TTBlocks.CRACKED_END_STONE_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_end_stone_bricks", has(Blocks.END_STONE_BRICKS))
 					.save(output);
 

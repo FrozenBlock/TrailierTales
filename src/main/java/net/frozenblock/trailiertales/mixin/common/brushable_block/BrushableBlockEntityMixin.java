@@ -134,18 +134,18 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	}
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
-	public void trailierTales$loadAdditional(ValueInput valueInput, CallbackInfo info) {
-		this.trailierTales$readTT(valueInput);
-		this.trailierTales$rebrushed = valueInput.getBooleanOr("Rebrushed", false);
-		this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, Identifier.parse(valueInput.getStringOr("TrailierTalesStoredLootTable", "")));
+	public void trailierTales$loadAdditional(ValueInput input, CallbackInfo info) {
+		this.trailierTales$readTT(input);
+		this.trailierTales$rebrushed = input.getBooleanOr("Rebrushed", false);
+		this.trailierTales$storedLootTable = ResourceKey.create(Registries.LOOT_TABLE, Identifier.parse(input.getStringOr("TrailierTalesStoredLootTable", "")));
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
-	public void trailierTales$saveAdditional(ValueOutput valueOutput, CallbackInfo info) {
-		this.trailierTales$saveTT(valueOutput);
-		if (this.trailierTales$rebrushed) valueOutput.putBoolean("Rebrushed", this.trailierTales$rebrushed);
+	public void trailierTales$saveAdditional(ValueOutput output, CallbackInfo info) {
+		this.trailierTales$saveTT(output);
+		if (this.trailierTales$rebrushed) output.putBoolean("Rebrushed", this.trailierTales$rebrushed);
 		if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
-			valueOutput.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.identifier().toString());
+			output.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.identifier().toString());
 		}
 	}
 
@@ -284,46 +284,46 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	}
 
 	@Unique
-	public void trailierTales$saveTT(ValueOutput valueOutput) {
-		if (this.trailierTales$hitDirection != null) valueOutput.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
-		if (this.trailierTales$targetXLerp != 0.5F) valueOutput.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
-		if (this.trailierTales$targetYLerp != 0F) valueOutput.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
-		if (this.trailierTales$targetZLerp != 0.5F) valueOutput.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
-		if (this.trailierTales$xLerp != 0.5F) valueOutput.putFloat("XLerp", this.trailierTales$xLerp);
-		if (this.trailierTales$yLerp != 0F) valueOutput.putFloat("YLerp", this.trailierTales$yLerp);
-		if (this.trailierTales$zLerp != 0.5F) valueOutput.putFloat("ZLerp", this.trailierTales$zLerp);
-		if (this.trailierTales$prevXLerp != 0.5F) valueOutput.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
-		if (this.trailierTales$prevYLerp != 0F) valueOutput.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
-		if (this.trailierTales$prevZLerp != 0.5F) valueOutput.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
+	public void trailierTales$saveTT(ValueOutput output) {
+		if (this.trailierTales$hitDirection != null) output.putString("TTHitDirection", this.trailierTales$hitDirection.getName());
+		if (this.trailierTales$targetXLerp != 0.5F) output.putFloat("TargetXLerp", this.trailierTales$targetXLerp);
+		if (this.trailierTales$targetYLerp != 0F) output.putFloat("TargetYLerp", this.trailierTales$targetYLerp);
+		if (this.trailierTales$targetZLerp != 0.5F) output.putFloat("TargetZLerp", this.trailierTales$targetZLerp);
+		if (this.trailierTales$xLerp != 0.5F) output.putFloat("XLerp", this.trailierTales$xLerp);
+		if (this.trailierTales$yLerp != 0F) output.putFloat("YLerp", this.trailierTales$yLerp);
+		if (this.trailierTales$zLerp != 0.5F) output.putFloat("ZLerp", this.trailierTales$zLerp);
+		if (this.trailierTales$prevXLerp != 0.5F) output.putFloat("PrevXLerp", this.trailierTales$prevXLerp);
+		if (this.trailierTales$prevYLerp != 0F) output.putFloat("PrevYLerp", this.trailierTales$prevYLerp);
+		if (this.trailierTales$prevZLerp != 0.5F) output.putFloat("PrevZLerp", this.trailierTales$prevZLerp);
 
-		if (Math.abs(this.trailierTales$rotation) > 0.1F) valueOutput.putFloat("Rotation", this.trailierTales$rotation);
-		if (Math.abs(this.trailierTales$prevRotation) > 0.1F) valueOutput.putFloat("PrevRotation", this.trailierTales$prevRotation);
-		if (Math.abs(this.trailierTales$targetItemScale) > 0.1F) valueOutput.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
-		if (Math.abs(this.trailierTales$itemScale) > 0.1F) valueOutput.putFloat("ItemScale", this.trailierTales$itemScale);
-		if (Math.abs(this.trailierTales$prevItemScale) > 0.1F) valueOutput.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
-		if (this.trailierTales$hasCustomItem) valueOutput.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
-		if (this.brushCount != 0) valueOutput.putInt("BrushCount", this.brushCount);
+		if (Math.abs(this.trailierTales$rotation) > 0.1F) output.putFloat("Rotation", this.trailierTales$rotation);
+		if (Math.abs(this.trailierTales$prevRotation) > 0.1F) output.putFloat("PrevRotation", this.trailierTales$prevRotation);
+		if (Math.abs(this.trailierTales$targetItemScale) > 0.1F) output.putFloat("TargetItemScale", this.trailierTales$targetItemScale);
+		if (Math.abs(this.trailierTales$itemScale) > 0.1F) output.putFloat("ItemScale", this.trailierTales$itemScale);
+		if (Math.abs(this.trailierTales$prevItemScale) > 0.1F) output.putFloat("PrevItemScale", this.trailierTales$prevItemScale);
+		if (this.trailierTales$hasCustomItem) output.putBoolean("HasCustomItem", this.trailierTales$hasCustomItem);
+		if (this.brushCount != 0) output.putInt("BrushCount", this.brushCount);
 	}
 
 	@Unique
-	public void trailierTales$readTT(ValueInput valueInput) {
-		this.trailierTales$hitDirection = Direction.byName(valueInput.getStringOr("TTHitDirection", ""));
-		this.trailierTales$targetXLerp = valueInput.getFloatOr("TargetXLerp", 0);
-		this.trailierTales$targetYLerp = valueInput.getFloatOr("TargetYLerp", 0);
-		this.trailierTales$targetZLerp = valueInput.getFloatOr("TargetZLerp", 0);
-		this.trailierTales$xLerp = valueInput.getFloatOr("XLerp", 0);
-		this.trailierTales$yLerp = valueInput.getFloatOr("YLerp", 0);
-		this.trailierTales$zLerp = valueInput.getFloatOr("ZLerp", 0);
-		this.trailierTales$prevXLerp = valueInput.getFloatOr("PrevXLerp", 0);
-		this.trailierTales$prevYLerp = valueInput.getFloatOr("PrevYLerp", 0);
-		this.trailierTales$prevZLerp = valueInput.getFloatOr("PrevZLerp", 0);
-		this.trailierTales$targetItemScale = valueInput.getFloatOr("TargetItemScale", 0);
-		this.trailierTales$itemScale = valueInput.getFloatOr("ItemScale", 0);
-		this.trailierTales$prevItemScale = valueInput.getFloatOr("PrevItemScale", 0);
-		this.trailierTales$rotation = valueInput.getFloatOr("Rotation", 0);
-		this.trailierTales$prevRotation = valueInput.getFloatOr("PrevRotation", 0);
-		this.trailierTales$hasCustomItem = valueInput.getBooleanOr("HasCustomItem", false);
-		this.brushCount = valueInput.getIntOr("BrushCount", 0);
+	public void trailierTales$readTT(ValueInput input) {
+		this.trailierTales$hitDirection = Direction.byName(input.getStringOr("TTHitDirection", ""));
+		this.trailierTales$targetXLerp = input.getFloatOr("TargetXLerp", 0);
+		this.trailierTales$targetYLerp = input.getFloatOr("TargetYLerp", 0);
+		this.trailierTales$targetZLerp = input.getFloatOr("TargetZLerp", 0);
+		this.trailierTales$xLerp = input.getFloatOr("XLerp", 0);
+		this.trailierTales$yLerp = input.getFloatOr("YLerp", 0);
+		this.trailierTales$zLerp = input.getFloatOr("ZLerp", 0);
+		this.trailierTales$prevXLerp = input.getFloatOr("PrevXLerp", 0);
+		this.trailierTales$prevYLerp = input.getFloatOr("PrevYLerp", 0);
+		this.trailierTales$prevZLerp = input.getFloatOr("PrevZLerp", 0);
+		this.trailierTales$targetItemScale = input.getFloatOr("TargetItemScale", 0);
+		this.trailierTales$itemScale = input.getFloatOr("ItemScale", 0);
+		this.trailierTales$prevItemScale = input.getFloatOr("PrevItemScale", 0);
+		this.trailierTales$rotation = input.getFloatOr("Rotation", 0);
+		this.trailierTales$prevRotation = input.getFloatOr("PrevRotation", 0);
+		this.trailierTales$hasCustomItem = input.getBooleanOr("HasCustomItem", false);
+		this.brushCount = input.getIntOr("BrushCount", 0);
 	}
 
 	@Unique
