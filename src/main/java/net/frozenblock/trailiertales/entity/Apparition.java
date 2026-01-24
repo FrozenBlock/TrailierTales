@@ -597,12 +597,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	protected Brain.Provider<Apparition> brainProvider() {
-		return Brain.provider(ApparitionAi.MEMORY_TYPES, ApparitionAi.SENSOR_TYPES);
-	}
-
-	@Override
-	protected Brain<Apparition> makeBrain(Dynamic<?> dynamic) {
-		return ApparitionAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+		return ApparitionAi.brainProvider(this);
 	}
 
 	public boolean isAiding() {

@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.entity.ai.apparition;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
 public class ApparitionAid extends Behavior<Apparition> {
 
-	@VisibleForTesting
 	public ApparitionAid() {
 		super(
 			ImmutableMap.of(
@@ -114,10 +112,10 @@ public class ApparitionAid extends Behavior<Apparition> {
 			}
 			return;
 		} else if (aidingTime == 1) {
-			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(livingEntity -> {
-				if (!(livingEntity instanceof Mob mob)) return;
+			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(entity -> {
+				if (!(entity instanceof Mob mob)) return;
 				mob.setTarget(attackTarget);
-				spawnParticles(level, livingEntity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
+				spawnParticles(level, entity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
 			}));
 		}
 		this.doStop(level, apparition, timestamp);

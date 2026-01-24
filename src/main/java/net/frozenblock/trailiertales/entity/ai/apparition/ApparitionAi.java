@@ -30,6 +30,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
@@ -65,24 +66,7 @@ public class ApparitionAi {
 		TTSensorTypes.APPARITION_NEAREST_ITEM_SENSOR,
 		TTSensorTypes.APPARITION_AIDABLES_SENSOR
 	);
-
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
-		MemoryModuleType.LOOK_TARGET,
-		MemoryModuleType.NEAREST_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.ATTACK_TARGET,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.HURT_BY,
-		MemoryModuleType.HURT_BY_ENTITY,
-		MemoryModuleType.PATH,
-		MemoryModuleType.NEAREST_PLAYERS,
-		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		TTMemoryModuleTypes.NEARBY_APPARITIONS,
-		MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS,
-		MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM,
 		TTMemoryModuleTypes.AID_COOLDOWN,
 		TTMemoryModuleTypes.AIDING_TIME,
 		TTMemoryModuleTypes.NEARBY_AIDABLES,
@@ -97,19 +81,20 @@ public class ApparitionAi {
 		TTMemoryModuleTypes.AIDING_ENTITIES
 	);
 
-	@Contract("_, _ -> param2")
-	public static Brain<Apparition> makeBrain(Apparition apparition, Brain<Apparition> brain) {
-		initCoreActivity(brain);
-		initIdleActivity(brain);
-		initFightActivity(apparition, brain);
-		brain.setCoreActivities(Set.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.IDLE);
-		brain.useDefaultActivity();
-		return brain;
+	public static Brain.Provider<Apparition> brainProvider(final Apparition body) {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities(body));
 	}
 
-	private static void initCoreActivity(Brain<Apparition> brain) {
-		brain.addActivity(
+	protected static List<ActivityData<Apparition>> getActivities(final Apparition body) {
+		return List.of(
+			initCoreActivity(),
+			initIdleActivity(),
+			initFightActivity(body)
+		);
+	}
+
+	private static ActivityData<Apparition> initCoreActivity() {
+		return ActivityData.create(
 			Activity.CORE,
 			0,
 			ImmutableList.of(
@@ -122,8 +107,8 @@ public class ApparitionAi {
 		);
 	}
 
-	private static void initIdleActivity(Brain<Apparition> brain) {
-		brain.addActivity(
+	private static ActivityData<Apparition> initIdleActivity() {
+		return ActivityData.create(
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
@@ -146,21 +131,24 @@ public class ApparitionAi {
 		);
 	}
 
-	private static void initFightActivity(Apparition apparition, Brain<Apparition> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
+	private static ActivityData<Apparition> initFightActivity(final Apparition body) {
+		return ActivityData.create(
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
-				StopAttackingIfTargetInvalid.create((level, entity) -> !apparition.canTargetEntity(entity, level), ApparitionAi::onTargetInvalid, true),
+				StopAttackingIfTargetInvalid.create((level, entity) -> !body.canTargetEntity(entity, level), ApparitionAi::onTargetInvalid, true),
 				new RunOne<>(
 					ImmutableList.of(
 						Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), 1),
 						Pair.of(new ApparitionAid(), 1),
 						Pair.of(new ApparitionShoot(), 1),
-						Pair.of(GoToWantedItem.create(
-							apparition1 -> apparition1.getInventory().getItems().getFirst().isEmpty(),
-							1.25F, true, 28
-						), 1)
+						Pair.of(
+							GoToWantedItem.create(
+								apparition -> apparition.getInventory().getItems().getFirst().isEmpty(),
+								1.25F, true, 28
+							),
+							1
+						)
 					)
 				)
 			),
@@ -172,24 +160,9 @@ public class ApparitionAi {
 		return ((Apparition)apparition).shouldReturnToHome(pos);
 	}
 
-	@Nullable
-	public static BlockPos getHome(Apparition apparition) {
-		Optional<GlobalPos> optional = apparition.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.map(GlobalPos::pos).orElse(null);
-	}
-
-	public static boolean isInHomeDimension(Apparition apparition) {
-		Optional<GlobalPos> optional = apparition.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.filter((globalPos) -> globalPos.dimension() == apparition.level().dimension()).isPresent();
-	}
-
-	public static void rememberHome(Apparition apparition, BlockPos pos) {
-		rememberHome(apparition, apparition.level(), pos);
-	}
-
 	public static void rememberHome(Apparition apparition, Level level, BlockPos pos) {
-		Brain<?> brain = apparition.getBrain();
-		GlobalPos globalPos = GlobalPos.of(level.dimension(), pos);
+		final Brain<?> brain = apparition.getBrain();
+		final GlobalPos globalPos = GlobalPos.of(level.dimension(), pos);
 		brain.setMemory(MemoryModuleType.HOME, globalPos);
 	}
 
