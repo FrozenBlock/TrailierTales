@@ -38,17 +38,17 @@ public final class TTEnchantments {
 	public static final ResourceKey<Enchantment> REAPING = key("reaping");
 
 	public static void bootstrap(BootstrapContext<Enchantment> context) {
-		final HolderGetter<DamageType> damageTypeHolder = context.lookup(Registries.DAMAGE_TYPE);
-		final HolderGetter<Enchantment> enchantmentHolder = context.lookup(Registries.ENCHANTMENT);
-		final HolderGetter<Item> itemHolder = context.lookup(Registries.ITEM);
-		final HolderGetter<Block> blockHolder = context.lookup(Registries.BLOCK);
+		final HolderGetter<DamageType> damageTypes = context.lookup(Registries.DAMAGE_TYPE);
+		final HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
+		final HolderGetter<Item> items = context.lookup(Registries.ITEM);
+		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		register(
 			context,
 			REBRUSH,
 			Enchantment.enchantment(
 					Enchantment.definition(
-						itemHolder.getOrThrow(TTItemTags.BRUSH_ENCHANTABLE),
+						items.getOrThrow(TTItemTags.BRUSH_ENCHANTABLE),
 						2,
 						3,
 						Enchantment.dynamicCost(25, 25),
@@ -64,7 +64,7 @@ public final class TTEnchantments {
 			REAPING,
 			Enchantment.enchantment(
 				Enchantment.definition(
-					itemHolder.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+					items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
 					2,
 					3,
 					Enchantment.dynamicCost(25, 25),

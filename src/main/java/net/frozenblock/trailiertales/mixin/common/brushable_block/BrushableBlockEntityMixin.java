@@ -45,7 +45,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -63,11 +62,11 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	@Unique
 	private float trailierTales$prevXLerp = 0.5F;
 	@Unique
-	private float trailierTales$targetYLerp = 0.0F;
+	private float trailierTales$targetYLerp = 0F;
 	@Unique
-	private float trailierTales$yLerp = 0.0F;
+	private float trailierTales$yLerp = 0F;
 	@Unique
-	private float trailierTales$prevYLerp = 0.0F;
+	private float trailierTales$prevYLerp = 0F;
 	@Unique
 	private float trailierTales$targetZLerp = 0.5F;
 	@Unique
@@ -144,30 +143,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	public void trailierTales$saveAdditional(ValueOutput output, CallbackInfo info) {
 		this.trailierTales$saveTT(output);
 		if (this.trailierTales$rebrushed) output.putBoolean("Rebrushed", this.trailierTales$rebrushed);
-		if (this.trailierTales$storedLootTable != null && this.trailierTales$storedLootTable != this.lootTable) {
-			output.putString("TrailierTalesStoredLootTable", this.trailierTales$storedLootTable.identifier().toString());
-		}
-	}
-
-	@Unique
-	private boolean trailierTales$runRebrush;
-
-	@Inject(
-		method = "brush",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;brushingCompleted(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V",
-			shift = At.Shift.BEFORE
-		)
-	)
-	public void trailierTales$rebrushA(long ticks, ServerLevel level, LivingEntity entity, Direction direction, ItemStack stack, CallbackInfoReturnable<Boolean> info) {
-		if (this.trailierTales$hasCustomItem) return;
-
-		final int rebrushLevel = stack.getEnchantments().getLevel(entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
-		if (rebrushLevel <= 0) return;
-
-		final float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;
-		if (entity.getRandom().nextFloat() < rebrushChance) this.trailierTales$runRebrush = true;
+		if (this.trailierTales$storedLootTable != null) output.store("TrailierTalesStoredLootTable", LootTable.KEY_CODEC, this.trailierTales$storedLootTable);
 	}
 
 	@WrapOperation(
@@ -177,8 +153,19 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 			target = "Lnet/minecraft/world/level/block/BrushableBlock;getTurnsInto()Lnet/minecraft/world/level/block/Block;"
 		)
 	)
-	private Block trailierTales$runRebrush(BrushableBlock instance, Operation<Block> original) {
-		if (!this.trailierTales$runRebrush) return original.call(instance);
+	private Block trailierTales$runRebrush(
+		BrushableBlock instance, Operation<Block> original,
+		ServerLevel level, LivingEntity entity, ItemStack stack
+	) {
+		if (this.trailierTales$hasCustomItem) return original.call(instance);
+
+		final int rebrushLevel = stack.getEnchantments().getLevel(entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
+		if (rebrushLevel <= 0) return original.call(instance);
+
+		final float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;
+		final boolean rebrush = entity.getRandom().nextFloat() < rebrushChance;
+		if (this.trailierTales$hasCustomItem || !rebrush) return original.call(instance);
+
 		this.trailierTales$rebrushed = true;
 		this.lootTable = this.trailierTales$storedLootTable;
 		this.brushCount = 0;
@@ -197,28 +184,18 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 		this.trailierTales$targetItemScale = 0F;
 		this.trailierTales$itemScale = 0F;
 		this.trailierTales$prevItemScale = 0F;
-		this.trailierTales$runRebrush = false;
-		this.item = ItemStack.EMPTY;
 		this.lootTableSeed = 0L;
 		return instance;
 	}
 
-	@Inject(
-		method = "tryLoadLootTable",
-		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;lootTable:Lnet/minecraft/resources/ResourceKey;",
-			opcode = Opcodes.PUTFIELD,
-			shift = At.Shift.AFTER
-		)
-	)
+	@Inject(method = "tryLoadLootTable", at = @At(value = "RETURN"))
 	private void trailierTales$storeLootTable(ValueInput valueInput, CallbackInfoReturnable<Boolean> info) {
 		this.trailierTales$storedLootTable = this.lootTable;
 	}
 
 	@Inject(method = "setLootTable", at = @At("HEAD"))
 	public void trailierTales$setLootTable(ResourceKey<LootTable> lootTable, long lootTableSeed, CallbackInfo info) {
-		if (lootTable != null) this.trailierTales$storedLootTable = lootTable;;
+		if (lootTable != null) this.trailierTales$storedLootTable = lootTable;
 	}
 
 	@Unique
@@ -308,20 +285,20 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	@Unique
 	public void trailierTales$readTT(ValueInput input) {
 		this.trailierTales$hitDirection = Direction.byName(input.getStringOr("TTHitDirection", ""));
-		this.trailierTales$targetXLerp = input.getFloatOr("TargetXLerp", 0);
-		this.trailierTales$targetYLerp = input.getFloatOr("TargetYLerp", 0);
-		this.trailierTales$targetZLerp = input.getFloatOr("TargetZLerp", 0);
-		this.trailierTales$xLerp = input.getFloatOr("XLerp", 0);
-		this.trailierTales$yLerp = input.getFloatOr("YLerp", 0);
-		this.trailierTales$zLerp = input.getFloatOr("ZLerp", 0);
-		this.trailierTales$prevXLerp = input.getFloatOr("PrevXLerp", 0);
-		this.trailierTales$prevYLerp = input.getFloatOr("PrevYLerp", 0);
-		this.trailierTales$prevZLerp = input.getFloatOr("PrevZLerp", 0);
-		this.trailierTales$targetItemScale = input.getFloatOr("TargetItemScale", 0);
-		this.trailierTales$itemScale = input.getFloatOr("ItemScale", 0);
-		this.trailierTales$prevItemScale = input.getFloatOr("PrevItemScale", 0);
-		this.trailierTales$rotation = input.getFloatOr("Rotation", 0);
-		this.trailierTales$prevRotation = input.getFloatOr("PrevRotation", 0);
+		this.trailierTales$targetXLerp = input.getFloatOr("TargetXLerp", 0.5F);
+		this.trailierTales$targetYLerp = input.getFloatOr("TargetYLerp", 0F);
+		this.trailierTales$targetZLerp = input.getFloatOr("TargetZLerp", 0.5F);
+		this.trailierTales$xLerp = input.getFloatOr("XLerp", 0.5F);
+		this.trailierTales$yLerp = input.getFloatOr("YLerp", 0F);
+		this.trailierTales$zLerp = input.getFloatOr("ZLerp", 0.5F);
+		this.trailierTales$prevXLerp = input.getFloatOr("PrevXLerp", 0.5F);
+		this.trailierTales$prevYLerp = input.getFloatOr("PrevYLerp", 0F);
+		this.trailierTales$prevZLerp = input.getFloatOr("PrevZLerp", 0.5F);
+		this.trailierTales$targetItemScale = input.getFloatOr("TargetItemScale", 0F);
+		this.trailierTales$itemScale = input.getFloatOr("ItemScale", 0F);
+		this.trailierTales$prevItemScale = input.getFloatOr("PrevItemScale", 0F);
+		this.trailierTales$rotation = input.getFloatOr("Rotation", 0F);
+		this.trailierTales$prevRotation = input.getFloatOr("PrevRotation", 0F);
 		this.trailierTales$hasCustomItem = input.getBooleanOr("HasCustomItem", false);
 		this.brushCount = input.getIntOr("BrushCount", 0);
 	}

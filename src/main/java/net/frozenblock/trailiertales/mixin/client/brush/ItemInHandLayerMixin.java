@@ -22,7 +22,6 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.config.TTItemConfig;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -69,12 +68,10 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 			&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
 			&& humanoidState.isUsingItem
 			&& humanoidState.useItemHand == interactionHand
-			&& humanoidState.attackTime < 1.0E-5F
+			&& humanoidState.attackTime <= 0F
 			&& stack.is(Items.BRUSH)
 		) {
-			final float remainingTicks = humanoidState.ticksUsingItem + 1F;
-			final float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
-			final float brushProgress = remainingTicks + partialTick;
+			final float brushProgress = humanoidState.ticksUsingItem + 1F;
 			final float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;
 			final Axis axis = arm == HumanoidArm.LEFT ? Axis.ZP : Axis.ZN;
 			poseStack.mulPose(axis.rotation(brushRoll));

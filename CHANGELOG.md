@@ -3,4 +3,5 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Ported to 26.1-snapshot-1
+- Fixed an issue that prevented the Rebrush enchantment from working properly.
+- Fixed Brush animations in the third person moving very rapidly.

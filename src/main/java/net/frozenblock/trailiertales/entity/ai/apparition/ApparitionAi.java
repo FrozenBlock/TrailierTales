@@ -67,10 +67,7 @@ public class ApparitionAi {
 		TTSensorTypes.APPARITION_AIDABLES_SENSOR
 	);
 	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
-		TTMemoryModuleTypes.AID_COOLDOWN,
 		TTMemoryModuleTypes.AIDING_TIME,
-		TTMemoryModuleTypes.NEARBY_AIDABLES,
-		TTMemoryModuleTypes.NEAREST_AIDABLE,
 		TTMemoryModuleTypes.SEE_TIME,
 		TTMemoryModuleTypes.STRAFING_CLOCKWISE,
 		TTMemoryModuleTypes.STRAFING_BACKWARDS,
