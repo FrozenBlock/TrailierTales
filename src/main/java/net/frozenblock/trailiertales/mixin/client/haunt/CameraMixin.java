@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.Camera;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,11 +31,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LevelRenderer.class)
-public class LevelRendererMixin {
+@Mixin(Camera.class)
+public class CameraMixin {
 
 	@WrapOperation(
-		method = "doesMobEffectBlockSky",
+		method = "extractRenderState",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/LivingEntity;hasEffect(Lnet/minecraft/core/Holder;)Z",

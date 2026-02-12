@@ -51,7 +51,6 @@ import net.minecraft.world.level.block.Blocks;
 
 public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public static BlockFamily FAMILY_CALCITE;
-	public static BlockFamily FAMILY_END_STONE;
 
 	static {
 		if (FrozenBools.IS_DATAGEN) {
@@ -60,12 +59,6 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 				.slab(TTBlocks.CALCITE_SLAB)
 				.wall(TTBlocks.CALCITE_WALL)
 				.polished(TTBlocks.POLISHED_CALCITE)
-				.getFamily();
-
-			FAMILY_END_STONE = BlockFamilies.familyBuilder(Blocks.END_STONE)
-				.stairs(TTBlocks.END_STONE_STAIRS)
-				.slab(TTBlocks.END_STONE_SLAB)
-				.wall(TTBlocks.END_STONE_WALL)
 				.getFamily();
 		}
 	}
@@ -84,10 +77,14 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 		BlockFamilies.DARK_PRISMARINE.variants.put(BlockFamily.Variant.WALL, TTBlocks.DARK_PRISMARINE_WALL);
 
+		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.END_STONE_STAIRS);
+		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.SLAB, TTBlocks.END_STONE_SLAB);
+		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.END_STONE_WALL);
+
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, TTBlocks.CRACKED_PURPUR_BLOCK);
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, TTBlocks.CHISELED_PURPUR_BLOCK);
 		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, TTBlocks.PURPUR_WALL);
-		BlockFamilies.PURPUR.generateRecipe = true;
+		BlockFamilies.PURPUR.generateCraftingRecipe = true;
 
 		BlockFamilies.STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.STONE_WALL);
 

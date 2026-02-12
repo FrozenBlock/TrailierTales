@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:decorated_pot_sherds"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "trailiertales:sherd_copy"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "trailiertales:sherd_copy"
+    ]
+  }
+}

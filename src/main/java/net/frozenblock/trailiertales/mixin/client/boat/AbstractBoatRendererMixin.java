@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.BoatRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.SpriteGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.WalkAnimationState;
@@ -55,7 +55,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 	protected abstract EntityModel<BoatRenderState> model();
 
 	@Unique
-	private MaterialSet trailierTales$materials;
+	private SpriteGetter trailierTales$sprites;
 	@Unique
 	private Identifier trailierTales$bannerTexture;
 	@Unique
@@ -69,7 +69,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, CallbackInfo info) {
-		this.trailierTales$materials = context.getMaterials();
+		this.trailierTales$sprites = context.getSprites();
 		this.trailierTales$boatBannerModel = new BoatBannerModel(context.bakeLayer(TTModelLayers.BOAT_BANNER));
 	}
 
@@ -127,7 +127,7 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		this.trailierTales$boatBannerModel.preparePoseStack(poseStack);
 		this.trailierTales$boatBannerModel.setupAnim(renderState);
 		this.trailierTales$boatBannerModel.submitFlag(
-			this.trailierTales$materials,
+			this.trailierTales$sprites,
 			poseStack,
 			collector,
 			renderState,

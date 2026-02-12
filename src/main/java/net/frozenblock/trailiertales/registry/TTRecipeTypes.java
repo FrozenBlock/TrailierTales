@@ -28,7 +28,7 @@ public final class TTRecipeTypes {
 	public static final RecipeSerializer<SherdCopyRecipe> SHERD_COPY_RECIPE = Registry.register(
 		BuiltInRegistries.RECIPE_SERIALIZER,
 		TTConstants.id("crafting_sherd_copy"),
-		new CustomRecipe.Serializer<>(SherdCopyRecipe::new)
+		SherdCopyRecipe.SERIALIZER
 	);
 
 	public static void init() {

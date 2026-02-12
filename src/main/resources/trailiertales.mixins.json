@@ -53,7 +53,7 @@
     "client.decorated_pot.DecoratedPotRenderStateMixin",
     "client.haunt.FogRendererMixin",
     "client.haunt.GuiMixin",
-    "client.haunt.LevelRendererMixin",
+    "client.haunt.CameraMixin",
     "client.haunt.LightTextureMixin",
     "client.haunt.SoundEngineMixin"
   ],

@@ -30,9 +30,10 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.state.BoatRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.SpriteGetter;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
@@ -98,29 +99,26 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	}
 
 	public void submitFlag(
-		MaterialSet materials,
+		SpriteGetter sprites,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
 		BoatRenderState renderState,
-		int overlay,
+		int overlayCoords,
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
 	) {
 		BannerRenderer.submitPatterns(
-			materials,
+			sprites,
 			poseStack,
 			collector,
 			renderState.lightCoords,
-			overlay,
+			overlayCoords,
 			this,
 			renderState,
-			ModelBakery.BANNER_BASE,
 			true,
 			dyeColor,
 			bannerPatternLayers,
-			false,
-			null,
-			renderState.outlineColor
+			null
 		);
 	}
 }

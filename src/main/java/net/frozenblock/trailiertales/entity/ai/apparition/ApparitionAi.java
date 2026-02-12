@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.TTSensorTypes;
@@ -53,8 +52,6 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
 
 public class ApparitionAi {
 	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
@@ -78,8 +75,8 @@ public class ApparitionAi {
 		TTMemoryModuleTypes.AIDING_ENTITIES
 	);
 
-	public static Brain.Provider<Apparition> brainProvider(final Apparition body) {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities(body));
+	public static Brain.Provider<Apparition> brainProvider() {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, ApparitionAi::getActivities);
 	}
 
 	protected static List<ActivityData<Apparition>> getActivities(final Apparition body) {

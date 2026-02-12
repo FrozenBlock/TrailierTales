@@ -132,7 +132,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			model,
 			openProgress,
 			poseStack,
-			RenderTypes.entityCutout(texture),
+			RenderTypes.entityCutoutCull(texture),
 			packedLight,
 			packedOverlay,
 			outlineColor,

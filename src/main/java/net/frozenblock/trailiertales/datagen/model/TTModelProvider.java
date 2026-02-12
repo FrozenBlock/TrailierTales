@@ -52,6 +52,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.Material;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Direction;
@@ -155,9 +156,9 @@ public final class TTModelProvider extends FabricModelProvider {
 
 		this.wall(generator, TTBlocks.DARK_PRISMARINE_WALL, Blocks.DARK_PRISMARINE);
 
-		BlockModelGenerators.BlockFamilyProvider endStoneFamily = generator.family(Blocks.END_STONE);
+		final BlockModelGenerators.BlockFamilyProvider endStoneFamily = generator.family(Blocks.END_STONE);
 		endStoneFamily.skipGeneratingModelsFor.add(Blocks.END_STONE);
-		endStoneFamily.generateFor(TTDataGenerator.FAMILY_END_STONE);
+		endStoneFamily.generateFor(BlockFamilies.END_STONE);
 		generator.family(TTBlocks.CHORAL_END_STONE).generateFor(TTBlocks.FAMILY_CHORAL_END_STONE);
 		generator.createTrivialCube(TTBlocks.CRACKED_END_STONE_BRICKS);
 		generator.createTrivialCube(TTBlocks.CHISELED_END_STONE_BRICKS);
@@ -298,7 +299,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_top_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_top")),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/manedrop_top"))),
 								generator.modelOutput
 							)
 						);
@@ -306,7 +307,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_top_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_top_stage_" + age)),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/manedrop_crop_top_stage_" + age))),
 								generator.modelOutput
 							)
 						);
@@ -317,7 +318,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_bottom")),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/manedrop_bottom"))),
 								generator.modelOutput
 							)
 						);
@@ -325,7 +326,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/manedrop_crop_bottom_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/manedrop_crop_bottom_stage_" + age)),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/manedrop_crop_bottom_stage_" + age))),
 								generator.modelOutput
 							)
 						);
@@ -349,7 +350,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_top_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_top")),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/guzmania_top"))),
 								generator.modelOutput
 							)
 						);
@@ -357,7 +358,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_top_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_top_stage_" + age)),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/guzmania_crop_top_stage_" + age))),
 								generator.modelOutput
 							)
 						);
@@ -368,7 +369,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_bottom")),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/guzmania_bottom"))),
 								generator.modelOutput
 							)
 						);
@@ -376,7 +377,7 @@ public final class TTModelProvider extends FabricModelProvider {
 						yield BlockModelGenerators.plainVariant(
 							CROP_CROSS.create(
 								TTConstants.id("block/guzmania_crop_bottom_stage_" + age),
-								TextureMapping.singleSlot(TextureSlot.CROSS, TTConstants.id("block/guzmania_crop_bottom_stage_" + age)),
+								TextureMapping.singleSlot(TextureSlot.CROSS, new Material(TTConstants.id("block/guzmania_crop_bottom_stage_" + age))),
 								generator.modelOutput
 							)
 						);

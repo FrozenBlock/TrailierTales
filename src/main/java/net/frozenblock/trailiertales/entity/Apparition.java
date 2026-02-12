@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.entity;
 
-import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
 import net.frozenblock.lib.wind.api.WindDisturbingEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
@@ -95,6 +94,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	private static final Vec3 AID_DUST_COLOR = new Vec3(24F / 255F, 252F / 255F, 1F);
 	private static final Vec3 POLTERGEIST_DUST_COLOR = new Vec3(222F / 255F, 157F / 255F, 224F / 255F);
 	private static final int WHITE = ARGB.color(new Vec3(1F, 1F, 1F));
+	private static final Brain.Provider<Apparition> BRAIN_PROVIDER = ApparitionAi.brainProvider();
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
@@ -595,11 +595,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		this.setVisibleItem(this.inventory.getItems().getFirst().copy());
 	}
 
-	@Override
-	protected Brain.Provider<Apparition> brainProvider() {
-		return ApparitionAi.brainProvider(this);
-	}
-
 	public boolean isAiding() {
 		return this.getBrain().hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME);
 	}
@@ -609,6 +604,12 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	public Brain<Apparition> getBrain() {
 		return (Brain<Apparition>) super.getBrain();
 	}
+
+	@Override
+	protected Brain<Apparition> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
+	}
+
 
 	@Override
 	protected void customServerAiStep(ServerLevel level) {

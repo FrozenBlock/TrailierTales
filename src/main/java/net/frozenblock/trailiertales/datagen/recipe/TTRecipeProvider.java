@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.TTFeatureFlags;
+import net.frozenblock.trailiertales.recipe.SherdCopyRecipe;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
@@ -34,8 +35,10 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -53,6 +56,11 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 			@Override
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(TTConstants.MOD_ID);
+
+				SpecialRecipeBuilder.special(
+					() -> new SherdCopyRecipe(this.tag(ItemTags.DECORATED_POT_SHERDS), Ingredient.of(Items.BRICKS))
+				).unlockedBy("has_brick", this.has(ItemTags.DECORATED_POT_SHERDS))
+				.save(this.output, "sherd_copy");
 
 				this.generateForEnabledBlockFamilies(TTFeatureFlags.TRAILIER_TALES_FLAG_SET);
 
@@ -125,14 +133,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.oneToOneConversionRecipe(Items.PURPLE_DYE, TTItems.DAWNTRAIL_SEEDS, "purple_dye");
 				this.oneToOneConversionRecipe(Items.MAGENTA_DYE, TTBlocks.GUZMANIA, "magenta_dye", 2);
 
-				// STONE
-
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.STONE_WALL, Blocks.STONE);
-
 				// GRANITE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_GRANITE_WALL, Blocks.GRANITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_GRANITE_WALL, Blocks.POLISHED_GRANITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICKS, 4)
 					.define('#', Blocks.POLISHED_GRANITE)
@@ -179,7 +182,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				// DIORITE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_DIORITE_WALL, Blocks.DIORITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_DIORITE_WALL, Blocks.POLISHED_DIORITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICKS, 4)
 					.define('#', Blocks.POLISHED_DIORITE)
@@ -226,7 +228,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				// ANDESITE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_ANDESITE_WALL, Blocks.ANDESITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_ANDESITE_WALL, Blocks.POLISHED_ANDESITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICKS, 4)
 					.define('#', Blocks.POLISHED_ANDESITE)
@@ -490,24 +491,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				// SANDSTONE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_SANDSTONE_STAIRS, Blocks.SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_SANDSTONE_WALL, Blocks.SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SMOOTH_SANDSTONE);
 
 				// RED SANDSTONE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.RED_SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.RED_SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.SMOOTH_RED_SANDSTONE);
-
-				// PRISMARINE
-
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PRISMARINE_BRICK_WALL, Blocks.PRISMARINE_BRICKS);
-
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DARK_PRISMARINE_WALL, Blocks.DARK_PRISMARINE);
 
 				// END STONE BRICKS
 
@@ -547,8 +536,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				// END STONE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.END_STONE_STAIRS, Blocks.END_STONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.END_STONE_SLAB, Blocks.END_STONE, 2);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.END_STONE_WALL, Blocks.END_STONE);
 
 				// CHORAL END STONE
 
@@ -562,11 +549,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_STAIRS, TTBlocks.CHORAL_END_STONE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_SLAB, TTBlocks.CHORAL_END_STONE, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_WALL, TTBlocks.CHORAL_END_STONE);
-
-				// PURPUR
-
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
 
 				// ARMOR TRIMS
 
