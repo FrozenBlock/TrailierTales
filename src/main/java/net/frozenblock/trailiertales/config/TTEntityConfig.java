@@ -17,111 +17,39 @@
 
 package net.frozenblock.trailiertales.config;
 
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTEntityConfig {
-	public static final Config<TTEntityConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			TTConstants.MOD_ID,
-			TTEntityConfig.class,
-			TTPreLoadConstants.configPath("entity", true),
-			JsonType.JSON5
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(TTConstants.id("entity")), ConfigSettings.JSON5);
 
-			@Override
-			public void onSync(TTEntityConfig syncInstance) {
-				final TTEntityConfig entityConfig = this.config();
-				TTEntityConfig.HAUNTED_FOG = entityConfig.apparition.haunted_fog;
-				TTEntityConfig.HAUNTED_LIGHTMAP = entityConfig.apparition.haunted_lightmap;
-				TTEntityConfig.HAUNTED_SOUNDS = entityConfig.apparition.haunted_sounds;
-				TTEntityConfig.HAUNTED_HUD = entityConfig.apparition.haunted_hud;
-			}
-		}
-	);
+	// APPARITION
+	public static final ConfigEntry<Boolean> APPARITION_PICKS_UP_ITEMS = CONFIG.entry("apparition/pickUpItems", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_CATCHES_PROJECTILES = CONFIG.entry("apparition/catchProjectile", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_IGNORES_MOB_GRIEFING = CONFIG.entry("apparition/ignoreMobGriefing", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> APPARITION_HYPNOTIZES_MOBS = CONFIG.entry("apparition/hypnotizeMobs", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_HAUNTS_PLAYERS = CONFIG.entry("apparition/hauntPlayers", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_HAUNTED_COFFINS = CONFIG.entry("apparition/hauntedCoffins", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_HAUNTED_FOG = CONFIG.entry("apparition/hauntedFog", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_HAUNTED_LIGHTMAP = CONFIG.entry("apparition/hauntedLightmap", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_HAUNTED_SOUNDS = CONFIG.entry("apparition/hauntedSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> APPARITION_HAUNTED_HUD = CONFIG.entry("apparition/hauntedHud", EntryType.BOOL, true);
 
-	public static volatile boolean HAUNTED_FOG = true;
-	public static volatile boolean HAUNTED_LIGHTMAP = true;
-	public static volatile boolean HAUNTED_SOUNDS = true;
-	public static volatile boolean HAUNTED_HUD = true;
+	// SNIFFER
+	public static final ConfigEntry<Boolean> SNIFFER_DIGS_CYAN_ROSE_SEEDS = CONFIG.entryBuilder("sniffer/digCyanRoseSeeds", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SNIFFER_DIGS_MANEDROP_GERMS = CONFIG.entryBuilder("sniffer/digManedropGerms", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SNIFFER_DIGS_GUZMANIA_SEEDS = CONFIG.entryBuilder("sniffer/digGuzmaniaSeeds", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SNIFFER_DIGS_DAWNTRAIL_SEEDS = CONFIG.entryBuilder("sniffer/digDawntrailSeeds", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SNIFFER_DIGS_LITHOPS_SEEDS = CONFIG.entryBuilder("sniffer/digLithopsSeeds", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SPAWN_SNIFFERS = CONFIG.entryBuilder("sniffer/spawnSniffers", EntryType.BOOL, true).requireRestart().build();
 
-	public final Apparition apparition = new Apparition();
+	// VILLAGER
+	public static final ConfigEntry<Boolean> VILLAGER_SELLS_CATACOMBS_MAP = CONFIG.entryBuilder("villager/sellCatacombsMap", EntryType.BOOL, true).requireRestart().build();
 
-	public final Sniffer sniffer = new Sniffer();
-
-	public final Villager villager = new Villager();
-
-	public final ArmorStand armorStand = new ArmorStand();
-
-	public static class Apparition {
-		@EntrySyncData(value = "picks_up_items")
-		public boolean picks_up_items = true;
-		@EntrySyncData(value = "catches_projectiles")
-		public boolean catches_projectiles = true;
-		@EntrySyncData(value = "ignore_mob_griefing")
-		public boolean ignore_mob_griefing = false;
-		@EntrySyncData(value = "hypnotizes_mobs")
-		public boolean hypnotizes_mobs = true;
-		@EntrySyncData(value = "haunts_players")
-		public boolean haunts_players = true;
-		@EntrySyncData(value = "haunted_coffins")
-		public boolean haunted_coffins = true;
-		@EntrySyncData(value = "haunted_fog")
-		public boolean haunted_fog = true;
-		@EntrySyncData(value = "haunted_lightmap")
-		public boolean haunted_lightmap = true;
-		@EntrySyncData(value = "haunted_sounds")
-		public boolean haunted_sounds = true;
-		@EntrySyncData(value = "haunted_hud")
-		public boolean haunted_hud = true;
-	}
-
-	public static class Sniffer {
-		@EntrySyncData(value = "dig_cyan_rose_seeds")
-		public boolean cyan_rose_seeds = true;
-		@EntrySyncData(value = "dig_manedrop_germs")
-		public boolean manedrop_germs = true;
-		@EntrySyncData(value = "dig_guzmania_seeds")
-		public boolean guzmania_seeds = true;
-		@EntrySyncData(value = "dig_dawntrail_seeds")
-		public boolean dawntrail_seeds = true;
-		@EntrySyncData(value = "dig_lithops_seeds")
-		public boolean lithops_seeds = true;
-		@EntrySyncData(value = "spawn_sniffer")
-		public boolean spawn = false;
-	}
-
-	public static class Villager {
-		@EntrySyncData(value = "sell_catacombs_map")
-		public boolean sell_catacombs_map = true;
-	}
-
-	public static class ArmorStand {
-		@EntrySyncData(value = "armor_stand_arms")
-		public boolean armor_stand_arms = true;
-	}
-
-	public static TTEntityConfig get() {
-		return get(false);
-	}
-
-	public static TTEntityConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static TTEntityConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
+	// ARMOR STAND
+	public static final ConfigEntry<Boolean> ARMOR_STAND_HAS_ARMS = CONFIG.entryBuilder("armorStand/hasArms", EntryType.BOOL, true).requireRestart().build();
 }

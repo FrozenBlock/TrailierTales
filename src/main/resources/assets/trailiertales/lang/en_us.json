@@ -336,6 +336,9 @@
   "tooltip.trailiertales.half_brush_effects": "Whether extra particles and a brush sound should play when the Brush is moving backwards.",
 
   "option.trailiertales.entity": "Entity",
+  "tooltip.trailiertales.entity_category": "Contains options for the %1$s.",
+  "option.trailiertales.spawn_entity": "%1$s Spawning",
+  "tooltip.trailiertales.spawn_entity": "Whether the %1$s can spawn naturally.",
 
   "option.trailiertales.apparition": "Apparition",
   "tooltip.trailiertales.apparition": "Contains options related to the Apparition.",
@@ -360,8 +363,6 @@
   "option.trailiertales.haunted_hud": "Haunted HUD",
   "tooltip.trailiertales.haunted_hud": "Whether the Haunt effect will obscure the player's HUD.\n(Health, Hunger, Armor, and Oxygen levels.)",
 
-  "option.trailiertales.sniffer": "Sniffer",
-  "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",
   "option.trailiertales.sniffer_digs_cyan_rose_seeds": "Dig Cyan Rose Seeds",
   "tooltip.trailiertales.sniffer_digs_cyan_rose_seeds": "Whether Sniffers can dig up Cyan Rose Seeds.",
   "option.trailiertales.sniffer_digs_manedrop_germs": "Dig Manedrop Germs",
@@ -372,16 +373,10 @@
   "tooltip.trailiertales.sniffer_digs_dawntrail_seeds": "Whether Sniffers can dig up Dawntrail Seeds.",
   "option.trailiertales.sniffer_digs_lithops_seeds": "Dig Lithops Seeds",
   "tooltip.trailiertales.sniffer_digs_lithops_seeds": "Whether Sniffers can dig up Lithops Seeds.",
-  "option.trailiertales.sniffer_spawns_naturally": "Spawning",
-  "tooltip.trailiertales.sniffer_spawns_naturally": "Whether Sniffers can spawn in Jungle biomes.",
 
-  "option.trailiertales.villager": "Villager",
-  "tooltip.trailiertales.villager": "Contains options related to the Villager.",
   "option.trailiertales.sell_catacombs_map": "Catacombs Map Trade",
   "tooltip.trailiertales.sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
 
-  "option.trailiertales.armor_stand": "Armor Stand",
-  "tooltip.trailiertales.armor_stand": "Contains options related to the Armor Stand.",
   "option.trailiertales.armor_stand_arms": "Arms",
   "tooltip.trailiertales.armor_stand_arms": "Whether Armor Stands will have their arms enabled by default.",
 

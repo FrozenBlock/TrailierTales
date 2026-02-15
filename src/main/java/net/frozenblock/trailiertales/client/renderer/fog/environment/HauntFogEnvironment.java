@@ -67,6 +67,6 @@ public class HauntFogEnvironment extends MobEffectFogEnvironment {
 
 	@Override
 	public boolean isApplicable(FogType fogType, Entity entity) {
-		return TTEntityConfig.HAUNTED_FOG && super.isApplicable(fogType, entity);
+		return TTEntityConfig.APPARITION_HAUNTED_FOG.get() && super.isApplicable(fogType, entity);
 	}
 }

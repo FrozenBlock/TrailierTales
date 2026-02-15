@@ -297,7 +297,7 @@ public class CoffinSpawnerData {
 		final List<UUID> detectedList = new ArrayList<>(list);
 		detectedList.removeIf(uuid ->
 			!(level.getPlayerByUUID(uuid) instanceof Player player)
-			|| !((TTEntityConfig.get().apparition.haunted_coffins && player.hasEffect(TTMobEffects.HAUNT)) || player.hasEffect(TTMobEffects.SIEGE_OMEN))
+			|| !((TTEntityConfig.APPARITION_HAUNTED_COFFINS.get() && player.hasEffect(TTMobEffects.HAUNT)) || player.hasEffect(TTMobEffects.SIEGE_OMEN))
 		);
 		for (UUID uuid : this.currentApparitions) {
 			if (level.getEntity(uuid) instanceof Apparition apparition) {

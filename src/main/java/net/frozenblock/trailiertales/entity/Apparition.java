@@ -282,7 +282,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean canPickUpLoot() {
-		return !this.isOnPickupCooldown() && TTEntityConfig.get().apparition.picks_up_items;
+		return !this.isOnPickupCooldown() && TTEntityConfig.APPARITION_PICKS_UP_ITEMS.get();
 	}
 
 	private boolean isOnPickupCooldown() {
@@ -295,9 +295,8 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 
 	@Override
 	public boolean wantsToPickUp(ServerLevel level, ItemStack stack) {
-		final TTEntityConfig entityConfig = TTEntityConfig.get();
-		if (!entityConfig.apparition.picks_up_items) return false;
-		if (!(level.getGameRules().get(GameRules.MOB_GRIEFING) || entityConfig.apparition.ignore_mob_griefing)) return false;
+		if (!TTEntityConfig.APPARITION_PICKS_UP_ITEMS.get()) return false;
+		if (!(level.getGameRules().get(GameRules.MOB_GRIEFING) || TTEntityConfig.APPARITION_IGNORES_MOB_GRIEFING.get())) return false;
 		return this.inventory.getItems().getFirst().isEmpty();
 	}
 
@@ -467,7 +466,7 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 	@Override
 	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
 		catchProjectile: {
-			if (!source.is(DamageTypeTags.IS_PROJECTILE) || !TTEntityConfig.get().apparition.catches_projectiles) break catchProjectile;
+			if (!source.is(DamageTypeTags.IS_PROJECTILE) || !TTEntityConfig.APPARITION_CATCHES_PROJECTILES.get()) break catchProjectile;
 			if (!(source.getDirectEntity() instanceof Projectile projectile)) break catchProjectile;
 
 			if (projectile instanceof AbstractArrow abstractArrow) {
