@@ -51,7 +51,7 @@ public class RangeSelectItemModelMixin {
 		boolean original,
 		ItemStackRenderState stackState, ItemStack stack
 	) {
-		if (this.property instanceof UseCycle && TTItemConfig.SMOOTH_BRUSH_ANIMATION && stack.is(Items.BRUSH)) return true;
+		if (this.property instanceof UseCycle && TTItemConfig.BRUSH_SMOOTH_ANIMATION.get() && stack.is(Items.BRUSH)) return true;
 		return original;
 	}
 }

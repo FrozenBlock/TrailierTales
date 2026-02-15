@@ -17,8 +17,7 @@
 
 package net.frozenblock.trailiertales.config.modmenu;
 
-// TODO: re-enable when modmenu is unobfuscated
-/*import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,9 +31,8 @@ public final class ModMenuIntegration implements ModMenuApi {
 	@Contract(pure = true)
 	@Override
 	public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-		if (FrozenBools.HAS_CLOTH_CONFIG) return ConfigGuiBuilder::buildScreen;
+		if (FrozenBools.HAS_CLOTH_CONFIG) return TTConfigGuiBuilder::buildScreen;
 		return screen -> null;
 	}
 
 }
-*/

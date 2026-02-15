@@ -22,12 +22,12 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import static net.frozenblock.trailiertales.TTConstants.tooltip;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
-import net.frozenblock.trailiertales.registry.TTEntityTypes;
-import net.minecraft.world.entity.EntityType;
 import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.booleanEntry;
 import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.entitySpawnEntry;
-import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
+import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
 public final class TTEntityConfigGui {

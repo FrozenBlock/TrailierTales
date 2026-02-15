@@ -46,10 +46,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public enum CoffinWobbleEvent {
-	EJECT_LOOT(1F, true, (coffin, state) -> !coffin.isEmpty() && TTBlockConfig.get().coffin.wobble_loot),
-	ACTIVATE(0.2F, false, (coffin, state) -> TTBlockConfig.get().coffin.wobble_activate),
-	POTION(0.1F, true, (coffin, state) -> TTBlockConfig.get().coffin.wobble_potion),
-	EXPERIENCE_BOTTLE(0.1F, true, (coffin, state) -> TTBlockConfig.get().coffin.wobble_experience_bottle);
+	EJECT_LOOT(1F, true, (coffin, state) -> !coffin.isEmpty() && TTBlockConfig.COFFIN_WOBBLE_LOOT.get()),
+	ACTIVATE(0.2F, false, (coffin, state) -> TTBlockConfig.COFFIN_WOBBLE_ACTIVATION.get()),
+	POTION(0.1F, true, (coffin, state) -> TTBlockConfig.COFFIN_WOBBLE_POTION_SPAWNING.get()),
+	EXPERIENCE_BOTTLE(0.1F, true, (coffin, state) -> TTBlockConfig.COFFIN_WOBBLE_EXPERIENCE_BOTTLE_SPAWNING.get());
 
 	private static final WeightedList<MobEffectInstance> MOB_EFFECTS = WeightedList.<MobEffectInstance>builder()
 		.add(new MobEffectInstance(MobEffects.MINING_FATIGUE, 120 * 20), 2)

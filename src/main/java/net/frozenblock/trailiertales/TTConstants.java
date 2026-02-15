@@ -18,12 +18,12 @@
 package net.frozenblock.trailiertales;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.minecraft.SharedConstants;
 
 public class TTConstants {
 	public static final String MOD_ID = TTPreLoadConstants.MOD_ID;
@@ -67,19 +67,15 @@ public class TTConstants {
 		return MOD_ID + "_" + path;
 	}
 
-	/**
-	 * @return A text component for use in a Config GUI
-	 */
-	@Contract(value = "_ -> new", pure = true)
-	public static Component text(String key) {
-		return Component.translatable("option." + MOD_ID + "." + key);
+
+	public static Component text(String key, Component... args) {
+		return Component.translatable("option." + MOD_ID + "." + key, args);
 	}
 
 	/**
 	 * @return A tooltip component for use in a Config GUI
 	 */
-	@Contract(value = "_ -> new", pure = true)
-	public static Component tooltip(String key) {
-		return Component.translatable("tooltip." + MOD_ID + "." + key);
+	public static Component tooltip(String key, Component... args) {
+		return Component.translatable("tooltip." + MOD_ID + "." + key, args);
 	}
 }

@@ -65,7 +65,7 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 
 		final InteractionHand interactionHand = arm == humanoidState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 		if (stack != null
-			&& TTItemConfig.SMOOTH_BRUSH_ANIMATION
+			&& TTItemConfig.BRUSH_SMOOTH_ANIMATION.get()
 			&& humanoidState.isUsingItem
 			&& humanoidState.useItemHand == interactionHand
 			&& humanoidState.attackTime <= 0F

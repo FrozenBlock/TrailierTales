@@ -17,103 +17,36 @@
 
 package net.frozenblock.trailiertales.config;
 
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.SyncBehavior;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTBlockConfig {
-	public static final Config<TTBlockConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			TTConstants.MOD_ID,
-			TTBlockConfig.class,
-			TTPreLoadConstants.configPath("block", true),
-			JsonType.JSON5
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(TTConstants.id("block")), ConfigSettings.JSON5);
 
-			@Override
-			public void onSync(TTBlockConfig syncInstance) {
-				var config = this.config();
-				COFFIN_IGNORE_DOMOBSPAWNING = config.coffin.ignore_do_mob_spawning_gamerule;
-				SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = config.suspiciousBlocks.smooth_animations;
-				SUSPICIOUS_BLOCK_PARTICLES = config.suspiciousBlocks.particle;
-			}
-		}
-	);
+	// SUSPICIOUS BLOCKS
+	public static final ConfigEntry<Boolean> SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS = CONFIG.unsyncableEntry("suspiciousBlocks/smoothAnimations", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES = CONFIG.unsyncableEntry("suspiciousBlocks/accessibilityParticles", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> SUSPICIOUS_BLOCK_PLACE_ITEMS = CONFIG.entry("suspiciousBlocks/placeItems", EntryType.BOOL, false);
 
-	public static volatile boolean COFFIN_IGNORE_DOMOBSPAWNING = false;
-	public static volatile boolean SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS = true;
-	public static volatile boolean SUSPICIOUS_BLOCK_PARTICLES = false;
+	// COFFIN
+	public static final ConfigEntry<Boolean> COFFIN_IGNORES_DO_MOB_SPAWNING_GAMERULE = CONFIG.entry("coffin/ignoreDoMobSpawningGamerule", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> COFFIN_WOBBLING = CONFIG.entry("coffin/wobbling", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> COFFIN_WOBBLE_ACTIVATION = CONFIG.entry("coffin/wobbleActivation", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> COFFIN_WOBBLE_LOOT = CONFIG.entry("coffin/wobbleLoot", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> COFFIN_WOBBLE_POTION_SPAWNING = CONFIG.entry("coffin/wobblePotion", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> COFFIN_WOBBLE_EXPERIENCE_BOTTLE_SPAWNING = CONFIG.entry("coffin/wobbleExperienceBottle", EntryType.BOOL, false);
 
-	public final SuspiciousBlocks suspiciousBlocks = new SuspiciousBlocks();
-
-	public final Coffin coffin = new Coffin();
-
-	public final BlockSounds blockSounds = new BlockSounds();
-
-	public static class SuspiciousBlocks {
-		@EntrySyncData(value = "smooth_animations", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean smooth_animations = true;
-		@EntrySyncData(value = "particle", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean particle = false;
-		@EntrySyncData(value = "place_items")
-		public boolean place_items = false;
-	}
-
-	public static class Coffin {
-		@EntrySyncData(value = "ignore_do_mob_spawning_gamerule")
-		public boolean ignore_do_mob_spawning_gamerule = false;
-		@EntrySyncData(value = "wobble")
-		public boolean wobble = true;
-		@EntrySyncData(value = "wobble_activate")
-		public boolean wobble_activate = true;
-		@EntrySyncData(value = "wobble_loot")
-		public boolean wobble_loot = false;
-		@EntrySyncData(value = "wobble_potion")
-		public boolean wobble_potion = false;
-		@EntrySyncData(value = "wobble_experience_bottle")
-		public boolean wobble_experience_bottle = false;
-	}
-
-	public static class BlockSounds {
-		@EntrySyncData("unpolished_brick_sounds")
-		public boolean unpolished_bricks = true;
-		@EntrySyncData("polished_brick_sounds")
-		public boolean polished_bricks = true;
-		@EntrySyncData("polished_sounds")
-		public boolean polished = true;
-		@EntrySyncData("polished_basalt_sounds")
-		public boolean polished_basalt = true;
-		@EntrySyncData("polished_deepslate_sounds")
-		public boolean polished_deepslate = true;
-		@EntrySyncData("polished_tuff_sounds")
-		public boolean polished_tuff = true;
-		@EntrySyncData("polished_calcite_sounds")
-		public boolean polished_calcite = true;
-		@EntrySyncData("calcite_bricks_sounds")
-		public boolean calcite_bricks = true;
-	}
-
-	public static TTBlockConfig get() {
-		return get(false);
-	}
-
-	public static TTBlockConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static TTBlockConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
+	// BLOCK SOUNDS
+	public static final ConfigEntry<Boolean> UNPOLISHED_BRICKS_SOUNDS = CONFIG.entry("blockSounds/unpolishedBricksSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POLISHED_BRICKS_SOUNDS = CONFIG.entry("blockSounds/polishedBricksSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POLISHED_SOUNDS = CONFIG.entry("blockSounds/polishedSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POLISHED_BASALT_SOUNDS = CONFIG.entry("blockSounds/polishedBasaltSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POLISHED_DEEPSLATE_SOUNDS = CONFIG.entry("blockSounds/polishedDeepslateSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POLISHED_TUFF_SOUNDS = CONFIG.entry("blockSounds/polishedTuffSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POLISHED_CALCITE_SOUNDS = CONFIG.entry("blockSounds/polishedCalciteSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> CALCITE_BRICKS_SOUNDS = CONFIG.entry("blockSounds/calciteBricksSounds", EntryType.BOOL, true);
 }

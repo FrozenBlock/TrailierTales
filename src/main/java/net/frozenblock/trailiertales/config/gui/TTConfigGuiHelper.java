@@ -24,10 +24,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
 import static net.frozenblock.trailiertales.TTConstants.text;
 import static net.frozenblock.trailiertales.TTConstants.tooltip;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
 public final class TTConfigGuiHelper {

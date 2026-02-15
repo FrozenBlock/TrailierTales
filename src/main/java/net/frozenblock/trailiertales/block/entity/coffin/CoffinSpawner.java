@@ -257,7 +257,7 @@ public final class CoffinSpawner {
 
 	public boolean canSpawnInLevel(ServerLevel level) {
 		return level.getDifficulty() != Difficulty.PEACEFUL
-			&& (TTBlockConfig.COFFIN_IGNORE_DOMOBSPAWNING || level.getGameRules().get(GameRules.SPAWN_MOBS));
+			&& (TTBlockConfig.COFFIN_IGNORES_DO_MOB_SPAWNING_GAMERULE.get() || level.getGameRules().get(GameRules.SPAWN_MOBS));
 	}
 
 	public Optional<UUID> spawnMob(ServerLevel level, BlockPos pos) {

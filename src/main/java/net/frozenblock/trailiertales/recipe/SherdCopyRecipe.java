@@ -65,7 +65,7 @@ public class SherdCopyRecipe extends CustomRecipe {
 	}
 
 	private Pair<Boolean, ItemStack> getCraftingOutput(CraftingInput input) {
-		if (!TTItemConfig.SHERD_DUPLICATION_RECIPE || input.ingredientCount() != 2) return EMPTY;
+		if (!TTItemConfig.SHERD_DUPLICATION_RECIPE.get() || input.ingredientCount() != 2) return EMPTY;
 
 		int bricks = 0;
 		int sherds = 0;

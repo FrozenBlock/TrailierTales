@@ -44,7 +44,7 @@ public class BrushableBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (TTBlockConfig.SUSPICIOUS_BLOCK_PARTICLES) trailierTales$emitConnectionParticlesForPlayer(level, pos, random);
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES.get()) trailierTales$emitConnectionParticlesForPlayer(level, pos, random);
 		if (BrushableBlock.class.cast(this) instanceof NonFallingBrushableBlock) info.cancel();
 	}
 

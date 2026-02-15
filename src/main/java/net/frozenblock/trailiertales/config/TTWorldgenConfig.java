@@ -17,129 +17,38 @@
 
 package net.frozenblock.trailiertales.config;
 
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTWorldgenConfig {
-	public static final Config<TTWorldgenConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			TTConstants.MOD_ID,
-			TTWorldgenConfig.class,
-			TTPreLoadConstants.configPath("worldgen", true),
-			JsonType.JSON5
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(TTConstants.id("worldgen")), ConfigSettings.JSON5);
 
-			@Override
-			public void onSync(TTWorldgenConfig syncInstance) {
-				var config = this.config();
-				GENERATE_CATACOMBS = config.catacombs;
-				GENERATE_GENERIC_RUINS = config.ruins.generic;
-				GENERATE_SNOWY_RUINS = config.ruins.snowy;
-				GENERATE_JUNGLE_RUINS = config.ruins.jungle;
-				GENERATE_SAVANNA_RUINS = config.ruins.savanna;
-				GENERATE_DESERT_RUINS = config.ruins.desert;
-				GENERATE_BADLANDS_RUINS = config.ruins.badlands;
-				GENERATE_DEEPSLATE_RUINS = config.ruins.deepslate;
-			}
-		}
-	);
+	public static final ConfigEntry<Boolean> CATACOMBS_GENERATION = CONFIG.entry("catacombs", EntryType.BOOL, true);
 
-	public static volatile boolean GENERATE_CATACOMBS = true;
-	public static volatile boolean GENERATE_GENERIC_RUINS = true;
-	public static volatile boolean GENERATE_SNOWY_RUINS = true;
-	public static volatile boolean GENERATE_JUNGLE_RUINS = true;
-	public static volatile boolean GENERATE_SAVANNA_RUINS = true;
-	public static volatile boolean GENERATE_DESERT_RUINS = true;
-	public static volatile boolean GENERATE_BADLANDS_RUINS = true;
-	public static volatile boolean GENERATE_DEEPSLATE_RUINS = true;
+	// RUINS GENERATION
+	public static final ConfigEntry<Boolean> GENERIC_RUINS_GENERATION = CONFIG.entry("ruins/generic", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SNOWY_RUINS_GENERATION = CONFIG.entry("ruins/snowy", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> JUNGLE_RUINS_GENERATION = CONFIG.entry("ruins/jungle", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SAVANNA_RUINS_GENERATION = CONFIG.entry("ruins/savanna", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> DESERT_RUINS_GENERATION = CONFIG.entry("ruins/desert", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BADLANDS_RUINS_GENERATION = CONFIG.entry("ruins/badlands", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> DEEPSLATE_RUINS_GENERATION = CONFIG.entry("ruins/deepslate", EntryType.BOOL, true);
 
-	public final Ruins ruins = new Ruins();
+	// VEGETATION GENERATION
+	public static final ConfigEntry<Boolean> TORCHFLOWER_GENERATION = CONFIG.entryBuilder("vegetation/generateTorchflower", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> PITCHER_GENERATION = CONFIG.entryBuilder("vegetation/generatePitcher", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> CYAN_ROSE_GENERATION = CONFIG.entryBuilder("vegetation/generateCyanRose", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> MANEDROP_GENERATION = CONFIG.entryBuilder("vegetation/generateManedrop", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> GUZMANIA_GENERATION = CONFIG.entryBuilder("vegetation/generateGuzmania", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> DAWNTRAIL_GENERATION = CONFIG.entryBuilder("vegetation/generateDawntrail", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> LITHOPS_GENERATION = CONFIG.entryBuilder("vegetation/generateLithops", EntryType.BOOL, false).requireRestart().build();
 
-	public final Vegetation vegetation = new Vegetation();
-
-	public final EndCity endCity = new EndCity();
-
-	@EntrySyncData("catacombs")
-	public boolean catacombs = true;
-
-	public static class Ruins {
-		@EntrySyncData("generic")
-		public boolean generic = true;
-
-		@EntrySyncData("snowy")
-		public boolean snowy = true;
-
-		@EntrySyncData("jungle")
-		public boolean jungle = true;
-
-		@EntrySyncData("savanna")
-		public boolean savanna = true;
-
-		@EntrySyncData("desert")
-		public boolean desert = true;
-
-		@EntrySyncData("badlands")
-		public boolean badlands = true;
-
-		@EntrySyncData("deepslate")
-		public boolean deepslate = true;
-	}
-
-	public static class Vegetation {
-		@EntrySyncData("generateTorchflower")
-		public boolean generateTorchflower = false;
-
-		@EntrySyncData("generatePitcher")
-		public boolean generatePitcher = false;
-
-		@EntrySyncData("generateCyanRose")
-		public boolean generateCyanRose = false;
-
-		@EntrySyncData("generateManedrop")
-		public boolean generateManedrop = false;
-
-		@EntrySyncData("generateGuzmania")
-		public boolean generateGuzmania = false;
-
-		@EntrySyncData("generateDawntrail")
-		public boolean generateDawntrail = false;
-
-		@EntrySyncData("generateLithops")
-		public boolean generateLithops = false;
-	}
-
-	public static class EndCity {
-		@EntrySyncData("generateCracked")
-		public boolean generateCracked = true;
-
-		@EntrySyncData("generateChoral")
-		public boolean generateChoral = true;
-
-		@EntrySyncData("generateChiseled")
-		public boolean generateChiseled = true;
-	}
-
-	public static TTWorldgenConfig get() {
-		return get(false);
-	}
-
-	public static TTWorldgenConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static TTWorldgenConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
+	// END CITY GENERATION
+	public static final ConfigEntry<Boolean> END_CITY_CRACKED_GENERATION = CONFIG.entryBuilder("endCity/generateCracked", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> END_CITY_CHORAL_GENERATION = CONFIG.entryBuilder("endCity/generateChoral", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> END_CITY_CHISELED_GENERATION = CONFIG.entryBuilder("endCity/generateChiseled", EntryType.BOOL, true).requireRestart().build();
 }

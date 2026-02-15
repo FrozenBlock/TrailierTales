@@ -21,7 +21,6 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.recipe.SherdCopyRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public final class TTRecipeTypes {
