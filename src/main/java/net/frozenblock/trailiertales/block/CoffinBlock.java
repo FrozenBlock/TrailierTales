@@ -202,7 +202,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
 		if (!(level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity)) return InteractionResult.PASS;
 
-		if ((level.getGameTime() - coffinBlockEntity.wobbleStartedAtTick) >= CoffinBlockEntity.WOBBLE_COOLDOWN && TTBlockConfig.get().coffin.wobble) {
+		if ((level.getGameTime() - coffinBlockEntity.wobbleStartedAtTick) >= CoffinBlockEntity.WOBBLE_COOLDOWN && TTBlockConfig.COFFIN_WOBBLING.get()) {
 			wobble(level, pos, state, entity);
 			return InteractionResult.SUCCESS;
 		}

@@ -46,12 +46,12 @@ public class WWIntegration extends AbstractWWIntegration {
 		BlockSoundTypeOverwrites.addBlock(
 			TTBlocks.SUSPICIOUS_CLAY,
 			TTSounds.SUSPICIOUS_CLAY_WW,
-			() -> WWBlockConfig.get().blockSounds.claySounds
+			WWBlockConfig.CLAY_SOUNDS::get
 		);
 		BlockSoundTypeOverwrites.addBlock(
 			Blocks.SUSPICIOUS_GRAVEL,
 			TTSounds.SUSPICIOUS_GRAVEL_WW,
-			() -> WWBlockConfig.get().blockSounds.claySounds
+			WWBlockConfig.GRAVEL_SOUNDS::get
 		);
 
 		StructureProcessorApi.addProcessor(
@@ -85,11 +85,11 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public boolean newClaySounds() {
-		return WWBlockConfig.get().blockSounds.claySounds;
+		return WWBlockConfig.CLAY_SOUNDS.get();
 	}
 
 	@Override
 	public boolean newGravelSounds() {
-		return WWBlockConfig.get().blockSounds.gravelSounds;
+		return WWBlockConfig.GRAVEL_SOUNDS.get();
 	}
 }

@@ -17,8 +17,7 @@
 
 package net.frozenblock.trailiertales.config.modmenu;
 
-// TODO: re-enable when cloth config is unobfuscated
-/*import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -36,37 +35,25 @@ import net.frozenblock.trailiertales.config.gui.TTWorldgenConfigGui;
 import net.minecraft.client.gui.screens.Screen;
 
 @Environment(EnvType.CLIENT)
-public class ConfigGuiBuilder {
+public class TTConfigGuiBuilder {
 
 	public static Screen buildScreen(Screen parent) {
-		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TTConstants.text("component.title"));
-
+		final ConfigBuilder configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TTConstants.text("component.title"));
 		configBuilder.setSavingRunnable(() -> {
-			TTWorldgenConfig.INSTANCE.save();
-			TTBlockConfig.INSTANCE.save();
-			TTEntityConfig.INSTANCE.save();
-			TTItemConfig.INSTANCE.save();
-			TTMiscConfig.INSTANCE.save();
+			TTWorldgenConfig.CONFIG.save();
+			TTBlockConfig.CONFIG.save();
+			TTEntityConfig.CONFIG.save();
+			TTItemConfig.CONFIG.save();
+			TTMiscConfig.CONFIG.save();
 		});
 
-		ConfigEntryBuilder entryBuilder = configBuilder.getEntryBuilder();
-
-		var block = configBuilder.getOrCreateCategory(TTConstants.text("block"));
-		TTBlockConfigGui.setupEntries(block, entryBuilder);
-
-		var item = configBuilder.getOrCreateCategory(TTConstants.text("item"));
-		TTItemConfigGui.setupEntries(item, entryBuilder);
-
-		var entity = configBuilder.getOrCreateCategory(TTConstants.text("entity"));
-		TTEntityConfigGui.setupEntries(entity, entryBuilder);
-
-		var worldgen = configBuilder.getOrCreateCategory(TTConstants.text("worldgen"));
-		TTWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
-
-		var misc = configBuilder.getOrCreateCategory(TTConstants.text("misc"));
-		TTMiscConfigGui.setupEntries(misc, entryBuilder);
+		final ConfigEntryBuilder entryBuilder = configBuilder.getEntryBuilder();
+		TTBlockConfigGui.setupEntries(configBuilder.getOrCreateCategory(TTConstants.text("block")), entryBuilder);
+		TTItemConfigGui.setupEntries(configBuilder.getOrCreateCategory(TTConstants.text("item")), entryBuilder);
+		TTEntityConfigGui.setupEntries(configBuilder.getOrCreateCategory(TTConstants.text("entity")), entryBuilder);
+		TTWorldgenConfigGui.setupEntries(configBuilder.getOrCreateCategory(TTConstants.text("worldgen")), entryBuilder);
+		TTMiscConfigGui.setupEntries(configBuilder.getOrCreateCategory(TTConstants.text("misc")), entryBuilder);
 
 		return configBuilder.build();
 	}
 }
-*/

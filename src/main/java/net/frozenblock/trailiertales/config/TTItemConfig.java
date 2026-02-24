@@ -17,66 +17,19 @@
 
 package net.frozenblock.trailiertales.config;
 
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.SyncBehavior;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.TTPreLoadConstants;
 
 public final class TTItemConfig {
-	public static final Config<TTItemConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			TTConstants.MOD_ID,
-			TTItemConfig.class,
-			TTPreLoadConstants.configPath("item", true),
-			JsonType.JSON5
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(TTConstants.id("item")), ConfigSettings.JSON5);
 
-			@Override
-			public void onSync(TTItemConfig syncInstance) {
-				var config = this.config();
-				SHERD_DUPLICATION_RECIPE = config.sherd_duplication_recipe;
-				SMOOTH_BRUSH_ANIMATION = config.brush.smooth_animations;
-				EXTRA_BRUSH_PARTICLES = config.brush.half_brush_effects;
-			}
-		}
-	);
+	public static final ConfigEntry<Boolean> SHERD_DUPLICATION_RECIPE = CONFIG.entry("sherdDuplicationRecipe", EntryType.BOOL, false);
 
-	public static volatile boolean SHERD_DUPLICATION_RECIPE = false;
-	public static volatile boolean SMOOTH_BRUSH_ANIMATION = true;
-	public static volatile boolean EXTRA_BRUSH_PARTICLES = true;
-
-	@EntrySyncData(value = "sherd_duplication_recipe")
-	public boolean sherd_duplication_recipe = false;
-
-	public final Brush brush = new Brush();
-
-	public static class Brush {
-		@EntrySyncData(value = "smooth_animations", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean smooth_animations = true;
-		@EntrySyncData(value = "half_brush_effects")
-		public boolean half_brush_effects = true;
-	}
-
-	public static TTItemConfig get() {
-		return get(false);
-	}
-
-	public static TTItemConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static TTItemConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
+	// BRUSH
+	public static final ConfigEntry<Boolean> BRUSH_SMOOTH_ANIMATION = CONFIG.entry("brush/smoothAnimation", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BRUSH_HALF_BRUSH_EFFECTS = CONFIG.entry("brush/halsBrushEffects", EntryType.BOOL, true);
 }

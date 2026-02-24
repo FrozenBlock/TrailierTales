@@ -86,7 +86,7 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 	protected void doTick(ServerLevel level, Apparition apparition) {
 		final Brain<?> brain = apparition.getBrain();
 		final LivingEntity attackTarget = apparition.getTarget();
-		if (attackTarget == null || !TTEntityConfig.get().apparition.hypnotizes_mobs) {
+		if (attackTarget == null || !TTEntityConfig.APPARITION_HYPNOTIZES_MOBS.get()) {
 			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES, new ArrayList<>());
 			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE);
 			return;

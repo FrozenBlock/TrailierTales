@@ -179,12 +179,11 @@ public final class TTLootTables {
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 			if (!BuiltInLootTables.SNIFFER_DIGGING.equals(key)) return;
-			final TTEntityConfig entityConfig = TTEntityConfig.get();
-			if (entityConfig.sniffer.cyan_rose_seeds) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS)));
-			if (entityConfig.sniffer.manedrop_germs) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
-			if (entityConfig.sniffer.guzmania_seeds) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS)));
-			if (entityConfig.sniffer.lithops_seeds) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.LITHOPS_SEEDS)));
-			if (entityConfig.sniffer.dawntrail_seeds) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
+			if (TTEntityConfig.SNIFFER_DIGS_CYAN_ROSE_SEEDS.get()) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS)));
+			if (TTEntityConfig.SNIFFER_DIGS_MANEDROP_GERMS.get()) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.MANEDROP_GERM)));
+			if (TTEntityConfig.SNIFFER_DIGS_GUZMANIA_SEEDS.get()) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS)));
+			if (TTEntityConfig.SNIFFER_DIGS_LITHOPS_SEEDS.get()) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.LITHOPS_SEEDS)));
+			if (TTEntityConfig.SNIFFER_DIGS_DAWNTRAIL_SEEDS.get()) tableBuilder.modifyPools(builder -> builder.add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS)));
 		});
 	}
 

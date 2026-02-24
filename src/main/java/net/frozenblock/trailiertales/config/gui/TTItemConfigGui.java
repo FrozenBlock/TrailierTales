@@ -17,15 +17,16 @@
 
 package net.frozenblock.trailiertales.config.gui;
 
-// TODO: re-enable when cloth config is unobfuscated
-/*import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import net.frozenblock.trailiertales.TTConstants;
+import static net.frozenblock.trailiertales.TTConstants.tooltip;
 import net.frozenblock.trailiertales.config.TTItemConfig;
+import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.booleanEntry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Items;
 
 @Environment(EnvType.CLIENT)
 public final class TTItemConfigGui {
@@ -35,53 +36,16 @@ public final class TTItemConfigGui {
 	}
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		var config = TTItemConfig.get(true);
-		var modifiedConfig = TTItemConfig.getWithSync();
-		Config<? extends TTItemConfig> configInstance = TTItemConfig.INSTANCE;
-		var defaultConfig = TTItemConfig.INSTANCE.defaultInstance();
+		category.addEntry(booleanEntry(entryBuilder, "sherd_duplication_recipe", TTItemConfig.SHERD_DUPLICATION_RECIPE));
 
-		var sherdDuplicationRecipe = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(TTConstants.text("sherd_duplication_recipe"), modifiedConfig.sherd_duplication_recipe)
-					.setDefaultValue(defaultConfig.sherd_duplication_recipe)
-					.setSaveConsumer(newValue -> config.sherd_duplication_recipe = newValue)
-					.setTooltip(TTConstants.tooltip("sherd_duplication_recipe"))
-					.build(),
-				config.getClass(),
-				"sherd_duplication_recipe",
-				configInstance
-			)
-		);
+		// BRUSH
+		var smoothBrushAnimation = booleanEntry(entryBuilder, "smooth_brush_animations", TTItemConfig.BRUSH_SMOOTH_ANIMATION);
+		var halfBrushEffects = booleanEntry(entryBuilder, "half_brush_effects", TTItemConfig.BRUSH_HALF_BRUSH_EFFECTS);
 
-		var brush = config.brush;
-		var modifiedBrush = modifiedConfig.brush;
-
-		var smoothBrushAnimations = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TTConstants.text("smooth_brush_animations"), modifiedBrush.smooth_animations)
-				.setDefaultValue(defaultConfig.brush.smooth_animations)
-				.setSaveConsumer(newValue -> brush.smooth_animations = newValue)
-				.setTooltip(TTConstants.tooltip("smooth_brush_animations"))
-				.build(),
-			brush.getClass(),
-			"smooth_animations",
-			configInstance
-		);
-		var halfBrushEffects = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(TTConstants.text("half_brush_effects"), modifiedBrush.half_brush_effects)
-				.setDefaultValue(defaultConfig.brush.half_brush_effects)
-				.setSaveConsumer(newValue -> brush.half_brush_effects = newValue)
-				.setTooltip(TTConstants.tooltip("half_brush_effects"))
-				.build(),
-			brush.getClass(),
-			"half_brush_effects",
-			configInstance
-		);
-
-		var brushCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("brush"),
+		FrozenClothConfig.createSubCategory(entryBuilder, category, Component.translatable(Items.BRUSH.getDescriptionId()),
 			false,
-			TTConstants.tooltip("brush"),
-			smoothBrushAnimations, halfBrushEffects
+			tooltip("item_category", Component.translatable(Items.BRUSH.getDescriptionId())),
+			smoothBrushAnimation, halfBrushEffects
 		);
 	}
 }
-*/

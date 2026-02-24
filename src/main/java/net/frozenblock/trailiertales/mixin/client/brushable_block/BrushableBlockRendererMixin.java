@@ -53,7 +53,7 @@ public class BrushableBlockRendererMixin {
 		)
 	)
 	public Comparable<Integer> trailierTales$removeBrushRequirementAndSetItemScale(Comparable<Integer> original) {
-		return TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS ? 1 : original;
+		return TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() ? 1 : original;
 	}
 
 	@Inject(
@@ -68,7 +68,7 @@ public class BrushableBlockRendererMixin {
 		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
 		CallbackInfo info
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()
 			&& brushableBlock instanceof BrushableBlockEntityInterface blockInterface
 			&& renderState instanceof BrushableBlockRenderStateInterface stateInterface
 		) {
@@ -92,7 +92,7 @@ public class BrushableBlockRendererMixin {
 		CameraRenderState cameraState,
 		CallbackInfo info
 	) {
-		if (!TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS || !(renderState instanceof BrushableBlockRenderStateInterface stateInterface)) return;
+		if (!TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() || !(renderState instanceof BrushableBlockRenderStateInterface stateInterface)) return;
 		if (stateInterface.trailierTales$getItemScale() <= 0.05F) info.cancel();
 	}
 
@@ -117,7 +117,7 @@ public class BrushableBlockRendererMixin {
 		Operation<Void> original,
 		BrushableBlockRenderState renderState
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
 			original.call(
 				instance,
 				stateInterface.trailierTales$getXOffset(),
@@ -149,7 +149,7 @@ public class BrushableBlockRendererMixin {
 		Operation<Void> original,
 		BrushableBlockRenderState renderState
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
 			original.call(
 				instance,
 				Axis.YP.rotationDegrees(stateInterface.trailierTales$getRotation() + 15F)
@@ -174,7 +174,7 @@ public class BrushableBlockRendererMixin {
 		Operation<Void> original,
 		BrushableBlockRenderState renderState
 	) {
-		if (TTBlockConfig.SMOOTH_SUSPICIOUS_BLOCK_ANIMATIONS && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() && renderState instanceof BrushableBlockRenderStateInterface stateInterface) {
 			final float itemScale = stateInterface.trailierTales$getItemScale();
 			original.call(
 				instance,

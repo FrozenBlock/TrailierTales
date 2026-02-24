@@ -279,7 +279,7 @@
   "option.trailiertales.block": "Block",
 
   "option.trailiertales.suspicious_blocks": "Suspicious Blocks",
-  "tooltip.trailiertales.suspicious_blocks": "Contains options related to Suspicious Blocks.",
+  "tooltip.trailiertales.suspicious_blocks": "Contains options for Suspicious Blocks.",
   "option.trailiertales.smooth_suspicious_blocks": "Smooth Animations",
   "tooltip.trailiertales.smooth_suspicious_blocks": "Whether Supicious Blocks should have smooth animations.",
   "option.trailiertales.suspicious_block_particles": "Suspicious Block Accessibility Particles",
@@ -288,7 +288,7 @@
   "tooltip.trailiertales.place_items_in_suspicious_blocks": "Whether items can be placed into empty Suspicious Blocks.",
 
   "option.trailiertales.coffin": "Coffin",
-  "tooltip.trailiertales.coffin": "Contains options related to Coffins.",
+  "tooltip.trailiertales.coffin": "Contains for the Coffin.",
   "option.trailiertales.ignore_do_mob_spawning_gamerule": "Ignore doMobSpawning",
   "tooltip.trailiertales.ignore_do_mob_spawning_gamerule": "Whether Coffins should ignore the doMobSpawning gamerule.",
   "option.trailiertales.coffin_wobble": "Wobbling",
@@ -303,13 +303,11 @@
   "tooltip.trailiertales.coffin_wobble_potion": "Whether wobbling a Coffin can yield thrown Potions.",
 
   "option.trailiertales.block_sounds": "Block Sounds",
-  "tooltip.trailiertales.block_sounds": "Contains options related to block sounds.",
-  "option.trailiertales.brick_sounds": "Bricks",
-  "tooltip.trailiertales.brick_sounds": "Whether Bricks should use new sounds.",
-  "option.trailiertales.unpolished_brick_sounds": "Unpolished Bricks",
-  "tooltip.trailiertales.unpolished_brick_sounds": "Whether unpolished brick blocks should use new sounds.",
-  "option.trailiertales.polished_brick_sounds": "Polished Bricks",
-  "tooltip.trailiertales.polished_brick_sounds": "Whether polished brick blocks should use new sounds.",
+  "tooltip.trailiertales.block_sounds": "Contains options for block sounds.",
+  "option.trailiertales.unpolished_bricks_sounds": "Unpolished Bricks",
+  "tooltip.trailiertales.unpolished_bricks_sounds": "Whether unpolished brick blocks should use new sounds.",
+  "option.trailiertales.polished_bricks_sounds": "Polished Bricks",
+  "tooltip.trailiertales.polished_bricks_sounds": "Whether polished brick blocks should use new sounds.",
   "option.trailiertales.polished_sounds": "Polished Stone Blocks",
   "tooltip.trailiertales.polished_sounds": "Whether polished stone blocks should use new sounds.",
   "option.trailiertales.polished_basalt_sounds": "Polished Basalt",
@@ -328,17 +326,17 @@
   "option.trailiertales.sherd_duplication_recipe": "Sherd Duplication Recipe",
   "tooltip.trailiertales.sherd_duplication_recipe": "Whether Pottery Sherds can be duplicated using a Brick in the crafting grid.",
 
-  "option.trailiertales.brush": "Brush",
-  "tooltip.trailiertales.brush": "Contains options related to the Brush.",
+  "tooltip.trailiertales.item_category": "Contains options for the %1$s.",
   "option.trailiertales.smooth_brush_animations": "Smooth Animations",
   "tooltip.trailiertales.smooth_brush_animations": "Whether the Brush should use a smooth brushing animation in third person.",
   "option.trailiertales.half_brush_effects": "Half-Brush Effects",
   "tooltip.trailiertales.half_brush_effects": "Whether extra particles and a brush sound should play when the Brush is moving backwards.",
 
   "option.trailiertales.entity": "Entity",
+  "tooltip.trailiertales.entity_category": "Contains options for the %1$s.",
+  "option.trailiertales.spawn_entity": "%1$s Spawning",
+  "tooltip.trailiertales.spawn_entity": "Whether the %1$s can spawn naturally.",
 
-  "option.trailiertales.apparition": "Apparition",
-  "tooltip.trailiertales.apparition": "Contains options related to the Apparition.",
   "option.trailiertales.picks_up_items": "Pick Up Items",
   "tooltip.trailiertales.picks_up_items": "Whether Apparitions can pick up dropped items.",
   "option.trailiertales.catches_projectiles": "Catch Projectiles",
@@ -360,8 +358,6 @@
   "option.trailiertales.haunted_hud": "Haunted HUD",
   "tooltip.trailiertales.haunted_hud": "Whether the Haunt effect will obscure the player's HUD.\n(Health, Hunger, Armor, and Oxygen levels.)",
 
-  "option.trailiertales.sniffer": "Sniffer",
-  "tooltip.trailiertales.sniffer": "Contains options related to the Sniffer.",
   "option.trailiertales.sniffer_digs_cyan_rose_seeds": "Dig Cyan Rose Seeds",
   "tooltip.trailiertales.sniffer_digs_cyan_rose_seeds": "Whether Sniffers can dig up Cyan Rose Seeds.",
   "option.trailiertales.sniffer_digs_manedrop_germs": "Dig Manedrop Germs",
@@ -372,16 +368,10 @@
   "tooltip.trailiertales.sniffer_digs_dawntrail_seeds": "Whether Sniffers can dig up Dawntrail Seeds.",
   "option.trailiertales.sniffer_digs_lithops_seeds": "Dig Lithops Seeds",
   "tooltip.trailiertales.sniffer_digs_lithops_seeds": "Whether Sniffers can dig up Lithops Seeds.",
-  "option.trailiertales.sniffer_spawns_naturally": "Spawning",
-  "tooltip.trailiertales.sniffer_spawns_naturally": "Whether Sniffers can spawn in Jungle biomes.",
 
-  "option.trailiertales.villager": "Villager",
-  "tooltip.trailiertales.villager": "Contains options related to the Villager.",
   "option.trailiertales.sell_catacombs_map": "Catacombs Map Trade",
   "tooltip.trailiertales.sell_catacombs_map": "Whether Cartographer Villagers can sell Catacombs Explorer Maps.",
 
-  "option.trailiertales.armor_stand": "Armor Stand",
-  "tooltip.trailiertales.armor_stand": "Contains options related to the Armor Stand.",
   "option.trailiertales.armor_stand_arms": "Arms",
   "tooltip.trailiertales.armor_stand_arms": "Whether Armor Stands will have their arms enabled by default.",
 
@@ -407,7 +397,7 @@
   "tooltip.trailiertales.deepslate_ruins": "Whether Deepslate Ruins can generate in the Deep Dark.",
 
   "option.trailiertales.vegetation": "Vegetation",
-  "tooltip.trailiertales.vegetation": "Contains options related to vegetation.",
+  "tooltip.trailiertales.vegetation": "Contains options for vegetation.",
   "option.trailiertales.generate_torchflower": "Torchflowers",
   "tooltip.trailiertales.generate_torchflower": "Whether Torchflowers can generate in Jungle biomes.",
   "option.trailiertales.generate_pitcher": "Pitcher Plants",

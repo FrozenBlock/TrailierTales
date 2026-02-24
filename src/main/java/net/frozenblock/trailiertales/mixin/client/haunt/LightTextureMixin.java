@@ -41,12 +41,15 @@ public class LightTextureMixin {
 
 	@ModifyExpressionValue(
 		method = "extract",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getEffectBlendFactor(Lnet/minecraft/core/Holder;F)F")
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/player/LocalPlayer;getEffectBlendFactor(Lnet/minecraft/core/Holder;F)F"
+		)
 	)
-	private float trailierTales$modifyDarknessGamma(float darknessGamma, LightmapRenderState renderState, float tickDelta) {
+	private float trailierTales$modifyDarknessGamma(float darknessEffectBrightnessModifier, LightmapRenderState renderState, float partialTicks) {
 		final MobEffectInstance hauntInstance = this.minecraft.player.getEffect(TTMobEffects.HAUNT);
-		if (hauntInstance != null && TTEntityConfig.HAUNTED_LIGHTMAP) return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, tickDelta) * 0.67F, darknessGamma);
-		return darknessGamma;
+		if (hauntInstance == null || !TTEntityConfig.APPARITION_HAUNTED_LIGHTMAP.get()) return darknessEffectBrightnessModifier;
+		return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, partialTicks) * 0.67F, darknessEffectBrightnessModifier);
 	}
 
 }

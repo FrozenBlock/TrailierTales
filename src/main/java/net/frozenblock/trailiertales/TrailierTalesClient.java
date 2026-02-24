@@ -39,27 +39,10 @@ public class TrailierTalesClient implements ClientModInitializer {
 		TTParticleEngine.init();
 
 		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
-
-		/*DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
-			CoffinDebugRenderer coffinDebugRenderer = new CoffinDebugRenderer(client);
-
-			ClientPlayNetworking.registerGlobalReceiver(CoffinDebugPacket.PACKET_TYPE, (packet, ctx) -> {
-				coffinDebugRenderer.addConnection(packet.entityId(), packet.coffinPos(), packet.lastInteractionTime(), packet.gameTime());
-			});
-
-			ClientPlayNetworking.registerGlobalReceiver(CoffinRemoveDebugPacket.PACKET_TYPE, (packet, ctx) -> {
-				coffinDebugRenderer.scheduleRemoval(packet.entityId());
-			});
-
-			DebugRenderManager.addClearRunnable(coffinDebugRenderer::clear);
-
-			// TODO port
-			//DebugRenderManager.registerRenderer(TTConstants.id("coffin"), coffinDebugRenderer::render);
-		});*/
 	}
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {
-		if (!TTMiscConfig.Client.DISTORTED_CATACOMBS_MUSIC) return 1F;
+		if (!TTMiscConfig.DISTORTED_CATACOMBS_MUSIC.get()) return 1F;
 		final float basePitch = 0.98F + Mth.sin((float) ((gameTime * Math.PI) / 1000F)) * 0.005F;
 		final float additionalPitchChangeA = Mth.clamp(Mth.cos((float) ((gameTime * Math.PI) / 600F)) * 0.5F, -0.00975F, 0.00975F);
 		final float additionalWobble = Mth.sin((float) ((gameTime * Math.PI) / 20F)) * 0.005F;

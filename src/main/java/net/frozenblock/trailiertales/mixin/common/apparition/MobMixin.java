@@ -41,7 +41,7 @@ public class MobMixin {
 		final Object returnValue = original.call(instance, gameRule);
 		if (gameRule != GameRules.MOB_GRIEFING || !(returnValue instanceof Boolean bool)) return returnValue;
 		if (bool) return true;
-		if (Mob.class.cast(this) instanceof Apparition) return TTEntityConfig.get().apparition.ignore_mob_griefing;
+		if (Mob.class.cast(this) instanceof Apparition) return TTEntityConfig.APPARITION_IGNORES_MOB_GRIEFING.get();
 		return returnValue;
 	}
 

@@ -43,12 +43,12 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 
 	@Override
 	protected boolean canStillUse(ServerLevel level, Apparition apparition, long timestamp) {
-		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && TTEntityConfig.get().apparition.haunts_players;
+		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && TTEntityConfig.APPARITION_HAUNTS_PLAYERS.get();
 	}
 
 	@Override
 	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
-		return super.checkExtraStartConditions(level, apparition) && TTEntityConfig.get().apparition.haunts_players;
+		return super.checkExtraStartConditions(level, apparition) && TTEntityConfig.APPARITION_HAUNTS_PLAYERS.get();
 	}
 
 	@Override

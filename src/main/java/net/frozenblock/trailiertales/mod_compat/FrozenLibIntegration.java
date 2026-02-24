@@ -97,42 +97,42 @@ public class FrozenLibIntegration extends ModIntegration {
 			APPARITION_WIND_DISTURBANCE,
 			(WindDisturbanceLogic.DisturbanceLogic<Apparition>) (source, level, windOrigin, affectedArea, windTarget) -> {
 				if (source.isEmpty()) return null;
+
 				final double distance = windOrigin.distanceTo(windTarget);
-				if (distance <= 6D) {
-					final Vec3 differenceInPoses = windOrigin.subtract(windTarget);
-					final double scaledDistance = (6D - distance) / 6D;
-					final double strengthFromDistance = Mth.clamp((6D - distance) / 4.5D, 0D, 1D);
-					final double x = scaledDistance * differenceInPoses.x * 0.3D;
-					final double y = scaledDistance * differenceInPoses.y * 0.3D;
-					final double z = scaledDistance * differenceInPoses.z * 0.3D;
-					final Vec3 windVec = new Vec3(x, y, z);
-					return new WindDisturbance.DisturbanceResult(strengthFromDistance, 6D - distance, windVec);
-				}
-				return null;
+				if (distance > 6D) return null;
+
+				final Vec3 differenceInPoses = windOrigin.subtract(windTarget);
+				final double scaledDistance = (6D - distance) / 6D;
+				final double strengthFromDistance = Mth.clamp((6D - distance) / 4.5D, 0D, 1D);
+				final double x = scaledDistance * differenceInPoses.x * 0.3D;
+				final double y = scaledDistance * differenceInPoses.y * 0.3D;
+				final double z = scaledDistance * differenceInPoses.z * 0.3D;
+				final Vec3 windVec = new Vec3(x, y, z);
+				return new WindDisturbance.DisturbanceResult(strengthFromDistance, 6D - distance, windVec);
 			}
 		);
 	}
 
 	@Override
 	public void init() {
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_UNPOLISHED_BRICKS, TTSounds.BRICKS, () -> TTBlockConfig.get().blockSounds.unpolished_bricks);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BRICKS, TTSounds.POLISHED_BRICKS, () -> TTBlockConfig.get().blockSounds.polished_bricks);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_CALCITE, TTSounds.POLISHED_CALCITE, () -> TTBlockConfig.get().blockSounds.polished_calcite);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_CALCITE_BRICKS, TTSounds.CALCITE_BRICKS_ALT, () -> TTBlockConfig.get().blockSounds.calcite_bricks);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED, TTSounds.POLISHED, () -> TTBlockConfig.get().blockSounds.polished);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_DEEPSLATE, TTSounds.POLISHED_DEEPSLATE, () -> TTBlockConfig.get().blockSounds.polished_deepslate);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_TUFF, TTSounds.POLISHED_TUFF, () -> TTBlockConfig.get().blockSounds.polished_tuff);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BASALT, TTSounds.POLISHED_BASALT, () -> TTBlockConfig.get().blockSounds.polished_basalt);
-		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_RESIN, TTSounds.POLISHED_RESIN, () -> TTBlockConfig.get().blockSounds.polished);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_UNPOLISHED_BRICKS, TTSounds.BRICKS, TTBlockConfig.UNPOLISHED_BRICKS_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BRICKS, TTSounds.POLISHED_BRICKS, TTBlockConfig.POLISHED_BRICKS_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_CALCITE, TTSounds.POLISHED_CALCITE, TTBlockConfig.POLISHED_CALCITE_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_CALCITE_BRICKS, TTSounds.CALCITE_BRICKS_ALT, TTBlockConfig.CALCITE_BRICKS_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED, TTSounds.POLISHED, TTBlockConfig.POLISHED_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_DEEPSLATE, TTSounds.POLISHED_DEEPSLATE, TTBlockConfig.POLISHED_DEEPSLATE_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_TUFF, TTSounds.POLISHED_TUFF, TTBlockConfig.POLISHED_TUFF_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_BASALT, TTSounds.POLISHED_BASALT, TTBlockConfig.POLISHED_BASALT_SOUNDS::get);
+		BlockSoundTypeOverwrites.addBlockTag(TTBlockTags.SOUND_POLISHED_RESIN, TTSounds.POLISHED_RESIN, TTBlockConfig.POLISHED_SOUNDS::get);
 
-		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_CATACOMBS);
-		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_BADLANDS_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_DEEPSLATE_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(DesertRuinsGenerator.DESERT_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_DESERT_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(GenericRuinsGenerator.RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_GENERIC_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_JUNGLE_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_SAVANNA_RUINS);
-		StructureGenerationConditionApi.addGenerationCondition(SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier(), () -> TTWorldgenConfig.GENERATE_SNOWY_RUINS);
+		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), TTWorldgenConfig.CATACOMBS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier(), TTWorldgenConfig.BADLANDS_RUINS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(), TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(DesertRuinsGenerator.DESERT_RUINS_KEY.identifier(), TTWorldgenConfig.DESERT_RUINS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(GenericRuinsGenerator.RUINS_KEY.identifier(), TTWorldgenConfig.GENERIC_RUINS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier(), TTWorldgenConfig.JUNGLE_RUINS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(), TTWorldgenConfig.SAVANNA_RUINS_GENERATION);
+		StructureGenerationConditionApi.addGenerationCondition(SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier(), TTWorldgenConfig.SNOWY_RUINS_GENERATION);
 
 		StructurePlacementExclusionApi.addExclusion(
 			BuiltinStructureSets.TRIAL_CHAMBERS.identifier(),
@@ -152,7 +152,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			3
 		);
 
-		if (TTWorldgenConfig.get().endCity.generateCracked) {
+		if (TTWorldgenConfig.END_CITY_CRACKED_GENERATION.get()) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.identifier(),
 				new RuleProcessor(
@@ -164,7 +164,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (TTWorldgenConfig.get().endCity.generateChoral) {
+		if (TTWorldgenConfig.END_CITY_CHORAL_GENERATION.get()) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.identifier(),
 				new RuleProcessor(
@@ -175,7 +175,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (TTWorldgenConfig.get().endCity.generateChiseled) {
+		if (TTWorldgenConfig.END_CITY_CHISELED_GENERATION.get()) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.END_CITY.identifier(),
 				new RuleProcessor(
@@ -190,7 +190,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		AdvancementEvents.INIT.register((holder, registries) -> {
 			final HolderLookup<EntityType<?>> entity = registries.lookupOrThrow(Registries.ENTITY_TYPE);
 			final Advancement advancement = holder.value();
-			if (!TTMiscConfig.get().modify_advancements) return;
+			if (!TTMiscConfig.MODIFY_ADVANCEMENTS.get()) return;
 
 			switch (holder.id().toString()) {
 				case "minecraft:adventure/kill_a_mob" -> {

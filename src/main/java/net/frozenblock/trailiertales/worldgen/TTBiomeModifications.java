@@ -33,60 +33,58 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class TTBiomeModifications {
 
 	public static void init() {
-		BiomeModifications.create(TTConstants.id("sniffer"))
-			.add(
-				ModificationPhase.ADDITIONS,
-				BiomeSelectors.all(),
-				((biomeSelectionContext, context) -> {
-					final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-					final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = context.getMobSpawnSettings();
-					final TTWorldgenConfig worldgenConfig = TTWorldgenConfig.get();
+		BiomeModifications.create(TTConstants.id("sniffer")).add(
+			ModificationPhase.ADDITIONS,
+			BiomeSelectors.all(),
+			(biomeSelectionContext, context) -> {
+				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+				final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = context.getMobSpawnSettings();
 
-					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
-						if (worldgenConfig.vegetation.generateTorchflower) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.TORCHFLOWER_PLACED);
-						}
-
-						if (worldgenConfig.vegetation.generatePitcher) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PITCHER_PLACED);
-						}
-
-						if (worldgenConfig.vegetation.generateCyanRose) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.CYAN_ROSE_PLACED);
-						}
-
-						if (worldgenConfig.vegetation.generateGuzmania) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.GUZMANIA_PLACED);
-						}
-
-						if (worldgenConfig.vegetation.generateDawntrail) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.DAWNTRAIL_PLACED);
-						}
-
-						if (TTEntityConfig.get().sniffer.spawn) {
-							spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 1, 4), 5);
-						}
+				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
+					if (TTWorldgenConfig.TORCHFLOWER_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.TORCHFLOWER_PLACED);
 					}
 
-					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_BIRCH_FOREST)) {
-						if (worldgenConfig.vegetation.generateManedrop) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.MANEDROP_PLACED);
-						}
+					if (TTWorldgenConfig.PITCHER_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PITCHER_PLACED);
 					}
 
-					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
-						if (worldgenConfig.vegetation.generateLithops) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED);
-						}
+					if (TTWorldgenConfig.CYAN_ROSE_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.CYAN_ROSE_PLACED);
 					}
 
-					if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_STONY_SHORES)) {
-						if (worldgenConfig.vegetation.generateLithops) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED_RARE);
-						}
+					if (TTWorldgenConfig.GUZMANIA_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.GUZMANIA_PLACED);
 					}
-				})
-			);
+
+					if (TTWorldgenConfig.DAWNTRAIL_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.DAWNTRAIL_PLACED);
+					}
+
+					if (TTEntityConfig.SPAWN_SNIFFERS.get()) {
+						spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SNIFFER, 1, 4), 5);
+					}
+				}
+
+				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_BIRCH_FOREST)) {
+					if (TTWorldgenConfig.MANEDROP_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.MANEDROP_PLACED);
+					}
+				}
+
+				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
+					if (TTWorldgenConfig.LITHOPS_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED);
+					}
+				}
+
+				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_STONY_SHORES)) {
+					if (TTWorldgenConfig.LITHOPS_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED_RARE);
+					}
+				}
+			}
+		);
 	}
 
 }

@@ -41,7 +41,7 @@ public class SoundEngineMixin {
 	)
 	public int modifyAttenuationDistance(int original) {
 		final Player player = Minecraft.getInstance().player;
-		if (player != null && TTEntityConfig.HAUNTED_SOUNDS && player.hasEffect(TTMobEffects.HAUNT)) return (int) (original * 0.5F);
+		if (player != null && TTEntityConfig.APPARITION_HAUNTED_SOUNDS.get() && player.hasEffect(TTMobEffects.HAUNT)) return (int) (original * 0.5F);
 		return original;
 	}
 }

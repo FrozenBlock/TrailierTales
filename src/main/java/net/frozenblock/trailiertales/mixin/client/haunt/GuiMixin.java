@@ -81,7 +81,7 @@ public class GuiMixin {
 	)
 	private void trailierTales$setHauntedInfo(CallbackInfo info) {
 		final Player player = this.minecraft.player;
-		trailierTales$isHaunted = TTEntityConfig.HAUNTED_HUD && player.hasEffect(TTMobEffects.HAUNT);
+		trailierTales$isHaunted = TTEntityConfig.APPARITION_HAUNTED_HUD.get() && player.hasEffect(TTMobEffects.HAUNT);
 		if (trailierTales$isHaunted) {
 			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
 		} else {

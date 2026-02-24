@@ -55,7 +55,7 @@ public class BlockBehaviorMixin {
 		CallbackInfoReturnable<InteractionResult> info
 	) {
 		if (!(state.getBlock() instanceof BrushableBlock)) return;
-		if (!TTBlockConfig.get().suspiciousBlocks.place_items || !state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) return;
+		if (!TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS.get() || !state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) return;
 
 		final ItemStack playerStack = player.getItemInHand(hand);
 		final boolean canPlaceIntoBlock = state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM) &&

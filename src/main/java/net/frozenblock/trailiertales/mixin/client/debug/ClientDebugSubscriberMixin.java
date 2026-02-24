@@ -18,6 +18,7 @@
 package net.frozenblock.trailiertales.mixin.client.debug;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import java.util.Set;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
@@ -31,7 +32,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ClientDebugSubscriber.class)

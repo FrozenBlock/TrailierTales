@@ -122,7 +122,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (TTBlockConfig.get().suspiciousBlocks.place_items) builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS.get()) builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
 	}
 
 }

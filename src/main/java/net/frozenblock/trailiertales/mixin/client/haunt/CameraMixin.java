@@ -43,7 +43,7 @@ public class CameraMixin {
 		)
 	)
 	private boolean trailierTales$doesMobEffectBlockSky(LivingEntity instance, Holder<MobEffect> effect, Operation<Boolean> original) {
-		return original.call(instance, effect) || (TTEntityConfig.HAUNTED_FOG && original.call(instance, TTMobEffects.HAUNT));
+		return original.call(instance, effect) || (TTEntityConfig.APPARITION_HAUNTED_HUD.get() && original.call(instance, TTMobEffects.HAUNT));
 	}
 
 }
