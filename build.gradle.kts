@@ -196,13 +196,13 @@ dependencies {
     compileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
 
     // Mod Menu
-    //compileOnly("com.terraformersmc:modmenu:$modmenu_version")
+    compileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    //compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
-    //    exclude(group = "net.fabricmc.fabric-api")
-    //    exclude(group = "com.terraformersmc")
-    //}
+    compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+        exclude(group = "net.fabricmc.fabric-api")
+        exclude(group = "com.terraformersmc")
+    }
 
     // Lithium
     //compileOnly("maven.modrinth:lithium:${lithium_version}")
