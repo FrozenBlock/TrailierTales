@@ -92,7 +92,7 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	}
 
 	@Override
-	protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		boolean canSurvive = false;
 		for (Direction direction : DIRECTIONS) {
 			if (!hasFace(state, direction)) continue;

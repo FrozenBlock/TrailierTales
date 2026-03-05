@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.lib.render.FrozenLibRenderTypes;
+import net.frozenblock.lib.renderer.FrozenLibRenderTypes;
 import net.frozenblock.trailiertales.client.model.monster.apparition.ApparitionModel;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;

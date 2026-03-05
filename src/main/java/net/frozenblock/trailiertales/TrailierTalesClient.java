@@ -24,8 +24,10 @@ import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.TTParticleEngine;
+import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
+import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
@@ -38,6 +40,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 		TTModelLayers.init();
 		TTParticleEngine.init();
 
+		SpecialModelRenderers.ID_MAPPER.put(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
 		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
 	}
 

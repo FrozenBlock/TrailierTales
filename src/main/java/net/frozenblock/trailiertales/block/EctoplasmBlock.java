@@ -63,7 +63,7 @@ public class EctoplasmBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected int getLightBlock(BlockState state) {
+	protected int getLightDampening(BlockState state) {
 		return 0;
 	}
 }

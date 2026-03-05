@@ -56,7 +56,7 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 		this.coffinRenderer.getExtents(consumer);
 	}
 
-	public record Unbaked(Identifier headTexture, Identifier footTexture, float openness) implements SpecialModelRenderer.Unbaked {
+	public record Unbaked(Identifier headTexture, Identifier footTexture, float openness) implements NoDataSpecialModelRenderer.Unbaked {
 		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 				Identifier.CODEC.fieldOf("head_texture").forGetter(CoffinSpecialRenderer.Unbaked::headTexture),
@@ -75,7 +75,7 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(BakingContext context) {
+		public CoffinSpecialRenderer bake(BakingContext context) {
 			return new CoffinSpecialRenderer(new CoffinRenderer(context.entityModelSet()), this.headTexture, this.footTexture, this.openness);
 		}
 	}
