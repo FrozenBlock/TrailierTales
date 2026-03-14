@@ -18,11 +18,6 @@
 package net.frozenblock.trailiertales.mixin.common.boat;
 
 import net.frozenblock.trailiertales.impl.BoatBannerInterface;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,11 +26,7 @@ import net.minecraft.world.entity.WalkAnimationState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -47,45 +38,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = AbstractBoat.class, priority = 100)
 public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBannerInterface {
 	@Unique
-	private static final EntityDataAccessor<ItemStack> TRAILIER_TALES$BANNER = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.ITEM_STACK);
-	@Unique
 	private final WalkAnimationState trailierTales$walkAnimation = new WalkAnimationState();
 
 	public AbstractBoatMixin(EntityType<?> type, Level level) {
 		super(type, level);
 	}
 
-	@Inject(method = "defineSynchedData", at = @At("TAIL"))
-	public void trailierTales$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo info) {
-		builder.define(TRAILIER_TALES$BANNER, ItemStack.EMPTY);
-	}
-
-	@Unique
-	@Override
-	public ItemStack trailierTales$getBanner() {
-		return this.entityData.get(TRAILIER_TALES$BANNER);
-	}
-
-	@Unique
-	@Override
-	public void trailierTales$setBanner(ItemStack stack) {
-		this.entityData.set(TRAILIER_TALES$BANNER, stack);
-	}
-
 	@Unique
 	@Override
 	public WalkAnimationState trailierTales$getWalkAnimationState() {
 		return this.trailierTales$walkAnimation;
-	}
-
-	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(ValueOutput output, CallbackInfo info) {
-		if (!this.trailierTales$getBanner().isEmpty()) output.store("TrailierTalesBanner", ItemStack.CODEC, this.trailierTales$getBanner());
-	}
-
-	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(ValueInput input, CallbackInfo info) {
-		this.trailierTales$setBanner(input.read("TrailierTalesBanner", ItemStack.CODEC).orElse(ItemStack.EMPTY));
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
@@ -115,22 +77,6 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 		cancellable = true
 	)
 	public void trailierTales$interact(Player player, InteractionHand hand, Vec3 location, CallbackInfoReturnable<InteractionResult> info) {
-		if (!player.isSecondaryUseActive()) return;
-
-		if (this.trailierTales$getBanner().isEmpty()) {
-			final ItemStack stack = player.getItemInHand(hand);
-			if (!stack.is(ItemTags.BANNERS)) return;
-			if (this.level() instanceof ServerLevel serverLevel) {
-				this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
-				this.trailierTales$setBanner(stack.split(1));
-				this.gameEvent(GameEvent.ENTITY_INTERACT, player);
-			}
-			info.setReturnValue(InteractionResult.SUCCESS);
-		} else {
-			if (this.level() instanceof ServerLevel serverLevel) this.spawnAtLocation(serverLevel, this.trailierTales$getBanner(), 0.6F);
-			this.trailierTales$setBanner(ItemStack.EMPTY);
-			this.gameEvent(GameEvent.ENTITY_INTERACT, player);
-			info.setReturnValue(InteractionResult.SUCCESS);
-		}
+		this.trailierTales$interactWithBanner(player, hand, location, info);
 	}
 }

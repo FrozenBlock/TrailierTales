@@ -42,19 +42,19 @@ public final class TTBiomeModifications {
 
 				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_JUNGLE)) {
 					if (TTWorldgenConfig.TORCHFLOWER_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.TORCHFLOWER_PLACED);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_TORCHFLOWER);
 					}
 
 					if (TTWorldgenConfig.PITCHER_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PITCHER_PLACED);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_PITCHER);
 					}
 
 					if (TTWorldgenConfig.CYAN_ROSE_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.CYAN_ROSE_PLACED);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_CYAN_ROSE);
 					}
 
 					if (TTWorldgenConfig.GUZMANIA_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.GUZMANIA_PLACED);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_GUZMANIA);
 					}
 
 					if (TTWorldgenConfig.DAWNTRAIL_GENERATION.get()) {
@@ -68,19 +68,19 @@ public final class TTBiomeModifications {
 
 				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_BIRCH_FOREST)) {
 					if (TTWorldgenConfig.MANEDROP_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.MANEDROP_PLACED);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_MANEDROP);
 					}
 				}
 
 				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_DESERT)) {
 					if (TTWorldgenConfig.LITHOPS_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_LITHOPS);
 					}
 				}
 
 				if (biomeSelectionContext.hasTag(ConventionalBiomeTags.IS_STONY_SHORES)) {
 					if (TTWorldgenConfig.LITHOPS_GENERATION.get()) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.LITHOPS_PLACED_RARE);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TTFeatureBootstrap.PATCH_LITHOPS_RARE);
 					}
 				}
 			}

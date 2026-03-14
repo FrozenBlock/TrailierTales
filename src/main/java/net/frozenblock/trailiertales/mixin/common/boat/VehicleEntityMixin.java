@@ -17,7 +17,7 @@
 
 package net.frozenblock.trailiertales.mixin.common.boat;
 
-import net.frozenblock.trailiertales.impl.BoatBannerInterface;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -34,16 +34,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(VehicleEntity.class)
 public abstract class VehicleEntityMixin extends Entity  {
 
-	public VehicleEntityMixin(EntityType<?> variant, Level world) {
-		super(variant, world);
+	public VehicleEntityMixin(EntityType<?> type, Level level) {
+		super(type, level);
 	}
 
 	@Inject(method = "destroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V", at = @At("HEAD"))
 	public void trailierTales$destroy(ServerLevel level, DamageSource source, CallbackInfo info) {
-		if (!(VehicleEntity.class.cast(this) instanceof BoatBannerInterface bannerInterface)) return;
 		if (!level.getGameRules().get(GameRules.ENTITY_DROPS)) return;
-		final ItemStack stack = bannerInterface.trailierTales$getBanner();
-		bannerInterface.trailierTales$setBanner(ItemStack.EMPTY);
-		this.spawnAtLocation(level, stack);
+
+		final ItemStack bannerItem = this.getAttached(TTAttachmentTypes.BOAT_BANNER);
+		if (bannerItem == null) return;
+		this.spawnAtLocation(level, bannerItem);
+		this.removeAttached(TTAttachmentTypes.BOAT_BANNER);
 	}
 }

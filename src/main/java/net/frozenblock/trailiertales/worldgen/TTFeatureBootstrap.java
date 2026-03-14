@@ -36,19 +36,21 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 
@@ -57,45 +59,45 @@ public class TTFeatureBootstrap {
 		Registries.CONFIGURED_FEATURE,
 			TTConstants.id("torchflower")
 	);
-	public static final ResourceKey<PlacedFeature> TORCHFLOWER_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_TORCHFLOWER = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("torchflower")
+		TTConstants.id("patch_torchflower")
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PITCHER = ResourceKey.create(
 		Registries.CONFIGURED_FEATURE,
 			TTConstants.id("pitcher")
 		);
-	public static final ResourceKey<PlacedFeature> PITCHER_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_PITCHER = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("pitcher")
+		TTConstants.id("patch_pitcher")
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CYAN_ROSE = ResourceKey.create(
 		Registries.CONFIGURED_FEATURE,
 			TTConstants.id("cyan_rose")
 		);
-	public static final ResourceKey<PlacedFeature> CYAN_ROSE_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_CYAN_ROSE = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("cyan_rose")
+		TTConstants.id("patch_cyan_rose")
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> MANEDROP = ResourceKey.create(
 		Registries.CONFIGURED_FEATURE,
 			TTConstants.id("manedrop")
 		);
-	public static final ResourceKey<PlacedFeature> MANEDROP_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_MANEDROP = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("manedrop")
+		TTConstants.id("patch_manedrop")
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> GUZMANIA = ResourceKey.create(
 		Registries.CONFIGURED_FEATURE,
 		TTConstants.id("guzmania")
 	);
-	public static final ResourceKey<PlacedFeature> GUZMANIA_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_GUZMANIA = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("guzmania")
+		TTConstants.id("patch_guzmania")
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> DAWNTRAIL = ResourceKey.create(
@@ -111,13 +113,13 @@ public class TTFeatureBootstrap {
 		Registries.CONFIGURED_FEATURE,
 		TTConstants.id("lithops")
 	);
-	public static final ResourceKey<PlacedFeature> LITHOPS_PLACED = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_LITHOPS = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("lithops")
+		TTConstants.id("patch_lithops")
 	);
-	public static final ResourceKey<PlacedFeature> LITHOPS_PLACED_RARE = ResourceKey.create(
+	public static final ResourceKey<PlacedFeature> PATCH_LITHOPS_RARE = ResourceKey.create(
 		Registries.PLACED_FEATURE,
-		TTConstants.id("lithops_rare")
+		TTConstants.id("patch_lithops_rare")
 	);
 
 	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
@@ -127,66 +129,36 @@ public class TTFeatureBootstrap {
 		register(
 			entries,
 			TORCHFLOWER,
-			Feature.FLOWER,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				18,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER))
-				)
-			)
+			Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TORCHFLOWER))
 		);
 
 		register(
 			entries,
 			PITCHER,
-			Feature.FLOWER,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				10,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PITCHER_PLANT))
-				)
-			)
+			Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PITCHER_PLANT))
 		);
 
 		register(
 			entries,
 			CYAN_ROSE,
-			Feature.FLOWER,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				15,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.CYAN_ROSE))
-				)
-			)
+			Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.CYAN_ROSE))
 		);
 
 		register(
 			entries,
 			MANEDROP,
-			Feature.FLOWER,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				12,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.MANEDROP))
-				)
-			)
+			Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.MANEDROP))
 		);
 
 		register(
 			entries,
 			GUZMANIA,
-			Feature.FLOWER,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				18,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.GUZMANIA))
-				)
-			)
+			Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(TTBlocks.GUZMANIA))
 		);
 
 		register(
@@ -220,16 +192,8 @@ public class TTFeatureBootstrap {
 		register(
 			entries,
 			LITHOPS,
-			Feature.FLOWER,
-			new RandomPatchConfiguration(
-				28,
-				6,
-				2,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(lithopsStates))
-				)
-			)
+			Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(new WeightedStateProvider(lithopsStates))
 		);
 	}
 
@@ -239,52 +203,67 @@ public class TTFeatureBootstrap {
 
 		register(
 			entries,
-			TORCHFLOWER_PLACED,
+			PATCH_TORCHFLOWER,
 			configuredFeatures.getOrThrow(TORCHFLOWER),
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(18),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		register(
 			entries,
-			PITCHER_PLACED,
+			PATCH_PITCHER,
 			configuredFeatures.getOrThrow(PITCHER),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(10),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		register(
 			entries,
-			CYAN_ROSE_PLACED,
+			PATCH_CYAN_ROSE,
 			configuredFeatures.getOrThrow(CYAN_ROSE),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(15),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		register(
 			entries,
-			MANEDROP_PLACED,
+			PATCH_MANEDROP,
 			configuredFeatures.getOrThrow(MANEDROP),
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(12),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		register(
 			entries,
-			GUZMANIA_PLACED,
+			PATCH_GUZMANIA,
 			configuredFeatures.getOrThrow(GUZMANIA),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(18),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		register(
@@ -300,22 +279,28 @@ public class TTFeatureBootstrap {
 
 		register(
 			entries,
-			LITHOPS_PLACED,
+			PATCH_LITHOPS,
 			configuredFeatures.getOrThrow(LITHOPS),
 			RarityFilter.onAverageOnceEvery(11),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(28),
+			RandomOffsetPlacement.ofTriangle(6, 2),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		register(
 			entries,
-			LITHOPS_PLACED_RARE,
+			PATCH_LITHOPS_RARE,
 			configuredFeatures.getOrThrow(LITHOPS),
 			RarityFilter.onAverageOnceEvery(16),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(28),
+			RandomOffsetPlacement.ofTriangle(6, 2),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 	}
 

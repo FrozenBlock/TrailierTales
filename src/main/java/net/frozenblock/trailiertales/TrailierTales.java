@@ -26,6 +26,7 @@ import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.networking.TTNetworking;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTCreativeInventorySorting;
@@ -68,6 +69,7 @@ public class TrailierTales extends FrozenModInitializer {
 		TTStructureTypes.init();
 		TTStructurePieceTypes.init();
 		TTMapDecorationTypes.init();
+		TTAttachmentTypes.init();
 		TTBlocks.init();
 		TTBlockEntityTypes.register();
 		TTItems.init();

@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.client.model.object.boat;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.frozenblock.trailiertales.impl.client.BoatRenderStateInterface;
+import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -33,6 +33,7 @@ import net.minecraft.client.renderer.entity.state.BoatRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
@@ -45,16 +46,25 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	private boolean raft = false;
 
 	public BoatBannerModel(ModelPart root) {
-		super(root, RenderTypes::entitySolid);
+		super(root, RenderTypes::entityCutout);
 		this.flag = root.getChild("flag");
 		this.pole = root.getChild("pole");
 		this.bar = root.getChild("bar");
 	}
 
-	public static LayerDefinition createBodyLayer() {
+	public static LayerDefinition createFlagLayer() {
 		final MeshDefinition mesh = new MeshDefinition();
 		final PartDefinition root = mesh.getRoot();
 		root.addOrReplaceChild("flag", CubeListBuilder.create().texOffs(0, 0).addBox(-10F, 0F, -2F, 20F, 40F, 1F), PartPose.ZERO);
+		root.addOrReplaceChild("pole", CubeListBuilder.create(), PartPose.ZERO);
+		root.addOrReplaceChild("bar", CubeListBuilder.create(), PartPose.ZERO);
+		return LayerDefinition.create(mesh, 64, 64);
+	}
+
+	public static LayerDefinition createStandLayer() {
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
+		root.addOrReplaceChild("flag", CubeListBuilder.create(), PartPose.ZERO);
 		root.addOrReplaceChild("pole", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -30F, -1F, 2F, 42F, 2F), PartPose.ZERO);
 		root.addOrReplaceChild("bar", CubeListBuilder.create().texOffs(0, 42).addBox(-10F, -32F, -1F, 20F, 2F, 2F), PartPose.ZERO);
 		return LayerDefinition.create(mesh, 64, 64);
@@ -67,10 +77,11 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	@Override
 	public void setupAnim(BoatRenderState renderState) {
 		super.setupAnim(renderState);
-		if (!(renderState instanceof BoatRenderStateInterface stateInterface)) return;
+		final float walkAnimationSpeed = renderState.getDataOrDefault(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_SPEED, 0F);
+		final float walkAnimationPos = renderState.getDataOrDefault(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_POS, 0F);
 		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(Mth.TWO_PI * renderState.ageInTicks / 100F)) * Mth.PI;
-		this.flag.xRot -= (stateInterface.trailierTales$getWalkAnimationSpeed() * (90F / 180F)) * Mth.PI;
-		this.flag.xRot -= (Mth.cos(stateInterface.trailierTales$getWalkAnimationPos() * 0.4F) + 1F) * 0.1F * Math.min(stateInterface.trailierTales$getWalkAnimationSpeed() * 2F, 1F);
+		this.flag.xRot -= (walkAnimationSpeed * (90F / 180F)) * Mth.PI;
+		this.flag.xRot -= (Mth.cos(walkAnimationPos * 0.4F) + 1F) * 0.1F * Math.min(walkAnimationSpeed * 2F, 1F);
 		this.flag.y = -32F;
 	}
 
@@ -118,5 +129,15 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 			bannerPatternLayers,
 			null
 		);
+	}
+
+	public void submitStand(
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		BoatRenderState renderState,
+		int overlayCoords,
+		Identifier standTexture
+	) {
+		collector.submitModel(this, renderState, poseStack, RenderTypes.entityCutout(standTexture), renderState.lightCoords, overlayCoords, 0, null);
 	}
 }

@@ -17,12 +17,13 @@
 
 package net.frozenblock.trailiertales.block.impl;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 
 public enum CoffinPart implements StringRepresentable {
 	HEAD("head"),
 	FOOT("foot");
-
+	public static final Codec<CoffinPart> CODEC = StringRepresentable.fromEnum(CoffinPart::values);
 	private final String name;
 
 	CoffinPart(final String name) {

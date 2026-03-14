@@ -56,7 +56,7 @@ public class RuinsStructure extends Structure {
 		settingsCodec(instance),
 			RuinsStructure.Type.CODEC.optionalFieldOf("ruins_type", Type.GENERIC).forGetter(feature -> feature.ruinsType),
 			Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
-			UniformInt.CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
+			UniformInt.MAP_CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
 			Heightmap.Types.CODEC.lenientOptionalFieldOf("heightmap").forGetter(feature -> feature.heightmap),
 			HeightProvider.CODEC.lenientOptionalFieldOf("height_provider").forGetter(feature -> feature.heightProvider)
 		).apply(instance, RuinsStructure::new)

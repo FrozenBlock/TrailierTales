@@ -31,7 +31,7 @@ import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -90,7 +90,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderPlayerHealth",
+		method = "extractPlayerHealth",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/player/Player;getAttributeValue(Lnet/minecraft/core/Holder;)D"
@@ -112,7 +112,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderPlayerHealth",
+		method = "extractPlayerHealth",
 		at = @At(
 			value = "INVOKE",
 			target = "Ljava/lang/Math;max(II)I",
@@ -134,7 +134,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderPlayerHealth",
+		method = "extractPlayerHealth",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/util/Mth;ceil(F)I",
@@ -145,15 +145,15 @@ public class GuiMixin {
 		return (int) (absorptionAmount * (1F - trailierTales$getHauntProgress()));
 	}
 
-	@ModifyVariable(method = "renderHearts", at = @At("HEAD"), argsOnly = true, ordinal = 3)
+	@ModifyVariable(method = "extractHearts", at = @At("HEAD"), argsOnly = true, ordinal = 3)
 	private int trailierTales$hideRegeneration(int regeneratingHeartIndex) {
 		return trailierTales$isHaunted ? Integer.MAX_VALUE : regeneratingHeartIndex;
 	}
 
-	@ModifyVariable(method = "renderHearts", at = @At("HEAD"), argsOnly = true, ordinal = 4)
-	private int trailierTales$renderFullBarA(
+	@ModifyVariable(method = "extractHearts", at = @At("HEAD"), argsOnly = true, ordinal = 4)
+	private int trailierTales$extractFullBarA(
 		int lastHealth,
-		GuiGraphics graphics,
+		GuiGraphicsExtractor graphics,
 		Player player,
 		int x,
 		int y,
@@ -164,10 +164,10 @@ public class GuiMixin {
 		return trailierTales$isHaunted ? (int) maxHealth : lastHealth;
 	}
 
-	@ModifyVariable(method = "renderHearts", at = @At("HEAD"), argsOnly = true, ordinal = 5)
-	private int trailierTales$renderFullBarB(
+	@ModifyVariable(method = "extractHearts", at = @At("HEAD"), argsOnly = true, ordinal = 5)
+	private int trailierTales$extractFullBarB(
 		int health,
-		GuiGraphics graphics,
+		GuiGraphicsExtractor graphics,
 		Player player,
 		int x,
 		int y,
@@ -179,7 +179,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderHearts",
+		method = "extractHearts",
 		at = @At(
 			value = "CONSTANT",
 			ordinal = 0,
@@ -191,31 +191,31 @@ public class GuiMixin {
 	}
 
 	@WrapOperation(
-		method = "renderHearts",
+		method = "extractHearts",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/Gui;renderHeart(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/gui/Gui$HeartType;IIZZZ)V"
+			target = "Lnet/minecraft/client/gui/Gui;extractHeart(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Gui$HeartType;IIZZZ)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
-				target = "Lnet/minecraft/client/gui/Gui;renderHeart(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/gui/Gui$HeartType;IIZZZ)V",
+				target = "Lnet/minecraft/client/gui/Gui;extractHeart(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Gui$HeartType;IIZZZ)V",
 				shift = At.Shift.AFTER
 			)
 		)
 	)
-	private void trailierTales$renderHauntedHeart(
-		Gui instance, GuiGraphics graphics, Gui.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, Operation<Void> original
+	private void trailierTales$extractHauntedHeart(
+		Gui instance, GuiGraphicsExtractor graphics, Gui.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, Operation<Void> original
 	) {
 		if (trailierTales$isHaunted) {
-			this.trailierTales$renderHauntedHeart(graphics, x, y);
+			this.trailierTales$extractHauntedHeart(graphics, x, y);
 			return;
 		}
 		original.call(instance, graphics, type, x, y, hardcore, blinking, half);
 	}
 
 	@ModifyExpressionValue(
-		method = "renderArmor",
+		method = "extractArmor",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/player/Player;getArmorValue()I"
@@ -226,7 +226,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderArmor",
+		method = "extractArmor",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/client/gui/Gui;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/Identifier;",
@@ -238,7 +238,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderArmor",
+		method = "extractArmor",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/client/gui/Gui;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/Identifier;",
@@ -250,26 +250,28 @@ public class GuiMixin {
 	}
 
 	@WrapWithCondition(
-		method = "renderFood",
+		method = "extractFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
+			target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
-				target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
+				target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
 				ordinal = 0,
 				shift = At.Shift.AFTER
 			)
 		)
 	)
-	private boolean trailierTales$removeExtraHunger(GuiGraphics instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height) {
+	private boolean trailierTales$removeExtraHunger(
+		GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height
+	) {
 		return !trailierTales$isHaunted;
 	}
 
 	@ModifyExpressionValue(
-		method = "renderFood",
+		method = "extractFood",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F",
@@ -281,7 +283,7 @@ public class GuiMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "renderFood",
+		method = "extractFood",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/food/FoodData;getFoodLevel()I",
@@ -293,20 +295,22 @@ public class GuiMixin {
 	}
 
 	@WrapOperation(
-		method = "renderFood",
+		method = "extractFood",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
+			target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
 			ordinal = 0
 		)
 	)
-	private void trailierTales$hauntedHunger(GuiGraphics instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
+	private void trailierTales$hauntedHunger(
+		GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height, Operation<Void> original
+	) {
 		original.call(instance, renderPipeline, texture, x, y, width, height);
 		if (trailierTales$isHaunted) original.call(instance, renderPipeline, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
 	}
 
 	@ModifyExpressionValue(
-		method = "renderFood",
+		method = "extractFood",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F"
@@ -317,7 +321,7 @@ public class GuiMixin {
 	}
 
 	@WrapOperation(
-		method = "renderAirBubbles",
+		method = "extractAirBubbles",
 		at = @At(
 			value = "INVOKE",
 			target = "Ljava/lang/Math;clamp(JII)I"
@@ -336,10 +340,10 @@ public class GuiMixin {
 	}
 
 	@WrapOperation(
-		method = "renderAirBubbles",
+		method = "extractAirBubbles",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
+			target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
 		),
 		slice = @Slice(
 			from = @At(
@@ -349,7 +353,9 @@ public class GuiMixin {
 			)
 		)
 	)
-	private void trailierTales$hauntedAirSupply(GuiGraphics instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
+	private void trailierTales$hauntedAirSupply(
+		GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier texture, int x, int y, int width, int height, Operation<Void> original
+	) {
 		texture = trailierTales$isHaunted ? TRAILIER_TALES$AIR_HAUNT : texture;
 		original.call(instance, renderPipeline, texture, x, y, width, height);
 	}
@@ -360,7 +366,7 @@ public class GuiMixin {
 	}
 
 	@Unique
-	private void trailierTales$renderHauntedHeart(GuiGraphics graphics, int x, int y) {
+	private void trailierTales$extractHauntedHeart(GuiGraphicsExtractor graphics, int x, int y) {
 		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
 	}
 }

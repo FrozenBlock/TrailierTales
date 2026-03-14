@@ -67,7 +67,6 @@ public class TTConstants {
 		return MOD_ID + "_" + path;
 	}
 
-
 	public static Component text(String key, Component... args) {
 		return Component.translatable("option." + MOD_ID + "." + key, args);
 	}

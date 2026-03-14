@@ -17,6 +17,7 @@
 
 package net.frozenblock.trailiertales.datagen.model;
 
+import com.mojang.math.Transformation;
 import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -34,6 +35,8 @@ import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
 import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.datagen.TTDataGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -66,6 +69,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Contract;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public final class TTModelProvider extends FabricModelProvider {
@@ -221,10 +225,15 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	public void createCoffin(BlockModelGenerators generator, Block coffin, Block particleTexture, Identifier headTexture, Identifier footTexture) {
 		generator.createParticleOnlyBlock(coffin, particleTexture);
-		final Item item = coffin.asItem();
-		final Identifier coffinModel = COFFIN_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
-		final ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(coffinModel, new CoffinSpecialRenderer.Unbaked(headTexture, footTexture));
-		generator.itemModelOutput.accept(item, unbaked);
+		final Item coffinItem = coffin.asItem();
+		final Identifier baseModel = COFFIN_INVENTORY.create(ModelLocationUtils.getModelLocation(coffinItem), TextureMapping.particle(particleTexture), generator.modelOutput);
+
+		final Transformation headTransformation = CoffinRenderer.modelTransform(Direction.SOUTH);
+		final ItemModel.Unbaked headPart = ItemModelUtils.specialModel(baseModel, headTransformation, new CoffinSpecialRenderer.Unbaked(headTexture, CoffinPart.HEAD));
+
+		final Transformation footTransformation = new Transformation(new Vector3f(0F, 0F, -1F), null, null, null).compose(headTransformation);
+		ItemModel.Unbaked footPart = ItemModelUtils.specialModel(baseModel, footTransformation, new CoffinSpecialRenderer.Unbaked(footTexture, CoffinPart.FOOT));
+		generator.itemModelOutput.accept(coffinItem, ItemModelUtils.composite(headPart, footPart));
 	}
 
 	@Override

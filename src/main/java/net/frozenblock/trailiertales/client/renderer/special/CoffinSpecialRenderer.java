@@ -24,49 +24,48 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	private final CoffinRenderer coffinRenderer;
-	private final Identifier headTexture;
-	private final Identifier footTexture;
+	private final Identifier texture;
+	private final CoffinPart part;
 	private final float openness;
 
-	public CoffinSpecialRenderer(CoffinRenderer coffinRenderer, Identifier headTexture, Identifier footTexture, float f) {
+	public CoffinSpecialRenderer(CoffinRenderer coffinRenderer, Identifier texture, CoffinPart part, float openness) {
 		this.coffinRenderer = coffinRenderer;
-		this.headTexture = headTexture;
-		this.footTexture = footTexture;
-		this.openness = f;
+		this.texture = texture;
+		this.part = part;
+		this.openness = openness;
 	}
 
 	@Override
-	public void submit(ItemDisplayContext context, PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, boolean hasFoil, final int outlineColor) {
-		this.coffinRenderer.renderInHand(poseStack, collector, light, overlay, this.headTexture, this.footTexture, this.openness, outlineColor);
+	public void submit(PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, boolean hasFoil, int outlineColor) {
+		this.coffinRenderer.renderInHand(poseStack, collector, light, overlay, this.texture, this.part, this.openness, outlineColor);
 	}
 
 	@Override
 	public void getExtents(Consumer<Vector3fc> consumer) {
-		this.coffinRenderer.getExtents(consumer);
+		this.coffinRenderer.getExtents(this.part, consumer);
 	}
 
-	public record Unbaked(Identifier headTexture, Identifier footTexture, float openness) implements NoDataSpecialModelRenderer.Unbaked {
+	public record Unbaked(Identifier texture, CoffinPart part, float openness) implements NoDataSpecialModelRenderer.Unbaked {
 		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-				Identifier.CODEC.fieldOf("head_texture").forGetter(CoffinSpecialRenderer.Unbaked::headTexture),
-				Identifier.CODEC.fieldOf("foot_texture").forGetter(CoffinSpecialRenderer.Unbaked::footTexture),
+				Identifier.CODEC.fieldOf("texture").forGetter(CoffinSpecialRenderer.Unbaked::texture),
+				CoffinPart.CODEC.fieldOf("part").forGetter(CoffinSpecialRenderer.Unbaked::part),
 				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(CoffinSpecialRenderer.Unbaked::openness)
 			).apply(instance, CoffinSpecialRenderer.Unbaked::new)
 		);
 
-		public Unbaked(Identifier headTexture, Identifier footTexture) {
-			this(headTexture, footTexture, 0F);
+		public Unbaked(Identifier texture, CoffinPart part) {
+			this(texture, part, 0F);
 		}
 
 		@Override
@@ -76,7 +75,7 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 
 		@Override
 		public CoffinSpecialRenderer bake(BakingContext context) {
-			return new CoffinSpecialRenderer(new CoffinRenderer(context.entityModelSet()), this.headTexture, this.footTexture, this.openness);
+			return new CoffinSpecialRenderer(new CoffinRenderer(context.entityModelSet()), this.texture, this.part, this.openness);
 		}
 	}
 }

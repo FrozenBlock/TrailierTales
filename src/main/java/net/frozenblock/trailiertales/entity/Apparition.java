@@ -609,7 +609,6 @@ public class Apparition extends Monster implements InventoryCarrier, RangedAttac
 		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
-
 	@Override
 	protected void customServerAiStep(ServerLevel level) {
 		final ProfilerFiller profiler = Profiler.get();

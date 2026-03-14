@@ -23,8 +23,8 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
 import net.frozenblock.trailiertales.impl.client.DecoratedPotBlockEntityInterface;
-import net.frozenblock.trailiertales.impl.client.DecoratedPotRenderStateInterface;
 import net.minecraft.client.renderer.blockentity.DecoratedPotRenderer;
 import net.minecraft.client.renderer.blockentity.state.DecoratedPotRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
@@ -53,8 +53,7 @@ public class DecoratedPotRendererMixin {
 		CallbackInfo info
 	) {
 		if (!(decoratedPot instanceof DecoratedPotBlockEntityInterface potInterface)) return;
-		if (!(renderState instanceof DecoratedPotRenderStateInterface stateInterface)) return;
-		stateInterface.trailierTales$setWobbleFlipped(potInterface.trailierTales$isWobbleFlipped());
+		renderState.setData(TTRenderStateDataKeys.DECORATED_POT_WOBBLE_FLIPPED, potInterface.trailierTales$isWobbleFlipped());
 	}
 
 	@WrapOperation(
@@ -68,8 +67,7 @@ public class DecoratedPotRendererMixin {
 		Axis instance, float v, Operation<Quaternionf> original,
 		@Local(argsOnly = true) DecoratedPotRenderState renderState
 	) {
-		float multiplier = 1F;
-		if (renderState instanceof DecoratedPotRenderStateInterface stateInterface) multiplier = stateInterface.trailierTales$isWobbleFlipped() ? -1F : 1F;
+		final float multiplier = renderState.getDataOrDefault(TTRenderStateDataKeys.DECORATED_POT_WOBBLE_FLIPPED, false) ? -1F : 1F;
 		return original.call(instance, v * multiplier);
 	}
 

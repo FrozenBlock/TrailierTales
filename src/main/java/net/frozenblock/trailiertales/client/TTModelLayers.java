@@ -39,7 +39,8 @@ public class TTModelLayers {
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TTConstants.id("coffin_foot"), "main");
 	public static final ModelLayerLocation APPARITION = new ModelLayerLocation(TTConstants.id("apparition"), "main");
 	public static final ModelLayerLocation APPARITION_OVERLAY = new ModelLayerLocation(TTConstants.id("apparition"), "overlay");
-	public static final ModelLayerLocation BOAT_BANNER = new ModelLayerLocation(TTConstants.id("boat"), "banner");
+	public static final ModelLayerLocation BOAT_BANNER_FLAG = new ModelLayerLocation(TTConstants.id("boat"), "banner_flag");
+	public static final ModelLayerLocation BOAT_BANNER_STAND = new ModelLayerLocation(TTConstants.id("boat"), "banner_stand");
 
 	public static void init() {
 		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN, CoffinRenderer::new);
@@ -52,6 +53,7 @@ public class TTModelLayers {
 
 		EntityRendererRegistry.register(TTEntityTypes.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
-		ModelLayerRegistry.registerModelLayer(BOAT_BANNER, BoatBannerModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(BOAT_BANNER_FLAG, BoatBannerModel::createFlagLayer);
+		ModelLayerRegistry.registerModelLayer(BOAT_BANNER_STAND, BoatBannerModel::createStandLayer);
 	}
 }

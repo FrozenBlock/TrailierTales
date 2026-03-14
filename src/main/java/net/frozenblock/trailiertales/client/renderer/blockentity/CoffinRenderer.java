@@ -19,6 +19,8 @@ package net.frozenblock.trailiertales.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.mojang.math.Transformation;
+import java.util.Map;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,6 +44,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.phys.Vec3;
@@ -50,6 +53,7 @@ import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, CoffinRenderState> {
+	private static final Map<Direction, Transformation> TRANSFORMATIONS = Util.makeEnumMap(Direction.class, CoffinRenderer::createModelTransform);
 	private final CoffinModel headModel;
 	private final CoffinModel footModel;
 
@@ -89,7 +93,6 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			OverlayTexture.NO_OVERLAY,
 			renderState.breakProgress,
 			0,
-			false,
 			renderState.direction
 		);
 	}
@@ -99,14 +102,14 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		SubmitNodeCollector collector,
 		int packedLight,
 		int packedOverlay,
-		Identifier headTexture,
-		Identifier footTexture,
+		Identifier texture,
+		CoffinPart part,
 		float openness,
 		int outlineColor
 	) {
+		final CoffinModel model = this.getPieceModel(part);
 		poseStack.translate(0F, -0.1F, 0F);
-		this.submitPiece(poseStack, collector, this.headModel, headTexture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, false, Direction.SOUTH);
-		this.submitPiece(poseStack, collector, this.footModel, footTexture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, true, Direction.SOUTH);
+		this.submitPiece(poseStack, collector, model, texture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, Direction.SOUTH);
 	}
 
 	private void submitPiece(
@@ -121,12 +124,11 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		int packedOverlay,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress,
 		int outlineColor,
-		boolean renderAsOffsetFoot,
 		Direction direction
 	) {
 		poseStack.pushPose();
 
-		openProgress = setupPoseStackAndCalculateOpenProgress(poseStack, renderAsOffsetFoot, direction, openProgress, wobbleProgress);
+		openProgress = setupPoseStackAndCalculateOpenProgress(poseStack, direction, openProgress, wobbleProgress);
 
 		collector.submitModel(
 			model,
@@ -154,9 +156,15 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		poseStack.popPose();
 	}
 
+	private CoffinModel getPieceModel(final CoffinPart part) {
+		return switch (part) {
+			case HEAD -> this.headModel;
+			case FOOT -> this.footModel;
+		};
+	}
+
 	private static float setupPoseStackAndCalculateOpenProgress(
 		PoseStack poseStack,
-		boolean renderAsOffsetFoot,
 		Direction direction,
 		float openProgress,
 		float wobbleProgress
@@ -176,18 +184,22 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			openProgress += Math.max(0F, (Mth.cos(lidWobble) * -0.25F) * (Mth.sin(lidWobble) * -0.25F)) * wobbleDampen;
 		}
 
-		if (renderAsOffsetFoot) poseStack.translate(0F, 0F, -1F);
-
 		return openProgress * Mth.HALF_PI;
 	}
 
-	public void getExtents(Consumer<Vector3fc> set) {
+	private static Transformation createModelTransform(Direction direction) {
 		final PoseStack poseStack = new PoseStack();
-		setupPoseStackAndCalculateOpenProgress(poseStack, false, Direction.SOUTH, 0F, 0F);
-		this.headModel.root().getExtentsForGui(poseStack, set);
-		poseStack.setIdentity();
-		setupPoseStackAndCalculateOpenProgress(poseStack, true, Direction.SOUTH, 0F, 0F);
-		this.footModel.root().getExtentsForGui(poseStack, set);
+		setupPoseStackAndCalculateOpenProgress(poseStack, direction, 0F, 0F);
+		return new Transformation(poseStack.last().pose());
+	}
+
+	public static Transformation modelTransform(Direction direction) {
+		return TRANSFORMATIONS.get(direction);
+	}
+
+	public void getExtents(CoffinPart part, Consumer<Vector3fc> set) {
+		final PoseStack poseStack = new PoseStack();
+		this.getPieceModel(part).root().getExtentsForGui(poseStack, set);
 	}
 
 	@Override
@@ -221,7 +233,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 			renderState.blockState,
 			level,
 			renderState.blockPos,
-			(world, pos) -> false
+			(levelx, pos) -> false
 		);
 		renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).get(renderState.lightCoords);
 	}
