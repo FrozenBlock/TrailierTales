@@ -30,9 +30,11 @@ import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.model.object.coffin.CoffinModel;
+import net.frozenblock.trailiertales.client.renderer.MultiblockCoffinResources;
 import net.frozenblock.trailiertales.client.renderer.blockentity.state.CoffinRenderState;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -54,16 +56,15 @@ import org.joml.Vector3fc;
 @Environment(EnvType.CLIENT)
 public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, CoffinRenderState> {
 	private static final Map<Direction, Transformation> TRANSFORMATIONS = Util.makeEnumMap(Direction.class, CoffinRenderer::createModelTransform);
-	private final CoffinModel headModel;
-	private final CoffinModel footModel;
+	public static final MultiblockCoffinResources<ModelLayerLocation> LAYERS = new MultiblockCoffinResources<>(TTModelLayers.COFFIN_HEAD, TTModelLayers.COFFIN_FOOT);
+	private final MultiblockCoffinResources<CoffinModel> models;
 
 	public CoffinRenderer(Context context) {
 		this(context.entityModelSet());
 	}
 
 	public CoffinRenderer(EntityModelSet entityModelSet) {
-		this.headModel = new CoffinModel(entityModelSet.bakeLayer(TTModelLayers.COFFIN_HEAD));
-		this.footModel = new CoffinModel(entityModelSet.bakeLayer(TTModelLayers.COFFIN_FOOT));
+		this.models = LAYERS.map(layer -> new CoffinModel(entityModelSet.bakeLayer(layer)));
 	}
 
 	public static Identifier getCoffinTexture(CoffinPart part, CoffinSpawnerState state) {
@@ -84,7 +85,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		this.submitPiece(
 			poseStack,
 			collector,
-			renderState.part == CoffinPart.HEAD ? this.headModel : this.footModel,
+			this.models.select(renderState.part),
 			getCoffinTexture(renderState.part, renderState.spawnerState),
 			null,
 			openProg,
@@ -107,7 +108,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		float openness,
 		int outlineColor
 	) {
-		final CoffinModel model = this.getPieceModel(part);
+		final CoffinModel model = this.models.select(part);
 		poseStack.translate(0F, -0.1F, 0F);
 		this.submitPiece(poseStack, collector, model, texture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, Direction.SOUTH);
 	}
@@ -156,13 +157,6 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		poseStack.popPose();
 	}
 
-	private CoffinModel getPieceModel(final CoffinPart part) {
-		return switch (part) {
-			case HEAD -> this.headModel;
-			case FOOT -> this.footModel;
-		};
-	}
-
 	private static float setupPoseStackAndCalculateOpenProgress(
 		PoseStack poseStack,
 		Direction direction,
@@ -199,7 +193,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 
 	public void getExtents(CoffinPart part, Consumer<Vector3fc> set) {
 		final PoseStack poseStack = new PoseStack();
-		this.getPieceModel(part).root().getExtentsForGui(poseStack, set);
+		this.models.select(part).root().getExtentsForGui(poseStack, set);
 	}
 
 	@Override

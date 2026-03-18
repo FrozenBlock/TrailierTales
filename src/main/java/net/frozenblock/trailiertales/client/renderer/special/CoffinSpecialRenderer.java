@@ -24,7 +24,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.client.renderer.MultiblockCoffinResources;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
@@ -33,6 +35,12 @@ import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
+	public static final MultiblockCoffinResources<Identifier> INACTIVE = createDefaultTextures("inactive");
+	public static final MultiblockCoffinResources<Identifier> ACTIVE = createDefaultTextures("active");
+	public static final MultiblockCoffinResources<Identifier> COOLDOWN = createDefaultTextures("cooldown");
+	public static final MultiblockCoffinResources<Identifier> IRRITATED = createDefaultTextures("irritated");
+	public static final MultiblockCoffinResources<Identifier> AGGRESSIVE = createDefaultTextures("aggressive");
+	public static final MultiblockCoffinResources<Identifier> OMINOUS = createDefaultTextures("ominous");
 	private final CoffinRenderer coffinRenderer;
 	private final Identifier texture;
 	private final CoffinPart part;
@@ -53,6 +61,13 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	@Override
 	public void getExtents(Consumer<Vector3fc> consumer) {
 		this.coffinRenderer.getExtents(this.part, consumer);
+	}
+
+	private static MultiblockCoffinResources<Identifier> createDefaultTextures(String suffix) {
+		return new MultiblockCoffinResources<>(
+			TTConstants.id("textures/entity/coffin/coffin_head_" + suffix + ".png"),
+			TTConstants.id("textures/entity/coffin/coffin_foot_" + suffix + ".png")
+		);
 	}
 
 	public record Unbaked(Identifier texture, CoffinPart part, float openness) implements NoDataSpecialModelRenderer.Unbaked {

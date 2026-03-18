@@ -22,6 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
+import net.frozenblock.trailiertales.client.TTBuiltInBlockModels;
 import net.frozenblock.trailiertales.client.TTModelLayers;
 import net.frozenblock.trailiertales.client.TTParticleEngine;
 import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
@@ -38,6 +39,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		SplashTextAPI.addSplashLocation(TTConstants.id("texts/splashes.txt"));
 
+		TTBuiltInBlockModels.init();
 		TTModelLayers.init();
 		TTParticleEngine.init();
 		TTRenderStateDataKeys.init();
