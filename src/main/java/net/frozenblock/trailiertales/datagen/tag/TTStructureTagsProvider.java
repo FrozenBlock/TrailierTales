@@ -19,27 +19,22 @@ package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.frozenblock.trailiertales.worldgen.TTFeatureBootstrap;
+import net.frozenblock.trailiertales.tag.TTStructureTags;
+import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.FeatureTags;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.data.tags.StructureTagsProvider;
 
-public final class TTFeatureTagProvider extends FabricTagsProvider<ConfiguredFeature<?, ?>> {
+public final class TTStructureTagsProvider extends StructureTagsProvider {
 
-	public TTFeatureTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, Registries.CONFIGURED_FEATURE, registries);
+	public TTStructureTagsProvider(FabricPackOutput output, CompletableFuture registries) {
+		super(output, registries);
 	}
 
 	@Override
-	public void addTags(HolderLookup.Provider arg) {
-		this.builder(FeatureTags.CAN_SPAWN_FROM_BONE_MEAL)
-			.add(TTFeatureBootstrap.TORCHFLOWER)
-			.add(TTFeatureBootstrap.PITCHER)
-			.add(TTFeatureBootstrap.CYAN_ROSE)
-			.add(TTFeatureBootstrap.MANEDROP)
-			.add(TTFeatureBootstrap.GUZMANIA)
-			.add(TTFeatureBootstrap.LITHOPS);
+	protected void addTags(HolderLookup.Provider arg) {
+		this.tag(TTStructureTags.ON_CATACOMBS_MAPS)
+			.add(CatacombsGenerator.CATACOMBS_KEY);
+
 	}
+
 }

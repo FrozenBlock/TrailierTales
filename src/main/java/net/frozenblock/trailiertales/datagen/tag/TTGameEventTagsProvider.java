@@ -19,19 +19,17 @@ package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.data.tags.GameEventTagsProvider;
 
-public final class TTDamageTypeTagProvider extends FabricTagsProvider<DamageType> {
+public final class TTGameEventTagsProvider extends GameEventTagsProvider {
 
-	public TTDamageTypeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, Registries.DAMAGE_TYPE, registries);
+	public TTGameEventTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries);
 	}
 
 	@Override
-	public void addTags(HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 
 	}
 }

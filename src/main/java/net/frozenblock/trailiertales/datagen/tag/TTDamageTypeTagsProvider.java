@@ -19,22 +19,19 @@ package net.frozenblock.trailiertales.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.frozenblock.trailiertales.tag.TTStructureTags;
-import net.frozenblock.trailiertales.worldgen.structure.datagen.CatacombsGenerator;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.tags.StructureTagsProvider;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.damagesource.DamageType;
 
-public final class TTStructureTagProvider extends StructureTagsProvider {
+public final class TTDamageTypeTagsProvider extends FabricTagsProvider<DamageType> {
 
-	public TTStructureTagProvider(FabricPackOutput output, CompletableFuture registries) {
-		super(output, registries);
+	public TTDamageTypeTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, Registries.DAMAGE_TYPE, registries);
 	}
 
 	@Override
-	protected void addTags(HolderLookup.Provider arg) {
-		this.tag(TTStructureTags.ON_CATACOMBS_EXPLORER_MAPS)
-			.add(CatacombsGenerator.CATACOMBS_KEY);
+	public void addTags(HolderLookup.Provider arg) {
 
 	}
-
 }

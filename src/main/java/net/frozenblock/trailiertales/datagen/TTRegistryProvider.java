@@ -51,6 +51,7 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
 		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
 		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
+		final var villagerTrades = asLookup(entries.getLookup(Registries.VILLAGER_TRADE));
 
 		TTConstants.log("Adding finalized configured features to datagen", true);
 		entries.addAll(configuredFeatures);
@@ -68,6 +69,8 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(structures);
 		TTConstants.log("Adding finalized structure sets to datagen", true);
 		entries.addAll(structureSets);
+		TTConstants.log("Adding finalized villager trades to datagen", true);
+		entries.addAll(villagerTrades);
 	}
 
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {

@@ -31,9 +31,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-public final class TTItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+public final class TTItemTagsProvider extends FabricTagsProvider.ItemTagsProvider {
 
-	public TTItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTItemTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

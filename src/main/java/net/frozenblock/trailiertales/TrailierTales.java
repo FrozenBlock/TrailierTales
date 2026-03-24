@@ -87,8 +87,6 @@ public class TrailierTales extends FrozenModInitializer {
 		TTPotions.init();
 		TTJukeboxSongs.init();
 		TTRuleBlockEntityModifiers.init();
-		//TODO port villager trades
-		//TTVillagerTrades.init();
 		TTNetworking.init();
 		TTDebugSubscriptions.init();
 

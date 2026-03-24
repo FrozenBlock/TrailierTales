@@ -20,33 +20,21 @@ package net.frozenblock.trailiertales.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.frozenblock.trailiertales.registry.TTEntityTypes;
-import net.frozenblock.trailiertales.tag.TTEntityTags;
+import net.frozenblock.trailiertales.datagen.trading.TTVillagerTrades;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.VillagerTradeTags;
+import net.minecraft.world.item.trading.VillagerTrade;
 
-public final class TTEntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider {
+public final class TTVillagerTradesTagsProvider extends FabricTagsProvider<VillagerTrade> {
 
-	public TTEntityTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries);
+	public TTVillagerTradesTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, Registries.VILLAGER_TRADE, registries);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.valueLookupBuilder(TTEntityTags.APPARITION_TARGETABLE)
-			.add(EntityType.PLAYER);
-
-		this.valueLookupBuilder(TTEntityTags.SURVEYOR_IGNORES)
-			.add(TTEntityTypes.APPARITION);
-
-		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
-			.add(TTEntityTypes.APPARITION);
-
-		this.valueLookupBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
-			.add(TTEntityTypes.APPARITION);
-
-		this.valueLookupBuilder(EntityTypeTags.WITHER_FRIENDS)
-			.add(TTEntityTypes.APPARITION);
+		this.builder(VillagerTradeTags.CARTOGRAPHER_LEVEL_3)
+			.add(TTVillagerTrades.CARTOGRAPHER_3_EMERALD_AND_COMPASS_CATACOMBS_MAP);
 	}
 }

@@ -30,9 +30,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
-public final class TTBiomeTagProvider extends FrozenBiomeTagProvider {
+public final class TTBiomeTagsProvider extends FrozenBiomeTagProvider {
 
-	public TTBiomeTagProvider(FabricPackOutput output, CompletableFuture registries) {
+	public TTBiomeTagsProvider(FabricPackOutput output, CompletableFuture registries) {
 		super(output, registries);
 	}
 

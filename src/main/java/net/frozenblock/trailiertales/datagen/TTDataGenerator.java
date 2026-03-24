@@ -29,15 +29,17 @@ import net.frozenblock.trailiertales.datagen.loot.TTChestLootProvider;
 import net.frozenblock.trailiertales.datagen.loot.TTEntityLootProvider;
 import net.frozenblock.trailiertales.datagen.model.TTModelProvider;
 import net.frozenblock.trailiertales.datagen.recipe.TTRecipeProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTBiomeTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTBlockTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTDamageTypeTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTEnchantmentTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTEntityTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTFeatureTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTItemTagProvider;
-import net.frozenblock.trailiertales.datagen.tag.TTStructureTagProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTBiomeTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTBlockTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTDamageTypeTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTEnchantmentsTagProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTEntityTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTFeatureTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTGameEventTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTItemTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTStructureTagsProvider;
+import net.frozenblock.trailiertales.datagen.tag.TTVillagerTradesTagsProvider;
+import net.frozenblock.trailiertales.datagen.trading.TTVillagerTrades;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTJukeboxSongs;
@@ -107,17 +109,18 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TTChestLootProvider::new);
 		pack.addProvider(TTArchaeologyLootProvider::new);
 		pack.addProvider(TTRegistryProvider::new);
-		pack.addProvider(TTBiomeTagProvider::new);
-		pack.addProvider(TTBlockTagProvider::new);
-		pack.addProvider(TTDamageTypeTagProvider::new);
-		pack.addProvider(TTItemTagProvider::new);
-		pack.addProvider(TTEntityTagProvider::new);
-		pack.addProvider(TTFeatureTagProvider::new);
-		pack.addProvider(TTGameEventTagProvider::new);
-		pack.addProvider(TTStructureTagProvider::new);
+		pack.addProvider(TTBiomeTagsProvider::new);
+		pack.addProvider(TTBlockTagsProvider::new);
+		pack.addProvider(TTDamageTypeTagsProvider::new);
+		pack.addProvider(TTItemTagsProvider::new);
+		pack.addProvider(TTEntityTagsProvider::new);
+		pack.addProvider(TTFeatureTagsProvider::new);
+		pack.addProvider(TTGameEventTagsProvider::new);
+		pack.addProvider(TTVillagerTradesTagsProvider::new);
+		pack.addProvider(TTStructureTagsProvider::new);
 		pack.addProvider(TTRecipeProvider::new);
 		pack.addProvider(TTAdvancementProvider::new);
-		pack.addProvider(TTEnchantmentTagProvider::new);
+		pack.addProvider(TTEnchantmentsTagProvider::new);
 	}
 
 	@Override
@@ -133,6 +136,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.ENCHANTMENT, TTEnchantments::bootstrap);
 		registryBuilder.add(Registries.JUKEBOX_SONG, TTJukeboxSongs::bootstrap);
 		registryBuilder.add(Registries.TRIM_PATTERN, TTTrimPatterns::bootstrap);
+		registryBuilder.add(Registries.VILLAGER_TRADE, TTVillagerTrades::bootstrap);
 	}
 
 }

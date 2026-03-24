@@ -109,7 +109,7 @@ public final class TTLootTables {
 								LootItem.lootTableItem(Items.MAP)
 									.apply(
 										ExplorationMapFunction.makeExplorationMap()
-											.setDestination(TTStructureTags.ON_CATACOMBS_EXPLORER_MAPS)
+											.setDestination(TTStructureTags.ON_CATACOMBS_MAPS)
 											.setMapDecoration(TTMapDecorationTypes.CATACOMBS)
 											.setZoom((byte)1)
 											.setSkipKnownStructures(false)

@@ -32,9 +32,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-public final class TTBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+public final class TTBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
 
-	public TTBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public TTBlockTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
