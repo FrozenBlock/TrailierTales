@@ -52,10 +52,6 @@ val modmenu_version: String by project
 val cloth_config_version: String by project
 val lithium_version: String by project
 
-val sodium_version: String by project
-val run_sodium: String by project
-val shouldRunSodium = run_sodium == "true"
-
 base {
     archivesName = archives_base_name
 }
@@ -196,20 +192,16 @@ dependencies {
     compileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
 
     // Mod Menu
-    compileOnly("com.terraformersmc:modmenu:$modmenu_version")
+    implementation("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    implementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
 
     // Lithium
     //compileOnly("maven.modrinth:lithium:${lithium_version}")
-
-    // Sodium
-    if (shouldRunSodium)
-        runtimeOnly("maven.modrinth:sodium:${sodium_version}")
 
     // WorldEdit
     //compileOnly("maven.modrinth:worldedit:7.3.4-beta-01")
