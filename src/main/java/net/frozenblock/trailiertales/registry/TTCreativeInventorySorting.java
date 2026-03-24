@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.registry;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
@@ -25,18 +24,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 public final class TTCreativeInventorySorting {
-	private static boolean hasRun = false;
 
-	// TODO: we have to do this now which is really stupid. is there a better way?
 	public static void init() {
-		CommonLifecycleEvents.TAGS_LOADED.register((registryAccess, client) -> {
-			if (hasRun) return;
-			run();
-			hasRun = true;
-		});
-	}
-
-	public static void run() {
 		// BLOCKS
 
 		insertBeforeInFunctionalBlocks(Blocks.SUSPICIOUS_SAND, TTBlocks.SUSPICIOUS_DIRT);
