@@ -70,6 +70,9 @@
     },
     "frozenlib_registry": {
       "mod_protocol": $protocol_version
+    },
+    "lithium:options": {
+      "mixin.world.raycast": false
     }
   }
 }

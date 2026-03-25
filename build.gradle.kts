@@ -201,7 +201,7 @@ dependencies {
     }
 
     // Lithium
-    //compileOnly("maven.modrinth:lithium:${lithium_version}")
+    implementation("maven.modrinth:lithium:${lithium_version}")
 
     // WorldEdit
     //compileOnly("maven.modrinth:worldedit:7.3.4-beta-01")

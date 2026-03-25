@@ -17,28 +17,30 @@
 
 package net.frozenblock.trailiertales.mixin.common.lithium;
 
-// TODO: re-enable when lithium is unobfuscated
-/*import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeper;
+import net.caffeinemc.mods.lithium.common.entity.movement.ChunkAwareBlockCollisionSweeperVoxelShape;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Pseudo
-@Mixin(ChunkAwareBlockCollisionSweeper.class)
-public class LithiumEntityCollisionsMixin {
+@Mixin(ChunkAwareBlockCollisionSweeperVoxelShape.class)
+public abstract class LithiumEntityCollisionsMixin extends ChunkAwareBlockCollisionSweeper<VoxelShape> {
 
-	@Shadow
-	@Final
-	private CollisionContext context;
+	public LithiumEntityCollisionsMixin(Level world, @Nullable Entity entity, AABB box, boolean hideLastCollision) {
+		super(world, entity, box, hideLastCollision);
+	}
 
 	@ModifyExpressionValue(
 		method = "computeNext()Lnet/minecraft/world/phys/shapes/VoxelShape;",
@@ -54,4 +56,3 @@ public class LithiumEntityCollisionsMixin {
 	}
 
 }
-*/

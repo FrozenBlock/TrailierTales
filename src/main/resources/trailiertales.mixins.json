@@ -29,6 +29,7 @@
     "common.decorated_pot.DecoratedPotBlockEntityMixin",
     "common.ectoplasm_block.BlockGetterMixin",
     "common.ectoplasm_block.EntityMixin",
+    "common.lithium.LithiumEntityCollisionsMixin",
     "common.lithops.CropBlockMixin",
     "common.surveyor.ClipContextBlockMixin",
     "common.surveyor.RedStoneWireBlockMixin",
