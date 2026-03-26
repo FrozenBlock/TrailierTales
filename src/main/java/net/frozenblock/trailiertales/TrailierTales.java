@@ -23,6 +23,11 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.gravity.api.GravityAPI;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
+import net.frozenblock.trailiertales.config.TTItemConfig;
+import net.frozenblock.trailiertales.config.TTMiscConfig;
+import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
@@ -94,6 +99,12 @@ public class TrailierTales extends FrozenModInitializer {
 		TTCreativeInventorySorting.init();
 
 		TTResources.init(container);
+
+		TTBlockConfig.CONFIG.load(true);
+		TTEntityConfig.CONFIG.load(true);
+		TTItemConfig.CONFIG.load(true);
+		TTMiscConfig.CONFIG.load(true);
+		TTWorldgenConfig.CONFIG.load(true);
 
 		GravityAPI.MODIFICATIONS.register(gravityContext -> {
 			if (gravityContext.entity != null) {

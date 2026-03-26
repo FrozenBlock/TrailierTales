@@ -3,4 +3,4 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Re-implemented support for Lithium on 26.1.
+- Fixed by far the strangest networking issue we have witnessed. You can play on servers again!
