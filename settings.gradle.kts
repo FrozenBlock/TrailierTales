@@ -27,7 +27,7 @@ pluginManagement {
 
 rootProject.name = "Trailier Tales"
 
-localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, true)
+localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, false)
 localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
 localRepository("WilderWild", "maven.modrinth:wilder-wild", true, false)
 

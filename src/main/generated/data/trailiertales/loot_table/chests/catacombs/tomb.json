@@ -103,11 +103,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:name_tag",
-          "weight": 8
-        },
-        {
-          "type": "minecraft:item",
           "functions": [
             {
               "add": false,

@@ -3,4 +3,5 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Fixed by far the strangest networking issue we have witnessed. You can play on servers again!
+- Fixed a bug that caused Sniffers to spawn naturally by default.
+- Removed Name Tags from Catacombs loot tables.

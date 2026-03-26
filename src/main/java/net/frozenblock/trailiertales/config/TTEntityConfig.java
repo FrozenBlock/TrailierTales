@@ -45,7 +45,7 @@ public final class TTEntityConfig {
 	public static final ConfigEntry<Boolean> SNIFFER_DIGS_GUZMANIA_SEEDS = CONFIG.entryBuilder("sniffer/digGuzmaniaSeeds", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SNIFFER_DIGS_DAWNTRAIL_SEEDS = CONFIG.entryBuilder("sniffer/digDawntrailSeeds", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SNIFFER_DIGS_LITHOPS_SEEDS = CONFIG.entryBuilder("sniffer/digLithopsSeeds", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> SPAWN_SNIFFERS = CONFIG.entryBuilder("sniffer/spawnSniffers", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SPAWN_SNIFFERS = CONFIG.entryBuilder("sniffer/spawnSniffer", EntryType.BOOL, false).requireRestart().build();
 
 	// VILLAGER
 	public static final ConfigEntry<Boolean> VILLAGER_SELLS_CATACOMBS_MAP = CONFIG.entryBuilder("villager/sellCatacombsMap", EntryType.BOOL, true).requireRestart().build();
