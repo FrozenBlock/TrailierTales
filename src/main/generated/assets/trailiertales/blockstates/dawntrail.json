@@ -32,20 +32,6 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/dawntrail",
-        "x": 90
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
-      }
-    },
-    {
-      "apply": {
         "model": "trailiertales:block/dawntrail_stage_0",
         "y": 180
       },
@@ -72,20 +58,6 @@
       "when": {
         "age": "2",
         "south": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail",
-        "y": 180
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
       }
     },
     {
@@ -120,20 +92,6 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/dawntrail",
-        "y": 270
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
-      }
-    },
-    {
-      "apply": {
         "model": "trailiertales:block/dawntrail_stage_0",
         "x": 270
       },
@@ -160,20 +118,6 @@
       "when": {
         "age": "2",
         "up": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail",
-        "x": 270
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
       }
     },
     {
@@ -205,19 +149,6 @@
     },
     {
       "apply": {
-        "model": "trailiertales:block/dawntrail"
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
-      }
-    },
-    {
-      "apply": {
         "model": "trailiertales:block/dawntrail_stage_0",
         "y": 90
       },
@@ -244,20 +175,6 @@
       "when": {
         "age": "2",
         "east": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "trailiertales:block/dawntrail",
-        "y": 90
-      },
-      "when": {
-        "down": "false",
-        "east": "false",
-        "north": "false",
-        "south": "false",
-        "up": "false",
-        "west": "false"
       }
     }
   ]
