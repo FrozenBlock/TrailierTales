@@ -19,9 +19,9 @@ package net.frozenblock.trailiertales.registry;
 
 import com.google.common.collect.ImmutableList;
 import java.util.Map;
-import net.frozenblock.lib.worldgen.structure.api.AppendSherds;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
+import net.frozenblock.lib.levelgen.structure.api.AppendSherds;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.data.worldgen.structure.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;

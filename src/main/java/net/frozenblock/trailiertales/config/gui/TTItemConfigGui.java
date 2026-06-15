@@ -21,8 +21,8 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.trailiertales.TTConstants.tooltip;
+import net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper;
 import net.frozenblock.trailiertales.config.TTItemConfig;
 import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.booleanEntry;
 import net.minecraft.network.chat.Component;
@@ -42,7 +42,7 @@ public final class TTItemConfigGui {
 		var smoothBrushAnimation = booleanEntry(entryBuilder, "smooth_brush_animations", TTItemConfig.BRUSH_SMOOTH_ANIMATION);
 		var halfBrushEffects = booleanEntry(entryBuilder, "half_brush_effects", TTItemConfig.BRUSH_HALF_BRUSH_EFFECTS);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, Component.translatable(Items.BRUSH.getDescriptionId()),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, Component.translatable(Items.BRUSH.getDescriptionId()),
 			false,
 			tooltip("item_category", Component.translatable(Items.BRUSH.getDescriptionId())),
 			smoothBrushAnimation, halfBrushEffects

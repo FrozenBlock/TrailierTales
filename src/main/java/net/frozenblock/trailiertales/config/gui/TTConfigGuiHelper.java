@@ -22,7 +22,7 @@ import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import static net.frozenblock.trailiertales.TTConstants.text;
 import static net.frozenblock.trailiertales.TTConstants.tooltip;
@@ -49,7 +49,7 @@ public final class TTConfigGuiHelper {
 	}
 
 	public static IntegerSliderEntry intSliderEntry(ConfigEntryBuilder builder, String key, ConfigEntry<Integer> configEntry, int min, int max) {
-		return FrozenClothConfig.syncedEntry(
+		return FrozenLibClothConfigGuiHelper.syncedEntry(
 			builder.startIntSlider(text(key), configEntry.get(), min, max).setTooltip(tooltip(key)),
 			configEntry
 		);
@@ -70,7 +70,7 @@ public final class TTConfigGuiHelper {
 	}
 
 	public static BooleanListEntry booleanEntry(ConfigEntryBuilder builder, Component name, ConfigEntry<Boolean> configEntry, Component... tooltip) {
-		return FrozenClothConfig.syncedEntry(
+		return FrozenLibClothConfigGuiHelper.syncedEntry(
 			builder.startBooleanToggle(name, configEntry.get()).setTooltip(tooltip),
 			configEntry
 		);

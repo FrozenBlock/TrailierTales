@@ -21,7 +21,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper;
 import static net.frozenblock.trailiertales.TTConstants.tooltip;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.booleanEntry;
@@ -49,7 +49,7 @@ public final class TTEntityConfigGui {
 		var hauntedSounds = booleanEntry(entryBuilder, "haunted_sounds", TTEntityConfig.APPARITION_HAUNTED_SOUNDS);
 		var hauntedHUD = booleanEntry(entryBuilder, "haunted_hud", TTEntityConfig.APPARITION_HAUNTED_HUD);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, TTEntityTypes.APPARITION.getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTEntityTypes.APPARITION.getDescription(),
 			false,
 			tooltip("entity_category", TTEntityTypes.APPARITION.getDescription()),
 			apparitionPicksUpItems, apparitionCatchesProjectiles, apparitionIgnoresMobGriefing, apparitionHypnotizesMobs,
@@ -64,7 +64,7 @@ public final class TTEntityConfigGui {
 		var sniffersDigLithopsSeeds = booleanEntry(entryBuilder, "sniffer_digs_lithops_seeds", TTEntityConfig.SNIFFER_DIGS_LITHOPS_SEEDS);
 		var spawnSniffer = entitySpawnEntry(entryBuilder, EntityTypes.SNIFFER, TTEntityConfig.SPAWN_SNIFFERS);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, EntityTypes.SNIFFER.getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, EntityTypes.SNIFFER.getDescription(),
 			false,
 			tooltip("entity_category", EntityTypes.SNIFFER.getDescription()),
 			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, snifferDigsGuzmaniaSeeds, sniffersDigLithopsSeeds, sniffersDigDawntrailSeeds,
@@ -74,7 +74,7 @@ public final class TTEntityConfigGui {
 		// VILLAGER
 		var villagersSellCatacombsMap = booleanEntry(entryBuilder, "sell_catacombs_map", TTEntityConfig.VILLAGER_SELLS_CATACOMBS_MAP);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, EntityTypes.VILLAGER.getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, EntityTypes.VILLAGER.getDescription(),
 			false,
 			tooltip("entity_category", EntityTypes.VILLAGER.getDescription()),
 			villagersSellCatacombsMap
@@ -83,7 +83,7 @@ public final class TTEntityConfigGui {
 		// ARMOR STAND
 		var armorStandArms = booleanEntry(entryBuilder, "armor_stand_arms", TTEntityConfig.ARMOR_STAND_HAS_ARMS);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, EntityTypes.ARMOR_STAND.getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, EntityTypes.ARMOR_STAND.getDescription(),
 			false,
 			tooltip("entity_category", EntityTypes.ARMOR_STAND.getDescription()),
 			armorStandArms

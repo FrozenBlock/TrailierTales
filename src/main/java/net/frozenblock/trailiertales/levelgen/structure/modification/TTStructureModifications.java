@@ -18,9 +18,9 @@
 package net.frozenblock.trailiertales.levelgen.structure.modification;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.worldgen.structure.api.StructureGenerationConditionApi;
-import net.frozenblock.lib.worldgen.structure.api.StructurePlacementExclusionApi;
-import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
+import net.frozenblock.lib.levelgen.structure.api.StructureGenerationConditionApi;
+import net.frozenblock.lib.levelgen.structure.api.StructurePlacementExclusionApi;
+import net.frozenblock.lib.levelgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.data.worldgen.structure.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;

@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.data.advancement.TTAdvancementProvider;
 import net.frozenblock.trailiertales.data.loot.TTArchaeologyLootProvider;
@@ -29,6 +30,7 @@ import net.frozenblock.trailiertales.data.loot.TTChestLootProvider;
 import net.frozenblock.trailiertales.data.loot.TTEntityLootProvider;
 import net.frozenblock.trailiertales.data.model.TTModelProvider;
 import net.frozenblock.trailiertales.data.recipe.TTRecipeProvider;
+import net.frozenblock.trailiertales.data.sound.TTSoundTypeOverrides;
 import net.frozenblock.trailiertales.data.tag.TTBiomeTagsProvider;
 import net.frozenblock.trailiertales.data.tag.TTBlockTagsProvider;
 import net.frozenblock.trailiertales.data.tag.TTDamageTypeTagsProvider;
@@ -137,6 +139,9 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.JUKEBOX_SONG, TTJukeboxSongs::bootstrap);
 		registryBuilder.add(Registries.TRIM_PATTERN, TTTrimPatterns::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, TTVillagerTrades::bootstrap);
+
+		// FrozenLib Registries
+		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, TTSoundTypeOverrides::bootstrap);
 	}
 
 }

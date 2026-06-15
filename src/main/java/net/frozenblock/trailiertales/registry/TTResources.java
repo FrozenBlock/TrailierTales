@@ -21,7 +21,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.worldgen.structure.api.StructureGenerationConditionApi;
+import net.frozenblock.lib.levelgen.structure.api.StructureGenerationConditionApi;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.levelgen.structure.RuinsStructure;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;

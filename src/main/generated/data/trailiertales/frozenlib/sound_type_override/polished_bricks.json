@@ -1,0 +1,17 @@
+{
+  "blocks": "#trailiertales:sound/polished_bricks",
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "trailiertales:block/blockSounds/polishedBricksSounds",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "trailiertales:block.polished_bricks.break",
+    "fall_sound": "trailiertales:block.polished_bricks.fall",
+    "hit_sound": "trailiertales:block.polished_bricks.hit",
+    "pitch": 1.0,
+    "place_sound": "trailiertales:block.polished_bricks.place",
+    "step_sound": "trailiertales:block.polished_bricks.step",
+    "volume": 1.0
+  }
+}

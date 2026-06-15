@@ -21,9 +21,9 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.trailiertales.TTConstants.text;
 import static net.frozenblock.trailiertales.TTConstants.tooltip;
+import net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.booleanEntry;
 
@@ -40,7 +40,7 @@ public final class TTBlockConfigGui {
 		var suspiciousBlockParticles = booleanEntry(entryBuilder, "suspicious_block_particles", TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES);
 		var placeItemsInSuspiciousBlocks = booleanEntry(entryBuilder, "place_items_in_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, text("suspicious_blocks"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, text("suspicious_blocks"),
 			false,
 			tooltip("suspicious_blocks"),
 			smoothSuspiciousBlocks, suspiciousBlockParticles, placeItemsInSuspiciousBlocks
@@ -54,7 +54,7 @@ public final class TTBlockConfigGui {
 		var coffinWobblePotion = booleanEntry(entryBuilder, "coffin_wobble_potion", TTBlockConfig.COFFIN_WOBBLE_POTION_SPAWNING);
 		var coffinWobbleExperienceBottle = booleanEntry(entryBuilder, "coffin_wobble_experience_bottle", TTBlockConfig.COFFIN_WOBBLE_EXPERIENCE_BOTTLE_SPAWNING);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, text("coffin"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, text("coffin"),
 			false,
 			tooltip("coffin"),
 			ignoreDoMobSpawningGamerule,
@@ -71,7 +71,7 @@ public final class TTBlockConfigGui {
 		var polishedCalciteSounds = booleanEntry(entryBuilder, "polished_calcite_sounds", TTBlockConfig.POLISHED_CALCITE_SOUNDS);
 		var calciteBricksSounds = booleanEntry(entryBuilder, "calcite_bricks_sounds", TTBlockConfig.CALCITE_BRICKS_SOUNDS);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, text("block_sounds"),
 			false,
 			tooltip("block_sounds"),
 			unpolishedBricksSounds, polishedBricksSounds, polishedSounds, polishedBasaltSounds, polishedDeepslateSounds,

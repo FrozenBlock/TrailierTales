@@ -1,0 +1,17 @@
+{
+  "blocks": "#trailiertales:sound/polished_basalt",
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "trailiertales:block/blockSounds/polishedBasaltSounds",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "trailiertales:block.polished_basalt.break",
+    "fall_sound": "trailiertales:block.polished_basalt.fall",
+    "hit_sound": "trailiertales:block.polished_basalt.hit",
+    "pitch": 1.0,
+    "place_sound": "trailiertales:block.polished_basalt.place",
+    "step_sound": "trailiertales:block.polished_basalt.step",
+    "volume": 1.0
+  }
+}

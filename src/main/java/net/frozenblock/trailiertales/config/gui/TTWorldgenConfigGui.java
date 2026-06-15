@@ -21,7 +21,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import static net.frozenblock.trailiertales.config.gui.TTConfigGuiHelper.booleanEntry;
@@ -45,7 +45,7 @@ public final class TTWorldgenConfigGui {
 		var badlandsRuins = booleanEntry(entryBuilder, "badlands_ruins", TTWorldgenConfig.BADLANDS_RUINS_GENERATION);
 		var deepslateRuins = booleanEntry(entryBuilder, "deepslate_ruins", TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("ruins"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTConstants.text("ruins"),
 			false,
 			TTConstants.tooltip("ruins"),
 			genericRuins, snowyRuins, jungleRuins, savannaRuins, desertRuins, badlandsRuins, deepslateRuins
@@ -60,7 +60,7 @@ public final class TTWorldgenConfigGui {
 		var generateDawntrail = booleanEntry(entryBuilder, "generate_dawntrail", TTWorldgenConfig.DAWNTRAIL_GENERATION);
 		var generateLithops = booleanEntry(entryBuilder, "generate_lithops", TTWorldgenConfig.LITHOPS_GENERATION);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("vegetation"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTConstants.text("vegetation"),
 			false,
 			TTConstants.tooltip("vegetation"),
 			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateGuzmania, generateLithops, generateDawntrail
@@ -71,7 +71,7 @@ public final class TTWorldgenConfigGui {
 		var choralEndCity = booleanEntry(entryBuilder, "choral_end_city", TTWorldgenConfig.END_CITY_CHORAL_GENERATION);
 		var chiseledEndCity = booleanEntry(entryBuilder, "chiseled_end_city", TTWorldgenConfig.END_CITY_CHISELED_GENERATION);
 
-		FrozenClothConfig.createSubCategory(entryBuilder, category, TTConstants.text("end_city"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTConstants.text("end_city"),
 			false,
 			TTConstants.tooltip("end_city"),
 			crackedEndCity, choralEndCity, chiseledEndCity

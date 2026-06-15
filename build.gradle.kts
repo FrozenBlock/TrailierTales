@@ -18,7 +18,7 @@ buildscript {
 }
 
 plugins {
-    id("net.fabricmc.fabric-loom") version("1.15-SNAPSHOT")
+    id("net.fabricmc.fabric-loom") version("1.17-SNAPSHOT")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -189,7 +189,7 @@ dependencies {
     api("maven.modrinth:frozenlib:$frozenlib_version")
 
     // Wilder Wild
-    compileOnly("maven.modrinth:wilder-wild:$wilderwild_version")
+    implementation("maven.modrinth:wilder-wild:$wilderwild_version")
 
     // Mod Menu
     compileOnly("com.terraformersmc:modmenu:$modmenu_version")

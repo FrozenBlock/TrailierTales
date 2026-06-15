@@ -18,10 +18,9 @@
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
-import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingRuleProcessor;
+import net.frozenblock.lib.levelgen.structure.api.StructureProcessorApi;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
@@ -43,16 +42,7 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
-		BlockSoundTypeOverwrites.addBlock(
-			TTBlocks.SUSPICIOUS_CLAY,
-			TTSounds.SUSPICIOUS_CLAY_WW,
-			WWBlockConfig.CLAY_SOUNDS::get
-		);
-		BlockSoundTypeOverwrites.addBlock(
-			Blocks.SUSPICIOUS_GRAVEL,
-			TTSounds.SUSPICIOUS_GRAVEL_WW,
-			WWBlockConfig.GRAVEL_SOUNDS::get
-		);
+
 
 		StructureProcessorApi.addProcessor(
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(),

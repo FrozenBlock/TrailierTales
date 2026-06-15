@@ -1,0 +1,17 @@
+{
+  "blocks": "#trailiertales:sound/suspicious_gravel",
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:block/blockSounds/gravelSounds",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "trailiertales:block.suspicious_gravel_ww.break",
+    "fall_sound": "trailiertales:block.suspicious_gravel_ww.fall",
+    "hit_sound": "trailiertales:block.suspicious_gravel_ww.hit",
+    "pitch": 1.0,
+    "place_sound": "trailiertales:block.suspicious_gravel_ww.place",
+    "step_sound": "trailiertales:block.suspicious_gravel_ww.step",
+    "volume": 0.8
+  }
+}

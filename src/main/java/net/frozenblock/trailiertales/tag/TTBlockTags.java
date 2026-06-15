@@ -32,6 +32,8 @@ public class TTBlockTags {
 	public static final TagKey<Block> SOUND_POLISHED_TUFF = bind("sound/polished_tuff");
 	public static final TagKey<Block> SOUND_POLISHED_BASALT = bind("sound/polished_basalt");
 	public static final TagKey<Block> SOUND_POLISHED_RESIN = bind("sound/polished_resin");
+	public static final TagKey<Block> SOUND_SUSPICIOUS_CLAY = bind("sound/suspicious_clay");
+	public static final TagKey<Block> SOUND_SUSPICIOUS_GRAVEL = bind("sound/suspicious_gravel");
 
 	public static final TagKey<Block> SUPPORTS_LITHOPS = bind("supports_lithops");
 

@@ -1,0 +1,17 @@
+{
+  "blocks": "#trailiertales:sound/calcite_bricks",
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "trailiertales:block/blockSounds/calciteBricksSounds",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "trailiertales:block.calcite_bricks_alt.break",
+    "fall_sound": "trailiertales:block.calcite_bricks_alt.fall",
+    "hit_sound": "trailiertales:block.calcite_bricks_alt.hit",
+    "pitch": 1.0,
+    "place_sound": "trailiertales:block.calcite_bricks_alt.place",
+    "step_sound": "trailiertales:block.calcite_bricks_alt.step",
+    "volume": 1.0
+  }
+}

@@ -434,6 +434,12 @@ public final class TTBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(TTBlockTags.SOUND_POLISHED_RESIN)
 			.add(TTBlockItemIds.POLISHED_RESIN_BLOCK, TTBlockItemIds.POLISHED_RESIN_STAIRS, TTBlockItemIds.POLISHED_RESIN_SLAB, TTBlockItemIds.POLISHED_RESIN_WALL);
 
+		this.builder(TTBlockTags.SOUND_SUSPICIOUS_CLAY)
+			.add(TTBlockItemIds.SUSPICIOUS_CLAY);
+
+		this.builder(TTBlockTags.SOUND_SUSPICIOUS_GRAVEL)
+			.add(BlockItemIds.SUSPICIOUS_GRAVEL);
+
 		// WILDER WILD
 		this.builder(getTag("wilderwild:sculk_slab_replaceable_worldgen"))
 			.add(TTBlockItemIds.MOSSY_COBBLED_DEEPSLATE_SLAB)

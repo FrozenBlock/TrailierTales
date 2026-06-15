@@ -18,8 +18,8 @@
 package net.frozenblock.trailiertales.data.worldgen.structure;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTLootTables;

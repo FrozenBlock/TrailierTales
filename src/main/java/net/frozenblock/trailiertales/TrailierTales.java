@@ -34,7 +34,6 @@ import net.frozenblock.trailiertales.levelgen.structure.modification.TTStructure
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
-import net.frozenblock.trailiertales.registry.TTBlockSoundTypeOverwrites;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTCreativeInventorySorting;
 import net.frozenblock.trailiertales.registry.TTDebugSubscriptions;
@@ -101,7 +100,6 @@ public class TrailierTales extends FrozenModInitializer {
 
 		TTModIntegrations.init();
 		TTCreativeInventorySorting.init();
-		TTBlockSoundTypeOverwrites.init();
 		TTStructureModifications.init();
 		TTAdvancementModifications.init();
 

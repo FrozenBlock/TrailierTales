@@ -1,0 +1,17 @@
+{
+  "blocks": "#trailiertales:sound/polished_calcite",
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "trailiertales:block/blockSounds/polishedCalciteSounds",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "trailiertales:block.polished_calcite.break",
+    "fall_sound": "trailiertales:block.polished_calcite.fall",
+    "hit_sound": "trailiertales:block.polished_calcite.hit",
+    "pitch": 1.0,
+    "place_sound": "trailiertales:block.polished_calcite.place",
+    "step_sound": "trailiertales:block.polished_calcite.step",
+    "volume": 1.0
+  }
+}

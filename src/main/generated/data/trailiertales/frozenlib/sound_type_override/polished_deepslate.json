@@ -1,0 +1,17 @@
+{
+  "blocks": "#trailiertales:sound/polished_deepslate",
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "trailiertales:block/blockSounds/polishedDeepslateSounds",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "trailiertales:block.polished_deepslate.break",
+    "fall_sound": "trailiertales:block.polished_deepslate.fall",
+    "hit_sound": "trailiertales:block.polished_deepslate.hit",
+    "pitch": 1.0,
+    "place_sound": "trailiertales:block.polished_deepslate.place",
+    "step_sound": "trailiertales:block.polished_deepslate.step",
+    "volume": 1.0
+  }
+}

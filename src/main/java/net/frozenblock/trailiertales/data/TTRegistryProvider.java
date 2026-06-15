@@ -20,6 +20,7 @@ package net.frozenblock.trailiertales.data;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -71,6 +72,10 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(structureSets);
 		TTConstants.log("Adding finalized villager trades to datagen", true);
 		entries.addAll(villagerTrades);
+
+		// FrozenLib Dynamic Registries
+		TTConstants.log("Adding finalized sound type overrides to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.SOUND_TYPE_OVERRIDE)));
 	}
 
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
