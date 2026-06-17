@@ -57,7 +57,6 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("datafix.")) return this.mixinsConfig.datafix;
 		if (mixinClassName.contains("dawntrail.")) return this.mixinsConfig.dawntrail;
 		if (mixinClassName.contains("decorated_pot.")) return this.mixinsConfig.decorated_pot;
-		if (mixinClassName.contains("ectoplasm_block.")) return this.mixinsConfig.ectoplasm_block;
 		if (mixinClassName.contains("haunt.")) return this.mixinsConfig.haunt;
 		if (mixinClassName.contains("surveyor.")) return this.mixinsConfig.surveyor;
 		if (mixinClassName.contains("lithium.")) return this.mixinsConfig.lithium && this.hasLithium;

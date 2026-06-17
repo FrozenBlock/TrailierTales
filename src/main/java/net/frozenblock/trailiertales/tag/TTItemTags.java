@@ -28,5 +28,4 @@ public class TTItemTags {
 	private static TagKey<Item> bind(String path) {
 		return TagKey.create(Registries.ITEM, TTConstants.id(path));
 	}
-
 }

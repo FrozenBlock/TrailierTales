@@ -19,13 +19,12 @@ package net.frozenblock.trailiertales.entity;
 
 import java.util.Arrays;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
 import net.frozenblock.trailiertales.particle.options.GlowingDustColorTransitionOptions;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
-import net.frozenblock.trailiertales.registry.TTWindDisturbances;
 import net.frozenblock.trailiertales.tag.TTEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -35,7 +34,6 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -230,13 +228,11 @@ public class Apparition extends Monster implements RangedAttackMob {
 		float successValue = 20F - (Math.max(5, level.getRawBrightness(pos, 0) * 0.5F));
 		float punishmentValue = -1F;
 
-		if (this instanceof EntityCoffinInterface entityCoffinInterface) {
-			if (entityCoffinInterface.trailierTales$getCoffinData() != null && level instanceof ServerLevel serverLevel) {
-				final boolean withinCatacombs = CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
-				if (withinCatacombs) punishmentValue = 0F;
-				isPosSafe = isPosSafe && withinCatacombs;
-				successValue *= 2F;
-			}
+		if (this.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA) != null && level instanceof ServerLevel serverLevel) {
+			final boolean withinCatacombs = CoffinSpawner.isInCatacombsBounds(pos, serverLevel.structureManager());
+			if (withinCatacombs) punishmentValue = 0F;
+			isPosSafe = isPosSafe && withinCatacombs;
+			successValue *= 2F;
 		}
 
 		return isPosSafe ? successValue : punishmentValue;

@@ -59,5 +59,4 @@ public class CropBlockMixin {
 		if (state.is(TTBlocks.LITHOPS_CROP)) return original.setValue(LithopsCropBlock.FACING, state.getValue(LithopsCropBlock.FACING));
 		return original;
 	}
-
 }

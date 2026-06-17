@@ -50,5 +50,4 @@ public class EntityMixin {
 	public void trailierTales$canUsePortal(CallbackInfoReturnable<Boolean> info) {
 		if (EntityCoffinData.entityHasCoffinData(Entity.class.cast(this))) info.setReturnValue(false);
 	}
-
 }

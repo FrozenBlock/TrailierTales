@@ -45,5 +45,4 @@ public class TTBlockTags {
 	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registries.BLOCK, TTConstants.id(path));
 	}
-
 }

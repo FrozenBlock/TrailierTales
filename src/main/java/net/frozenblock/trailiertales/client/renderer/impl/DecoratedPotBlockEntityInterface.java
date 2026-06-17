@@ -15,9 +15,8 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.block.entity.coffin.impl;
+package net.frozenblock.trailiertales.client.renderer.impl;
 
-public interface EntityCoffinInterface {
-	EntityCoffinData trailierTales$getCoffinData();
-	void trailierTales$setCoffinData(EntityCoffinData coffinData);
+public interface DecoratedPotBlockEntityInterface {
+	boolean trailierTales$isWobbleFlipped();
 }

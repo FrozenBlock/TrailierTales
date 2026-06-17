@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
-import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;

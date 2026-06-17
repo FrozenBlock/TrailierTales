@@ -18,14 +18,12 @@
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,28 +31,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FallingBlockEntity.class)
-public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface {
-
-	@Unique
-	private ItemStack trailierTales$itemStack = ItemStack.EMPTY;
-	@Unique
-	private boolean trailierTales$overrideBreak = false;
-
-	@Override
-	public boolean trailierTales$setItem(ItemStack stack) {
-		this.trailierTales$itemStack = stack;
-		return true;
-	}
-
-	@Override
-	public ItemStack trailierTales$getItem() {
-		return this.trailierTales$itemStack;
-	}
-
-	@Override
-	public void trailierTales$overrideBreak() {
-		this.trailierTales$overrideBreak = true;
-	}
+public class FallingBlockEntityItemMixin {
 
 	@Inject(
 		method = "tick",
@@ -64,28 +41,20 @@ public class FallingBlockEntityItemMixin implements FallingBlockEntityInterface 
 		)
 	)
 	public void trailierTales$dropItem(CallbackInfo info, @Local(name = "serverLevel") ServerLevel serverLevel) {
-		FallingBlockEntity.class.cast(this).spawnAtLocation(serverLevel, this.trailierTales$itemStack);
+		trailierTales$dropItem(FallingBlockEntity.class.cast(this), serverLevel);
 	}
 
 	@Inject(method = "callOnBrokenAfterFall", at = @At("HEAD"))
 	public void trailierTales$spawnCustomItemAfterBroken(Block block, BlockPos pos, CallbackInfo info) {
 		final FallingBlockEntity fallingBlock = FallingBlockEntity.class.cast(this);
-		if (fallingBlock.level() instanceof ServerLevel level && this.trailierTales$itemStack != ItemStack.EMPTY) {
-			fallingBlock.spawnAtLocation(level, this.trailierTales$itemStack.copy());
-			this.trailierTales$itemStack = ItemStack.EMPTY;
-		}
+		if (!(fallingBlock.level() instanceof ServerLevel level)) return;
+		trailierTales$dropItem(fallingBlock, level);
 	}
 
-	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(ValueOutput output, CallbackInfo info) {
-		if (this.trailierTales$itemStack != null && !this.trailierTales$itemStack.isEmpty()) output.store("TrailierTalesItem", ItemStack.CODEC, this.trailierTales$itemStack);
-		if (this.trailierTales$overrideBreak) output.putBoolean("TrailierTalesOverrideBreak", true);
+	@Unique
+	private static void trailierTales$dropItem(FallingBlockEntity fallingBlock, ServerLevel level) {
+		final ItemStack itemStack = fallingBlock.getAttachedOrElse(TTAttachmentTypes.FALLING_BLOCK_ITEM, ItemStack.EMPTY);
+		fallingBlock.spawnAtLocation(level, itemStack);
+		fallingBlock.removeAttached(TTAttachmentTypes.FALLING_BLOCK_ITEM);
 	}
-
-	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(ValueInput input, CallbackInfo info) {
-		this.trailierTales$itemStack = input.read("TrailierTalesItem", ItemStack.CODEC).orElse(ItemStack.EMPTY);
-		this.trailierTales$overrideBreak = input.getBooleanOr("TrailierTalesOverrideBreak", false);
-	}
-
 }

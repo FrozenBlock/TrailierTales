@@ -23,11 +23,11 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
@@ -67,7 +67,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -255,13 +254,15 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			? BaseEntityBlock.createTickerHelper(
 				blockEntityType,
 				TTBlockEntityTypes.COFFIN,
-				(unusedWorld, pos, statex, coffin) -> coffin
-					.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)))
+				(levelx, pos, statex, coffin) ->
+					coffin.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getValue(STATE) == CoffinSpawnerState.OMINOUS)
+			)
 			: BaseEntityBlock.createTickerHelper(
 				blockEntityType,
 				TTBlockEntityTypes.COFFIN,
-				(world, pos, statex, coffin) -> coffin
-					.tickClient(world, pos, statex.getValue(PART), statex.getOptionalValue(BlockStateProperties.OMINOUS).orElse(false)));
+				(levelx, pos, statex, coffin) ->
+					coffin.tickClient(levelx, pos, statex.getValue(PART), statex.getValue(STATE) == CoffinSpawnerState.OMINOUS)
+			);
 	}
 
 	public static void onCoffinUntrack(ServerLevel level, @Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
@@ -272,7 +273,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			if (followRange != null) followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
 		}
 
-		if (entity instanceof EntityCoffinInterface entityInterface) entityInterface.trailierTales$setCoffinData(null);
+		if (entity != null) entity.removeAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
 
 		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem(apparition.getItemBySlot(EquipmentSlot.MAINHAND));

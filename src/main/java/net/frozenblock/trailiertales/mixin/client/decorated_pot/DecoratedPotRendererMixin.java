@@ -24,7 +24,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
-import net.frozenblock.trailiertales.impl.client.DecoratedPotBlockEntityInterface;
+import net.frozenblock.trailiertales.client.renderer.impl.DecoratedPotBlockEntityInterface;
 import net.minecraft.client.renderer.blockentity.DecoratedPotRenderer;
 import net.minecraft.client.renderer.blockentity.state.DecoratedPotRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;

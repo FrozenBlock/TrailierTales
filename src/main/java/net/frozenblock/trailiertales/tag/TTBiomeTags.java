@@ -35,5 +35,4 @@ public class TTBiomeTags {
 	private static TagKey<Biome> bind(String path) {
 		return TagKey.create(Registries.BIOME, TTConstants.id(path));
 	}
-
 }

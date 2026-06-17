@@ -23,10 +23,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
-import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
-import net.frozenblock.trailiertales.impl.FallingBlockEntityInterface;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -53,7 +53,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	public void trailierTales$init(Block block, SoundEvent brushSound, SoundEvent brushCompletedSound, BlockBehaviour.Properties properties, CallbackInfo info) {
+	public void trailierTales$init(Block turnsInto, SoundEvent brushSound, SoundEvent brushCompletedSound, BlockBehaviour.Properties properties, CallbackInfo info) {
 		final BlockState defaultBlockState = this.defaultBlockState();
 		if (!defaultBlockState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) return;
 		this.registerDefaultState(defaultBlockState.setValue(TTBlockStateProperties.CAN_PLACE_ITEM, false));
@@ -95,11 +95,11 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
 		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
 	) {
-		BrushableBlockEntity brushableBlockEntity = blockEntityRef.get();
-		if (brushableBlockEntity != null && hasCustomItem.get()) {
-			itemStack.set(brushableBlockEntity.getItem().copy());
-			((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
-		}
+		final BrushableBlockEntity brushableBlockEntity = blockEntityRef.get();
+		if (brushableBlockEntity == null || !hasCustomItem.get()) return;
+
+		itemStack.set(brushableBlockEntity.getItem().copy());
+		((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
 	}
 
 	@ModifyExpressionValue(
@@ -114,9 +114,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
 		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
 	) {
-		if (hasCustomItem.get() && original instanceof FallingBlockEntityInterface fallingBlockEntityInterface) {
-			fallingBlockEntityInterface.trailierTales$setItem(itemStack.get());
-		}
+		if (hasCustomItem.get() && itemStack.get() != null && !itemStack.get().isEmpty()) original.setAttached(TTAttachmentTypes.FALLING_BLOCK_ITEM, itemStack.get().copyAndClear());
 		return original;
 	}
 
@@ -124,5 +122,4 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS.get()) builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
 	}
-
 }

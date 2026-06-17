@@ -26,7 +26,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
-import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
 import net.minecraft.client.renderer.blockentity.state.BrushableBlockRenderState;

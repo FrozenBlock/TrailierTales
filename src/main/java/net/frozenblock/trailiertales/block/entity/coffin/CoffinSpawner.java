@@ -27,18 +27,18 @@ import java.util.Optional;
 import java.util.UUID;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.frozenblock.trailiertales.registry.TTResources;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
-import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -52,6 +52,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -363,7 +364,7 @@ public final class CoffinSpawner {
 				: this.data.getClosestDetectedPlayer(level, entity.position());
 			closestDetectedPlayer.ifPresent(mob::setTarget);
 		}
-		if (entity instanceof EntityCoffinInterface entityInterface) entityInterface.trailierTales$setCoffinData(new EntityCoffinData(pos, this.uuid, level.getGameTime()));
+		if (entity instanceof LivingEntity) entity.setAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA, new EntityCoffinData(pos, this.uuid, level.getGameTime()));
 		if (entity instanceof Apparition apparition) ApparitionAi.rememberHome(apparition, level, pos);
 	}
 

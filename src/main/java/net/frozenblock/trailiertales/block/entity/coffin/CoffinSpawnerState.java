@@ -33,7 +33,6 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false, false, Optional.empty()),
@@ -187,7 +186,6 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		return this.emitParticle;
 	}
 
-	@Contract("_, _ -> new")
 	private static Identifier getTexture(String stateName, boolean foot) {
 		return TTConstants.id("textures/entity/coffin/coffin_" + (foot ? "foot_" : "head_") + stateName + ".png");
 	}

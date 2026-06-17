@@ -42,12 +42,13 @@ import net.frozenblock.trailiertales.data.tag.TTItemTagsProvider;
 import net.frozenblock.trailiertales.data.tag.TTStructureTagsProvider;
 import net.frozenblock.trailiertales.data.tag.TTVillagerTradesTagsProvider;
 import net.frozenblock.trailiertales.data.trading.TTVillagerTrades;
+import net.frozenblock.trailiertales.data.worldgen.feature.TTFeatureBootstrap;
 import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTClipGroups;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTJukeboxSongs;
 import net.frozenblock.trailiertales.registry.TTStructures;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
-import net.frozenblock.trailiertales.data.worldgen.feature.TTFeatureBootstrap;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
@@ -101,11 +102,9 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
 		// ASSETS
-
 		if (FrozenBools.IS_DATAGEN) pack.addProvider(TTModelProvider::new);
 
 		// DATA
-
 		pack.addProvider(TTEntityLootProvider::new);
 		pack.addProvider(TTBlockLootProvider::new);
 		pack.addProvider(TTChestLootProvider::new);
@@ -127,7 +126,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		TTConstants.log("Building datagen registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
+		TTConstants.log("Generating dynamic registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, TTFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, TTFeatureBootstrap::bootstrapPlaced);
@@ -142,6 +141,11 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, TTSoundTypeOverrides::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, TTClipGroups::bootstrap);
 	}
 
+	@Override
+	public String getEffectiveModId() {
+		return TTConstants.MOD_ID;
+	}
 }

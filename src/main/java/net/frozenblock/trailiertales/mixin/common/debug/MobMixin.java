@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.mixin.common.debug;
 
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTDebugSubscriptions;
 import net.frozenblock.trailiertales.util.debug.DebugCoffinInfo;
 import net.minecraft.server.level.ServerLevel;
@@ -37,16 +37,13 @@ public class MobMixin {
 		registration.register(
 			TTDebugSubscriptions.COFFINS,
 			() -> {
-				if (!(Mob.class.cast(this) instanceof EntityCoffinInterface coffinInterface)) return null;
-
-				final EntityCoffinData coffinData = coffinInterface.trailierTales$getCoffinData();
+				final EntityCoffinData coffinData = Mob.class.cast(this).getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
 				if (coffinData == null) return null;
 
 				if (coffinData.getSpawner(level).isEmpty()) return null;
 
-				return new DebugCoffinInfo(coffinData.getPos(), level.getGameTime() - coffinData.lastInteraction());
+				return new DebugCoffinInfo(coffinData.getCoffinPosition(), level.getGameTime() - coffinData.lastInteraction());
 			}
 		);
 	}
-
 }

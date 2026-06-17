@@ -28,5 +28,4 @@ public class TTStructureTags {
 	private static TagKey<Structure> bind(String path) {
 		return TagKey.create(Registries.STRUCTURE, TTConstants.id(path));
 	}
-
 }

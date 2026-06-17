@@ -17,7 +17,7 @@
 
 package net.frozenblock.trailiertales.mixin.common.decorated_pot;
 
-import net.frozenblock.trailiertales.impl.client.DecoratedPotBlockEntityInterface;
+import net.frozenblock.trailiertales.client.renderer.impl.DecoratedPotBlockEntityInterface;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

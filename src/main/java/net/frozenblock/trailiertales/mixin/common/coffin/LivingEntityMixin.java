@@ -24,7 +24,7 @@ import java.util.Optional;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerData;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
-import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.minecraft.advancements.triggers.EntityHurtPlayerTrigger;
@@ -36,40 +36,20 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin implements EntityCoffinInterface {
+public abstract class LivingEntityMixin {
 
 	@Shadow
 	protected int lastHurtByPlayerMemoryTime;
-
-	@Unique
-	@Nullable
-	private EntityCoffinData trailierTales$entityCoffinData = null;
-
-	@Unique
-	@Override
-	@Nullable
-	public EntityCoffinData trailierTales$getCoffinData() {
-		return this.trailierTales$entityCoffinData;
-	}
-
-	@Unique
-	@Override
-	public void trailierTales$setCoffinData(EntityCoffinData coffinData) {
-		this.trailierTales$entityCoffinData = coffinData;
-	}
 
 	@WrapOperation(
 		method = "hurtServer",
@@ -81,7 +61,9 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	public void trailierTales$onHurtByPlayer(
 		PlayerHurtEntityTrigger instance, ServerPlayer player, Entity victim, DamageSource source, float originalDamage, float actualDamage, boolean blocked, Operation<Void> original
 	) {
-		if (this.trailierTales$entityCoffinData != null) this.trailierTales$entityCoffinData.updateLastInteraction(victim.level().getGameTime());
+		final EntityCoffinData coffinData = LivingEntity.class.cast(this).getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (coffinData != null) coffinData.updateLastInteraction(victim.level().getGameTime());
+
 		original.call(instance, player, victim, source, originalDamage, actualDamage, blocked);
 	}
 
@@ -97,9 +79,10 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 	) {
 		Entity entity = source.getEntity();
 		if (entity == null) entity = source.getDirectEntity();
-		if (entity instanceof EntityCoffinInterface coffinInterface && coffinInterface.trailierTales$getCoffinData() != null) {
-			coffinInterface.trailierTales$getCoffinData().updateLastInteraction(entity.level().getGameTime());
-		}
+
+		final EntityCoffinData coffinData = entity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (coffinData != null) coffinData.updateLastInteraction(entity.level().getGameTime());
+
 		original.call(instance, player, source, originalDamage, actualDamage, blocked);
 	}
 
@@ -108,7 +91,9 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		int original,
 		ServerLevel level, @Nullable Entity killer
 	) {
-		if (this.trailierTales$entityCoffinData != null && killer instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) return original * 2;
+		final EntityCoffinData coffinData = LivingEntity.class.cast(this).getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (coffinData != null && killer instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN)) return original * 2;
+
 		return original;
 	}
 
@@ -117,16 +102,17 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		if (reason != Entity.RemovalReason.KILLED || this.lastHurtByPlayerMemoryTime <= 0) return;
 
 		final LivingEntity livingEntity = LivingEntity.class.cast(this);
-		if (!(livingEntity.level() instanceof ServerLevel serverLevel) || this.trailierTales$entityCoffinData == null) return;
+		final EntityCoffinData coffinData = livingEntity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (!(livingEntity.level() instanceof ServerLevel serverLevel) || coffinData == null) return;
 
-		final Optional<CoffinSpawner> optionalCoffinSpawner = this.trailierTales$entityCoffinData.getSpawner(serverLevel);
+		final Optional<CoffinSpawner> optionalCoffinSpawner = coffinData.getSpawner(serverLevel);
 		if (optionalCoffinSpawner.isEmpty()) return;
 
 		final CoffinSpawner coffinSpawner = optionalCoffinSpawner.get();
 		final CoffinSpawnerData spawnerData = coffinSpawner.getData();
 		if (spawnerData.trackingEntity(livingEntity)) {
 			final Vec3 pos = livingEntity.getEyePosition();
-			final Vec3 coffinPos = Vec3.atCenterOf(this.trailierTales$entityCoffinData.getPos());
+			final Vec3 coffinPos = Vec3.atCenterOf(coffinData.getCoffinPosition());
 			serverLevel.sendParticles(TTParticleTypes.COFFIN_SOUL, pos.x, pos.y, pos.z, 4, 0.2D, 0D, 0.2D, 0D);
 			serverLevel.sendParticles(ParticleTypes.POOF, pos.x, pos.y, pos.z, 2, 0.2D, 0D, 0.2D, 0D);
 			final double distance = livingEntity.distanceToSqr(coffinPos);
@@ -150,19 +136,10 @@ public abstract class LivingEntityMixin implements EntityCoffinInterface {
 		)
 	)
 	public void trailierTales$baseTick(CallbackInfo info) {
-		if (this.trailierTales$entityCoffinData == null) return;
 		final LivingEntity livingEntity = LivingEntity.class.cast(this);
-		this.trailierTales$entityCoffinData.tick(livingEntity, livingEntity.level());
-	}
+		final EntityCoffinData coffinData = livingEntity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (coffinData == null) return;
 
-	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$addAdditionalSaveData(ValueOutput output, CallbackInfo info) {
-		if (this.trailierTales$entityCoffinData != null) this.trailierTales$entityCoffinData.save(output);
-	}
-
-	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void trailierTales$readAdditionalSaveData(ValueInput input, CallbackInfo info) {
-		final EntityCoffinData coffinData = EntityCoffinData.load(input);
-		if (coffinData != null) this.trailierTales$entityCoffinData = coffinData;
+		coffinData.tick(livingEntity, livingEntity.level());
 	}
 }

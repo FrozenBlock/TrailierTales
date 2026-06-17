@@ -21,7 +21,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
-import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -189,12 +189,12 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	}
 
 	@Inject(method = "tryLoadLootTable", at = @At(value = "RETURN"))
-	private void trailierTales$storeLootTable(ValueInput valueInput, CallbackInfoReturnable<Boolean> info) {
+	private void trailierTales$storeLootTable(ValueInput input, CallbackInfoReturnable<Boolean> info) {
 		this.trailierTales$storedLootTable = this.lootTable;
 	}
 
 	@Inject(method = "setLootTable", at = @At("HEAD"))
-	public void trailierTales$setLootTable(ResourceKey<LootTable> lootTable, long lootTableSeed, CallbackInfo info) {
+	public void trailierTales$setLootTable(ResourceKey<LootTable> lootTable, long seed, CallbackInfo info) {
 		if (lootTable != null) this.trailierTales$storedLootTable = lootTable;
 	}
 
@@ -358,5 +358,4 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	private int getCompletionState() {
 		throw new AssertionError("Mixin injection failed - Trailier Tales BrushableBlockEntityMixin.");
 	}
-
 }

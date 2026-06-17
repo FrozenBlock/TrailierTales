@@ -48,5 +48,4 @@ public class RedStoneWireBlockMixin {
 	private static boolean trailierTales$shouldConnectTo(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block) || instance.is(TTBlocks.SURVEYOR);
 	}
-
 }

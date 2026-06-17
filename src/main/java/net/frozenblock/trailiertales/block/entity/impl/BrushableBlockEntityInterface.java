@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.impl;
+package net.frozenblock.trailiertales.block.entity.impl;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;

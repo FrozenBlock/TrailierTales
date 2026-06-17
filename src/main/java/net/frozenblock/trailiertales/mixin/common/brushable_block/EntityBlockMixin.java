@@ -17,7 +17,7 @@
 
 package net.frozenblock.trailiertales.mixin.common.brushable_block;
 
-import net.frozenblock.trailiertales.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.EntityBlock;

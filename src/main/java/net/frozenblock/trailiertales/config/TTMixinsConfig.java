@@ -71,9 +71,6 @@ public final class TTMixinsConfig {
 	@Comment("Mirror's the Decorated Pots wobble animation on each consecutive use")
 	public boolean decorated_pot = true;
 
-	@Comment("Required to let the player's cursor ignore Ectoplasm Blocks while inside them")
-	public boolean ectoplasm_block = true;
-
 	@Comment("Required for Apparitions to not collide with all blocks when Lithium is installed")
 	public boolean lithium = true;
 

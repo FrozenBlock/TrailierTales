@@ -21,14 +21,27 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
 import net.minecraft.world.item.ItemStack;
 
 public final class TTAttachmentTypes {
 	public static final AttachmentType<ItemStack> BOAT_BANNER = AttachmentRegistry.create(
 		TTConstants.id("boat_banner"),
 		builder -> {
-			builder.initializer(() -> ItemStack.EMPTY);
+			builder.persistent(ItemStack.CODEC);
 			builder.syncWith(ItemStack.STREAM_CODEC, AttachmentSyncPredicate.all());
+			builder.initializer(() -> ItemStack.EMPTY);
+		}
+	);
+	public static final AttachmentType<EntityCoffinData> ENTITY_COFFIN_DATA = AttachmentRegistry.create(
+		TTConstants.id("entity_coffin_data"),
+		builder -> {
+			builder.persistent(EntityCoffinData.CODEC);
+		}
+	);
+	public static final AttachmentType<ItemStack> FALLING_BLOCK_ITEM = AttachmentRegistry.create(
+		TTConstants.id("falling_block_item"),
+		builder -> {
 			builder.persistent(ItemStack.CODEC);
 		}
 	);

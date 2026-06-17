@@ -15,9 +15,15 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.impl;
+package net.frozenblock.trailiertales.client.renderer.impl;
 
-public interface InEctoplasmBlockInterface {
-	void trailierTales$setClipInEctoplasm(boolean clipInEctoplasm);
-	boolean trailierTales$wasClipInEctoplasm();
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.resources.Identifier;
+
+@Environment(EnvType.CLIENT)
+public interface AbstractBoatRendererInterface {
+	void trailierTales$setBannerBaseTexture(Identifier texture);
+	Identifier trailierTales$getBannerBaseTexture();
+	void trailierTales$setRaft(boolean raft);
 }

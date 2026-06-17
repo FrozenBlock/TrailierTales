@@ -21,7 +21,6 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
-import net.frozenblock.trailiertales.TTConstants;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -39,43 +38,19 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(registries.lookupOrThrow(Registries.JUKEBOX_SONG));
 		entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));
 		entries.addAll(registries.lookupOrThrow(Registries.BANNER_PATTERN));
-
-		bootstrap(entries);
-	}
-
-	public static void bootstrap(Entries entries) {
-		final var configuredFeatures = asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE));
-		final var placedFeatures = asLookup(entries.placedFeatures());
-		final var biomes = asLookup(entries.getLookup(Registries.BIOME));
-		final var noises = asLookup(entries.getLookup(Registries.NOISE));
-		final var processorLists = asLookup(entries.getLookup(Registries.PROCESSOR_LIST));
-		final var templatePools = asLookup(entries.getLookup(Registries.TEMPLATE_POOL));
-		final var structures = asLookup(entries.getLookup(Registries.STRUCTURE));
-		final var structureSets = asLookup(entries.getLookup(Registries.STRUCTURE_SET));
-		final var villagerTrades = asLookup(entries.getLookup(Registries.VILLAGER_TRADE));
-
-		TTConstants.log("Adding finalized configured features to datagen", true);
-		entries.addAll(configuredFeatures);
-		TTConstants.log("Adding finalized placed features to datagen", true);
-		entries.addAll(placedFeatures);
-		TTConstants.log("Adding finalized biomes to datagen", true);
-		entries.addAll(biomes);
-		TTConstants.log("Adding finalized noises to datagen", true);
-		entries.addAll(noises);
-		TTConstants.log("Adding finalized processor lists to datagen", true);
-		entries.addAll(processorLists);
-		TTConstants.log("Adding finalized template pools to datagen", true);
-		entries.addAll(templatePools);
-		TTConstants.log("Adding finalized structures to datagen", true);
-		entries.addAll(structures);
-		TTConstants.log("Adding finalized structure sets to datagen", true);
-		entries.addAll(structureSets);
-		TTConstants.log("Adding finalized villager trades to datagen", true);
-		entries.addAll(villagerTrades);
+		entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+		entries.addAll(asLookup(entries.placedFeatures()));
+		entries.addAll(registries.lookupOrThrow(Registries.BIOME));
+		entries.addAll(registries.lookupOrThrow(Registries.NOISE));
+		entries.addAll(registries.lookupOrThrow(Registries.PROCESSOR_LIST));
+		entries.addAll(registries.lookupOrThrow(Registries.TEMPLATE_POOL));
+		entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE));
+		entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
+		entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
 
 		// FrozenLib Dynamic Registries
-		TTConstants.log("Adding finalized sound type overrides to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.SOUND_TYPE_OVERRIDE)));
+		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.SOUND_TYPE_OVERRIDE));
+		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.CLIP_GROUP));
 	}
 
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {

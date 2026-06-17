@@ -18,7 +18,7 @@
 package net.frozenblock.trailiertales.mixin.common.boat;
 
 import java.util.function.Supplier;
-import net.frozenblock.trailiertales.impl.BoatBannerInterface;
+import net.frozenblock.trailiertales.entity.impl.BoatBannerInterface;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;

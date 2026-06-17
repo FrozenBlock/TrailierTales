@@ -53,5 +53,4 @@ public class DataFixersMixin {
 		builder.addFixer(new AddNewChoices(schema, TTConstants.string("thrown_item"), References.ENTITY));
 		return schema;
 	}
-
 }

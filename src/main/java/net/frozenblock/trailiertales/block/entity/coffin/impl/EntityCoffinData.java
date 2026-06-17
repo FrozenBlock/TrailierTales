@@ -17,12 +17,15 @@
 
 package net.frozenblock.trailiertales.block.entity.coffin.impl;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import java.util.UUID;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
@@ -32,23 +35,25 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.Nullable;
 
 public class EntityCoffinData {
-	private final BlockPos pos;
+	public static final Codec<EntityCoffinData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		BlockPos.CODEC.fieldOf("coffin_position").forGetter(data -> data.coffinPosition),
+		UUIDUtil.CODEC.fieldOf("coffin_uuid").forGetter(data -> data.coffinUUID),
+		Codec.LONG.fieldOf("last_interaction_timestamp").forGetter(data -> data.listInteractionTimestamp)
+	).apply(instance, EntityCoffinData::new));
+	private final BlockPos coffinPosition;
 	private final UUID coffinUUID;
-	private long lastInteractionAt;
+	private long listInteractionTimestamp;
 
-	public EntityCoffinData(BlockPos pos, UUID coffinUUID, long lastInteractionAt) {
-		this.pos = pos;
+	public EntityCoffinData(BlockPos coffinPosition, UUID coffinUUID, long listInteractionTimestamp) {
+		this.coffinPosition = coffinPosition;
 		this.coffinUUID = coffinUUID;
-		this.lastInteractionAt = lastInteractionAt;
+		this.listInteractionTimestamp = listInteractionTimestamp;
 	}
 
-	public BlockPos getPos() {
-		return this.pos;
+	public BlockPos getCoffinPosition() {
+		return this.coffinPosition;
 	}
 
 	public UUID getCoffinUUID() {
@@ -56,14 +61,15 @@ public class EntityCoffinData {
 	}
 
 	public static boolean entityHasCoffinData(Entity entity) {
-		return entity instanceof EntityCoffinInterface entityCoffinInterface &&  entityCoffinInterface.trailierTales$getCoffinData() != null;
+		if (entity == null) return false;
+		return entity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA) != null;
 	}
 
 	public void tick(LivingEntity entity, Level level) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 
 		final long gameTime = level.getGameTime();
-		final boolean canUntrackFromTime = (gameTime - this.lastInteractionAt) > 1800 && !(entity instanceof Apparition);
+		final boolean canUntrackFromTime = (gameTime - this.listInteractionTimestamp) > 1800 && !(entity instanceof Apparition);
 		final Optional<CoffinSpawner> optionalCoffinSpawner = this.getSpawner(level);
 		if (optionalCoffinSpawner.isEmpty() || canUntrackFromTime) {
 			CoffinBlock.onCoffinUntrack(serverLevel, entity, null, true);
@@ -78,49 +84,24 @@ public class EntityCoffinData {
 	}
 
 	public Optional<CoffinSpawner> getSpawner(Level level) {
-		if (!level.isLoaded(this.getPos())) return Optional.empty();
-		if (!(level.getBlockEntity(this.getPos()) instanceof CoffinBlockEntity coffinBlockEntity)) return Optional.empty();
+		if (!level.isLoaded(this.getCoffinPosition())) return Optional.empty();
+		if (!(level.getBlockEntity(this.getCoffinPosition()) instanceof CoffinBlockEntity coffinBlockEntity)) return Optional.empty();
 		if (!(coffinBlockEntity.getCoffinSpawner().getUUID().equals(this.getCoffinUUID()))) return Optional.empty();
 		return Optional.of(coffinBlockEntity.getCoffinSpawner());
 	}
 
 	@VisibleForDebug
 	public Optional<CoffinSpawner> getSpawnerIgnoringUUID(Level level) {
-		if (!level.isLoaded(this.getPos())) return Optional.empty();
-		if (!(level.getBlockEntity(this.getPos()) instanceof CoffinBlockEntity coffinBlockEntity)) return Optional.empty();
+		if (!level.isLoaded(this.getCoffinPosition())) return Optional.empty();
+		if (!(level.getBlockEntity(this.getCoffinPosition()) instanceof CoffinBlockEntity coffinBlockEntity)) return Optional.empty();
 		return Optional.of(coffinBlockEntity.getCoffinSpawner());
 	}
 
 	public long lastInteraction() {
-		return this.lastInteractionAt;
+		return this.listInteractionTimestamp;
 	}
 
 	public void updateLastInteraction(long newTime) {
-		this.lastInteractionAt = newTime;
-	}
-
-	public void save(ValueOutput output) {
-		final ValueOutput coffinData = output.child("TrailierTales_CoffinData");
-		coffinData.putInt("X", this.pos.getX());
-		coffinData.putInt("Y", this.pos.getY());
-		coffinData.putInt("Z", this.pos.getZ());
-		coffinData.store("CoffinUUID", UUIDUtil.CODEC, this.coffinUUID);
-		coffinData.putLong("LastInteractionAt", this.lastInteractionAt);
-	}
-
-	@Nullable
-	public static EntityCoffinData load(ValueInput input) {
-		final Optional<ValueInput> optional = input.child("TrailierTales_CoffinData");
-		if (optional.isEmpty()) return null;
-
-		final ValueInput coffinData = optional.get();
-		final BlockPos pos = new BlockPos(
-			coffinData.getIntOr("X", 0),
-			coffinData.getIntOr("Y", 0),
-			coffinData.getIntOr("Z", 0)
-		);
-		final UUID coffinUUID = coffinData.read("CoffinUUID", UUIDUtil.CODEC).orElse(null);
-		final long lastInteractionAt = coffinData.getLong("LastInteractionAt").orElse(0L);
-		return new EntityCoffinData(pos, coffinUUID, lastInteractionAt);
+		this.listInteractionTimestamp = newTime;
 	}
 }

@@ -7,3 +7,6 @@ hi
 - Fixed the `One Small Step` advancement not being granted.
 - Fixed two exploits related to the Apparition.
 - Added missing entries to Item Tags.
+- All of Trailier Tales' block sound type overwrites are now data-driven, per FrozenLib 2.5's changes.
+- Added the `trailiertales:ectoplasm_block` Clip Group.
+- Migrated `EntityCoffinData` to use Fabric's Data Attachment API.

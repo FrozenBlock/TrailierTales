@@ -20,7 +20,7 @@ package net.frozenblock.trailiertales.mixin.client.boat;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.impl.client.AbstractBoatRendererInterface;
+import net.frozenblock.trailiertales.client.renderer.impl.AbstractBoatRendererInterface;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

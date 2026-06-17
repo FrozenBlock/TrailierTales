@@ -29,5 +29,4 @@ public class TTEntityTypeTags {
 	private static TagKey<EntityType<?>> bind(String path) {
 		return TagKey.create(Registries.ENTITY_TYPE, TTConstants.id(path));
 	}
-
 }

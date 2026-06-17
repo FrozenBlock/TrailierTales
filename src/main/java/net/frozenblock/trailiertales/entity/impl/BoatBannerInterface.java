@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.impl;
+package net.frozenblock.trailiertales.entity.impl;
 
 import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.minecraft.server.level.ServerLevel;
