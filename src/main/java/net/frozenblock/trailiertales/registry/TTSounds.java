@@ -296,13 +296,13 @@ public final class TTSounds {
 		SUSPICIOUS_GRAVEL_WW_FALL
 	);
 
-	private static SoundEvent register(String string) {
-		final Identifier identifier = TTConstants.id(string);
+	private static SoundEvent register(String name) {
+		final Identifier identifier = TTConstants.id(name);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier));
 	}
 
-	private static Holder.Reference<SoundEvent> registerForHolder(String id) {
-		return registerForHolder(TTConstants.id(id));
+	private static Holder.Reference<SoundEvent> registerForHolder(String name) {
+		return registerForHolder(TTConstants.id(name));
 	}
 
 	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id) {

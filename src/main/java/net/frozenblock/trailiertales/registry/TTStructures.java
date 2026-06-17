@@ -55,13 +55,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.Contract;
 
 public final class TTStructures {
-
-	private TTStructures() {
-		throw new UnsupportedOperationException("TTStructures contains only static declarations.");
-	}
 
 	public static ResourceKey<StructureSet> ofSet(String id) {
 		return ResourceKey.create(Registries.STRUCTURE_SET, TTConstants.id(id));
@@ -97,7 +92,6 @@ public final class TTStructures {
 		CatacombsGenerator.bootstrapProcessor(context);
 	}
 
-	@Contract("_, _, _, _ -> new")
 	public static RuleProcessor archyLootProcessor(Block original, Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
 		return new RuleProcessor(
 			ImmutableList.of(
@@ -106,7 +100,6 @@ public final class TTStructures {
 		);
 	}
 
-	@Contract("_, _, _, _ -> new")
 	public static ProcessorRule archyProcessorRule(Block original, Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
 		return new ProcessorRule(
 			new RandomBlockMatchTest(original, chance),
@@ -117,7 +110,6 @@ public final class TTStructures {
 		);
 	}
 
-	@Contract("_, _ -> new")
 	public static BlockStateRespectingRuleProcessor decoratedPotSherdProcessor(float chance, Item... sherds) {
 		return new BlockStateRespectingRuleProcessor(
 			ImmutableList.of(
@@ -132,29 +124,28 @@ public final class TTStructures {
 		);
 	}
 
-	public static ResourceKey<Structure> createKey(String id) {
-		return ResourceKey.create(Registries.STRUCTURE, TTConstants.id(id));
+	public static ResourceKey<Structure> createKey(String name) {
+		return ResourceKey.create(Registries.STRUCTURE, TTConstants.id(name));
 	}
 
 	public static Structure.StructureSettings structure(
-		HolderSet<Biome> holderSet,
+		HolderSet<Biome> biomes,
 		Map<MobCategory, StructureSpawnOverride> spawns,
 		GenerationStep.Decoration featureStep,
 		TerrainAdjustment terrainAdaptation
 	) {
-		return new Structure.StructureSettings(holderSet, spawns, featureStep, terrainAdaptation);
+		return new Structure.StructureSettings(biomes, spawns, featureStep, terrainAdaptation);
 	}
 
 	public static Structure.StructureSettings structure(
-		HolderSet<Biome> holderSet,
+		HolderSet<Biome> biomes,
 		GenerationStep.Decoration featureStep,
 		TerrainAdjustment terrainAdaptation
 	) {
-		return structure(holderSet, Map.of(), featureStep, terrainAdaptation);
+		return structure(biomes, Map.of(), featureStep, terrainAdaptation);
 	}
 
 	public static void register(BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
 		pool.register(Pools.parseKey(location), templatePool);
 	}
-
 }

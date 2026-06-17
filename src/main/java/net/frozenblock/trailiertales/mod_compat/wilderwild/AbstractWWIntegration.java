@@ -26,8 +26,7 @@ public abstract class AbstractWWIntegration extends ModIntegration {
 	}
 
 	@Override
-	public void init() {
-	}
+	public void init() {}
 
 	abstract public boolean newClaySounds();
 

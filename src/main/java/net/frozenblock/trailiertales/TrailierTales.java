@@ -78,12 +78,12 @@ public class TrailierTales extends FrozenModInitializer {
 		TTMapDecorationTypes.init();
 		TTAttachmentTypes.init();
 		TTBlocks.init();
-		TTBlockEntityTypes.register();
+		TTBlockEntityTypes.init();
 		TTItems.init();
 		TTTrimPatterns.init();
 		TTEntityTypes.init();
-		TTMemoryModuleTypes.register();
-		TTSensorTypes.register();
+		TTMemoryModuleTypes.init();
+		TTSensorTypes.init();
 		TTRecipeTypes.init();
 		TTBiomeModifications.init();
 		TTLootTables.init();

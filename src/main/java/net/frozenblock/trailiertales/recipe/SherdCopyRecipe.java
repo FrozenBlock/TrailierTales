@@ -32,12 +32,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class SherdCopyRecipe extends CustomRecipe {
-	public static final MapCodec<SherdCopyRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(instance ->
-		instance.group(
-			Ingredient.CODEC.fieldOf("sherd").forGetter(recipe -> recipe.sherd),
-			Ingredient.CODEC.fieldOf("material").forGetter(recipe -> recipe.material)
-		).apply(instance, SherdCopyRecipe::new)
-	);
+	public static final MapCodec<SherdCopyRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Ingredient.CODEC.fieldOf("sherd").forGetter(recipe -> recipe.sherd),
+		Ingredient.CODEC.fieldOf("material").forGetter(recipe -> recipe.material)
+	).apply(instance, SherdCopyRecipe::new));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SherdCopyRecipe> STREAM_CODEC = StreamCodec.composite(
 		Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.sherd,
 		Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.material,

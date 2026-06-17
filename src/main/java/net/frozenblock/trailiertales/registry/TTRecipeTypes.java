@@ -30,6 +30,5 @@ public final class TTRecipeTypes {
 		SherdCopyRecipe.SERIALIZER
 	);
 
-	public static void init() {
-	}
+	public static void init() {}
 }

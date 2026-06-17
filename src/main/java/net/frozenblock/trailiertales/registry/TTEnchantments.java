@@ -79,8 +79,7 @@ public final class TTEnchantments {
 		);
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> registryKey, Enchantment.Builder builder) {
 		context.register(registryKey, builder.build(registryKey.identifier()));

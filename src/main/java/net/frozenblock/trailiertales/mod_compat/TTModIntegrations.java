@@ -33,12 +33,7 @@ public final class TTModIntegrations {
 		"wilderwild"
 	);
 
-	private TTModIntegrations() {
-		throw new UnsupportedOperationException("TTModIntegrations contains only static declarations.");
-	}
-
-	public static void init() {
-	}
+	public static void init() {}
 
 	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
 		return ModIntegrations.register(integration, TTConstants.MOD_ID, modID);

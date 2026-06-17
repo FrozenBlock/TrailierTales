@@ -47,8 +47,4 @@ public final class TTAttachmentTypes {
 	);
 
 	public static void init() {}
-
-	private TTAttachmentTypes() {
-		throw new UnsupportedOperationException("TTAttachmentTypes contains only static declarations.");
-	}
 }

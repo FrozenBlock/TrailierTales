@@ -35,21 +35,17 @@ public final class TTMapDecorationTypes {
 		true
 	);
 
-	public static void init() {
-	}
+	public static void init() {}
 
-	private static Holder<MapDecorationType> register(String string, String string2, boolean showOnItemFrame, boolean trackCount) {
-		return register(string, string2, showOnItemFrame, -1, trackCount, false);
+	private static Holder<MapDecorationType> register(String name, String assetName, boolean showOnItemFrame, boolean trackCount) {
+		return register(name, assetName, showOnItemFrame, -1, trackCount, false);
 	}
 
 	private static Holder<MapDecorationType> register(
-		String string, String string2, boolean showOnItemFrame, int mapColor, boolean trackCount, boolean explorationMapElement
+		String name, String assetName, boolean showOnItemFrame, int mapColor, boolean trackCount, boolean explorationMapElement
 	) {
-		ResourceKey<MapDecorationType> resourceKey = ResourceKey.create(Registries.MAP_DECORATION_TYPE, TTConstants.id(string));
-		MapDecorationType mapDecorationType = new MapDecorationType(
-			TTConstants.id(string2), showOnItemFrame, mapColor, explorationMapElement, trackCount
-		);
-		return Registry.registerForHolder(BuiltInRegistries.MAP_DECORATION_TYPE, resourceKey, mapDecorationType);
+		final ResourceKey<MapDecorationType> key = ResourceKey.create(Registries.MAP_DECORATION_TYPE, TTConstants.id(name));
+		final MapDecorationType mapDecorationType = new MapDecorationType(TTConstants.id(assetName), showOnItemFrame, mapColor, explorationMapElement, trackCount);
+		return Registry.registerForHolder(BuiltInRegistries.MAP_DECORATION_TYPE, key, mapDecorationType);
 	}
-
 }

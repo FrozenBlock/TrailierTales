@@ -28,10 +28,9 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 public final class TTStructureTypes {
 	public static final StructureType<RuinsStructure> RUINS = register("ruins", RuinsStructure.CODEC);
 
-	public static void init() {
-	}
+	public static void init() {}
 
-	private static <S extends Structure> StructureType<S> register(String id, MapCodec<S> codec) {
-		return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, TTConstants.id(id), () -> codec);
+	private static <S extends Structure> StructureType<S> register(String name, MapCodec<S> codec) {
+		return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, TTConstants.id(name), () -> codec);
 	}
 }

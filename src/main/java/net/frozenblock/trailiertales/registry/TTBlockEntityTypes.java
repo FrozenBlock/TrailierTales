@@ -34,7 +34,7 @@ public final class TTBlockEntityTypes {
 		TTBlocks.SURVEYOR
 	);
 
-	public static void register() {
+	public static void init() {
 		final FabricBlockEntityType brushableBlock = BlockEntityTypes.BRUSHABLE_BLOCK;
 		brushableBlock.addValidBlock(TTBlocks.SUSPICIOUS_DIRT);
 		brushableBlock.addValidBlock(TTBlocks.SUSPICIOUS_CLAY);

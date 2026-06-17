@@ -21,8 +21,6 @@ import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.levelgen.structure.api.StructureProcessorApi;
-import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.frozenblock.trailiertales.registry.TTSounds;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -42,8 +40,6 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
-
-
 		StructureProcessorApi.addProcessor(
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(),
 			new RuleProcessor(

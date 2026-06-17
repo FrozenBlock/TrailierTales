@@ -30,15 +30,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public final class TTMemoryModuleTypes {
-
-	private TTMemoryModuleTypes() {
-		throw new UnsupportedOperationException("RegisterMemoryModuleTypes contains only static declarations.");
-	}
-
-	public static void register() {
-		TTConstants.log("Registering MemoryModuleTypes for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
-	}
-
 	public static final MemoryModuleType<List<Apparition>> NEARBY_APPARITIONS = register("nearby_apparitions");
 	public static final MemoryModuleType<Unit> AID_COOLDOWN = register("aid_cooldown");
 	public static final MemoryModuleType<Integer> AIDING_TIME = register("aiding_time");
@@ -52,12 +43,13 @@ public final class TTMemoryModuleTypes {
 	public static final MemoryModuleType<Integer> HAUNTING_TICKS = register("haunting_ticks");
 	public static final MemoryModuleType<List<UUID>> AIDING_ENTITIES = register("aiding_entities");
 
-	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, TTConstants.id(identifier), new MemoryModuleType<>(Optional.of(codec)));
+	public static void init() {}
+
+	private static <U> MemoryModuleType<U> register(String name, Codec<U> codec) {
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, TTConstants.id(name), new MemoryModuleType<>(Optional.of(codec)));
 	}
 
-	private static <U> MemoryModuleType<U> register(String identifier) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, TTConstants.id(identifier), new MemoryModuleType<>(Optional.empty()));
+	private static <U> MemoryModuleType<U> register(String name) {
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, TTConstants.id(name), new MemoryModuleType<>(Optional.empty()));
 	}
-
 }

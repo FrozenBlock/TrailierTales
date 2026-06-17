@@ -46,6 +46,5 @@ public final class TTEntityTypes {
 		FabricDefaultAttributeRegistry.register(APPARITION, Apparition.createApparitionAttributes());
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 }

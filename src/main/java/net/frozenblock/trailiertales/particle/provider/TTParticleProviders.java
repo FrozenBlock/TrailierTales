@@ -45,5 +45,4 @@ public class TTParticleProviders {
 			return flyTowardsPositionParticle;
 		}
 	}
-
 }

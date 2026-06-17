@@ -32,8 +32,7 @@ public final class TTJukeboxSongs {
 	public static final ResourceKey<JukeboxSong> STASIS = create("stasis");
 	public static final ResourceKey<JukeboxSong> OSSUAIRE = create("ossuaire");
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	private static ResourceKey<JukeboxSong> create(String path) {
 		return ResourceKey.create(Registries.JUKEBOX_SONG, TTConstants.id(path));

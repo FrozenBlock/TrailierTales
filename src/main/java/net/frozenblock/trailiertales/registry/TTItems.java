@@ -264,8 +264,7 @@ public final class TTItems {
 	public static final Item MUSIC_DISC_STASIS = registerMusicDisc(TTItemIds.MUSIC_DISC_STASIS, TTJukeboxSongs.STASIS);
 	public static final Item MUSIC_DISC_OSSUAIRE = registerMusicDisc(TTItemIds.MUSIC_DISC_OSSUAIRE, TTJukeboxSongs.OSSUAIRE);
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	public static Item registerPotterySherd(ResourceKey<Item> id) {
 		return Items.registerItem(id, new Properties().rarity(Rarity.UNCOMMON));
@@ -278,5 +277,4 @@ public final class TTItems {
 	public static Item registerMusicDisc(ResourceKey<Item> id, ResourceKey<JukeboxSong> song) {
 		return Items.registerItem(id, new Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(song));
 	}
-
 }

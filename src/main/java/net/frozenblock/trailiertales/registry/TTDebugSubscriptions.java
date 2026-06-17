@@ -28,8 +28,7 @@ import net.minecraft.util.debug.DebugSubscription;
 public final class TTDebugSubscriptions {
 	public static final DebugSubscription<DebugCoffinInfo> COFFINS = registerWithValue("coffins", DebugCoffinInfo.STREAM_CODEC);
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	private static DebugSubscription<?> registerSimple(String path) {
 		return Registry.register(BuiltInRegistries.DEBUG_SUBSCRIPTION, TTConstants.id(path), new DebugSubscription(null));

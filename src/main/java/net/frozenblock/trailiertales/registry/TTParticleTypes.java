@@ -41,9 +41,7 @@ public final class TTParticleTypes {
 	public static final SimpleParticleType SIEGE_OMEN = register("siege_omen");
 	public static final SimpleParticleType TRANSFIGURING = register("transfiguring");
 
-	public static void init() {
-		TTConstants.log("Registering Particles for Trailier Tales.", TTConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
 
 	private static SimpleParticleType register(String name, boolean alwaysShow) {
 		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, TTConstants.id(name), FabricParticleTypes.simple(alwaysShow));
@@ -54,20 +52,20 @@ public final class TTParticleTypes {
 	}
 
 	private static <T extends ParticleOptions> ParticleType<T> register(
-		String string,
+		String name,
 		boolean alwaysShow,
-		Function<ParticleType<T>, MapCodec<T>> function,
-		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
+		Function<ParticleType<T>, MapCodec<T>> codec,
+		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodec
 	) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, TTConstants.id(string), new ParticleType<T>(alwaysShow) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, TTConstants.id(name), new ParticleType<T>(alwaysShow) {
 			@Override
 			public MapCodec<T> codec() {
-				return function.apply(this);
+				return codec.apply(this);
 			}
 
 			@Override
 			public StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec() {
-				return function2.apply(this);
+				return streamCodec.apply(this);
 			}
 		});
 	}

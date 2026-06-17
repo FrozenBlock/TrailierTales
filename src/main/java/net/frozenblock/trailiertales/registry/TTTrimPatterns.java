@@ -34,12 +34,7 @@ public final class TTTrimPatterns {
 	public static final ResourceKey<TrimPattern> COT = create("cot");
 	public static final ResourceKey<TrimPattern> EMBRACE = create("embrace");
 
-	public static void init() {
-	}
-
-	private static ResourceKey<TrimPattern> create(String path) {
-		return ResourceKey.create(Registries.TRIM_PATTERN, TTConstants.id(path));
-	}
+	public static void init() {}
 
 	public static void bootstrap(BootstrapContext<TrimPattern> context) {
 		TrimPatterns.register(context, UNDEAD);
@@ -50,5 +45,9 @@ public final class TTTrimPatterns {
 		TrimPatterns.register(context, ZEPHYR);
 		TrimPatterns.register(context, COT);
 		TrimPatterns.register(context, EMBRACE);
+	}
+
+	private static ResourceKey<TrimPattern> create(String name) {
+		return ResourceKey.create(Registries.TRIM_PATTERN, TTConstants.id(name));
 	}
 }

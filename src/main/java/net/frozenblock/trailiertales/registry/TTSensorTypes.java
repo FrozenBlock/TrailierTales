@@ -30,23 +30,15 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 
 public final class TTSensorTypes {
-
-	private TTSensorTypes() {
-		throw new UnsupportedOperationException("RegisterSensorTypes contains only static declarations.");
-	}
-
-	public static void register() {
-		TTConstants.log("Registering SensorTypes for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
-	}
-
 	public static final SensorType<ApparitionSpecificSensor> APPARITION_SPECIFIC_SENSOR = register("apparition_specific_sensor", ApparitionSpecificSensor::new);
 	public static final SensorType<ApparitionAttackablesSensor> APPARITION_ATTACKABLES_SENSOR = register("apparition_attackables_sensor", ApparitionAttackablesSensor::new);
 	public static final SensorType<ApparitionNearestItemSensor> APPARITION_NEAREST_ITEM_SENSOR = register("apparition_nearest_item_sensor", ApparitionNearestItemSensor::new);
 	public static final SensorType<ApparitionPlayerSensor> APPARITION_PLAYER_SENSOR = register("apparition_player_sensor", ApparitionPlayerSensor::new);
 	public static final SensorType<ApparitionAidablesSensor> APPARITION_AIDABLES_SENSOR = register("apparition_aidables_sensor", ApparitionAidablesSensor::new);
 
+	public static void init() {}
+
 	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {
 		return Registry.register(BuiltInRegistries.SENSOR_TYPE, TTConstants.id(key), new SensorType<>(sensorSupplier));
 	}
-
 }
