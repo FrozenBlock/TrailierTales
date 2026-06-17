@@ -5,6 +5,7 @@ import net.frozenblock.lib.wind.disturbance.EntityWindDisturbance;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceResult;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
 import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.TTWindDisturbances;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
@@ -56,6 +57,6 @@ public class ApparitionWindDisturbance extends EntityWindDisturbance<Apparition>
 
 	@Override
 	public WindDisturbanceType<?> type() {
-		return null;
+		return TTWindDisturbances.APPARITION;
 	}
 }
