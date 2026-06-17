@@ -17,12 +17,12 @@
 
 package net.frozenblock.trailiertales.config;
 
-import blue.endless.jankson.Comment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
 import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import static net.frozenblock.trailiertales.TTConstants.MOD_ID;
+import net.frozenblock.lib.shadow.blue.endless.jankson.Comment;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import org.jetbrains.annotations.ApiStatus;
 
