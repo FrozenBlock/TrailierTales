@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.entity;
 
 import java.util.Arrays;
-import net.frozenblock.lib.wind.api.WindDisturbingEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinInterface;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
@@ -88,7 +87,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-public class Apparition extends Monster implements RangedAttackMob, WindDisturbingEntity {
+public class Apparition extends Monster implements RangedAttackMob {
 	private static final Vec3 BASE_DUST_COLOR = new Vec3(162F / 255F, 181F / 255F, 217F / 255F);
 	private static final Vec3 AID_DUST_COLOR = new Vec3(24F / 255F, 252F / 255F, 1F);
 	private static final Vec3 POLTERGEIST_DUST_COLOR = new Vec3(222F / 255F, 157F / 255F, 224F / 255F);
@@ -672,29 +671,5 @@ public class Apparition extends Monster implements RangedAttackMob, WindDisturbi
 		projectile.shoot(xDifference, yDifference + yAdjustment, zDifference, Math.max(0.5F, pullProgress), (float)(14 - this.level().getDifficulty().getId() * 4));
 		this.playSound(TTSounds.APPARITION_THROW, 1F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 		this.level().addFreshEntity(projectile);
-	}
-
-	@Override
-	public Identifier frozenLib$getWindDisturbanceLogicID() {
-		return TTWindDisturbances.APPARITION_WIND_DISTURBANCE;
-	}
-
-	@Override
-	public double frozenLib$getWindWidth() {
-		return 12D;
-	}
-
-	@Override
-	public double frozenLib$getWindHeight() {
-		return 12D;
-	}
-
-	public double frozenLib$getWindAreaYOffset() {
-		return 0D;
-	}
-
-	@Override
-	public boolean frozenLib$useSyncPacket() {
-		return false;
 	}
 }
