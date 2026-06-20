@@ -61,8 +61,9 @@ public abstract class LivingEntityMixin {
 	public void trailierTales$onHurtByPlayer(
 		PlayerHurtEntityTrigger instance, ServerPlayer player, Entity victim, DamageSource source, float originalDamage, float actualDamage, boolean blocked, Operation<Void> original
 	) {
-		final EntityCoffinData coffinData = LivingEntity.class.cast(this).getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
-		if (coffinData != null) coffinData.updateLastInteraction(victim.level().getGameTime());
+		final LivingEntity livingEntity = LivingEntity.class.cast(this);
+		final EntityCoffinData coffinData = livingEntity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (coffinData != null) coffinData.updateLastInteraction(livingEntity.level().getGameTime());
 
 		original.call(instance, player, victim, source, originalDamage, actualDamage, blocked);
 	}
@@ -80,8 +81,10 @@ public abstract class LivingEntityMixin {
 		Entity entity = source.getEntity();
 		if (entity == null) entity = source.getDirectEntity();
 
-		final EntityCoffinData coffinData = entity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
-		if (coffinData != null) coffinData.updateLastInteraction(entity.level().getGameTime());
+		if (entity != null) {
+			final EntityCoffinData coffinData = entity.getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+			if (coffinData != null) coffinData.updateLastInteraction(entity.level().getGameTime());
+		}
 
 		original.call(instance, player, source, originalDamage, actualDamage, blocked);
 	}
