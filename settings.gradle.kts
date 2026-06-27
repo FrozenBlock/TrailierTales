@@ -29,7 +29,7 @@ rootProject.name = "Trailier Tales"
 
 localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, false)
 localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
-localRepository("WilderWild", "maven.modrinth:wilder-wild", true, true)
+localRepository("WilderWild", "maven.modrinth:wilder-wild", true, false)
 
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {
     if (!enabled) return

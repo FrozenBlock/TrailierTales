@@ -288,8 +288,8 @@ public class RuinsPieces {
 		@Override
 		protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
 			super.addAdditionalSaveData(context, tag);
-			tag.putString("Rot", this.placeSettings.getRotation().name());
-			tag.putString("RuinsType", this.ruinsType.toString());
+			tag.store("Rot", Rotation.CODEC, this.placeSettings.getRotation());
+			tag.store("RuinsType", RuinsStructure.Type.CODEC, this.ruinsType);
 			this.heightmap.ifPresent(types -> tag.putString("HeightmapType", types.toString()));
 			this.providedHeight.ifPresent(height -> tag.putInt("ProvidedHeight", height));
 			tag.putBoolean("AdjustedHeight", this.adjustedHeight);
