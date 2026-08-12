@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="FrozenBlock Modding Oasis License v1.0"
+issueTrackerURL="https://github.com/FrozenBlock/TrailierTales/issues"
+
+[[mods]]
+	modId="trailiertales"
+	version="${mod_version}"
+	displayName="Trailier Tales"
+	displayURL="https://modrinth.com/mod/trailier-tales"
+	logoFile="assets/trailiertales/icon.png"
+	authors="Luna, wigglewoggle"
+	description='''
+Overhauls the Trails & Tales update, adding features and improving existing ones.
+	'''
+
+[[ dependencies.trailiertales ]]
+	modId="neoforge"
+	type="required"
+	versionRange="[~26.2-,)"
+	ordering="NONE"
+	side="BOTH"
+
+[[ dependencies.trailiertales ]]
+	modId="minecraft"
+	type="required"
+	versionRange="[~26.2-,)"
+	ordering="NONE"
+	side="BOTH"
+
+[[ dependencies.trailiertales ]]
+	modId="frozenlib"
+	type="required"
+	versionRange="[2.5.2-mc26.2,)"
+	ordering="NONE"
+	side="BOTH"
+
+[[ dependencies.trailiertales ]]
+	modId="cloth-config"
+	type="optional"
+	versionRange="*"
+	ordering="NONE"
+	side="BOTH"

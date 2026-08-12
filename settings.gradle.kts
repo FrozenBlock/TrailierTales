@@ -1,73 +1,114 @@
+import com.possible_triangle.gradle.settings.localRepository
+import com.possible_triangle.gradle.settings.ResolutionStrategy
+
 pluginManagement {
-    repositories {
-        maven {
-            name = "Quilt"
-            setUrl("https://maven.quiltmc.org/repository/release/")
-        }
-        maven {
-            name = "Quilt Snapshot"
-            setUrl("https://maven.quiltmc.org/repository/snapshot/")
-        }
-        maven {
-            name = "Fabric"
-            setUrl("https://maven.fabricmc.net/")
-        }
-        maven {
-            name = "Forge"
-            setUrl("https://files.minecraftforge.net/maven/")
-        }
-        maven {
-            name = "Jitpack"
-            setUrl("https://jitpack.io/")
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
+	repositories {
+		mavenLocal()
+		maven("https://maven.quiltmc.org/repository/release") {
+			name = "Quilt"
+		}
+		maven("https://maven.fabricmc.net") {
+			name = "Fabric"
+		}
+		maven("https://maven.neoforged.net/releases") {
+			name = "NeoForged"
+		}
+		maven("https://jitpack.io") {
+			name = "Jitpack"
+		}
+		maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
+			name = "SomethingCatchy (MehVahdJukaar)"
+		}
+		maven("https://maven.frozenblock.net/snapshot") {
+			name = "FrozenBlock Snapshot"
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+val neoforgeSnapshotMaven = settings.providers.gradleProperty("neoforge_snapshot_maven").orNull
+if (!neoforgeSnapshotMaven.isNullOrBlank()) {
+	pluginManagement {
+		repositories {
+			maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
+		}
+	}
+}
+
+plugins {
+	id("org.gradle.toolchains.foojay-resolver-convention") version("+")
+	id("net.frozenblock.triangle.helper") version("+")
+}
+
+helper {
+	versionStrategy = ResolutionStrategy.SNAPSHOT
 }
 
 rootProject.name = "Trailier Tales"
 
-localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, false)
-localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
-localRepository("WilderWild", "maven.modrinth:wilder-wild", true, false)
+object Constants {
+	const val FABRIC: Boolean = true
+	const val NEOFORGE: Boolean = true
+}
 
-fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {
-    if (!enabled) return
-    println("Attempting to include local repo $repo")
+include("tt-common")
+project(":tt-common").projectDir = file("common")
 
-    val github = System.getenv("GITHUB_ACTIONS") == "true"
+if (Constants.FABRIC) {
+	include("tt-fabric")
+	project(":tt-fabric").projectDir = file("fabric")
+}
 
-    val allowLocalRepoUse = true
-    val allowLocalRepoInConsoleMode = true
+if (Constants.NEOFORGE) {
+	include("tt-neoforge")
+	project(":tt-neoforge").projectDir = file("neoforge")
+}
 
-    val androidInjectedInvokedFromIde by extra("android.injected.invoked.from.ide")
-    val xpcServiceName by extra("XPC_SERVICE_NAME")
-    val ideaInitialDirectory by extra("IDEA_INITIAL_DIRECTORY")
+localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", enabled = false)
 
-    val isIDE = androidInjectedInvokedFromIde != "" || (System.getenv(xpcServiceName) ?: "").contains("intellij") || (System.getenv(xpcServiceName) ?: "").contains(".idea") || System.getenv(ideaInitialDirectory) != null
+localRepository("FrozenLib",
+	"net.frozenblock:frozenlib",
+	prefix = "flib",
+	multi = true,
+	candlelight = true,
+	enabled = true
+)
 
-    var path = "../$repo"
-    var file = File(path)
+localRepository("WilderWild",
+	"net.frozenblock:wilderwild",
+	prefix = "ww",
+	multi = true,
+	candlelight = true,
+	enabled = true
+)
 
-    val prefixedRepoName = ":$repo"
+localPluginRepository(
+	"GradleHelper",
+	enabled = true
+)
 
-    if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
-        if (github) {
-            path = repo
-            file = File(path)
-            println("Running on GitHub")
-        }
-        if (file.exists()) {
-            includeBuild(path) {
-                dependencySubstitution {
-                    if (dependencySub != "") {
-                        substitute(module(dependencySub)).using(project(":"))
-                    }
-                }
-            }
-            println("Included local repo $repo")
-        } else {
-            println("Local repo $repo not found")
-        }
-    }
+fun localPluginRepository(repo: String, enabled: Boolean = true) {
+	if (!enabled) return
+	println("Attempting to include local plugin build $repo")
+
+	val github = System.getenv("GITHUB_ACTIONS") == "true"
+
+	var path = "../$repo"
+	var file = File(path)
+
+	if (github) {
+		path = repo
+		file = File(path)
+		println("Running on GitHub")
+	}
+
+	if (file.exists()) {
+		pluginManagement {
+			includeBuild(path)
+		}
+		println("Included local plugin build $repo")
+	} else {
+		println("Local plugin build $repo not found")
+	}
 }

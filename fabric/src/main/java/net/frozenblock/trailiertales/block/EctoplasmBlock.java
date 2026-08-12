@@ -1,0 +1,69 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.block;
+
+import com.mojang.serialization.MapCodec;
+import net.frozenblock.lib.block.api.shape.ShapeUtil;
+import net.frozenblock.trailiertales.entity.Apparition;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+public class EctoplasmBlock extends HalfTransparentBlock {
+	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
+	public static final double GRAVITY_SLOWDOWN = 0.2D;
+	public static final MapCodec<EctoplasmBlock> CODEC = simpleCodec(EctoplasmBlock::new);
+
+	public EctoplasmBlock(Properties properties) {
+		super(properties);
+	}
+
+	@Override
+	protected MapCodec<? extends EctoplasmBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		VoxelShape shape = Shapes.empty();
+
+		if (!(context instanceof EntityCollisionContext entityCollisionContext) || !(entityCollisionContext.getEntity() instanceof Apparition)) return shape;
+		for (Direction direction : Direction.values()) {
+			if (level.getBlockState(pos.relative(direction)).is(this)) continue;
+			shape = Shapes.or(shape, ShapeUtil.makePlaneFromDirection(direction, APPARITION_COLLISION_FROM_SIDE));
+		}
+
+		return shape;
+	}
+
+	@Override
+	protected boolean propagatesSkylightDown(BlockState state) {
+		return true;
+	}
+
+	@Override
+	protected int getLightDampening(BlockState state) {
+		return 0;
+	}
+}
