@@ -17,7 +17,7 @@
 
 package net.frozenblock.trailiertales;
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.lib.platform.ModLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class TTConstants {
 	 * <p>
 	 * It's smart to use this for at least registries.
 	 */
-	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
+	public static boolean UNSTABLE_LOGGING = ModLoader.isDevelopmentEnvironment();
 
 	// DEBUG
 	public static final boolean DEBUG_COFFINS = SharedConstants.debugFlag("TRAILIERTALES_COFFINS");

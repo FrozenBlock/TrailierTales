@@ -21,7 +21,6 @@ import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.renderer.FrozenLibRenderTypes;
-import net.frozenblock.lib.renderer.impl.ModelPartInvertInterface;
 import net.frozenblock.trailiertales.client.renderer.entity.state.ApparitionRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -72,7 +71,7 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 				.mirror(),
 			PartPose.offset(0F, 17F, 0F)
 		);
-		ModelPartInvertInterface.class.cast(outline).frozenLib$setInverted();
+		outline.frozenLib$invert();
 
 		mesh.getRoot().addOrReplaceChild("outer",
 			CubeListBuilder.create()

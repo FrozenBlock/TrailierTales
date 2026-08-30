@@ -9,6 +9,8 @@ checkstyle {
 	toolVersion = "10.20.2"
 }
 
+val frozenlib_version: String by project
+
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
 
@@ -20,6 +22,13 @@ common {
 
 neoForge {
 	accessTransformers {} // Required for transitive AW to apply!
+}
+
+dependencies {
+    compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")?.let {
+        accessTransformers(it)
+        interfaceInjectionData(it)
+    }
 }
 
 tasks {

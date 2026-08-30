@@ -18,6 +18,7 @@
 package net.frozenblock.trailiertales.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.trailiertales.mixin.common.CropBlockAccess;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -140,7 +141,7 @@ public class GuzmaniaCropBlock extends DoublePlantBlock implements BonemealableB
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		final float growthSpeed = CropBlock.getGrowthSpeed(this, level, pos);
+		final float growthSpeed = CropBlockAccess.getGrowthSpeed(this, level, pos);
 		if (random.nextInt((int)(25F / growthSpeed) + 1) == 0) this.grow(level, state, pos, 1);
 	}
 

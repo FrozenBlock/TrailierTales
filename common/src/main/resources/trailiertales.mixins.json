@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
   "mixins": [
+    "common.CropBlockAccess",
     "common.apparition.BlockCollisionsMixin",
     "common.apparition.EntityMixin",
     "common.apparition.MobMixin",

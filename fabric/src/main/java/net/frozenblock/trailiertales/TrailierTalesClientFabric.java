@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class TrailierTalesClient implements ClientModInitializer {
+public class TrailierTalesClientFabric implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
@@ -45,7 +45,7 @@ public class TrailierTalesClient implements ClientModInitializer {
 		TTRenderStateDataKeys.init();
 
 		SpecialModelRenderers.ID_MAPPER.put(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
-		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
+		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClientFabric::calculateCatacombsMusicPitch);
 	}
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {

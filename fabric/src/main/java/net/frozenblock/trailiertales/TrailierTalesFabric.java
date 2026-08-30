@@ -58,9 +58,9 @@ import net.frozenblock.trailiertales.registry.TTTrimPatterns;
 import net.frozenblock.trailiertales.levelgen.biome.modification.TTBiomeModifications;
 import net.frozenblock.trailiertales.registry.TTWindDisturbances;
 
-public class TrailierTales extends FrozenModInitializer {
+public class TrailierTalesFabric extends FrozenModInitializer {
 
-	public TrailierTales() {
+	public TrailierTalesFabric() {
 		super(TTConstants.MOD_ID);
 	}
 

@@ -86,7 +86,10 @@ tasks {
 
 dependencies {
 	// FrozenLib
-	api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
+    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")?.let {
+        accessTransformers(it)
+        interfaceInjectionData(it)
+    }
 }
 
 java {

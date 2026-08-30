@@ -71,7 +71,6 @@ localRepository("FrozenLib",
 	"net.frozenblock:frozenlib",
 	prefix = "flib",
 	multi = true,
-	candlelight = true,
 	enabled = true
 )
 
@@ -79,7 +78,6 @@ localRepository("WilderWild",
 	"net.frozenblock:wilderwild",
 	prefix = "ww",
 	multi = true,
-	candlelight = true,
 	enabled = true
 )
 

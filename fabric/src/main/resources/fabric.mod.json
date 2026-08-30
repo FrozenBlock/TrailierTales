@@ -25,10 +25,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.frozenblock.trailiertales.TrailierTales"
+      "net.frozenblock.trailiertales.TrailierTalesFabric"
     ],
     "client": [
-      "net.frozenblock.trailiertales.TrailierTalesClient"
+      "net.frozenblock.trailiertales.TrailierTalesClientFabric"
     ],
     "modmenu": [
       "net.frozenblock.trailiertales.config.modmenu.ModMenuIntegration"
