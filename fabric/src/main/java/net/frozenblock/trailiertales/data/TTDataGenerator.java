@@ -61,42 +61,42 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	static {
 		if (FrozenBools.IS_DATAGEN) {
 			FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
-				.stairs(TTBlocks.CALCITE_STAIRS)
-				.slab(TTBlocks.CALCITE_SLAB)
-				.wall(TTBlocks.CALCITE_WALL)
-				.polished(TTBlocks.POLISHED_CALCITE)
+				.stairs(TTBlocks.CALCITE_STAIRS.get())
+				.slab(TTBlocks.CALCITE_SLAB.get())
+				.wall(TTBlocks.CALCITE_WALL.get())
+				.polished(TTBlocks.POLISHED_CALCITE.get())
 				.getFamily();
 		}
 	}
 
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
-		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_SANDSTONE_WALL);
-		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_SANDSTONE_STAIRS);
-		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_SANDSTONE_WALL);
+		BlockFamilies.SMOOTH_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_SANDSTONE_WALL.get());
+		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_SANDSTONE_STAIRS.get());
+		BlockFamilies.CUT_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_SANDSTONE_WALL.get());
 
-		BlockFamilies.SMOOTH_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_RED_SANDSTONE_WALL);
-		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_RED_SANDSTONE_STAIRS);
-		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_RED_SANDSTONE_WALL);
+		BlockFamilies.SMOOTH_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.SMOOTH_RED_SANDSTONE_WALL.get());
+		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.CUT_RED_SANDSTONE_STAIRS.get());
+		BlockFamilies.CUT_RED_SANDSTONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.CUT_RED_SANDSTONE_WALL.get());
 
-		BlockFamilies.PRISMARINE_BRICKS.variants.put(BlockFamily.Variant.WALL, TTBlocks.PRISMARINE_BRICK_WALL);
+		BlockFamilies.PRISMARINE_BRICKS.variants.put(BlockFamily.Variant.WALL, TTBlocks.PRISMARINE_BRICK_WALL.get());
 
-		BlockFamilies.DARK_PRISMARINE.variants.put(BlockFamily.Variant.WALL, TTBlocks.DARK_PRISMARINE_WALL);
+		BlockFamilies.DARK_PRISMARINE.variants.put(BlockFamily.Variant.WALL, TTBlocks.DARK_PRISMARINE_WALL.get());
 
-		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.END_STONE_STAIRS);
-		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.SLAB, TTBlocks.END_STONE_SLAB);
-		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.END_STONE_WALL);
+		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.STAIRS, TTBlocks.END_STONE_STAIRS.get());
+		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.SLAB, TTBlocks.END_STONE_SLAB.get());
+		BlockFamilies.END_STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.END_STONE_WALL.get());
 
-		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, TTBlocks.CRACKED_PURPUR_BLOCK);
-		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, TTBlocks.CHISELED_PURPUR_BLOCK);
-		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, TTBlocks.PURPUR_WALL);
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CRACKED, TTBlocks.CRACKED_PURPUR_BLOCK.get());
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.CHISELED, TTBlocks.CHISELED_PURPUR_BLOCK.get());
+		BlockFamilies.PURPUR.variants.put(BlockFamily.Variant.WALL, TTBlocks.PURPUR_WALL.get());
 		BlockFamilies.PURPUR.generateCraftingRecipe = true;
 
-		BlockFamilies.STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.STONE_WALL);
+		BlockFamilies.STONE.variants.put(BlockFamily.Variant.WALL, TTBlocks.STONE_WALL.get());
 
-		BlockFamilies.POLISHED_GRANITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_GRANITE_WALL);
-		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_DIORITE_WALL);
-		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_ANDESITE_WALL);
+		BlockFamilies.POLISHED_GRANITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_GRANITE_WALL.get());
+		BlockFamilies.POLISHED_DIORITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_DIORITE_WALL.get());
+		BlockFamilies.POLISHED_ANDESITE.variants.put(BlockFamily.Variant.WALL, TTBlocks.POLISHED_ANDESITE_WALL.get());
 
 		FeatureFlagApi.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();

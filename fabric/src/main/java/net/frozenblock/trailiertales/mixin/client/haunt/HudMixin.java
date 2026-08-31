@@ -24,11 +24,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.registry.TTMobEffects;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Hud;
@@ -47,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(Hud.class)
 public class HudMixin {
 	@Unique
@@ -81,7 +80,7 @@ public class HudMixin {
 	)
 	private void trailierTales$setHauntedInfo(CallbackInfo info) {
 		final Player player = this.minecraft.player;
-		trailierTales$isHaunted = TTEntityConfig.APPARITION_HAUNTED_HUD.get() && player.hasEffect(TTMobEffects.HAUNT);
+		trailierTales$isHaunted = TTEntityConfig.APPARITION_HAUNTED_HUD.get() && player.hasEffect(TTMobEffects.HAUNT.asHolder());
 		if (trailierTales$isHaunted) {
 			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
 		} else {

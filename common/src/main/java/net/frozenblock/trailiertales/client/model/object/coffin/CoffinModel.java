@@ -1,0 +1,68 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.client.model.object.coffin;
+
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.util.Mth;
+
+@ClientOnly
+public class CoffinModel extends Model<Float> {
+	private static final String BASE = "base";
+	private static final String LID = "lid";
+	private final ModelPart base;
+	private final ModelPart lid;
+
+	public CoffinModel(ModelPart root) {
+		super(root, RenderTypes::entitySolid);
+		this.base = root.getChild(BASE);
+		this.lid = root.getChild(LID);
+	}
+
+	public static LayerDefinition createLayerDefinition() {
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
+		root.addOrReplaceChild(
+			BASE,
+			CubeListBuilder.create()
+				.texOffs(0, 18)
+				.addBox(0F, 0F, 0F, 16F, 12F, 16F),
+			PartPose.ZERO
+		);
+		root.addOrReplaceChild(
+			LID,
+			CubeListBuilder.create()
+				.texOffs(0, 0)
+				.addBox(0F, 0F, 0F, 16F, 2F, 16F),
+			PartPose.offset(0F, 12F, 0F)
+		);
+		return LayerDefinition.create(mesh, 64, 64);
+	}
+
+	@Override
+	public void setupAnim(Float openProgress) {
+		this.lid.zRot = openProgress * Mth.HALF_PI;
+	}
+}

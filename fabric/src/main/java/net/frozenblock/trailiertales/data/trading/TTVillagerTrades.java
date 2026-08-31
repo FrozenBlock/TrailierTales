@@ -72,7 +72,7 @@ public final class TTVillagerTrades {
 				List.of(
 					ExplorationMapFunction.makeExplorationMap()
 						.setDestination(TTStructureTags.ON_CATACOMBS_MAPS)
-						.setMapDecoration(TTMapDecorationTypes.CATACOMBS)
+						.setMapDecoration(TTMapDecorationTypes.CATACOMBS.asHolder())
 						.setSearchRadius(100)
 						.setSkipKnownStructures(true)
 						.build(),

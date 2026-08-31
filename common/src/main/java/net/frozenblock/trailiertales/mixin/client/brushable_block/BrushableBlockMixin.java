@@ -1,0 +1,75 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.mixin.client.brushable_block;
+
+import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@ClientOnly
+@Mixin(BrushableBlock.class)
+public class BrushableBlockMixin {
+
+	@Inject(method = "animateTick", at = @At("HEAD"), cancellable = true)
+	public void trailierTales$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES.get()) trailierTales$emitConnectionParticlesForPlayer(level, pos, random);
+		if (BrushableBlock.class.cast(this) instanceof NonFallingBrushableBlock) info.cancel();
+	}
+
+	@Unique
+	private static void trailierTales$emitConnectionParticlesForPlayer(Level level, BlockPos pos, RandomSource random) {
+		final Player player = Minecraft.getInstance().player;
+		if (player == null || !player.isHolding(Items.BRUSH)) return;
+
+		final Vec3 center = Vec3.atCenterOf(pos).add(0D, 0.2D, 0D);
+		final double playerDistance = center.distanceTo(player.position());
+		final double distanceThreshold = random.nextDouble() * player.blockInteractionRange() * 1.5D;
+		if (playerDistance >= distanceThreshold) return;
+
+		boolean canCreateParticle = false;
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		for (Direction direction : Direction.values()) {
+			final BlockState state = level.getBlockState(mutable.setWithOffset(pos, direction));
+			if (!(state.isAir() || !state.isFaceSturdy(level, mutable, direction.getOpposite()))) continue;
+			canCreateParticle = true;
+		}
+
+		if (canCreateParticle) {
+			final Vec3 halfPlayerHeight = center.vectorTo(player.position().add(0D, player.getBbHeight() / 2D, 0D));
+			final Vec3 startPos = halfPlayerHeight.offsetRandom(random, 1F);
+			level.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION.get(), center.x(), center.y(), center.z(), startPos.x(), startPos.y(), startPos.z());
+		}
+	}
+
+}

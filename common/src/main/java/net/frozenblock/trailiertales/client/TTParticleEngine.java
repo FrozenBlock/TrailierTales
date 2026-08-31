@@ -1,0 +1,42 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.client;
+
+import net.frozenblock.lib.particle.client.api.ParticleProviderRegistry;
+import net.frozenblock.trailiertales.particle.GlowingColorBubbleParticle;
+import net.frozenblock.trailiertales.particle.GlowingColorTransitionParticle;
+import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
+import net.frozenblock.trailiertales.particle.provider.TTParticleProviders;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.particle.SoulParticle;
+
+@ClientOnly
+public class TTParticleEngine {
+
+	public static void setup() {
+		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.SUSPICIOUS_CONNECTION, TTParticleProviders.SuspiciousConnectionProvider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.TRANSFIGURING, GlowingSpellParticle.Provider::new);
+	}
+}

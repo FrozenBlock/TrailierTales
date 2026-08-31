@@ -1,0 +1,328 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.block;
+
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoubleBlockCombiner;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
+
+public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlock {
+	public static final MapCodec<CoffinBlock> CODEC = RecordCodecBuilder.mapCodec(
+		color -> color.group(propertiesCodec()).apply(color, CoffinBlock::new)
+	);
+	public static final EnumProperty<CoffinPart> PART = TTBlockStateProperties.COFFIN_PART;
+	public static final EnumProperty<CoffinSpawnerState> STATE = TTBlockStateProperties.COFFIN_STATE;
+	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
+	public static final Identifier ATTRIBUTE_COFFIN_FOLLOW_RANGE = TTConstants.id("coffin_follow_range");
+
+	@Override
+	public MapCodec<CoffinBlock> codec() {
+		return CODEC;
+	}
+
+	public CoffinBlock(Properties properties) {
+		super(properties);
+		this.registerDefaultState(
+			this.stateDefinition.any()
+				.setValue(PART, CoffinPart.FOOT)
+				.setValue(STATE, CoffinSpawnerState.INACTIVE)
+		);
+	}
+
+	@Nullable
+	public static Direction getCoffinOrientation(BlockGetter level, BlockPos pos) {
+		BlockState blockState = level.getBlockState(pos);
+		return blockState.getBlock() instanceof CoffinBlock ? blockState.getValue(FACING) : null;
+	}
+
+	@Override
+	protected BlockState updateShape(
+		BlockState state,
+		LevelReader level,
+		ScheduledTickAccess ticks,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
+	) {
+		if (direction == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
+			final boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
+			return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
+				? isThisFoot ? state : state.setValue(STATE, neighborState.getValue(STATE))
+				: Blocks.AIR.defaultBlockState();
+		} else {
+			return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+		}
+	}
+
+	private static Direction getConnectedDirection(CoffinPart part, Direction direction) {
+		return part == CoffinPart.FOOT ? direction : direction.getOpposite();
+	}
+
+	public static Direction getConnectedDirection(BlockState state) {
+		return getConnectedDirection(state.getValue(PART), state.getValue(FACING));
+	}
+
+	@Override
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+		destroyOtherHalf: {
+			if (level.isClientSide() || !player.isCreative()) break destroyOtherHalf;
+
+			final CoffinPart coffinPart = state.getValue(PART);
+			if (coffinPart != CoffinPart.FOOT) break destroyOtherHalf;
+
+			final BlockPos connectedPos = pos.relative(getConnectedDirection(coffinPart, state.getValue(FACING)));
+			final BlockState connectedState = level.getBlockState(connectedPos);
+			if (connectedState.is(this) && connectedState.getValue(PART) == CoffinPart.HEAD) {
+				level.setBlock(connectedPos, Blocks.AIR.defaultBlockState(), 35);
+				level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, connectedPos, Block.getId(connectedState));
+			}
+		}
+
+		return super.playerWillDestroy(level, pos, state, player);
+	}
+
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		final Direction direction = context.getHorizontalDirection();
+		final BlockPos pos = context.getClickedPos();
+		final BlockPos offsetPos = pos.relative(direction);
+		final Level level = context.getLevel();
+		return level.getBlockState(offsetPos).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(offsetPos)
+			? this.defaultBlockState().setValue(FACING, direction)
+			: null;
+	}
+
+	@Override
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return SHAPE;
+	}
+
+	public static DoubleBlockCombiner.BlockType getBlockType(BlockState state) {
+		final CoffinPart coffinPart = state.getValue(PART);
+		return coffinPart == CoffinPart.HEAD ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND;
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(FACING, PART, STATE);
+	}
+
+	@Override
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		super.setPlacedBy(level, pos, state, placer, stack);
+		if (level.isClientSide()) return;
+
+		final BlockPos offsetPos = pos.relative(state.getValue(FACING));
+		level.setBlock(offsetPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
+		level.updateNeighborsAt(pos, Blocks.AIR);
+		state.updateNeighbourShapes(level, pos, UPDATE_ALL);
+	}
+
+	@Override
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hitResult) {
+		if (stack.getItem() instanceof SpawnEggItem) return InteractionResult.CONSUME;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
+	}
+
+	@Override
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
+		if (!(level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity)) return InteractionResult.PASS;
+
+		if ((level.getGameTime() - coffinBlockEntity.wobbleStartedAtTick) >= CoffinBlockEntity.WOBBLE_COOLDOWN && TTBlockConfig.COFFIN_WOBBLING.get()) {
+			wobble(level, pos, state, entity);
+			return InteractionResult.SUCCESS;
+		}
+
+		return InteractionResult.PASS;
+	}
+
+	public static void wobble(Level level, BlockPos pos, BlockState state, Player player) {
+		level.blockEvent(pos, state.getBlock(), 1, 0);
+
+		final BlockPos neighborPos = pos.relative(CoffinBlock.getConnectedDirection(state));
+		final BlockState neighborState = level.getBlockState(neighborPos);
+		if (neighborState.is(state.getBlock())) level.blockEvent(neighborPos, state.getBlock(), 1, 0);
+
+		level.playSound(null, pos, TTSounds.COFFIN_WOBBLE.get(), SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+		level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+	}
+
+	@Override
+	protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int type, int data) {
+		super.triggerEvent(state, level, pos, type, data);
+		final BlockEntity blockEntity = level.getBlockEntity(pos);
+		return blockEntity != null && blockEntity.triggerEvent(type, data);
+	}
+
+	public boolean isCoffinActive(BlockState state) {
+		return state.getValue(STATE).isCapableOfSpawning();
+	}
+
+	@Override
+	protected long getSeed(BlockState state, BlockPos pos) {
+		final BlockPos headPos = pos.relative(state.getValue(FACING), state.getValue(PART) == CoffinPart.HEAD ? 0 : 1);
+		return Mth.getSeed(headPos.getX(), pos.getY(), headPos.getZ());
+	}
+
+	@Override
+	protected boolean isPathfindable(BlockState state, PathComputationType type) {
+		return false;
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new CoffinBlockEntity(pos, state);
+	}
+
+	@Nullable
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+		return level instanceof ServerLevel serverLevel
+			? BaseEntityBlock.createTickerHelper(
+				blockEntityType,
+				TTBlockEntityTypes.COFFIN.get(),
+				(levelx, pos, statex, coffin) ->
+					coffin.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getValue(STATE) == CoffinSpawnerState.OMINOUS)
+			)
+			: BaseEntityBlock.createTickerHelper(
+				blockEntityType,
+				TTBlockEntityTypes.COFFIN.get(),
+				(levelx, pos, statex, coffin) ->
+					coffin.tickClient(levelx, pos, statex.getValue(PART), statex.getValue(STATE) == CoffinSpawnerState.OMINOUS)
+			);
+	}
+
+	public static void onCoffinUntrack(ServerLevel level, @Nullable Entity entity, @Nullable CoffinSpawner coffinSpawner, boolean remove) {
+		if (entity != null) entity.playSound(TTSounds.COFFIN_VANISH_MOB.get(), 0.8F, 0.9F + (entity.getRandom().nextFloat() * 0.2F));
+
+		if (entity instanceof LivingEntity livingEntity) {
+			AttributeInstance followRange = livingEntity.getAttribute(Attributes.FOLLOW_RANGE);
+			if (followRange != null) followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
+		}
+
+		if (entity != null) entity.frozenLib$removeAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+
+		if (entity instanceof Apparition apparition && remove) {
+			apparition.dropItem(apparition.getItemBySlot(EquipmentSlot.MAINHAND));
+			apparition.level().broadcastEntityEvent(apparition, EntityEvent.POOF);
+			apparition.discard();
+			apparition.dropPreservedEquipment(level);
+			if (coffinSpawner != null) coffinSpawner.onApparitionRemovedOrKilled(entity.level());
+		} else if (remove && entity instanceof Mob mob && !mob.isPersistenceRequired() && !mob.requiresCustomPersistence()) {
+			mob.level().broadcastEntityEvent(mob, EntityEvent.POOF);
+			mob.discard();
+		}
+	}
+
+	public static void spawnParticlesFrom(
+		ServerLevel level,
+		ParticleOptions options,
+		int count,
+		double speed,
+		Direction coffinOrientation,
+		BlockPos pos,
+		double spread
+	) {
+		final boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		final boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		final boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		final double stepX = coffinOrientation.getStepX();
+		final double stepZ = coffinOrientation.getStepZ();
+		final double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		final double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		final double xOffset = Math.max(0.5D, Math.abs(stepX)) * spread;
+		final double zOffset = Math.max(0.5D, Math.abs(stepZ)) * spread;
+		level.sendParticles(
+			options,
+			pos.getX() + relativeX, pos.getY() + 0.95D, pos.getZ() + relativeZ,
+			count,
+			xOffset, 0D, zOffset,
+			speed
+		);
+	}
+
+	public static Vec3 getCenter(BlockState state, BlockPos pos) {
+		final Direction coffinOrientation = state.getValue(FACING);
+		final boolean isNegativeDirection = coffinOrientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+		final boolean isOppositeX = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.X;
+		final boolean isOppositeZ = isNegativeDirection && coffinOrientation.getAxis() == Direction.Axis.Z;
+		final double stepX = coffinOrientation.getStepX();
+		final double stepZ = coffinOrientation.getStepZ();
+		final double relativeX = isOppositeX ? 0D : stepX == 0D ? 0.5D : stepX;
+		final double relativeZ = isOppositeZ ? 0D : stepZ == 0D ? 0.5D : stepZ;
+		return new Vec3(pos.getX() + relativeX, pos.getY() + 0.95D, pos.getZ() + relativeZ);
+	}
+}

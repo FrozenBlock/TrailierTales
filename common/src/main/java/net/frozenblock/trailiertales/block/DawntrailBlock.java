@@ -1,0 +1,185 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.block;
+
+import com.mojang.serialization.MapCodec;
+import net.frozenblock.trailiertales.registry.TTItems;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
+import net.minecraft.world.level.block.MultifaceSpreader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
+
+public class DawntrailBlock extends MultifaceSpreadeableBlock implements BonemealableBlock {
+	public static final MapCodec<DawntrailBlock> CODEC = simpleCodec(DawntrailBlock::new);
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
+	public static final int MAX_AGE = 2;
+
+	private final MultifaceSpreader spreader = new DawntrailSpreader(this);
+
+	@Override
+	public MapCodec<DawntrailBlock> codec() {
+		return CODEC;
+	}
+
+	public DawntrailBlock(Properties properties) {
+		super(properties);
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(AGE);
+	}
+
+	public static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
+		return MultifaceBlock.canAttachTo(level, direction, pos, state) || state.is(Blocks.FARMLAND);
+	}
+
+	@Override
+	protected BlockState updateShape(
+		BlockState state,
+		LevelReader level,
+		ScheduledTickAccess ticks,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
+	) {
+		if (!hasAnyFace(state)) return Blocks.AIR.defaultBlockState();
+		return hasFace(state, direction) && !canAttachTo(level, direction, neighborPos, neighborState) ? removeFace(state, getFaceProperty(direction)) : state;
+	}
+
+	@Override
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+		boolean canSurvive = false;
+		for (Direction direction : DIRECTIONS) {
+			if (!hasFace(state, direction)) continue;
+			final BlockPos offsetPos = pos.relative(direction);
+			if (!canAttachTo(level, direction, offsetPos, level.getBlockState(offsetPos))) return false;
+			canSurvive = true;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean isValidStateForPlacement(BlockGetter level, BlockState state, BlockPos pos, Direction direction) {
+		if (!state.getFluidState().isEmpty()) return false;
+		if (this.isFaceSupported(direction) && (!state.is(this) || !hasFace(state, direction))) {
+			final BlockPos offsetPos = pos.relative(direction);
+			return canAttachTo(level, direction, offsetPos, level.getBlockState(offsetPos));
+		}
+		return false;
+	}
+
+	public static boolean isMaxAge(BlockState state) {
+		return state.getValue(AGE) >= MAX_AGE;
+	}
+
+	private void grow(Level level, BlockPos pos, BlockState state) {
+		level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), UPDATE_CLIENTS);
+	}
+
+	@Override
+	protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+		return context.getItemInHand().is(this.asItem()) && super.canBeReplaced(state, context);
+	}
+
+	@Override
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+		return !isMaxAge(state) || Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
+	}
+
+	@Override
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return true;
+	}
+
+	@Override
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+		if (!isMaxAge(state)) {
+			this.grow(level, pos, state);
+			return;
+		}
+		this.spreader.spreadFromRandomFaceTowardRandomDirection(state, level, pos, random);
+	}
+
+	@Override
+	public InteractionResult useItemOn(
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
+	) {
+		if (level instanceof ServerLevel && isMaxAge(state) && stack.is(Items.SHEARS)) {
+			stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+			return InteractionResult.SUCCESS;
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
+
+	public static void shear(Level level, BlockPos pos, BlockState state, @Nullable Player player) {
+		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+		final ItemStack seeds = new ItemStack(TTItems.DAWNTRAIL_SEEDS.get());
+		seeds.setCount(availableFaces(state).size());
+		popResource(level, pos, seeds);
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, pos, TTSounds.DAWNTRAIL_PICK.get(), SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
+		level.gameEvent(player, GameEvent.SHEAR, pos);
+	}
+
+	@Override
+	public MultifaceSpreader getSpreader() {
+		return this.spreader;
+	}
+
+	public static class DawntrailSpreader extends MultifaceSpreader {
+		public DawntrailSpreader(DawntrailBlock block) {
+			super(new DefaultSpreaderConfig(block));
+		}
+	}
+}

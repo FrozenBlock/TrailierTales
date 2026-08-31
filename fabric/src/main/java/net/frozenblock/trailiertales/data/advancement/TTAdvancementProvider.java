@@ -22,8 +22,8 @@ import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
+import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -69,7 +69,7 @@ public class TTAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(enterCatacombs)
 			.display(
-				TTBlocks.ECTOPLASM_BLOCK,
+				TTBlocks.ECTOPLASM_BLOCK.get(),
 				Component.translatable("advancements.adventure.walk_in_ectoplasm_block.title"),
 				Component.translatable("advancements.adventure.walk_in_ectoplasm_block.description"),
 				null,
@@ -82,7 +82,7 @@ public class TTAdvancementProvider extends FabricAdvancementProvider {
 				EntityPredicate.Builder.entity()
 					.movementAffectedBy(
 						LocationPredicate.Builder.location().setBlock(
-							BlockPredicate.Builder.block().of(registries.lookupOrThrow(Registries.BLOCK), TTBlocks.ECTOPLASM_BLOCK)
+							BlockPredicate.Builder.block().of(registries.lookupOrThrow(Registries.BLOCK), TTBlocks.ECTOPLASM_BLOCK.get())
 						)
 					)
 				)

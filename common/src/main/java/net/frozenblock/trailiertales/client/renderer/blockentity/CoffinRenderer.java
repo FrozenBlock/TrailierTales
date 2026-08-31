@@ -1,0 +1,233 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.client.renderer.blockentity;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.mojang.math.Transformation;
+import java.util.Map;
+import java.util.function.Consumer;
+import net.frozenblock.trailiertales.block.CoffinBlock;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
+import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawnerState;
+import net.frozenblock.trailiertales.block.impl.CoffinPart;
+import net.frozenblock.trailiertales.client.TTModelLayers;
+import net.frozenblock.trailiertales.client.model.object.coffin.CoffinModel;
+import net.frozenblock.trailiertales.client.renderer.MultiblockCoffinResources;
+import net.frozenblock.trailiertales.client.renderer.blockentity.state.CoffinRenderState;
+import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DoubleBlockCombiner;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3fc;
+
+@ClientOnly
+public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, CoffinRenderState> {
+	private static final Map<Direction, Transformation> TRANSFORMATIONS = Util.makeEnumMap(Direction.class, CoffinRenderer::createModelTransform);
+	public static final MultiblockCoffinResources<ModelLayerLocation> LAYERS = new MultiblockCoffinResources<>(TTModelLayers.COFFIN_HEAD, TTModelLayers.COFFIN_FOOT);
+	private final MultiblockCoffinResources<CoffinModel> models;
+
+	public CoffinRenderer(Context context) {
+		this(context.entityModelSet());
+	}
+
+	public CoffinRenderer(EntityModelSet entityModelSet) {
+		this.models = LAYERS.map(layer -> new CoffinModel(entityModelSet.bakeLayer(layer)));
+	}
+
+	public static Identifier getCoffinTexture(CoffinPart part, CoffinSpawnerState state) {
+		return part == CoffinPart.HEAD ? state.getHeadTexture() : state.getFootTexture();
+	}
+
+	@Override
+	public void submit(
+		CoffinRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
+	) {
+		float openProg = renderState.openProgress;
+		openProg = 1F - openProg;
+		openProg = 1F - openProg * openProg * openProg;
+
+		this.submitPiece(
+			poseStack,
+			collector,
+			this.models.select(renderState.part),
+			getCoffinTexture(renderState.part, renderState.spawnerState),
+			null,
+			openProg,
+			renderState.wobbleProgress,
+			renderState.lightCoords,
+			OverlayTexture.NO_OVERLAY,
+			renderState.breakProgress,
+			0,
+			renderState.direction
+		);
+	}
+
+	public void renderInHand(
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		int packedLight,
+		int packedOverlay,
+		Identifier texture,
+		CoffinPart part,
+		float openness,
+		int outlineColor
+	) {
+		final CoffinModel model = this.models.select(part);
+		poseStack.translate(0F, -0.1F, 0F);
+		this.submitPiece(poseStack, collector, model, texture, null, openness, 0F, packedLight, packedOverlay, null, outlineColor, Direction.SOUTH);
+	}
+
+	private void submitPiece(
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CoffinModel model,
+		Identifier texture,
+		@Nullable Identifier glowingTexture,
+		float openProgress,
+		float wobbleProgress,
+		int packedLight,
+		int packedOverlay,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress,
+		int outlineColor,
+		Direction direction
+	) {
+		poseStack.pushPose();
+
+		openProgress = setupPoseStackAndCalculateOpenProgress(poseStack, direction, openProgress, wobbleProgress);
+
+		collector.submitModel(
+			model,
+			openProgress,
+			poseStack,
+			RenderTypes.entityCutoutCull(texture),
+			packedLight,
+			packedOverlay,
+			outlineColor,
+			breakProgress
+		);
+		if (glowingTexture != null) {
+			collector.submitModel(
+				model,
+				openProgress,
+				poseStack,
+				RenderTypes.eyes(glowingTexture),
+				packedLight,
+				packedOverlay,
+				outlineColor,
+				null
+			);
+		}
+
+		poseStack.popPose();
+	}
+
+	private static float setupPoseStackAndCalculateOpenProgress(
+		PoseStack poseStack,
+		Direction direction,
+		float openProgress,
+		float wobbleProgress
+	) {
+		poseStack.translate(0.5F, 0.5F, 0.5F);
+		poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
+		poseStack.translate(-0.5F, -0.5F, -0.5F);
+
+		if (wobbleProgress >= 0F && wobbleProgress <= 1F) {
+			final float coffinWobble = wobbleProgress * Mth.PI * 2.5F;
+			final float wobbleDampen = 1F - wobbleProgress;
+
+			final float wobble = -3F * Mth.cos(coffinWobble) * Mth.sin(coffinWobble) * wobbleDampen;
+			poseStack.rotateAround(Axis.ZP.rotation(wobble * 0.015625F), 0.5F, 0F, 0.5F);
+
+			final float lidWobble = (wobbleProgress + (2.5F / CoffinBlockEntity.WOBBLE_DURATION)) * Mth.PI * 2.5F;
+			openProgress += Math.max(0F, (Mth.cos(lidWobble) * -0.25F) * (Mth.sin(lidWobble) * -0.25F)) * wobbleDampen;
+		}
+
+		return openProgress * Mth.HALF_PI;
+	}
+
+	private static Transformation createModelTransform(Direction direction) {
+		final PoseStack poseStack = new PoseStack();
+		setupPoseStackAndCalculateOpenProgress(poseStack, direction, 0F, 0F);
+		return new Transformation(poseStack.last().pose());
+	}
+
+	public static Transformation modelTransform(Direction direction) {
+		return TRANSFORMATIONS.get(direction);
+	}
+
+	public void getExtents(CoffinPart part, Consumer<Vector3fc> set) {
+		final PoseStack poseStack = new PoseStack();
+		this.models.select(part).root().getExtentsForGui(poseStack, set);
+	}
+
+	@Override
+	public CoffinRenderState createRenderState() {
+		return new CoffinRenderState();
+	}
+
+	@Override
+	public void extractRenderState(
+		CoffinBlockEntity coffin,
+		CoffinRenderState renderState,
+		float partialTick,
+		Vec3 cameraPos,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		BlockEntityRenderer.super.extractRenderState(coffin, renderState, partialTick, cameraPos, crumblingOverlay);
+
+		final Level level = coffin.getLevel();
+		renderState.part = renderState.blockState.getValue(CoffinBlock.PART);
+		renderState.spawnerState = renderState.blockState.getValue(CoffinBlock.STATE);
+		renderState.ominous = coffin.getCoffinSpawner().isOminous();
+		renderState.direction = renderState.blockState.getValue(CoffinBlock.FACING);
+		renderState.openProgress = coffin.getOpenProgress(partialTick);
+		renderState.wobbleProgress = ((float)(level.getGameTime() - coffin.wobbleStartedAtTick) + partialTick) / CoffinBlockEntity.WOBBLE_DURATION;
+
+		final DoubleBlockCombiner.NeighborCombineResult<? extends CoffinBlockEntity> neighborCombineResult = DoubleBlockCombiner.combineWithNeigbour(
+			TTBlockEntityTypes.COFFIN.get(),
+			CoffinBlock::getBlockType,
+			CoffinBlock::getConnectedDirection,
+			CoffinBlock.FACING,
+			renderState.blockState,
+			level,
+			renderState.blockPos,
+			(levelx, pos) -> false
+		);
+		renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).get(renderState.lightCoords);
+	}
+}

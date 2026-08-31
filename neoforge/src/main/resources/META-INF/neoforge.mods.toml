@@ -14,6 +14,9 @@ issueTrackerURL="https://github.com/FrozenBlock/TrailierTales/issues"
 Overhauls the Trails & Tales update, adding features and improving existing ones.
 	'''
 
+[[mixins]]
+config="trailiertales.mixins.json"
+
 [[ dependencies.trailiertales ]]
 	modId="neoforge"
 	type="required"

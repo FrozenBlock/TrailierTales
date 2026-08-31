@@ -48,13 +48,13 @@ public class TTEntityLootProvider extends SimpleFabricLootTableSubProvider {
 		final HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
-			TTEntityTypes.APPARITION.getDefaultLootTable().orElseThrow(),
+			TTEntityTypes.APPARITION.get().getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(TTItems.ECTOPLASM)
+							LootItem.lootTableItem(TTItems.ECTOPLASM.get())
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F)))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)

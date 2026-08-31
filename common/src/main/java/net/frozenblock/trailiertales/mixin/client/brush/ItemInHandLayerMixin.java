@@ -1,0 +1,79 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.mixin.client.brush;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.frozenblock.trailiertales.config.TTItemConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@ClientOnly
+@Mixin(ItemInHandLayer.class)
+public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M extends EntityModel<S> & ArmedModel> {
+
+	@Inject(
+		method = "submitArmWithItem",
+		at = @At(
+			value = "INVOKE",
+			target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V",
+			shift = At.Shift.AFTER
+		)
+	)
+	void trailierTales$injectBrushAnim(
+		S renderState,
+		ItemStackRenderState stackState,
+		ItemStack stack,
+		HumanoidArm arm,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		int light,
+		CallbackInfo info
+	) {
+		if (!(renderState instanceof HumanoidRenderState humanoidState)) return;
+
+		final InteractionHand interactionHand = arm == humanoidState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+		if (stack != null
+			&& TTItemConfig.BRUSH_SMOOTH_ANIMATION.get()
+			&& humanoidState.isUsingItem
+			&& humanoidState.useItemHand == interactionHand
+			&& humanoidState.attackTime <= 0F
+			&& stack.is(Items.BRUSH)
+		) {
+			final float brushProgress = humanoidState.ticksUsingItem + 1F;
+			final float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;
+			final Axis axis = arm == HumanoidArm.LEFT ? Axis.ZP : Axis.ZN;
+			poseStack.mulPose(axis.rotation(brushRoll));
+		}
+	}
+}

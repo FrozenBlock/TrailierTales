@@ -20,11 +20,10 @@ package net.frozenblock.trailiertales.data.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
+import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.StructureTagsProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class TTStructureTagsProvider extends FabricTagsProvider<Structure> {

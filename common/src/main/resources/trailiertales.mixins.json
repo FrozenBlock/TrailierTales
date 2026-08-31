@@ -23,8 +23,6 @@
     "common.coffin.EntityMixin",
     "common.coffin.ItemStackMixin",
     "common.coffin.LivingEntityMixin",
-    "common.datafix.DataFixersMixin",
-    "common.datafix.V3689Mixin",
     "common.dawntrail.ShearsDispenseItemBehaviorMixin",
     "common.debug.MobMixin",
     "common.decorated_pot.DecoratedPotBlockEntityMixin",

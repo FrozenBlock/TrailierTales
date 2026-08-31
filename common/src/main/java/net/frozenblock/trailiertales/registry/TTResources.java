@@ -1,0 +1,68 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.registry;
+
+import net.frozenblock.lib.levelgen.structure.api.placement.StructureGenerationConditionApi;
+import net.frozenblock.lib.platform.api.resource.FrozenLibResourceLoader;
+import net.frozenblock.lib.platform.api.resource.PackActivationType;
+import net.frozenblock.lib.resource.api.ResourceLoaderHelper;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
+import net.frozenblock.trailiertales.levelgen.structure.RuinsStructure;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
+
+public final class TTResources {
+	public static boolean HAS_STRONGHOLD_OVERRIDE_PACK = false;
+
+	public static void init(String modId) {
+		ResourceLoaderHelper.registerBuiltinPack(
+			TTConstants.id("stronghold_catacombs"),
+			modId,
+			Component.translatable("pack.trailiertales.strongholds_to_catacombs"),
+			PackActivationType.NORMAL
+		);
+
+		FrozenLibResourceLoader.get(PackType.SERVER_DATA).registerReloadListener(
+			TTConstants.id("server_resource_listener"),
+			new SimplePreparableReloadListener<Void>() {
+				@Override
+				protected Void prepare(ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+					return null;
+				}
+
+				@Override
+				protected void apply(Void unused, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+					RuinsStructure.onServerDataReload(resourceManager);
+					HAS_STRONGHOLD_OVERRIDE_PACK = resourceManager.listPacks().anyMatch(packResources -> {
+						if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(TTConstants.string("stronghold_catacombs"));
+						return false;
+					});
+					TTConstants.log(HAS_STRONGHOLD_OVERRIDE_PACK ? "Has stronghold override pack!" : "Does not have stronghold override pack!", TTConstants.UNSTABLE_LOGGING);
+				}
+			}
+		);
+
+		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), () -> !HAS_STRONGHOLD_OVERRIDE_PACK);
+	}
+
+	private TTResources() {}
+}

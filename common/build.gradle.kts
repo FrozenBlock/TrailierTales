@@ -10,6 +10,9 @@ checkstyle {
 }
 
 val frozenlib_version: String by project
+val wilderwild_version: String by project
+val cloth_config_version: String by project
+val lithium_version: String by project
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
@@ -29,6 +32,15 @@ dependencies {
         accessTransformers(it)
         interfaceInjectionData(it)
     }
+
+    // Wilder Wild
+    compileOnly("net.frozenblock:wilderwild-common:${wilderwild_version}")
+
+    // Cloth Config
+    compileOnly("me.shedaniel.cloth:cloth-config:$cloth_config_version")
+
+    // Lithium
+    compileOnly("maven.modrinth:lithium:${lithium_version}-neoforge")
 }
 
 tasks {

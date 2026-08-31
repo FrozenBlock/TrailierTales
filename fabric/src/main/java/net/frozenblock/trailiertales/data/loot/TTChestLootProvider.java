@@ -180,8 +180,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
-						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE).setWeight(2))
-						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_OSSUAIRE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE.get()).setWeight(2))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_OSSUAIRE.get()).setWeight(1))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(
 							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
@@ -245,8 +245,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
-						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(1))
 						.add(
 							LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
 								.setWeight(1)
@@ -299,7 +299,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE).setWeight(2))
-						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE).setWeight(3))
+						.add(LootItem.lootTableItem(TTItems.MUSIC_DISC_FAUSSE_VIE.get()).setWeight(3))
 						.add(LootItem.lootTableItem(Items.BOOK).setWeight(9).apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
 						.add(
 							LootItem.lootTableItem(Items.ENCHANTED_BOOK)
@@ -363,8 +363,8 @@ public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
-						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(1))
+						.add(LootItem.lootTableItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(1))
 						.add(
 							LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
 								.setWeight(3)
@@ -386,7 +386,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 							LootItem.lootTableItem(Items.SPLASH_POTION)
 								.setWeight(2)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
-								.apply(SetPotionFunction.setPotion(TTPotions.TRANSFIGURING))
+								.apply(SetPotionFunction.setPotion(TTPotions.TRANSFIGURING.asHolder()))
 						)
 						.add(EmptyLootItem.emptyItem().setWeight(1))
 				)
@@ -403,7 +403,7 @@ public class TTChestLootProvider extends SimpleFabricLootTableSubProvider {
 							LootItem.lootTableItem(Items.SPLASH_POTION)
 								.setWeight(1)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
-								.apply(SetPotionFunction.setPotion(TTPotions.TRANSFIGURING))
+								.apply(SetPotionFunction.setPotion(TTPotions.TRANSFIGURING.asHolder()))
 						)
 						.add(EmptyLootItem.emptyItem().setWeight(5))
 				)

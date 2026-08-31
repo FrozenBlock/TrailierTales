@@ -44,24 +44,24 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 
 	@Override
 	public void generate() {
-		this.dropSelf(TTBlocks.CYAN_ROSE);
-		this.dropPottedContents(TTBlocks.POTTED_CYAN_ROSE);
+		this.dropSelf(TTBlocks.CYAN_ROSE.get());
+		this.dropPottedContents(TTBlocks.POTTED_CYAN_ROSE.get());
 		this.add(
-			TTBlocks.CYAN_ROSE_CROP,
-			this.applyExplosionDecay(TTBlocks.CYAN_ROSE_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS))))
+			TTBlocks.CYAN_ROSE_CROP.get(),
+			this.applyExplosionDecay(TTBlocks.CYAN_ROSE_CROP.get(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.CYAN_ROSE_SEEDS.get()))))
 		);
 
 		this.add(
-			TTBlocks.MANEDROP,
+			TTBlocks.MANEDROP.get(),
 			this.applyExplosionDecay(
-				TTBlocks.MANEDROP,
+				TTBlocks.MANEDROP.get(),
 				LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.add(
-								LootItem.lootTableItem(TTBlocks.MANEDROP)
+								LootItem.lootTableItem(TTBlocks.MANEDROP.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)
@@ -69,32 +69,32 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 			)
 		);
 		this.add(
-			TTBlocks.MANEDROP_CROP,
+			TTBlocks.MANEDROP_CROP.get(),
 			this.applyExplosionDecay(
-				TTBlocks.MANEDROP_CROP,
+				TTBlocks.MANEDROP_CROP.get(),
 				LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.add(
-								LootItem.lootTableItem(TTItems.MANEDROP_GERM)
+								LootItem.lootTableItem(TTItems.MANEDROP_GERM.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
 										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE))
 											.invert()
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)
 							.add(
-								LootItem.lootTableItem(TTBlocks.MANEDROP)
+								LootItem.lootTableItem(TTBlocks.MANEDROP.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE))
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)
@@ -103,16 +103,16 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 		);
 
 		this.add(
-			TTBlocks.GUZMANIA,
+			TTBlocks.GUZMANIA.get(),
 			this.applyExplosionDecay(
-				TTBlocks.GUZMANIA,
+				TTBlocks.GUZMANIA.get(),
 				LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.add(
-								LootItem.lootTableItem(TTBlocks.GUZMANIA)
+								LootItem.lootTableItem(TTBlocks.GUZMANIA.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)
@@ -120,32 +120,32 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 			)
 		);
 		this.add(
-			TTBlocks.GUZMANIA_CROP,
+			TTBlocks.GUZMANIA_CROP.get(),
 			this.applyExplosionDecay(
-				TTBlocks.GUZMANIA_CROP,
+				TTBlocks.GUZMANIA_CROP.get(),
 				LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.add(
-								LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS)
+								LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
 											.invert()
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)
 							.add(
-								LootItem.lootTableItem(TTBlocks.GUZMANIA)
+								LootItem.lootTableItem(TTBlocks.GUZMANIA.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
 									)
 							)
@@ -153,33 +153,33 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 			)
 		);
 
-		this.add(TTBlocks.DAWNTRAIL, this::createMultifaceBlockDrops);
+		this.add(TTBlocks.DAWNTRAIL.get(), this::createMultifaceBlockDrops);
 		this.add(
-			TTBlocks.DAWNTRAIL_CROP,
-			this.applyExplosionDecay(TTBlocks.DAWNTRAIL_CROP, LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS))))
+			TTBlocks.DAWNTRAIL_CROP.get(),
+			this.applyExplosionDecay(TTBlocks.DAWNTRAIL_CROP.get(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(TTItems.DAWNTRAIL_SEEDS.get()))))
 		);
 
-		this.add(TTBlocks.LITHOPS, this.createSegmentedBlockDrops(TTBlocks.LITHOPS));
-		this.dropPottedContents(TTBlocks.POTTED_LITHOPS);
+		this.add(TTBlocks.LITHOPS.get(), this.createSegmentedBlockDrops(TTBlocks.LITHOPS.get()));
+		this.dropPottedContents(TTBlocks.POTTED_LITHOPS.get());
 		this.add(
-			TTBlocks.LITHOPS_CROP,
+			TTBlocks.LITHOPS_CROP.get(),
 			this.applyExplosionDecay(
-				TTBlocks.LITHOPS_CROP,
+				TTBlocks.LITHOPS_CROP.get(),
 				LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
 							.add(
-								LootItem.lootTableItem(TTItems.LITHOPS_SEEDS)
+								LootItem.lootTableItem(TTItems.LITHOPS_SEEDS.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
 											.invert()
 									)
 							)
 							.add(
-								LootItem.lootTableItem(TTBlocks.LITHOPS)
+								LootItem.lootTableItem(TTBlocks.LITHOPS.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP)
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP.get())
 											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
 									)
 									.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4F), false))
@@ -188,132 +188,132 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 			)
 		);
 
-		this.dropSelf(TTBlocks.STONE_WALL);
+		this.dropSelf(TTBlocks.STONE_WALL.get());
 
-		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL);
-		this.dropSelf(TTBlocks.CHISELED_GRANITE_BRICKS);
-		this.dropSelf(TTBlocks.GRANITE_BRICKS);
-		this.dropSelf(TTBlocks.CRACKED_GRANITE_BRICKS);
-		this.dropSelf(TTBlocks.GRANITE_BRICK_STAIRS);
-		this.add(TTBlocks.GRANITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.GRANITE_BRICK_WALL);
-		this.dropSelf(TTBlocks.MOSSY_GRANITE_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_GRANITE_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_GRANITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_GRANITE_BRICK_WALL);
+		this.dropSelf(TTBlocks.POLISHED_GRANITE_WALL.get());
+		this.dropSelf(TTBlocks.CHISELED_GRANITE_BRICKS.get());
+		this.dropSelf(TTBlocks.GRANITE_BRICKS.get());
+		this.dropSelf(TTBlocks.CRACKED_GRANITE_BRICKS.get());
+		this.dropSelf(TTBlocks.GRANITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.GRANITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.GRANITE_BRICK_WALL.get());
+		this.dropSelf(TTBlocks.MOSSY_GRANITE_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_GRANITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_GRANITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_GRANITE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.POLISHED_DIORITE_WALL);
-		this.dropSelf(TTBlocks.CHISELED_DIORITE_BRICKS);
-		this.dropSelf(TTBlocks.DIORITE_BRICKS);
-		this.dropSelf(TTBlocks.CRACKED_DIORITE_BRICKS);
-		this.dropSelf(TTBlocks.DIORITE_BRICK_STAIRS);
-		this.add(TTBlocks.DIORITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.DIORITE_BRICK_WALL);
-		this.dropSelf(TTBlocks.MOSSY_DIORITE_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_DIORITE_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_DIORITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_DIORITE_BRICK_WALL);
+		this.dropSelf(TTBlocks.POLISHED_DIORITE_WALL.get());
+		this.dropSelf(TTBlocks.CHISELED_DIORITE_BRICKS.get());
+		this.dropSelf(TTBlocks.DIORITE_BRICKS.get());
+		this.dropSelf(TTBlocks.CRACKED_DIORITE_BRICKS.get());
+		this.dropSelf(TTBlocks.DIORITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.DIORITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.DIORITE_BRICK_WALL.get());
+		this.dropSelf(TTBlocks.MOSSY_DIORITE_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_DIORITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_DIORITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_DIORITE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.POLISHED_ANDESITE_WALL);
-		this.dropSelf(TTBlocks.CHISELED_ANDESITE_BRICKS);
-		this.dropSelf(TTBlocks.ANDESITE_BRICKS);
-		this.dropSelf(TTBlocks.CRACKED_ANDESITE_BRICKS);
-		this.dropSelf(TTBlocks.ANDESITE_BRICK_STAIRS);
-		this.add(TTBlocks.ANDESITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.ANDESITE_BRICK_WALL);
-		this.dropSelf(TTBlocks.MOSSY_ANDESITE_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_ANDESITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_ANDESITE_BRICK_WALL);
+		this.dropSelf(TTBlocks.POLISHED_ANDESITE_WALL.get());
+		this.dropSelf(TTBlocks.CHISELED_ANDESITE_BRICKS.get());
+		this.dropSelf(TTBlocks.ANDESITE_BRICKS.get());
+		this.dropSelf(TTBlocks.CRACKED_ANDESITE_BRICKS.get());
+		this.dropSelf(TTBlocks.ANDESITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.ANDESITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.ANDESITE_BRICK_WALL.get());
+		this.dropSelf(TTBlocks.MOSSY_ANDESITE_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_ANDESITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_ANDESITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_ANDESITE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.CALCITE_STAIRS);
-		this.add(TTBlocks.CALCITE_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.CALCITE_WALL);
-		this.dropSelf(TTBlocks.POLISHED_CALCITE);
-		this.dropSelf(TTBlocks.POLISHED_CALCITE_STAIRS);
-		this.add(TTBlocks.POLISHED_CALCITE_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.POLISHED_CALCITE_WALL);
-		this.dropSelf(TTBlocks.CHISELED_CALCITE_BRICKS);
-		this.dropSelf(TTBlocks.CALCITE_BRICKS);
-		this.dropSelf(TTBlocks.CRACKED_CALCITE_BRICKS);
-		this.dropSelf(TTBlocks.CALCITE_BRICK_STAIRS);
-		this.add(TTBlocks.CALCITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.CALCITE_BRICK_WALL);
-		this.dropSelf(TTBlocks.MOSSY_CALCITE_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_CALCITE_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_CALCITE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_CALCITE_BRICK_WALL);
+		this.dropSelf(TTBlocks.CALCITE_STAIRS.get());
+		this.add(TTBlocks.CALCITE_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.CALCITE_WALL.get());
+		this.dropSelf(TTBlocks.POLISHED_CALCITE.get());
+		this.dropSelf(TTBlocks.POLISHED_CALCITE_STAIRS.get());
+		this.add(TTBlocks.POLISHED_CALCITE_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.POLISHED_CALCITE_WALL.get());
+		this.dropSelf(TTBlocks.CHISELED_CALCITE_BRICKS.get());
+		this.dropSelf(TTBlocks.CALCITE_BRICKS.get());
+		this.dropSelf(TTBlocks.CRACKED_CALCITE_BRICKS.get());
+		this.dropSelf(TTBlocks.CALCITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.CALCITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.CALCITE_BRICK_WALL.get());
+		this.dropSelf(TTBlocks.MOSSY_CALCITE_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_CALCITE_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_CALCITE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_CALCITE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.CRACKED_TUFF_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_TUFF_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_TUFF_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_TUFF_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_TUFF_BRICK_WALL);
+		this.dropSelf(TTBlocks.CRACKED_TUFF_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_TUFF_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_TUFF_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_TUFF_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_TUFF_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.CRACKED_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_BRICK_WALL);
+		this.dropSelf(TTBlocks.CRACKED_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.POLISHED_RESIN_BLOCK);
-		this.dropSelf(TTBlocks.POLISHED_RESIN_STAIRS);
-		this.add(TTBlocks.POLISHED_RESIN_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.POLISHED_RESIN_WALL);
-		this.dropSelf(TTBlocks.CRACKED_RESIN_BRICKS);
-		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICKS);
-		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS);
-		this.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL);
+		this.dropSelf(TTBlocks.POLISHED_RESIN_BLOCK.get());
+		this.dropSelf(TTBlocks.POLISHED_RESIN_STAIRS.get());
+		this.add(TTBlocks.POLISHED_RESIN_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.POLISHED_RESIN_WALL.get());
+		this.dropSelf(TTBlocks.CRACKED_RESIN_BRICKS.get());
+		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICKS.get());
+		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS.get());
+		this.add(TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.MOSSY_COBBLED_DEEPSLATE);
-		this.dropSelf(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS);
-		this.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL);
+		this.dropSelf(TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
+		this.dropSelf(TTBlocks.MOSSY_COBBLED_DEEPSLATE_STAIRS.get());
+		this.add(TTBlocks.MOSSY_COBBLED_DEEPSLATE_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_COBBLED_DEEPSLATE_WALL.get());
 
-		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_TILES);
-		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS);
-		this.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL);
+		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_TILES.get());
+		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.get());
+		this.add(TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get());
 
-		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_BRICKS);
-		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS);
-		this.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL);
+		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
+		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.get());
+		this.add(TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.SMOOTH_SANDSTONE_WALL);
-		this.dropSelf(TTBlocks.CUT_SANDSTONE_STAIRS);
-		this.dropSelf(TTBlocks.CUT_SANDSTONE_WALL);
+		this.dropSelf(TTBlocks.SMOOTH_SANDSTONE_WALL.get());
+		this.dropSelf(TTBlocks.CUT_SANDSTONE_STAIRS.get());
+		this.dropSelf(TTBlocks.CUT_SANDSTONE_WALL.get());
 
-		this.dropSelf(TTBlocks.SMOOTH_RED_SANDSTONE_WALL);
-		this.dropSelf(TTBlocks.CUT_RED_SANDSTONE_STAIRS);
-		this.dropSelf(TTBlocks.CUT_RED_SANDSTONE_WALL);
+		this.dropSelf(TTBlocks.SMOOTH_RED_SANDSTONE_WALL.get());
+		this.dropSelf(TTBlocks.CUT_RED_SANDSTONE_STAIRS.get());
+		this.dropSelf(TTBlocks.CUT_RED_SANDSTONE_WALL.get());
 
-		this.dropSelf(TTBlocks.PRISMARINE_BRICK_WALL);
+		this.dropSelf(TTBlocks.PRISMARINE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.DARK_PRISMARINE_WALL);
+		this.dropSelf(TTBlocks.DARK_PRISMARINE_WALL.get());
 
-		this.dropSelf(TTBlocks.CHORAL_END_STONE);
-		this.dropSelf(TTBlocks.CHORAL_END_STONE_STAIRS);
-		this.add(TTBlocks.CHORAL_END_STONE_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.CHORAL_END_STONE_WALL);
+		this.dropSelf(TTBlocks.CHORAL_END_STONE.get());
+		this.dropSelf(TTBlocks.CHORAL_END_STONE_STAIRS.get());
+		this.add(TTBlocks.CHORAL_END_STONE_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.CHORAL_END_STONE_WALL.get());
 
-		this.dropSelf(TTBlocks.CRACKED_END_STONE_BRICKS);
-		this.dropSelf(TTBlocks.CHISELED_END_STONE_BRICKS);
-		this.dropSelf(TTBlocks.CHORAL_END_STONE_BRICKS);
-		this.dropSelf(TTBlocks.CHORAL_END_STONE_BRICK_STAIRS);
-		this.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB, this::createSlabItemTable);
-		this.dropSelf(TTBlocks.CHORAL_END_STONE_BRICK_WALL);
+		this.dropSelf(TTBlocks.CRACKED_END_STONE_BRICKS.get());
+		this.dropSelf(TTBlocks.CHISELED_END_STONE_BRICKS.get());
+		this.dropSelf(TTBlocks.CHORAL_END_STONE_BRICKS.get());
+		this.dropSelf(TTBlocks.CHORAL_END_STONE_BRICK_STAIRS.get());
+		this.add(TTBlocks.CHORAL_END_STONE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(TTBlocks.CHORAL_END_STONE_BRICK_WALL.get());
 
-		this.dropSelf(TTBlocks.CRACKED_PURPUR_BLOCK);
-		this.dropSelf(TTBlocks.CHISELED_PURPUR_BLOCK);
-		this.dropSelf(TTBlocks.PURPUR_WALL);
+		this.dropSelf(TTBlocks.CRACKED_PURPUR_BLOCK.get());
+		this.dropSelf(TTBlocks.CHISELED_PURPUR_BLOCK.get());
+		this.dropSelf(TTBlocks.PURPUR_WALL.get());
 
-		this.add(TTBlocks.SUSPICIOUS_RED_SAND, noDrop());
-		this.add(TTBlocks.SUSPICIOUS_DIRT, noDrop());
-		this.add(TTBlocks.SUSPICIOUS_CLAY, noDrop());
-		this.add(TTBlocks.COFFIN, noDrop());
-		this.dropSelf(TTBlocks.SURVEYOR);
-		this.dropSelf(TTBlocks.ECTOPLASM_BLOCK);
+		this.add(TTBlocks.SUSPICIOUS_RED_SAND.get(), noDrop());
+		this.add(TTBlocks.SUSPICIOUS_DIRT.get(), noDrop());
+		this.add(TTBlocks.SUSPICIOUS_CLAY.get(), noDrop());
+		this.add(TTBlocks.COFFIN.get(), noDrop());
+		this.dropSelf(TTBlocks.SURVEYOR.get());
+		this.dropSelf(TTBlocks.ECTOPLASM_BLOCK.get());
 	}
 }

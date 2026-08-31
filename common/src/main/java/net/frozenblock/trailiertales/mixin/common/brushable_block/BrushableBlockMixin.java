@@ -1,0 +1,125 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.mixin.common.brushable_block;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
+import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(BrushableBlock.class)
+public abstract class BrushableBlockMixin extends BaseEntityBlock {
+
+	protected BrushableBlockMixin(Properties properties) {
+		super(properties);
+	}
+
+	@Inject(method = "<init>", at = @At("TAIL"))
+	public void trailierTales$init(Block turnsInto, SoundEvent brushSound, SoundEvent brushCompletedSound, BlockBehaviour.Properties properties, CallbackInfo info) {
+		final BlockState defaultBlockState = this.defaultBlockState();
+		if (!defaultBlockState.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM)) return;
+		this.registerDefaultState(defaultBlockState.setValue(TTBlockStateProperties.CAN_PLACE_ITEM, false));
+	}
+
+	@WrapOperation(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/entity/BrushableBlockEntity;checkReset(Lnet/minecraft/server/level/ServerLevel;)V"
+		)
+	)
+	public void trailierTales$setHasCustomItemForFalling(
+		BrushableBlockEntity brushableBlock, ServerLevel level, Operation<Void> original,
+		BlockState state,
+		@Share("trailierTales$brushableBlock") LocalRef<BrushableBlockEntity> blockEntityRef,
+		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem
+	) {
+		original.call(brushableBlock, level);
+		blockEntityRef.set(brushableBlock);
+		if (brushableBlock instanceof BrushableBlockEntityInterface brushableBlockInterface
+			&& (brushableBlockInterface.trailierTales$hasCustomItem() || (state.hasProperty(TTBlockStateProperties.CAN_PLACE_ITEM) && state.getValue(TTBlockStateProperties.CAN_PLACE_ITEM)))
+		) {
+			hasCustomItem.set(true);
+		}
+	}
+
+	@Inject(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;",
+			shift = At.Shift.BEFORE
+		)
+	)
+	public void trailierTales$getFallingBlockItem(
+		BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info,
+		@Share("trailierTales$brushableBlockEntity") LocalRef<BrushableBlockEntity> blockEntityRef,
+		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
+		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
+	) {
+		final BrushableBlockEntity brushableBlockEntity = blockEntityRef.get();
+		if (brushableBlockEntity == null || !hasCustomItem.get()) return;
+
+		itemStack.set(brushableBlockEntity.getItem().copy());
+		((BrushableBlockEntityInterface) brushableBlockEntity).trailierTales$setItem(ItemStack.EMPTY);
+	}
+
+	@ModifyExpressionValue(
+		method = "tick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;"
+		)
+	)
+	public FallingBlockEntity trailierTales$setFallingBlockItem(
+		FallingBlockEntity original,
+		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
+		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
+	) {
+		if (hasCustomItem.get() && itemStack.get() != null && !itemStack.get().isEmpty()) original.frozenLib$setAttached(TTAttachmentTypes.FALLING_BLOCK_ITEM, itemStack.get().copyAndClear());
+		return original;
+	}
+
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
+	protected void trailierTales$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
+		if (TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS.get()) builder.add(TTBlockStateProperties.CAN_PLACE_ITEM);
+	}
+}

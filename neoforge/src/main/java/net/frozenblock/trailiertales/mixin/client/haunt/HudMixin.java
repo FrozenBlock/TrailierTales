@@ -1,0 +1,371 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.mixin.client.haunt;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.config.TTEntityConfig;
+import net.frozenblock.trailiertales.registry.TTMobEffects;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@ClientOnly
+@Mixin(Hud.class)
+public class HudMixin {
+	@Unique
+	private static final Identifier TRAILIER_TALES$HEART_HAUNT = TTConstants.id("hud/heart/haunt");
+	@Unique
+	private static final Identifier TRAILIER_TALES$ARMOR_HAUNT = TTConstants.id("hud/armor_full_haunt");
+	@Unique
+	private static final Identifier TRAILIER_TALES$ARMOR_HALF_HAUNT = TTConstants.id("hud/armor_half_haunt");
+	@Unique
+	private static final Identifier TRAILIER_TALES$FOOD_HAUNT = TTConstants.id("hud/food_haunt");
+	@Unique
+	private static final Identifier TRAILIER_TALES$AIR_HAUNT = TTConstants.id("hud/air_haunt");
+
+	@Unique
+	private static boolean trailierTales$isHaunted;
+	@Unique
+	private static int trailierTales$hauntTicks;
+
+	@Shadow
+	@Final
+	private Minecraft minecraft;
+
+	@Inject(
+		method = "tick()V",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/player/LocalPlayer;getInventory()Lnet/minecraft/world/entity/player/Inventory;",
+			ordinal = 0,
+			shift = At.Shift.AFTER
+		)
+	)
+	private void trailierTales$setHauntedInfo(CallbackInfo info) {
+		final Player player = this.minecraft.player;
+		trailierTales$isHaunted = TTEntityConfig.APPARITION_HAUNTED_HUD.get() && player.hasEffect(TTMobEffects.HAUNT.asHolder());
+		if (trailierTales$isHaunted) {
+			trailierTales$hauntTicks = Math.min(40, trailierTales$hauntTicks + 1);
+		} else {
+			trailierTales$hauntTicks = Math.max(0, trailierTales$hauntTicks - 1);
+		}
+	}
+
+	@ModifyExpressionValue(
+		method = "extractHealthLevel",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/player/Player;getAttributeValue(Lnet/minecraft/core/Holder;)D"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;",
+				opcode = Opcodes.GETSTATIC
+			)
+		)
+	)
+	private double trailierTales$captureMaxHealthAttribute(
+		double original,
+		@Share("trailierTales$maxHealthAttribute") LocalDoubleRef maxHealthAttribute
+	) {
+		maxHealthAttribute.set(original);
+		return original;
+	}
+
+	@ModifyExpressionValue(
+		method = "extractHealthLevel",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/lang/Math;max(II)I",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;",
+				opcode = Opcodes.GETSTATIC
+			)
+		)
+	)
+	private int trailierTales$lerpBackHealth(
+		int original,
+		@Share("trailierTales$maxHealthAttribute") LocalDoubleRef maxHealthAttribute
+	) {
+		return (int) Mth.lerp(trailierTales$getHauntProgress(), original, maxHealthAttribute.get());
+	}
+
+	@ModifyExpressionValue(
+		method = "extractHealthLevel",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/util/Mth;ceil(F)I",
+			ordinal = 1
+		)
+	)
+	private int trailierTales$hauntAbsorption(int absorptionAmount) {
+		return (int) (absorptionAmount * (1F - trailierTales$getHauntProgress()));
+	}
+
+	@ModifyVariable(method = "extractHearts", at = @At("HEAD"), argsOnly = true, ordinal = 3)
+	private int trailierTales$hideRegeneration(int heartOffsetIndex) {
+		return trailierTales$isHaunted ? Integer.MAX_VALUE : heartOffsetIndex;
+	}
+
+	@ModifyVariable(method = "extractHearts", at = @At("HEAD"), argsOnly = true, ordinal = 4)
+	private int trailierTales$extractFullBarA(
+		int currentHealth,
+		GuiGraphicsExtractor graphics,
+		Player player,
+		int xLeft,
+		int yLineBase,
+		int healthRowHeight,
+		int heartOffsetIndex,
+		float maxHealth
+	) {
+		return trailierTales$isHaunted ? (int) maxHealth : currentHealth;
+	}
+
+	@ModifyVariable(method = "extractHearts", at = @At("HEAD"), argsOnly = true, ordinal = 5)
+	private int trailierTales$extractFullBarB(
+		int oldHealth,
+		GuiGraphicsExtractor graphics,
+		Player player,
+		int xLeft,
+		int yLineBase,
+		int healthRowHeight,
+		int heartOffsetIndex,
+		float maxHealth
+	) {
+		return trailierTales$isHaunted ? (int) maxHealth : oldHealth;
+	}
+
+	@ModifyExpressionValue(
+		method = "extractHearts",
+		at = @At(
+			value = "CONSTANT",
+			ordinal = 0,
+			args = "intValue=4"
+		)
+	)
+	private int trailierTales$shakeHearts(int original) {
+		return trailierTales$isHaunted ? Integer.MAX_VALUE : original;
+	}
+
+	@WrapOperation(
+		method = "extractHearts",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/Hud;extractHeart(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Hud$HeartType;IIZZZ)V"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/gui/Hud;extractHeart(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Hud$HeartType;IIZZZ)V",
+				shift = At.Shift.AFTER
+			)
+		)
+	)
+	private void trailierTales$extractHauntedHeart(
+		Hud instance, GuiGraphicsExtractor graphics, Hud.HeartType type, int xo, int yo, boolean isHardcore, boolean blinks, boolean half, Operation<Void> original
+	) {
+		if (trailierTales$isHaunted) {
+			this.trailierTales$extractHauntedHeart(graphics, xo, yo);
+			return;
+		}
+		original.call(instance, graphics, type, xo, yo, isHardcore, blinks, half);
+	}
+
+	@ModifyExpressionValue(
+		method = "extractArmor",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/player/Player;getArmorValue()I"
+		)
+	)
+	private static int trailierTales$hideArmor(int armorValue) {
+		return (int) (armorValue * (1F - trailierTales$getHauntProgress()));
+	}
+
+	@ModifyExpressionValue(
+		method = "extractArmor",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/gui/Hud;ARMOR_FULL_SPRITE:Lnet/minecraft/resources/Identifier;",
+			opcode = Opcodes.GETSTATIC
+		)
+	)
+	private static Identifier trailierTales$hauntedFullArmor(Identifier original) {
+		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HAUNT : original;
+	}
+
+	@ModifyExpressionValue(
+		method = "extractArmor",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/gui/Hud;ARMOR_HALF_SPRITE:Lnet/minecraft/resources/Identifier;",
+			opcode = Opcodes.GETSTATIC
+		)
+	)
+	private static Identifier trailierTales$hauntedHalfArmor(Identifier original) {
+		return trailierTales$isHaunted ? TRAILIER_TALES$ARMOR_HALF_HAUNT : original;
+	}
+
+	@WrapWithCondition(
+		method = "extractFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
+				ordinal = 0,
+				shift = At.Shift.AFTER
+			)
+		)
+	)
+	private boolean trailierTales$removeExtraHunger(
+		GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height
+	) {
+		return !trailierTales$isHaunted;
+	}
+
+	@ModifyExpressionValue(
+		method = "extractFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F",
+			ordinal = 0
+		)
+	)
+	private float trailierTales$shakeHungerA(float original) {
+		return trailierTales$isHaunted ? 0F : original;
+	}
+
+	@ModifyExpressionValue(
+		method = "extractFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/food/FoodData;getFoodLevel()I",
+			ordinal = 0
+		)
+	)
+	private int trailierTales$shakeHungerB(int original) {
+		return trailierTales$isHaunted ? 0 : original;
+	}
+
+	@WrapOperation(
+		method = "extractFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V",
+			ordinal = 0
+		)
+	)
+	private void trailierTales$hauntedHunger(
+		GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height, Operation<Void> original
+	) {
+		original.call(instance, renderPipeline, location, x, y, width, height);
+		if (trailierTales$isHaunted) original.call(instance, renderPipeline, TRAILIER_TALES$FOOD_HAUNT, x, y, width, height);
+	}
+
+	@ModifyExpressionValue(
+		method = "extractFood",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/food/FoodData;getSaturationLevel()F"
+		)
+	)
+	private float trailierTales$hideHungerChange(float saturationLevel) {
+		return trailierTales$isHaunted ? 1F : saturationLevel;
+	}
+
+	@WrapOperation(
+		method = "extractAirBubbles",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/lang/Math;clamp(JII)I"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/world/entity/player/Player;getMaxAirSupply()I"
+			)
+		)
+	)
+	private int trailierTales$hideAirSupply(long value, int min, int max, Operation<Integer> original) {
+		final int finalSupply = original.call(value, min, max);
+		if (trailierTales$isHaunted && finalSupply != max) return (int) (finalSupply * (1F -trailierTales$getHauntProgress()));
+		return finalSupply;
+	}
+
+	@WrapOperation(
+		method = "extractAirBubbles",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/client/gui/Hud;AIR_SPRITE:Lnet/minecraft/resources/Identifier;",
+				opcode = Opcodes.GETSTATIC
+			)
+		)
+	)
+	private void trailierTales$hauntedAirSupply(
+		GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height, Operation<Void> original
+	) {
+		location = trailierTales$isHaunted ? TRAILIER_TALES$AIR_HAUNT : location;
+		original.call(instance, renderPipeline, location, x, y, width, height);
+	}
+
+	@Unique
+	private static float trailierTales$getHauntProgress() {
+		return trailierTales$hauntTicks / 40F;
+	}
+
+	@Unique
+	private void trailierTales$extractHauntedHeart(GuiGraphicsExtractor graphics, int x, int y) {
+		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, TRAILIER_TALES$HEART_HAUNT, x, y, 9, 9);
+	}
+}

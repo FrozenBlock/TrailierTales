@@ -1,0 +1,109 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.effect;
+
+import com.google.common.annotations.VisibleForTesting;
+import java.util.ArrayList;
+import java.util.List;
+import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
+import net.frozenblock.trailiertales.entity.Apparition;
+import net.frozenblock.trailiertales.entity.ai.apparition.ApparitionAi;
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
+import net.frozenblock.trailiertales.registry.TTParticleTypes;
+import net.frozenblock.trailiertales.registry.TTSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.gamerules.GameRules;
+import org.jetbrains.annotations.Contract;
+
+public class TransfiguringMobEffect extends MobEffect {
+	public static final DeferredEntityType<Apparition> SPAWNED_ENTITY_TYPE = TTEntityTypes.APPARITION;
+
+	public TransfiguringMobEffect(MobEffectCategory type, int color) {
+		super(type, color, TTParticleTypes.TRANSFIGURING.get());
+	}
+
+	@VisibleForTesting
+	protected static int numberOfApparitionsToSpawn(int maxEntityCramming, NearbyApparitions counter) {
+		return maxEntityCramming < 1 ? 1 : Mth.clamp(0, maxEntityCramming - counter.count(maxEntityCramming), 1);
+	}
+
+	@Override
+	public void onEffectAdded(LivingEntity entity, int amplifier) {
+		super.onEffectAdded(entity, amplifier);
+		if (!(entity instanceof Apparition apparition)) return;
+
+		entity.level().broadcastEntityEvent(entity, EntityEvent.POOF);
+		entity.level().playSound(
+			null,
+			entity.getX(),
+			entity.getEyeY(),
+			entity.getZ(),
+			TTSounds.APPARITION_VANISH.get(),
+			SoundSource.HOSTILE,
+			0.6F,
+			0.9F + (entity.level().getRandom().nextFloat() * 0.2F)
+		);
+		apparition.dropItem(apparition.getItemBySlot(EquipmentSlot.MAINHAND));
+		entity.remove(Entity.RemovalReason.DISCARDED);
+	}
+
+	@Override
+	public void onMobRemoved(ServerLevel level, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
+		if (reason != Entity.RemovalReason.KILLED || entity.getType() == SPAWNED_ENTITY_TYPE.get()) return;
+
+		final int maxEntityCramming = level.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
+		final int apparitionsToSpawn = numberOfApparitionsToSpawn(maxEntityCramming, NearbyApparitions.closeTo(entity));
+
+		for (int l = 0; l < apparitionsToSpawn; l++) {
+			this.spawnApparitionOffspring(level, entity.getX(), entity.getY() + 0.5D, entity.getZ());
+		}
+	}
+
+	private void spawnApparitionOffspring(ServerLevel level, double x, double y, double z) {
+		final Apparition apparition = SPAWNED_ENTITY_TYPE.get().create(level, EntitySpawnReason.TRIAL_SPAWNER);
+		if (apparition == null) return;
+
+		apparition.snapTo(x, y, z, level.getRandom().nextFloat() * 360F, 0F);
+		ApparitionAi.rememberHome(apparition, level, BlockPos.containing(x, y, z));
+		level.addFreshEntity(apparition);
+	}
+
+	@FunctionalInterface
+	protected interface NearbyApparitions {
+		int count(int i);
+
+		@Contract(pure = true)
+		static NearbyApparitions closeTo(LivingEntity entity) {
+			return i -> {
+				final List<Apparition> apparitions = new ArrayList<>();
+				entity.level().getEntities(TTEntityTypes.APPARITION.get(), entity.getBoundingBox().inflate(3D), apparition -> apparition != entity, apparitions, i);
+				return apparitions.size();
+			};
+		}
+	}
+}

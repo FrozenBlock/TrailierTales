@@ -1,0 +1,104 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Trailier Tales.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.trailiertales.entity;
+
+import net.frozenblock.trailiertales.registry.TTEntityTypes;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+
+public class ThrownItemProjectile extends ThrowableItemProjectile {
+
+	public ThrownItemProjectile(EntityType<? extends ThrownItemProjectile> entityType, Level level) {
+		super(entityType, level);
+	}
+
+	public ThrownItemProjectile(Level level, LivingEntity shooter, ItemStack stack) {
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), shooter, level, stack);
+	}
+
+	public ThrownItemProjectile(double x, double y, double z, Level level, ItemStack stack) {
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), x, y, z, level, stack);
+	}
+
+	@Override
+	protected Item getDefaultItem() {
+		return Items.COBBLESTONE;
+	}
+
+	@Override
+	public void handleEntityEvent(byte id) {
+		if (id == EntityEvent.DEATH) {
+			final ParticleOptions options = new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getItem()));
+			for (int i = 0; i < 8; ++i) this.level().addParticle(options, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
+		} else {
+			super.handleEntityEvent(id);
+		}
+	}
+
+	@Override
+	protected void onHitEntity(EntityHitResult result) {
+		super.onHitEntity(result);
+		final Entity entity = result.getEntity();
+		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
+		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
+		if (!(entity instanceof Apparition)) this.spawnParticles();
+		this.discard();
+	}
+
+	@Override
+	protected void onHitBlock(BlockHitResult result) {
+		super.onHitBlock(result);
+		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
+		this.discard();
+	}
+
+	public void spawnParticles() {
+		if (!(this.level() instanceof ServerLevel server)) return;
+		final EntityDimensions dimensions = this.getDimensions(Pose.STANDING);
+		server.sendParticles(
+			new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getItem())),
+			this.position().x + (dimensions.width() * 0.5D),
+			this.position().y + (dimensions.height() * 0.5D),
+			this.position().z + (dimensions.width() * 0.5D),
+			this.random.nextInt(5, 10),
+			dimensions.width() / 4F,
+			dimensions.height() / 4F,
+			dimensions.width() / 4F,
+			0.1D
+		);
+		this.discard();
+	}
+
+}

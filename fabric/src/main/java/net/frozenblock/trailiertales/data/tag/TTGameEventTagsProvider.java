@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.GameEventTagsProvider;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class TTGameEventTagsProvider extends FabricTagsProvider<GameEvent> {

@@ -86,6 +86,11 @@ localPluginRepository(
 	enabled = true
 )
 
+localPluginRepository(
+    "candlelight",
+    enabled = true
+)
+
 fun localPluginRepository(repo: String, enabled: Boolean = true) {
 	if (!enabled) return
 	println("Attempting to include local plugin build $repo")

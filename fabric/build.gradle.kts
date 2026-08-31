@@ -96,7 +96,7 @@ dependencies {
 	}
 
 	// Lithium
-	compileOnly("maven.modrinth:lithium:${lithium_version}")
+	compileOnly("maven.modrinth:lithium:${lithium_version}-fabric")
 }
 
 tasks {

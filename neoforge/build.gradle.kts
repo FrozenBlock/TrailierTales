@@ -16,6 +16,9 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val frozenlib_version: String by project
+val wilderwild_version: String by project
+val cloth_config_version: String by project
+val lithium_version: String by project
 
 val neoforge_version: String by project
 val neoforge_loader_version_range: String by project
@@ -90,6 +93,14 @@ dependencies {
         accessTransformers(it)
         interfaceInjectionData(it)
     }
+
+    // Wilder Wild
+    implementation("net.frozenblock:wilderwild-neoforge:${wilderwild_version}")
+
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
+
+    // Lithium
+    compileOnly("maven.modrinth:lithium:${lithium_version}-neoforge")
 }
 
 java {

@@ -24,8 +24,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.trailiertales.TTConstants;
@@ -39,8 +37,10 @@ import net.frozenblock.trailiertales.block.impl.CoffinPart;
 import net.frozenblock.trailiertales.client.renderer.blockentity.CoffinRenderer;
 import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.data.TTDataGenerator;
+import net.frozenblock.trailiertales.registry.TTBlockFamilies;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -71,7 +71,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Contract;
 import org.joml.Vector3f;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class TTModelProvider extends FabricModelProvider {
 	public static final Map<BooleanProperty, VariantMutator> MULTIFACE_GENERATOR_NO_UV_LOCK = Map.of(
 		BlockStateProperties.NORTH, BlockModelGenerators.NOP,
@@ -90,13 +90,13 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators generator) {
-		generator.createPlantWithDefaultItem(TTBlocks.CYAN_ROSE, TTBlocks.POTTED_CYAN_ROSE, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(TTBlocks.CYAN_ROSE.get(), TTBlocks.POTTED_CYAN_ROSE.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createManedropCrop(generator);
-		generator.createDoublePlantWithDefaultItem(TTBlocks.MANEDROP, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createDoublePlantWithDefaultItem(TTBlocks.MANEDROP.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createGuzmaniaCrop(generator);
-		generator.createDoublePlantWithDefaultItem(TTBlocks.GUZMANIA, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createDoublePlantWithDefaultItem(TTBlocks.GUZMANIA.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
 		createDawntrailCrop(generator);
 		createDawntrail(generator);
@@ -104,77 +104,77 @@ public final class TTModelProvider extends FabricModelProvider {
 		createLithopsCrop(generator);
 		createLithops(generator);
 
-		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_RED_SAND);
-		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_DIRT);
-		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_CLAY);
+		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_RED_SAND.get());
+		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_DIRT.get());
+		generator.createBrushableBlock(TTBlocks.SUSPICIOUS_CLAY.get());
 
 		createEctoplasmBlock(generator);
 
 		generator.family(Blocks.STONE).generateFor(BlockFamilies.STONE);
 
 		generator.family(Blocks.POLISHED_GRANITE).generateFor(BlockFamilies.POLISHED_GRANITE);
-		generator.family(TTBlocks.GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_GRANITE_BRICK);
-		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_GRANITE_BRICK);
+		generator.family(TTBlocks.GRANITE_BRICKS.get()).generateFor(TTBlockFamilies.GRANITE_BRICK);
+		generator.family(TTBlocks.MOSSY_GRANITE_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_GRANITE_BRICK);
 
 		generator.family(Blocks.POLISHED_DIORITE).generateFor(BlockFamilies.POLISHED_DIORITE);
-		generator.family(TTBlocks.DIORITE_BRICKS).generateFor(TTBlocks.FAMILY_DIORITE_BRICK);
-		generator.family(TTBlocks.MOSSY_DIORITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_DIORITE_BRICK);
+		generator.family(TTBlocks.DIORITE_BRICKS.get()).generateFor(TTBlockFamilies.DIORITE_BRICK);
+		generator.family(TTBlocks.MOSSY_DIORITE_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_DIORITE_BRICK);
 
 		generator.family(Blocks.POLISHED_ANDESITE).generateFor(BlockFamilies.POLISHED_ANDESITE);
-		generator.family(TTBlocks.ANDESITE_BRICKS).generateFor(TTBlocks.FAMILY_ANDESITE_BRICK);
-		generator.family(TTBlocks.MOSSY_ANDESITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_ANDESITE_BRICK);
+		generator.family(TTBlocks.ANDESITE_BRICKS.get()).generateFor(TTBlockFamilies.ANDESITE_BRICK);
+		generator.family(TTBlocks.MOSSY_ANDESITE_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_ANDESITE_BRICK);
 
 		BlockModelGenerators.BlockFamilyProvider calciteFamily = generator.family(Blocks.CALCITE);
 		calciteFamily.skipGeneratingModelsFor.add(Blocks.CALCITE);
 		calciteFamily.generateFor(TTDataGenerator.FAMILY_CALCITE);
-		generator.family(TTBlocks.POLISHED_CALCITE).generateFor(TTBlocks.FAMILY_POLISHED_CALCITE);
-		BlockModelGenerators.BlockFamilyProvider calciteBricksFamily = generator.family(TTBlocks.CALCITE_BRICKS);
-		calciteBricksFamily.skipGeneratingModelsFor.add(TTBlocks.CHISELED_CALCITE_BRICKS);
-		calciteBricksFamily.generateFor(TTBlocks.FAMILY_CALCITE_BRICK);
-		generator.family(TTBlocks.MOSSY_CALCITE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_CALCITE_BRICK);
-		generator.createTrivialBlock(TTBlocks.CHISELED_CALCITE_BRICKS, TexturedModel.COLUMN_WITH_WALL);
+		generator.family(TTBlocks.POLISHED_CALCITE.get()).generateFor(TTBlockFamilies.POLISHED_CALCITE);
+		BlockModelGenerators.BlockFamilyProvider calciteBricksFamily = generator.family(TTBlocks.CALCITE_BRICKS.get());
+		calciteBricksFamily.skipGeneratingModelsFor.add(TTBlocks.CHISELED_CALCITE_BRICKS.get());
+		calciteBricksFamily.generateFor(TTBlockFamilies.CALCITE_BRICK);
+		generator.family(TTBlocks.MOSSY_CALCITE_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_CALCITE_BRICK);
+		generator.createTrivialBlock(TTBlocks.CHISELED_CALCITE_BRICKS.get(), TexturedModel.COLUMN_WITH_WALL);
 
-		generator.createTrivialCube(TTBlocks.CRACKED_TUFF_BRICKS);
-		generator.family(TTBlocks.MOSSY_TUFF_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_TUFF_BRICKS);
+		generator.createTrivialCube(TTBlocks.CRACKED_TUFF_BRICKS.get());
+		generator.family(TTBlocks.MOSSY_TUFF_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_TUFF_BRICKS);
 
-		generator.createTrivialCube(TTBlocks.CRACKED_BRICKS);
-		generator.family(TTBlocks.MOSSY_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_BRICKS);
+		generator.createTrivialCube(TTBlocks.CRACKED_BRICKS.get());
+		generator.family(TTBlocks.MOSSY_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_BRICKS);
 
-		generator.family(TTBlocks.POLISHED_RESIN_BLOCK).generateFor(TTBlocks.FAMILY_POLISHED_RESIN);
-		generator.createTrivialCube(TTBlocks.CRACKED_RESIN_BRICKS);
-		generator.family(TTBlocks.PALE_MOSSY_RESIN_BRICKS).generateFor(TTBlocks.FAMILY_PALE_MOSSY_RESIN_BRICKS);
+		generator.family(TTBlocks.POLISHED_RESIN_BLOCK.get()).generateFor(TTBlockFamilies.POLISHED_RESIN);
+		generator.createTrivialCube(TTBlocks.CRACKED_RESIN_BRICKS.get());
+		generator.family(TTBlocks.PALE_MOSSY_RESIN_BRICKS.get()).generateFor(TTBlockFamilies.PALE_MOSSY_RESIN_BRICKS);
 
-		generator.family(TTBlocks.MOSSY_COBBLED_DEEPSLATE).generateFor(TTBlocks.FAMILY_MOSSY_COBBLED_DEEPSLATE);
-		generator.family(TTBlocks.MOSSY_DEEPSLATE_BRICKS).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_BRICKS);
-		generator.family(TTBlocks.MOSSY_DEEPSLATE_TILES).generateFor(TTBlocks.FAMILY_MOSSY_DEEPSLATE_TILES);
+		generator.family(TTBlocks.MOSSY_COBBLED_DEEPSLATE.get()).generateFor(TTBlockFamilies.MOSSY_COBBLED_DEEPSLATE);
+		generator.family(TTBlocks.MOSSY_DEEPSLATE_BRICKS.get()).generateFor(TTBlockFamilies.MOSSY_DEEPSLATE_BRICKS);
+		generator.family(TTBlocks.MOSSY_DEEPSLATE_TILES.get()).generateFor(TTBlockFamilies.MOSSY_DEEPSLATE_TILES);
 
-		this.wallSmooth(generator, TTBlocks.SMOOTH_SANDSTONE_WALL, Blocks.SANDSTONE);
-		this.stairsCut(generator, TTBlocks.CUT_SANDSTONE_STAIRS, Blocks.CUT_SANDSTONE, Blocks.SANDSTONE);
-		this.wall(generator, TTBlocks.CUT_SANDSTONE_WALL, Blocks.CUT_SANDSTONE);
+		this.wallSmooth(generator, TTBlocks.SMOOTH_SANDSTONE_WALL.get(), Blocks.SANDSTONE);
+		this.stairsCut(generator, TTBlocks.CUT_SANDSTONE_STAIRS.get(), Blocks.CUT_SANDSTONE, Blocks.SANDSTONE);
+		this.wall(generator, TTBlocks.CUT_SANDSTONE_WALL.get(), Blocks.CUT_SANDSTONE);
 
-		this.wallSmooth(generator, TTBlocks.SMOOTH_RED_SANDSTONE_WALL, Blocks.RED_SANDSTONE);
-		this.stairsCut(generator, TTBlocks.CUT_RED_SANDSTONE_STAIRS, Blocks.CUT_RED_SANDSTONE, Blocks.RED_SANDSTONE);
-		this.wall(generator, TTBlocks.CUT_RED_SANDSTONE_WALL, Blocks.CUT_RED_SANDSTONE);
+		this.wallSmooth(generator, TTBlocks.SMOOTH_RED_SANDSTONE_WALL.get(), Blocks.RED_SANDSTONE);
+		this.stairsCut(generator, TTBlocks.CUT_RED_SANDSTONE_STAIRS.get(), Blocks.CUT_RED_SANDSTONE, Blocks.RED_SANDSTONE);
+		this.wall(generator, TTBlocks.CUT_RED_SANDSTONE_WALL.get(), Blocks.CUT_RED_SANDSTONE);
 
-		this.wall(generator, TTBlocks.PRISMARINE_BRICK_WALL, Blocks.PRISMARINE_BRICKS);
+		this.wall(generator, TTBlocks.PRISMARINE_BRICK_WALL.get(), Blocks.PRISMARINE_BRICKS);
 
-		this.wall(generator, TTBlocks.DARK_PRISMARINE_WALL, Blocks.DARK_PRISMARINE);
+		this.wall(generator, TTBlocks.DARK_PRISMARINE_WALL.get(), Blocks.DARK_PRISMARINE);
 
 		final BlockModelGenerators.BlockFamilyProvider endStoneFamily = generator.family(Blocks.END_STONE);
 		endStoneFamily.skipGeneratingModelsFor.add(Blocks.END_STONE);
 		endStoneFamily.generateFor(BlockFamilies.END_STONE);
-		generator.family(TTBlocks.CHORAL_END_STONE).generateFor(TTBlocks.FAMILY_CHORAL_END_STONE);
-		generator.createTrivialCube(TTBlocks.CRACKED_END_STONE_BRICKS);
-		generator.createTrivialCube(TTBlocks.CHISELED_END_STONE_BRICKS);
-		generator.family(TTBlocks.CHORAL_END_STONE_BRICKS).generateFor(TTBlocks.FAMILY_CHORAL_END_STONE_BRICKS);
+		generator.family(TTBlocks.CHORAL_END_STONE.get()).generateFor(TTBlockFamilies.CHORAL_END_STONE);
+		generator.createTrivialCube(TTBlocks.CRACKED_END_STONE_BRICKS.get());
+		generator.createTrivialCube(TTBlocks.CHISELED_END_STONE_BRICKS.get());
+		generator.family(TTBlocks.CHORAL_END_STONE_BRICKS.get()).generateFor(TTBlockFamilies.CHORAL_END_STONE_BRICKS);
 
-		generator.createTrivialCube(TTBlocks.CRACKED_PURPUR_BLOCK);
-		generator.createTrivialCube(TTBlocks.CHISELED_PURPUR_BLOCK);
-		this.wall(generator, TTBlocks.PURPUR_WALL, Blocks.PURPUR_BLOCK);
+		generator.createTrivialCube(TTBlocks.CRACKED_PURPUR_BLOCK.get());
+		generator.createTrivialCube(TTBlocks.CHISELED_PURPUR_BLOCK.get());
+		this.wall(generator, TTBlocks.PURPUR_WALL.get(), Blocks.PURPUR_BLOCK);
 
-		this.createCoffin(generator, TTBlocks.COFFIN, Blocks.DEEPSLATE, CoffinSpawnerState.INACTIVE.getHeadTexture(), CoffinSpawnerState.INACTIVE.getFootTexture());
+		this.createCoffin(generator, TTBlocks.COFFIN.get(), Blocks.DEEPSLATE, CoffinSpawnerState.INACTIVE.getHeadTexture(), CoffinSpawnerState.INACTIVE.getFootTexture());
 
-		generator.registerSimpleItemModel(TTBlocks.SURVEYOR, ModelLocationUtils.getModelLocation(TTBlocks.SURVEYOR));
+		generator.registerSimpleItemModel(TTBlocks.SURVEYOR.get(), ModelLocationUtils.getModelLocation(TTBlocks.SURVEYOR.get()));
 	}
 
 	public void wallSmooth(BlockModelGenerators generator, Block wallBlock, Block originalBlock) {
@@ -238,65 +238,65 @@ public final class TTModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(ItemModelGenerators generator) {
-		generator.generateFlatItem(TTItems.AURORA_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.BAIT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.BLOOM_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.BOLT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.BULLSEYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.CARRIER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.CLUCK_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.CRAWL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.CRESCENT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.CULTIVATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.DROUGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.ENCLOSURE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.ESSENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.EYE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.FOCUS_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.FROST_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.HARE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.HEIGHT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.HUMP_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.ILLUMINATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.INCIDENCE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.LUMBER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.NAVIGATOR_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.NEEDLES_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.OMEN_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.PLUME_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.PROTECTION_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.SHED_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.SHINE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.SHOWER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.SPADE_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.SPROUT_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.VESSEL_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.WITHER_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.AURORA_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BAIT_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BLOOM_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BOLT_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.BULLSEYE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CARRIER_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CLUCK_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CRAWL_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CRESCENT_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CULTIVATOR_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.DROUGHT_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ENCLOSURE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ESSENCE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.EYE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.FOCUS_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.FROST_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.HARE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.HEIGHT_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.HUMP_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ILLUMINATOR_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.INCIDENCE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.LUMBER_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.NAVIGATOR_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.NEEDLES_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.OMEN_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.PLUME_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.PROTECTION_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SHED_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SHINE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SHOWER_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SPADE_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.SPROUT_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.VESSEL_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.WITHER_POTTERY_SHERD.get(), ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MATRIX_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MARTYR_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ZEPHYR_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.OVERGROWTH_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.COT_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.GEODE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.EMBRACE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(TTItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.MANEDROP_GERM, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.GUZMANIA_SEEDS, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.ECTOPLASM.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.CYAN_ROSE_SEEDS.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.DAWNTRAIL_SEEDS.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MANEDROP_GERM.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.GUZMANIA_SEEDS.get(), ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(TTItems.MUSIC_DISC_OSSUAIRE, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MUSIC_DISC_STASIS.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.MUSIC_DISC_OSSUAIRE.get(), ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(TTItems.APPARITION_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(TTItems.APPARITION_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 	}
 
 	private static void createManedropCrop(BlockModelGenerators generator) {
-		final Block block = TTBlocks.MANEDROP_CROP;
+		final Block block = TTBlocks.MANEDROP_CROP.get();
 		final PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ManedropCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
 				case UPPER -> {
@@ -347,7 +347,7 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createGuzmaniaCrop(BlockModelGenerators generator) {
-		final Block block = TTBlocks.GUZMANIA_CROP;
+		final Block block = TTBlocks.GUZMANIA_CROP.get();
 		final PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(GuzmaniaCropBlock.AGE, BlockStateProperties.DOUBLE_BLOCK_HALF).generate((age, half) -> {
 			return switch (half) {
 				case UPPER -> {
@@ -398,7 +398,7 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createDawntrail(BlockModelGenerators generator) {
-		final Block block = TTBlocks.DAWNTRAIL;
+		final Block block = TTBlocks.DAWNTRAIL.get();
 		generator.registerSimpleFlatItemModel(block);
 		final MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
 
@@ -426,7 +426,7 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createDawntrailCrop(BlockModelGenerators generator) {
-		final Block crop = TTBlocks.DAWNTRAIL_CROP;
+		final Block crop = TTBlocks.DAWNTRAIL_CROP.get();
 		final IntegerProperty ageProperty = DawntrailCropBlock.AGE;
 		final Int2ObjectMap<Identifier> int2ObjectMap = new Int2ObjectOpenHashMap<>();
 		final PropertyDispatch<MultiVariant> propertyDispatch = PropertyDispatch.initial(ageProperty)
@@ -442,7 +442,7 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createLithopsCrop(BlockModelGenerators generator) {
-		final Block crop = TTBlocks.LITHOPS_CROP;
+		final Block crop = TTBlocks.LITHOPS_CROP.get();
 		generator.registerSimpleFlatItemModel(crop.asItem());
 
 		final MultiVariant cropModel = BlockModelGenerators.plainVariant(generator.createSuffixedVariant(crop, "_stage_0", ModelTemplates.CROP, TextureMapping::crop));
@@ -496,7 +496,7 @@ public final class TTModelProvider extends FabricModelProvider {
 	}
 
 	private static void createLithops(BlockModelGenerators generator) {
-		final Block block = TTBlocks.LITHOPS;
+		final Block block = TTBlocks.LITHOPS.get();
 		generator.registerSimpleFlatItemModel(block.asItem());
 
 		final MultiVariant model1 = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_1"));
@@ -511,13 +511,13 @@ public final class TTModelProvider extends FabricModelProvider {
 			model4, BlockModelGenerators.FLOWER_BED_MODEL_4_SEGMENT_CONDITION
 		);
 
-		final Block pottedBlock = TTBlocks.POTTED_LITHOPS;
+		final Block pottedBlock = TTBlocks.POTTED_LITHOPS.get();
 		final MultiVariant pottedModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(pottedBlock));
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pottedModel));
 	}
 
 	private static void createEctoplasmBlock(BlockModelGenerators generator) {
-		final Block block = TTBlocks.ECTOPLASM_BLOCK;
+		final Block block = TTBlocks.ECTOPLASM_BLOCK.get();
 		final Identifier model = TTConstants.id("block/ectoplasm_block");
 		final MultiVariant variant = BlockModelGenerators.plainVariant(model);
 
