@@ -18,23 +18,22 @@
 package net.frozenblock.trailiertales.config;
 
 import blue.endless.jankson.Comment;
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
+import net.frozenblock.lib.config.v1.instance.BasicConfig;
+import net.frozenblock.lib.config.v1.instance.json.JsonBasicConfig;
+import net.frozenblock.lib.config.v1.instance.json.JsonType;
+import net.frozenblock.lib.config.v1.registry.BasicConfigRegistry;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import static net.frozenblock.trailiertales.TTPreLoadConstants.MOD_ID;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public final class TTMixinsConfig {
-	public static final Config<TTMixinsConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
+	public static final BasicConfig<TTMixinsConfig> INSTANCE = BasicConfigRegistry.register(
+		new JsonBasicConfig<>(
 			MOD_ID,
 			TTMixinsConfig.class,
 			TTPreLoadConstants.configPath("mixins", true),
-			JsonType.JSON5,
-			false
+			JsonType.JSON5
 		)
 	);
 
