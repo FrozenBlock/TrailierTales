@@ -82,23 +82,23 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 		LevelReader level,
 		ScheduledTickAccess ticks,
 		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
+		Direction directionToNeighbour,
+		BlockPos neighbourPos,
+		BlockState neighbourState,
 		RandomSource random
 	) {
 		if (!hasAnyFace(state)) return Blocks.AIR.defaultBlockState();
-		return hasFace(state, direction) && !canAttachTo(level, direction, neighborPos, neighborState) ? removeFace(state, getFaceProperty(direction)) : state;
+		return hasFace(state, directionToNeighbour) && !canAttachTo(level, directionToNeighbour, neighbourPos, neighbourState)
+			? removeFace(state, getFaceProperty(directionToNeighbour))
+			: state;
 	}
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		boolean canSurvive = false;
 		for (Direction direction : DIRECTIONS) {
 			if (!hasFace(state, direction)) continue;
 			final BlockPos offsetPos = pos.relative(direction);
 			if (!canAttachTo(level, direction, offsetPos, level.getBlockState(offsetPos))) return false;
-			canSurvive = true;
 		}
 		return true;
 	}

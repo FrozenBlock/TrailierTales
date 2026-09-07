@@ -30,21 +30,17 @@ import net.minecraft.world.item.Items;
 @ClientOnly
 public final class TTItemConfigGui {
 
-	private TTItemConfigGui() {
-		throw new UnsupportedOperationException("TTItemConfigGui contains only static declarations.");
-	}
-
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		category.addEntry(booleanEntry(entryBuilder, "sherd_duplication_recipe", TTItemConfig.SHERD_DUPLICATION_RECIPE));
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
+		category.addEntry(booleanEntry(builder, "sherd_duplication_recipe", TTItemConfig.SHERD_DUPLICATION_RECIPE));
 
 		// BRUSH
-		var smoothBrushAnimation = booleanEntry(entryBuilder, "smooth_brush_animations", TTItemConfig.BRUSH_SMOOTH_ANIMATION);
-		var halfBrushEffects = booleanEntry(entryBuilder, "half_brush_effects", TTItemConfig.BRUSH_HALF_BRUSH_EFFECTS);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, Component.translatable(Items.BRUSH.getDescriptionId()),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, Component.translatable(Items.BRUSH.getDescriptionId()),
 			false,
 			tooltip("item_category", Component.translatable(Items.BRUSH.getDescriptionId())),
-			smoothBrushAnimation, halfBrushEffects
+			booleanEntry(builder, "smooth_brush_animations", TTItemConfig.BRUSH_SMOOTH_ANIMATION),
+			booleanEntry(builder, "half_brush_effects", TTItemConfig.BRUSH_HALF_BRUSH_EFFECTS)
 		);
 	}
+
+	private TTItemConfigGui() {}
 }

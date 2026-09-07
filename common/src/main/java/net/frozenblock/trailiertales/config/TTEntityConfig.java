@@ -52,4 +52,6 @@ public final class TTEntityConfig {
 
 	// ARMOR STAND
 	public static final ConfigEntry<Boolean> ARMOR_STAND_HAS_ARMS = CONFIG.entryBuilder("armorStand/hasArms", EntryType.BOOL, true).requireRestart().build();
+
+	private TTEntityConfig() {}
 }

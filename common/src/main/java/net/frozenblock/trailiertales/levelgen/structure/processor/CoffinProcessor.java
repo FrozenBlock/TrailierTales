@@ -34,12 +34,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockent
 import org.jetbrains.annotations.Nullable;
 
 public record CoffinProcessor(List<EntityType<?>> entities, boolean withinCatacombs) implements RuleBlockEntityModifier {
-	public static final MapCodec<CoffinProcessor> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-			BuiltInRegistries.ENTITY_TYPE.byNameCodec().listOf().fieldOf("entities").forGetter(modifier -> modifier.entities),
-			Codec.BOOL.fieldOf("within_catacombs").orElse(false).forGetter(modifier -> modifier.withinCatacombs)
-		).apply(instance, CoffinProcessor::new)
-	);
+	public static final MapCodec<CoffinProcessor> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		BuiltInRegistries.ENTITY_TYPE.byNameCodec().listOf().fieldOf("entities").forGetter(modifier -> modifier.entities),
+		Codec.BOOL.fieldOf("within_catacombs").orElse(false).forGetter(modifier -> modifier.withinCatacombs)
+	).apply(instance, CoffinProcessor::new));
 
 	public CoffinProcessor(boolean withinCatacombs, EntityType<?>... entities) {
 		this(List.of(entities), withinCatacombs);

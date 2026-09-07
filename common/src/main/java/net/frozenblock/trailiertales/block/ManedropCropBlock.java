@@ -93,12 +93,12 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 		LevelReader level,
 		ScheduledTickAccess ticks,
 		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
+		Direction directionToNeighbour,
+		BlockPos neighbourPos,
+		BlockState neighbourState,
 		RandomSource random
 	) {
-		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+		if (isDouble(state.getValue(AGE))) return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
 		return state.canSurvive(level, pos) ? state : Blocks.AIR.defaultBlockState();
 	}
 
@@ -120,7 +120,9 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
-		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().get(GameRules.MOB_GRIEFING)) level.destroyBlock(pos, true, entity);
+		if (level instanceof ServerLevel server && entity instanceof Ravager && server.getGameRules().get(GameRules.MOB_GRIEFING)) {
+			level.destroyBlock(pos, true, entity);
+		}
 		super.entityInside(state, level, pos, entity, effectApplier, isPrecise);
 	}
 
@@ -130,8 +132,7 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-	}
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity by, ItemStack itemStack) {}
 
 	@Override
 	public boolean isRandomlyTicking(BlockState state) {
@@ -203,6 +204,5 @@ public class ManedropCropBlock extends DoublePlantBlock implements BonemealableB
 		if (posAndState != null) this.grow(level, posAndState.state, posAndState.pos, 1);
 	}
 
-	record PosAndState(BlockPos pos, BlockState state) {
-	}
+	record PosAndState(BlockPos pos, BlockState state) {}
 }

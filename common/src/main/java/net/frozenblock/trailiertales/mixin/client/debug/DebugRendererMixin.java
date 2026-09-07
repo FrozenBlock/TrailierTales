@@ -46,5 +46,4 @@ public class DebugRendererMixin {
 	) {
 		if (TTConstants.DEBUG_COFFINS) this.renderers.add(new CoffinDebugRenderer(minecraft));
 	}
-
 }

@@ -59,10 +59,17 @@ public abstract class LivingEntityMixin {
 		)
 	)
 	public void trailierTales$onHurtByPlayer(
-		PlayerHurtEntityTrigger instance, ServerPlayer player, Entity victim, DamageSource source, float originalDamage, float actualDamage, boolean blocked, Operation<Void> original
+		PlayerHurtEntityTrigger instance,
+		ServerPlayer player,
+		Entity victim,
+		DamageSource source,
+		float originalDamage,
+		float actualDamage,
+		boolean blocked,
+		Operation<Void> original
 	) {
 		final LivingEntity livingEntity = LivingEntity.class.cast(this);
-		final EntityCoffinData coffinData = livingEntity.frozenLib$getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		final EntityCoffinData coffinData = TTAttachmentTypes.ENTITY_COFFIN_DATA.get(livingEntity);
 		if (coffinData != null) coffinData.updateLastInteraction(livingEntity.level().getGameTime());
 
 		original.call(instance, player, victim, source, originalDamage, actualDamage, blocked);
@@ -82,7 +89,7 @@ public abstract class LivingEntityMixin {
 		if (entity == null) entity = source.getDirectEntity();
 
 		if (entity != null) {
-			final EntityCoffinData coffinData = entity.frozenLib$getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+			final EntityCoffinData coffinData = TTAttachmentTypes.ENTITY_COFFIN_DATA.get(entity);
 			if (coffinData != null) coffinData.updateLastInteraction(entity.level().getGameTime());
 		}
 
@@ -94,7 +101,7 @@ public abstract class LivingEntityMixin {
 		int original,
 		ServerLevel level, @Nullable Entity killer
 	) {
-		final EntityCoffinData coffinData = LivingEntity.class.cast(this).frozenLib$getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		final EntityCoffinData coffinData = TTAttachmentTypes.ENTITY_COFFIN_DATA.get(LivingEntity.class.cast(this));
 		if (coffinData != null && killer instanceof Player player && player.hasEffect(TTMobEffects.SIEGE_OMEN.asHolder())) return original * 2;
 
 		return original;
@@ -105,7 +112,7 @@ public abstract class LivingEntityMixin {
 		if (reason != Entity.RemovalReason.KILLED || this.lastHurtByPlayerMemoryTime <= 0) return;
 
 		final LivingEntity livingEntity = LivingEntity.class.cast(this);
-		final EntityCoffinData coffinData = livingEntity.frozenLib$getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		final EntityCoffinData coffinData = TTAttachmentTypes.ENTITY_COFFIN_DATA.get(livingEntity);
 		if (!(livingEntity.level() instanceof ServerLevel serverLevel) || coffinData == null) return;
 
 		final Optional<CoffinSpawner> optionalCoffinSpawner = coffinData.getSpawner(serverLevel);
@@ -140,7 +147,7 @@ public abstract class LivingEntityMixin {
 	)
 	public void trailierTales$baseTick(CallbackInfo info) {
 		final LivingEntity livingEntity = LivingEntity.class.cast(this);
-		final EntityCoffinData coffinData = livingEntity.frozenLib$getAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		final EntityCoffinData coffinData = TTAttachmentTypes.ENTITY_COFFIN_DATA.get(livingEntity);
 		if (coffinData == null) return;
 
 		coffinData.tick(livingEntity, livingEntity.level());

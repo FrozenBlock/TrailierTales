@@ -29,7 +29,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 
-public class RuinsPieceHandler {
+public final class RuinsPieceHandler {
 	private static final boolean LOG_RUINS_PIECE_LOADING = false;
 	private static final Map<String, Integer> DIRECTORY_TO_PIECE_OFFSET_MAP = ImmutableMap.<String, Integer>builder()
 		.put("buried", 0)
@@ -44,7 +44,6 @@ public class RuinsPieceHandler {
 		.put("nine_from_top", 9)
 		.put("ten_from_top", 10)
 		.build();
-
 	private final List<Identifier> ruinsPieces = new ArrayList<>();
 	private final RuinsStructure.Type type;
 
@@ -91,5 +90,4 @@ public class RuinsPieceHandler {
 
 		return OptionalInt.empty();
 	}
-
 }

@@ -53,22 +53,22 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
-		return apparition.getBrain().hasMemoryValue(TTMemoryModuleTypes.NEAREST_AIDABLE.get()) && !apparition.isHiding();
+	protected boolean checkExtraStartConditions(ServerLevel level, Apparition body) {
+		return body.getBrain().hasMemoryValue(TTMemoryModuleTypes.NEAREST_AIDABLE.get()) && !body.isHiding();
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
+	protected boolean canStillUse(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
 		return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
 			&& brain.hasMemoryValue(TTMemoryModuleTypes.NEAREST_AIDABLE.get())
 			&& brain.hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME.get());
 	}
 
 	@Override
-	protected void start(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
-		apparition.playSound(TTSounds.APPARITION_AID.get(), apparition.getSoundVolume(), apparition.getVoicePitch());
+	protected void start(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
+		body.playSound(TTSounds.APPARITION_AID.get(), body.getSoundVolume(), body.getVoicePitch());
 		brain.setMemory(TTMemoryModuleTypes.AIDING_TIME.get(), 61);
 		final List<UUID> trackingUUIDs = new ArrayList<>();
 		brain.getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES.get()).ifPresent(nearbyAidables -> {
@@ -78,55 +78,55 @@ public class ApparitionAid extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
+	protected void stop(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
 		brain.setMemoryWithExpiry(TTMemoryModuleTypes.AID_COOLDOWN.get(), Unit.INSTANCE, 200L);
 		brain.eraseMemory(TTMemoryModuleTypes.AIDING_ENTITIES.get());
-		apparition.setAidAnimProgress(0F);
+		body.setAidAnimProgress(0F);
 	}
 
 	public static final ParticleOptions BUBBLE_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_BUBBLE.get(), 162F / 255F, 181F/ 255F, 217F / 255F);
 	public static final ParticleOptions EFFECT_PARTICLE = ColorParticleOption.create(TTParticleTypes.GLOWING_ENTITY_EFFECT.get(), 162F / 255F, 181F/ 255F, 217F / 255F);
 
 	@Override
-	protected void tick(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
+	protected void tick(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
 		final List<LivingEntity> entities = brain.getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES.get()).orElse(ImmutableList.of());
 		final List<UUID> trackingUUIDs = new ArrayList<>();
 		entities.forEach(aidable -> trackingUUIDs.add(aidable.getUUID()));
 		if (trackingUUIDs.isEmpty()) {
-			this.doStop(level, apparition, timestamp);
+			this.doStop(level, body, timestamp);
 			return;
 		}
 		brain.setMemory(TTMemoryModuleTypes.AIDING_ENTITIES.get(), trackingUUIDs);
 
 		final int aidingTime = brain.getMemory(TTMemoryModuleTypes.AIDING_TIME.get()).orElse(0);
 		if (aidingTime > 1) {
-			entities.forEach(livingEntity -> spawnParticles(level, livingEntity, apparition.getRandom().nextInt(1, 2), BUBBLE_PARTICLE));
-			apparition.setAidAnimProgress(1F);
+			entities.forEach(livingEntity -> spawnParticles(level, livingEntity, body.getRandom().nextInt(1, 2), BUBBLE_PARTICLE));
+			body.setAidAnimProgress(1F);
 			final LivingEntity nearestAidable = brain.getMemory(TTMemoryModuleTypes.NEAREST_AIDABLE.get()).orElse(null);
 			if (nearestAidable != null) {
 				brain.eraseMemory(MemoryModuleType.WALK_TARGET);
 				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-				apparition.getNavigation().moveTo(nearestAidable.getX(), nearestAidable.getEyeY() + 0.5D, nearestAidable.getZ(), 0, 1.25D);
+				body.getNavigation().moveTo(nearestAidable.getX(), nearestAidable.getEyeY() + 0.5D, nearestAidable.getZ(), 0, 1.25D);
 			}
 			return;
 		} else if (aidingTime == 1) {
 			brain.getMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(attackTarget -> entities.forEach(entity -> {
 				if (!(entity instanceof Mob mob)) return;
 				mob.setTarget(attackTarget);
-				spawnParticles(level, entity, apparition.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
+				spawnParticles(level, entity, body.getRandom().nextInt(9, 18), EFFECT_PARTICLE);
 			}));
 		}
-		this.doStop(level, apparition, timestamp);
+		this.doStop(level, body, timestamp);
 	}
 
-	private static void spawnParticles(ServerLevel level, LivingEntity entity, int count, ParticleOptions options) {
+	private static void spawnParticles(ServerLevel level, LivingEntity body, int count, ParticleOptions options) {
 		level.sendParticles(
 			options,
-			entity.getX(), entity.getY(0.6666666666666666D), entity.getZ(),
+			body.getX(), body.getY(0.6666666666666666D), body.getZ(),
 			count,
-			entity.getBbWidth() / 4F, entity.getBbHeight() / 4F, entity.getBbWidth() / 4F,
+			body.getBbWidth() / 4F, body.getBbHeight() / 4F, body.getBbWidth() / 4F,
 			0.05D
 		);
 	}

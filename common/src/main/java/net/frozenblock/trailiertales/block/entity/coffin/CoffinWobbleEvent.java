@@ -50,7 +50,6 @@ public enum CoffinWobbleEvent {
 	ACTIVATE(0.2F, false, (coffin, state) -> TTBlockConfig.COFFIN_WOBBLE_ACTIVATION.get()),
 	POTION(0.1F, true, (coffin, state) -> TTBlockConfig.COFFIN_WOBBLE_POTION_SPAWNING.get()),
 	EXPERIENCE_BOTTLE(0.1F, true, (coffin, state) -> TTBlockConfig.COFFIN_WOBBLE_EXPERIENCE_BOTTLE_SPAWNING.get());
-
 	private static final WeightedList<MobEffectInstance> MOB_EFFECTS = WeightedList.<MobEffectInstance>builder()
 		.add(new MobEffectInstance(MobEffects.MINING_FATIGUE, 120 * 20), 2)
 		.add(new MobEffectInstance(MobEffects.POISON, 30 * 20), 1)

@@ -39,8 +39,8 @@ public class ApparitionSpecificSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
-		final Brain<?> brain = entity.getBrain();
+	protected void doTick(ServerLevel level, LivingEntity body) {
+		final Brain<?> brain = body.getBrain();
 		final ArrayList<Apparition> apparitions = Lists.newArrayList();
 		final List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
 		for (LivingEntity livingEntity : entities) {

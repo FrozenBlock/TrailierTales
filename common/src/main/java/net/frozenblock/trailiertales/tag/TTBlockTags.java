@@ -22,7 +22,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
-public class TTBlockTags {
+public final class TTBlockTags {
 	public static final TagKey<Block> SOUND_UNPOLISHED_BRICKS = bind("sound/unpolished_bricks");
 	public static final TagKey<Block> SOUND_POLISHED_BRICKS = bind("sound/polished_bricks");
 	public static final TagKey<Block> SOUND_POLISHED_CALCITE = bind("sound/polished_calcite");
@@ -45,4 +45,6 @@ public class TTBlockTags {
 	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registries.BLOCK, TTConstants.id(path));
 	}
+
+	private TTBlockTags() {}
 }

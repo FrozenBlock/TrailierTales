@@ -49,4 +49,6 @@ public final class TTBlockConfig {
 	public static final ConfigEntry<Boolean> POLISHED_TUFF_SOUNDS = CONFIG.entry("blockSounds/polishedTuffSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> POLISHED_CALCITE_SOUNDS = CONFIG.entry("blockSounds/polishedCalciteSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> CALCITE_BRICKS_SOUNDS = CONFIG.entry("blockSounds/calciteBricksSounds", EntryType.BOOL, true);
+
+	private TTBlockConfig() {}
 }

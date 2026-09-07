@@ -163,7 +163,7 @@ public final class TTSoundTypes {
 		TTSounds.SUSPICIOUS_GRAVEL_WW_FALL.get()
 	);
 
-	public static void init() {}
+	public static void setup() {}
 
 	private TTSoundTypes() {}
 }

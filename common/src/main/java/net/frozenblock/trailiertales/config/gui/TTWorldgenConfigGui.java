@@ -28,52 +28,44 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 @ClientOnly
 public final class TTWorldgenConfigGui {
 
-	private TTWorldgenConfigGui() {
-		throw new UnsupportedOperationException("TTWorldgenConfigGui contains only static declarations.");
-	}
-
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		category.addEntry(booleanEntry(entryBuilder, "catacombs", TTWorldgenConfig.CATACOMBS_GENERATION));
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
+		category.addEntry(booleanEntry(builder, "catacombs", TTWorldgenConfig.CATACOMBS_GENERATION));
 
 		// RUINS GENERATION
-		var genericRuins = booleanEntry(entryBuilder, "generic_ruins", TTWorldgenConfig.GENERIC_RUINS_GENERATION);
-		var snowyRuins = booleanEntry(entryBuilder, "snowy_ruins", TTWorldgenConfig.SNOWY_RUINS_GENERATION);
-		var jungleRuins = booleanEntry(entryBuilder, "jungle_ruins", TTWorldgenConfig.JUNGLE_RUINS_GENERATION);
-		var savannaRuins = booleanEntry(entryBuilder, "savanna_ruins", TTWorldgenConfig.SAVANNA_RUINS_GENERATION);
-		var desertRuins = booleanEntry(entryBuilder, "desert_ruins", TTWorldgenConfig.DESERT_RUINS_GENERATION);
-		var badlandsRuins = booleanEntry(entryBuilder, "badlands_ruins", TTWorldgenConfig.BADLANDS_RUINS_GENERATION);
-		var deepslateRuins = booleanEntry(entryBuilder, "deepslate_ruins", TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTConstants.text("ruins"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, TTConstants.text("ruins"),
 			false,
 			TTConstants.tooltip("ruins"),
-			genericRuins, snowyRuins, jungleRuins, savannaRuins, desertRuins, badlandsRuins, deepslateRuins
+			booleanEntry(builder, "generic_ruins", TTWorldgenConfig.GENERIC_RUINS_GENERATION),
+			booleanEntry(builder, "snowy_ruins", TTWorldgenConfig.SNOWY_RUINS_GENERATION),
+			booleanEntry(builder, "jungle_ruins", TTWorldgenConfig.JUNGLE_RUINS_GENERATION),
+			booleanEntry(builder, "savanna_ruins", TTWorldgenConfig.SAVANNA_RUINS_GENERATION),
+			booleanEntry(builder, "desert_ruins", TTWorldgenConfig.DESERT_RUINS_GENERATION),
+			booleanEntry(builder, "badlands_ruins", TTWorldgenConfig.BADLANDS_RUINS_GENERATION),
+			booleanEntry(builder, "deepslate_ruins", TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION)
 		);
 
 		// VEGETATION GENERATION
-		var generateTorchflower = booleanEntry(entryBuilder, "generate_torchflower", TTWorldgenConfig.TORCHFLOWER_GENERATION);
-		var generatePitcher = booleanEntry(entryBuilder, "generate_pitcher", TTWorldgenConfig.PITCHER_GENERATION);
-		var generateCyanRose = booleanEntry(entryBuilder, "generate_cyan_rose", TTWorldgenConfig.CYAN_ROSE_GENERATION);
-		var generateManedrop = booleanEntry(entryBuilder, "generate_manedrop", TTWorldgenConfig.MANEDROP_GENERATION);
-		var generateGuzmania = booleanEntry(entryBuilder, "generate_guzmania", TTWorldgenConfig.GUZMANIA_GENERATION);
-		var generateDawntrail = booleanEntry(entryBuilder, "generate_dawntrail", TTWorldgenConfig.DAWNTRAIL_GENERATION);
-		var generateLithops = booleanEntry(entryBuilder, "generate_lithops", TTWorldgenConfig.LITHOPS_GENERATION);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTConstants.text("vegetation"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, TTConstants.text("vegetation"),
 			false,
 			TTConstants.tooltip("vegetation"),
-			generateTorchflower, generatePitcher, generateCyanRose, generateManedrop, generateGuzmania, generateLithops, generateDawntrail
+			booleanEntry(builder, "generate_torchflower", TTWorldgenConfig.TORCHFLOWER_GENERATION),
+			booleanEntry(builder, "generate_pitcher", TTWorldgenConfig.PITCHER_GENERATION),
+			booleanEntry(builder, "generate_cyan_rose", TTWorldgenConfig.CYAN_ROSE_GENERATION),
+			booleanEntry(builder, "generate_manedrop", TTWorldgenConfig.MANEDROP_GENERATION),
+			booleanEntry(builder, "generate_guzmania", TTWorldgenConfig.GUZMANIA_GENERATION),
+			booleanEntry(builder, "generate_dawntrail", TTWorldgenConfig.DAWNTRAIL_GENERATION),
+			booleanEntry(builder, "generate_lithops", TTWorldgenConfig.LITHOPS_GENERATION)
 		);
 
 		// END CITY GENERATION
-		var crackedEndCity = booleanEntry(entryBuilder, "cracked_end_city", TTWorldgenConfig.END_CITY_CRACKED_GENERATION);
-		var choralEndCity = booleanEntry(entryBuilder, "choral_end_city", TTWorldgenConfig.END_CITY_CHORAL_GENERATION);
-		var chiseledEndCity = booleanEntry(entryBuilder, "chiseled_end_city", TTWorldgenConfig.END_CITY_CHISELED_GENERATION);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTConstants.text("end_city"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, TTConstants.text("end_city"),
 			false,
 			TTConstants.tooltip("end_city"),
-			crackedEndCity, choralEndCity, chiseledEndCity
+			booleanEntry(builder, "cracked_end_city", TTWorldgenConfig.END_CITY_CRACKED_GENERATION),
+			booleanEntry(builder, "choral_end_city", TTWorldgenConfig.END_CITY_CHORAL_GENERATION),
+			booleanEntry(builder, "chiseled_end_city", TTWorldgenConfig.END_CITY_CHISELED_GENERATION)
 		);
 	}
+
+	private TTWorldgenConfigGui() {}
 }

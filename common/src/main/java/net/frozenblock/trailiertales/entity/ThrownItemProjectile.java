@@ -40,16 +40,16 @@ import net.minecraft.world.phys.EntityHitResult;
 
 public class ThrownItemProjectile extends ThrowableItemProjectile {
 
-	public ThrownItemProjectile(EntityType<? extends ThrownItemProjectile> entityType, Level level) {
-		super(entityType, level);
+	public ThrownItemProjectile(EntityType<? extends ThrownItemProjectile> type, Level level) {
+		super(type, level);
 	}
 
-	public ThrownItemProjectile(Level level, LivingEntity shooter, ItemStack stack) {
-		super(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), shooter, level, stack);
+	public ThrownItemProjectile(Level level, LivingEntity shooter, ItemStack itemStack) {
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), shooter, level, itemStack);
 	}
 
-	public ThrownItemProjectile(double x, double y, double z, Level level, ItemStack stack) {
-		super(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), x, y, z, level, stack);
+	public ThrownItemProjectile(double x, double y, double z, Level level, ItemStack itemStack) {
+		super(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), x, y, z, level, itemStack);
 	}
 
 	@Override
@@ -68,9 +68,9 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void onHitEntity(EntityHitResult result) {
-		super.onHitEntity(result);
-		final Entity entity = result.getEntity();
+	protected void onHitEntity(EntityHitResult hitResult) {
+		super.onHitEntity(hitResult);
+		final Entity entity = hitResult.getEntity();
 		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
 		if (!(entity instanceof Apparition)) this.spawnParticles();
@@ -78,8 +78,8 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void onHitBlock(BlockHitResult result) {
-		super.onHitBlock(result);
+	protected void onHitBlock(BlockHitResult hitResult) {
+		super.onHitBlock(hitResult);
 		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem().copy()));
 		this.discard();
 	}
@@ -100,5 +100,4 @@ public class ThrownItemProjectile extends ThrowableItemProjectile {
 		);
 		this.discard();
 	}
-
 }

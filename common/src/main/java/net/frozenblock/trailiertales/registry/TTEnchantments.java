@@ -34,8 +34,8 @@ import net.minecraft.world.item.enchantment.effects.MultiplyValue;
 import net.minecraft.world.level.block.Block;
 
 public final class TTEnchantments {
-	public static final ResourceKey<Enchantment> REBRUSH = key("rebrush");
-	public static final ResourceKey<Enchantment> REAPING = key("reaping");
+	public static final ResourceKey<Enchantment> REBRUSH = createKey("rebrush");
+	public static final ResourceKey<Enchantment> REAPING = createKey("reaping");
 
 	public static void bootstrap(BootstrapContext<Enchantment> context) {
 		final HolderGetter<DamageType> damageTypes = context.lookup(Registries.DAMAGE_TYPE);
@@ -85,7 +85,9 @@ public final class TTEnchantments {
 		context.register(registryKey, builder.build(registryKey.identifier()));
 	}
 
-	private static ResourceKey<Enchantment> key(String path) {
-		return ResourceKey.create(Registries.ENCHANTMENT, TTConstants.id(path));
+	private static ResourceKey<Enchantment> createKey(String name) {
+		return ResourceKey.create(Registries.ENCHANTMENT, TTConstants.id(name));
 	}
+
+	private TTEnchantments() {}
 }

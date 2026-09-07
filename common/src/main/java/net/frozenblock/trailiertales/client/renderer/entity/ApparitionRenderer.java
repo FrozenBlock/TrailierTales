@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -56,13 +57,13 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		super(context, new ApparitionModel(context.bakeLayer(TTModelLayers.APPARITION)), 0.5F);
 		this.addLayer(new ApparitionLayer(
 			this,
-			renderState -> renderState.innerTransparency,
-			renderState -> renderState.outerTransparency,
+			state -> state.innerTransparency,
+			state -> state.outerTransparency,
 			TEXTURE,
 			0
 		));
 
-		final ApparitionModel.AlphaFunction<ApparitionRenderState> aidAlpha = renderState -> renderState.aidAnimProgress * 0.8F;
+		final ApparitionModel.AlphaFunction<ApparitionRenderState> aidAlpha = state -> state.aidAnimProgress * 0.8F;
 		this.addLayer(new ApparitionLayer(
 			this,
 			aidAlpha,
@@ -71,7 +72,7 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 			1
 		));
 
-		final ApparitionModel.AlphaFunction<ApparitionRenderState> poltergeistAlpha = renderState -> renderState.poltergeistAnimProgress * 0.8F;
+		final ApparitionModel.AlphaFunction<ApparitionRenderState> poltergeistAlpha = state -> state.poltergeistAnimProgress * 0.8F;
 		this.addLayer(new ApparitionLayer(
 			this,
 			poltergeistAlpha,
@@ -84,39 +85,34 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	public void submit(
-		ApparitionRenderState renderState,
-		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		CameraRenderState cameraState
-	) {
-		super.submit(renderState, poseStack, collector, cameraState);
+	public void submit(ApparitionRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+		super.submit(state, poseStack, submitNodeCollector, camera);
 
-		if (renderState.item.isEmpty()) return;
+		if (state.item.isEmpty()) return;
 		poseStack.pushPose();
 		poseStack.translate(0F, 0.425F, 0F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
-		poseStack.mulPose(Axis.YN.rotation(renderState.itemYRot));
-		poseStack.mulPose(Axis.ZN.rotation(renderState.itemZRot));
-		renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
+		poseStack.mulPose(Axis.YN.rotation(state.itemYRot));
+		poseStack.mulPose(Axis.ZN.rotation(state.itemZRot));
+		state.item.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 		poseStack.popPose();
 	}
 
 	@Override
-	protected void setupRotations(ApparitionRenderState renderState, PoseStack poseStack, float bodyRot, float scale) {
-		super.setupRotations(renderState, poseStack, bodyRot, scale);
+	protected void setupRotations(ApparitionRenderState state, PoseStack poseStack, float bodyRot, float entityScale) {
+		super.setupRotations(state, poseStack, bodyRot, entityScale);
 		this.itemYaw = bodyRot;
-		this.shadowStrength = renderState.totalTransparency;
+		this.shadowStrength = state.totalTransparency;
 	}
 
 	@Override
 	@Nullable
-	protected RenderType getRenderType(ApparitionRenderState renderState, final boolean isBodyVisible, final boolean forceTransparent, final boolean appearGlowing) {
+	protected RenderType getRenderType(ApparitionRenderState state, boolean isBodyVisible, boolean forceTransparent, boolean appearGlowing) {
 		return null;
 	}
 
 	@Override
-	public Identifier getTextureLocation(ApparitionRenderState renderState) {
+	public Identifier getTextureLocation(ApparitionRenderState state) {
 		return TEXTURE;
 	}
 
@@ -131,23 +127,30 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 	}
 
 	@Override
-	public void extractRenderState(Apparition apparition, ApparitionRenderState renderState, float partialTicks) {
-		super.extractRenderState(apparition, renderState, partialTicks);
-		renderState.lightCoords = 15728640;
-		renderState.itemYRot = apparition.getItemYRot(partialTicks);
-		renderState.itemZRot = apparition.getItemZRot(partialTicks);
+	public void extractRenderState(Apparition entity, ApparitionRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.itemYRot = getItemYRot(state.ageInTicks);
+		state.itemZRot = getItemZRot(state.ageInTicks);
 
 		final Minecraft minecraft = Minecraft.getInstance();
 		final Player player = minecraft.player;
 		final MobEffectInstance nightVision = player != null ? player.getEffect(MobEffects.NIGHT_VISION) : null;
 		final float nightVisionBlend = nightVision != null ? nightVision.getBlendFactor(player, partialTicks) : 0F;
-		renderState.totalTransparency = apparition.totalTransparency(nightVisionBlend, partialTicks);
-		renderState.innerTransparency = apparition.getInnerTransparency(nightVisionBlend, partialTicks);
-		renderState.outerTransparency = apparition.getOuterTransparency(nightVisionBlend, partialTicks);
-		renderState.flicker = apparition.getFlicker(partialTicks);
+		state.totalTransparency = entity.totalTransparency(nightVisionBlend, partialTicks);
+		state.innerTransparency = entity.getInnerTransparency(nightVisionBlend, partialTicks);
+		state.outerTransparency = entity.getOuterTransparency(nightVisionBlend, partialTicks);
+		state.flicker = entity.getFlicker(partialTicks);
 
-		this.itemModelResolver.updateForLiving(renderState.item, apparition.getItemBySlot(EquipmentSlot.MAINHAND), ItemDisplayContext.GROUND, apparition);
-		renderState.aidAnimProgress = apparition.getAidAnimProgress(partialTicks);
-		renderState.poltergeistAnimProgress = apparition.getPoltergeistAnimProgress(partialTicks);
+		this.itemModelResolver.updateForLiving(state.item, entity.getItemBySlot(EquipmentSlot.MAINHAND), ItemDisplayContext.GROUND, entity);
+		state.aidAnimProgress = entity.getAidAnimProgress(partialTicks);
+		state.poltergeistAnimProgress = entity.getPoltergeistAnimProgress(partialTicks);
+	}
+
+	private static float getItemYRot(float ageInTicks) {
+		return Mth.cos((ageInTicks) / 8F) * 0.35F;
+	}
+
+	private static float getItemZRot(float ageInTicks) {
+		return Mth.sin((ageInTicks) / 8F) * 0.35F;
 	}
 }

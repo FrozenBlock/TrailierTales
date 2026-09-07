@@ -28,40 +28,40 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 
 public final class TTDecoratedPotPatternRegistry implements DecoratedPotPatternRegistryEntrypoint {
-	public static final ResourceKey<DecoratedPotPattern> AURORA = create("aurora");
-	public static final ResourceKey<DecoratedPotPattern> BAIT = create("bait");
-	public static final ResourceKey<DecoratedPotPattern> BLOOM = create("bloom");
-	public static final ResourceKey<DecoratedPotPattern> BOLT = create("bolt");
-	public static final ResourceKey<DecoratedPotPattern> BULLSEYE = create("bullseye");
-	public static final ResourceKey<DecoratedPotPattern> CARRIER = create("carrier");
-	public static final ResourceKey<DecoratedPotPattern> CLUCK = create("cluck");
-	public static final ResourceKey<DecoratedPotPattern> CRAWL = create("crawl");
-	public static final ResourceKey<DecoratedPotPattern> CRESCENT = create("crescent");
-	public static final ResourceKey<DecoratedPotPattern> CULTIVATOR = create("cultivator");
-	public static final ResourceKey<DecoratedPotPattern> DROUGHT = create("drought");
-	public static final ResourceKey<DecoratedPotPattern> ENCLOSURE = create("enclosure");
-	public static final ResourceKey<DecoratedPotPattern> ESSENCE = create("essence");
-	public static final ResourceKey<DecoratedPotPattern> EYE = create("eye");
-	public static final ResourceKey<DecoratedPotPattern> FOCUS = create("focus");
-	public static final ResourceKey<DecoratedPotPattern> FROST = create("frost");
-	public static final ResourceKey<DecoratedPotPattern> HARE = create("hare");
-	public static final ResourceKey<DecoratedPotPattern> HEIGHT = create("height");
-	public static final ResourceKey<DecoratedPotPattern> HUMP = create("hump");
-	public static final ResourceKey<DecoratedPotPattern> ILLUMINATOR = create("illuminator");
-	public static final ResourceKey<DecoratedPotPattern> INCIDENCE = create("incidence");
-	public static final ResourceKey<DecoratedPotPattern> LUMBER = create("lumber");
-	public static final ResourceKey<DecoratedPotPattern> NAVIGATOR = create("navigator");
-	public static final ResourceKey<DecoratedPotPattern> NEEDLES = create("needles");
-	public static final ResourceKey<DecoratedPotPattern> OMEN = create("omen");
-	public static final ResourceKey<DecoratedPotPattern> PLUME = create("plume");
-	public static final ResourceKey<DecoratedPotPattern> PROTECTION = create("protection");
-	public static final ResourceKey<DecoratedPotPattern> SHED = create("shed");
-	public static final ResourceKey<DecoratedPotPattern> SHINE = create("shine");
-	public static final ResourceKey<DecoratedPotPattern> SHOWER = create("shower");
-	public static final ResourceKey<DecoratedPotPattern> SPADE = create("spade");
-	public static final ResourceKey<DecoratedPotPattern> SPROUT = create("sprout");
-	public static final ResourceKey<DecoratedPotPattern> VESSEL = create("vessel");
-	public static final ResourceKey<DecoratedPotPattern> WITHER = create("wither");
+	public static final ResourceKey<DecoratedPotPattern> AURORA = createKey("aurora");
+	public static final ResourceKey<DecoratedPotPattern> BAIT = createKey("bait");
+	public static final ResourceKey<DecoratedPotPattern> BLOOM = createKey("bloom");
+	public static final ResourceKey<DecoratedPotPattern> BOLT = createKey("bolt");
+	public static final ResourceKey<DecoratedPotPattern> BULLSEYE = createKey("bullseye");
+	public static final ResourceKey<DecoratedPotPattern> CARRIER = createKey("carrier");
+	public static final ResourceKey<DecoratedPotPattern> CLUCK = createKey("cluck");
+	public static final ResourceKey<DecoratedPotPattern> CRAWL = createKey("crawl");
+	public static final ResourceKey<DecoratedPotPattern> CRESCENT = createKey("crescent");
+	public static final ResourceKey<DecoratedPotPattern> CULTIVATOR = createKey("cultivator");
+	public static final ResourceKey<DecoratedPotPattern> DROUGHT = createKey("drought");
+	public static final ResourceKey<DecoratedPotPattern> ENCLOSURE = createKey("enclosure");
+	public static final ResourceKey<DecoratedPotPattern> ESSENCE = createKey("essence");
+	public static final ResourceKey<DecoratedPotPattern> EYE = createKey("eye");
+	public static final ResourceKey<DecoratedPotPattern> FOCUS = createKey("focus");
+	public static final ResourceKey<DecoratedPotPattern> FROST = createKey("frost");
+	public static final ResourceKey<DecoratedPotPattern> HARE = createKey("hare");
+	public static final ResourceKey<DecoratedPotPattern> HEIGHT = createKey("height");
+	public static final ResourceKey<DecoratedPotPattern> HUMP = createKey("hump");
+	public static final ResourceKey<DecoratedPotPattern> ILLUMINATOR = createKey("illuminator");
+	public static final ResourceKey<DecoratedPotPattern> INCIDENCE = createKey("incidence");
+	public static final ResourceKey<DecoratedPotPattern> LUMBER = createKey("lumber");
+	public static final ResourceKey<DecoratedPotPattern> NAVIGATOR = createKey("navigator");
+	public static final ResourceKey<DecoratedPotPattern> NEEDLES = createKey("needles");
+	public static final ResourceKey<DecoratedPotPattern> OMEN = createKey("omen");
+	public static final ResourceKey<DecoratedPotPattern> PLUME = createKey("plume");
+	public static final ResourceKey<DecoratedPotPattern> PROTECTION = createKey("protection");
+	public static final ResourceKey<DecoratedPotPattern> SHED = createKey("shed");
+	public static final ResourceKey<DecoratedPotPattern> SHINE = createKey("shine");
+	public static final ResourceKey<DecoratedPotPattern> SHOWER = createKey("shower");
+	public static final ResourceKey<DecoratedPotPattern> SPADE = createKey("spade");
+	public static final ResourceKey<DecoratedPotPattern> SPROUT = createKey("sprout");
+	public static final ResourceKey<DecoratedPotPattern> VESSEL = createKey("vessel");
+	public static final ResourceKey<DecoratedPotPattern> WITHER = createKey("wither");
 
 	@Override
 	public void itemToPatternMappings(BiConsumer<ResourceKey<Item>, ResourceKey<DecoratedPotPattern>> itemToPattern) {
@@ -147,8 +147,7 @@ public final class TTDecoratedPotPatternRegistry implements DecoratedPotPatternR
 		);
 	}
 
-	private static ResourceKey<DecoratedPotPattern> create(String id) {
-		return ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(id));
+	private static ResourceKey<DecoratedPotPattern> createKey(String name) {
+		return ResourceKey.create(Registries.DECORATED_POT_PATTERN, TTConstants.id(name));
 	}
-
 }

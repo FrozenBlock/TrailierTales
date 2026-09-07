@@ -55,41 +55,33 @@ public class BrushableBlockRendererMixin {
 		return TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() ? 1 : original;
 	}
 
-	@Inject(
-		method = "extractRenderState*",
-		at = @At("TAIL")
-	)
+	@Inject(method = "extractRenderState*", at = @At("TAIL"))
 	private void trailierTales$extractBrushableBlockRenderState(
-		BrushableBlockEntity brushableBlock,
-		BrushableBlockRenderState renderState,
-		float partialTick,
+		BrushableBlockEntity blockEntity,
+		BrushableBlockRenderState state,
+		float partialTicks,
 		Vec3 cameraPosition,
-		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+		ModelFeatureRenderer.CrumblingOverlay breakProgress,
 		CallbackInfo info
 	) {
-		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() && brushableBlock instanceof BrushableBlockEntityInterface blockInterface) {
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_X_OFFSET, blockInterface.trailierTales$getXOffset(partialTick));
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Y_OFFSET, blockInterface.trailierTales$getYOffset(partialTick));
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Z_OFFSET, blockInterface.trailierTales$getZOffset(partialTick));
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ROTATION, blockInterface.trailierTales$getRotation(partialTick));
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, blockInterface.trailierTales$getItemScale(partialTick));
-		}
+		if (!TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get() || !(blockEntity instanceof BrushableBlockEntityInterface blockInterface)) return;
+		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_X_OFFSET, blockInterface.trailierTales$getXOffset(partialTicks));
+		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Y_OFFSET, blockInterface.trailierTales$getYOffset(partialTicks));
+		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Z_OFFSET, blockInterface.trailierTales$getZOffset(partialTicks));
+		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ROTATION, blockInterface.trailierTales$getRotation(partialTicks));
+		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, blockInterface.trailierTales$getItemScale(partialTicks));
 	}
 
-	@Inject(
-		method = "submit*",
-		at = @At("HEAD"),
-		cancellable = true
-	)
+	@Inject(method = "submit*", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$cancelIfItemIsTooSmall(
-		BrushableBlockRenderState renderState,
+		BrushableBlockRenderState state,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		CameraRenderState cameraState,
+		SubmitNodeCollector submitNodeCollector,
+		CameraRenderState camera,
 		CallbackInfo info
 	) {
 		if (!TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) return;
-		if (renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, 1F) <= 0.05F) info.cancel();
+		if (state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, 1F) <= 0.05F) info.cancel();
 	}
 
 	@WrapOperation(
@@ -107,21 +99,21 @@ public class BrushableBlockRendererMixin {
 	)
 	public void trailierTales$useSmoothTranslation(
 		PoseStack instance,
-		float x,
-		float y,
-		float z,
+		float xo,
+		float yo,
+		float zo,
 		Operation<Void> original,
-		BrushableBlockRenderState renderState
+		BrushableBlockRenderState state
 	) {
 		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) {
 			original.call(
 				instance,
-				renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_X_OFFSET, x),
-				renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Y_OFFSET, y),
-				renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Z_OFFSET, z)
+				state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_X_OFFSET, xo),
+				state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Y_OFFSET, yo),
+				state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Z_OFFSET, zo)
 			);
 		} else {
-			original.call(instance, x, y, z);
+			original.call(instance, xo, yo, zo);
 		}
 	}
 
@@ -141,17 +133,17 @@ public class BrushableBlockRendererMixin {
 	)
 	public void trailierTales$useSmoothXAxisRotation(
 		PoseStack instance,
-		Quaternionfc rotation,
+		Quaternionfc by,
 		Operation<Void> original,
-		BrushableBlockRenderState renderState
+		BrushableBlockRenderState state
 	) {
 		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) {
 			original.call(
 				instance,
-				Axis.YP.rotationDegrees(renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ROTATION, 0F) + 15F)
+				Axis.YP.rotationDegrees(state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ROTATION, 0F) + 15F)
 			);
 		} else {
-			original.call(instance, rotation);
+			original.call(instance, by);
 		}
 	}
 
@@ -164,23 +156,22 @@ public class BrushableBlockRendererMixin {
 	)
 	public void trailierTales$useSmoothScale(
 		PoseStack instance,
-		float x,
-		float y,
-		float z,
+		float xScale,
+		float yScale,
+		float zScale,
 		Operation<Void> original,
-		BrushableBlockRenderState renderState
+		BrushableBlockRenderState state
 	) {
 		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) {
-			final float itemScale = renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, 1F);
+			final float itemScale = state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, 1F);
 			original.call(
 				instance,
-				x * itemScale,
-				y * itemScale,
-				z * itemScale
+				xScale * itemScale,
+				yScale * itemScale,
+				zScale * itemScale
 			);
 		} else {
-			original.call(instance, x, y, z);
+			original.call(instance, xScale, yScale, zScale);
 		}
 	}
-
 }

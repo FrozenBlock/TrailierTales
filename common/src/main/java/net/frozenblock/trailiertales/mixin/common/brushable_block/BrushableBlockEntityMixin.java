@@ -155,15 +155,15 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity implements B
 	)
 	private Block trailierTales$runRebrush(
 		BrushableBlock instance, Operation<Block> original,
-		ServerLevel level, LivingEntity entity, ItemStack stack
+		ServerLevel level, LivingEntity user, ItemStack brush
 	) {
 		if (this.trailierTales$hasCustomItem) return original.call(instance);
 
-		final int rebrushLevel = stack.getEnchantments().getLevel(entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
+		final int rebrushLevel = brush.getEnchantments().getLevel(user.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TTEnchantments.REBRUSH));
 		if (rebrushLevel <= 0) return original.call(instance);
 
 		final float rebrushChance = this.trailierTales$rebrushed ? 0.05F * rebrushLevel : 0.1F * rebrushLevel;
-		final boolean rebrush = entity.getRandom().nextFloat() < rebrushChance;
+		final boolean rebrush = user.getRandom().nextFloat() < rebrushChance;
 		if (this.trailierTales$hasCustomItem || !rebrush) return original.call(instance);
 
 		this.trailierTales$rebrushed = true;

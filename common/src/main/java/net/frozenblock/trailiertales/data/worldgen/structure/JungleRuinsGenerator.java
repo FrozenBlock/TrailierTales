@@ -47,7 +47,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class JungleRuinsGenerator {
+public final class JungleRuinsGenerator {
 	public static final ResourceKey<StructureSet> JUNGLE_RUINS_KEY =  TTStructures.ofSet("ruins_jungle");
 	public static final ResourceKey<Structure> JUNGLE_RUIN_KEY = TTStructures.createKey("ruins_jungle");
 
@@ -160,4 +160,6 @@ public class JungleRuinsGenerator {
 			)
 		)
 	);
+
+	private JungleRuinsGenerator() {}
 }

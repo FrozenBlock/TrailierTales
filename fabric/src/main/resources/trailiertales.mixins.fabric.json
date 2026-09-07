@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "net.frozenblock.trailiertales.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "net.frozenblock.trailiertales.mixin.TTMixinPlugin",
+  "mixins": [
+    "common.apparition.MobMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

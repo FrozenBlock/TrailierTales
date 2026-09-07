@@ -135,9 +135,9 @@ public class SurveyorBlock extends BaseEntityBlock {
 
 	@Override
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
 		return level instanceof ServerLevel serverLevel
-			? createTickerHelper(blockEntityType, TTBlockEntityTypes.SURVEYOR.get(), (unusedWorld, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
+			? createTickerHelper(type, TTBlockEntityTypes.SURVEYOR.get(), (levelx, pos, statex, surveyor) -> surveyor.tickServer(serverLevel, pos, statex))
 			: null;
 	}
 }

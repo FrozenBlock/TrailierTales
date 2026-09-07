@@ -38,7 +38,7 @@ public final class TTRuleBlockEntityModifiers {
 	public static void init() {}
 
 	private static <P extends RuleBlockEntityModifier> DeferredHolder<RuleBlockEntityModifierType<?>, RuleBlockEntityModifierType<P>> register(String name, MapCodec<P> codec) {
-		return REGISTER.register(name, () -> (RuleBlockEntityModifierType<P>) () -> codec);
+		return REGISTER.register(name, () -> () -> codec);
 	}
 
 	private TTRuleBlockEntityModifiers() {}

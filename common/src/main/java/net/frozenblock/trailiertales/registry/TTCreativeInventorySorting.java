@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public final class TTCreativeInventorySorting {
 
-	public static void init() {
+	public static void setup() {
 		// BLOCKS
 		insertBeforeInFunctionalBlocks(Items.SUSPICIOUS_SAND, TTItems.SUSPICIOUS_DIRT);
 		insertAfterInFunctionalBlocks(TTItems.SUSPICIOUS_DIRT, TTItems.SUSPICIOUS_CLAY);
@@ -300,4 +300,6 @@ public final class TTCreativeInventorySorting {
 	private static void insertAfterInSpawnEggs(ItemLike comparedItem, ItemLike item) {
 		CreativeModeTabSorter.insertAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
+
+	private TTCreativeInventorySorting() {}
 }

@@ -48,9 +48,9 @@ public class RangeSelectItemModelMixin {
 	)
 	private boolean trailierTales$useSmoothBrushingAnim(
 		boolean original,
-		ItemStackRenderState stackState, ItemStack stack
+		ItemStackRenderState output, ItemStack item
 	) {
-		if (this.property instanceof UseCycle && TTItemConfig.BRUSH_SMOOTH_ANIMATION.get() && stack.is(Items.BRUSH)) return true;
+		if (this.property instanceof UseCycle && TTItemConfig.BRUSH_SMOOTH_ANIMATION.get() && item.is(Items.BRUSH)) return true;
 		return original;
 	}
 }

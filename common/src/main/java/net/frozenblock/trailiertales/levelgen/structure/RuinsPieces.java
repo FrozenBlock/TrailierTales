@@ -296,8 +296,7 @@ public class RuinsPieces {
 		}
 
 		@Override
-		protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox boundingBox) {
-		}
+		protected void handleDataMarker(String markerId, BlockPos position, ServerLevelAccessor level, RandomSource random, BoundingBox chunkBB) {}
 
 		@Override
 		public void postProcess(

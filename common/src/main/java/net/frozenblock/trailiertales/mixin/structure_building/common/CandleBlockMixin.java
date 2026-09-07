@@ -32,5 +32,4 @@ public class CandleBlockMixin {
 		final CandleBlock candleBlock = CandleBlock.class.cast(this);
 		candleBlock.registerDefaultState(candleBlock.defaultBlockState().setValue(CandleBlock.CANDLES, CandleBlock.MAX_CANDLES));
 	}
-
 }

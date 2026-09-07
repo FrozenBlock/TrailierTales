@@ -39,13 +39,13 @@ public class ApparitionNearestItemSensor extends Sensor<Apparition> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, Apparition apparition) {
-		final Brain<?> brain = apparition.getBrain();
-		final List<ItemEntity> list = level.getEntitiesOfClass(ItemEntity.class, apparition.getBoundingBox().inflate(RADIUS, Y_RANGE, RADIUS), itemEntity -> true);
-		list.sort(Comparator.comparingDouble(apparition::distanceToSqr));
-		final Optional<ItemEntity> optionalItemEntity = list.stream()
-			.filter(item -> apparition.wantsToPickUp(level, item))
-			.filter(itemEntity -> itemEntity.closerThan(apparition, RADIUS))
+	protected void doTick(ServerLevel level, Apparition body) {
+		final Brain<?> brain = body.getBrain();
+		final List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, body.getBoundingBox().inflate(RADIUS, Y_RANGE, RADIUS), itemEntity -> true);
+		items.sort(Comparator.comparingDouble(body::distanceToSqr));
+		final Optional<ItemEntity> optionalItemEntity = items.stream()
+			.filter(item -> body.wantsToPickUp(level, item))
+			.filter(itemEntity -> itemEntity.closerThan(body, RADIUS))
 			.findFirst();
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, optionalItemEntity);
 	}

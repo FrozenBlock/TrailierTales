@@ -25,6 +25,7 @@ import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
@@ -33,15 +34,15 @@ public class GlowingSpellParticle extends SpellParticle {
 	public GlowingSpellParticle(
 		ClientLevel level,
 		double x, double y, double z,
-		double xd, double yd, double zd,
-		SpriteSet spriteSet
+		double xa, double ya, double za,
+		SpriteSet sprites
 	) {
-		super(level, x, y, z, xd, yd, zd, spriteSet);
+		super(level, x, y, z, xa, ya, za, sprites);
 	}
 
 	@Override
-	protected int getLightCoords(float tint) {
-		return 240;
+	protected int getLightCoords(float a) {
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
@@ -50,10 +51,10 @@ public class GlowingSpellParticle extends SpellParticle {
 			SimpleParticleType options,
 			ClientLevel level,
 			double x, double y, double z,
-			double xd, double yd, double zd,
+			double xAux, double yAux, double zAux,
 			RandomSource random
 		) {
-			return new GlowingSpellParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
+			return new GlowingSpellParticle(level, x, y, z, xAux, yAux, zAux, this.spriteSet);
 		}
 	}
 
@@ -63,10 +64,10 @@ public class GlowingSpellParticle extends SpellParticle {
 			ColorParticleOption options,
 			ClientLevel level,
 			double x, double y, double z,
-			double xd, double yd, double zd,
+			double xAux, double yAux, double zAux,
 			RandomSource random
 		) {
-			GlowingSpellParticle particle = new GlowingSpellParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
+			final GlowingSpellParticle particle = new GlowingSpellParticle(level, x, y, z, xAux, yAux, zAux, this.spriteSet);
 			particle.setColor(options.getRed(), options.getGreen(), options.getBlue());
 			particle.setAlpha(options.getAlpha());
 			return particle;

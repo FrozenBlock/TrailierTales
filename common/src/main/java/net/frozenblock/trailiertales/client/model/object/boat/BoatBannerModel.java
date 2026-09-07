@@ -75,11 +75,11 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	}
 
 	@Override
-	public void setupAnim(BoatRenderState renderState) {
-		super.setupAnim(renderState);
-		final float walkAnimationSpeed = renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_SPEED, 0F);
-		final float walkAnimationPos = renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_POS, 0F);
-		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(Mth.TWO_PI * renderState.ageInTicks / 100F)) * Mth.PI;
+	public void setupAnim(BoatRenderState state) {
+		super.setupAnim(state);
+		final float walkAnimationSpeed = state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_SPEED, 0F);
+		final float walkAnimationPos = state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_POS, 0F);
+		this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(Mth.TWO_PI * state.ageInTicks / 100F)) * Mth.PI;
 		this.flag.xRot -= (walkAnimationSpeed * (90F / 180F)) * Mth.PI;
 		this.flag.xRot -= (Mth.cos(walkAnimationPos * 0.4F) + 1F) * 0.1F * Math.min(walkAnimationSpeed * 2F, 1F);
 		this.flag.y = -32F;
@@ -110,8 +110,8 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 	public void submitFlag(
 		SpriteGetter sprites,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		BoatRenderState renderState,
+		SubmitNodeCollector submitNodeCollector,
+		BoatRenderState state,
 		int overlayCoords,
 		DyeColor dyeColor,
 		BannerPatternLayers bannerPatternLayers
@@ -119,11 +119,11 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		BannerRenderer.submitPatterns(
 			sprites,
 			poseStack,
-			collector,
-			renderState.lightCoords,
+			submitNodeCollector,
+			state.lightCoords,
 			overlayCoords,
 			this,
-			renderState,
+			state,
 			true,
 			dyeColor,
 			bannerPatternLayers,
@@ -133,11 +133,11 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 
 	public void submitStand(
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		BoatRenderState renderState,
+		SubmitNodeCollector submitNodeCollector,
+		BoatRenderState state,
 		int overlayCoords,
-		Identifier standTexture
+		Identifier standtexture
 	) {
-		collector.submitModel(this, renderState, poseStack, RenderTypes.entityCutout(standTexture), renderState.lightCoords, overlayCoords, 0, null);
+		submitNodeCollector.submitModel(this, state, poseStack, RenderTypes.entityCutout(standtexture), state.lightCoords, overlayCoords, 0, null);
 	}
 }

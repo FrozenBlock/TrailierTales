@@ -53,6 +53,7 @@ public final class TTLootTables {
 	public static final ResourceKey<LootTable> BADLANDS_RUINS_ARCHAEOLOGY = register("archaeology/badlands_ruins");
 	public static final ResourceKey<LootTable> SNOWY_RUINS_ARCHAEOLOGY = register("archaeology/snowy_ruins");
 
+	// TODO: implement without fully-replacing each table
 	public static void init() {
 		LootTableEvents.REPLACE.register((key, lootTable, source, registries) -> {
 			if (BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY.equals(key)) {
@@ -190,4 +191,6 @@ public final class TTLootTables {
 	private static ResourceKey<LootTable> register(String path) {
 		return ResourceKey.create(Registries.LOOT_TABLE, TTConstants.id(path));
 	}
+
+	private TTLootTables() {}
 }

@@ -37,8 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClientDebugSubscriberMixin {
 
 	@Shadow
-	private static void addFlag(Set<DebugSubscription<?>> output, DebugSubscription<?> subscription, boolean flag) {
-	}
+	private static void addFlag(Set<DebugSubscription<?>> output, DebugSubscription<?> subscription, boolean flag) {}
 
 	@Inject(
 		method = "requestedSubscriptions",
@@ -57,9 +56,8 @@ public abstract class ClientDebugSubscriberMixin {
 	)
 	private void trailierTales$addDebugSubscriptions(
 		CallbackInfoReturnable<Set<DebugSubscription<?>>> info,
-		@Local(name = "subscriptions") Set set
+		@Local(name = "subscriptions") Set subscriptions
 	) {
-		addFlag(set, TTDebugSubscriptions.COFFINS.get(), TTConstants.DEBUG_COFFINS);
+		addFlag(subscriptions, TTDebugSubscriptions.COFFINS.get(), TTConstants.DEBUG_COFFINS);
 	}
-
 }

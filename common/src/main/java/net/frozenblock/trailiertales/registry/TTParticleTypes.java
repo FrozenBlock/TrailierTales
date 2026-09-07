@@ -31,15 +31,28 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
 public final class TTParticleTypes {
-	private static final DeferredRegister.ParticleTypes REGISTER = DeferredRegister.createParticleTypes(
-		TTConstants.MOD_ID
-	);
+	private static final DeferredRegister.ParticleTypes REGISTER = DeferredRegister.createParticleTypes(TTConstants.MOD_ID);
 
 	public static final DeferredSimpleParticleType COFFIN_SOUL = register("coffin_soul");
 	public static final DeferredSimpleParticleType COFFIN_SOUL_ENTER = register("coffin_soul_enter");
-	public static final DeferredHolder<ParticleType<?>, ParticleType<ColorParticleOption>> GLOWING_BUBBLE = register("glowing_bubble", false, ColorParticleOption::codec, ColorParticleOption::streamCodec);
-	public static final DeferredHolder<ParticleType<?>, ParticleType<ColorParticleOption>> GLOWING_ENTITY_EFFECT = register("glowing_entity_effect", false, ColorParticleOption::codec, ColorParticleOption::streamCodec);
-	public static final DeferredHolder<ParticleType<?>, ParticleType<GlowingDustColorTransitionOptions>> GLOWING_DUST_COLOR_TRANSITION = register("glowing_dust_color_transition", false, particleType -> GlowingDustColorTransitionOptions.CODEC, particleType -> GlowingDustColorTransitionOptions.STREAM_CODEC);
+	public static final DeferredHolder<ParticleType<?>, ParticleType<ColorParticleOption>> GLOWING_BUBBLE = register(
+		"glowing_bubble",
+		false,
+		ColorParticleOption::codec,
+		ColorParticleOption::streamCodec
+	);
+	public static final DeferredHolder<ParticleType<?>, ParticleType<ColorParticleOption>> GLOWING_ENTITY_EFFECT = register(
+		"glowing_entity_effect",
+		false,
+		ColorParticleOption::codec,
+		ColorParticleOption::streamCodec
+	);
+	public static final DeferredHolder<ParticleType<?>, ParticleType<GlowingDustColorTransitionOptions>> GLOWING_DUST_COLOR_TRANSITION = register(
+		"glowing_dust_color_transition",
+		false,
+		type -> GlowingDustColorTransitionOptions.CODEC,
+		type -> GlowingDustColorTransitionOptions.STREAM_CODEC
+	);
 	public static final DeferredSimpleParticleType SUSPICIOUS_CONNECTION = register("suspicious_connection");
 	public static final DeferredSimpleParticleType SIEGE_OMEN = register("siege_omen");
 	public static final DeferredSimpleParticleType TRANSFIGURING = register("transfiguring");
@@ -76,4 +89,6 @@ public final class TTParticleTypes {
 			}
 		});
 	}
+
+	private TTParticleTypes() {}
 }

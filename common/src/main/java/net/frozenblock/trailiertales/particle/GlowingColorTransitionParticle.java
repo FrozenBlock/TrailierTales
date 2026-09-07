@@ -26,8 +26,8 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.Contract;
 import org.joml.Vector3f;
 
 @ClientOnly
@@ -38,38 +38,37 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 	public GlowingColorTransitionParticle(
 		ClientLevel level,
 		double x, double y, double z,
-		double xd, double yd, double zd,
+		double xa, double ya, double za,
 		GlowingDustColorTransitionOptions options,
-		SpriteSet spriteSet
+		SpriteSet sprites
 	) {
-		super(level, x, y, z, xd, yd, zd, options, spriteSet);
+		super(level, x, y, z, xa, ya, za, options, sprites);
 		float f = this.random.nextFloat() * 0.4F + 0.6F;
 		this.fromColor = this.randomizeColor(options.getFromColor(), f);
 		this.toColor = this.randomizeColor(options.getToColor(), f);
 	}
 
-	@Contract("_, _ -> new")
 	private Vector3f randomizeColor(Vector3f color, float factor) {
 		return new Vector3f(this.randomizeColor(color.x(), factor), this.randomizeColor(color.y(), factor), this.randomizeColor(color.z(), factor));
 	}
 
-	private void lerpColors(float partialTick) {
-		final float lerp = ((float) this.age + partialTick) / ((float) this.lifetime + 1F);
-		final Vector3f vector3f = new Vector3f(this.fromColor).lerp(this.toColor, lerp);
+	private void lerpColors(float partialTicks) {
+		final float lerpProgress = ((float) this.age + partialTicks) / ((float) this.lifetime + 1F);
+		final Vector3f vector3f = new Vector3f(this.fromColor).lerp(this.toColor, lerpProgress);
 		this.rCol = vector3f.x();
 		this.gCol = vector3f.y();
 		this.bCol = vector3f.z();
 	}
 
 	@Override
-	public void extract(QuadParticleRenderState renderState, Camera camera, float partialTick) {
-		this.lerpColors(partialTick);
-		super.extract(renderState, camera, partialTick);
+	public void extract(QuadParticleRenderState particleTypeRenderState, Camera camera, float partialTickTime) {
+		this.lerpColors(partialTickTime);
+		super.extract(particleTypeRenderState, camera, partialTickTime);
 	}
 
 	@Override
-	protected int getLightCoords(float tint) {
-		return 240;
+	protected int getLightCoords(float a) {
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<GlowingDustColorTransitionOptions> {
@@ -78,10 +77,10 @@ public class GlowingColorTransitionParticle extends DustParticleBase<GlowingDust
 			GlowingDustColorTransitionOptions options,
 			ClientLevel level,
 			double x, double y, double z,
-			double xd, double yd, double zd,
+			double xAux, double yAux, double zAux,
 			RandomSource random
 		) {
-			return new GlowingColorTransitionParticle(level, x, y, z, xd, yd, zd, options, this.spriteSet);
+			return new GlowingColorTransitionParticle(level, x, y, z, xAux, yAux, zAux, options, this.spriteSet);
 		}
 	}
 }

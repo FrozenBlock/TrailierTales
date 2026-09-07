@@ -26,22 +26,29 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
-public class TTParticleProviders {
+@ClientOnly
+public final class TTParticleProviders {
 
-	@ClientOnly
 	public record SuspiciousConnectionProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		public Particle createParticle(
 			SimpleParticleType options,
 			ClientLevel level,
 			double x, double y, double z,
-			double xd, double yd, double zd,
+			double xAux, double yAux, double zAux,
 			RandomSource random
 		) {
 			final FlyTowardsPositionParticle flyTowardsPositionParticle = new FlyTowardsPositionParticle(
-				level, x, y, z, xd, yd, zd, true, new Particle.LifetimeAlpha(1F, 0F, 0F, 1F), this.spriteSet.get(random)
+				level,
+				x, y, z,
+				xAux, yAux, zAux,
+				true,
+				new Particle.LifetimeAlpha(1F, 0F, 0F, 1F),
+				this.spriteSet.get(random)
 			);
 			flyTowardsPositionParticle.scale(1.75F);
 			return flyTowardsPositionParticle;
 		}
 	}
+
+	private TTParticleProviders() {}
 }

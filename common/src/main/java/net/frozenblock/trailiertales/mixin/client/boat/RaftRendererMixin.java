@@ -17,10 +17,10 @@
 
 package net.frozenblock.trailiertales.mixin.client.boat;
 
+import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.client.renderer.impl.AbstractBoatRendererInterface;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.entity.AbstractBoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RaftRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,13 +34,17 @@ public class RaftRendererMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void trailierTales$init(EntityRendererProvider.Context context, ModelLayerLocation modelId, CallbackInfo info) {
-		if (!(AbstractBoatRenderer.class.cast(this) instanceof AbstractBoatRendererInterface rendererInterface)) return;
-		rendererInterface.trailierTales$setBannerBaseTexture(
-			modelId.model().withPath((string) -> {
-				string = string.substring(Math.max(0, string.indexOf("/")));
-				return "textures/entity/boat/banner_base/" + string + ".png";
-			})
-		);
+		if (!(RaftRenderer.class.cast(this) instanceof AbstractBoatRendererInterface rendererInterface)) return;
+		try {
+			rendererInterface.trailierTales$setBannerBaseTexture(
+				modelId.model().withPath((string) -> {
+					string = string.substring(Math.max(0, string.indexOf("/")));
+					return "textures/entity/boat/banner_base/" + string + ".png";
+				})
+			);
+		} catch (Exception ignored) {
+			rendererInterface.trailierTales$setBannerBaseTexture(TTConstants.vanillaId("textures/entity/boat/banner_base/oak.png"));
+		}
 		rendererInterface.trailierTales$setRaft(true);
 	}
 }

@@ -48,7 +48,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @ClientOnly
 @Mixin(Hud.class)
-public class HudMixin {
+public class HudMixin { // In common mixins.json
 	@Unique
 	private static final Identifier TRAILIER_TALES$HEART_HAUNT = TTConstants.id("hud/heart/haunt");
 	@Unique

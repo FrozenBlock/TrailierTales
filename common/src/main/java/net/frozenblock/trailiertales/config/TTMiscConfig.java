@@ -29,4 +29,6 @@ public final class TTMiscConfig {
 
 	public static final ConfigEntry<Boolean> MODIFY_ADVANCEMENTS = CONFIG.entryBuilder("modifyAdvancements", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DISTORTED_CATACOMBS_MUSIC = CONFIG.entryBuilder("distortedCatacombsMusic", EntryType.BOOL, true).requireRestart().build();
+
+	private TTMiscConfig() {}
 }

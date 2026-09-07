@@ -92,11 +92,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 
 	public CoffinBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(
-			this.stateDefinition.any()
-				.setValue(PART, CoffinPart.FOOT)
-				.setValue(STATE, CoffinSpawnerState.INACTIVE)
-		);
+		this.registerDefaultState(this.stateDefinition.any().setValue(PART, CoffinPart.FOOT).setValue(STATE, CoffinSpawnerState.INACTIVE));
 	}
 
 	@Nullable
@@ -111,18 +107,18 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		LevelReader level,
 		ScheduledTickAccess ticks,
 		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
+		Direction directionToNeighbour,
+		BlockPos neighbourPos,
+		BlockState neighbourState,
 		RandomSource random
 	) {
-		if (direction == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
+		if (directionToNeighbour == getConnectedDirection(state.getValue(PART), state.getValue(FACING))) {
 			final boolean isThisFoot = state.getValue(PART) == CoffinPart.FOOT;
-			return neighborState.is(this) && neighborState.getValue(PART) != state.getValue(PART)
-				? isThisFoot ? state : state.setValue(STATE, neighborState.getValue(STATE))
+			return neighbourState.is(this) && neighbourState.getValue(PART) != state.getValue(PART)
+				? isThisFoot ? state : state.setValue(STATE, neighbourState.getValue(STATE))
 				: Blocks.AIR.defaultBlockState();
 		} else {
-			return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+			return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
 		}
 	}
 
@@ -139,10 +135,10 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 		destroyOtherHalf: {
 			if (level.isClientSide() || !player.isCreative()) break destroyOtherHalf;
 
-			final CoffinPart coffinPart = state.getValue(PART);
-			if (coffinPart != CoffinPart.FOOT) break destroyOtherHalf;
+			final CoffinPart part = state.getValue(PART);
+			if (part != CoffinPart.FOOT) break destroyOtherHalf;
 
-			final BlockPos connectedPos = pos.relative(getConnectedDirection(coffinPart, state.getValue(FACING)));
+			final BlockPos connectedPos = pos.relative(getConnectedDirection(part, state.getValue(FACING)));
 			final BlockState connectedState = level.getBlockState(connectedPos);
 			if (connectedState.is(this) && connectedState.getValue(PART) == CoffinPart.HEAD) {
 				level.setBlock(connectedPos, Blocks.AIR.defaultBlockState(), 35);
@@ -171,8 +167,8 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	public static DoubleBlockCombiner.BlockType getBlockType(BlockState state) {
-		final CoffinPart coffinPart = state.getValue(PART);
-		return coffinPart == CoffinPart.HEAD ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND;
+		final CoffinPart part = state.getValue(PART);
+		return part == CoffinPart.HEAD ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND;
 	}
 
 	@Override
@@ -182,19 +178,19 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		super.setPlacedBy(level, pos, state, placer, stack);
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity by, ItemStack itemStack) {
+		super.setPlacedBy(level, pos, state, by, itemStack);
 		if (level.isClientSide()) return;
 
 		final BlockPos offsetPos = pos.relative(state.getValue(FACING));
-		level.setBlock(offsetPos, state.setValue(PART, CoffinPart.HEAD), UPDATE_ALL);
+		level.setBlockAndUpdate(offsetPos, state.setValue(PART, CoffinPart.HEAD));
 		level.updateNeighborsAt(pos, Blocks.AIR);
 		state.updateNeighbourShapes(level, pos, UPDATE_ALL);
 	}
 
 	@Override
-	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hitResult) {
-		if (stack.getItem() instanceof SpawnEggItem) return InteractionResult.CONSUME;
+	protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (itemStack.getItem() instanceof SpawnEggItem) return InteractionResult.CONSUME;
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
@@ -249,16 +245,16 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 	}
 
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
 		return level instanceof ServerLevel serverLevel
 			? BaseEntityBlock.createTickerHelper(
-				blockEntityType,
+				type,
 				TTBlockEntityTypes.COFFIN.get(),
 				(levelx, pos, statex, coffin) ->
 					coffin.tickServer(serverLevel, pos, statex, statex.getValue(PART), statex.getValue(STATE) == CoffinSpawnerState.OMINOUS)
 			)
 			: BaseEntityBlock.createTickerHelper(
-				blockEntityType,
+				type,
 				TTBlockEntityTypes.COFFIN.get(),
 				(levelx, pos, statex, coffin) ->
 					coffin.tickClient(levelx, pos, statex.getValue(PART), statex.getValue(STATE) == CoffinSpawnerState.OMINOUS)
@@ -273,7 +269,7 @@ public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlo
 			if (followRange != null) followRange.removeModifier(ATTRIBUTE_COFFIN_FOLLOW_RANGE);
 		}
 
-		if (entity != null) entity.frozenLib$removeAttached(TTAttachmentTypes.ENTITY_COFFIN_DATA);
+		if (entity != null) TTAttachmentTypes.ENTITY_COFFIN_DATA.remove(entity);
 
 		if (entity instanceof Apparition apparition && remove) {
 			apparition.dropItem(apparition.getItemBySlot(EquipmentSlot.MAINHAND));

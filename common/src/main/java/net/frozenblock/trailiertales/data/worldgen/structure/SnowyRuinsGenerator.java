@@ -47,7 +47,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class SnowyRuinsGenerator {
+public final class SnowyRuinsGenerator {
 	public static final ResourceKey<StructureSet> SNOWY_RUINS_KEY = TTStructures.ofSet("ruins_snowy");
 	public static final ResourceKey<Structure> SNOWY_RUIN_KEY = TTStructures.createKey("ruins_snowy");
 
@@ -136,4 +136,6 @@ public class SnowyRuinsGenerator {
 			)
 		)
 	);
+
+	private SnowyRuinsGenerator() {}
 }

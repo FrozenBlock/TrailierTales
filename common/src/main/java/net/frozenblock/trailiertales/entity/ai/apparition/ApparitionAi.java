@@ -54,7 +54,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 
-public class ApparitionAi {
+public final class ApparitionAi {
 	public static final List<SensorType<? extends Sensor<? super Apparition>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
@@ -107,7 +107,7 @@ public class ApparitionAi {
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
-				StartAttacking.create((level, apparition) -> true, ApparitionAi::findNearestValidAttackTarget),
+				StartAttacking.create((level, body) -> true, ApparitionAi::findNearestValidAttackTarget),
 				StayCloseToTarget.create(ApparitionAi::getLookTarget, entity -> true, 7, 16, 1F),
 				new RunOne<>( // idle look
 					ImmutableList.of(
@@ -131,7 +131,11 @@ public class ApparitionAi {
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
-				StopAttackingIfTargetInvalid.create((level, entity) -> !body.canTargetEntity(entity, level), ApparitionAi::onTargetInvalid, true),
+				StopAttackingIfTargetInvalid.create(
+					(level, entity) -> !body.canTargetEntity(entity, level),
+					ApparitionAi::onTargetInvalid,
+					true
+				),
 				new RunOne<>(
 					ImmutableList.of(
 						Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), 1),
@@ -151,24 +155,24 @@ public class ApparitionAi {
 		);
 	}
 
-	private static boolean shouldGoTowardsHome(LivingEntity apparition, GlobalPos pos) {
-		return ((Apparition)apparition).shouldReturnToHome(pos);
+	private static boolean shouldGoTowardsHome(LivingEntity body, GlobalPos pos) {
+		return ((Apparition)body).shouldReturnToHome(pos);
 	}
 
-	public static void rememberHome(Apparition apparition, Level level, BlockPos pos) {
-		final Brain<?> brain = apparition.getBrain();
+	public static void rememberHome(Apparition body, Level level, BlockPos pos) {
+		final Brain<?> brain = body.getBrain();
 		final GlobalPos globalPos = GlobalPos.of(level.dimension(), pos);
 		brain.setMemory(MemoryModuleType.HOME, globalPos);
 	}
 
-	private static Optional<PositionTracker> getLookTarget(LivingEntity apparition) {
-		final Brain<?> brain = apparition.getBrain();
+	private static Optional<PositionTracker> getLookTarget(LivingEntity body) {
+		final Brain<?> brain = body.getBrain();
 		final Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
 		if (home.isEmpty()) return Optional.empty();
 
 		final GlobalPos globalPos = home.get();
-		if (shouldGoTowardsHome(apparition, globalPos)) {
-			return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), apparition.level())));
+		if (shouldGoTowardsHome(body, globalPos)) {
+			return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), body.level())));
 		}
 
 		return Optional.empty();
@@ -182,30 +186,32 @@ public class ApparitionAi {
 		);
 	}
 
-	private static void onTargetInvalid(ServerLevel level, Apparition apparition, LivingEntity target) {
-		if (apparition.getTarget() == target) apparition.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+	private static void onTargetInvalid(ServerLevel level, Apparition body, LivingEntity target) {
+		if (body.getTarget() == target) body.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
-	public static void updateActivity(Apparition apparition) {
-		apparition.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+	public static void updateActivity(Apparition body) {
+		body.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, Apparition apparition) {
-		final Brain<Apparition> brain = apparition.getBrain();
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, Apparition body) {
+		final Brain<Apparition> brain = body.getBrain();
 		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)) return brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
 		return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
 	}
 
-	public static void wasHurtBy(ServerLevel level, Apparition apparition, LivingEntity target) {
-		if (!apparition.canTargetEntity(target, level)) return;
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, apparition, target)) return;
-		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(apparition, target, 4D)) return;
-		setAngerTarget(level, apparition, target);
+	public static void wasHurtBy(ServerLevel level, Apparition body, LivingEntity target) {
+		if (!body.canTargetEntity(target, level)) return;
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target)) return;
+		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(body, target, 4D)) return;
+		setAngerTarget(level, body, target);
 	}
 
-	public static void setAngerTarget(ServerLevel level, Apparition apparition, LivingEntity target) {
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, apparition, target)) return;
-		apparition.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-		apparition.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
+	public static void setAngerTarget(ServerLevel level, Apparition body, LivingEntity target) {
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target)) return;
+		body.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+		body.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 	}
+
+	private ApparitionAi() {}
 }

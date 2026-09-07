@@ -74,7 +74,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 
 public final class CoffinSpawner {
@@ -83,11 +82,10 @@ public final class CoffinSpawner {
 	private static final int MAX_MOB_TRACKING_DISTANCE = 64;
 	private static final int MAX_MOB_TRACKING_DISTANCE_SQR = Mth.square(MAX_MOB_TRACKING_DISTANCE);
 	private static final PlayerDetector.EntitySelector ENTITY_SELECTOR = PlayerDetector.EntitySelector.SELECT_FROM_LEVEL;
-	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (level, entitySelector, pos, d, bl) -> entitySelector.getPlayers(
-			level, player -> player.blockPosition().closerThan(pos, d) && !player.isCreative() && !player.isSpectator()
-		)
+	public static final PlayerDetector IN_CATACOMBS_NO_CREATIVE_PLAYERS = (level, selector, pos, requiredPlayerRange, requireLineOfSight) ->
+		selector.getPlayers(level, player -> player.blockPosition().closerThan(pos, requiredPlayerRange) && !player.isCreative() && !player.isSpectator())
 		.stream()
-		.filter(player -> !bl || isInCatacombsBounds(player.blockPosition(), level.structureManager()))
+		.filter(player -> !requireLineOfSight || isInCatacombsBounds(player.blockPosition(), level.structureManager()))
 		.map(Entity::getUUID)
 		.toList();
 	private final CoffinSpawnerConfig normalConfig;
@@ -101,24 +99,21 @@ public final class CoffinSpawner {
 	private final UUID uuid;
 	private boolean attemptingToSpawnMob;
 
-	@Contract(" -> new")
 	public MapCodec<CoffinSpawner> mapCodec() {
-		return RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-				CoffinSpawnerConfig.CODEC.optionalFieldOf("normal_config", CoffinSpawnerConfig.DEFAULT).forGetter(CoffinSpawner::getNormalConfig),
-				CoffinSpawnerConfig.CODEC.optionalFieldOf("irritated_config", CoffinSpawnerConfig.IRRITATED).forGetter(CoffinSpawner::getIrritatedConfig),
-				CoffinSpawnerConfig.CODEC.optionalFieldOf("aggressive_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getAggressiveConfig),
-				CoffinSpawnerConfig.CODEC.optionalFieldOf("ominous_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getOminousConfig),
-				CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
-				Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 12000).forGetter(CoffinSpawner::getPowerCooldownLength),
-				Codec.intRange(1, PLAYER_TRACKING_DISTANCE).optionalFieldOf("required_player_range", PLAYER_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
-				Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID),
-				Codec.BOOL.optionalFieldOf("attempting_to_spawn_mob", false).forGetter(CoffinSpawner::isAttemptingToSpawnMob)
-			).apply(
-				instance,
-				(config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn) -> new CoffinSpawner(
-					config, config2, config3, config4, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor
-				)
+		return RecordCodecBuilder.mapCodec(instance -> instance.group(
+			CoffinSpawnerConfig.CODEC.optionalFieldOf("normal_config", CoffinSpawnerConfig.DEFAULT).forGetter(CoffinSpawner::getNormalConfig),
+			CoffinSpawnerConfig.CODEC.optionalFieldOf("irritated_config", CoffinSpawnerConfig.IRRITATED).forGetter(CoffinSpawner::getIrritatedConfig),
+			CoffinSpawnerConfig.CODEC.optionalFieldOf("aggressive_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getAggressiveConfig),
+			CoffinSpawnerConfig.CODEC.optionalFieldOf("ominous_config", CoffinSpawnerConfig.AGGRESSIVE).forGetter(CoffinSpawner::getOminousConfig),
+			CoffinSpawnerData.MAP_CODEC.forGetter(CoffinSpawner::getData),
+			Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power_cooldown_length", 12000).forGetter(CoffinSpawner::getPowerCooldownLength),
+			Codec.intRange(1, PLAYER_TRACKING_DISTANCE).optionalFieldOf("required_player_range", PLAYER_TRACKING_DISTANCE).forGetter(CoffinSpawner::getRequiredPlayerRange),
+			Codec.STRING.optionalFieldOf("uuid", UUID.randomUUID().toString()).forGetter(CoffinSpawner::getStringUUID),
+			Codec.BOOL.optionalFieldOf("attempting_to_spawn_mob", false).forGetter(CoffinSpawner::isAttemptingToSpawnMob)
+		).apply(
+			instance,
+			(normalConfig, irritatedConfig, aggressiveConfig, ominousConfig, data, powerCooldownLength, integer, uuid, attemptingSpawn) ->
+				new CoffinSpawner(normalConfig, irritatedConfig, aggressiveConfig, ominousConfig, data, powerCooldownLength, integer, uuid, attemptingSpawn, this.stateAccessor)
 			)
 		);
 	}
@@ -304,8 +299,8 @@ public final class CoffinSpawner {
 
 			if (entity instanceof Mob mob) {
 				if (!mob.checkSpawnObstruction(level)) return Optional.empty();
-				boolean bl = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id");
-				if (bl) mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
+				boolean singleEntity = spawnData.getEntityToSpawn().size() == 1 && spawnData.getEntityToSpawn().contains("id");
+				if (singleEntity) mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.TRIAL_SPAWNER, null);
 				spawnData.getEquipment().ifPresent(mob::equip);
 			}
 
@@ -349,6 +344,7 @@ public final class CoffinSpawner {
 	public void spawnApparition(ServerLevel level, BlockPos pos) {
 		final Apparition apparition = TTEntityTypes.APPARITION.get().create(level, null, pos, EntitySpawnReason.TRIAL_SPAWNER, true, false);
 		if (apparition == null || !level.addFreshEntity(apparition)) return;
+
 		apparition.hiddenTicks = 100;
 		this.appendCoffinSpawnAttributes(apparition, level, pos, true);
 		this.data.nextApparitionSpawnsAt = level.getGameTime() + 1000L;

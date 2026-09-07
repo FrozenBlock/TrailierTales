@@ -44,15 +44,15 @@ public class DecoratedPotRendererMixin {
 		at = @At("TAIL")
 	)
 	public void trailierTales$setIsFlipped(
-		DecoratedPotBlockEntity decoratedPot,
-		DecoratedPotRenderState renderState,
-		float partialTick,
+		DecoratedPotBlockEntity blockEntity,
+		DecoratedPotRenderState state,
+		float partialTicks,
 		Vec3 cameraPosition,
-		ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+		ModelFeatureRenderer.CrumblingOverlay breakProgress,
 		CallbackInfo info
 	) {
-		if (!(decoratedPot instanceof DecoratedPotBlockEntityInterface potInterface)) return;
-		renderState.frozenLib$setData(TTRenderStateDataKeys.DECORATED_POT_WOBBLE_FLIPPED, potInterface.trailierTales$isWobbleFlipped());
+		if (!(blockEntity instanceof DecoratedPotBlockEntityInterface potInterface)) return;
+		state.frozenLib$setData(TTRenderStateDataKeys.DECORATED_POT_WOBBLE_FLIPPED, potInterface.trailierTales$isWobbleFlipped());
 	}
 
 	@WrapOperation(
@@ -64,10 +64,9 @@ public class DecoratedPotRendererMixin {
 	)
 	public Quaternionf trailierTales$flipWobble(
 		Axis instance, float v, Operation<Quaternionf> original,
-		@Local(argsOnly = true) DecoratedPotRenderState renderState
+		@Local(argsOnly = true) DecoratedPotRenderState state
 	) {
-		final float multiplier = renderState.frozenLib$getDataOrDefault(TTRenderStateDataKeys.DECORATED_POT_WOBBLE_FLIPPED, false) ? -1F : 1F;
+		final float multiplier = state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.DECORATED_POT_WOBBLE_FLIPPED, false) ? -1F : 1F;
 		return original.call(instance, v * multiplier);
 	}
-
 }

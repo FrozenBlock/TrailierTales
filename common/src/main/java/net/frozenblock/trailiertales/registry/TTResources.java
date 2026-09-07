@@ -45,14 +45,14 @@ public final class TTResources {
 			TTConstants.id("server_resource_listener"),
 			new SimplePreparableReloadListener<Void>() {
 				@Override
-				protected Void prepare(ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+				protected Void prepare(ResourceManager manager, ProfilerFiller profiler) {
 					return null;
 				}
 
 				@Override
-				protected void apply(Void unused, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-					RuinsStructure.onServerDataReload(resourceManager);
-					HAS_STRONGHOLD_OVERRIDE_PACK = resourceManager.listPacks().anyMatch(packResources -> {
+				protected void apply(Void preparations, ResourceManager manager, ProfilerFiller profiler) {
+					RuinsStructure.onServerDataReload(manager);
+					HAS_STRONGHOLD_OVERRIDE_PACK = manager.listPacks().anyMatch(packResources -> {
 						if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(TTConstants.string("stronghold_catacombs"));
 						return false;
 					});

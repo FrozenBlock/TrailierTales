@@ -51,4 +51,6 @@ public final class TTBuiltInBlockModels {
 	private static BlockModel.Unbaked createCoffin(Identifier texture, CoffinPart part, Direction facing) {
 		return BuiltInBlockModels.special(new CoffinSpecialRenderer.Unbaked(texture, part), CoffinRenderer.modelTransform(facing));
 	}
+
+	private TTBuiltInBlockModels() {}
 }

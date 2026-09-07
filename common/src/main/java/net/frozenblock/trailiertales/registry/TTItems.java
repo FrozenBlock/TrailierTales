@@ -21,6 +21,7 @@ import net.frozenblock.lib.item.api.PlaceInAirBlockItem;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.item.CoffinItem;
 import net.frozenblock.trailiertales.references.TTBlockItemIds;
 import net.frozenblock.trailiertales.references.TTItemIds;
@@ -33,7 +34,7 @@ import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
 
 public final class TTItems {
-	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(TTConstants.MOD_ID);
+	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(TTConstants.MOD_ID).requiredFeatures(TTFeatureFlags.FEATURE_FLAG);
 
 	// BLOCK ITEMS
 	// SUSPICIOUS BLOCKS
@@ -275,12 +276,12 @@ public final class TTItems {
 
 	public static void init() {}
 
-	public static DeferredItem<Item> registerPotterySherd(ResourceKey<Item> id) {
-		return REGISTER.registerSimpleItem(id, () -> new Properties().rarity(Rarity.UNCOMMON));
+	public static DeferredItem<Item> registerPotterySherd(ResourceKey<Item> key) {
+		return REGISTER.registerSimpleItem(key, () -> new Properties().rarity(Rarity.UNCOMMON));
 	}
 
-	public static DeferredItem<SmithingTemplateItem> registerArmorTrimTemplate(ResourceKey<Item> id) {
-		return REGISTER.registerItem(id, SmithingTemplateItem::createArmorTrimTemplate, () -> new Properties().rarity(Rarity.UNCOMMON));
+	public static DeferredItem<SmithingTemplateItem> registerArmorTrimTemplate(ResourceKey<Item> key) {
+		return REGISTER.registerItem(key, SmithingTemplateItem::createArmorTrimTemplate, () -> new Properties().rarity(Rarity.UNCOMMON));
 	}
 
 	private TTItems() {}

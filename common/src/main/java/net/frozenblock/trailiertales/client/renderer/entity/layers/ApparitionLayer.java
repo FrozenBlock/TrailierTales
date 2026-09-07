@@ -58,33 +58,33 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 	@Override
 	public void submit(
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		int light,
-		ApparitionRenderState renderState,
+		SubmitNodeCollector submitNodeCollector,
+		int lightCoords,
+		ApparitionRenderState state,
 		float yRot,
 		float xRot
 	) {
-		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
-		final float innerTransparency = this.innerAlphaFunction.apply(renderState) * renderState.flicker;
-		final float outerTransparency = this.outerAlphaFunction.apply(renderState) * renderState.flicker;
+		final int overlay = LivingEntityRenderer.getOverlayCoords(state, 0F);
+		final float innerTransparency = this.innerAlphaFunction.apply(state) * state.flicker;
+		final float outerTransparency = this.outerAlphaFunction.apply(state) * state.flicker;
 
-		if (renderState.innerTransparency > 0F) {
-			collector.order(this.minOrder).submitModelPart(
+		if (state.innerTransparency > 0F) {
+			submitNodeCollector.order(this.minOrder).submitModelPart(
 				this.model.outline,
 				poseStack,
 				this.innerRenderType,
-				light,
+				lightCoords,
 				overlay,
 				null,
 				ARGB.colorFromFloat(innerTransparency * 0.7F, 1F, 1F, 1F),
 				null
 			);
 
-			collector.order(this.minOrder + 1).submitModelPart(
+			submitNodeCollector.order(this.minOrder + 1).submitModelPart(
 				this.model.inner,
 				poseStack,
 				this.innerRenderType,
-				light,
+				lightCoords,
 				overlay,
 				null,
 				ARGB.colorFromFloat(innerTransparency, 1F, 1F, 1F),
@@ -93,14 +93,14 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 		}
 
 		if (outerTransparency > 0F) {
-			collector.order(this.minOrder).submitModelPart(
+			submitNodeCollector.order(this.minOrder).submitModelPart(
 				this.model.outer,
 				poseStack,
 				this.outerRenderType,
-				light,
+				lightCoords,
 				overlay,
 				null,
-				ARGB.colorFromFloat(outerTransparency * renderState.flicker, 1F, 1F, 1F),
+				ARGB.colorFromFloat(outerTransparency * state.flicker, 1F, 1F, 1F),
 				null
 			);
 		}

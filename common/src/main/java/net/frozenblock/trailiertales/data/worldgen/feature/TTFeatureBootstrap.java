@@ -55,7 +55,7 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 
-public class TTFeatureBootstrap {
+public final class TTFeatureBootstrap {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TORCHFLOWER = ResourceKey.create(Registries.CONFIGURED_FEATURE, TTConstants.id("torchflower"));
 	public static final ResourceKey<PlacedFeature> PATCH_TORCHFLOWER = ResourceKey.create(Registries.PLACED_FEATURE, TTConstants.id("patch_torchflower"));
 
@@ -236,4 +236,6 @@ public class TTFeatureBootstrap {
 	private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> entries, ResourceKey<ConfiguredFeature<?, ?>> id, F feature, FC config) {
 		FeatureUtils.register(entries, id, feature, config);
 	}
+
+	private TTFeatureBootstrap() {}
 }

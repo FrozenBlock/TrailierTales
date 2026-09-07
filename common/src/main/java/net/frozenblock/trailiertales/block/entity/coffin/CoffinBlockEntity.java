@@ -53,13 +53,10 @@ import org.jetbrains.annotations.Nullable;
 public class CoffinBlockEntity extends RandomizableContainerBlockEntity implements Spawner, CoffinSpawner.StateAccessor {
 	public static final float WOBBLE_DURATION = 15F;
 	public static final int WOBBLE_COOLDOWN = 10;
-
 	private NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 	private CoffinSpawner coffinSpawner;
-
 	private float previousOpenProgress;
 	private float openProgress;
-
 	public long wobbleStartedAtTick;
 	public int coffinWobbleLidAnimTicks;
 
@@ -152,7 +149,14 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 		if (coffinSpawnerState.isCapableOfSpawning()) {
 			final RandomSource random = level.getRandom();
 			if (random.nextFloat() <= 0.0175F) {
-				level.playLocalSound(pos, TTSounds.COFFIN_AMBIENT.get(), SoundSource.BLOCKS, random.nextFloat() * 0.15F + 0.05F, random.nextFloat() + 0.5F, false);
+				level.playLocalSound(
+					pos,
+					TTSounds.COFFIN_AMBIENT.get(),
+					SoundSource.BLOCKS,
+					random.nextFloat() * 0.15F + 0.05F,
+					random.nextFloat() + 0.5F,
+					false
+				);
 			}
 		}
 
@@ -179,7 +183,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		final CompoundTag tag = new CompoundTag();
 		tag.putBoolean("attempting_to_spawn_mob", this.coffinSpawner.isAttemptingToSpawnMob());
 		return tag;

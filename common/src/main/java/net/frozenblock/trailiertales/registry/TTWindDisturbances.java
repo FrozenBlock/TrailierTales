@@ -36,4 +36,6 @@ public final class TTWindDisturbances {
 			WindDisturbances.addIf(level, entity, WindDisturbances.isOfClassAndDoesntHaveDisturbance(Apparition.class, APPARITION), () -> ApparitionWindDisturbance.INSTANCE);
 		});
 	}
+
+	private TTWindDisturbances() {}
 }

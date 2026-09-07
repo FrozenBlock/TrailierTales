@@ -40,8 +40,8 @@ public class ShearsDispenseItemBehaviorMixin {
 			target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
-	private boolean trailierTales$execute(ServerLevel level, ItemStack stack, BlockPos pos, Operation<Boolean> original) {
-		return original.call(level, stack, pos) || trailierTales$tryShearDawntrail(level, pos);
+	private boolean trailierTales$execute(ServerLevel level, ItemStack tool, BlockPos pos, Operation<Boolean> original) {
+		return original.call(level, tool, pos) || trailierTales$tryShearDawntrail(level, pos);
 	}
 
 	@Unique

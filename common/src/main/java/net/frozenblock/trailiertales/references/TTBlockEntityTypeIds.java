@@ -29,4 +29,6 @@ public final class TTBlockEntityTypeIds {
 	private static ResourceKey<BlockEntityType<?>> create(String name) {
 		return ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, TTConstants.id(name));
 	}
+
+	private TTBlockEntityTypeIds() {}
 }

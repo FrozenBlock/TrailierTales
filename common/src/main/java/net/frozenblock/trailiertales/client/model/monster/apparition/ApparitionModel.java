@@ -83,15 +83,16 @@ public class ApparitionModel extends EntityModel<ApparitionRenderState> {
 	}
 
 	@Override
-	public void setupAnim(ApparitionRenderState renderState) {
-		final float limbAngle = renderState.walkAnimationPos;
-		final float limbDistance = renderState.walkAnimationSpeed;
-		final float headYaw = renderState.yRot;
-		final float headPitch = renderState.xRot;
-		this.outer.yRot = renderState.itemYRot;
-		this.outer.zRot = renderState.itemZRot;
+	public void setupAnim(ApparitionRenderState state) {
+		super.setupAnim(state);
+		final float limbAngle = state.walkAnimationPos;
+		final float limbDistance = state.walkAnimationSpeed;
+		final float headYaw = state.yRot;
+		final float headPitch = state.xRot;
+		this.outer.yRot = state.itemYRot;
+		this.outer.zRot = state.itemZRot;
 
-		final float animationProgress = renderState.ageInTicks + (limbAngle * 3.5F);
+		final float animationProgress = state.ageInTicks + (limbAngle * 3.5F);
 		this.core.yRot = headYaw * Mth.DEG_TO_RAD;
 		this.core.xRot = headPitch * Mth.DEG_TO_RAD;
 

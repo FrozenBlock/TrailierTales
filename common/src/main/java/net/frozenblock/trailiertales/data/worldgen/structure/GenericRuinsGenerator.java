@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class GenericRuinsGenerator {
+public final class GenericRuinsGenerator {
 	public static final ResourceKey<StructureSet> RUINS_KEY = TTStructures.ofSet("ruins");
 	public static final ResourceKey<Structure> RUIN_KEY = TTStructures.createKey("ruins");
 
@@ -161,4 +161,6 @@ public class GenericRuinsGenerator {
 			)
 		)
 	);
+
+	private GenericRuinsGenerator() {}
 }

@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.minecraft.SharedConstants;
 
-public class TTConstants {
+public final class TTConstants {
 	public static final String MOD_ID = TTPreLoadConstants.MOD_ID;
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	/**
@@ -73,4 +73,6 @@ public class TTConstants {
 	public static Component tooltip(String key, Object... args) {
 		return Component.translatable("tooltip." + MOD_ID + "." + key, args);
 	}
+
+	private TTConstants() {}
 }

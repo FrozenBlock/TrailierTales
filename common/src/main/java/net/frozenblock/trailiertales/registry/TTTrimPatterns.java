@@ -50,4 +50,6 @@ public final class TTTrimPatterns {
 	private static ResourceKey<TrimPattern> create(String name) {
 		return ResourceKey.create(Registries.TRIM_PATTERN, TTConstants.id(name));
 	}
+
+	private TTTrimPatterns() {}
 }

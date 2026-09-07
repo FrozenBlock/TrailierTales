@@ -51,24 +51,24 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 		)
 	)
 	void trailierTales$injectBrushAnim(
-		S renderState,
-		ItemStackRenderState stackState,
-		ItemStack stack,
+		S state,
+		ItemStackRenderState item,
+		ItemStack itemStack,
 		HumanoidArm arm,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		int light,
+		SubmitNodeCollector submitNodeCollector,
+		int lightCoords,
 		CallbackInfo info
 	) {
-		if (!(renderState instanceof HumanoidRenderState humanoidState)) return;
+		if (!(state instanceof HumanoidRenderState humanoidState)) return;
 
 		final InteractionHand interactionHand = arm == humanoidState.mainArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-		if (stack != null
+		if (itemStack != null
 			&& TTItemConfig.BRUSH_SMOOTH_ANIMATION.get()
 			&& humanoidState.isUsingItem
 			&& humanoidState.useItemHand == interactionHand
 			&& humanoidState.attackTime <= 0F
-			&& stack.is(Items.BRUSH)
+			&& itemStack.is(Items.BRUSH)
 		) {
 			final float brushProgress = humanoidState.ticksUsingItem + 1F;
 			final float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;

@@ -30,4 +30,6 @@ public final class TTBlockIds {
 	private static ResourceKey<Block> create(String name) {
 		return ResourceKey.create(Registries.BLOCK, TTConstants.id(name));
 	}
+
+	private TTBlockIds() {}
 }

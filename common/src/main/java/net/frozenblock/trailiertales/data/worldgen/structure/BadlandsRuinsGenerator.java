@@ -49,7 +49,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockSt
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class BadlandsRuinsGenerator {
+public final class BadlandsRuinsGenerator {
 	public static final ResourceKey<StructureSet> BADLANDS_RUINS_KEY = TTStructures.ofSet("ruins_badlands");
 	public static final ResourceKey<Structure> BADLANDS_RUIN_KEY = TTStructures.createKey("ruins_badlands");
 
@@ -160,4 +160,6 @@ public class BadlandsRuinsGenerator {
 			)
 		)
 	);
+
+	private BadlandsRuinsGenerator() {}
 }

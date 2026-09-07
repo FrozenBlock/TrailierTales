@@ -45,7 +45,7 @@ public class BlockBehaviorMixin {
 
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
 	public void trailierTales$useItemOn(
-		ItemStack stack,
+		ItemStack itemStack,
 		BlockState state,
 		Level level,
 		BlockPos pos,
@@ -71,7 +71,7 @@ public class BlockBehaviorMixin {
 	}
 
 	@Inject(method = "affectNeighborsAfterRemoval", at = @At("HEAD"))
-	public void trailierTales$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean moved, CallbackInfo info) {
+	public void trailierTales$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston, CallbackInfo info) {
 		if (!(state.getBlock() instanceof BrushableBlock)) return;
 		if (level.getBlockEntity(pos) instanceof BrushableBlockEntity brushableBlock
 			&& brushableBlock instanceof BrushableBlockEntityInterface brushableBlockInterface

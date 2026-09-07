@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 public class ArmorStandMixin {
 
 	@Shadow
-	private byte setBit(byte value, int bitField, boolean set) {
+	private byte setBit(byte data, int bit, boolean value) {
 		throw new AssertionError("Mixin injection failed - Trailier Tales ArmorStandMixin.");
 	}
 
@@ -53,5 +53,4 @@ public class ArmorStandMixin {
 	public void trailierTales$enableArms(Args args) {
 		if (TTEntityConfig.ARMOR_STAND_HAS_ARMS.get()) args.set(1, this.setBit((byte) 0, 4, true));
 	}
-
 }

@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class TTBiomeModifications {
 
-	public static void init() {
+	public static void setup() {
 		BiomeModifications.create(TTConstants.id("sniffer")).add(
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.all(),
@@ -88,4 +88,5 @@ public final class TTBiomeModifications {
 		);
 	}
 
+	private TTBiomeModifications() {}
 }

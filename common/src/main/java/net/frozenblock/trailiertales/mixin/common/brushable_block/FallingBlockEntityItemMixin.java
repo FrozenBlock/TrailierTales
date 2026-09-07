@@ -40,7 +40,10 @@ public class FallingBlockEntityItemMixin {
 			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
 		)
 	)
-	public void trailierTales$dropItem(CallbackInfo info, @Local(name = "serverLevel") ServerLevel serverLevel) {
+	public void trailierTales$dropItem(
+		CallbackInfo info,
+		@Local(name = "serverLevel") ServerLevel serverLevel
+	) {
 		trailierTales$dropItem(FallingBlockEntity.class.cast(this), serverLevel);
 	}
 
@@ -53,8 +56,8 @@ public class FallingBlockEntityItemMixin {
 
 	@Unique
 	private static void trailierTales$dropItem(FallingBlockEntity fallingBlock, ServerLevel level) {
-		final ItemStack itemStack = fallingBlock.frozenLib$getAttachedOrElse(TTAttachmentTypes.FALLING_BLOCK_ITEM, ItemStack.EMPTY);
+		final ItemStack itemStack = TTAttachmentTypes.FALLING_BLOCK_ITEM.getAttachedOrElse(fallingBlock, ItemStack.EMPTY);
 		fallingBlock.spawnAtLocation(level, itemStack);
-		fallingBlock.frozenLib$removeAttached(TTAttachmentTypes.FALLING_BLOCK_ITEM);
+		TTAttachmentTypes.FALLING_BLOCK_ITEM.remove(fallingBlock);
 	}
 }

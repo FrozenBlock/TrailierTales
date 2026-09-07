@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 @ClientOnly
-public class TTModelLayers {
+public final class TTModelLayers {
 	public static final ModelLayerLocation COFFIN_HEAD = new ModelLayerLocation(TTConstants.id("coffin_head"), "main");
 	public static final ModelLayerLocation COFFIN_FOOT = new ModelLayerLocation(TTConstants.id("coffin_foot"), "main");
 	public static final ModelLayerLocation APPARITION = new ModelLayerLocation(TTConstants.id("apparition"), "main");
@@ -52,6 +52,9 @@ public class TTModelLayers {
 		ModelLayerRegistry.register(BOAT_BANNER_STAND, BoatBannerModel::createStandLayer);
 	}
 
+	/**
+	 * Registries MUST be populated before this. Runs during NeoForge's setup event.
+	 */
 	public static void setup() {
 		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN.get(), CoffinRenderer::new);
 
@@ -59,4 +62,6 @@ public class TTModelLayers {
 
 		EntityRendererRegistry.register(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), ThrownItemRenderer::new);
 	}
+
+	private TTModelLayers() {}
 }

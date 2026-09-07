@@ -28,13 +28,11 @@ import net.minecraft.util.Util;
 import net.minecraft.world.item.JukeboxSong;
 
 public final class TTJukeboxSongs {
-	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = create("fausse_vie");
-	public static final ResourceKey<JukeboxSong> STASIS = create("stasis");
-	public static final ResourceKey<JukeboxSong> OSSUAIRE = create("ossuaire");
+	public static final ResourceKey<JukeboxSong> FAUSSE_VIE = createKey("fausse_vie");
+	public static final ResourceKey<JukeboxSong> STASIS = createKey("stasis");
+	public static final ResourceKey<JukeboxSong> OSSUAIRE = createKey("ossuaire");
 
-	public static void init() {}
-
-	private static ResourceKey<JukeboxSong> create(String path) {
+	private static ResourceKey<JukeboxSong> createKey(String path) {
 		return ResourceKey.create(Registries.JUKEBOX_SONG, TTConstants.id(path));
 	}
 
@@ -56,4 +54,6 @@ public final class TTJukeboxSongs {
 		register(context, STASIS, TTSounds.MUSIC_DISC_STASIS.asHolder(), 148, 9);
 		register(context, OSSUAIRE, TTSounds.MUSIC_DISC_OSSUAIRE.asHolder(), 176, 8);
 	}
+
+	private TTJukeboxSongs() {}
 }

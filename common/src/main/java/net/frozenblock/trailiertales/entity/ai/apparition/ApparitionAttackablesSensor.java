@@ -30,32 +30,32 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 
 public class ApparitionAttackablesSensor extends Sensor<LivingEntity> {
 
-	protected boolean isMatchingEntity(ServerLevel level, LivingEntity entity, LivingEntity target) {
-		return this.isClose(entity, target)
+	protected boolean isMatchingEntity(ServerLevel level, LivingEntity body, LivingEntity target) {
+		return this.isClose(body, target)
 			&& this.isHostileTarget(target)
-			&& Sensor.isEntityAttackableIgnoringLineOfSight(level, entity, target);
+			&& Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target);
 	}
 
-	private boolean isHostileTarget(LivingEntity entity) {
-		return entity.is(TTEntityTypeTags.APPARITION_TARGETABLE);
+	private boolean isHostileTarget(LivingEntity target) {
+		return target.is(TTEntityTypeTags.APPARITION_TARGETABLE);
 	}
 
-	private boolean isClose(LivingEntity apparition, LivingEntity target) {
-		return target.distanceTo(apparition) <= apparition.getAttributes().getValue(Attributes.FOLLOW_RANGE);
+	private boolean isClose(LivingEntity body, LivingEntity target) {
+		return target.distanceTo(body) <= body.getAttributes().getValue(Attributes.FOLLOW_RANGE);
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
-		entity.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, this.getNearestEntityNoLineOfSight(level, entity));
+	protected void doTick(ServerLevel level, LivingEntity body) {
+		body.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, this.getNearestEntityNoLineOfSight(level, body));
 	}
 
-	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, LivingEntity apparition) {
-		return apparition.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
-			.flatMap(entities -> this.findClosest(entities, entity -> this.isMatchingEntity(level, apparition, entity)));
+	private Optional<LivingEntity> getNearestEntityNoLineOfSight(ServerLevel level, LivingEntity body) {
+		return body.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS)
+			.flatMap(entities -> this.findClosest(entities, entity -> this.isMatchingEntity(level, body, entity)));
 	}
 
-	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
-		for (LivingEntity livingEntity : livingEntities) {
+	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> entities, Predicate<LivingEntity> predicate) {
+		for (LivingEntity livingEntity : entities) {
 			if (predicate.test(livingEntity)) return Optional.of(livingEntity);
 		}
 

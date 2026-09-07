@@ -24,7 +24,7 @@ import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
 import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 
-public class TTDataFixer {
+public final class TTDataFixer {
 	public static final int DATA_VERSION = 3;
 
 	public static void applyDataFixes(String modId) {
@@ -260,4 +260,5 @@ public class TTDataFixer {
 		FabricDataFixes.buildAndRegisterFixer(modId, builder);
 	}
 
+	private TTDataFixer() {}
 }

@@ -51,4 +51,6 @@ public final class TTWorldgenConfig {
 	public static final ConfigEntry<Boolean> END_CITY_CRACKED_GENERATION = CONFIG.entryBuilder("endCity/generateCracked", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> END_CITY_CHORAL_GENERATION = CONFIG.entryBuilder("endCity/generateChoral", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> END_CITY_CHISELED_GENERATION = CONFIG.entryBuilder("endCity/generateChiseled", EntryType.BOOL, true).requireRestart().build();
+
+	private TTWorldgenConfig() {}
 }

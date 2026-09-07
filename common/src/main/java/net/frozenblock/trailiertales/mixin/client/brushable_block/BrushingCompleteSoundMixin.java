@@ -45,5 +45,4 @@ public class BrushingCompleteSoundMixin {
 		if (original == TTSounds.BRUSH_CLAY_COMPLETED.get() && wwIntegration.newClaySounds()) return TTSounds.BRUSH_CLAY_WW_COMPLETED.get();
 		return original;
 	}
-
 }

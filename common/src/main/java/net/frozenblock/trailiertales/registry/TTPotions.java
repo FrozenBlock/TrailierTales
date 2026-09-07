@@ -57,4 +57,6 @@ public final class TTPotions {
 	private static DeferredHolder<Potion, Potion> register(ResourceKey<Potion> key, Supplier<Potion> potion) {
 		return REGISTER.register(key, potion);
 	}
+
+	private TTPotions() {}
 }

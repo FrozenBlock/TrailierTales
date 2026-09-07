@@ -54,13 +54,12 @@ import org.jetbrains.annotations.Contract;
 public class RuinsStructure extends Structure {
 	public static final MapCodec<RuinsStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		settingsCodec(instance),
-			RuinsStructure.Type.CODEC.optionalFieldOf("ruins_type", Type.GENERIC).forGetter(feature -> feature.ruinsType),
-			Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
-			UniformInt.MAP_CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
-			Heightmap.Types.CODEC.lenientOptionalFieldOf("heightmap").forGetter(feature -> feature.heightmap),
-			HeightProvider.CODEC.lenientOptionalFieldOf("height_provider").forGetter(feature -> feature.heightProvider)
-		).apply(instance, RuinsStructure::new)
-	);
+		RuinsStructure.Type.CODEC.optionalFieldOf("ruins_type", Type.GENERIC).forGetter(feature -> feature.ruinsType),
+		Codec.floatRange(0F, 1F).fieldOf("cluster_probability").forGetter(feature -> feature.clusterProbability),
+		UniformInt.MAP_CODEC.fieldOf("cluster_pieces").forGetter(feature -> feature.clusterPieces),
+		Heightmap.Types.CODEC.lenientOptionalFieldOf("heightmap").forGetter(feature -> feature.heightmap),
+		HeightProvider.CODEC.lenientOptionalFieldOf("height_provider").forGetter(feature -> feature.heightProvider)
+	).apply(instance, RuinsStructure::new));
 	public final RuinsStructure.Type ruinsType;
 	public final float clusterProbability;
 	public final UniformInt clusterPieces;
@@ -165,8 +164,8 @@ public class RuinsStructure extends Structure {
 		return TTStructureTypes.RUINS.get();
 	}
 
-	public static void onServerDataReload(ResourceManager resourceManager) {
-		Arrays.stream(Type.values()).toList().forEach(type -> type.getPieceHandler().onDataReload(resourceManager));
+	public static void onServerDataReload(ResourceManager manager) {
+		Arrays.stream(Type.values()).toList().forEach(type -> type.getPieceHandler().onDataReload(manager));
 	}
 
 	public enum Type implements StringRepresentable {

@@ -18,5 +18,6 @@
 package net.frozenblock.trailiertales.client.renderer.impl;
 
 public interface DecoratedPotBlockEntityInterface {
+	// TODO: migrate to data attachments
 	boolean trailierTales$isWobbleFlipped();
 }

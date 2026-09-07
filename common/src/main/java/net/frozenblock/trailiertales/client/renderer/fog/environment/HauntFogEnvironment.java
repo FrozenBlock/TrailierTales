@@ -32,6 +32,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.material.FogType;
+import org.jspecify.annotations.Nullable;
 
 @ClientOnly
 public class HauntFogEnvironment extends MobEffectFogEnvironment {
@@ -59,13 +60,13 @@ public class HauntFogEnvironment extends MobEffectFogEnvironment {
 	}
 
 	@Override
-	public float getModifiedDarkness(LivingEntity entity, float darkness, float partialTick) {
+	public float getModifiedDarkness(LivingEntity entity, float darkness, float partialTickTime) {
 		final MobEffectInstance effect = entity.getEffect(this.getMobEffect());
-		return effect != null ? Math.max(effect.getBlendFactor(entity, partialTick), darkness) : darkness;
+		return effect != null ? Math.max(effect.getBlendFactor(entity, partialTickTime), darkness) : darkness;
 	}
 
 	@Override
-	public boolean isApplicable(FogType fogType, Entity entity) {
+	public boolean isApplicable(@Nullable FogType fogType, Entity entity) {
 		return TTEntityConfig.APPARITION_HAUNTED_FOG.get() && super.isApplicable(fogType, entity);
 	}
 }

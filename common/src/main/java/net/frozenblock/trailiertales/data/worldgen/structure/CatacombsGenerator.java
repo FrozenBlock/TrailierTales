@@ -80,7 +80,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-public class CatacombsGenerator {
+public final class CatacombsGenerator {
 	public static final ResourceKey<StructureSet> CATACOMBS_STRUCTURE_SET_KEY =  TTStructures.ofSet("catacombs");
 	public static final ResourceKey<Structure> CATACOMBS_KEY = TTStructures.createKey("catacombs");
 	// POOLS
@@ -1292,13 +1292,15 @@ public class CatacombsGenerator {
 		return TTConstants.string("catacombs/" + name);
 	}
 
-	private static ResourceKey<StructureProcessorList> createKey(String string) {
-		return ResourceKey.create(Registries.PROCESSOR_LIST, TTConstants.id(string));
+	private static ResourceKey<StructureProcessorList> createKey(String name) {
+		return ResourceKey.create(Registries.PROCESSOR_LIST, TTConstants.id(name));
 	}
 
 	private static Holder<StructureProcessorList> register(
-		BootstrapContext<StructureProcessorList> entries, ResourceKey<StructureProcessorList> key, List<StructureProcessor> list
+		BootstrapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> processors
 	) {
-		return entries.register(key, new StructureProcessorList(list));
+		return context.register(key, new StructureProcessorList(processors));
 	}
+
+	private CatacombsGenerator() {}
 }

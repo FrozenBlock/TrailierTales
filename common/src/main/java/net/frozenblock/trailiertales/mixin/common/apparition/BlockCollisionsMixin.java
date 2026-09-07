@@ -48,5 +48,4 @@ public class BlockCollisionsMixin {
 		if (!(this.context instanceof EntityCollisionContext entityCollisionContext) || !(entityCollisionContext.getEntity() instanceof Apparition)) return original;
 		return original.getBlock() instanceof EctoplasmBlock ? original : Blocks.AIR.defaultBlockState();
 	}
-
 }

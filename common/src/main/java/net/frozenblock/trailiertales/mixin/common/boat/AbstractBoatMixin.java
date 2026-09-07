@@ -71,8 +71,7 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBan
 		method = "interact",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;",
-			shift = At.Shift.BEFORE
+			target = "Lnet/minecraft/world/entity/vehicle/VehicleEntity;interact(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/InteractionResult;"
 		),
 		cancellable = true
 	)

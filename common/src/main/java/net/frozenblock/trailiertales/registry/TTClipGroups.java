@@ -28,13 +28,15 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 public final class TTClipGroups {
-	public static final ResourceKey<ClipGroup> ECTOPLASM_BLOCK = bind("ectoplasm_block");
+	public static final ResourceKey<ClipGroup> ECTOPLASM_BLOCK = createKey("ectoplasm_block");
 
 	public static void bootstrap(BootstrapContext<ClipGroup> context) {
 		ClipGroups.register(context, ECTOPLASM_BLOCK, HolderSet.direct(context.lookup(Registries.BLOCK).getOrThrow(TTBlockItemIds.ECTOPLASM_BLOCK.block())));
 	}
 
-	private static ResourceKey<ClipGroup> bind(String name) {
+	private static ResourceKey<ClipGroup> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.CLIP_GROUP, TTConstants.id(name));
 	}
+
+	private TTClipGroups() {}
 }

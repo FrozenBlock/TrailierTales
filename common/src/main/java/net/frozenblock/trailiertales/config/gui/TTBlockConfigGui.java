@@ -29,52 +29,42 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 @ClientOnly
 public final class TTBlockConfigGui {
 
-	private TTBlockConfigGui() {
-		throw new UnsupportedOperationException("TTBlockConfigGui contains only static declarations.");
-	}
-
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
 		// SUSPICIOUS BLOCKS
-		var smoothSuspiciousBlocks = booleanEntry(entryBuilder, "smooth_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS);
-		var suspiciousBlockParticles = booleanEntry(entryBuilder, "suspicious_block_particles", TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES);
-		var placeItemsInSuspiciousBlocks = booleanEntry(entryBuilder, "place_items_in_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, text("suspicious_blocks"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, text("suspicious_blocks"),
 			false,
 			tooltip("suspicious_blocks"),
-			smoothSuspiciousBlocks, suspiciousBlockParticles, placeItemsInSuspiciousBlocks
+			booleanEntry(builder, "smooth_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS),
+			booleanEntry(builder, "suspicious_block_particles", TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES),
+			booleanEntry(builder, "place_items_in_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS)
 		);
 
 		// COFFIN
-		var ignoreDoMobSpawningGamerule = booleanEntry(entryBuilder, "ignore_do_mob_spawning_gamerule", TTBlockConfig.COFFIN_IGNORES_DO_MOB_SPAWNING_GAMERULE);
-		var coffinWobble = booleanEntry(entryBuilder, "coffin_wobble", TTBlockConfig.COFFIN_WOBBLING);
-		var coffinWobbleActivate = booleanEntry(entryBuilder, "coffin_wobble_activate", TTBlockConfig.COFFIN_WOBBLE_ACTIVATION);
-		var coffinWobbleLoot = booleanEntry(entryBuilder, "coffin_wobble_loot", TTBlockConfig.COFFIN_WOBBLE_LOOT);
-		var coffinWobblePotion = booleanEntry(entryBuilder, "coffin_wobble_potion", TTBlockConfig.COFFIN_WOBBLE_POTION_SPAWNING);
-		var coffinWobbleExperienceBottle = booleanEntry(entryBuilder, "coffin_wobble_experience_bottle", TTBlockConfig.COFFIN_WOBBLE_EXPERIENCE_BOTTLE_SPAWNING);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, text("coffin"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, text("coffin"),
 			false,
 			tooltip("coffin"),
-			ignoreDoMobSpawningGamerule,
-			coffinWobble, coffinWobbleActivate, coffinWobbleExperienceBottle, coffinWobbleLoot, coffinWobblePotion
+			booleanEntry(builder, "ignore_do_mob_spawning_gamerule", TTBlockConfig.COFFIN_IGNORES_DO_MOB_SPAWNING_GAMERULE),
+			booleanEntry(builder, "coffin_wobble", TTBlockConfig.COFFIN_WOBBLING),
+			booleanEntry(builder, "coffin_wobble_activate", TTBlockConfig.COFFIN_WOBBLE_ACTIVATION),
+			booleanEntry(builder, "coffin_wobble_loot", TTBlockConfig.COFFIN_WOBBLE_LOOT),
+			booleanEntry(builder, "coffin_wobble_potion", TTBlockConfig.COFFIN_WOBBLE_POTION_SPAWNING),
+			booleanEntry(builder, "coffin_wobble_experience_bottle", TTBlockConfig.COFFIN_WOBBLE_EXPERIENCE_BOTTLE_SPAWNING)
 		);
 
 		// BLOCK SOUNDS
-		var unpolishedBricksSounds = booleanEntry(entryBuilder, "unpolished_bricks_sounds", TTBlockConfig.UNPOLISHED_BRICKS_SOUNDS);
-		var polishedBricksSounds = booleanEntry(entryBuilder, "polished_bricks_sounds", TTBlockConfig.POLISHED_BRICKS_SOUNDS);
-		var polishedSounds = booleanEntry(entryBuilder, "polished_sounds", TTBlockConfig.POLISHED_SOUNDS);
-		var polishedBasaltSounds = booleanEntry(entryBuilder, "polished_basalt_sounds", TTBlockConfig.POLISHED_BASALT_SOUNDS);
-		var polishedDeepslateSounds = booleanEntry(entryBuilder, "polished_deepslate_sounds", TTBlockConfig.POLISHED_DEEPSLATE_SOUNDS);
-		var polishedTuffSounds = booleanEntry(entryBuilder, "polished_tuff_sounds", TTBlockConfig.POLISHED_TUFF_SOUNDS);
-		var polishedCalciteSounds = booleanEntry(entryBuilder, "polished_calcite_sounds", TTBlockConfig.POLISHED_CALCITE_SOUNDS);
-		var calciteBricksSounds = booleanEntry(entryBuilder, "calcite_bricks_sounds", TTBlockConfig.CALCITE_BRICKS_SOUNDS);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, text("block_sounds"),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, text("block_sounds"),
 			false,
 			tooltip("block_sounds"),
-			unpolishedBricksSounds, polishedBricksSounds, polishedSounds, polishedBasaltSounds, polishedDeepslateSounds,
-			polishedTuffSounds, polishedCalciteSounds, calciteBricksSounds
+			booleanEntry(builder, "unpolished_bricks_sounds", TTBlockConfig.UNPOLISHED_BRICKS_SOUNDS),
+			booleanEntry(builder, "polished_bricks_sounds", TTBlockConfig.POLISHED_BRICKS_SOUNDS),
+			booleanEntry(builder, "polished_sounds", TTBlockConfig.POLISHED_SOUNDS),
+			booleanEntry(builder, "polished_basalt_sounds", TTBlockConfig.POLISHED_BASALT_SOUNDS),
+			booleanEntry(builder, "polished_deepslate_sounds", TTBlockConfig.POLISHED_DEEPSLATE_SOUNDS),
+			booleanEntry(builder, "polished_tuff_sounds", TTBlockConfig.POLISHED_TUFF_SOUNDS),
+			booleanEntry(builder, "polished_calcite_sounds", TTBlockConfig.POLISHED_CALCITE_SOUNDS),
+			booleanEntry(builder, "calcite_bricks_sounds", TTBlockConfig.CALCITE_BRICKS_SOUNDS)
 		);
 	}
+
+	private TTBlockConfigGui() {}
 }

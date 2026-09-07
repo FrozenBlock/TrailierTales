@@ -26,6 +26,7 @@ import net.frozenblock.trailiertales.mod_compat.wilderwild.AbstractWWIntegration
 import net.frozenblock.trailiertales.mod_compat.wilderwild.NoOpWWIntegration;
 import net.frozenblock.trailiertales.mod_compat.wilderwild.WWIntegration;
 
+// TODO: ML
 public final class TTModIntegrations {
 	public static final ModIntegrationSupplier<AbstractWWIntegration> WILDER_WILD_INTEGRATION = register(
 		() -> new WWIntegration(),

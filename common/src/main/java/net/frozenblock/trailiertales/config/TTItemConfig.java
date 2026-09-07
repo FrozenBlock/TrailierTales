@@ -32,4 +32,6 @@ public final class TTItemConfig {
 	// BRUSH
 	public static final ConfigEntry<Boolean> BRUSH_SMOOTH_ANIMATION = CONFIG.entry("brush/smoothAnimation", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> BRUSH_HALF_BRUSH_EFFECTS = CONFIG.entry("brush/halsBrushEffects", EntryType.BOOL, true);
+
+	private TTItemConfig() {}
 }

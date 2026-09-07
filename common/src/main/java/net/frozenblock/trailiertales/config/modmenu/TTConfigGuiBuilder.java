@@ -34,7 +34,7 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
 
 @ClientOnly
-public class TTConfigGuiBuilder {
+public final class TTConfigGuiBuilder {
 
 	public static Screen buildScreen(Screen parent) {
 		final ConfigBuilder configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TTConstants.text("component.title"));
@@ -55,4 +55,6 @@ public class TTConfigGuiBuilder {
 
 		return configBuilder.build();
 	}
+
+	private TTConfigGuiBuilder() {}
 }

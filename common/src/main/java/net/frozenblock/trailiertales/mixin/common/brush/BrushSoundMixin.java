@@ -43,5 +43,4 @@ public class BrushSoundMixin {
 		if (original == TTSounds.BRUSH_CLAY.get() && wwIntegration.newClaySounds()) return TTSounds.BRUSH_CLAY_WW.get();
 		return original;
 	}
-
 }

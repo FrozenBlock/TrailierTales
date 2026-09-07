@@ -205,4 +205,6 @@ public final class TTBlockItemIds {
 	private static BlockItemId create(String blockName, String itemName) {
 		return BlockItemId.create(TTConstants.id(blockName), TTConstants.id(itemName));
 	}
+
+	private TTBlockItemIds() {}
 }

@@ -69,7 +69,8 @@ public class ApparitionWindDisturbance extends EntityWindDisturbance<Apparition>
 		return WindDisturbanceResult.success(
 			strengthFromDistance * scale,
 			(scaledRange - distance) * scale,
-			windVec);
+			windVec
+		);
 	}
 
 	@Override

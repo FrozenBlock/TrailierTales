@@ -42,9 +42,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 
-public class TTStructureModifications {
+public final class TTStructureModifications {
 
-	public static void init() {
+	public static void setup() {
 		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), TTWorldgenConfig.CATACOMBS_GENERATION);
 		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier(), TTWorldgenConfig.BADLANDS_RUINS_GENERATION);
 		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(), TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION);
@@ -107,4 +107,6 @@ public class TTStructureModifications {
 			);
 		}
 	}
+
+	private TTStructureModifications() {}
 }

@@ -2,12 +2,16 @@ package net.frozenblock.trailiertales;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
+import net.frozenblock.lib.gravity.api.GravityAPI;
+import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.config.TTItemConfig;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.datafix.trailiertales.TTDataFixer;
+import net.frozenblock.trailiertales.levelgen.biome.modification.TTBiomeModifications;
+import net.frozenblock.trailiertales.levelgen.structure.modification.TTStructureModifications;
 import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -61,6 +65,12 @@ public final class TrailierTales {
 		TTDebugSubscriptions.init();
 		TTWindDisturbances.init();
 
+		GravityAPI.MODIFICATIONS.register(gravityContext -> {
+			if (gravityContext.entity == null) return;
+			if (!(gravityContext.state.getBlock() instanceof EctoplasmBlock)) return;
+			gravityContext.gravity = gravityContext.gravity.scale(EctoplasmBlock.GRAVITY_SLOWDOWN);
+		});
+
 		TTBlockConfig.CONFIG.load(true);
 		TTEntityConfig.CONFIG.load(true);
 		TTItemConfig.CONFIG.load(true);
@@ -69,9 +79,11 @@ public final class TrailierTales {
 	}
 
 	public static void setup() {
-		TTSoundTypes.init();
+		TTSoundTypes.setup();
 		TTBlocks.registerBlockProperties();
 		TTBlockEntityTypes.registerValidBlocks();
-		TTCreativeInventorySorting.init();
+		TTCreativeInventorySorting.setup();
+		TTBiomeModifications.setup();
+		TTStructureModifications.setup();
 	}
 }

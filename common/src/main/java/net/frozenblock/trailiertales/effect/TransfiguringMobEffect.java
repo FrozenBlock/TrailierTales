@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.effect;
 
-import com.google.common.annotations.VisibleForTesting;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
@@ -38,38 +37,36 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.gamerules.GameRules;
-import org.jetbrains.annotations.Contract;
 
 public class TransfiguringMobEffect extends MobEffect {
 	public static final DeferredEntityType<Apparition> SPAWNED_ENTITY_TYPE = TTEntityTypes.APPARITION;
 
-	public TransfiguringMobEffect(MobEffectCategory type, int color) {
-		super(type, color, TTParticleTypes.TRANSFIGURING.get());
+	public TransfiguringMobEffect(MobEffectCategory category, int color) {
+		super(category, color, TTParticleTypes.TRANSFIGURING.get());
 	}
 
-	@VisibleForTesting
-	protected static int numberOfApparitionsToSpawn(int maxEntityCramming, NearbyApparitions counter) {
-		return maxEntityCramming < 1 ? 1 : Mth.clamp(0, maxEntityCramming - counter.count(maxEntityCramming), 1);
+	protected static int numberOfApparitionsToSpawn(int maxEntityCramming, NearbyApparitions nearbyApparitions) {
+		return maxEntityCramming < 1 ? 1 : Mth.clamp(0, maxEntityCramming - nearbyApparitions.count(maxEntityCramming), 1);
 	}
 
 	@Override
-	public void onEffectAdded(LivingEntity entity, int amplifier) {
-		super.onEffectAdded(entity, amplifier);
-		if (!(entity instanceof Apparition apparition)) return;
+	public void onEffectAdded(LivingEntity mob, int amplifier) {
+		super.onEffectAdded(mob, amplifier);
+		if (!(mob instanceof Apparition apparition)) return;
 
-		entity.level().broadcastEntityEvent(entity, EntityEvent.POOF);
-		entity.level().playSound(
+		mob.level().broadcastEntityEvent(mob, EntityEvent.POOF);
+		mob.level().playSound(
 			null,
-			entity.getX(),
-			entity.getEyeY(),
-			entity.getZ(),
+			mob.getX(),
+			mob.getEyeY(),
+			mob.getZ(),
 			TTSounds.APPARITION_VANISH.get(),
 			SoundSource.HOSTILE,
 			0.6F,
-			0.9F + (entity.level().getRandom().nextFloat() * 0.2F)
+			0.9F + (mob.level().getRandom().nextFloat() * 0.2F)
 		);
 		apparition.dropItem(apparition.getItemBySlot(EquipmentSlot.MAINHAND));
-		entity.remove(Entity.RemovalReason.DISCARDED);
+		mob.remove(Entity.RemovalReason.DISCARDED);
 	}
 
 	@Override
@@ -95,13 +92,18 @@ public class TransfiguringMobEffect extends MobEffect {
 
 	@FunctionalInterface
 	protected interface NearbyApparitions {
-		int count(int i);
+		int count(int maxResults);
 
-		@Contract(pure = true)
-		static NearbyApparitions closeTo(LivingEntity entity) {
-			return i -> {
+		static NearbyApparitions closeTo(LivingEntity mob) {
+			return maxResults -> {
 				final List<Apparition> apparitions = new ArrayList<>();
-				entity.level().getEntities(TTEntityTypes.APPARITION.get(), entity.getBoundingBox().inflate(3D), apparition -> apparition != entity, apparitions, i);
+				mob.level().getEntities(
+					TTEntityTypes.APPARITION.get(),
+					mob.getBoundingBox().inflate(3D),
+					apparition -> apparition != mob,
+					apparitions,
+					maxResults
+				);
 				return apparitions.size();
 			};
 		}

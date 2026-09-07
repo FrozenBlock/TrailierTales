@@ -22,7 +22,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
-public class TTBiomeTags {
+public final class TTBiomeTags {
 	public static final TagKey<Biome> HAS_BADLANDS_RUINS = bind("has_structure/badlands_ruins");
 	public static final TagKey<Biome> HAS_CATACOMBS = bind("has_structure/catacombs");
 	public static final TagKey<Biome> HAS_DESERT_RUINS = bind("has_structure/desert_ruins");
@@ -35,4 +35,6 @@ public class TTBiomeTags {
 	private static TagKey<Biome> bind(String path) {
 		return TagKey.create(Registries.BIOME, TTConstants.id(path));
 	}
+
+	private TTBiomeTags() {}
 }

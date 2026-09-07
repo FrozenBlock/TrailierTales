@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.frozenblock.lib.tag.api.FrozenLibItemTags;
 import net.frozenblock.trailiertales.references.TTBlockItemIds;
 import net.frozenblock.trailiertales.references.TTItemIds;
 import net.frozenblock.trailiertales.tag.TTItemTags;
@@ -116,5 +117,8 @@ public final class TTItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 
 		this.builder(ItemTags.DURABILITY_ENCHANTABLE)
 			.add(ItemIds.BRUSH);
+
+		this.builder(FrozenLibItemTags.SPAWNER)
+			.add(TTBlockItemIds.COFFIN.item());
 	}
 }

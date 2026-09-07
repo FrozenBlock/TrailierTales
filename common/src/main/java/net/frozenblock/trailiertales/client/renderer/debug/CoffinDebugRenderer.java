@@ -34,7 +34,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 @ClientOnly
-public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
+public final class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	private static final int CONNECTION_COLOR = ARGB.color(255, 50, 125, 90);
 	private static final int SELECTED_CONNECTION_COLOR = ARGB.color(255, 255, 50, 255);
 	private static final int COFFIN_HIGHLIGHT_COLOR = ARGB.colorFromFloat(0.2F, 0.2F, 1F, 0.3F);
@@ -72,5 +72,4 @@ public class CoffinDebugRenderer implements DebugRenderer.SimpleDebugRenderer {
 	private void updateLastLookedAtUuid() {
 		DebugRenderer.getTargetedEntity(this.minecraft.getCameraEntity(), 8).ifPresent(entity -> this.lastLookedAtUuid = entity.getUUID());
 	}
-
 }

@@ -32,61 +32,52 @@ import net.minecraft.world.entity.EntityTypes;
 @ClientOnly
 public final class TTEntityConfigGui {
 
-	private TTEntityConfigGui() {
-		throw new UnsupportedOperationException("TTEntityConfigGui contains only static declarations.");
-	}
-
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
 		// APPARITION
-		var apparitionPicksUpItems = booleanEntry(entryBuilder, "picks_up_items", TTEntityConfig.APPARITION_PICKS_UP_ITEMS);
-		var apparitionCatchesProjectiles = booleanEntry(entryBuilder, "catches_projectiles", TTEntityConfig.APPARITION_CATCHES_PROJECTILES);
-		var apparitionIgnoresMobGriefing = booleanEntry(entryBuilder, "ignore_mob_griefing", TTEntityConfig.APPARITION_IGNORES_MOB_GRIEFING);
-		var apparitionHypnotizesMobs = booleanEntry(entryBuilder, "hypnotizes_mobs", TTEntityConfig.APPARITION_HYPNOTIZES_MOBS);
-		var apparitionHauntsPlayers = booleanEntry(entryBuilder, "haunts_players", TTEntityConfig.APPARITION_HAUNTS_PLAYERS);
-		var hauntedCoffins = booleanEntry(entryBuilder, "haunted_coffins", TTEntityConfig.APPARITION_HAUNTED_COFFINS);
-		var hauntedFog = booleanEntry(entryBuilder, "haunted_fog", TTEntityConfig.APPARITION_HAUNTED_FOG);
-		var hauntedLightmap = booleanEntry(entryBuilder, "haunted_lightmap", TTEntityConfig.APPARITION_HAUNTED_LIGHTMAP);
-		var hauntedSounds = booleanEntry(entryBuilder, "haunted_sounds", TTEntityConfig.APPARITION_HAUNTED_SOUNDS);
-		var hauntedHUD = booleanEntry(entryBuilder, "haunted_hud", TTEntityConfig.APPARITION_HAUNTED_HUD);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, TTEntityTypes.APPARITION.get().getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, TTEntityTypes.APPARITION.get().getDescription(),
 			false,
 			TTConstants.tooltip("entity_category", TTEntityTypes.APPARITION.get().getDescription()),
-			apparitionPicksUpItems, apparitionCatchesProjectiles, apparitionIgnoresMobGriefing, apparitionHypnotizesMobs,
-			apparitionHauntsPlayers, hauntedCoffins, hauntedFog, hauntedLightmap, hauntedSounds, hauntedHUD
+			booleanEntry(builder, "picks_up_items", TTEntityConfig.APPARITION_PICKS_UP_ITEMS),
+			booleanEntry(builder, "catches_projectiles", TTEntityConfig.APPARITION_CATCHES_PROJECTILES),
+			booleanEntry(builder, "ignore_mob_griefing", TTEntityConfig.APPARITION_IGNORES_MOB_GRIEFING),
+			booleanEntry(builder, "hypnotizes_mobs", TTEntityConfig.APPARITION_HYPNOTIZES_MOBS),
+			booleanEntry(builder, "haunts_players", TTEntityConfig.APPARITION_HAUNTS_PLAYERS),
+			booleanEntry(builder, "haunted_coffins", TTEntityConfig.APPARITION_HAUNTED_COFFINS),
+			booleanEntry(builder, "haunted_fog", TTEntityConfig.APPARITION_HAUNTED_FOG),
+			booleanEntry(builder, "haunted_lightmap", TTEntityConfig.APPARITION_HAUNTED_LIGHTMAP),
+			booleanEntry(builder, "haunted_sounds", TTEntityConfig.APPARITION_HAUNTED_SOUNDS),
+			booleanEntry(builder, "haunted_hud", TTEntityConfig.APPARITION_HAUNTED_HUD)
 		);
 
 		// SNIFFER
-		var snifferDigsCyanRoseSeeds = booleanEntry(entryBuilder, "sniffer_digs_cyan_rose_seeds", TTEntityConfig.SNIFFER_DIGS_CYAN_ROSE_SEEDS);
-		var snifferDigsManedropGerms = booleanEntry(entryBuilder, "sniffer_digs_manedrop_germs", TTEntityConfig.SNIFFER_DIGS_MANEDROP_GERMS);
-		var snifferDigsGuzmaniaSeeds = booleanEntry(entryBuilder, "sniffer_digs_guzmania_seeds", TTEntityConfig.SNIFFER_DIGS_GUZMANIA_SEEDS);
-		var sniffersDigDawntrailSeeds = booleanEntry(entryBuilder, "sniffer_digs_dawntrail_seeds", TTEntityConfig.SNIFFER_DIGS_DAWNTRAIL_SEEDS);
-		var sniffersDigLithopsSeeds = booleanEntry(entryBuilder, "sniffer_digs_lithops_seeds", TTEntityConfig.SNIFFER_DIGS_LITHOPS_SEEDS);
-		var spawnSniffer = entitySpawnEntry(entryBuilder, EntityTypes.SNIFFER, TTEntityConfig.SPAWN_SNIFFERS);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, EntityTypes.SNIFFER.getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, EntityTypes.SNIFFER.getDescription(),
 			false,
 			tooltip("entity_category", EntityTypes.SNIFFER.getDescription()),
-			snifferDigsCyanRoseSeeds, snifferDigsManedropGerms, snifferDigsGuzmaniaSeeds, sniffersDigLithopsSeeds, sniffersDigDawntrailSeeds,
-			spawnSniffer
+			booleanEntry(builder, "sniffer_digs_cyan_rose_seeds", TTEntityConfig.SNIFFER_DIGS_CYAN_ROSE_SEEDS),
+			booleanEntry(builder, "sniffer_digs_manedrop_germs", TTEntityConfig.SNIFFER_DIGS_MANEDROP_GERMS),
+			booleanEntry(builder, "sniffer_digs_guzmania_seeds", TTEntityConfig.SNIFFER_DIGS_GUZMANIA_SEEDS),
+			booleanEntry(builder, "sniffer_digs_dawntrail_seeds", TTEntityConfig.SNIFFER_DIGS_DAWNTRAIL_SEEDS),
+			booleanEntry(builder, "sniffer_digs_lithops_seeds", TTEntityConfig.SNIFFER_DIGS_LITHOPS_SEEDS),
+			entitySpawnEntry(builder, EntityTypes.SNIFFER, TTEntityConfig.SPAWN_SNIFFERS)
 		);
 
 		// VILLAGER
-		var villagersSellCatacombsMap = booleanEntry(entryBuilder, "sell_catacombs_map", TTEntityConfig.VILLAGER_SELLS_CATACOMBS_MAP);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, EntityTypes.VILLAGER.getDescription(),
+		// TODO: config currently does nothing
+		/*
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, EntityTypes.VILLAGER.getDescription(),
 			false,
 			tooltip("entity_category", EntityTypes.VILLAGER.getDescription()),
-			villagersSellCatacombsMap
+			booleanEntry(builder, "sell_catacombs_map", TTEntityConfig.VILLAGER_SELLS_CATACOMBS_MAP)
 		);
+		 */
 
 		// ARMOR STAND
-		var armorStandArms = booleanEntry(entryBuilder, "armor_stand_arms", TTEntityConfig.ARMOR_STAND_HAS_ARMS);
-
-		FrozenLibClothConfigGuiHelper.createSubCategory(entryBuilder, category, EntityTypes.ARMOR_STAND.getDescription(),
+		FrozenLibClothConfigGuiHelper.createSubCategory(builder, category, EntityTypes.ARMOR_STAND.getDescription(),
 			false,
 			tooltip("entity_category", EntityTypes.ARMOR_STAND.getDescription()),
-			armorStandArms
+			booleanEntry(builder, "armor_stand_arms", TTEntityConfig.ARMOR_STAND_HAS_ARMS)
 		);
 	}
+
+	private TTEntityConfigGui() {}
 }

@@ -50,5 +50,4 @@ public class EntityRendererMixin<T extends Entity, S extends EntityRenderState> 
 		}
 		return original;
 	}
-
 }

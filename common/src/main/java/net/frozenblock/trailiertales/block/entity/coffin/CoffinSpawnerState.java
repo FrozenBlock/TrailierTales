@@ -37,10 +37,10 @@ import net.minecraft.world.phys.Vec3;
 public enum CoffinSpawnerState implements StringRepresentable {
 	INACTIVE("inactive", 0, false, false, Optional.empty()),
 	COOLDOWN("cooldown", 0, false, false, Optional.empty()),
-	ACTIVE("active", 3, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(137F / 255F, 176F / 255F, 244F / 255F)), 1F))),
-	IRRITATED("irritated", 5, true, false, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(184F / 255F, 149F / 255F, 219F / 255F)), 1F))),
-	AGGRESSIVE("aggressive", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(224F / 255F, 130F / 255F, 130F / 255F)), 1F))),
-	OMINOUS("ominous", 7, true, true, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(ARGB.color(new Vec3(222F / 255F, 64F / 255F, 88F / 255F)), 1F)));
+	ACTIVE("active", 3, true, false, ARGB.color(new Vec3(137F / 255F, 176F / 255F, 244F / 255F))),
+	IRRITATED("irritated", 5, true, false, ARGB.color(new Vec3(184F / 255F, 149F / 255F, 219F / 255F))),
+	AGGRESSIVE("aggressive", 7, true, true, ARGB.color(new Vec3(224F / 255F, 130F / 255F, 130F / 255F))),
+	OMINOUS("ominous", 7, true, true, ARGB.color(new Vec3(222F / 255F, 64F / 255F, 88F / 255F)));
 	private final String name;
 	private final int lightLevel;
 	private final boolean isCapableOfSpawning;
@@ -49,7 +49,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	private final Identifier headTexture;
 	private final Identifier footTexture;
 
-	CoffinSpawnerState(final String name, int lightLevel, final boolean isCapableOfSpawning, final boolean finalWave, Optional<ParticleOptions> emitParticle) {
+	CoffinSpawnerState(String name, int lightLevel, boolean isCapableOfSpawning, boolean finalWave, Optional<ParticleOptions> emitParticle) {
 		this.name = name;
 		this.lightLevel = lightLevel;
 		this.isCapableOfSpawning = isCapableOfSpawning;
@@ -57,6 +57,10 @@ public enum CoffinSpawnerState implements StringRepresentable {
 		this.emitParticle = emitParticle;
 		this.headTexture = getTexture(name, false);
 		this.footTexture = getTexture(name, true);
+	}
+
+	CoffinSpawnerState(String name, int lightLevel, boolean isCapableOfSpawning, boolean finalWave, int particleColor) {
+		this(name, lightLevel, isCapableOfSpawning, finalWave, Optional.of(GlowingDustColorTransitionOptions.ofSingleColor(particleColor, 1F)));
 	}
 
 	CoffinSpawnerState tickAndGetNext(BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {

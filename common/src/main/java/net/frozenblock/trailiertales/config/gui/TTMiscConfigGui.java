@@ -26,12 +26,10 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 @ClientOnly
 public final class TTMiscConfigGui {
 
-	private TTMiscConfigGui() {
-		throw new UnsupportedOperationException("TTMiscConfigGui contains only static declarations.");
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
+		category.addEntry(booleanEntry(builder, "modify_advancements", TTMiscConfig.MODIFY_ADVANCEMENTS));
+		category.addEntry(booleanEntry(builder, "distorted_catacombs_music", TTMiscConfig.DISTORTED_CATACOMBS_MUSIC));
 	}
 
-	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder entryBuilder) {
-		category.addEntry(booleanEntry(entryBuilder, "modify_advancements", TTMiscConfig.MODIFY_ADVANCEMENTS));
-		category.addEntry(booleanEntry(entryBuilder, "distorted_catacombs_music", TTMiscConfig.DISTORTED_CATACOMBS_MUSIC));
-	}
+	private TTMiscConfigGui() {}
 }

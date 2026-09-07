@@ -43,7 +43,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class SavannaRuinsGenerator {
+public final class SavannaRuinsGenerator {
 	public static final ResourceKey<StructureSet> SAVANNA_RUINS_KEY =  TTStructures.ofSet("ruins_savanna");
 	public static final ResourceKey<Structure> SAVANNA_RUIN_KEY = TTStructures.createKey("ruins_savanna");
 
@@ -93,4 +93,6 @@ public class SavannaRuinsGenerator {
 			TTStructures.archyLootProcessor(Blocks.CLAY, TTBlocks.SUSPICIOUS_CLAY.get(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY, 0.4F)
 		)
 	);
+
+	private SavannaRuinsGenerator() {}
 }

@@ -8,7 +8,6 @@
     "common.CropBlockAccess",
     "common.apparition.BlockCollisionsMixin",
     "common.apparition.EntityMixin",
-    "common.apparition.MobMixin",
     "common.armor_stand.ArmorStandMixin",
     "common.boat.AbstractBoatMixin",
     "common.boat.AbstractChestBoatMixin",
@@ -21,7 +20,6 @@
     "common.brushable_block.EntityBlockMixin",
     "common.brushable_block.FallingBlockEntityItemMixin",
     "common.coffin.EntityMixin",
-    "common.coffin.ItemStackMixin",
     "common.coffin.LivingEntityMixin",
     "common.dawntrail.ShearsDispenseItemBehaviorMixin",
     "common.debug.MobMixin",
@@ -30,9 +28,7 @@
     "common.lithops.CropBlockMixin",
     "common.surveyor.ClipContextBlockMixin",
     "common.surveyor.RedStoneWireBlockMixin",
-    "datagen.common.feature_flag.BlocksMixin",
     "datagen.common.feature_flag.FeatureFlagsMixin",
-    "datagen.common.feature_flag.ItemsMixin",
     "structure_building.common.CandleBlockMixin"
   ],
   "client": [

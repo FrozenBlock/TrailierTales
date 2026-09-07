@@ -45,7 +45,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class DeepslateRuinsGenerator {
+public final class DeepslateRuinsGenerator {
 	public static final ResourceKey<StructureSet> DEEPSLATE_RUINS_KEY = TTStructures.ofSet("ruins_deepslate");
 	public static final ResourceKey<Structure> DEEPSLATE_RUIN_KEY = TTStructures.createKey("ruins_deepslate");
 
@@ -119,4 +119,6 @@ public class DeepslateRuinsGenerator {
 			TTStructures.archyLootProcessor(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL, TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY, 0.2F)
 		)
 	);
+
+	private DeepslateRuinsGenerator() {}
 }

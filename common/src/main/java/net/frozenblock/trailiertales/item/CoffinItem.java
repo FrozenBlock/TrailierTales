@@ -31,6 +31,6 @@ public class CoffinItem extends BlockItem {
 
 	@Override
 	protected boolean placeBlock(BlockPlaceContext context, BlockState placementState) {
-		return context.getLevel().setBlock(context.getClickedPos(), placementState, 26);
+		return context.getLevel().setBlock(context.getClickedPos(), placementState, Block.UPDATE_CLIENTS | Block.UPDATE_IMMEDIATE | Block.UPDATE_KNOWN_SHAPE);
 	}
 }

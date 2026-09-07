@@ -42,26 +42,26 @@ public class ApparitionHaunt extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, Apparition apparition, long timestamp) {
-		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && TTEntityConfig.APPARITION_HAUNTS_PLAYERS.get();
+	protected boolean canStillUse(ServerLevel level, Apparition body, long timestamp) {
+		return body.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && TTEntityConfig.APPARITION_HAUNTS_PLAYERS.get();
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
-		return super.checkExtraStartConditions(level, apparition) && TTEntityConfig.APPARITION_HAUNTS_PLAYERS.get();
+	protected boolean checkExtraStartConditions(ServerLevel level, Apparition body) {
+		return super.checkExtraStartConditions(level, body) && TTEntityConfig.APPARITION_HAUNTS_PLAYERS.get();
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
+	protected void tick(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
 		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity == null) return;
 
 		int hauntingTicks = brain.getMemory(TTMemoryModuleTypes.HAUNTING_TICKS.get()).orElse(0);
-		if (livingEntity.getBoundingBox().intersects(apparition.getAttackBoundingBox(0D))) {
+		if (livingEntity.getBoundingBox().intersects(body.getAttackBoundingBox(0D))) {
 			hauntingTicks += 2;
 			if (hauntingTicks >= 150) {
-				apparition.playSound(TTSounds.APPARITION_HAUNT.get(), apparition.getSoundVolume(), apparition.getVoicePitch());
+				body.playSound(TTSounds.APPARITION_HAUNT.get(), body.getSoundVolume(), body.getVoicePitch());
 				hauntingTicks = 0;
 				livingEntity.addEffect(
 					new MobEffectInstance(

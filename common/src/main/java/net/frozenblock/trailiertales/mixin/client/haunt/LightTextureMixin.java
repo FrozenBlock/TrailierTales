@@ -50,5 +50,4 @@ public class LightTextureMixin {
 		if (hauntInstance == null || !TTEntityConfig.APPARITION_HAUNTED_LIGHTMAP.get()) return darknessEffectBrightnessModifier;
 		return Math.max(hauntInstance.getBlendFactor(this.minecraft.player, partialTicks) * 0.67F, darknessEffectBrightnessModifier);
 	}
-
 }

@@ -85,8 +85,8 @@ public class DawntrailCropBlock extends CropBlock {
 
 	@Override
 	public BlockState getStateForAge(int age) {
-		return age == MAX_AGE ?
-			TTBlocks.DAWNTRAIL.get().defaultBlockState().setValue(DawntrailBlock.getFaceProperty(Direction.DOWN), true).setValue(DawntrailBlock.AGE, DawntrailBlock.MAX_AGE)
+		return age == MAX_AGE
+			? TTBlocks.DAWNTRAIL.get().defaultBlockState().setValue(DawntrailBlock.getFaceProperty(Direction.DOWN), true).setValue(DawntrailBlock.AGE, DawntrailBlock.MAX_AGE)
 			: super.getStateForAge(age);
 	}
 

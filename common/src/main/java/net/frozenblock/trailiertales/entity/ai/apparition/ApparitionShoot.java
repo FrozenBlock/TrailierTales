@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.entity.ai.apparition;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.frozenblock.trailiertales.registry.TTMemoryModuleTypes;
@@ -34,7 +33,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
 public class ApparitionShoot extends Behavior<Apparition> {
 
-	@VisibleForTesting
 	public ApparitionShoot() {
 		super(
 			ImmutableMap.of(
@@ -50,45 +48,45 @@ public class ApparitionShoot extends Behavior<Apparition> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, Apparition apparition) {
-		return !apparition.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !apparition.isHiding()
-			&& apparition.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(livingEntity -> isTargetWithinRange(apparition, livingEntity)).orElse(false);
+	protected boolean checkExtraStartConditions(ServerLevel level, Apparition body) {
+		return !body.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !body.isHiding()
+			&& body.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).map(livingEntity -> isTargetWithinRange(body, livingEntity)).orElse(false);
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, Apparition apparition, long timestamp) {
-		return apparition.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
-			&& !apparition.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
+	protected boolean canStillUse(ServerLevel level, Apparition body, long timestamp) {
+		return body.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
+			&& !body.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
 	}
 
 	@Override
-	protected void start(ServerLevel level, Apparition apparition, long timestamp) {
-		apparition.playSound(TTSounds.APPARITION_HOLDING_ITEM.get(), apparition.getSoundVolume(), apparition.getVoicePitch());
-		apparition.setAggressive(true);
-		apparition.setPoltergeistAnimProgress(1F);
+	protected void start(ServerLevel level, Apparition body, long timestamp) {
+		body.playSound(TTSounds.APPARITION_HOLDING_ITEM.get(), body.getSoundVolume(), body.getVoicePitch());
+		body.setAggressive(true);
+		body.setPoltergeistAnimProgress(1F);
 	}
 
 	@Override
-	protected void stop(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
-		apparition.setAggressive(false);
+	protected void stop(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
+		body.setAggressive(false);
 		brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME.get());
 		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE.get());
 		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS.get());
 		brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME.get());
 		brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS.get());
-		apparition.setPoltergeistAnimProgress(0F);
-		apparition.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 500);
+		body.setPoltergeistAnimProgress(0F);
+		body.getBrain().setMemory(MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, 500);
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Apparition apparition, long timestamp) {
-		final Brain<Apparition> brain = apparition.getBrain();
+	protected void tick(ServerLevel level, Apparition body, long timestamp) {
+		final Brain<Apparition> brain = body.getBrain();
 		final LivingEntity livingEntity = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 		if (livingEntity == null) return;
 
-		final double distance = apparition.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
-		final boolean lineOfSight = apparition.getSensing().hasLineOfSight(livingEntity);
+		final double distance = body.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
+		final boolean lineOfSight = body.getSensing().hasLineOfSight(livingEntity);
 		final boolean hasSeen = brain.hasMemoryValue(TTMemoryModuleTypes.SEE_TIME.get());
 		if (lineOfSight != hasSeen) brain.eraseMemory(TTMemoryModuleTypes.SEE_TIME.get());
 
@@ -99,18 +97,18 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		if (!(distance > 256D) && seeTime >= 20) {
 			brain.eraseMemory(MemoryModuleType.WALK_TARGET);
 			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-			apparition.getNavigation().stop();
+			body.getNavigation().stop();
 			strafeTime += 1;
 			brain.setMemory(TTMemoryModuleTypes.STRAFING_TIME.get(), strafeTime);
 		} else {
-			apparition.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
+			body.getNavigation().moveTo(livingEntity.getX(), livingEntity.getEyeY(), livingEntity.getZ(), 1D);
 			brain.eraseMemory(MemoryModuleType.WALK_TARGET);
 			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 			brain.eraseMemory(TTMemoryModuleTypes.STRAFING_TIME.get());
 		}
 
 		if (brain.getMemory(TTMemoryModuleTypes.STRAFING_TIME.get()).orElse(0) >= 20) {
-			if (apparition.getRandom().nextFloat() < 0.3F) {
+			if (body.getRandom().nextFloat() < 0.3F) {
 				brain.getMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE.get())
 					.ifPresentOrElse(
 						unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_CLOCKWISE.get()),
@@ -119,7 +117,7 @@ public class ApparitionShoot extends Behavior<Apparition> {
 				brain.eraseMemory(TTMemoryModuleTypes.CHARGING_TICKS.get());
 			}
 
-			if (apparition.getRandom().nextFloat() < 0.3F) {
+			if (body.getRandom().nextFloat() < 0.3F) {
 				brain.getMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS.get())
 					.ifPresentOrElse(
 						unit -> brain.eraseMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS.get()),
@@ -138,20 +136,20 @@ public class ApparitionShoot extends Behavior<Apparition> {
 				brain.setMemory(TTMemoryModuleTypes.STRAFING_BACKWARDS.get(), Unit.INSTANCE);
 			}
 
-			apparition.getMoveControl().strafe(
+			body.getMoveControl().strafe(
 				brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_BACKWARDS.get()) ? -0.5F : 0.5F,
 				brain.hasMemoryValue(TTMemoryModuleTypes.STRAFING_CLOCKWISE.get()) ? 0.5F : -0.5F
 			);
-			if (apparition.getControlledVehicle() instanceof Mob mob) {
+			if (body.getControlledVehicle() instanceof Mob mob) {
 				brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
 				mob.lookAt(livingEntity, 30F, 30F);
 			}
 
 			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-			apparition.lookAt(livingEntity, 30F, 30F);
+			body.lookAt(livingEntity, 30F, 30F);
 		} else {
 			brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
-			apparition.getLookControl().setLookAt(livingEntity, 30F, 30F);
+			body.getLookControl().setLookAt(livingEntity, 30F, 30F);
 		}
 
 		int chargingTicks = brain.getMemory(TTMemoryModuleTypes.CHARGING_TICKS.get()).orElse(0);
@@ -161,8 +159,8 @@ public class ApparitionShoot extends Behavior<Apparition> {
 			} else if (lineOfSight) {
 				if (chargingTicks++ >= 20) {
 					chargingTicks = 0;
-					apparition.performRangedAttack(livingEntity, 0.3F + (apparition.getRandom().nextFloat() * 1.4F));
-					this.doStop(level, apparition, timestamp);
+					body.performRangedAttack(livingEntity, 0.3F + (body.getRandom().nextFloat() * 1.4F));
+					this.doStop(level, body, timestamp);
 				}
 			}
 		} else if (seeTime >= -60) {
@@ -171,8 +169,8 @@ public class ApparitionShoot extends Behavior<Apparition> {
 		brain.setMemory(TTMemoryModuleTypes.CHARGING_TICKS.get(), chargingTicks);
 	}
 
-	private static boolean isTargetWithinRange(Apparition apparition, LivingEntity target) {
-		final double distance = apparition.position().distanceToSqr(target.position());
+	private static boolean isTargetWithinRange(Apparition body, LivingEntity target) {
+		final double distance = body.position().distanceToSqr(target.position());
 		return distance > 4D && distance < 256D;
 	}
 }

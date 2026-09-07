@@ -21,6 +21,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
 public interface BrushableBlockEntityInterface {
+	// TODO: migrate to data attachments
 	void trailierTales$tick();
 	boolean trailierTales$setItem(ItemStack stack);
 	boolean trailierTales$hasCustomItem();

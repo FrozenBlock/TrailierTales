@@ -27,7 +27,7 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.particle.SoulParticle;
 
 @ClientOnly
-public class TTParticleEngine {
+public final class TTParticleEngine {
 
 	public static void setup() {
 		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
@@ -39,4 +39,6 @@ public class TTParticleEngine {
 		ParticleProviderRegistry.register(TTParticleTypes.SIEGE_OMEN, GlowingSpellParticle.Provider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.TRANSFIGURING, GlowingSpellParticle.Provider::new);
 	}
+
+	private TTParticleEngine() {}
 }

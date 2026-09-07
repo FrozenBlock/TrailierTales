@@ -24,6 +24,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
@@ -33,17 +34,17 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 	public GlowingColorBubbleParticle(
 		ClientLevel level,
 		double x, double y, double z,
-		double xd, double yd, double zd,
-		SpriteSet spriteSet
+		double xa, double ya, double za,
+		SpriteSet sprites
 	) {
-		super(level, x, y, z, spriteSet.first());
-		this.spriteSet = spriteSet;
-		this.setSpriteFromAge(spriteSet);
+		super(level, x, y, z, sprites.first());
+		this.spriteSet = sprites;
+		this.setSpriteFromAge(sprites);
 		this.quadSize *= 1.2F;
 		this.setSize(0.02F, 0.02F);
-		this.xd = xd * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
-		this.yd = yd * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
-		this.zd = zd * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
+		this.xd = xa * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
+		this.yd = ya * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
+		this.zd = za * 0.2D + (Math.random() * 2D - 1D) * 0.02D;
 		this.lifetime = 5;
 	}
 
@@ -65,8 +66,8 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	public int getLightCoords(float tint) {
-		return 240;
+	public int getLightCoords(float a) {
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	@Override
@@ -80,10 +81,10 @@ public class GlowingColorBubbleParticle extends SingleQuadParticle {
 			ColorParticleOption options,
 			ClientLevel level,
 			double x, double y, double z,
-			double xd, double yd, double zd,
+			double xAux, double yAux, double zAux,
 			RandomSource random
 		) {
-			final GlowingColorBubbleParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
+			final GlowingColorBubbleParticle particle = new GlowingColorBubbleParticle(level, x, y, z, xAux, yAux, zAux, this.spriteSet);
 			particle.setColor(options.getRed(), options.getGreen(), options.getBlue());
 			return particle;
 		}

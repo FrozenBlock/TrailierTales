@@ -66,4 +66,6 @@ public final class TTMobEffects {
 	private static <T extends MobEffect> DeferredHolder<MobEffect, T> register(String id, Supplier<T> entry) {
 		return REGISTER.register(id, entry);
 	}
+
+	private TTMobEffects() {}
 }

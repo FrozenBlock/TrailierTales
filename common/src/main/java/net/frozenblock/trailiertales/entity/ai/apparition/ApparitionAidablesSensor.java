@@ -49,13 +49,13 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		);
 	}
 
-	protected boolean isMatchingEntity(Apparition apparition, LivingEntity target, List<UUID> takenUUIDs) {
-		return this.isClose(apparition, target)
-			&& this.isAidable(apparition, target, takenUUIDs);
+	protected boolean isMatchingEntity(Apparition body, LivingEntity target, List<UUID> takenUUIDs) {
+		return this.isClose(body, target)
+			&& this.isAidable(body, target, takenUUIDs);
 	}
 
-	private boolean isAidable(Apparition apparition, LivingEntity entity, List<UUID> takenUUIDs) {
-		final LivingEntity newTarget = apparition.getTarget();
+	private boolean isAidable(Apparition body, LivingEntity entity, List<UUID> takenUUIDs) {
+		final LivingEntity newTarget = body.getTarget();
 		if (entity instanceof Mob mob
 				&& newTarget != null
 				&& mob.getType() != TTEntityTypes.APPARITION.get()
@@ -63,13 +63,13 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 				&& !mob.is(ConventionalEntityTypeTags.BOSSES)
 				&& !takenUUIDs.contains(mob.getUUID())
 		) {
-			final Brain<Apparition> brain = apparition.getBrain();
+			final Brain<Apparition> brain = body.getBrain();
 			if (brain.hasMemoryValue(TTMemoryModuleTypes.AIDING_TIME.get())) {
 				final Optional<List<UUID>> trackingUUIDs = brain.getMemory(TTMemoryModuleTypes.AIDING_ENTITIES.get());
 				if (trackingUUIDs.isPresent() && !trackingUUIDs.get().contains(mob.getUUID())) return false;
 			}
 			final LivingEntity currentTarget = mob.getTarget();
-			return mob != apparition
+			return mob != body
 				&& mob.isAlive()
 				&& !mob.isSpectator()
 				&& mob != currentTarget
@@ -78,14 +78,14 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 		return false;
 	}
 
-	private boolean isClose(Apparition apparition, LivingEntity target) {
-		return target.distanceTo(apparition) <= apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
+	private boolean isClose(Apparition body, LivingEntity target) {
+		return target.distanceTo(body) <= body.getAttributeValue(Attributes.FOLLOW_RANGE);
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, Apparition apparition) {
-		final Brain<?> brain = apparition.getBrain();
-		final LivingEntity attackTarget = apparition.getTarget();
+	protected void doTick(ServerLevel level, Apparition body) {
+		final Brain<?> brain = body.getBrain();
+		final LivingEntity attackTarget = body.getTarget();
 		if (attackTarget == null || !TTEntityConfig.APPARITION_HYPNOTIZES_MOBS.get()) {
 			brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES.get(), new ArrayList<>());
 			brain.eraseMemory(TTMemoryModuleTypes.NEAREST_AIDABLE.get());
@@ -94,33 +94,32 @@ public class ApparitionAidablesSensor extends Sensor<Apparition> {
 
 		final List<UUID> takenUUIDs = new ArrayList<>();
 		level.getAllEntities().forEach(entity -> {
-			if (!(entity instanceof Apparition otherApparition) || otherApparition == apparition) return;
+			if (!(entity instanceof Apparition otherApparition) || otherApparition == body) return;
 			otherApparition.getBrain().getMemory(TTMemoryModuleTypes.AIDING_ENTITIES.get()).ifPresent(takenUUIDs::addAll);
 		});
 
-		final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
-		final AABB aABB = apparition.getBoundingBox().inflate(range, range, range);
+		final double range = body.getAttributeValue(Attributes.FOLLOW_RANGE);
+		final AABB aABB = body.getBoundingBox().inflate(range, range, range);
 		final List<LivingEntity> entities = level.getEntitiesOfClass(
 			LivingEntity.class,
 			aABB,
-			livingEntity2 -> isMatchingEntity(apparition, livingEntity2, takenUUIDs)
+			livingEntity2 -> isMatchingEntity(body, livingEntity2, takenUUIDs)
 		);
-		entities.sort(Comparator.comparingDouble(apparition::distanceToSqr));
+		entities.sort(Comparator.comparingDouble(body::distanceToSqr));
 		brain.setMemory(TTMemoryModuleTypes.NEARBY_AIDABLES.get(), entities);
-		brain.setMemory(TTMemoryModuleTypes.NEAREST_AIDABLE.get(), this.getNearestEntity(apparition));
+		brain.setMemory(TTMemoryModuleTypes.NEAREST_AIDABLE.get(), this.getNearestEntity(body));
 	}
 
-	private Optional<LivingEntity> getNearestEntity(Apparition apparition) {
-		return apparition.getBrain().getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES.get())
+	private Optional<LivingEntity> getNearestEntity(Apparition body) {
+		return body.getBrain().getMemory(TTMemoryModuleTypes.NEARBY_AIDABLES.get())
 			.flatMap(entities -> this.findClosest(entities, livingEntity -> true));
 	}
 
-	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> livingEntities, Predicate<LivingEntity> predicate) {
-		for (LivingEntity entity : livingEntities) {
+	private Optional<LivingEntity> findClosest(List<? extends LivingEntity> entities, Predicate<LivingEntity> predicate) {
+		for (LivingEntity entity : entities) {
 			if (predicate.test(entity)) return Optional.of(entity);
 		}
 
 		return Optional.empty();
 	}
-
 }

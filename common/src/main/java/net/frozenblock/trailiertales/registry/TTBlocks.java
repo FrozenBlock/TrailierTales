@@ -17,12 +17,14 @@
 
 package net.frozenblock.trailiertales.registry;
 
+import net.frozenblock.lib.block.api.NonFallingBrushableBlock;
 import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.storage.hopper.HopperApi;
 import net.frozenblock.lib.item.api.registry.CompostableRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredBlock;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.TTFeatureFlags;
 import net.frozenblock.trailiertales.block.CoffinBlock;
 import net.frozenblock.trailiertales.block.CyanRoseCropBlock;
 import net.frozenblock.trailiertales.block.DawntrailBlock;
@@ -32,7 +34,6 @@ import net.frozenblock.trailiertales.block.GuzmaniaCropBlock;
 import net.frozenblock.trailiertales.block.LithopsBlock;
 import net.frozenblock.trailiertales.block.LithopsCropBlock;
 import net.frozenblock.trailiertales.block.ManedropCropBlock;
-import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.block.SurveyorBlock;
 import net.frozenblock.trailiertales.block.impl.TTBlockStateProperties;
 import net.frozenblock.trailiertales.references.TTBlockIds;
@@ -56,7 +57,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 public final class TTBlocks {
-	private static final DeferredRegister.Blocks REGISTER = DeferredRegister.createBlocks(TTConstants.MOD_ID);
+	private static final DeferredRegister.Blocks REGISTER = DeferredRegister.createBlocks(TTConstants.MOD_ID).requiredFeatures(TTFeatureFlags.FEATURE_FLAG);
 
 	// SUSPICIOUS BLOCKS
 	public static final DeferredBlock<Block> SUSPICIOUS_RED_SAND = REGISTER.registerBlock(TTBlockItemIds.SUSPICIOUS_RED_SAND,

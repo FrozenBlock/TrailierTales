@@ -54,10 +54,10 @@ public class HalfBrushMixin {
 		)
 	)
 	public void trailierTales$onUseTick(
-		Level level, LivingEntity entity, ItemStack stack, int ticksRemaining, CallbackInfo info,
+		Level level, LivingEntity livingEntity, ItemStack itemStack, int ticksRemaining, CallbackInfo info,
 		@Local(name = "blockHitResult") BlockHitResult blockHitResult
 	) {
-		if (TTItemConfig.BRUSH_HALF_BRUSH_EFFECTS.get()) this.trailierTales$halfBrush(level, entity, stack, blockHitResult, ticksRemaining);
+		if (TTItemConfig.BRUSH_HALF_BRUSH_EFFECTS.get()) this.trailierTales$halfBrush(level, livingEntity, itemStack, blockHitResult, ticksRemaining);
 	}
 
 	@Unique
@@ -99,5 +99,4 @@ public class HalfBrushMixin {
 			);
 		}
 	}
-
 }

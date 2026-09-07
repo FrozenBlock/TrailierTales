@@ -59,27 +59,24 @@ import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.phys.Vec3;
 
 public class CoffinSpawnerData {
-	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-			SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", WeightedList.of()).forGetter(data -> data.spawnPotentials),
-			Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
-			UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
-			UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
-			UUIDUtil.CODEC_SET.optionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
-			UUIDUtil.CODEC_SET.optionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
-			Codec.LONG.optionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
-			Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
-			Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
-			Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
-			Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
-			Codec.LONG.lenientOptionalFieldOf("cooldown_ends_at", 0L).forGetter(data -> data.cooldownEndsAt),
-			Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power", 0).forGetter(data -> data.power),
-			SpawnData.CODEC.optionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
-			Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
-			Codec.intRange(0, 15).optionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
-		).apply(instance, CoffinSpawnerData::new)
-	);
-
+	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		SpawnData.LIST_CODEC.optionalFieldOf("spawn_potentials", WeightedList.of()).forGetter(data -> data.spawnPotentials),
+		Codec.INT.listOf().lenientOptionalFieldOf("souls_to_spawn", new IntArrayList()).forGetter(data -> data.soulsToSpawn),
+		UUIDUtil.CODEC_SET.lenientOptionalFieldOf("potential_players", Sets.newHashSet()).forGetter(data -> data.potentialPlayers),
+		UUIDUtil.CODEC_SET.lenientOptionalFieldOf("detected_players", Sets.newHashSet()).forGetter(data -> data.detectedPlayers),
+		UUIDUtil.CODEC_SET.optionalFieldOf("current_mobs", Sets.newHashSet()).forGetter(data -> data.currentMobs),
+		UUIDUtil.CODEC_SET.optionalFieldOf("current_apparitions", Sets.newHashSet()).forGetter(data -> data.currentApparitions),
+		Codec.LONG.optionalFieldOf("power_cooldown_ends_at", 0L).forGetter(data -> data.powerCooldownEndsAt),
+		Codec.LONG.lenientOptionalFieldOf("next_mob_spawns_at", 0L).forGetter(data -> data.nextMobSpawnsAt),
+		Codec.intRange(0, Integer.MAX_VALUE).lenientOptionalFieldOf("total_mobs_spawned", 0).forGetter(data -> data.totalMobsSpawned),
+		Codec.LONG.lenientOptionalFieldOf("next_apparition_spawns_at", 0L).forGetter(data -> data.nextApparitionSpawnsAt),
+		Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("total_apparitions_spawned", 0).forGetter(data -> data.totalApparitionsSpawned),
+		Codec.LONG.lenientOptionalFieldOf("cooldown_ends_at", 0L).forGetter(data -> data.cooldownEndsAt),
+		Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("power", 0).forGetter(data -> data.power),
+		SpawnData.CODEC.optionalFieldOf("spawn_data").forGetter(data -> data.nextSpawnData),
+		Codec.BOOL.optionalFieldOf("within_catacombs", false).forGetter(data -> data.withinCatacombs),
+		Codec.intRange(0, 15).optionalFieldOf("max_active_light_level", 10).forGetter(data -> data.maxActiveLightLevel)
+	).apply(instance, CoffinSpawnerData::new));
 	protected final IntArrayList soulsToSpawn = new IntArrayList();
 	protected final Set<UUID> potentialPlayers = new HashSet<>();
 	protected final Set<UUID> detectedPlayers = new HashSet<>();
@@ -244,7 +241,7 @@ public class CoffinSpawnerData {
 		final AtomicReference<Double> closestDistance = new AtomicReference<>(Double.MAX_VALUE);
 		final AtomicReference<Optional<Player>> closestPlayer = new AtomicReference<>(Optional.empty());
 		players.forEach(uuid -> {
-			Player player = level.getPlayerByUUID(uuid);
+			final Player player = level.getPlayerByUUID(uuid);
 			if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
 				double distanceTo = player.distanceToSqr(origin);
 				if (distanceTo < closestDistance.get()) {
@@ -268,6 +265,7 @@ public class CoffinSpawnerData {
 		final List<Player> nearbyPlayers = new ArrayList<>();
 		final double squaredDistance = distance * distance;
 		if (players.isEmpty()) return nearbyPlayers;
+
 		players.forEach(uuid -> {
 			final Player player = level.getPlayerByUUID(uuid);
 			if (player != null && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)) {
@@ -278,8 +276,8 @@ public class CoffinSpawnerData {
 	}
 
 	public void tryDetectPlayers(ServerLevel level, BlockPos pos, Direction direction, CoffinSpawner coffinSpawner) {
-		final boolean isSecondForPos = (pos.asLong() + level.getGameTime()) % 20L == 0L;
-		if (!isSecondForPos) return;
+		final boolean isTickTime = (pos.asLong() + level.getGameTime()) % 20L == 0L;
+		if (!isTickTime) return;
 
 		final List<UUID> list = coffinSpawner.getPlayerDetector()
 			.detect(level, coffinSpawner.getEntitySelector(), pos, coffinSpawner.getRequiredPlayerRange(), this.withinCatacombs);

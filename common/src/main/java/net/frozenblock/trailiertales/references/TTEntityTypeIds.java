@@ -29,4 +29,6 @@ public final class TTEntityTypeIds {
 	private static ResourceKey<EntityType<?>> create(String name) {
 		return ResourceKey.create(Registries.ENTITY_TYPE, TTConstants.id(name));
 	}
+
+	private TTEntityTypeIds() {}
 }

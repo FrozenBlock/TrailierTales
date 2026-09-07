@@ -114,7 +114,7 @@ public abstract class BrushableBlockMixin extends BaseEntityBlock {
 		@Share("trailierTales$hasCustomItem") LocalBooleanRef hasCustomItem,
 		@Share("trailierTales$itemStack") LocalRef<ItemStack> itemStack
 	) {
-		if (hasCustomItem.get() && itemStack.get() != null && !itemStack.get().isEmpty()) original.frozenLib$setAttached(TTAttachmentTypes.FALLING_BLOCK_ITEM, itemStack.get().copyAndClear());
+		if (hasCustomItem.get() && itemStack.get() != null && !itemStack.get().isEmpty()) TTAttachmentTypes.FALLING_BLOCK_ITEM.set(original, itemStack.get().copyAndClear());
 		return original;
 	}
 

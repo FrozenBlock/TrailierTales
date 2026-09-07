@@ -92,9 +92,7 @@ public class Apparition extends Monster implements RangedAttackMob {
 	private static final Vec3 AID_DUST_COLOR = new Vec3(24F / 255F, 252F / 255F, 1F);
 	private static final Vec3 POLTERGEIST_DUST_COLOR = new Vec3(222F / 255F, 157F / 255F, 224F / 255F);
 	private static final int WHITE = ARGB.color(new Vec3(1F, 1F, 1F));
-	private static final Supplier<Brain.Provider<Apparition>> BRAIN_PROVIDER = Suppliers.memoize(
-		() -> ApparitionAi.brainProvider()
-	);
+	private static final Supplier<Brain.Provider<Apparition>> BRAIN_PROVIDER = Suppliers.memoize(() -> ApparitionAi.brainProvider());
 	private static final EntityDataAccessor<Float> TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> OUTER_TRANSPARENCY = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> AID_ANIM_PROGRESS = SynchedEntityData.defineId(Apparition.class, EntityDataSerializers.FLOAT);
@@ -120,7 +118,7 @@ public class Apparition extends Monster implements RangedAttackMob {
 		this.xpReward = 3;
 		Arrays.stream(PathType.values()).forEach(pathType -> this.setPathfindingMalus(pathType, 0F));
 		this.setPathfindingMalus(PathType.BLOCKED, 8F);
-		this.moveControl = new FlyingMoveControl(this, 20, true);
+		this.moveControl = new FlyingMoveControl<>(this, 20, true);
 		this.setCanPickUpLoot(this.canPickUpLoot());
 		this.blocksBuilding = false;
 	}
@@ -344,14 +342,6 @@ public class Apparition extends Monster implements RangedAttackMob {
 
 	public void setPoltergeistAnimProgress(float progress) {
 		this.entityData.set(POLTERGEIST_ANIM_PROGRESS, progress);
-	}
-
-	public float getItemYRot(float partialTick) {
-		return Mth.cos((this.tickCount + partialTick) / 8F) * 0.35F;
-	}
-
-	public float getItemZRot(float partialTick) {
-		return Mth.sin((this.tickCount + partialTick) / 8F) * 0.35F;
 	}
 
 	public float getFlicker(float partialTick) {

@@ -52,5 +52,4 @@ public class FogRendererMixin {
 
 		FOG_ENVIRONMENTS = finalEnvironments;
 	}
-
 }

@@ -46,4 +46,6 @@ public final class TTAttachmentTypes {
 	);
 
 	public static void init() {}
+
+	private TTAttachmentTypes() {}
 }

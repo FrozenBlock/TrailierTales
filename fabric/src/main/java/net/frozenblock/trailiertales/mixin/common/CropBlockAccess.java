@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(CropBlock.class)
 public interface CropBlockAccess {
 
+	// NeoForge patches CropBlock#getGrowthSpeed to take the BlockState instead of Block.
 	@Invoker("getGrowthSpeed")
 	static float getGrowthSpeed(Block block, BlockGetter level, BlockPos pos) {
 		throw new AssertionError();

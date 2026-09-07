@@ -42,9 +42,10 @@ public abstract class VehicleEntityMixin extends Entity  {
 	public void trailierTales$destroy(ServerLevel level, DamageSource source, CallbackInfo info) {
 		if (!level.getGameRules().get(GameRules.ENTITY_DROPS)) return;
 
-		final ItemStack bannerItem = this.frozenLib$getAttached(TTAttachmentTypes.BOAT_BANNER);
+		final ItemStack bannerItem = TTAttachmentTypes.BOAT_BANNER.get(this);
 		if (bannerItem == null) return;
+
 		this.spawnAtLocation(level, bannerItem);
-		this.frozenLib$removeAttached(TTAttachmentTypes.BOAT_BANNER);
+		TTAttachmentTypes.BOAT_BANNER.remove(this);
 	}
 }

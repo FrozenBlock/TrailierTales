@@ -44,5 +44,4 @@ public class MobMixin {
 		if (Mob.class.cast(this) instanceof Apparition) return TTEntityConfig.APPARITION_IGNORES_MOB_GRIEFING.get();
 		return returnValue;
 	}
-
 }

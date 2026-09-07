@@ -41,7 +41,8 @@
     ]
   },
   "mixins": [
-    "trailiertales.mixins.json"
+    "trailiertales.mixins.json",
+    "trailiertales.mixins.fabric.json"
   ],
   "accessWidener": "trailiertales.classtweaker",
   "depends": {

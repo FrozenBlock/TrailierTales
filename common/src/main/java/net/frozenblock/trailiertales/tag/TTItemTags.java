@@ -22,10 +22,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-public class TTItemTags {
+public final class TTItemTags {
 	public static final TagKey<Item> BRUSH_ENCHANTABLE = bind("enchantable/brush");
 
 	private static TagKey<Item> bind(String path) {
 		return TagKey.create(Registries.ITEM, TTConstants.id(path));
 	}
+
+	private TTItemTags() {}
 }

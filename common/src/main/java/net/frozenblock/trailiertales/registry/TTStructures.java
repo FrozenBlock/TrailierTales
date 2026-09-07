@@ -60,8 +60,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 public final class TTStructures {
 
-	public static ResourceKey<StructureSet> ofSet(String id) {
-		return ResourceKey.create(Registries.STRUCTURE_SET, TTConstants.id(id));
+	public static ResourceKey<StructureSet> ofSet(String name) {
+		return ResourceKey.create(Registries.STRUCTURE_SET, TTConstants.id(name));
 	}
 
 	public static void bootstrapTemplatePool(BootstrapContext<StructureTemplatePool> context) {
@@ -94,21 +94,21 @@ public final class TTStructures {
 		CatacombsGenerator.bootstrapProcessor(context);
 	}
 
-	public static RuleProcessor archyLootProcessor(Block original, Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
+	public static RuleProcessor archyLootProcessor(Block original, Block suspicious, ResourceKey<LootTable> key, float chance) {
 		return new RuleProcessor(
 			ImmutableList.of(
-				archyProcessorRule(original, suspicious, registryKey, chance)
+				archyProcessorRule(original, suspicious, key, chance)
 			)
 		);
 	}
 
-	public static ProcessorRule archyProcessorRule(Block original, Block suspicious, ResourceKey<LootTable> registryKey, float chance) {
+	public static ProcessorRule archyProcessorRule(Block original, Block suspicious, ResourceKey<LootTable> key, float chance) {
 		return new ProcessorRule(
 			new RandomBlockMatchTest(original, chance),
 			AlwaysTrueTest.INSTANCE,
 			PosAlwaysTrueTest.INSTANCE,
 			suspicious.defaultBlockState(),
-			new AppendLoot(registryKey)
+			new AppendLoot(key)
 		);
 	}
 
@@ -150,4 +150,6 @@ public final class TTStructures {
 	public static void register(BootstrapContext<StructureTemplatePool> pool, String location, StructureTemplatePool templatePool) {
 		pool.register(Pools.parseKey(location), templatePool);
 	}
+
+	private TTStructures() {}
 }

@@ -24,40 +24,24 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 @ClientOnly
-public class TTRenderStateDataKeys {
-	public static final RenderStateDataKey<Float> BOAT_WALK_ANIMATION_POS = RenderStateDataKey.create(
-		TTConstants.id("boat_walk_animation_pos")
-	);
-	public static final RenderStateDataKey<Float> BOAT_WALK_ANIMATION_SPEED = RenderStateDataKey.create(
-		TTConstants.id("boat_walk_animation_speed")
-	);
-	public static final RenderStateDataKey<DyeColor> BOAT_BANNER_BASE_COLOR = RenderStateDataKey.create(
-		TTConstants.id("boat_banner_base_color")
-	);
-	public static final RenderStateDataKey<BannerPatternLayers> BOAT_BANNER_PATTERNS = RenderStateDataKey.create(
-		TTConstants.id("boat_banner_patterns")
-	);
+public final class TTRenderStateDataKeys {
+	// BOAT
+	public static final RenderStateDataKey<Float> BOAT_WALK_ANIMATION_POS = RenderStateDataKey.create(TTConstants.id("boat_walk_animation_pos"));
+	public static final RenderStateDataKey<Float> BOAT_WALK_ANIMATION_SPEED = RenderStateDataKey.create(TTConstants.id("boat_walk_animation_speed"));
+	public static final RenderStateDataKey<DyeColor> BOAT_BANNER_BASE_COLOR = RenderStateDataKey.create(TTConstants.id("boat_banner_base_color"));
+	public static final RenderStateDataKey<BannerPatternLayers> BOAT_BANNER_PATTERNS = RenderStateDataKey.create(TTConstants.id("boat_banner_patterns"));
 
-	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_X_OFFSET = RenderStateDataKey.create(
-		TTConstants.id("brushable_block_x_offset")
-	);
-	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_Y_OFFSET = RenderStateDataKey.create(
-		TTConstants.id("brushable_block_y_offset")
-	);
-	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_Z_OFFSET = RenderStateDataKey.create(
-		TTConstants.id("brushable_block_z_offset")
-	);
-	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_ROTATION = RenderStateDataKey.create(
-		TTConstants.id("brushable_block_rotation")
-	);
-	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_ITEM_SCALE = RenderStateDataKey.create(
-		TTConstants.id("brushable_block_item_scale")
-	);
+	// BRUSHABLE BLOCK
+	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_X_OFFSET = RenderStateDataKey.create(TTConstants.id("brushable_block_x_offset"));
+	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_Y_OFFSET = RenderStateDataKey.create(TTConstants.id("brushable_block_y_offset"));
+	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_Z_OFFSET = RenderStateDataKey.create(TTConstants.id("brushable_block_z_offset"));
+	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_ROTATION = RenderStateDataKey.create(TTConstants.id("brushable_block_rotation"));
+	public static final RenderStateDataKey<Float> BRUSHABLE_BLOCK_ITEM_SCALE = RenderStateDataKey.create(TTConstants.id("brushable_block_item_scale"));
 
-	public static final RenderStateDataKey<Boolean> DECORATED_POT_WOBBLE_FLIPPED = RenderStateDataKey.create(
-		TTConstants.id("decorated_pot_wobble_flipped")
-	);
+	// DECORATED POT
+	public static final RenderStateDataKey<Boolean> DECORATED_POT_WOBBLE_FLIPPED = RenderStateDataKey.create(TTConstants.id("decorated_pot_wobble_flipped"));
 
-	public static void init() {
-	}
+	public static void init() {}
+
+	private TTRenderStateDataKeys() {}
 }

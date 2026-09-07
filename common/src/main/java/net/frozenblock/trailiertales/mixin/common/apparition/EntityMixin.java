@@ -39,5 +39,4 @@ public class EntityMixin {
 		if (Entity.class.cast(this) instanceof Apparition) return List.of();
 		return original;
 	}
-
 }

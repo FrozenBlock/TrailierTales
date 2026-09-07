@@ -52,40 +52,40 @@ public class ApparitionPlayerSensor extends Sensor<Apparition> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, Apparition apparition) {
-		final Brain<?> brain = apparition.getBrain();
-		final double range = apparition.getAttributeValue(Attributes.FOLLOW_RANGE);
+	protected void doTick(ServerLevel level, Apparition body) {
+		final Brain<?> brain = body.getBrain();
+		final double range = body.getAttributeValue(Attributes.FOLLOW_RANGE);
 
 		final List<Player> nearestPlayers = level.players()
 			.stream()
 			.filter(EntitySelector.NO_SPECTATORS)
-			.filter(player -> apparition.closerThan(player, range))
-			.sorted(Comparator.comparingDouble(apparition::distanceToSqr))
+			.filter(player -> body.closerThan(player, range))
+			.sorted(Comparator.comparingDouble(body::distanceToSqr))
 			.collect(Collectors.toList());
 		brain.setMemory(MemoryModuleType.NEAREST_PLAYERS, nearestPlayers);
 
 		final List<Player> nearestVisiblePlayers = nearestPlayers
 			.stream()
-			.filter(player -> isEntityTargetable(level, apparition, player, range))
+			.filter(player -> isEntityTargetable(level, body, player, range))
 			.toList();
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, nearestVisiblePlayers.isEmpty() ? null : nearestVisiblePlayers.getFirst());
 
 		final Optional<Player> nearestVisibleAttackablePlayer = nearestVisiblePlayers
 			.stream()
-			.filter(player -> isEntityAttackable(level, apparition, player, range))
+			.filter(player -> isEntityAttackable(level, body, player, range))
 			.findFirst();
 		brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, nearestVisibleAttackablePlayer);
 	}
 
-	public static boolean isEntityTargetable(ServerLevel level, LivingEntity entity, LivingEntity target, double range) {
-		return entity.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, target)
-			? TARGET_CONDITIONS_IGNORE_INVISIBILITY_TESTING.range(range).test(level, entity, target)
-			: TARGET_CONDITIONS.range(range).test(level, entity, target);
+	public static boolean isEntityTargetable(ServerLevel level, LivingEntity body, LivingEntity target, double range) {
+		return body.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, target)
+			? TARGET_CONDITIONS_IGNORE_INVISIBILITY_TESTING.range(range).test(level, body, target)
+			: TARGET_CONDITIONS.range(range).test(level, body, target);
 	}
 
-	public static boolean isEntityAttackable(ServerLevel level, LivingEntity entity, LivingEntity target, double range) {
-		return entity.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, target)
-			? ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY.range(range).test(level, entity, target)
-			: ATTACK_TARGET_CONDITIONS.range(range).test(level, entity, target);
+	public static boolean isEntityAttackable(ServerLevel level, LivingEntity body, LivingEntity target, double range) {
+		return body.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, target)
+			? ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY.range(range).test(level, body, target)
+			: ATTACK_TARGET_CONDITIONS.range(range).test(level, body, target);
 	}
 }

@@ -37,12 +37,12 @@ public interface BoatBannerInterface {
 		if (!player.isSecondaryUseActive()) return;
 
 		final Entity entity = Entity.class.cast(this);
-		final ItemStack bannerItem = entity.frozenLib$getAttached(TTAttachmentTypes.BOAT_BANNER);
+		final ItemStack bannerItem = TTAttachmentTypes.BOAT_BANNER.get(entity);
 		if (bannerItem == null || bannerItem.isEmpty()) {
 			final ItemStack stack = player.getItemInHand(hand);
 			if (!stack.is(ItemTags.BANNERS)) return;
 			if (!entity.level().isClientSide()) {
-				entity.frozenLib$setAttached(TTAttachmentTypes.BOAT_BANNER, stack.split(1));
+				TTAttachmentTypes.BOAT_BANNER.set(entity, stack.split(1));
 				entity.gameEvent(GameEvent.ENTITY_INTERACT, player);
 			}
 			info.setReturnValue(InteractionResult.SUCCESS);
@@ -50,7 +50,7 @@ public interface BoatBannerInterface {
 		}
 
 		if (entity.level() instanceof ServerLevel serverLevel) entity.spawnAtLocation(serverLevel, bannerItem, 0.6F);
-		entity.frozenLib$removeAttached(TTAttachmentTypes.BOAT_BANNER);
+		TTAttachmentTypes.BOAT_BANNER.remove(entity);
 		entity.gameEvent(GameEvent.ENTITY_INTERACT, player);
 		info.setReturnValue(InteractionResult.SUCCESS);
 	}

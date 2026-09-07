@@ -100,20 +100,20 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		method = "extractRenderState(Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;Lnet/minecraft/client/renderer/entity/state/BoatRenderState;F)V",
 		at = @At("TAIL")
 	)
-	public void trailierTales$extractRenderState(AbstractBoat boat, BoatRenderState renderState, float partialTicks, CallbackInfo info) {
-		if (!(boat instanceof BoatBannerInterface bannerInterface)) return;
+	public void trailierTales$extractRenderState(AbstractBoat entity, BoatRenderState state, float partialTicks, CallbackInfo info) {
+		if (!(entity instanceof BoatBannerInterface bannerInterface)) return;
 		final WalkAnimationState walkAnimationState = bannerInterface.trailierTales$getWalkAnimationState();
 
-		renderState.frozenLib$setData(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_POS, walkAnimationState.position(partialTicks));
-		renderState.frozenLib$setData(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_SPEED, walkAnimationState.speed(partialTicks));
+		state.frozenLib$setData(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_POS, walkAnimationState.position(partialTicks));
+		state.frozenLib$setData(TTRenderStateDataKeys.BOAT_WALK_ANIMATION_SPEED, walkAnimationState.speed(partialTicks));
 
-		final ItemStack bannerStack = boat.frozenLib$getAttached(TTAttachmentTypes.BOAT_BANNER);
+		final ItemStack bannerStack = entity.frozenLib$getAttached(TTAttachmentTypes.BOAT_BANNER);
 		if (bannerStack == null || bannerStack.isEmpty() || !(bannerStack.getItem() instanceof BannerItem bannerItem)) {
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_BASE_COLOR, null);
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_PATTERNS, null);
+			state.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_BASE_COLOR, null);
+			state.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_PATTERNS, null);
 		} else {
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_BASE_COLOR, bannerItem.getColor());
-			renderState.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_PATTERNS, bannerStack.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY));
+			state.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_BASE_COLOR, bannerItem.getColor());
+			state.frozenLib$setData(TTRenderStateDataKeys.BOAT_BANNER_PATTERNS, bannerStack.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY));
 		}
 	}
 
@@ -126,25 +126,25 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		)
 	)
 	public void trailierTales$renderBoatBanner(
-		BoatRenderState renderState,
+		BoatRenderState state,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState camera,
 		CallbackInfo info
 	) {
-		final DyeColor baseColor = renderState.frozenLib$getData(TTRenderStateDataKeys.BOAT_BANNER_BASE_COLOR);
-		final BannerPatternLayers patterns = renderState.frozenLib$getData(TTRenderStateDataKeys.BOAT_BANNER_PATTERNS);
+		final DyeColor baseColor = state.frozenLib$getData(TTRenderStateDataKeys.BOAT_BANNER_BASE_COLOR);
+		final BannerPatternLayers patterns = state.frozenLib$getData(TTRenderStateDataKeys.BOAT_BANNER_PATTERNS);
 		if (baseColor == null || patterns == null) return;
 
 		poseStack.pushPose();
 		this.trailierTales$boatBannerFlagModel.setRaft(this.trailierTales$raft);
 		this.trailierTales$boatBannerFlagModel.preparePoseStack(poseStack);
-		this.trailierTales$boatBannerFlagModel.setupAnim(renderState);
+		this.trailierTales$boatBannerFlagModel.setupAnim(state);
 		this.trailierTales$boatBannerFlagModel.submitFlag(
 			this.trailierTales$sprites,
 			poseStack,
-			collector,
-			renderState,
+			submitNodeCollector,
+			state,
 			OverlayTexture.NO_OVERLAY,
 			baseColor,
 			patterns
@@ -155,11 +155,11 @@ public abstract class AbstractBoatRendererMixin extends EntityRenderer<AbstractB
 		poseStack.pushPose();
 		this.trailierTales$boatBannerStandModel.setRaft(this.trailierTales$raft);
 		this.trailierTales$boatBannerStandModel.preparePoseStack(poseStack);
-		this.trailierTales$boatBannerStandModel.setupAnim(renderState);
+		this.trailierTales$boatBannerStandModel.setupAnim(state);
 		this.trailierTales$boatBannerStandModel.submitStand(
 			poseStack,
-			collector,
-			renderState,
+			submitNodeCollector,
+			state,
 			OverlayTexture.NO_OVERLAY,
 			this.trailierTales$getBannerBaseTexture()
 		);

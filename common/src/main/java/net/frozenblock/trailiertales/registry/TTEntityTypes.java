@@ -28,9 +28,7 @@ import net.frozenblock.trailiertales.references.TTEntityTypeIds;
 import net.minecraft.world.entity.MobCategory;
 
 public final class TTEntityTypes {
-	private static final DeferredRegister.Entities REGISTER = DeferredRegister.createEntities(
-		TTConstants.MOD_ID
-	);
+	private static final DeferredRegister.Entities REGISTER = DeferredRegister.createEntities(TTConstants.MOD_ID).requiredFeatures(TTFeatureFlags.FEATURE_FLAG);
 
 	public static final DeferredEntityType<Apparition> APPARITION = REGISTER.register(TTEntityTypeIds.APPARITION,
 		Apparition::new,
@@ -59,4 +57,6 @@ public final class TTEntityTypes {
 	}
 
 	public static void init() {}
+
+	private TTEntityTypes() {}
 }

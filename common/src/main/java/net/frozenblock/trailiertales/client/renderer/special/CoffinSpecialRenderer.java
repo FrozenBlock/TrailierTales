@@ -53,8 +53,8 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void submit(PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, boolean hasFoil, int outlineColor) {
-		this.coffinRenderer.renderInHand(poseStack, collector, light, overlay, this.texture, this.part, this.openness, outlineColor);
+	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor) {
+		this.coffinRenderer.renderInHand(poseStack, submitNodeCollector, lightCoords, overlayCoords, this.texture, this.part, this.openness, outlineColor);
 	}
 
 	@Override
@@ -70,13 +70,11 @@ public class CoffinSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	public record Unbaked(Identifier texture, CoffinPart part, float openness) implements NoDataSpecialModelRenderer.Unbaked {
-		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-				Identifier.CODEC.fieldOf("texture").forGetter(CoffinSpecialRenderer.Unbaked::texture),
-				CoffinPart.CODEC.fieldOf("part").forGetter(CoffinSpecialRenderer.Unbaked::part),
-				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(CoffinSpecialRenderer.Unbaked::openness)
-			).apply(instance, CoffinSpecialRenderer.Unbaked::new)
-		);
+		public static final MapCodec<CoffinSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+			Identifier.CODEC.fieldOf("texture").forGetter(CoffinSpecialRenderer.Unbaked::texture),
+			CoffinPart.CODEC.fieldOf("part").forGetter(CoffinSpecialRenderer.Unbaked::part),
+			Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(CoffinSpecialRenderer.Unbaked::openness)
+		).apply(instance, CoffinSpecialRenderer.Unbaked::new));
 
 		public Unbaked(Identifier texture, CoffinPart part) {
 			this(texture, part, 0F);

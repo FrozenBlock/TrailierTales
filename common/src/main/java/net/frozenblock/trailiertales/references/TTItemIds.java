@@ -82,4 +82,6 @@ public final class TTItemIds {
 	private static ResourceKey<Item> create(String name) {
 		return ResourceKey.create(Registries.ITEM, TTConstants.id(name));
 	}
+
+	private TTItemIds() {}
 }

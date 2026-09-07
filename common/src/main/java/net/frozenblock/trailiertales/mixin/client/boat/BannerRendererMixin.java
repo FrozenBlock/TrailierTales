@@ -50,5 +50,4 @@ public class BannerRendererMixin {
 		if (model instanceof BoatBannerModel) return instance.renderType(RenderTypes::entitySolid);
 		return original.call(instance, renderType);
 	}
-
 }

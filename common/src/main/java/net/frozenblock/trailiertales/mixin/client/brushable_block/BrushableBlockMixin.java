@@ -17,7 +17,7 @@
 
 package net.frozenblock.trailiertales.mixin.client.brushable_block;
 
-import net.frozenblock.trailiertales.block.NonFallingBrushableBlock;
+import net.frozenblock.lib.block.api.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -71,5 +71,4 @@ public class BrushableBlockMixin {
 			level.addParticle(TTParticleTypes.SUSPICIOUS_CONNECTION.get(), center.x(), center.y(), center.z(), startPos.x(), startPos.y(), startPos.z());
 		}
 	}
-
 }

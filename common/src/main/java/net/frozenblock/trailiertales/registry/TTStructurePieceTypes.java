@@ -35,8 +35,8 @@ public final class TTStructurePieceTypes {
 
 	public static void init() {}
 
-	private static DeferredHolder<StructurePieceType, StructurePieceType> setFullContextPieceId(StructurePieceType type, String id) {
-		return REGISTER.register(id, () -> type);
+	private static DeferredHolder<StructurePieceType, StructurePieceType> setFullContextPieceId(StructurePieceType type, String name) {
+		return REGISTER.register(name, () -> type);
 	}
 
 	private TTStructurePieceTypes() {}
