@@ -30,7 +30,6 @@ public final class TTBlockConfig {
 	// SUSPICIOUS BLOCKS
 	public static final ConfigEntry<Boolean> SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS = CONFIG.unsyncableEntry("suspiciousBlocks/smoothAnimations", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES = CONFIG.unsyncableEntry("suspiciousBlocks/accessibilityParticles", EntryType.BOOL, false);
-	public static final ConfigEntry<Boolean> SUSPICIOUS_BLOCK_PLACE_ITEMS = CONFIG.entry("suspiciousBlocks/placeItems", EntryType.BOOL, false);
 
 	// COFFIN
 	public static final ConfigEntry<Boolean> COFFIN_IGNORES_DO_MOB_SPAWNING_GAMERULE = CONFIG.entry("coffin/ignoreDoMobSpawningGamerule", EntryType.BOOL, false);

@@ -35,8 +35,7 @@ public final class TTBlockConfigGui {
 			false,
 			tooltip("suspicious_blocks"),
 			booleanEntry(builder, "smooth_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS),
-			booleanEntry(builder, "suspicious_block_particles", TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES),
-			booleanEntry(builder, "place_items_in_suspicious_blocks", TTBlockConfig.SUSPICIOUS_BLOCK_PLACE_ITEMS)
+			booleanEntry(builder, "suspicious_block_particles", TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES)
 		);
 
 		// COFFIN

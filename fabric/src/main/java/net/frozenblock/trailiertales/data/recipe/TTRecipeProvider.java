@@ -88,46 +88,6 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy("has_ectoplasm_block", has(TTItems.ECTOPLASM_BLOCK.get()))
 					.save(output);
 
-				this.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_GRAVEL, 4)
-					.define('#', Items.GRAVEL)
-					.pattern(" # ")
-					.pattern("# #")
-					.pattern(" # ")
-					.unlockedBy(getHasName(Items.GRAVEL), has(Items.GRAVEL))
-					.save(output);
-
-				this.shaped(RecipeCategory.MISC, Blocks.SUSPICIOUS_SAND, 4)
-					.define('#', Items.SAND)
-					.pattern(" # ")
-					.pattern("# #")
-					.pattern(" # ")
-					.unlockedBy(getHasName(Items.SAND), has(Items.SAND))
-					.save(output);
-
-				this.shaped(RecipeCategory.MISC, TTBlocks.SUSPICIOUS_RED_SAND.get(), 4)
-					.define('#', Items.RED_SAND)
-					.pattern(" # ")
-					.pattern("# #")
-					.pattern(" # ")
-					.unlockedBy(getHasName(Items.RED_SAND), has(Items.RED_SAND))
-					.save(output);
-
-				this.shaped(RecipeCategory.MISC, TTBlocks.SUSPICIOUS_DIRT.get(), 4)
-					.define('#', Items.DIRT)
-					.pattern(" # ")
-					.pattern("# #")
-					.pattern(" # ")
-					.unlockedBy(getHasName(Items.DIRT), has(Items.DIRT))
-					.save(output);
-
-				this.shaped(RecipeCategory.MISC, TTBlocks.SUSPICIOUS_CLAY.get(), 4)
-					.define('#', Items.CLAY)
-					.pattern(" # ")
-					.pattern("# #")
-					.pattern(" # ")
-					.unlockedBy(getHasName(Items.CLAY), has(Items.CLAY))
-					.save(output);
-
 				this.oneToOneConversionRecipe(Items.DYE.cyan(), TTBlocks.CYAN_ROSE.get(), "cyan_dye");
 				this.oneToOneConversionRecipe(Items.DYE.purple(), TTBlocks.MANEDROP.get(), "purple_dye", 2);
 				this.oneToOneConversionRecipe(Items.DYE.purple(), TTItems.DAWNTRAIL_SEEDS.get(), "purple_dye");

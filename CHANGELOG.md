@@ -3,5 +3,6 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Fixed a bug that prevented Ruins structures from reading some of their saved data properly.
-- Upgraded Trailier Tales' Structure NBT data.
+- Suspicious Blocks are no longer craftable.
+- Suspicious Blocks can no longer have Items placed within them.
+- Significantly optimized the network performance and file space used for Suspicious Blocks' smooth animation data.

@@ -15,9 +15,9 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.mixin.common.brushable_block;
+package net.frozenblock.trailiertales.mixin.common.brush;
 
-import net.frozenblock.trailiertales.block.entity.impl.BrushableBlockEntityInterface;
+import net.frozenblock.trailiertales.block.impl.BrushableBlockAnimationState;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -35,15 +35,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface EntityBlockMixin {
 
 	@Inject(method = "getTicker", at = @At("HEAD"), cancellable = true)
-	default <T extends BlockEntity> void trailierTales$getTicker(Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+	default <T extends BlockEntity> void trailierTales$tickBrushableBlockAnimationState(
+		Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info
+	) {
 		if (type != BlockEntityTypes.BRUSHABLE_BLOCK) return;
 		info.setReturnValue(
 			BaseEntityBlock.createTickerHelper(
 				type,
 				BlockEntityTypes.BRUSHABLE_BLOCK,
-				(levelx, pos, statex, blockEntity) -> {
-					if (blockEntity instanceof BrushableBlockEntityInterface brushableBlockEntityInterface) brushableBlockEntityInterface.trailierTales$tick();
-				})
+				(levelx, pos, statex, blockEntity) -> BrushableBlockAnimationState.tick(blockEntity, statex)
+			)
 		);
 	}
 }

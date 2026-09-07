@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.mixin.client.brushable_block;
 
-import net.frozenblock.lib.block.api.NonFallingBrushableBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -41,10 +40,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BrushableBlock.class)
 public class BrushableBlockMixin {
 
-	@Inject(method = "animateTick", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void trailierTales$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
 		if (TTBlockConfig.SUSPICIOUS_BLOCK_ACCESSIBILITY_PARTICLES.get()) trailierTales$emitConnectionParticlesForPlayer(level, pos, random);
-		if (BrushableBlock.class.cast(this) instanceof NonFallingBrushableBlock) info.cancel();
 	}
 
 	@Unique
