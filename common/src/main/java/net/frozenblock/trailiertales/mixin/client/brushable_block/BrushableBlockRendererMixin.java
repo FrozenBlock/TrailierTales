@@ -22,10 +22,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.frozenblock.trailiertales.block.impl.BrushableBlockAnimationState;
+import net.frozenblock.trailiertales.block.impl.client.BrushableBlockAnimationState;
 import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
-import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BrushableBlockRenderer;
@@ -67,7 +66,8 @@ public class BrushableBlockRendererMixin {
 	) {
 		if (!TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) return;
 
-		final BrushableBlockAnimationState animationState = TTAttachmentTypes.BRUSHABLE_BLOCK_ANIMATION_STATE.getAttachedOrCreate(blockEntity, BrushableBlockAnimationState::create);
+		final BrushableBlockAnimationState animationState = BrushableBlockAnimationState.get(blockEntity);
+		if (animationState == null) return;
 		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_X_OFFSET, animationState.getX(partialTicks));
 		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Y_OFFSET, animationState.getY(partialTicks));
 		state.frozenLib$setData(TTRenderStateDataKeys.BRUSHABLE_BLOCK_Z_OFFSET, animationState.getZ(partialTicks));
@@ -84,7 +84,7 @@ public class BrushableBlockRendererMixin {
 		CallbackInfo info
 	) {
 		if (!TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) return;
-		if (state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, 1F) > BrushableBlockAnimationState.InterpolatingValue.LENIENT_RANGE) return;
+		if (state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ITEM_SCALE, 1F) > 0.05F) return;
 		info.cancel();
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 FrozenBlock
+ * Copyright 2026 FrozenBlock
  * This file is part of Trailier Tales.
  *
  * This program is free software; you can modify it under
@@ -15,19 +15,16 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales;
+package net.frozenblock.trailiertales.networking;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.frozenblock.trailiertales.networking.TTClientNetworking;
-import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.frozenblock.lib.networking.api.NetworkingHelper;
+import net.frozenblock.trailiertales.networking.packet.TTResetBrushableBlockAnimationStatePacket;
 
-@ClientOnly
-public class TrailierTalesClientFabric implements ClientModInitializer {
+public final class TTNetworking {
 
-	@Override
-	public void onInitializeClient() {
-		TrailierTalesClient.init();
-		TrailierTalesClient.setup();
-		TTClientNetworking.setup();
+	public static void setup() {
+		NetworkingHelper.registerS2CPayloadType(TTResetBrushableBlockAnimationStatePacket.PACKET_TYPE, TTResetBrushableBlockAnimationStatePacket.CODEC);
 	}
+
+	private TTNetworking() {}
 }

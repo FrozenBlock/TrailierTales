@@ -21,6 +21,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.trailiertales.advancements.modification.TTAdvancementModifications;
 import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
+import net.frozenblock.trailiertales.networking.TTNetworking;
 import net.frozenblock.trailiertales.registry.TTFabricBlocks;
 
 public class TrailierTalesFabric extends FrozenModInitializer {
@@ -33,6 +34,7 @@ public class TrailierTalesFabric extends FrozenModInitializer {
 	public void onInitialize(String modId, ModContainer container) {
 		TrailierTales.init(modId);
 		TrailierTales.setup();
+		TTNetworking.setup();
 		TTFabricBlocks.registerBlockProperties();
 
 		TTModIntegrations.init();

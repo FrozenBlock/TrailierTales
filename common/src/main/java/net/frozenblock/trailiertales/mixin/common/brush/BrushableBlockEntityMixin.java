@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.mixin.common.brush;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.trailiertales.block.impl.BrushableBlockAnimationState;
+import net.frozenblock.trailiertales.networking.packet.TTResetBrushableBlockAnimationStatePacket;
 import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.minecraft.core.BlockPos;
@@ -87,7 +87,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity {
 		this.brushCount = 0;
 		this.hitDirection = null;
 		this.lootTableSeed = 0L;
-		TTAttachmentTypes.BRUSHABLE_BLOCK_ANIMATION_STATE.set(this, BrushableBlockAnimationState.create());
+		TTResetBrushableBlockAnimationStatePacket.sendToAll(level, this.worldPosition);
 		this.setChanged();
 		return instance;
 	}

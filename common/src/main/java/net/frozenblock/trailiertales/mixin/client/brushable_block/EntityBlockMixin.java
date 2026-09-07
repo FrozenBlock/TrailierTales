@@ -15,9 +15,10 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.mixin.common.brush;
+package net.frozenblock.trailiertales.mixin.client.brushable_block;
 
-import net.frozenblock.trailiertales.block.impl.BrushableBlockAnimationState;
+import net.frozenblock.trailiertales.block.impl.client.BrushableBlockAnimationState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -31,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@ClientOnly
 @Mixin(EntityBlock.class)
 public interface EntityBlockMixin {
 
@@ -38,7 +40,7 @@ public interface EntityBlockMixin {
 	default <T extends BlockEntity> void trailierTales$tickBrushableBlockAnimationState(
 		Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info
 	) {
-		if (type != BlockEntityTypes.BRUSHABLE_BLOCK) return;
+		if (type != BlockEntityTypes.BRUSHABLE_BLOCK || !level.isClientSide()) return;
 		info.setReturnValue(
 			BaseEntityBlock.createTickerHelper(
 				type,

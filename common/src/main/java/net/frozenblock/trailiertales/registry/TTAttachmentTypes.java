@@ -22,7 +22,6 @@ import net.frozenblock.lib.platform.api.attachment.DataAttachmentSyncPredicate;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.impl.EntityCoffinData;
-import net.frozenblock.trailiertales.block.impl.BrushableBlockAnimationState;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -42,10 +41,6 @@ public final class TTAttachmentTypes {
 	);
 
 	// BRUSHABLE BLOCK
-	public static final DataAttachmentType<BrushableBlockAnimationState> BRUSHABLE_BLOCK_ANIMATION_STATE = DataAttachmentType.create(
-		TTConstants.id("brushable_block_animation_state"),
-		builder -> builder.syncWith(BrushableBlockAnimationState.STREAM_CODEC, DataAttachmentSyncPredicate.all())
-	);
 	public static final DataAttachmentType<Boolean> BRUSHABLE_BLOCK_REBRUSHED = DataAttachmentType.create(
 		TTConstants.id("brushable_block_rebrushed"),
 		builder -> builder.persistent(Codec.BOOL)

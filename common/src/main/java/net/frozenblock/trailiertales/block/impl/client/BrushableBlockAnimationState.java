@@ -1,10 +1,7 @@
-package net.frozenblock.trailiertales.block.impl;
+package net.frozenblock.trailiertales.block.impl.client;
 
-import net.frozenblock.trailiertales.registry.TTAttachmentTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
@@ -12,17 +9,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jspecify.annotations.Nullable;
 
-// TODO: only apply sync if brushable block is rebrushed
+@ClientOnly
 public final class BrushableBlockAnimationState {
-	public static final StreamCodec<FriendlyByteBuf, BrushableBlockAnimationState> STREAM_CODEC = StreamCodec.composite(
-		InterpolatingValue.STREAM_CODEC, state -> state.x,
-		InterpolatingValue.STREAM_CODEC, state -> state.y,
-		InterpolatingValue.STREAM_CODEC, state -> state.z,
-		InterpolatingValue.STREAM_CODEC, state -> state.scale,
-		ByteBufCodecs.FLOAT, state -> state.rotation0,
-		ByteBufCodecs.FLOAT, state -> state.rotation,
-		BrushableBlockAnimationState::new
-	);
+	private static final float HORIZONTAL_DEFAULT = 0.5F;
+	private static final float VERTICAL_DEFAULT = 0F;
+	private static final float SCALE_DEFAULT = 0F;
 	private final InterpolatingValue x;
 	private final InterpolatingValue y;
 	private final InterpolatingValue z;
@@ -30,41 +21,52 @@ public final class BrushableBlockAnimationState {
 	private float rotation0;
 	private float rotation;
 
-	private BrushableBlockAnimationState(InterpolatingValue x, InterpolatingValue y, InterpolatingValue z, InterpolatingValue scale, float rotation0, float rotation) {
+	private BrushableBlockAnimationState(InterpolatingValue x, InterpolatingValue y, InterpolatingValue z, InterpolatingValue scale) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.scale = scale;
-		this.rotation0 = rotation0;
-		this.rotation = rotation;
-	}
-
-	private BrushableBlockAnimationState(InterpolatingValue x, InterpolatingValue y, InterpolatingValue z, InterpolatingValue scale) {
-		this(x, y, z, scale, 0F, 0F);
 	}
 
 	public void tick(@Nullable Direction direction, int completionState) {
 		this.rotation0 = this.rotation;
 		if (direction != null) {
 			float[] translation = translations(direction, completionState);
-			this.x.setTarget(translation[0]);
-			this.y.setTarget(translation[1]);
-			this.z.setTarget(translation[2]);
+			this.x.setTarget(translation[0], false);
+			this.y.setTarget(translation[1], false);
+			this.z.setTarget(translation[2], false);
 			this.rotation = direction.getAxis() == Direction.Axis.X ? 90F : 0F;
 		}
 
-		this.scale.setTarget(Math.min(1F, completionState));
+		this.scale.setTarget(Math.min(1F, completionState), false);
 		this.scale.tick();
 		this.x.tick();
 		this.y.tick();
 		this.z.tick();
 	}
 
-	public static void tick(BlockEntity blockEntity, BlockState blockState) {
-		if (!(blockEntity instanceof BrushableBlockEntity brushableBlockEntity)) return;
-		TTAttachmentTypes.BRUSHABLE_BLOCK_ANIMATION_STATE
-			.getAttachedOrCreate(blockEntity, BrushableBlockAnimationState::create)
+	public static void tick(@Nullable BlockEntity blockEntity, BlockState blockState) {
+		if (!(blockEntity instanceof BrushableBlockEntity brushableBlockEntity) || !(blockEntity instanceof BrushableBlockEntityInterface blockEntityInterface)) return;
+		blockEntityInterface.trailierTales$getAnimationState()
 			.tick(brushableBlockEntity.getHitDirection(), blockState.getValueOrElse(BlockStateProperties.DUSTED, 1));
+	}
+
+	public void reset() {
+		this.x.setTarget(HORIZONTAL_DEFAULT, true);
+		this.y.setTarget(VERTICAL_DEFAULT, true);
+		this.z.setTarget(HORIZONTAL_DEFAULT, true);
+		this.scale.setTarget(SCALE_DEFAULT, true);
+		this.rotation0 = this.rotation = 0F;
+	}
+
+	public static void reset(@Nullable BlockEntity blockEntity) {
+		if (blockEntity instanceof BrushableBlockEntityInterface blockEntityInterface) blockEntityInterface.trailierTales$getAnimationState().reset();
+	}
+
+	@Nullable
+	public static BrushableBlockAnimationState get(@Nullable BlockEntity blockEntity) {
+		if ((blockEntity instanceof BrushableBlockEntityInterface blockEntityInterface)) return blockEntityInterface.trailierTales$getAnimationState();
+		return null;
 	}
 
 	public float getX(float partialTicks) {
@@ -89,10 +91,10 @@ public final class BrushableBlockAnimationState {
 
 	public static BrushableBlockAnimationState create() {
 		return new BrushableBlockAnimationState(
-			new InterpolatingValue(0.5F),
-			new InterpolatingValue(0F),
-			new InterpolatingValue(0.5F),
-			new InterpolatingValue(0F)
+			new InterpolatingValue(HORIZONTAL_DEFAULT),
+			new InterpolatingValue(VERTICAL_DEFAULT),
+			new InterpolatingValue(HORIZONTAL_DEFAULT),
+			new InterpolatingValue(SCALE_DEFAULT, 0.3F)
 		);
 	}
 
@@ -111,26 +113,25 @@ public final class BrushableBlockAnimationState {
 	}
 
 	public static final class InterpolatingValue {
-		private static final float STEP_SCALE = 0.2F;
-		public static final float LENIENT_RANGE = 0.05F;
-		private static final StreamCodec<FriendlyByteBuf, InterpolatingValue> STREAM_CODEC = StreamCodec.composite(
-			ByteBufCodecs.FLOAT, interpolatingValue -> interpolatingValue.previous,
-			ByteBufCodecs.FLOAT, interpolatingValue -> interpolatingValue.current,
-			ByteBufCodecs.FLOAT, interpolatingValue -> interpolatingValue.target,
-			InterpolatingValue::new
-		);
+		private static final float DEFAULT_STEP_SCALE = 0.20F;
+		private final float stepScale;
 		private float previous;
 		private float current;
 		private float target;
 
-		public InterpolatingValue(float previous, float current, float target) {
+		public InterpolatingValue(float stepScale, float previous, float current, float target) {
+			this.stepScale = stepScale;
 			this.previous = previous;
 			this.current = current;
 			this.target = target;
 		}
 
+		public InterpolatingValue(float initialValue, float stepScale) {
+			this(stepScale, initialValue, initialValue, initialValue);
+		}
+
 		public InterpolatingValue(float initialValue) {
-			this(initialValue, initialValue, initialValue);
+			this(DEFAULT_STEP_SCALE, initialValue, initialValue, initialValue);
 		}
 
 		public float position(float partialTicks) {
@@ -139,16 +140,12 @@ public final class BrushableBlockAnimationState {
 
 		public void tick() {
 			this.previous = this.current;
-			this.current += (this.target - this.current) * STEP_SCALE;
-			if (this.withinTargetRange(LENIENT_RANGE)) this.previous = this.current = this.target;
+			this.current += (this.target - this.current) * this.stepScale;
 		}
 
-		public void setTarget(float target) {
+		public void setTarget(float target, boolean setAll) {
 			this.target = target;
-		}
-
-		public boolean withinTargetRange(float lenience) {
-			return (this.target - this.current) <= lenience;
+			if (setAll) this.previous = this.current = this.target;
 		}
 	}
 }
