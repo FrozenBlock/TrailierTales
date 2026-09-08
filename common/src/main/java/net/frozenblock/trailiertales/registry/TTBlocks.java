@@ -20,7 +20,6 @@ package net.frozenblock.trailiertales.registry;
 import net.frozenblock.lib.block.api.NonFallingBrushableBlock;
 import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.storage.hopper.HopperApi;
-import net.frozenblock.lib.item.api.registry.CompostableRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredBlock;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.trailiertales.TTConstants;
@@ -71,7 +70,7 @@ public final class TTBlocks {
 			.mapColor(MapColor.COLOR_ORANGE)
 			.instrument(NoteBlockInstrument.SNARE)
 			.strength(0.25F).sound(SoundType.SUSPICIOUS_SAND)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<NonFallingBrushableBlock> SUSPICIOUS_DIRT = REGISTER.registerBlock(TTBlockItemIds.SUSPICIOUS_DIRT,
 		properties -> new NonFallingBrushableBlock(
@@ -84,7 +83,7 @@ public final class TTBlocks {
 			.mapColor(MapColor.DIRT)
 			.strength(0.25F)
 			.sound(TTSoundTypes.SUSPICIOUS_DIRT)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<NonFallingBrushableBlock> SUSPICIOUS_CLAY = REGISTER.registerBlock(TTBlockItemIds.SUSPICIOUS_CLAY,
 		properties -> new NonFallingBrushableBlock(
@@ -98,7 +97,7 @@ public final class TTBlocks {
 			.instrument(NoteBlockInstrument.FLUTE)
 			.strength(0.25F)
 			.sound(TTSoundTypes.SUSPICIOUS_CLAY)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 
 	// PLANTS
@@ -110,7 +109,7 @@ public final class TTBlocks {
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.CROP)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<FlowerBlock> CYAN_ROSE = REGISTER.registerBlock(TTBlockItemIds.CYAN_ROSE,
 		properties -> new FlowerBlock(MobEffects.SATURATION, 0.5F, properties),
@@ -120,7 +119,7 @@ public final class TTBlocks {
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<FlowerPotBlock> POTTED_CYAN_ROSE = REGISTER.registerFlowerPot(TTBlockIds.POTTED_CYAN_ROSE, CYAN_ROSE);
 
@@ -131,7 +130,7 @@ public final class TTBlocks {
 			.noCollision()
 			.instabreak()
 			.sound(SoundType.CROP)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<DoublePlantBlock> MANEDROP = REGISTER.registerBlock(TTBlockItemIds.MANEDROP,
 		DoublePlantBlock::new,
@@ -142,7 +141,7 @@ public final class TTBlocks {
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.ignitedByLava()
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 
 	public static final DeferredBlock<DawntrailCropBlock> DAWNTRAIL_CROP = REGISTER.registerBlock(TTBlockItemIds.DAWNTRAIL_CROP,
@@ -153,7 +152,7 @@ public final class TTBlocks {
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.CROP)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<DawntrailBlock> DAWNTRAIL = REGISTER.registerBlock(TTBlockItemIds.DAWNTRAIL,
 		DawntrailBlock::new,
@@ -165,7 +164,7 @@ public final class TTBlocks {
 			.strength(0.2F)
 			.sound(SoundType.VINE)
 			.ignitedByLava()
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 
 	public static final DeferredBlock<GuzmaniaCropBlock> GUZMANIA_CROP = REGISTER.registerBlock(TTBlockItemIds.GUZMANIA_CROP,
@@ -176,7 +175,7 @@ public final class TTBlocks {
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.CROP)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<DoublePlantBlock> GUZMANIA = REGISTER.registerBlock(TTBlockItemIds.GUZMANIA,
 		DoublePlantBlock::new,
@@ -187,7 +186,7 @@ public final class TTBlocks {
 			.sound(SoundType.GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.ignitedByLava()
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 
 	public static final DeferredBlock<LithopsCropBlock> LITHOPS_CROP = REGISTER.registerBlock(TTBlockItemIds.LITHOPS_CROP,
@@ -197,7 +196,7 @@ public final class TTBlocks {
 			.noCollision()
 			.instabreak()
 			.sound(SoundType.CROP)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<LithopsBlock> LITHOPS = REGISTER.registerBlock(TTBlockItemIds.LITHOPS, LithopsBlock::new, () -> Properties.ofFullCopy(Blocks.PINK_PETALS));
 	public static final DeferredBlock<FlowerPotBlock> POTTED_LITHOPS = REGISTER.registerFlowerPot(TTBlockIds.POTTED_LITHOPS, LITHOPS);
@@ -364,7 +363,6 @@ public final class TTBlocks {
 			.requiresCorrectToolForDrops()
 			.sound(TTSoundTypes.COFFIN)
 			.strength(50F)
-			.isViewBlocking(Blocks::never)
 	);
 	public static final DeferredBlock<SurveyorBlock> SURVEYOR = REGISTER.registerBlock(TTBlockItemIds.SURVEYOR,
 		SurveyorBlock::new,
@@ -386,8 +384,7 @@ public final class TTBlocks {
 			.lightLevel(state -> 1)
 			.sound(TTSoundTypes.ECTOPLASM)
 			.isSuffocating(Blocks::never)
-			.isViewBlocking(Blocks::never)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 			.dynamicShape()
 	);
 
@@ -399,17 +396,6 @@ public final class TTBlocks {
 
 	public static void registerBlockProperties() {
 		HopperApi.addBlacklistedType(TTBlockEntityTypes.COFFIN.get());
-
-		CompostableRegistry.register(CYAN_ROSE.get(), 0.85F);
-		CompostableRegistry.register(CYAN_ROSE_CROP.get(), 0.3F);
-		CompostableRegistry.register(MANEDROP.get(), 0.85F);
-		CompostableRegistry.register(MANEDROP_CROP.get(), 0.3F);
-		CompostableRegistry.register(DAWNTRAIL.get(), 0.85F);
-		CompostableRegistry.register(DAWNTRAIL_CROP.get(), 0.3F);
-		CompostableRegistry.register(GUZMANIA.get(), 0.85F);
-		CompostableRegistry.register(GUZMANIA_CROP.get(), 0.3F);
-		CompostableRegistry.register(LITHOPS.get(), 0.3F);
-		CompostableRegistry.register(LITHOPS_CROP.get(), 0.3F);
 
 		FlammableBlockRegistry.register(CYAN_ROSE.get(), 60, 100);
 		FlammableBlockRegistry.register(MANEDROP.get(), 60, 100);

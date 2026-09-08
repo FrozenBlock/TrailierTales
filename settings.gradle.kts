@@ -49,7 +49,7 @@ rootProject.name = "Trailier Tales"
 
 object Constants {
 	const val FABRIC: Boolean = true
-	const val NEOFORGE: Boolean = true
+	const val NEOFORGE: Boolean = false
 }
 
 include("tt-common")
@@ -70,6 +70,7 @@ localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", enable
 localRepository("FrozenLib",
 	"net.frozenblock:frozenlib",
 	prefix = "flib",
+    suffixes = listOf("common", "fabric"),
 	multi = true,
 	enabled = true
 )
@@ -77,6 +78,7 @@ localRepository("FrozenLib",
 localRepository("WilderWild",
 	"net.frozenblock:wilderwild",
 	prefix = "ww",
+    suffixes = listOf("common", "fabric"),
 	multi = true,
 	enabled = true
 )

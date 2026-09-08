@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:mossy_granite_brick_wall"
+        "recipes": "trailiertales:mossy_granite_brick_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

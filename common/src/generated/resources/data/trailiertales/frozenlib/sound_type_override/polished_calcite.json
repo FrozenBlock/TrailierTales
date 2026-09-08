@@ -1,7 +1,7 @@
 {
   "blocks": "#trailiertales:sound/polished_calcite",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "trailiertales:block/blockSounds/polishedCalciteSounds",
     "target": true
   },

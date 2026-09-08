@@ -1,7 +1,7 @@
 {
   "blocks": "#trailiertales:sound/polished_resin",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "trailiertales:block/blockSounds/polishedSounds",
     "target": true
   },

@@ -29,7 +29,7 @@ checkstyle {
 val frozenlib_version: String by project
 
 mod {
-	additional.add("minecraft_version", "~26.2-")
+	additional.add("minecraft_version", "~26.3-")
 	additional.add("frozenlib_version", ">=${frozenlib_version.split('-').firstOrNull()}-")
 	additional.add("protocol_version")
 }

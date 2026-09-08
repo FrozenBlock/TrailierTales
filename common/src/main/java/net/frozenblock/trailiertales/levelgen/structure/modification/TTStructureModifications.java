@@ -17,10 +17,8 @@
 
 package net.frozenblock.trailiertales.levelgen.structure.modification;
 
-import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.levelgen.structure.api.placement.StructureGenerationConditionApi;
 import net.frozenblock.lib.levelgen.structure.api.placement.StructurePlacementExclusionApi;
-import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorApi;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.data.worldgen.structure.BadlandsRuinsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
@@ -30,82 +28,31 @@ import net.frozenblock.trailiertales.data.worldgen.structure.GenericRuinsGenerat
 import net.frozenblock.trailiertales.data.worldgen.structure.JungleRuinsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.SavannaRuinsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.SnowyRuinsGenerator;
-import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.frozenblock.trailiertales.registry.TTResources;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockStateMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 
 public final class TTStructureModifications {
 
 	public static void setup() {
-		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), TTWorldgenConfig.CATACOMBS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier(), TTWorldgenConfig.BADLANDS_RUINS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(), TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(DesertRuinsGenerator.DESERT_RUINS_KEY.identifier(), TTWorldgenConfig.DESERT_RUINS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(GenericRuinsGenerator.RUINS_KEY.identifier(), TTWorldgenConfig.GENERIC_RUINS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier(), TTWorldgenConfig.JUNGLE_RUINS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(), TTWorldgenConfig.SAVANNA_RUINS_GENERATION);
-		StructureGenerationConditionApi.addGenerationCondition(SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier(), TTWorldgenConfig.SNOWY_RUINS_GENERATION);
+		StructureGenerationConditionApi.ADD_GENERATION_CONDITIONS.register((structureSet, context) -> {
+			if (structureSet.is(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY)) {
+				context.add(TTWorldgenConfig.CATACOMBS_GENERATION);
+				context.add(() -> !TTResources.HAS_STRONGHOLD_OVERRIDE_PACK);
+			}
+			if (structureSet.is(BadlandsRuinsGenerator.BADLANDS_RUINS_KEY)) context.add(TTWorldgenConfig.BADLANDS_RUINS_GENERATION);
+			if (structureSet.is(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY)) context.add(TTWorldgenConfig.DEEPSLATE_RUINS_GENERATION);
+			if (structureSet.is(DesertRuinsGenerator.DESERT_RUINS_KEY)) context.add(TTWorldgenConfig.DESERT_RUINS_GENERATION);
+			if (structureSet.is(GenericRuinsGenerator.RUINS_KEY)) context.add(TTWorldgenConfig.GENERIC_RUINS_GENERATION);
+			if (structureSet.is(JungleRuinsGenerator.JUNGLE_RUINS_KEY)) context.add(TTWorldgenConfig.JUNGLE_RUINS_GENERATION);
+			if (structureSet.is(SavannaRuinsGenerator.SAVANNA_RUINS_KEY)) context.add(TTWorldgenConfig.SAVANNA_RUINS_GENERATION);
+			if (structureSet.is(SnowyRuinsGenerator.SNOWY_RUINS_KEY)) context.add(TTWorldgenConfig.SNOWY_RUINS_GENERATION);
+		});
 
-		StructurePlacementExclusionApi.addExclusion(
-			BuiltinStructureSets.TRIAL_CHAMBERS.identifier(),
-			CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(),
-			8
-		);
-
-		StructurePlacementExclusionApi.addExclusion(
-			DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier(),
-			BuiltinStructureSets.ANCIENT_CITIES.identifier(),
-			8
-		);
-
-		StructurePlacementExclusionApi.addExclusion(
-			DesertRuinsGenerator.DESERT_RUINS_KEY.identifier(),
-			BuiltinStructureSets.DESERT_PYRAMIDS.identifier(),
-			3
-		);
-
-		if (TTWorldgenConfig.END_CITY_CRACKED_GENERATION.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.END_CITY.identifier(),
-				new RuleProcessor(
-					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_END_STONE_BRICKS.get().defaultBlockState()),
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.PURPUR_BLOCK, 0.2F), AlwaysTrueTest.INSTANCE, TTBlocks.CRACKED_PURPUR_BLOCK.get().defaultBlockState())
-					)
-				)
-			);
-		}
-
-		if (TTWorldgenConfig.END_CITY_CHORAL_GENERATION.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.END_CITY.identifier(),
-				new RuleProcessor(
-					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.END_STONE_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, TTBlocks.CHORAL_END_STONE_BRICKS.get().defaultBlockState())
-					)
-				)
-			);
-		}
-
-		if (TTWorldgenConfig.END_CITY_CHISELED_GENERATION.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.END_CITY.identifier(),
-				new RuleProcessor(
-					ImmutableList.of(
-						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 0.4F), AlwaysTrueTest.INSTANCE, TTBlocks.CHISELED_PURPUR_BLOCK.get().defaultBlockState()),
-						new ProcessorRule(new RandomBlockStateMatchTest(Blocks.PURPUR_PILLAR.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 0.4F), AlwaysTrueTest.INSTANCE, TTBlocks.CHISELED_PURPUR_BLOCK.get().defaultBlockState())
-					)
-				)
-			);
-		}
+		StructurePlacementExclusionApi.ADD_PLACEMENT_EXCLUSIONS.register((structureSet, context) -> {
+			if (structureSet.is(BuiltinStructureSets.TRIAL_CHAMBERS)) context.add(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY, 8);
+			if (structureSet.is(DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY)) context.add(BuiltinStructureSets.ANCIENT_CITIES, 8);
+			if (structureSet.is(DesertRuinsGenerator.DESERT_RUINS_KEY)) context.add(BuiltinStructureSets.DESERT_PYRAMIDS, 3);
+		});
 	}
 
 	private TTStructureModifications() {}

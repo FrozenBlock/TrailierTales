@@ -33,8 +33,8 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 
@@ -61,8 +61,11 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 							.add(
 								LootItem.lootTableItem(TTBlocks.MANEDROP.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.MANEDROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+										)
 									)
 							)
 					)
@@ -78,24 +81,35 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 							.add(
 								LootItem.lootTableItem(TTItems.MANEDROP_GERM.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE))
-											.invert()
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.MANEDROP_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE)
+										).invert()
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.MANEDROP_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+										)
 									)
 							)
 							.add(
 								LootItem.lootTableItem(TTBlocks.MANEDROP.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.MANEDROP_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(ManedropCropBlock.AGE, ManedropCropBlock.MAX_AGE)
+										)
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.MANEDROP_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.MANEDROP_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+										)
 									)
 							)
 					)
@@ -112,8 +126,11 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 							.add(
 								LootItem.lootTableItem(TTBlocks.GUZMANIA.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.GUZMANIA.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+										)
 									)
 							)
 					)
@@ -129,24 +146,35 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 							.add(
 								LootItem.lootTableItem(TTItems.GUZMANIA_SEEDS.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
-											.invert()
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.GUZMANIA_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE)
+										).invert()
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.GUZMANIA_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+										)
 									)
 							)
 							.add(
 								LootItem.lootTableItem(TTBlocks.GUZMANIA.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.GUZMANIA_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(GuzmaniaCropBlock.AGE, GuzmaniaCropBlock.MAX_AGE)
+										)
 									)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.GUZMANIA_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.GUZMANIA_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+										)
 									)
 							)
 					)
@@ -171,18 +199,23 @@ public final class TTBlockLootProvider extends FabricBlockLootSubProvider {
 							.add(
 								LootItem.lootTableItem(TTItems.LITHOPS_SEEDS.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
-											.invert()
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.LITHOPS_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE)
+										).invert()
 									)
 							)
 							.add(
 								LootItem.lootTableItem(TTBlocks.LITHOPS.get())
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(TTBlocks.LITHOPS_CROP.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE))
+										MatchBlock.blockMatches(
+											this.blocks,
+											TTBlocks.LITHOPS_CROP.get(),
+											StatePropertiesPredicate.Builder.properties().hasProperty(LithopsCropBlock.AGE, LithopsCropBlock.MAX_AGE)
+										)
 									)
-									.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4F), false))
+									.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(4), false))
 							)
 					)
 			)

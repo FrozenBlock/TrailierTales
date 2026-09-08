@@ -34,7 +34,7 @@ public final class TTStructureTagsProvider extends FabricTagsProvider<Structure>
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.tag(TTStructureTags.ON_CATACOMBS_MAPS)
+		this.tag(TTStructureTags.ON_BURIED_CATACOMBS_MAPS)
 			.add(CatacombsGenerator.CATACOMBS_KEY);
 
 	}

@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:chiseled_end_stone_bricks"
+        "recipes": "trailiertales:chiseled_end_stone_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

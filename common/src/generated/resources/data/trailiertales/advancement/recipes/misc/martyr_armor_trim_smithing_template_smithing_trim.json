@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:martyr_armor_trim_smithing_template_smithing_trim"
+        "recipes": "trailiertales:martyr_armor_trim_smithing_template_smithing_trim"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

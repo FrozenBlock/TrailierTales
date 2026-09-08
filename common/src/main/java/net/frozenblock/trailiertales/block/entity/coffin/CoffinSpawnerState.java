@@ -87,7 +87,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 
 	private static CoffinSpawnerState getInactiveState(BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
-		if (!coffinSpawnerData.hasMobToSpawn(level.getRandom()) || coffinSpawnerData.isOnCooldown(level)) return getCooldownOrInactiveState(level, spawner);
+		if (!coffinSpawnerData.hasMobToSpawn(level, level.getRandom(), pos) || coffinSpawnerData.isOnCooldown(level)) return getCooldownOrInactiveState(level, spawner);
 
 		final Direction direction = CoffinBlock.getConnectedDirection(state);
 		coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);
@@ -98,7 +98,7 @@ public enum CoffinSpawnerState implements StringRepresentable {
 	private static CoffinSpawnerState activeTickAndGetNext(CoffinSpawnerState spawnerState, BlockPos pos, CoffinSpawner spawner, BlockState state, ServerLevel level) {
 		final CoffinSpawnerData coffinSpawnerData = spawner.getData();
 		final CoffinSpawnerConfig coffinSpawnerConfig = spawner.getConfig();
-		if (!coffinSpawnerData.hasMobToSpawn(level.getRandom())) return getCooldownOrInactiveState(level, spawner);
+		if (!coffinSpawnerData.hasMobToSpawn(level, level.getRandom(), pos)) return getCooldownOrInactiveState(level, spawner);
 
 		final Direction direction = CoffinBlock.getConnectedDirection(state);
 		coffinSpawnerData.tryDetectPlayers(level, pos, direction, spawner);

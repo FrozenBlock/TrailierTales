@@ -35,10 +35,10 @@ public class SoundEngineMixin {
 		method = "play",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/resources/sounds/Sound;getAttenuationDistance()I"
+			target = "Lnet/minecraft/client/resources/sounds/Sound;getAttenuationDistance(F)F"
 		)
 	)
-	public int modifyAttenuationDistance(int original) {
+	public float modifyAttenuationDistance(float original) {
 		final Player player = Minecraft.getInstance().player;
 		if (player != null && TTEntityConfig.APPARITION_HAUNTED_SOUNDS.get() && player.hasEffect(TTMobEffects.HAUNT.asHolder())) return (int) (original * 0.5F);
 		return original;

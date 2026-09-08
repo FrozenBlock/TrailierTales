@@ -131,39 +131,42 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		CoffinModel model,
 		Identifier texture,
 		@Nullable Identifier emissiveTexture,
-		float openProgress,
-		float wobbleProgress,
-		int packedLight,
-		int packedOverlay,
+		float open,
+		float wobble,
+		int lightCoords,
+		int overlayCoords,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress,
 		int outlineColor,
 		Direction direction
 	) {
 		poseStack.pushPose();
 
-		openProgress = setupPoseStackAndCalculateOpenProgress(poseStack, direction, openProgress, wobbleProgress);
+		open = setupPoseStackAndCalculateOpenProgress(poseStack, direction, open, wobble);
 
 		submitNodeCollector.submitModel(
 			model,
-			openProgress,
+			open,
 			poseStack,
 			RenderTypes.entityCutoutCull(texture),
-			packedLight,
-			packedOverlay,
-			outlineColor,
-			breakProgress
+			lightCoords,
+			overlayCoords,
+			outlineColor
 		);
 		if (emissiveTexture != null) {
 			submitNodeCollector.submitModel(
 				model,
-				openProgress,
+				open,
 				poseStack,
 				RenderTypes.eyes(emissiveTexture),
-				packedLight,
-				packedOverlay,
-				outlineColor,
-				null
+				lightCoords,
+				overlayCoords,
+				outlineColor
 			);
+		}
+
+		if (breakProgress != null) {
+			submitNodeCollector.order(1)
+				.submitCrumblingOverlay(model, open, poseStack, RenderTypes.entityCutoutCull(texture), lightCoords, OverlayTexture.NO_OVERLAY, -1, breakProgress);
 		}
 
 		poseStack.popPose();
@@ -176,7 +179,7 @@ public class CoffinRenderer implements BlockEntityRenderer<CoffinBlockEntity, Co
 		float wobbleProgress
 	) {
 		poseStack.translate(0.5F, 0.5F, 0.5F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
+		poseStack.rotate(Axis.YP.rotationDegrees(-direction.toYRot()));
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
 
 		if (wobbleProgress >= 0F && wobbleProgress <= 1F) {

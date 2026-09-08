@@ -8,6 +8,7 @@
     {
       "from": [ 0, 0, 0.1 ],
       "to": [ 16, 16, 0.1 ],
+      "shade_direction_override": "up",
       "faces": {
         "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#dawntrail" },
         "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#dawntrail" }

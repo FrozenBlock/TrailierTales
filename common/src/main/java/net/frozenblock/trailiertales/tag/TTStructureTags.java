@@ -23,10 +23,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class TTStructureTags {
-	public static final TagKey<Structure> ON_CATACOMBS_MAPS = bind("on_catacombs_maps");
+	public static final TagKey<Structure> ON_BURIED_CATACOMBS_MAPS = bind("on_buried_catacombs_maps");
 
-	private static TagKey<Structure> bind(String path) {
-		return TagKey.create(Registries.STRUCTURE, TTConstants.id(path));
+	private static TagKey<Structure> bind(String name) {
+		return TagKey.create(Registries.STRUCTURE, TTConstants.id(name));
 	}
 
 	private TTStructureTags() {}

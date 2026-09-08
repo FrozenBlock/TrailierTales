@@ -1,5 +1,5 @@
 {
-	"parent": "block/block",
+	"parent": "minecraft:block/block",
 	"ambientocclusion": false,
 	"textures": {
     "texture": "trailiertales:block/ectoplasm_block",

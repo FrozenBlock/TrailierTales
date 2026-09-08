@@ -54,9 +54,11 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 public class CoffinSpawnerData {
 	public static MapCodec<CoffinSpawnerData> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -171,8 +173,8 @@ public class CoffinSpawnerData {
 		this.currentApparitions.clear();
 	}
 
-	public boolean hasMobToSpawn(RandomSource random) {
-		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(random).getEntityToSpawn().contains("id");
+	public boolean hasMobToSpawn(Level level, RandomSource random, BlockPos pos) {
+		boolean hasNextSpawnData = this.getOrCreateNextSpawnData(level, random, pos).getEntityToSpawn().contains("id");
 		return hasNextSpawnData || !this.spawnPotentials().isEmpty();
 	}
 
@@ -200,8 +202,8 @@ public class CoffinSpawnerData {
 		return level.getGameTime() < this.cooldownEndsAt;
 	}
 
-	public boolean hasMobToSpawnAndIsntOnCooldown(Level level, RandomSource random) {
-		return !isOnCooldown(level) && this.hasMobToSpawn(random);
+	public boolean hasMobToSpawnAndIsntOnCooldown(Level level, RandomSource random, BlockPos pos) {
+		return !isOnCooldown(level) && this.hasMobToSpawn(level, random, pos);
 	}
 
 	public int getPower() {
@@ -341,20 +343,25 @@ public class CoffinSpawnerData {
 		return level.getGameTime() >= this.powerCooldownEndsAt;
 	}
 
-	public void setEntityId(EntityType<?> type, RandomSource random) {
-		this.getOrCreateNextSpawnData(random).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
+	public void setEntityId(EntityType<?> type, Level level, RandomSource random, BlockPos pos) {
+		this.getOrCreateNextSpawnData(level, random, pos).getEntityToSpawn().putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
+	}
+
+	public void setEntityData(TypedEntityData<EntityType<?>> entityData, @Nullable Level level, RandomSource random, BlockPos pos) {
+		final SpawnData spawnData = this.getOrCreateNextSpawnData(level, random, pos);
+		entityData.loadInto(spawnData, BuiltInRegistries.ENTITY_TYPE);
 	}
 
 	public WeightedList<SpawnData> spawnPotentials() {
 		return this.spawnPotentials;
 	}
 
-	SpawnData getOrCreateNextSpawnData(RandomSource random) {
-		if (this.nextSpawnData.isEmpty()) this.setNextSpawnData(this.spawnPotentials.getRandom(random).orElseGet(SpawnData::new));
+	SpawnData getOrCreateNextSpawnData(@Nullable Level level, RandomSource random, BlockPos pos) {
+		if (this.nextSpawnData.isEmpty()) this.setNextSpawnData(level, pos, this.spawnPotentials.getRandom(random).orElseGet(SpawnData::new));
 		return this.nextSpawnData.get();
 	}
 
-	protected void setNextSpawnData(SpawnData spawnEntry) {
-		this.nextSpawnData = Optional.ofNullable(spawnEntry);
+	protected void setNextSpawnData(@Nullable Level level, BlockPos pos, @Nullable SpawnData nextSpawnData) {
+		this.nextSpawnData = Optional.ofNullable(nextSpawnData);
 	}
 }

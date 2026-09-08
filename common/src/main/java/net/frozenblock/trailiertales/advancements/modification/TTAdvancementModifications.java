@@ -53,23 +53,25 @@ import net.minecraft.advancements.triggers.LootTableTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 public class TTAdvancementModifications {
 
 	public static void init() {
 		AdvancementEvents.INIT.register((holder, registries) -> {
-			final HolderLookup<EntityType<?>> entity = registries.lookupOrThrow(Registries.ENTITY_TYPE);
+			final HolderLookup<Block> blocks = registries.lookupOrThrow(Registries.BLOCK);
+			final HolderLookup<EntityType<?>> entityTypes = registries.lookupOrThrow(Registries.ENTITY_TYPE);
+			final HolderLookup<LootTable> lootTables = registries.lookupOrThrow(Registries.LOOT_TABLE);
 			final Advancement advancement = holder.value();
 			if (!TTMiscConfig.MODIFY_ADVANCEMENTS.get()) return;
 
 			switch (holder.id().toString()) {
 				case "minecraft:adventure/kill_a_mob" -> {
 					AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION.get())).triggerInstance())
+						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, TTEntityTypes.APPARITION.get())).triggerInstance())
 					);
 					AdvancementAPI.addRequirementsToList(advancement,
 						List.of(TTConstants.string("apparition"))
@@ -77,7 +79,7 @@ public class TTAdvancementModifications {
 				}
 				case "minecraft:adventure/kill_all_mobs" -> {
 					AdvancementAPI.addCriteria(advancement, TTConstants.string("apparition"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entity, TTEntityTypes.APPARITION.get())).triggerInstance())
+						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, TTEntityTypes.APPARITION.get())).triggerInstance())
 					);
 					AdvancementAPI.addRequirementsAsNewList(advancement,
 						new AdvancementRequirements(List.of(
@@ -87,19 +89,19 @@ public class TTAdvancementModifications {
 				}
 				case "minecraft:husbandry/plant_any_sniffer_seed" -> {
 					AdvancementAPI.addCriteria(advancement, "trailiertales:cyan_rose", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.CYAN_ROSE_CROP.get()).triggerInstance())
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks, TTBlocks.CYAN_ROSE_CROP.get()).triggerInstance())
 					);
 					AdvancementAPI.addCriteria(advancement, "trailiertales:manedrop", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.MANEDROP_CROP.get()).triggerInstance())
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks, TTBlocks.MANEDROP_CROP.get()).triggerInstance())
 					);
 					AdvancementAPI.addCriteria(advancement, "trailiertales:guzmania", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.GUZMANIA_CROP.get()).triggerInstance())
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks, TTBlocks.GUZMANIA_CROP.get()).triggerInstance())
 					);
 					AdvancementAPI.addCriteria(advancement, "trailiertales:dawntrail", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.DAWNTRAIL_CROP.get()).triggerInstance())
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks, TTBlocks.DAWNTRAIL_CROP.get()).triggerInstance())
 					);
 					AdvancementAPI.addCriteria(advancement, "trailiertales:lithops", CriteriaTriggers.PLACED_BLOCK.createCriterion(
-						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(TTBlocks.LITHOPS_CROP.get()).triggerInstance())
+						ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks, TTBlocks.LITHOPS_CROP.get()).triggerInstance())
 					);
 					AdvancementAPI.addRequirementsToList(advancement,
 						List.of(
@@ -112,16 +114,16 @@ public class TTAdvancementModifications {
 					);
 				}
 				case "minecraft:adventure/salvage_sherd" -> {
-					addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.identifier().toString(), TTLootTables.RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier().toString(), TTLootTables.SNOWY_RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier().toString(), TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier().toString(), TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.identifier().toString(), TTLootTables.DESERT_RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier().toString(), TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier().toString(), TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY);
-					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB);
-					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE);
-					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR);
+					addLootTableRequirement(advancement, GenericRuinsGenerator.RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, SnowyRuinsGenerator.SNOWY_RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.SNOWY_RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, BadlandsRuinsGenerator.BADLANDS_RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.BADLANDS_RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, DeepslateRuinsGenerator.DEEPSLATE_RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.DEEPSLATE_RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, DesertRuinsGenerator.DESERT_RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.DESERT_RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, JungleRuinsGenerator.JUNGLE_RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.JUNGLE_RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.SAVANNA_RUINS_ARCHAEOLOGY));
+					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.CATACOMBS_ARCHAEOLOGY_TOMB));
+					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR_RARE));
+					addLootTableRequirement(advancement, CatacombsGenerator.CATACOMBS_KEY.identifier().toString(), lootTables.getOrThrow(TTLootTables.CATACOMBS_ARCHAEOLOGY_CORRIDOR));
 				}
 				case "minecraft:nether/all_potions" -> {
 					if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
@@ -149,7 +151,7 @@ public class TTAdvancementModifications {
 		});
 	}
 
-	private static void addLootTableRequirement(Advancement advancement, String criteriaName, ResourceKey<LootTable> lootTable) {
+	private static void addLootTableRequirement(Advancement advancement, String criteriaName, Holder<LootTable> lootTable) {
 		AdvancementAPI.addCriteria(
 			advancement,
 			criteriaName, LootTableTrigger.TriggerInstance.lootTableUsed(lootTable)

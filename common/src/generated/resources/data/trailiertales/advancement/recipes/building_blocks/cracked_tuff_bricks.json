@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:cracked_tuff_bricks"
+        "recipes": "trailiertales:cracked_tuff_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

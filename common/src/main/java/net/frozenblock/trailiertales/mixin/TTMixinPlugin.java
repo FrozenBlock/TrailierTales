@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.mixin;
 
 import java.util.List;
 import java.util.Set;
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.config.TTMixinsConfig;
@@ -64,7 +64,7 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("lithops.")) return this.mixinsConfig.lithops;
 		if (mixinClassName.contains("rail.")) return this.mixinsConfig.rail;
 
-		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
+		if (mixinClassName.contains("datagen.")) return FrozenLibEarlyConstants.IS_DATAGEN;
 		if (mixinClassName.contains("structure_building.")) return TTPreLoadConstants.STRUCTURE_BUILDING_MODE;
 		return true;
 	}

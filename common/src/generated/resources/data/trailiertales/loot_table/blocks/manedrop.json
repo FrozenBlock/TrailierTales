@@ -1,28 +1,24 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  },
   "pools": [
     {
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "trailiertales:manedrop",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "half": "lower"
-              }
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "trailiertales:manedrop",
+            "state": {
+              "half": "lower"
             }
-          ],
+          },
           "name": "trailiertales:manedrop"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

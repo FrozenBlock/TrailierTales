@@ -1,7 +1,7 @@
 {
   "blocks": "#trailiertales:sound/unpolished_bricks",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "trailiertales:block/blockSounds/unpolishedBricksSounds",
     "target": true
   },

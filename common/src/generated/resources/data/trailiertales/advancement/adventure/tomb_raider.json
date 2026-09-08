@@ -3,17 +3,15 @@
   "criteria": {
     "tomb_raider": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:location": {
-                "structures": "trailiertales:catacombs"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "trailiertales:catacombs"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     }

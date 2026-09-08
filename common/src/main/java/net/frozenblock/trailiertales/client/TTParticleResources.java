@@ -24,14 +24,14 @@ import net.frozenblock.trailiertales.particle.GlowingSpellParticle;
 import net.frozenblock.trailiertales.particle.provider.TTParticleProviders;
 import net.frozenblock.trailiertales.registry.TTParticleTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.particle.SoulParticle;
+import net.minecraft.client.particle.EmissiveRisingParticle;
 
 @ClientOnly
-public final class TTParticleEngine {
+public final class TTParticleResources {
 
 	public static void setup() {
-		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
-		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL, EmissiveRisingParticle.EmissiveProvider::new);
+		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, EmissiveRisingParticle.EmissiveProvider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_ENTITY_EFFECT, GlowingSpellParticle.MobEffectProvider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_DUST_COLOR_TRANSITION, GlowingColorTransitionParticle.Provider::new);
@@ -40,5 +40,5 @@ public final class TTParticleEngine {
 		ParticleProviderRegistry.register(TTParticleTypes.TRANSFIGURING, GlowingSpellParticle.Provider::new);
 	}
 
-	private TTParticleEngine() {}
+	private TTParticleResources() {}
 }

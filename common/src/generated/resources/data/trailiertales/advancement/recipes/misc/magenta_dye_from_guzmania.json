@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:magenta_dye_from_guzmania"
+        "recipes": "trailiertales:magenta_dye_from_guzmania"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

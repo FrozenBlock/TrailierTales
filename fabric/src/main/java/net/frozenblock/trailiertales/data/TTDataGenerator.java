@@ -19,7 +19,7 @@ package net.frozenblock.trailiertales.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
@@ -29,6 +29,7 @@ import net.frozenblock.trailiertales.data.loot.TTBlockLootProvider;
 import net.frozenblock.trailiertales.data.loot.TTChestLootProvider;
 import net.frozenblock.trailiertales.data.loot.TTEntityLootProvider;
 import net.frozenblock.trailiertales.data.model.TTModelProvider;
+import net.frozenblock.trailiertales.data.recipe.TTBrewingRecipeProvider;
 import net.frozenblock.trailiertales.data.recipe.TTRecipeProvider;
 import net.frozenblock.trailiertales.data.sound.TTSoundTypeOverrides;
 import net.frozenblock.trailiertales.data.tag.TTBiomeTagsProvider;
@@ -43,8 +44,10 @@ import net.frozenblock.trailiertales.data.tag.TTStructureTagsProvider;
 import net.frozenblock.trailiertales.data.tag.TTVillagerTradesTagsProvider;
 import net.frozenblock.trailiertales.data.trading.TTVillagerTrades;
 import net.frozenblock.trailiertales.data.worldgen.feature.TTFeatureBootstrap;
+import net.frozenblock.trailiertales.data.worldgen.structure.TTStructureProcessorListAdditions;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTClipGroups;
+import net.frozenblock.trailiertales.registry.TTDecoratedPotPatterns;
 import net.frozenblock.trailiertales.registry.TTEnchantments;
 import net.frozenblock.trailiertales.registry.TTJukeboxSongs;
 import net.frozenblock.trailiertales.registry.TTStructures;
@@ -59,7 +62,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public static BlockFamily FAMILY_CALCITE;
 
 	static {
-		if (FrozenBools.IS_DATAGEN) {
+		if (FrozenLibEarlyConstants.IS_DATAGEN) {
 			FAMILY_CALCITE = BlockFamilies.familyBuilder(Blocks.CALCITE)
 				.stairs(TTBlocks.CALCITE_STAIRS.get())
 				.slab(TTBlocks.CALCITE_SLAB.get())
@@ -102,7 +105,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
 		// ASSETS
-		if (FrozenBools.IS_DATAGEN) pack.addProvider(TTModelProvider::new);
+		if (FrozenLibEarlyConstants.IS_DATAGEN) pack.addProvider(TTModelProvider::new);
 
 		// DATA
 		pack.addProvider(TTEntityLootProvider::new);
@@ -120,6 +123,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TTVillagerTradesTagsProvider::new);
 		pack.addProvider(TTStructureTagsProvider::new);
 		pack.addProvider(TTRecipeProvider::new);
+		pack.addProvider(TTBrewingRecipeProvider::new);
 		pack.addProvider(TTAdvancementProvider::new);
 		pack.addProvider(TTEnchantmentsTagProvider::new);
 	}
@@ -128,7 +132,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		TTConstants.log("Generating dynamic registries for Trailier Tales", TTConstants.UNSTABLE_LOGGING);
 
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, TTFeatureBootstrap::bootstrapConfigured);
+		registryBuilder.add(Registries.FEATURE, TTFeatureBootstrap::bootstrapConfigured);
 		registryBuilder.add(Registries.PLACED_FEATURE, TTFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.PROCESSOR_LIST, TTStructures::bootstrapProcessor);
 		registryBuilder.add(Registries.TEMPLATE_POOL, TTStructures::bootstrapTemplatePool);
@@ -136,12 +140,14 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE_SET, TTStructures::bootstrapStructureSet);
 		registryBuilder.add(Registries.ENCHANTMENT, TTEnchantments::bootstrap);
 		registryBuilder.add(Registries.JUKEBOX_SONG, TTJukeboxSongs::bootstrap);
+		registryBuilder.add(Registries.DECORATED_POT_PATTERN, TTDecoratedPotPatterns::bootstrap);
 		registryBuilder.add(Registries.TRIM_PATTERN, TTTrimPatterns::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, TTVillagerTrades::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, TTSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, TTClipGroups::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, TTStructureProcessorListAdditions::bootstrap);
 	}
 
 	@Override

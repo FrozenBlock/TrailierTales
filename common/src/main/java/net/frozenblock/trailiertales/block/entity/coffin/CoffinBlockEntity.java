@@ -41,6 +41,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
@@ -198,7 +199,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			pos = pos.relative(CoffinBlock.getConnectedDirection(state));
 			if (this.level.getBlockEntity(pos) instanceof CoffinBlockEntity coffinBlockEntity) coffinSpawner = coffinBlockEntity.getCoffinSpawner();
 		}
-		coffinSpawner.getData().setEntityId(type, random);
+		coffinSpawner.getData().setEntityId(type, this.level, random, this.worldPosition);
 
 		final Direction coffinOrientation = CoffinBlock.getCoffinOrientation(this.level, pos);
 		if (coffinOrientation != null && this.level instanceof ServerLevel serverLevel) {
@@ -224,6 +225,12 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 				0.5D
 			);
 		}
+		this.setChanged();
+	}
+
+	@Override
+	public void setEntityData(TypedEntityData<EntityType<?>> entityData, RandomSource random) {
+		this.coffinSpawner.getData().setEntityData(entityData, this.level, random, this.worldPosition);
 		this.setChanged();
 	}
 
@@ -256,7 +263,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity implemen
 			this.wobbleStartedAtTick = this.level.getGameTime();
 			if (this.level instanceof ServerLevel serverLevel
 				&& this.getBlockState().getValue(CoffinBlock.PART) == CoffinPart.FOOT
-				&& this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.getRandom())
+				&& this.coffinSpawner.getData().hasMobToSpawnAndIsntOnCooldown(this.level, this.level.getRandom(), this.worldPosition)
 			) {
 				CoffinWobbleEvent.onWobble(serverLevel, this.worldPosition, this.getBlockState(), this, this.level.getRandom());
 			}

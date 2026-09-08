@@ -24,12 +24,12 @@ import net.frozenblock.trailiertales.data.worldgen.feature.TTFeatureBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FeatureTags;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
-public final class TTFeatureTagsProvider extends FabricTagsProvider<ConfiguredFeature<?, ?>> {
+public final class TTFeatureTagsProvider extends FabricTagsProvider<Feature> {
 
 	public TTFeatureTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, Registries.CONFIGURED_FEATURE, registries);
+		super(output, Registries.FEATURE, registries);
 	}
 
 	@Override

@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.trailiertales.TTPreLoadConstants;
 import net.frozenblock.trailiertales.block.entity.SurveyorBlockEntity;
 import net.frozenblock.trailiertales.registry.TTBlockEntityTypes;
@@ -45,14 +44,8 @@ import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 public class SurveyorBlock extends BaseEntityBlock {
-	public static final MapCodec<SurveyorBlock> CODEC = simpleCodec(SurveyorBlock::new);
 	public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-
-	@Override
-	public MapCodec<SurveyorBlock> codec() {
-		return CODEC;
-	}
 
 	public SurveyorBlock(Properties properties) {
 		super(properties);
@@ -90,6 +83,11 @@ public class SurveyorBlock extends BaseEntityBlock {
 	@Override
 	protected boolean isSignalSource(BlockState state) {
 		return true;
+	}
+
+	@Override
+	protected boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+		return direction == state.getValue(FACING);
 	}
 
 	@Override

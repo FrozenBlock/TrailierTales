@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:cyan_dye_from_cyan_rose"
+        "recipes": "trailiertales:cyan_dye_from_cyan_rose"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

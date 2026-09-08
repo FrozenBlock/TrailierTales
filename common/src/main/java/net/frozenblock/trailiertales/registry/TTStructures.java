@@ -38,7 +38,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -120,7 +120,7 @@ public final class TTStructures {
 					AlwaysTrueTest.INSTANCE,
 					PosAlwaysTrueTest.INSTANCE,
 					Blocks.DECORATED_POT,
-					new AppendSherds(chance, false, Arrays.stream(sherds).map(ItemLike::asItem).toArray(Item[]::new))
+					new AppendSherds(Arrays.stream(sherds).map(ItemLike::asItem).map(ItemStackTemplate::new).toList(), chance)
 				)
 			)
 		);

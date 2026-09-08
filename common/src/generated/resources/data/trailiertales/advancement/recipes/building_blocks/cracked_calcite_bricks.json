@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:cracked_calcite_bricks"
+        "recipes": "trailiertales:cracked_calcite_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

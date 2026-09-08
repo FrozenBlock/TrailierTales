@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:cracked_purpur_block"
+        "recipes": "trailiertales:cracked_purpur_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.trailiertales.block.impl.CropGrowthHelper;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.minecraft.core.BlockPos;
@@ -36,6 +35,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -50,7 +50,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class GuzmaniaCropBlock extends DoublePlantBlock implements BonemealableBlock {
-	public static final MapCodec<GuzmaniaCropBlock> CODEC = simpleCodec(GuzmaniaCropBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	public static final int MAX_AGE = 3;
 	public static final int DOUBLE_PLANT_AGE_INTERSECTION = 2;
@@ -64,11 +63,6 @@ public class GuzmaniaCropBlock extends DoublePlantBlock implements BonemealableB
 		Block.box(3, -1, 3, 13, 16, 13),
 		Block.box(2, -1, 2, 14, 16, 14)
 	};
-
-	@Override
-	public MapCodec<GuzmaniaCropBlock> codec() {
-		return CODEC;
-	}
 
 	public GuzmaniaCropBlock(Properties properties) {
 		super(properties);
@@ -187,18 +181,18 @@ public class GuzmaniaCropBlock extends DoublePlantBlock implements BonemealableB
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
 		final PosAndState posAndState = this.getLowerHalf(level, pos, state);
 		return posAndState != null && this.canGrow(level, posAndState.pos, state, posAndState.state.getValue(AGE) + 1);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		final PosAndState posAndState = this.getLowerHalf(level, pos, state);
 		if (posAndState != null) this.grow(level, posAndState.state, posAndState.pos, 1);
 	}

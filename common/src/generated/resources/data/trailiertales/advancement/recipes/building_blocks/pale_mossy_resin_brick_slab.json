@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:pale_mossy_resin_brick_slab"
+        "recipes": "trailiertales:pale_mossy_resin_brick_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

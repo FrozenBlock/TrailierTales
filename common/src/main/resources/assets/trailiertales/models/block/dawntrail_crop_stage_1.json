@@ -11,6 +11,7 @@
 			"from": [0, 10.9, -1],
 			"to": [16, 10.9, 15],
 			"rotation": {"angle": -22.5, "axis": "x", "origin": [0, 11, 7]},
+      "shade_direction_override": "up",
 			"faces": {
 				"up": {"uv": [16, 0, 0, 16], "rotation": 180, "texture": "#bend_a"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#bend_a"}
@@ -21,6 +22,7 @@
 			"from": [0, 5.1, -1],
 			"to": [16, 5.1, 15],
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 5, 7]},
+      "shade_direction_override": "up",
 			"faces": {
 				"up": {"uv": [16, 16, 0, 0], "texture": "#bend_a"},
 				"down": {"uv": [0, 16, 16, 0], "rotation": 180, "texture": "#bend_a"}
@@ -31,6 +33,7 @@
 			"from": [0, 7.9, 0],
 			"to": [16, 7.9, 16],
 			"rotation": {"angle": 0, "axis": "x", "origin": [0, 8, 8]},
+      "shade_direction_override": "up",
 			"faces": {
 				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#cross"},
 				"down": {"uv": [16, 0, 0, 16], "texture": "#cross"}
@@ -41,6 +44,7 @@
 			"from": [8.1, 0, 0],
 			"to": [8.1, 16, 16],
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, 0, 8]},
+      "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [16, 0, 0, 16], "rotation": 270, "texture": "#cross"},
 				"west": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#cross"}

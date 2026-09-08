@@ -17,19 +17,16 @@
 
 package net.frozenblock.trailiertales.data.trading;
 
-import java.util.List;
 import java.util.Optional;
 import net.frozenblock.trailiertales.TTConstants;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTMapDecorationTypes;
 import net.frozenblock.trailiertales.tag.TTStructureTags;
-import net.minecraft.advancements.predicates.DataComponentMatchers;
-import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.PotionTags;
@@ -41,13 +38,11 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
-import net.minecraft.world.level.storage.loot.functions.DiscardItem;
+import net.minecraft.world.item.trading.VillagerTrades;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
-import net.minecraft.world.level.storage.loot.functions.FilteredFunction;
-import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 
 public final class TTVillagerTrades {
-	public static final ResourceKey<VillagerTrade> CARTOGRAPHER_3_EMERALD_AND_COMPASS_CATACOMBS_MAP = resourceKey("cartographer/3/emerald_and_compass_catacombs_map");
+	public static final ResourceKey<VillagerTrade> CARTOGRAPHER_3_EMERALD_AND_COMPASS_BURIED_CATACOMBS_MAP = resourceKey("cartographer/3/emerald_and_compass_buried_catacombs_map");
 
 	public static void bootstrap(BootstrapContext<VillagerTrade> context) {
 		final HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -60,29 +55,25 @@ public final class TTVillagerTrades {
 		final HolderGetter<VillagerType> villagerVariants = context.lookup(Registries.VILLAGER_TYPE);
 
 		context.register(
-			CARTOGRAPHER_3_EMERALD_AND_COMPASS_CATACOMBS_MAP,
-			new VillagerTrade(
-				new TradeCost(Items.EMERALD, 12),
-				Optional.of(new TradeCost(Items.COMPASS, 1)),
-				new ItemStackTemplate(Items.MAP),
+			CARTOGRAPHER_3_EMERALD_AND_COMPASS_BURIED_CATACOMBS_MAP,
+			VillagerTrade.builder(
+				new TradeCost(Items.EMERALD, 14),
+				new TradeCost(Items.COMPASS, 1),
+				new ItemStackTemplate(TTItems.BURIED_CATACOMBS_MAP.get()),
 				12,
 				10,
-				0.2F,
-				Optional.empty(),
-				List.of(
-					ExplorationMapFunction.makeExplorationMap()
-						.setDestination(TTStructureTags.ON_CATACOMBS_MAPS)
-						.setMapDecoration(TTMapDecorationTypes.CATACOMBS.asHolder())
-						.setSearchRadius(100)
-						.setSkipKnownStructures(true)
-						.build(),
-					SetNameFunction.setName(Component.translatable("filled_map.trailiertales.catacombs"), SetNameFunction.Target.ITEM_NAME).build(),
-					FilteredFunction.filtered(
-						new ItemPredicate.Builder().of(items, Items.FILLED_MAP)
-							.withComponents(DataComponentMatchers.Builder.components().any(DataComponents.MAP_ID).build()).build()
-					).onFail(Optional.of(DiscardItem.discardItem().build())).build()
+				0.2F
+			).addModifiers(
+					Holder.direct(
+						ExplorationMapFunction.makeExplorationMap(context.lookup(Registries.STRUCTURE).getOrThrow(TTStructureTags.ON_BURIED_CATACOMBS_MAPS))
+							.setMapDecoration(TTMapDecorationTypes.CATACOMBS.asHolder())
+							.setSearchRadius(100)
+							.setSkipKnownStructures(true)
+							.build()
+					),
+					VillagerTrades.discardItemIfItsNot(VillagerTrades.anyValidMap())
 				)
-			)
+				.build()
 		);
 	}
 

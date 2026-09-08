@@ -24,7 +24,9 @@ import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvi
 import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -32,8 +34,8 @@ import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFu
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public class TTEntityLootProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
@@ -46,20 +48,24 @@ public class TTEntityLootProvider extends SimpleFabricLootTableSubProvider {
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		final HolderLookup.Provider registryLookup = this.registries.join();
+		final HolderLookup<Enchantment> enchantments = registryLookup.lookupOrThrow(Registries.ENCHANTMENT);
 
 		output.accept(
 			TTEntityTypes.APPARITION.get().getDefaultLootTable().orElseThrow(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(TTItems.ECTOPLASM.get())
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 				)
 		);
 	}
+
+	@Override
+	public void run() {}
 }

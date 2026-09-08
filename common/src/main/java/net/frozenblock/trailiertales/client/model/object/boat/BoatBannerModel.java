@@ -93,9 +93,9 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 			0F
 		);
 
-		poseStack.mulPose(Axis.YN.rotationDegrees(-Direction.WEST.toYRot()));
+		poseStack.rotate(Axis.YN.rotationDegrees(-Direction.WEST.toYRot()));
 		poseStack.translate(0F, -0.3125F, 0F);
-		poseStack.mulPose(Axis.XP.rotation(Mth.PI));
+		poseStack.rotate(Axis.XP.rotation(Mth.PI));
 
 		poseStack.pushPose();
 		poseStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
@@ -114,7 +114,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		BoatRenderState state,
 		int overlayCoords,
 		DyeColor dyeColor,
-		BannerPatternLayers bannerPatternLayers
+		BannerPatternLayers patterns
 	) {
 		BannerRenderer.submitPatterns(
 			sprites,
@@ -126,8 +126,7 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 			state,
 			true,
 			dyeColor,
-			bannerPatternLayers,
-			null
+			patterns
 		);
 	}
 
@@ -136,8 +135,8 @@ public class BoatBannerModel extends EntityModel<BoatRenderState> {
 		SubmitNodeCollector submitNodeCollector,
 		BoatRenderState state,
 		int overlayCoords,
-		Identifier standtexture
+		Identifier texture
 	) {
-		submitNodeCollector.submitModel(this, state, poseStack, RenderTypes.entityCutout(standtexture), state.lightCoords, overlayCoords, 0, null);
+		submitNodeCollector.submitModel(this, state, poseStack, RenderTypes.entityCutout(texture), state.lightCoords, overlayCoords, 0);
 	}
 }

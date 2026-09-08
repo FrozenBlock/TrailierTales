@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:dark_prismarine_wall"
+        "recipes": "trailiertales:dark_prismarine_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

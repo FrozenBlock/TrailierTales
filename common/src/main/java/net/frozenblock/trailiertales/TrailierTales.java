@@ -1,6 +1,6 @@
 package net.frozenblock.trailiertales;
 
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.gravity.api.GravityAPI;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
@@ -38,10 +38,11 @@ import net.frozenblock.trailiertales.registry.TTWindDisturbances;
 public final class TrailierTales {
 
 	public static void init(String modId) {
-		if (FrozenBools.IS_DATAGEN) {
+		if (FrozenLibEarlyConstants.IS_DATAGEN) {
 			TTFeatureFlags.init();
 			FeatureFlagApi.rebuild();
 		}
+
 		TTDataFixer.applyDataFixes(modId);
 		TTResources.init(modId);
 

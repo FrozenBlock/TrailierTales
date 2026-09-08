@@ -292,6 +292,8 @@ public final class TTModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(TTItems.MUSIC_DISC_FAUSSE_VIE.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(TTItems.MUSIC_DISC_OSSUAIRE.get(), ModelTemplates.FLAT_ITEM);
 
+		generator.generateFlatItem(TTItems.BURIED_CATACOMBS_MAP.get(), ModelTemplates.FLAT_ITEM);
+
 		generator.generateFlatItem(TTItems.APPARITION_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 	}
 

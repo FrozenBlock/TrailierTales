@@ -92,6 +92,7 @@ Voxelotl
       - Embrace Armor Trim
       - Block of Ectoplasm
       - Ossuaire Music Disc
+      - Buried Catacombs Map
       - Apparition Spawn Egg
       - Resource/Data Pack Icon
 

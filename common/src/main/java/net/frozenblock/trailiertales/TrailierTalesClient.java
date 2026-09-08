@@ -5,7 +5,7 @@ import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
 import net.frozenblock.lib.renderer.special.SpecialModelRendererRegistry;
 import net.frozenblock.trailiertales.client.TTBuiltInBlockModels;
 import net.frozenblock.trailiertales.client.TTModelLayers;
-import net.frozenblock.trailiertales.client.TTParticleEngine;
+import net.frozenblock.trailiertales.client.TTParticleResources;
 import net.frozenblock.trailiertales.client.TTRenderStateDataKeys;
 import net.frozenblock.trailiertales.client.renderer.special.CoffinSpecialRenderer;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
@@ -28,7 +28,7 @@ public final class TrailierTalesClient {
 	}
 
 	public static void setup() {
-		TTParticleEngine.setup();
+		TTParticleResources.setup();
 		TTModelLayers.setup();
 
 		SpecialModelRendererRegistry.register(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);

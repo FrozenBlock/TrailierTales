@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.BlockPos;
@@ -37,7 +36,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class DawntrailCropBlock extends CropBlock {
-	public static final MapCodec<DawntrailCropBlock> CODEC = simpleCodec(DawntrailCropBlock::new);
 	public static final int MAX_AGE = 4;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
@@ -48,11 +46,6 @@ public class DawntrailCropBlock extends CropBlock {
 		Block.box(0D, 0D, 0D, 16D, 4D, 16D),
 	};
 	private static final int BONEMEAL_INCREASE = 1;
-
-	@Override
-	public MapCodec<DawntrailCropBlock> codec() {
-		return CODEC;
-	}
 
 	public DawntrailCropBlock(Properties properties) {
 		super(properties);

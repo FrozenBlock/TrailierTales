@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:surveyor"
+        "recipes": "trailiertales:surveyor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

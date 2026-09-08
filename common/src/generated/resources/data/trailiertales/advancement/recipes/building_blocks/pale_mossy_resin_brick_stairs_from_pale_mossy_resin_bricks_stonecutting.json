@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:pale_mossy_resin_brick_stairs_from_pale_mossy_resin_bricks_stonecutting"
+        "recipes": "trailiertales:pale_mossy_resin_brick_stairs_from_pale_mossy_resin_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

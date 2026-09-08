@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class LithopsBlock extends FlowerBedBlock {
 
 	public LithopsBlock(Properties properties) {
-		super(properties);
+		super(properties, 3);
 	}
 
 	@Override

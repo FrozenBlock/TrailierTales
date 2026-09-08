@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:polished_resin_stairs"
+        "recipes": "trailiertales:polished_resin_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

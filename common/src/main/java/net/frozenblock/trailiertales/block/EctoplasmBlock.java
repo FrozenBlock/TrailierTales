@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.block.api.shape.ShapeUtil;
 import net.frozenblock.trailiertales.entity.Apparition;
 import net.minecraft.core.BlockPos;
@@ -33,15 +32,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class EctoplasmBlock extends HalfTransparentBlock {
 	public static final float APPARITION_COLLISION_FROM_SIDE = 0.25F;
 	public static final double GRAVITY_SLOWDOWN = 0.2D;
-	public static final MapCodec<EctoplasmBlock> CODEC = simpleCodec(EctoplasmBlock::new);
 
 	public EctoplasmBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	protected MapCodec<? extends EctoplasmBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

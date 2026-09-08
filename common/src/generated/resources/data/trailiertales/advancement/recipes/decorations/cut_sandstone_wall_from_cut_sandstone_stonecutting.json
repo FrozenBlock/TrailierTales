@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:cut_sandstone_wall_from_cut_sandstone_stonecutting"
+        "recipes": "trailiertales:cut_sandstone_wall_from_cut_sandstone_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

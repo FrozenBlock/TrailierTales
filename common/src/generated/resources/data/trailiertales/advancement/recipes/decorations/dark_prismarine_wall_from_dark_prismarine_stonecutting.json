@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:dark_prismarine_wall_from_dark_prismarine_stonecutting"
+        "recipes": "trailiertales:dark_prismarine_wall_from_dark_prismarine_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

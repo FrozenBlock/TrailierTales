@@ -18,7 +18,6 @@
 package net.frozenblock.trailiertales.registry;
 
 import java.util.function.Supplier;
-import net.frozenblock.lib.item.api.registry.PotionBrewingRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.trailiertales.TTConstants;
@@ -26,8 +25,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public final class TTPotions {
 	private static final DeferredRegister<Potion> REGISTER = DeferredRegister.create(
@@ -44,14 +41,10 @@ public final class TTPotions {
 		REGISTER.register();
 	}
 
-	public static void init() {
-		PotionBrewingRegistry.BUILD.register(builder -> {
-			builder.frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(TTItems.ECTOPLASM), TRANSFIGURING.asHolder());
-		});
-	}
+	public static void init() {}
 
-	private static DeferredHolder<Potion, Potion> register(String key, Supplier<Potion> potion) {
-		return REGISTER.register(key, potion);
+	private static DeferredHolder<Potion, Potion> register(String name, Supplier<Potion> potion) {
+		return REGISTER.register(name, potion);
 	}
 
 	private static DeferredHolder<Potion, Potion> register(ResourceKey<Potion> key, Supplier<Potion> potion) {

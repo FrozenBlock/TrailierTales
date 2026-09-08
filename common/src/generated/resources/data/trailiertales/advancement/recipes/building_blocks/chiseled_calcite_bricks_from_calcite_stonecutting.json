@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:chiseled_calcite_bricks_from_calcite_stonecutting"
+        "recipes": "trailiertales:chiseled_calcite_bricks_from_calcite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

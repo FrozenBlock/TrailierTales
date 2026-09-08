@@ -30,9 +30,7 @@ public final class TTMapDecorationTypes {
 		"catacombs",
 		"catacombs",
 		true,
-		3684151,
-		false,
-		true
+		false
 	);
 
 	static {
@@ -42,15 +40,9 @@ public final class TTMapDecorationTypes {
 	public static void init() {}
 
 	private static DeferredHolder<MapDecorationType, MapDecorationType> register(String name, String assetName, boolean showOnItemFrame, boolean trackCount) {
-		return register(name, assetName, showOnItemFrame, -1, trackCount, false);
-	}
-
-	private static DeferredHolder<MapDecorationType, MapDecorationType> register(
-		String name, String assetName, boolean showOnItemFrame, int mapColor, boolean trackCount, boolean explorationMapElement
-	) {
 		return REGISTER.register(
 			name,
-			() -> new MapDecorationType(TTConstants.id(assetName), showOnItemFrame, mapColor, explorationMapElement, trackCount)
+			() -> new MapDecorationType(TTConstants.id(assetName), showOnItemFrame, trackCount)
 		);
 	}
 

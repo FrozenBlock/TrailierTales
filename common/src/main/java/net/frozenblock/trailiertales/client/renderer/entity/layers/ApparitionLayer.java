@@ -77,7 +77,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				overlay,
 				null,
 				ARGB.colorFromFloat(innerTransparency * 0.7F, 1F, 1F, 1F),
-				null
+				state.outlineColor
 			);
 
 			submitNodeCollector.order(this.minOrder + 1).submitModelPart(
@@ -88,7 +88,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				overlay,
 				null,
 				ARGB.colorFromFloat(innerTransparency, 1F, 1F, 1F),
-				null
+				state.outlineColor
 			);
 		}
 
@@ -101,7 +101,7 @@ public class ApparitionLayer extends RenderLayer<ApparitionRenderState, Appariti
 				overlay,
 				null,
 				ARGB.colorFromFloat(outerTransparency * state.flicker, 1F, 1F, 1F),
-				null
+				state.outlineColor
 			);
 		}
 	}

@@ -17,8 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinBlockEntity;
 import net.frozenblock.trailiertales.block.entity.coffin.CoffinSpawner;
@@ -77,18 +75,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class CoffinBlock extends HorizontalDirectionalBlock implements EntityBlock {
-	public static final MapCodec<CoffinBlock> CODEC = RecordCodecBuilder.mapCodec(
-		color -> color.group(propertiesCodec()).apply(color, CoffinBlock::new)
-	);
 	public static final EnumProperty<CoffinPart> PART = TTBlockStateProperties.COFFIN_PART;
 	public static final EnumProperty<CoffinSpawnerState> STATE = TTBlockStateProperties.COFFIN_STATE;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 12D, 16D);
 	public static final Identifier ATTRIBUTE_COFFIN_FOLLOW_RANGE = TTConstants.id("coffin_follow_range");
-
-	@Override
-	public MapCodec<CoffinBlock> codec() {
-		return CODEC;
-	}
 
 	public CoffinBlock(Properties properties) {
 		super(properties);

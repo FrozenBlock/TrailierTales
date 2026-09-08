@@ -35,6 +35,6 @@ public final class TTVillagerTradesTagsProvider extends FabricTagsProvider<Villa
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
 		this.builder(VillagerTradeTags.CARTOGRAPHER_LEVEL_3)
-			.add(TTVillagerTrades.CARTOGRAPHER_3_EMERALD_AND_COMPASS_CATACOMBS_MAP);
+			.add(TTVillagerTrades.CARTOGRAPHER_3_EMERALD_AND_COMPASS_BURIED_CATACOMBS_MAP);
 	}
 }

@@ -258,7 +258,7 @@ public final class CoffinSpawner {
 
 	public Optional<UUID> spawnMob(ServerLevel level, BlockPos pos) {
 		final RandomSource random = level.getRandom();
-		final SpawnData spawnData = this.data.getOrCreateNextSpawnData(level.getRandom());
+		final SpawnData spawnData = this.data.getOrCreateNextSpawnData(level, level.getRandom(), pos);
 
 		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(() -> "spawner@" + pos, LOGGER)) {
 			final ValueInput input = TagValueInput.create(scopedCollector, level.registryAccess(), spawnData.entityToSpawn());

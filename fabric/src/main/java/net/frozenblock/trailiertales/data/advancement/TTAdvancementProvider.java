@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -34,7 +35,7 @@ import net.minecraft.advancements.triggers.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.Items;
 
 public class TTAdvancementProvider extends FabricAdvancementProvider {
 
@@ -49,10 +50,9 @@ public class TTAdvancementProvider extends FabricAdvancementProvider {
 		final AdvancementHolder enterCatacombs = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				Blocks.DEEPSLATE_BRICKS,
+				Items.DEEPSLATE_BRICKS,
 				Component.translatable("advancements.adventure.tomb_raider.title"),
 				Component.translatable("advancements.adventure.tomb_raider.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -64,15 +64,14 @@ public class TTAdvancementProvider extends FabricAdvancementProvider {
 					LocationPredicate.Builder.inStructure(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(CatacombsGenerator.CATACOMBS_KEY))
 				)
 			)
-			.save(writer, TTConstants.string("adventure/tomb_raider"));
+			.save(writer, TTConstants.id("adventure/tomb_raider"));
 
 		Advancement.Builder.advancement()
 			.parent(enterCatacombs)
 			.display(
-				TTBlocks.ECTOPLASM_BLOCK.get(),
+				TTItems.ECTOPLASM_BLOCK.get(),
 				Component.translatable("advancements.adventure.walk_in_ectoplasm_block.title"),
 				Component.translatable("advancements.adventure.walk_in_ectoplasm_block.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -87,6 +86,6 @@ public class TTAdvancementProvider extends FabricAdvancementProvider {
 					)
 				)
 			)
-			.save(writer, TTConstants.string("adventure/walk_in_ectoplasm_block"));
+			.save(writer, TTConstants.id("adventure/walk_in_ectoplasm_block"));
 	}
 }

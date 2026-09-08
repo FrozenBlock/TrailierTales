@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:purple_dye_from_dawntrail_seeds"
+        "recipes": "trailiertales:purple_dye_from_dawntrail_seeds"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

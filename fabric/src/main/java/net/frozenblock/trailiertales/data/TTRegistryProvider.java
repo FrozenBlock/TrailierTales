@@ -36,9 +36,10 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
 		entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
 		entries.addAll(registries.lookupOrThrow(Registries.JUKEBOX_SONG));
+		entries.addAll(registries.lookupOrThrow(Registries.DECORATED_POT_PATTERN));
 		entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));
 		entries.addAll(registries.lookupOrThrow(Registries.BANNER_PATTERN));
-		entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+		entries.addAll(registries.lookupOrThrow(Registries.FEATURE));
 		entries.addAll(asLookup(entries.placedFeatures()));
 		entries.addAll(registries.lookupOrThrow(Registries.BIOME));
 		entries.addAll(registries.lookupOrThrow(Registries.NOISE));
@@ -51,6 +52,7 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		// FrozenLib Dynamic Registries
 		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.SOUND_TYPE_OVERRIDE));
 		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.CLIP_GROUP));
+		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION));
 	}
 
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {

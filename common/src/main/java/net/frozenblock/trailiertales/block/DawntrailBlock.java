@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.minecraft.core.BlockPos;
@@ -38,6 +37,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
@@ -51,16 +51,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class DawntrailBlock extends MultifaceSpreadeableBlock implements BonemealableBlock {
-	public static final MapCodec<DawntrailBlock> CODEC = simpleCodec(DawntrailBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 
 	private final MultifaceSpreader spreader = new DawntrailSpreader(this);
-
-	@Override
-	public MapCodec<DawntrailBlock> codec() {
-		return CODEC;
-	}
 
 	public DawntrailBlock(Properties properties) {
 		super(properties);
@@ -127,17 +121,17 @@ public class DawntrailBlock extends MultifaceSpreadeableBlock implements Bonemea
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
 		return !isMaxAge(state) || Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		if (!isMaxAge(state)) {
 			this.grow(level, pos, state);
 			return;

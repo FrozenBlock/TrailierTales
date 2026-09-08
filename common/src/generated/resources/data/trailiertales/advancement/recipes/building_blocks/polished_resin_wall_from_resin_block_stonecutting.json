@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:polished_resin_wall_from_resin_block_stonecutting"
+        "recipes": "trailiertales:polished_resin_wall_from_resin_block_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

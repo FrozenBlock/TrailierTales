@@ -26,6 +26,7 @@ import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.data.worldgen.feature.TTFeatureBootstrap;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -63,7 +64,7 @@ public final class TTBiomeModifications {
 					}
 
 					if (TTEntityConfig.SPAWN_SNIFFERS.get()) {
-						spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.SNIFFER, 1, 4), 5);
+						spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.SNIFFER, UniformInt.of(1, 4)), 5);
 					}
 				}
 

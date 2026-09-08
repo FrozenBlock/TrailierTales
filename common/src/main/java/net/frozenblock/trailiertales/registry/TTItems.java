@@ -27,11 +27,16 @@ import net.frozenblock.trailiertales.references.TTBlockItemIds;
 import net.frozenblock.trailiertales.references.TTItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.entity.DecoratedPotPattern;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class TTItems {
 	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(TTConstants.MOD_ID).requiredFeatures(TTFeatureFlags.FEATURE_FLAG);
@@ -43,20 +48,38 @@ public final class TTItems {
 	public static final DeferredItem<BlockItem> SUSPICIOUS_CLAY = REGISTER.registerSimpleBlockItem(TTBlockItemIds.SUSPICIOUS_CLAY, TTBlocks.SUSPICIOUS_CLAY);
 
 	// PLANTS
-	public static final DeferredItem<BlockItem> CYAN_ROSE_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.CYAN_ROSE_CROP, TTBlocks.CYAN_ROSE_CROP);
-	public static final DeferredItem<BlockItem> CYAN_ROSE = REGISTER.registerSimpleBlockItem(TTBlockItemIds.CYAN_ROSE, TTBlocks.CYAN_ROSE);
+	public static final DeferredItem<BlockItem> CYAN_ROSE_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.CYAN_ROSE_CROP, TTBlocks.CYAN_ROSE_CROP,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
+	);
+	public static final DeferredItem<BlockItem> CYAN_ROSE = REGISTER.registerSimpleBlockItem(TTBlockItemIds.CYAN_ROSE, TTBlocks.CYAN_ROSE,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH)
+	);
 
-	public static final DeferredItem<BlockItem> MANEDROP_GERM = REGISTER.registerSimpleBlockItem(TTBlockItemIds.MANEDROP_CROP, TTBlocks.MANEDROP_CROP);
-	public static final DeferredItem<BlockItem> MANEDROP = REGISTER.registerSimpleBlockItem(TTBlockItemIds.MANEDROP, TTBlocks.MANEDROP);
+	public static final DeferredItem<BlockItem> MANEDROP_GERM = REGISTER.registerSimpleBlockItem(TTBlockItemIds.MANEDROP_CROP, TTBlocks.MANEDROP_CROP,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
+	);
+	public static final DeferredItem<BlockItem> MANEDROP = REGISTER.registerSimpleBlockItem(TTBlockItemIds.MANEDROP, TTBlocks.MANEDROP,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH)
+	);
 
-	public static final DeferredItem<BlockItem> DAWNTRAIL_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.DAWNTRAIL_CROP, TTBlocks.DAWNTRAIL_CROP);
-	public static final DeferredItem<BlockItem> DAWNTRAIL = REGISTER.registerSimpleBlockItem(TTBlockItemIds.DAWNTRAIL, TTBlocks.DAWNTRAIL);
+	public static final DeferredItem<BlockItem> DAWNTRAIL_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.DAWNTRAIL_CROP, TTBlocks.DAWNTRAIL_CROP,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
+	);
+	public static final DeferredItem<BlockItem> DAWNTRAIL = REGISTER.registerSimpleBlockItem(TTBlockItemIds.DAWNTRAIL, TTBlocks.DAWNTRAIL,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH)
+	);
 
-	public static final DeferredItem<BlockItem> GUZMANIA_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.GUZMANIA_CROP, TTBlocks.GUZMANIA_CROP);
-	public static final DeferredItem<BlockItem> GUZMANIA = REGISTER.registerSimpleBlockItem(TTBlockItemIds.GUZMANIA, TTBlocks.GUZMANIA);
+	public static final DeferredItem<BlockItem> GUZMANIA_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.GUZMANIA_CROP, TTBlocks.GUZMANIA_CROP,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
+	);
+	public static final DeferredItem<DoubleHighBlockItem> GUZMANIA = REGISTER.registerDoubleHighBlockItem(TTBlockItemIds.GUZMANIA, TTBlocks.GUZMANIA,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH)
+	);
 
-	public static final DeferredItem<BlockItem> LITHOPS_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.LITHOPS_CROP, TTBlocks.LITHOPS_CROP);
-	public static final DeferredItem<BlockItem> LITHOPS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.LITHOPS, TTBlocks.LITHOPS);
+	public static final DeferredItem<BlockItem> LITHOPS_SEEDS = REGISTER.registerSimpleBlockItem(TTBlockItemIds.LITHOPS_CROP, TTBlocks.LITHOPS_CROP,
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
+	);
+	public static final DeferredItem<BlockItem> LITHOPS = REGISTER.registerFlowerBedItem(TTBlockItemIds.LITHOPS, TTBlocks.LITHOPS);
 
 	// STONE
 	public static final DeferredItem<BlockItem> STONE_WALL = REGISTER.registerSimpleBlockItem(TTBlockItemIds.STONE_WALL, TTBlocks.STONE_WALL);
@@ -218,42 +241,42 @@ public final class TTItems {
 
 	// POTTERY SHERDS
 	/**
-	 * Don't forget to go to {@link TTDecoratedPotPatternRegistry} to register patterns!
+	 * Don't forget to go to {@link TTDecoratedPotPatterns} to register patterns!
 	 */
-	public static final DeferredItem<Item> AURORA_POTTERY_SHERD = registerPotterySherd(TTItemIds.AURORA_POTTERY_SHERD);
-	public static final DeferredItem<Item> BAIT_POTTERY_SHERD = registerPotterySherd(TTItemIds.BAIT_POTTERY_SHERD);
-	public static final DeferredItem<Item> BLOOM_POTTERY_SHERD = registerPotterySherd(TTItemIds.BLOOM_POTTERY_SHERD);
-	public static final DeferredItem<Item> BOLT_POTTERY_SHERD = registerPotterySherd(TTItemIds.BOLT_POTTERY_SHERD);
-	public static final DeferredItem<Item> BULLSEYE_POTTERY_SHERD = registerPotterySherd(TTItemIds.BULLSEYE_POTTERY_SHERD);
-	public static final DeferredItem<Item> CARRIER_POTTERY_SHERD = registerPotterySherd(TTItemIds.CARRIER_POTTERY_SHERD);
-	public static final DeferredItem<Item> CLUCK_POTTERY_SHERD = registerPotterySherd(TTItemIds.CLUCK_POTTERY_SHERD);
-	public static final DeferredItem<Item> CRAWL_POTTERY_SHERD = registerPotterySherd(TTItemIds.CRAWL_POTTERY_SHERD);
-	public static final DeferredItem<Item> CRESCENT_POTTERY_SHERD = registerPotterySherd(TTItemIds.CRESCENT_POTTERY_SHERD);
-	public static final DeferredItem<Item> CULTIVATOR_POTTERY_SHERD = registerPotterySherd(TTItemIds.CULTIVATOR_POTTERY_SHERD);
-	public static final DeferredItem<Item> DROUGHT_POTTERY_SHERD = registerPotterySherd(TTItemIds.DROUGHT_POTTERY_SHERD);
-	public static final DeferredItem<Item> ENCLOSURE_POTTERY_SHERD = registerPotterySherd(TTItemIds.ENCLOSURE_POTTERY_SHERD);
-	public static final DeferredItem<Item> ESSENCE_POTTERY_SHERD = registerPotterySherd(TTItemIds.ESSENCE_POTTERY_SHERD);
-	public static final DeferredItem<Item> EYE_POTTERY_SHERD = registerPotterySherd(TTItemIds.EYE_POTTERY_SHERD);
-	public static final DeferredItem<Item> FOCUS_POTTERY_SHERD = registerPotterySherd(TTItemIds.FOCUS_POTTERY_SHERD);
-	public static final DeferredItem<Item> FROST_POTTERY_SHERD = registerPotterySherd(TTItemIds.FROST_POTTERY_SHERD);
-	public static final DeferredItem<Item> HARE_POTTERY_SHERD = registerPotterySherd(TTItemIds.HARE_POTTERY_SHERD);
-	public static final DeferredItem<Item> HEIGHT_POTTERY_SHERD = registerPotterySherd(TTItemIds.HEIGHT_POTTERY_SHERD);
-	public static final DeferredItem<Item> HUMP_POTTERY_SHERD = registerPotterySherd(TTItemIds.HUMP_POTTERY_SHERD);
-	public static final DeferredItem<Item> ILLUMINATOR_POTTERY_SHERD = registerPotterySherd(TTItemIds.ILLUMINATOR_POTTERY_SHERD);
-	public static final DeferredItem<Item> INCIDENCE_POTTERY_SHERD = registerPotterySherd(TTItemIds.INCIDENCE_POTTERY_SHERD);
-	public static final DeferredItem<Item> LUMBER_POTTERY_SHERD = registerPotterySherd(TTItemIds.LUMBER_POTTERY_SHERD);
-	public static final DeferredItem<Item> NAVIGATOR_POTTERY_SHERD = registerPotterySherd(TTItemIds.NAVIGATOR_POTTERY_SHERD);
-	public static final DeferredItem<Item> NEEDLES_POTTERY_SHERD = registerPotterySherd(TTItemIds.NEEDLES_POTTERY_SHERD);
-	public static final DeferredItem<Item> OMEN_POTTERY_SHERD = registerPotterySherd(TTItemIds.OMEN_POTTERY_SHERD);
-	public static final DeferredItem<Item> PLUME_POTTERY_SHERD = registerPotterySherd(TTItemIds.PLUME_POTTERY_SHERD);
-	public static final DeferredItem<Item> PROTECTION_POTTERY_SHERD = registerPotterySherd(TTItemIds.PROTECTION_POTTERY_SHERD);
-	public static final DeferredItem<Item> SHED_POTTERY_SHERD = registerPotterySherd(TTItemIds.SHED_POTTERY_SHERD);
-	public static final DeferredItem<Item> SHINE_POTTERY_SHERD = registerPotterySherd(TTItemIds.SHINE_POTTERY_SHERD);
-	public static final DeferredItem<Item> SHOWER_POTTERY_SHERD = registerPotterySherd(TTItemIds.SHOWER_POTTERY_SHERD);
-	public static final DeferredItem<Item> SPADE_POTTERY_SHERD = registerPotterySherd(TTItemIds.SPADE_POTTERY_SHERD);
-	public static final DeferredItem<Item> SPROUT_POTTERY_SHERD = registerPotterySherd(TTItemIds.SPROUT_POTTERY_SHERD);
-	public static final DeferredItem<Item> VESSEL_POTTERY_SHERD = registerPotterySherd(TTItemIds.VESSEL_POTTERY_SHERD);
-	public static final DeferredItem<Item> WITHER_POTTERY_SHERD = registerPotterySherd(TTItemIds.WITHER_POTTERY_SHERD);
+	public static final DeferredItem<Item> AURORA_POTTERY_SHERD = registerPotterySherd(TTItemIds.AURORA_POTTERY_SHERD, TTDecoratedPotPatterns.AURORA);
+	public static final DeferredItem<Item> BAIT_POTTERY_SHERD = registerPotterySherd(TTItemIds.BAIT_POTTERY_SHERD, TTDecoratedPotPatterns.BAIT);
+	public static final DeferredItem<Item> BLOOM_POTTERY_SHERD = registerPotterySherd(TTItemIds.BLOOM_POTTERY_SHERD, TTDecoratedPotPatterns.BLOOM);
+	public static final DeferredItem<Item> BOLT_POTTERY_SHERD = registerPotterySherd(TTItemIds.BOLT_POTTERY_SHERD, TTDecoratedPotPatterns.BOLT);
+	public static final DeferredItem<Item> BULLSEYE_POTTERY_SHERD = registerPotterySherd(TTItemIds.BULLSEYE_POTTERY_SHERD, TTDecoratedPotPatterns.BULLSEYE);
+	public static final DeferredItem<Item> CARRIER_POTTERY_SHERD = registerPotterySherd(TTItemIds.CARRIER_POTTERY_SHERD, TTDecoratedPotPatterns.CARRIER);
+	public static final DeferredItem<Item> CLUCK_POTTERY_SHERD = registerPotterySherd(TTItemIds.CLUCK_POTTERY_SHERD, TTDecoratedPotPatterns.CLUCK);
+	public static final DeferredItem<Item> CRAWL_POTTERY_SHERD = registerPotterySherd(TTItemIds.CRAWL_POTTERY_SHERD, TTDecoratedPotPatterns.CRAWL);
+	public static final DeferredItem<Item> CRESCENT_POTTERY_SHERD = registerPotterySherd(TTItemIds.CRESCENT_POTTERY_SHERD, TTDecoratedPotPatterns.CRESCENT);
+	public static final DeferredItem<Item> CULTIVATOR_POTTERY_SHERD = registerPotterySherd(TTItemIds.CULTIVATOR_POTTERY_SHERD, TTDecoratedPotPatterns.CULTIVATOR);
+	public static final DeferredItem<Item> DROUGHT_POTTERY_SHERD = registerPotterySherd(TTItemIds.DROUGHT_POTTERY_SHERD, TTDecoratedPotPatterns.DROUGHT);
+	public static final DeferredItem<Item> ENCLOSURE_POTTERY_SHERD = registerPotterySherd(TTItemIds.ENCLOSURE_POTTERY_SHERD, TTDecoratedPotPatterns.ENCLOSURE);
+	public static final DeferredItem<Item> ESSENCE_POTTERY_SHERD = registerPotterySherd(TTItemIds.ESSENCE_POTTERY_SHERD, TTDecoratedPotPatterns.ESSENCE);
+	public static final DeferredItem<Item> EYE_POTTERY_SHERD = registerPotterySherd(TTItemIds.EYE_POTTERY_SHERD, TTDecoratedPotPatterns.EYE);
+	public static final DeferredItem<Item> FOCUS_POTTERY_SHERD = registerPotterySherd(TTItemIds.FOCUS_POTTERY_SHERD, TTDecoratedPotPatterns.FOCUS);
+	public static final DeferredItem<Item> FROST_POTTERY_SHERD = registerPotterySherd(TTItemIds.FROST_POTTERY_SHERD, TTDecoratedPotPatterns.FROST);
+	public static final DeferredItem<Item> HARE_POTTERY_SHERD = registerPotterySherd(TTItemIds.HARE_POTTERY_SHERD, TTDecoratedPotPatterns.HARE);
+	public static final DeferredItem<Item> HEIGHT_POTTERY_SHERD = registerPotterySherd(TTItemIds.HEIGHT_POTTERY_SHERD, TTDecoratedPotPatterns.HEIGHT);
+	public static final DeferredItem<Item> HUMP_POTTERY_SHERD = registerPotterySherd(TTItemIds.HUMP_POTTERY_SHERD, TTDecoratedPotPatterns.HUMP);
+	public static final DeferredItem<Item> ILLUMINATOR_POTTERY_SHERD = registerPotterySherd(TTItemIds.ILLUMINATOR_POTTERY_SHERD, TTDecoratedPotPatterns.ILLUMINATOR);
+	public static final DeferredItem<Item> INCIDENCE_POTTERY_SHERD = registerPotterySherd(TTItemIds.INCIDENCE_POTTERY_SHERD, TTDecoratedPotPatterns.INCIDENCE);
+	public static final DeferredItem<Item> LUMBER_POTTERY_SHERD = registerPotterySherd(TTItemIds.LUMBER_POTTERY_SHERD, TTDecoratedPotPatterns.LUMBER);
+	public static final DeferredItem<Item> NAVIGATOR_POTTERY_SHERD = registerPotterySherd(TTItemIds.NAVIGATOR_POTTERY_SHERD, TTDecoratedPotPatterns.NAVIGATOR);
+	public static final DeferredItem<Item> NEEDLES_POTTERY_SHERD = registerPotterySherd(TTItemIds.NEEDLES_POTTERY_SHERD, TTDecoratedPotPatterns.NEEDLES);
+	public static final DeferredItem<Item> OMEN_POTTERY_SHERD = registerPotterySherd(TTItemIds.OMEN_POTTERY_SHERD, TTDecoratedPotPatterns.OMEN);
+	public static final DeferredItem<Item> PLUME_POTTERY_SHERD = registerPotterySherd(TTItemIds.PLUME_POTTERY_SHERD, TTDecoratedPotPatterns.PLUME);
+	public static final DeferredItem<Item> PROTECTION_POTTERY_SHERD = registerPotterySherd(TTItemIds.PROTECTION_POTTERY_SHERD, TTDecoratedPotPatterns.PROTECTION);
+	public static final DeferredItem<Item> SHED_POTTERY_SHERD = registerPotterySherd(TTItemIds.SHED_POTTERY_SHERD, TTDecoratedPotPatterns.SHED);
+	public static final DeferredItem<Item> SHINE_POTTERY_SHERD = registerPotterySherd(TTItemIds.SHINE_POTTERY_SHERD, TTDecoratedPotPatterns.SHINE);
+	public static final DeferredItem<Item> SHOWER_POTTERY_SHERD = registerPotterySherd(TTItemIds.SHOWER_POTTERY_SHERD, TTDecoratedPotPatterns.SHOWER);
+	public static final DeferredItem<Item> SPADE_POTTERY_SHERD = registerPotterySherd(TTItemIds.SPADE_POTTERY_SHERD, TTDecoratedPotPatterns.SPADE);
+	public static final DeferredItem<Item> SPROUT_POTTERY_SHERD = registerPotterySherd(TTItemIds.SPROUT_POTTERY_SHERD, TTDecoratedPotPatterns.SPROUT);
+	public static final DeferredItem<Item> VESSEL_POTTERY_SHERD = registerPotterySherd(TTItemIds.VESSEL_POTTERY_SHERD, TTDecoratedPotPatterns.VESSEL);
+	public static final DeferredItem<Item> WITHER_POTTERY_SHERD = registerPotterySherd(TTItemIds.WITHER_POTTERY_SHERD, TTDecoratedPotPatterns.WITHER);
 
 	// SMITHING TEMPLATES
 	public static final DeferredItem<SmithingTemplateItem> UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE = registerArmorTrimTemplate(TTItemIds.UNDEAD_ARMOR_TRIM_SMITHING_TEMPLATE);
@@ -270,14 +293,17 @@ public final class TTItems {
 	public static final DeferredItem<Item> MUSIC_DISC_STASIS = REGISTER.registerMusicDisc(TTItemIds.MUSIC_DISC_STASIS, TTJukeboxSongs.STASIS);
 	public static final DeferredItem<Item> MUSIC_DISC_OSSUAIRE = REGISTER.registerMusicDisc(TTItemIds.MUSIC_DISC_OSSUAIRE, TTJukeboxSongs.OSSUAIRE);
 
+	// MAPS
+	public static final DeferredItem<Item> BURIED_CATACOMBS_MAP = REGISTER.registerItem(TTItemIds.BURIED_CATACOMBS_MAP, MapItem::new, Items::mapProperties);
+
 	static {
 		REGISTER.register();
 	}
 
 	public static void init() {}
 
-	public static DeferredItem<Item> registerPotterySherd(ResourceKey<Item> key) {
-		return REGISTER.registerSimpleItem(key, () -> new Properties().rarity(Rarity.UNCOMMON));
+	public static DeferredItem<Item> registerPotterySherd(ResourceKey<Item> key, ResourceKey<DecoratedPotPattern> potPattern) {
+		return REGISTER.registerSimpleItem(key, () -> new Properties().rarity(Rarity.UNCOMMON).potPattern(potPattern));
 	}
 
 	public static DeferredItem<SmithingTemplateItem> registerArmorTrimTemplate(ResourceKey<Item> key) {

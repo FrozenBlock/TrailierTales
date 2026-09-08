@@ -67,13 +67,13 @@ public abstract class ItemInHandLayerMixin<S extends ArmedEntityRenderState, M e
 			&& TTItemConfig.BRUSH_SMOOTH_ANIMATION.get()
 			&& humanoidState.isUsingItem
 			&& humanoidState.useItemHand == interactionHand
-			&& humanoidState.attackTime <= 0F
+			&& humanoidState.swingAnimation <= 0F
 			&& itemStack.is(Items.BRUSH)
 		) {
 			final float brushProgress = humanoidState.ticksUsingItem + 1F;
 			final float brushRoll = Mth.cos((brushProgress * Mth.PI) / 5F) * 1.2F;
 			final Axis axis = arm == HumanoidArm.LEFT ? Axis.ZP : Axis.ZN;
-			poseStack.mulPose(axis.rotation(brushRoll));
+			poseStack.rotate(axis.rotation(brushRoll));
 		}
 	}
 }

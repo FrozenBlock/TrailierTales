@@ -1,0 +1,28 @@
+{
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "trailiertales:worldgen/endCity/generateChoral",
+    "target": true
+  },
+  "processors": {
+    "processors": [
+      {
+        "processor_type": "minecraft:rule",
+        "rules": [
+          {
+            "input_predicate": {
+              "block": "minecraft:end_stone_bricks",
+              "predicate_type": "minecraft:random_block_match",
+              "probability": 0.05
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": "trailiertales:choral_end_stone_bricks"
+          }
+        ]
+      }
+    ]
+  },
+  "structures": "minecraft:end_city"
+}

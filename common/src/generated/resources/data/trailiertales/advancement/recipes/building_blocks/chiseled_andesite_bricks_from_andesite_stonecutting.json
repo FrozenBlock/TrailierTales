@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:chiseled_andesite_bricks_from_andesite_stonecutting"
+        "recipes": "trailiertales:chiseled_andesite_bricks_from_andesite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

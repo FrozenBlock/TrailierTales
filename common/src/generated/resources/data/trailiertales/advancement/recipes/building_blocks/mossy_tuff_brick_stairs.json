@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:mossy_tuff_brick_stairs"
+        "recipes": "trailiertales:mossy_tuff_brick_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -17,7 +17,6 @@
 
 package net.frozenblock.trailiertales.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +39,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class LithopsCropBlock extends CropBlock {
-	public static final MapCodec<LithopsCropBlock> CODEC = simpleCodec(LithopsCropBlock::new);
 	public static final int MAX_AGE = 2;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -50,11 +48,6 @@ public class LithopsCropBlock extends CropBlock {
 		Block.box(0D, -1D, 0D, 16D, 2D, 16D),
 	};
 	private static final int BONEMEAL_INCREASE = 1;
-
-	@Override
-	public MapCodec<LithopsCropBlock> codec() {
-		return CODEC;
-	}
 
 	public LithopsCropBlock(Properties properties) {
 		super(properties);

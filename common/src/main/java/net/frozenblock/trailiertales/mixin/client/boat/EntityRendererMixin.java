@@ -37,7 +37,7 @@ public class EntityRendererMixin<T extends Entity, S extends EntityRenderState> 
 		method = "getBoundingBoxForCulling",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/Entity;getBoundingBox()Lnet/minecraft/world/phys/AABB;"
+			target = "Lnet/minecraft/world/entity/Entity;getInterpolatedBoundingBox(F)Lnet/minecraft/world/phys/AABB;"
 		)
 	)
 	public AABB trailierTales$extendBannerBoatRenderBox(

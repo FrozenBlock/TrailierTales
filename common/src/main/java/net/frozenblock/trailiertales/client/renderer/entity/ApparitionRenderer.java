@@ -91,9 +91,9 @@ public class ApparitionRenderer extends MobRenderer<Apparition, ApparitionRender
 		if (state.item.isEmpty()) return;
 		poseStack.pushPose();
 		poseStack.translate(0F, 0.425F, 0F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(180F - this.itemYaw));
-		poseStack.mulPose(Axis.YN.rotation(state.itemYRot));
-		poseStack.mulPose(Axis.ZN.rotation(state.itemZRot));
+		poseStack.rotate(Axis.YP.rotationDegrees(180F - this.itemYaw));
+		poseStack.rotate(Axis.YN.rotation(state.itemYRot));
+		poseStack.rotate(Axis.ZN.rotation(state.itemZRot));
 		state.item.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 		poseStack.popPose();
 	}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:granite_brick_stairs_from_granite_stonecutting"
+        "recipes": "trailiertales:granite_brick_stairs_from_granite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

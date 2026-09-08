@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:mossy_cobbled_deepslate_stairs"
+        "recipes": "trailiertales:mossy_cobbled_deepslate_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

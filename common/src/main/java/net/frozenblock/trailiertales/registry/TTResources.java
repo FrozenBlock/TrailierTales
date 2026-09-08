@@ -17,12 +17,10 @@
 
 package net.frozenblock.trailiertales.registry;
 
-import net.frozenblock.lib.levelgen.structure.api.placement.StructureGenerationConditionApi;
 import net.frozenblock.lib.platform.api.resource.FrozenLibResourceLoader;
 import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.lib.resource.api.ResourceLoaderHelper;
 import net.frozenblock.trailiertales.TTConstants;
-import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.levelgen.structure.RuinsStructure;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
@@ -60,8 +58,6 @@ public final class TTResources {
 				}
 			}
 		);
-
-		StructureGenerationConditionApi.addGenerationCondition(CatacombsGenerator.CATACOMBS_STRUCTURE_SET_KEY.identifier(), () -> !HAS_STRONGHOLD_OVERRIDE_PACK);
 	}
 
 	private TTResources() {}

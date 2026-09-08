@@ -10,20 +10,20 @@ accessible method net/minecraft/world/entity/LivingEntity makePoofParticles ()V
 
 # Mob Effect
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;ILnet/minecraft/core/particles/ParticleOptions;)V
-accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
 
 # Archaeology
 accessible class net/minecraft/world/item/BrushItem$DustParticlesDelta
-#accessible class net/minecraft/world/entity/SpawnPlacements$Data
 accessible method net/minecraft/world/item/BrushItem$DustParticlesDelta <init> (DDD)V
 accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
 
 # Block
-#accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F
 accessible method net/minecraft/world/level/block/CropBlock hasSufficientLight (Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/world/level/block/MultifaceBlock removeFace (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/properties/BooleanProperty;)Lnet/minecraft/world/level/block/state/BlockState;
 accessible method net/minecraft/world/level/block/BaseEntityBlock createTickerHelper (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/world/level/block/entity/BlockEntityTicker;)Lnet/minecraft/world/level/block/entity/BlockEntityTicker;
 accessible field net/minecraft/data/BlockFamily variants Ljava/util/Map;
+
+# Item
+accessible method net/minecraft/world/item/Items mapProperties ()Lnet/minecraft/world/item/Item$Properties;
 
 # Worldgen
 accessible method net/minecraft/world/level/levelgen/structure/pools/SinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/core/Holder;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool$Projection;Ljava/util/Optional;)V
@@ -34,6 +34,8 @@ accessible method net/minecraft/world/level/levelgen/structure/structures/EndCit
 
 # Datagen
 accessible class net/minecraft/client/data/models/BlockModelGenerators$PlantType
+accessible method net/minecraft/world/level/block/entity/DecoratedPotPatterns registerWithDefaultAsset (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/resources/ResourceKey;)V
+accessible method net/minecraft/data/loot/packs/VanillaChestLoot discardIfNotValidMap ()Lnet/minecraft/world/level/storage/loot/functions/FilteredFunction$Builder;
 
 # Particle
 accessible method net/minecraft/client/particle/FlyTowardsPositionParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDZLnet/minecraft/client/particle/Particle$LifetimeAlpha;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V

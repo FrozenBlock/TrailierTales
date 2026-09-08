@@ -35,12 +35,10 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_randomly",
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchant_randomly",
+            "options": "#minecraft:on_random_loot"
+          },
           "name": "minecraft:book"
         },
         {
@@ -125,36 +123,36 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:enchant_randomly",
+              "type": "minecraft:enchant_randomly",
               "options": "#minecraft:on_random_loot"
             },
             {
+              "type": "minecraft:set_damage",
               "damage": {
                 "type": "minecraft:uniform",
                 "max": 0.8,
                 "min": 0.15
-              },
-              "function": "minecraft:set_damage"
+              }
             }
           ],
           "name": "minecraft:iron_pickaxe"
         },
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:enchant_randomly",
+              "type": "minecraft:enchant_randomly",
               "options": "#minecraft:on_random_loot"
             },
             {
+              "type": "minecraft:set_damage",
               "damage": {
                 "type": "minecraft:uniform",
                 "max": 0.8,
                 "min": 0.15
-              },
-              "function": "minecraft:set_damage"
+              }
             }
           ],
           "name": "minecraft:stone_shovel"
@@ -171,16 +169,14 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:weakness"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:set_potion",
+            "id": "minecraft:weakness"
+          },
           "name": "minecraft:splash_potion"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

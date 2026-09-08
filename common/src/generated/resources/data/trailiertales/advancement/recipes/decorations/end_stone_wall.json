@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:end_stone_wall"
+        "recipes": "trailiertales:end_stone_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

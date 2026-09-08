@@ -3,19 +3,17 @@
   "criteria": {
     "walk_in_ectoplasm_block": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:movement_affected_by": {
-                "block": {
-                  "blocks": "trailiertales:ectoplasm_block"
-                }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:movement_affected_by": {
+              "block": {
+                "blocks": "trailiertales:ectoplasm_block"
               }
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:diorite_bricks"
+        "recipes": "trailiertales:diorite_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

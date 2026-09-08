@@ -110,12 +110,10 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:water"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:set_potion",
+            "id": "minecraft:water"
+          },
           "name": "minecraft:potion",
           "weight": 3
         },
@@ -165,7 +163,7 @@
           "weight": 4
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

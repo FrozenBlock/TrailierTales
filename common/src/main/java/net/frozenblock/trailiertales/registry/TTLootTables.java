@@ -18,23 +18,28 @@
 package net.frozenblock.trailiertales.registry;
 
 import net.frozenblock.lib.item.api.loot.LootTableEvents;
+import net.frozenblock.lib.item.api.loot.LootTableModification;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.tag.TTStructureTags;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.loot.packs.VanillaChestLoot;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.functions.SetStewEffectFunction;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class TTLootTables {
 	public static final ResourceKey<LootTable> CATACOMBS_CORRIDOR = register("chests/catacombs/corridor");
@@ -62,7 +67,7 @@ public final class TTLootTables {
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(LootItem.lootTableItem(Items.ANGLER_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(TTItems.BAIT_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.SNORT_POTTERY_SHERD))
@@ -84,7 +89,7 @@ public final class TTLootTables {
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(LootItem.lootTableItem(TTItems.INCIDENCE_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(TTItems.VESSEL_POTTERY_SHERD))
@@ -105,12 +110,11 @@ public final class TTLootTables {
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(
 								LootItem.lootTableItem(Items.MAP)
 									.apply(
-										ExplorationMapFunction.makeExplorationMap()
-											.setDestination(TTStructureTags.ON_CATACOMBS_MAPS)
+										ExplorationMapFunction.makeExplorationMap(registries.lookupOrThrow(Registries.STRUCTURE).getOrThrow(TTStructureTags.ON_BURIED_CATACOMBS_MAPS))
 											.setMapDecoration(TTMapDecorationTypes.CATACOMBS.asHolder())
 											.setZoom((byte)1)
 											.setSkipKnownStructures(false)
@@ -138,7 +142,7 @@ public final class TTLootTables {
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(TTItems.SPADE_POTTERY_SHERD))
 							.add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD))
@@ -154,7 +158,7 @@ public final class TTLootTables {
 				return LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(LootItem.lootTableItem(TTItems.CARRIER_POTTERY_SHERD).setWeight(2))
 							.add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(2))
 							.add(LootItem.lootTableItem(Items.BRICK))
@@ -164,18 +168,41 @@ public final class TTLootTables {
 								LootItem.lootTableItem(Items.SUSPICIOUS_STEW)
 									.apply(
 										SetStewEffectFunction.stewEffect()
-											.withEffect(MobEffects.NIGHT_VISION, UniformGenerator.between(7.0F, 10.0F))
-											.withEffect(MobEffects.JUMP_BOOST, UniformGenerator.between(7.0F, 10.0F))
-											.withEffect(MobEffects.WEAKNESS, UniformGenerator.between(6.0F, 8.0F))
-											.withEffect(MobEffects.BLINDNESS, UniformGenerator.between(5.0F, 7.0F))
-											.withEffect(MobEffects.POISON, UniformGenerator.between(10.0F, 20.0F))
-											.withEffect(MobEffects.SATURATION, UniformGenerator.between(7.0F, 10.0F))
+											.withEffect(MobEffects.NIGHT_VISION, ContextIntProviders.between(7, 10))
+											.withEffect(MobEffects.JUMP_BOOST, ContextIntProviders.between(7, 10))
+											.withEffect(MobEffects.WEAKNESS, ContextIntProviders.between(6, 8))
+											.withEffect(MobEffects.BLINDNESS, ContextIntProviders.between(5, 7))
+											.withEffect(MobEffects.POISON, ContextIntProviders.between(10, 20))
+											.withEffect(MobEffects.SATURATION, ContextIntProviders.between(7, 10))
 									)
 							)
 					).build();
 			}
 
 			return null;
+		});
+
+		// ABANDONED CAMP
+		// TODO: test to make sure this works properly, even with datapacks
+		LootTableModification.editTable(BuiltInLootTables.ABANDONED_CAMP_COMMON_CHEST, false, (id, table, registries) -> {
+			table.modifyPools(
+				pool -> pool.hasItem(Items.ABANDONED_CAMP_MAP),
+				pool -> {
+					final HolderLookup.RegistryLookup<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
+					final HolderLookup.RegistryLookup<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
+
+					final UniformContainerBase.Builder<?> buriedCatacombsMap = LootItem.lootTableItem(TTItems.BURIED_CATACOMBS_MAP)
+						.apply(
+							ExplorationMapFunction.makeExplorationMap(structures.getOrThrow(TTStructureTags.ON_BURIED_CATACOMBS_MAPS))
+								.setMapDecoration(TTMapDecorationTypes.CATACOMBS.asHolder())
+								.setSkipKnownStructures(true)
+						)
+						.setWeight(1)
+						.apply(VanillaChestLoot.discardIfNotValidMap());
+
+					pool.add(buriedCatacombsMap);
+				}
+			);
 		});
 
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {

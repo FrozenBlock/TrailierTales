@@ -17,20 +17,7 @@
 
 package net.frozenblock.trailiertales.mod_compat.wilderwild;
 
-import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
-import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorApi;
-import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
-import net.frozenblock.trailiertales.data.worldgen.structure.SavannaRuinsGenerator;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 
 public class WWIntegration extends AbstractWWIntegration {
 
@@ -40,6 +27,9 @@ public class WWIntegration extends AbstractWWIntegration {
 
 	@Override
 	public void init() {
+		// FIXME: MOD COMPAT
+		// TODO: MOD COMPAT
+		/*
 		StructureProcessorApi.addProcessor(
 			SavannaRuinsGenerator.SAVANNA_RUINS_KEY.identifier(),
 			new RuleProcessor(
@@ -67,6 +57,7 @@ public class WWIntegration extends AbstractWWIntegration {
 				)
 			)
 		);
+		 */
 	}
 
 	@Override

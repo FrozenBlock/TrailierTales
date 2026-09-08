@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:sherd_copy"
+        "recipes": "trailiertales:sherd_copy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

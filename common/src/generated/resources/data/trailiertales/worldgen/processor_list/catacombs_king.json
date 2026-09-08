@@ -16,12 +16,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:suspicious_gravel",
-            "Properties": {
-              "dusted": "0"
-            }
-          }
+          "output_state": "minecraft:suspicious_gravel"
         }
       ]
     },
@@ -59,9 +54,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:cave_air"
-          }
+          "output_state": "minecraft:cave_air"
         },
         {
           "input_predicate": {
@@ -73,8 +66,8 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:candle",
-            "Properties": {
+            "id": "minecraft:candle",
+            "properties": {
               "candles": "4",
               "lit": "false",
               "waterlogged": "false"
@@ -90,9 +83,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:potted_dead_bush"
-          }
+          "output_state": "minecraft:potted_dead_bush"
         },
         {
           "input_predicate": {
@@ -102,14 +93,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:decorated_pot",
-            "Properties": {
-              "cracked": "false",
-              "facing": "north",
-              "waterlogged": "false"
-            }
-          }
+          "output_state": "minecraft:decorated_pot"
         }
       ]
     },
@@ -126,35 +110,21 @@
           },
           "output_states": [
             {
-              "data": {
-                "Name": "minecraft:cave_air"
-              },
+              "data": "minecraft:cave_air",
               "weight": 200
             },
             {
-              "data": {
-                "Name": "minecraft:soul_lantern",
-                "Properties": {
-                  "hanging": "false",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "minecraft:soul_lantern",
               "weight": 6
             },
             {
-              "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
-                  "powered": "false",
-                  "rotation": "0"
-                }
-              },
+              "data": "minecraft:skeleton_skull",
               "weight": 12
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "1"
                 }
@@ -163,8 +133,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "2"
                 }
@@ -173,8 +143,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "3"
                 }
@@ -183,8 +153,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "4"
                 }
@@ -193,8 +163,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "5"
                 }
@@ -203,8 +173,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "6"
                 }
@@ -213,8 +183,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "7"
                 }
@@ -223,8 +193,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "8"
                 }
@@ -233,8 +203,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "9"
                 }
@@ -243,8 +213,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "10"
                 }
@@ -253,8 +223,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "11"
                 }
@@ -263,8 +233,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "12"
                 }
@@ -273,8 +243,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "13"
                 }
@@ -283,8 +253,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "14"
                 }
@@ -293,8 +263,8 @@
             },
             {
               "data": {
-                "Name": "minecraft:skeleton_skull",
-                "Properties": {
+                "id": "minecraft:skeleton_skull",
+                "properties": {
                   "powered": "false",
                   "rotation": "15"
                 }
@@ -317,9 +287,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "trailiertales:mossy_cobbled_deepslate"
-          }
+          "output_state": "trailiertales:mossy_cobbled_deepslate"
         },
         {
           "input_predicate": {
@@ -330,9 +298,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:cracked_deepslate_bricks"
-          }
+          "output_state": "minecraft:cracked_deepslate_bricks"
         },
         {
           "input_predicate": {
@@ -343,9 +309,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "trailiertales:mossy_deepslate_bricks"
-          }
+          "output_state": "trailiertales:mossy_deepslate_bricks"
         },
         {
           "input_predicate": {
@@ -356,9 +320,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:cracked_deepslate_tiles"
-          }
+          "output_state": "minecraft:cracked_deepslate_tiles"
         },
         {
           "input_predicate": {
@@ -369,9 +331,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "trailiertales:mossy_deepslate_tiles"
-          }
+          "output_state": "trailiertales:mossy_deepslate_tiles"
         },
         {
           "input_predicate": {
@@ -382,9 +342,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:tuff"
-          }
+          "output_state": "minecraft:tuff"
         },
         {
           "input_predicate": {
@@ -395,9 +353,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:cave_air"
-          }
+          "output_state": "minecraft:cave_air"
         },
         {
           "input_predicate": {
@@ -408,15 +364,13 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:cave_air"
-          }
+          "output_state": "minecraft:cave_air"
         },
         {
           "input_predicate": {
             "block_state": {
-              "Name": "minecraft:candle",
-              "Properties": {
+              "id": "minecraft:candle",
+              "properties": {
                 "candles": "4",
                 "lit": "false",
                 "waterlogged": "false"
@@ -429,8 +383,8 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:candle",
-            "Properties": {
+            "id": "minecraft:candle",
+            "properties": {
               "candles": "3",
               "lit": "false",
               "waterlogged": "false"
@@ -440,8 +394,8 @@
         {
           "input_predicate": {
             "block_state": {
-              "Name": "minecraft:candle",
-              "Properties": {
+              "id": "minecraft:candle",
+              "properties": {
                 "candles": "4",
                 "lit": "false",
                 "waterlogged": "false"
@@ -454,8 +408,8 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:candle",
-            "Properties": {
+            "id": "minecraft:candle",
+            "properties": {
               "candles": "2",
               "lit": "false",
               "waterlogged": "false"
@@ -465,8 +419,8 @@
         {
           "input_predicate": {
             "block_state": {
-              "Name": "minecraft:candle",
-              "Properties": {
+              "id": "minecraft:candle",
+              "properties": {
                 "candles": "4",
                 "lit": "false",
                 "waterlogged": "false"
@@ -478,20 +432,13 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:candle",
-            "Properties": {
-              "candles": "1",
-              "lit": "false",
-              "waterlogged": "false"
-            }
-          }
+          "output_state": "minecraft:candle"
         },
         {
           "input_predicate": {
             "block_state": {
-              "Name": "minecraft:red_candle",
-              "Properties": {
+              "id": "minecraft:red_candle",
+              "properties": {
                 "candles": "4",
                 "lit": "true",
                 "waterlogged": "false"
@@ -504,8 +451,8 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:red_candle",
-            "Properties": {
+            "id": "minecraft:red_candle",
+            "properties": {
               "candles": "3",
               "lit": "true",
               "waterlogged": "false"
@@ -515,8 +462,8 @@
         {
           "input_predicate": {
             "block_state": {
-              "Name": "minecraft:red_candle",
-              "Properties": {
+              "id": "minecraft:red_candle",
+              "properties": {
                 "candles": "4",
                 "lit": "true",
                 "waterlogged": "false"
@@ -529,8 +476,8 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:red_candle",
-            "Properties": {
+            "id": "minecraft:red_candle",
+            "properties": {
               "candles": "2",
               "lit": "true",
               "waterlogged": "false"
@@ -540,8 +487,8 @@
         {
           "input_predicate": {
             "block_state": {
-              "Name": "minecraft:red_candle",
-              "Properties": {
+              "id": "minecraft:red_candle",
+              "properties": {
                 "candles": "4",
                 "lit": "true",
                 "waterlogged": "false"
@@ -554,8 +501,8 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:red_candle",
-            "Properties": {
+            "id": "minecraft:red_candle",
+            "properties": {
               "candles": "1",
               "lit": "true",
               "waterlogged": "false"
@@ -571,9 +518,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:cave_air"
-          }
+          "output_state": "minecraft:cave_air"
         },
         {
           "input_predicate": {
@@ -584,9 +529,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:flower_pot"
-          }
+          "output_state": "minecraft:flower_pot"
         },
         {
           "input_predicate": {
@@ -596,9 +539,7 @@
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
-          "output_state": {
-            "Name": "minecraft:gravel"
-          }
+          "output_state": "minecraft:gravel"
         }
       ]
     },
@@ -737,13 +678,22 @@
           "block_entity_modifier": {
             "type": "frozenlib:append_sherds",
             "chance_per_slot": 0.5,
-            "default_to_brick": false,
             "sherds": [
-              "minecraft:skull_pottery_sherd",
-              "trailiertales:omen_pottery_sherd",
-              "minecraft:plenty_pottery_sherd",
-              "trailiertales:essence_pottery_sherd",
-              "trailiertales:eye_pottery_sherd"
+              {
+                "id": "minecraft:skull_pottery_sherd"
+              },
+              {
+                "id": "trailiertales:omen_pottery_sherd"
+              },
+              {
+                "id": "minecraft:plenty_pottery_sherd"
+              },
+              {
+                "id": "trailiertales:essence_pottery_sherd"
+              },
+              {
+                "id": "trailiertales:eye_pottery_sherd"
+              }
             ]
           },
           "input_predicate": {

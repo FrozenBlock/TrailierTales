@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:polished_andesite_wall_from_polished_andesite_stonecutting"
+        "recipes": "trailiertales:polished_andesite_wall_from_polished_andesite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -33,7 +33,6 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaternionfc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -125,29 +124,29 @@ public class BrushableBlockRendererMixin {
 		method = "submit*",
 		at = @At(
 			value = "INVOKE",
-			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V"
+			target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V"
 		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
-				target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
+				target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
+				ordinal = 0,
 				shift = At.Shift.AFTER
 			)
 		)
 	)
-	public void trailierTales$useSmoothXAxisRotation(
-		PoseStack instance,
-		Quaternionfc by,
-		Operation<Void> original,
+	public void trailierTales$useSmoothRotation(
+		PoseStack instance, Axis axis, float angle, Operation<Void> original,
 		BrushableBlockRenderState state
 	) {
 		if (TTBlockConfig.SUSPICIOUS_BLOCK_SMOOTH_ANIMATIONS.get()) {
 			original.call(
 				instance,
-				Axis.YP.rotationDegrees(state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ROTATION, 0F) + 15F)
+				axis,
+				state.frozenLib$getDataOrDefault(TTRenderStateDataKeys.BRUSHABLE_BLOCK_ROTATION, 0F) + 15F
 			);
 		} else {
-			original.call(instance, by);
+			original.call(instance, axis, angle);
 		}
 	}
 

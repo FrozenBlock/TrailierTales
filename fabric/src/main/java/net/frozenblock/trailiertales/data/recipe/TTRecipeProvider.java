@@ -29,19 +29,21 @@ import net.frozenblock.trailiertales.recipe.SherdCopyRecipe;
 import net.frozenblock.trailiertales.registry.TTBlocks;
 import net.frozenblock.trailiertales.registry.TTItems;
 import net.frozenblock.trailiertales.registry.TTTrimPatterns;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Blocks;
 
 public class TTRecipeProvider extends FabricRecipeProvider {
@@ -51,8 +53,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
-		return new RecipeProvider(provider, output) {
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+		return new RecipeProvider(recipes, advancements) {
 			@Override
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(TTConstants.MOD_ID);

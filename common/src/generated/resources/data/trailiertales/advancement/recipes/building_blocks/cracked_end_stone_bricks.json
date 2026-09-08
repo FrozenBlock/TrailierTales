@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "trailiertales:cracked_end_stone_bricks"
+        "recipes": "trailiertales:cracked_end_stone_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
