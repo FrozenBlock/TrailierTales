@@ -50,8 +50,29 @@ public final class TTSoundTypeOverrides {
 		register(context, "polished_basalt", TTBlockTags.SOUND_POLISHED_BASALT, TTSoundTypes.POLISHED_BASALT, TTBlockConfig.POLISHED_BASALT_SOUNDS);
 		register(context, "polished_resin", TTBlockTags.SOUND_POLISHED_RESIN, TTSoundTypes.POLISHED_RESIN, TTBlockConfig.POLISHED_SOUNDS);
 
-		register(context, "suspicious_clay", TTBlockTags.SOUND_SUSPICIOUS_CLAY, TTSoundTypes.SUSPICIOUS_CLAY_WW, WWBlockConfig.CLAY_SOUNDS);
-		register(context, "suspicious_gravel", TTBlockTags.SOUND_SUSPICIOUS_GRAVEL, TTSoundTypes.SUSPICIOUS_GRAVEL_WW, WWBlockConfig.GRAVEL_SOUNDS);
+		register(
+			context,
+			"suspicious_clay",
+			TTBlockTags.SOUND_SUSPICIOUS_CLAY,
+			TTSoundTypes.SUSPICIOUS_CLAY_WW,
+			ConfigPredicate.withFallback(
+				WWBlockConfig.CLAY_SOUNDS,
+				WWBlockConfig.CLAY_SOUNDS.equalTo(true),
+				ConfigPredicate.not(ConfigPredicate.alwaysTrue())
+			)
+
+		);
+		register(
+			context,
+			"suspicious_gravel",
+			TTBlockTags.SOUND_SUSPICIOUS_GRAVEL,
+			TTSoundTypes.SUSPICIOUS_GRAVEL_WW,
+			ConfigPredicate.withFallback(
+				WWBlockConfig.GRAVEL_SOUNDS,
+				WWBlockConfig.GRAVEL_SOUNDS.equalTo(true),
+				ConfigPredicate.not(ConfigPredicate.alwaysTrue())
+			)
+		);
 	}
 
 	private static void register(
