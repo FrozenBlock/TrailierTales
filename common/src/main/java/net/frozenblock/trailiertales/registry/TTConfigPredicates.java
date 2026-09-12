@@ -20,7 +20,6 @@ package net.frozenblock.trailiertales.registry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
-import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 
@@ -33,20 +32,11 @@ public final class TTConfigPredicates {
 	}
 
 	public static boolean wwClaySounds(RegistryAccess registries) {
-		return safeRetrieveAndTest(registries, WILDER_WILD_CLAY_SOUNDS);
+		return ConfigPredicate.lookupAndTest(registries, WILDER_WILD_CLAY_SOUNDS);
 	}
 
 	public static boolean wwGravelSounds(RegistryAccess registries) {
-		return safeRetrieveAndTest(registries, WILDER_WILD_GRAVEL_SOUNDS);
-	}
-
-	private static boolean safeRetrieveAndTest(RegistryAccess registries, ResourceKey<ConfigPredicate> key) {
-		return registries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER)
-			.map(registry -> registry.get(key)
-				.map(Holder.Reference::value)
-				.map(ConfigPredicate::test)
-				.orElse(false)
-			).orElse(false);
+		return ConfigPredicate.lookupAndTest(registries, WILDER_WILD_GRAVEL_SOUNDS);
 	}
 
 	private TTConfigPredicates() {}
