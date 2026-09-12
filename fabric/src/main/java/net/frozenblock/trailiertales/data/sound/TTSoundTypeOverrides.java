@@ -22,11 +22,13 @@ import net.frozenblock.lib.block.api.sound.SoundTypeOverrides;
 import net.frozenblock.lib.block.impl.sound.SoundTypeOverride;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
+import net.frozenblock.trailiertales.registry.TTConfigPredicates;
 import net.frozenblock.trailiertales.registry.TTSoundTypes;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -39,6 +41,7 @@ public final class TTSoundTypeOverrides {
 
 	public static void bootstrap(BootstrapContext<SoundTypeOverride> context) {
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		register(context, "unpolished_bricks", TTBlockTags.SOUND_UNPOLISHED_BRICKS, TTSoundTypes.BRICKS, TTBlockConfig.UNPOLISHED_BRICKS_SOUNDS);
 		register(context, "polished_bricks", TTBlockTags.SOUND_POLISHED_BRICKS, TTSoundTypes.POLISHED_BRICKS, TTBlockConfig.POLISHED_BRICKS_SOUNDS);
@@ -50,8 +53,21 @@ public final class TTSoundTypeOverrides {
 		register(context, "polished_basalt", TTBlockTags.SOUND_POLISHED_BASALT, TTSoundTypes.POLISHED_BASALT, TTBlockConfig.POLISHED_BASALT_SOUNDS);
 		register(context, "polished_resin", TTBlockTags.SOUND_POLISHED_RESIN, TTSoundTypes.POLISHED_RESIN, TTBlockConfig.POLISHED_SOUNDS);
 
-		register(context, "suspicious_clay", TTBlockTags.SOUND_SUSPICIOUS_CLAY, TTSoundTypes.SUSPICIOUS_CLAY_WW, WWBlockConfig.CLAY_SOUNDS);
-		register(context, "suspicious_gravel", TTBlockTags.SOUND_SUSPICIOUS_GRAVEL, TTSoundTypes.SUSPICIOUS_GRAVEL_WW, WWBlockConfig.GRAVEL_SOUNDS);
+		register(
+			context,
+			"suspicious_clay",
+			TTBlockTags.SOUND_SUSPICIOUS_CLAY,
+			TTSoundTypes.SUSPICIOUS_CLAY_WW,
+			configPredicates.getOrThrow(TTConfigPredicates.WILDER_WILD_CLAY_SOUNDS)
+		);
+
+		register(
+			context,
+			"suspicious_gravel",
+			TTBlockTags.SOUND_SUSPICIOUS_GRAVEL,
+			TTSoundTypes.SUSPICIOUS_GRAVEL_WW,
+			configPredicates.getOrThrow(TTConfigPredicates.WILDER_WILD_GRAVEL_SOUNDS)
+		);
 	}
 
 	private static void register(
@@ -80,10 +96,22 @@ public final class TTSoundTypeOverrides {
 		SoundType soundType,
 		ConfigPredicate configPredicate
 	) {
+		register(context, name, tagKey, soundType, configPredicate.asHolder());
+	}
+
+	private static void register(
+		BootstrapContext<SoundTypeOverride> context,
+		String name,
+		TagKey<Block> tagKey,
+		SoundType soundType,
+		Holder<ConfigPredicate> configPredicate
+	) {
 		SoundTypeOverrides.register(context, key(name), context.lookup(Registries.BLOCK).getOrThrow(tagKey), soundType, configPredicate);
 	}
 
 	private static ResourceKey<SoundTypeOverride> key(String name) {
 		return SoundTypeOverrides.createKey(TTConstants.id(name));
 	}
+
+	private TTSoundTypeOverrides() {}
 }
