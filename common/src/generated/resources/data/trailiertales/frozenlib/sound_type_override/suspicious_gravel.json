@@ -1,20 +1,6 @@
 {
   "blocks": "#trailiertales:sound/suspicious_gravel",
-  "config_predicate": {
-    "type": "minecraft:with_fallback",
-    "entry": "wilderwild:block/blockSounds/gravelSounds",
-    "fallback": {
-      "type": "minecraft:not",
-      "predicate": {
-        "type": "minecraft:true"
-      }
-    },
-    "predicate": {
-      "type": "minecraft:equal_to",
-      "entry": "wilderwild:block/blockSounds/gravelSounds",
-      "target": true
-    }
-  },
+  "config_predicate": "trailiertales:wilder_wild_gravel_sounds",
   "sound_type": {
     "break_sound": "trailiertales:block.suspicious_gravel_ww.break",
     "fall_sound": "trailiertales:block.suspicious_gravel_ww.fall",

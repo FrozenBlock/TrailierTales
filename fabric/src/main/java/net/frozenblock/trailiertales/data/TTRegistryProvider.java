@@ -49,6 +49,7 @@ final class TTRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
 
 		// FrozenLib Dynamic Registries
+		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER));
 		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.SOUND_TYPE_OVERRIDE));
 		entries.addAll(registries.lookupOrThrow(FrozenLibRegistries.CLIP_GROUP));
 	}

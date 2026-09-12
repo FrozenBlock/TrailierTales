@@ -18,19 +18,26 @@
 package net.frozenblock.trailiertales.mixin.client.brushable_block;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
-import net.frozenblock.trailiertales.mod_compat.wilderwild.AbstractWWIntegration;
+import net.frozenblock.trailiertales.registry.TTConfigPredicates;
 import net.frozenblock.trailiertales.registry.TTSounds;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @ClientOnly
 @Mixin(LevelEventHandler.class)
 public class BrushingCompleteSoundMixin {
+
+	@Shadow
+	@Final
+	private ClientLevel level;
 
 	@ModifyExpressionValue(
 		method = "levelEvent",
@@ -40,9 +47,9 @@ public class BrushingCompleteSoundMixin {
 		)
 	)
 	public SoundEvent trailierTales$newBrushSounds(SoundEvent original) {
-		final AbstractWWIntegration wwIntegration = TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration();
-		if (original == SoundEvents.BRUSH_GRAVEL_COMPLETED && wwIntegration.newGravelSounds()) return TTSounds.BRUSH_GRAVEL_WW_COMPLETED.get();
-		if (original == TTSounds.BRUSH_CLAY_COMPLETED.get() && wwIntegration.newClaySounds()) return TTSounds.BRUSH_CLAY_WW_COMPLETED.get();
+		final RegistryAccess registryAccess = this.level.registryAccess();
+		if (original == SoundEvents.BRUSH_GRAVEL_COMPLETED && TTConfigPredicates.wwGravelSounds(registryAccess)) return TTSounds.BRUSH_GRAVEL_WW_COMPLETED.get();
+		if (original == TTSounds.BRUSH_CLAY_COMPLETED.get() && TTConfigPredicates.wwClaySounds(registryAccess)) return TTSounds.BRUSH_CLAY_WW_COMPLETED.get();
 		return original;
 	}
 }

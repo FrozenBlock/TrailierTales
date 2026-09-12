@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:with_fallback",
+  "entry": "wilderwild:block/blockSounds/claySounds",
+  "fallback": {
+    "type": "minecraft:not",
+    "predicate": {
+      "type": "minecraft:true"
+    }
+  },
+  "predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:block/blockSounds/claySounds",
+    "target": true
+  }
+}

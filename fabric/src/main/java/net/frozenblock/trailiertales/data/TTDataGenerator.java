@@ -24,6 +24,7 @@ import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.data.advancement.TTAdvancementProvider;
+import net.frozenblock.trailiertales.data.config.TTConfigPredicateProvider;
 import net.frozenblock.trailiertales.data.loot.TTArchaeologyLootProvider;
 import net.frozenblock.trailiertales.data.loot.TTBlockLootProvider;
 import net.frozenblock.trailiertales.data.loot.TTChestLootProvider;
@@ -140,6 +141,7 @@ public final class TTDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.VILLAGER_TRADE, TTVillagerTrades::bootstrap);
 
 		// FrozenLib Registries
+		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER, TTConfigPredicateProvider::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, TTSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, TTClipGroups::bootstrap);
 	}

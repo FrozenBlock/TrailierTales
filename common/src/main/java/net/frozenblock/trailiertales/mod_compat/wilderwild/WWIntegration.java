@@ -23,7 +23,6 @@ import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespecting
 import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorApi;
 import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.data.worldgen.structure.SavannaRuinsGenerator;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
@@ -67,15 +66,5 @@ public class WWIntegration extends AbstractWWIntegration {
 				)
 			)
 		);
-	}
-
-	@Override
-	public boolean newClaySounds() {
-		return WWBlockConfig.CLAY_SOUNDS.get();
-	}
-
-	@Override
-	public boolean newGravelSounds() {
-		return WWBlockConfig.GRAVEL_SOUNDS.get();
 	}
 }
