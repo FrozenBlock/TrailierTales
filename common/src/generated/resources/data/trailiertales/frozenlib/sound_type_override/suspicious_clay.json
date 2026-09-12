@@ -1,10 +1,6 @@
 {
   "blocks": "#trailiertales:sound/suspicious_clay",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/claySounds",
-    "target": true
-  },
+  "config_predicate": "trailiertales:wilder_wild_clay_sounds",
   "sound_type": {
     "break_sound": "trailiertales:block.suspicious_clay_ww.break",
     "fall_sound": "trailiertales:block.suspicious_clay_ww.fall",
