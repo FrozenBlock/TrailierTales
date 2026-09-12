@@ -1,12 +1,7 @@
 {
   "type": "frozenlib:with_fallback",
   "entry": "wilderwild:block/blockSounds/claySounds",
-  "fallback": {
-    "type": "frozenlib:not",
-    "predicate": {
-      "type": "frozenlib:true"
-    }
-  },
+  "fallback": "frozenlib:false",
   "predicate": {
     "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/claySounds",

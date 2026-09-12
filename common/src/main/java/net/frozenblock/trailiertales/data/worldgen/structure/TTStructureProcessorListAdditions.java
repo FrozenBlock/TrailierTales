@@ -20,6 +20,7 @@ package net.frozenblock.trailiertales.data.worldgen.structure;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.config.v2.entry.predicates.FrozenLibConfigPredicates;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorListAdditions;
@@ -28,7 +29,6 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.registry.TTBlocks;
-import net.frozenblock.trailiertales.registry.TTConfigPredicates;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.Direction;
@@ -138,7 +138,7 @@ public final class TTStructureProcessorListAdditions {
 				)
 			),
 			Optional.empty(),
-			configPredicates.getOrThrow(TTConfigPredicates.HAS_WILDER_WILD)
+			configPredicates.getOrThrow(FrozenLibConfigPredicates.HAS_WILDER_WILD)
 		);
 
 		StructureProcessorListAdditions.register(
@@ -155,9 +155,9 @@ public final class TTStructureProcessorListAdditions {
 			ConfigPredicate.withFallback(
 				WWBlockConfig.ADD_STONE_CHESTS,
 				WWBlockConfig.ADD_STONE_CHESTS.equalTo(true).asHolder(),
-				ConfigPredicate.not(ConfigPredicate.alwaysTrue()).asHolder()
+				configPredicates.getOrThrow(FrozenLibConfigPredicates.FALSE)
 			).asHolder(),
-			configPredicates.getOrThrow(TTConfigPredicates.HAS_WILDER_WILD)
+			configPredicates.getOrThrow(FrozenLibConfigPredicates.HAS_WILDER_WILD)
 		);
 	}
 

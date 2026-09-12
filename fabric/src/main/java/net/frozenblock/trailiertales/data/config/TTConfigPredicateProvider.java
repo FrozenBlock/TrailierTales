@@ -17,26 +17,25 @@
 
 package net.frozenblock.trailiertales.data.config;
 
-import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.config.v2.entry.predicates.FrozenLibConfigPredicates;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.registry.TTConfigPredicates;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstrapContext;
 
 public final class TTConfigPredicateProvider {
 
 	public static void bootstrap(BootstrapContext<ConfigPredicate> context) {
-		context.register(
-			TTConfigPredicates.HAS_WILDER_WILD,
-			ConfigPredicate.modLoaded(FrozenLibConstants.WILDER_WILD_MOD_ID)
-		);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		context.register(
 			TTConfigPredicates.WILDER_WILD_CLAY_SOUNDS,
 			ConfigPredicate.withFallback(
 				WWBlockConfig.CLAY_SOUNDS,
-				WWBlockConfig.CLAY_SOUNDS.equalTo(true),
-				ConfigPredicate.not(ConfigPredicate.alwaysTrue())
+				WWBlockConfig.CLAY_SOUNDS.equalTo(true).asHolder(),
+				configPredicates.getOrThrow(FrozenLibConfigPredicates.FALSE)
 			)
 		);
 
@@ -44,8 +43,8 @@ public final class TTConfigPredicateProvider {
 			TTConfigPredicates.WILDER_WILD_GRAVEL_SOUNDS,
 			ConfigPredicate.withFallback(
 				WWBlockConfig.GRAVEL_SOUNDS,
-				WWBlockConfig.GRAVEL_SOUNDS.equalTo(true),
-				ConfigPredicate.not(ConfigPredicate.alwaysTrue())
+				WWBlockConfig.GRAVEL_SOUNDS.equalTo(true).asHolder(),
+				configPredicates.getOrThrow(FrozenLibConfigPredicates.FALSE)
 			)
 		);
 	}

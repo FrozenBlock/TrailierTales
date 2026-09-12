@@ -68,6 +68,6 @@
       }
     ]
   },
-  "serialization_requirement": "trailiertales:has_wilder_wild",
+  "serialization_requirement": "frozenlib:has_wilder_wild",
   "structures": "trailiertales:ruins_savanna"
 }
