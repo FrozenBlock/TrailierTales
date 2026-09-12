@@ -20,11 +20,13 @@ package net.frozenblock.trailiertales.data.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.data.api.BiomeTagsProvider;
-import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
 import net.frozenblock.trailiertales.tag.TTBiomeTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -57,8 +59,8 @@ public final class TTBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_SNOWY_PLAINS)
 			.add(Biomes.DRIPSTONE_CAVES)
 			.add(Biomes.LUSH_CAVES)
-			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("magmatic_caves"))
-			.addOptional(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getBiomeKey("frozen_caves"));
+			.addOptional(getKey(FrozenLibConstants.WILDER_WILD_MOD_ID, "magmatic_caves"))
+			.addOptional(getKey(FrozenLibConstants.WILDER_WILD_MOD_ID, "frozen_caves"));
 
 		this.builder(TTBiomeTags.HAS_DESERT_RUINS)
 			.addOptionalTag(ConventionalBiomeTags.IS_DESERT);
@@ -86,4 +88,7 @@ public final class TTBiomeTagsProvider extends BiomeTagsProvider {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
+	public ResourceKey<Biome> getKey(String namespace, String path) {
+		return ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(namespace, path));
+	}
 }

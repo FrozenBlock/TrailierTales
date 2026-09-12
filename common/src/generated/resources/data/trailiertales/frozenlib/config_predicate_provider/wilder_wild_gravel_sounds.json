@@ -1,14 +1,14 @@
 {
-  "type": "minecraft:with_fallback",
+  "type": "frozenlib:with_fallback",
   "entry": "wilderwild:block/blockSounds/gravelSounds",
   "fallback": {
-    "type": "minecraft:not",
+    "type": "frozenlib:not",
     "predicate": {
-      "type": "minecraft:true"
+      "type": "frozenlib:true"
     }
   },
   "predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/gravelSounds",
     "target": true
   }

@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.frozenblock.trailiertales.mod_compat.TTModIntegrations;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.trailiertales.references.TTBlockIds;
 import net.frozenblock.trailiertales.references.TTBlockItemIds;
 import net.frozenblock.trailiertales.tag.TTBlockTags;
@@ -40,10 +40,6 @@ public final class TTBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 	public TTBlockTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
-	}
-
-	private ResourceKey<Block> getKey(String namespace, String path) {
-		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	@Override
@@ -259,7 +255,7 @@ public final class TTBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(TTBlockTags.SURVEYOR_CANNOT_SEE_THROUGH)
 			.add(BlockItemIds.TINTED_GLASS)
-			.addOptional(this.getKey(TTModIntegrations.WILDER_WILD_INTEGRATION.getIntegration().getID(), "echo_glass"));
+			.addOptional(this.getKey(FrozenLibConstants.WILDER_WILD_MOD_ID, "echo_glass"));
 
 		this.builder(ConventionalBlockTags.UNCOLORED_SANDSTONE_BLOCKS)
 			.add(TTBlockItemIds.SMOOTH_SANDSTONE_WALL)
@@ -441,22 +437,22 @@ public final class TTBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.SUSPICIOUS_GRAVEL);
 
 		// WILDER WILD
-		this.builder(getTag("wilderwild:sculk_slab_replaceable_worldgen"))
+		this.builder(getTag(FrozenLibConstants.WILDER_WILD_MOD_ID, "sculk_slab_replaceable_worldgen"))
 			.add(TTBlockItemIds.MOSSY_COBBLED_DEEPSLATE_SLAB)
 			.add(TTBlockItemIds.MOSSY_DEEPSLATE_BRICK_SLAB)
 			.add(TTBlockItemIds.MOSSY_DEEPSLATE_TILE_SLAB);
 
-		this.builder(getTag("wilderwild:sculk_stair_replaceable_worldgen"))
+		this.builder(getTag(FrozenLibConstants.WILDER_WILD_MOD_ID, "sculk_stair_replaceable_worldgen"))
 			.add(TTBlockItemIds.MOSSY_COBBLED_DEEPSLATE_STAIRS)
 			.add(TTBlockItemIds.MOSSY_DEEPSLATE_BRICK_STAIRS)
 			.add(TTBlockItemIds.MOSSY_DEEPSLATE_TILE_STAIRS);
 
-		this.builder(getTag("wilderwild:sculk_wall_replaceable_worldgen"))
+		this.builder(getTag(FrozenLibConstants.WILDER_WILD_MOD_ID, "sculk_wall_replaceable_worldgen"))
 			.add(TTBlockItemIds.MOSSY_COBBLED_DEEPSLATE_WALL)
 			.add(TTBlockItemIds.MOSSY_DEEPSLATE_BRICK_WALL)
 			.add(TTBlockItemIds.MOSSY_DEEPSLATE_TILE_WALL);
 
-		this.builder(getTag("wilderwild:sculk_wall_replaceable"))
+		this.builder(getTag(FrozenLibConstants.WILDER_WILD_MOD_ID, "sculk_wall_replaceable"))
 			.add(TTBlockItemIds.STONE_WALL);
 	}
 
@@ -464,4 +460,11 @@ public final class TTBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
+	private TagKey<Block> getTag(String namespace, String path) {
+		return TagKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
+	}
+
+	private ResourceKey<Block> getKey(String namespace, String path) {
+		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
+	}
 }

@@ -24,6 +24,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 
 public final class TTConfigPredicates {
+	public static final ResourceKey<ConfigPredicate> HAS_WILDER_WILD = create("has_wilder_wild");
 	public static final ResourceKey<ConfigPredicate> WILDER_WILD_CLAY_SOUNDS = create("wilder_wild_clay_sounds");
 	public static final ResourceKey<ConfigPredicate> WILDER_WILD_GRAVEL_SOUNDS = create("wilder_wild_gravel_sounds");
 
