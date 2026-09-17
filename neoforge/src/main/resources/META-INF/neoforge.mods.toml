@@ -17,6 +17,9 @@ Overhauls the Trails & Tales update, adding features and improving existing ones
 [[mixins]]
 config="trailiertales.mixins.json"
 
+["lithium:options"]
+"mixin.world.raycast" = false
+
 [[ dependencies.trailiertales ]]
 	modId="neoforge"
 	type="required"
