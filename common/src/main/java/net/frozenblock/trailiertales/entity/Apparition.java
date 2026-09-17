@@ -84,7 +84,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 public class Apparition extends Monster implements RangedAttackMob {
@@ -427,7 +426,6 @@ public class Apparition extends Monster implements RangedAttackMob {
 		profilerFiller.pop();
 	}
 
-	@Contract(" -> new")
 	private ParticleOptions createAmbientParticleOptions() {
 		final float aidProgress = this.getAidAnimProgress();
 		final float poltergeistProgress = this.getPoltergeistAnimProgress();
@@ -622,12 +620,10 @@ public class Apparition extends Monster implements RangedAttackMob {
 	}
 
 	@Override
-	protected void doPush(Entity entity) {
-	}
+	protected void doPush(Entity entity) {}
 
 	@Override
-	protected void pushEntities() {
-	}
+	protected void pushEntities() {}
 
 	public void spawnParticles(int count, ParticleOptions options) {
 		if (!(this.level() instanceof ServerLevel level)) return;
