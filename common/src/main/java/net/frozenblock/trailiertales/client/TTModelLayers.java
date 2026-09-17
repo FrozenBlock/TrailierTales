@@ -30,6 +30,7 @@ import net.frozenblock.trailiertales.registry.TTEntityTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 @ClientOnly
@@ -57,10 +58,8 @@ public final class TTModelLayers {
 	 */
 	public static void setup() {
 		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN.get(), CoffinRenderer::new);
-
-		EntityRendererRegistry.register(TTEntityTypes.APPARITION.get(), ApparitionRenderer::new);
-
-		EntityRendererRegistry.register(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), ThrownItemRenderer::new);
+		EntityRenderers.register(TTEntityTypes.APPARITION.get(), ApparitionRenderer::new);
+		EntityRenderers.register(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), ThrownItemRenderer::new);
 	}
 
 	private TTModelLayers() {}
