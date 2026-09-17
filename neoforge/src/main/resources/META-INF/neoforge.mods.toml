@@ -8,7 +8,7 @@ issueTrackerURL="https://github.com/FrozenBlock/TrailierTales/issues"
 	version="${mod_version}"
 	displayName="Trailier Tales"
 	displayURL="https://modrinth.com/mod/trailier-tales"
-	logoFile="assets/trailiertales/icon.png"
+	iconFile="assets/trailiertales/icon.png"
 	authors="Luna, wigglewoggle"
 	description='''
 Overhauls the Trails & Tales update, adding features and improving existing ones.
