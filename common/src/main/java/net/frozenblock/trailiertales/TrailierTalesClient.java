@@ -41,4 +41,6 @@ public final class TrailierTalesClient {
 		final float additionalWobble = Mth.sin((float) ((gameTime * Math.PI) / 20F)) * 0.005F;
 		return basePitch + additionalPitchChangeA + additionalWobble;
 	}
+
+	private TrailierTalesClient() {}
 }

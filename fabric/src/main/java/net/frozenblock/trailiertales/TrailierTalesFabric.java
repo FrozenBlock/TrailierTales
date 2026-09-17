@@ -23,7 +23,7 @@ import net.frozenblock.trailiertales.advancements.modification.TTAdvancementModi
 import net.frozenblock.trailiertales.networking.TTNetworking;
 import net.frozenblock.trailiertales.registry.TTFabricBlocks;
 
-public class TrailierTalesFabric extends FrozenModInitializer {
+public final class TrailierTalesFabric extends FrozenModInitializer {
 
 	public TrailierTalesFabric() {
 		super(TTConstants.MOD_ID);

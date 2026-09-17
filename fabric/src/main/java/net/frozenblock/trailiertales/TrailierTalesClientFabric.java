@@ -22,7 +22,7 @@ import net.frozenblock.trailiertales.networking.TTClientNetworking;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
 @ClientOnly
-public class TrailierTalesClientFabric implements ClientModInitializer {
+public final class TrailierTalesClientFabric implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {

@@ -22,7 +22,7 @@ import net.frozenblock.lib.item.api.loot.LootTableModification;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.tag.TTStructureTags;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaChestLoot;
 import net.minecraft.network.chat.Component;
@@ -188,8 +188,8 @@ public final class TTLootTables {
 			table.modifyPools(
 				pool -> pool.hasItem(Items.ABANDONED_CAMP_MAP),
 				pool -> {
-					final HolderLookup.RegistryLookup<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
-					final HolderLookup.RegistryLookup<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
+					final HolderGetter<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
+					final HolderGetter<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
 
 					final UniformContainerBase.Builder<?> buriedCatacombsMap = LootItem.lootTableItem(TTItems.BURIED_CATACOMBS_MAP)
 						.apply(

@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.entity.EntityMobGriefingEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@Mod("trailiertales")
+@Mod(TTPreLoadConstants.MOD_ID)
 public final class TrailierTalesNeoForge {
 
 	public TrailierTalesNeoForge(IEventBus modBus) {

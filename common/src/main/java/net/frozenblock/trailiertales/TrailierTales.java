@@ -87,4 +87,6 @@ public final class TrailierTales {
 		TTBiomeModifications.setup();
 		TTStructureModifications.setup();
 	}
+
+	private TrailierTales() {}
 }
