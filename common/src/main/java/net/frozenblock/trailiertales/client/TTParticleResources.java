@@ -29,7 +29,7 @@ import net.minecraft.client.particle.EmissiveRisingParticle;
 @ClientOnly
 public final class TTParticleResources {
 
-	public static void setup() {
+	public static void init() {
 		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL, EmissiveRisingParticle.EmissiveProvider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, EmissiveRisingParticle.EmissiveProvider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);

@@ -3,6 +3,7 @@ package net.frozenblock.trailiertales;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.gravity.api.GravityAPI;
+import net.frozenblock.trailiertales.advancements.modification.TTAdvancementModifications;
 import net.frozenblock.trailiertales.block.EctoplasmBlock;
 import net.frozenblock.trailiertales.config.TTBlockConfig;
 import net.frozenblock.trailiertales.config.TTEntityConfig;
@@ -46,6 +47,7 @@ public final class TrailierTales {
 		TTDataFixer.applyDataFixes(modId);
 		TTResources.init(modId);
 
+		TTAdvancementModifications.init();
 		TTStructureTypes.init();
 		TTStructurePieceTypes.init();
 		TTMapDecorationTypes.init();

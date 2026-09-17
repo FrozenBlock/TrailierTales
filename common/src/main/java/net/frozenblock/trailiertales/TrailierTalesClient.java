@@ -22,16 +22,14 @@ public final class TrailierTalesClient {
 		TTBuiltInBlockModels.init();
 		TTModelLayers.init();
 		TTRenderStateDataKeys.init();
+		TTParticleResources.init();
 
 		SpecialModelRendererRegistry.register(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
 		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
 	}
 
 	public static void setup() {
-		TTParticleResources.setup();
 		TTModelLayers.setup();
-
-		SpecialModelRendererRegistry.register(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {

@@ -58,7 +58,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-public class TTAdvancementModifications {
+public final class TTAdvancementModifications {
 
 	public static void init() {
 		AdvancementEvents.INIT.register((holder, registries) -> {
@@ -179,4 +179,6 @@ public class TTAdvancementModifications {
 
 		requirementsInterface.frozenLib$setRequirements(Collections.unmodifiableList(requirementsList));
 	}
+
+	private TTAdvancementModifications() {}
 }
