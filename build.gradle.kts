@@ -27,8 +27,9 @@ checkstyle {
 }
 
 val mod_id: String by project
-val mod_version: String by project
 val mod_name: String by project
+val mod_version: String by project
+val subproject_prefix: String by project
 val license: String by project
 val mod_url: String by project
 val source_url: String by project
@@ -66,36 +67,37 @@ fun mainJarTask(project: Project) =
 	else project.tasks.named("jar")
 
 val githubRelease by tasks.registering {
-	val fabricJar = mainJarTask(project(":tt-fabric"))
-	val neoforgeJar = mainJarTask(project(":tt-neoforge"))
-	dependsOn(fabricJar, neoforgeJar)
+    val fabricJar = mainJarTask(project(":$subproject_prefix-fabric"))
+    val neoforgeJar = mainJarTask(project(":$subproject_prefix-neoforge"))
+    dependsOn(fabricJar, neoforgeJar)
 
-	val token = env["GITHUB_TOKEN"]
-	val repository = mod.repository.get()
-	val tag = project(":tt-fabric").version.toString()
-	val releaseTitle = "$mod_name $tag"
-	val isPrerelease = mod.releaseType.get() != "release"
-	val commitish = env["GITHUB_SHA"]
+    val token = env["GITHUB_TOKEN"]
+    val repository = mod.repository.get()
+    val tag = project(":$subproject_prefix-fabric").version.toString()
+    val releaseTitle = "$mod_name $tag"
+    val isPrerelease = mod.releaseType.get() != "release"
+    val commitish = env["GITHUB_SHA"]
 
-	onlyIf { !token.isNullOrEmpty() }
+    onlyIf { !token.isNullOrEmpty() }
 
-	doLast {
-		val github = GitHub.connectUsingOAuth(token)
-		val repo = github.getRepository(repository)
+    doLast {
+        val github = GitHub.connectUsingOAuth(token)
+        val repo = github.getRepository(repository)
 
-		repo.getReleaseByTagName(tag)?.delete()
+        repo.getReleaseByTagName(tag)?.delete()
 
-		val releaseBuilder = GHReleaseBuilder(repo, tag)
-		releaseBuilder.name(releaseTitle)
-		releaseBuilder.body(changelogText)
-		releaseBuilder.prerelease(isPrerelease)
-		if (commitish != null) releaseBuilder.commitish(commitish)
+        val releaseBuilder = GHReleaseBuilder(repo, tag)
+        releaseBuilder.name(releaseTitle)
+        releaseBuilder.body(changelogText)
+        releaseBuilder.prerelease(isPrerelease)
+        if (commitish != null) releaseBuilder.commitish(commitish)
 
-		val release = releaseBuilder.create()
-		release.uploadAsset(fabricJar.get().outputs.files.singleFile, "application/java-archive")
-		release.uploadAsset(neoforgeJar.get().outputs.files.singleFile, "application/java-archive")
-	}
+        val release = releaseBuilder.create()
+        release.uploadAsset(fabricJar.get().outputs.files.singleFile, "application/java-archive")
+        release.uploadAsset(neoforgeJar.get().outputs.files.singleFile, "application/java-archive")
+    }
 }
+
 
 val publishMod by tasks.registering {
 	dependsOn(tasks.named("upload"))

@@ -9,15 +9,11 @@ checkstyle {
 	toolVersion = "10.20.2"
 }
 
+val mod_id: String by project
 val frozenlib_version: String by project
 val wilderwild_version: String by project
 val cloth_config_version: String by project
 val lithium_version: String by project
-
-val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
-val licenseChecks: Boolean = githubActions
-
-val applyLicenses: Task by tasks
 
 common {
 	accessWidener()
@@ -28,6 +24,7 @@ neoForge {
 }
 
 dependencies {
+    // FrozenLib
     compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")?.let {
         accessTransformers(it)
         interfaceInjectionData(it)
@@ -42,6 +39,9 @@ dependencies {
     // Lithium
     compileOnly("maven.modrinth:lithium:${lithium_version}-neoforge")
 }
+
+val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
+val licenseChecks: Boolean = githubActions
 
 tasks {
 	license {
@@ -65,5 +65,5 @@ configurations {
 }
 
 upload.maven {
-	name.set("trailiertales-common")
+    name.set("$mod_id-common")
 }

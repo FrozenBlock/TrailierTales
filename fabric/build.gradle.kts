@@ -9,15 +9,13 @@ checkstyle {
 	toolVersion = "10.20.2"
 }
 
-val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
-val licenseChecks: Boolean = githubActions
-
-val fabric_loader_version: String by project
-
+val mod_id: String by project
 val mod_version: String by project
+val subproject_prefix: String by project
 val minecraft_version: String by project
 val maven_group: String by project
 val archives_base_name: String by project
+val fabric_loader_version: String by project
 
 val fabric_api_version: String by project
 val frozenlib_version: String by project
@@ -31,8 +29,6 @@ base {
 	archivesName = archives_base_name
 }
 
-val release = findProperty("releaseType") == "stable"
-
 version = getModVersion()
 group = maven_group
 
@@ -41,12 +37,12 @@ tasks.jar {
 }
 
 fabric {
-	dependOn(project(":tt-common"))
-	accessWidener(project(":tt-common"))
-	dataGen {
-		owner = project(":tt-common")
-		splitSourceSet("datagen")
-	}
+    dependOn(project(":$subproject_prefix-common"))
+    accessWidener(project(":$subproject_prefix-common"))
+    dataGen {
+        owner = project(":$subproject_prefix-common")
+        splitSourceSet("datagen")
+    }
 }
 
 loom {
@@ -76,14 +72,14 @@ repositories {
 
 dependencies {
     // Fabric
-    implementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
-    implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+    implementation("net.fabricmc:fabric-loader:$fabric_loader_version")
+    implementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
 	// FrozenLib
-	api("net.frozenblock:frozenlib-fabric:${frozenlib_version}")
+	api("net.frozenblock:frozenlib-fabric:$frozenlib_version")
 
 	// Wilder Wild
-    compileOnly("net.frozenblock:wilderwild-fabric:${wilderwild_version}")
+    compileOnly("net.frozenblock:wilderwild-fabric:$wilderwild_version")
 
 	// Mod Menu
 	compileOnly("com.terraformersmc:modmenu:$modmenu_version")
@@ -95,55 +91,56 @@ dependencies {
 	}
 
 	// Lithium
-	compileOnly("maven.modrinth:lithium:${lithium_version}-fabric")
+	compileOnly("maven.modrinth:lithium:$lithium_version-fabric")
 }
+
+val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
+val licenseChecks: Boolean = githubActions
 
 tasks {
     license {
-		if (licenseChecks) {
-			rule(rootProject.file("codeformat/HEADER"))
+        if (licenseChecks) {
+            rule(rootProject.file("codeformat/HEADER"))
 
-			include("**/*.java")
-		}
-	}
+            include("**/*.java")
+        }
+    }
 }
 
-val applyLicenses: Task by tasks
-val test: Task by tasks
-val runClient: Task by tasks
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
 
 val sourcesJar: Jar by tasks
 val javadocJar: Jar by tasks
 
-java {
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
+artifacts {
+    archives(sourcesJar)
+    archives(javadocJar)
 }
 
-artifacts {
-	archives(sourcesJar)
-	archives(javadocJar)
-}
+val release = findProperty("releaseType") == "stable"
 
 fun getModVersion(): String {
-	var version = "$mod_version-mc$minecraft_version"
+    var version = "$mod_version-mc$minecraft_version"
 
-	if (!release) {
-		version += "-unstable"
-	}
+    if (!release) {
+        version += "-unstable"
+    }
 
-	return version
+    return version
 }
 
 val changelogText = run {
-	val split = rootProject.file("CHANGELOG.md").readText().split("-----------------")
-	check(split.size == 2) { "Malformed changelog" }
-	split[1].trim()
+    val split = rootProject.file("CHANGELOG.md").readText().split("-----------------")
+    check(split.size == 2) { "Malformed changelog" }
+    split[1].trim()
 }
 
 upload {
 	maven {
-		name.set("trailiertales-fabric")
+        name.set("$mod_id-fabric")
 	}
 
 	forEach {
