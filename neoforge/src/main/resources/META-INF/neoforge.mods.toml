@@ -1,18 +1,18 @@
 modLoader="javafml"
 loaderVersion="[4,)"
-license="FrozenBlock Modding Oasis License v1.0"
-issueTrackerURL="https://github.com/FrozenBlock/TrailierTales/issues"
+license="${mod_license}"
+issueTrackerURL="${issues_url}"
 
 [[mods]]
-	modId="trailiertales"
-	version="${mod_version}"
-	displayName="Trailier Tales"
-	displayURL="https://modrinth.com/mod/trailier-tales"
+    modId="${mod_id}"
+    version="${mod_version}"
+    displayName="${mod_name}"
+    displayURL="${mod_url}"
 	iconFile="assets/trailiertales/icon.png"
-	authors="Luna, wigglewoggle"
+	authors="Lunade/AViewFromTheTop, wigglewoggle"
 	description='''
 Overhauls the Trails & Tales update, adding features and improving existing ones.
-	'''
+    '''
 
 [[mixins]]
 config="trailiertales.mixins.json"
@@ -20,21 +20,21 @@ config="trailiertales.mixins.json"
 [[ dependencies.trailiertales ]]
 	modId="neoforge"
 	type="required"
-	versionRange="[~26.2-,)"
+	versionRange="[${minecraft_version},)"
 	ordering="NONE"
 	side="BOTH"
 
 [[ dependencies.trailiertales ]]
 	modId="minecraft"
 	type="required"
-	versionRange="[~26.2-,)"
+	versionRange="[${minecraft_version},)"
 	ordering="NONE"
 	side="BOTH"
 
 [[ dependencies.trailiertales ]]
 	modId="frozenlib"
 	type="required"
-	versionRange="[2.5.2-mc26.2,)"
+	versionRange="[${frozenlib_version},)"
 	ordering="NONE"
 	side="BOTH"
 

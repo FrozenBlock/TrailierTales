@@ -9,7 +9,6 @@ checkstyle {
 	toolVersion = "10.20.2"
 }
 
-val mod_id: String by project
 val mod_version: String by project
 val minecraft_version: String by project
 val maven_group: String by project
@@ -70,21 +69,6 @@ tasks {
 			include("**/*.java")
 		}
 	}
-
-	processResources {
-		val properties = mapOf("mod_version" to getModVersion())
-		inputs.properties(properties)
-		filesMatching("META-INF/neoforge.mods.toml") {
-			expand(properties)
-		}
-	}
-
-	withType(JavaCompile::class) {
-		options.encoding = "UTF-8"
-		options.release = 25
-		options.isFork = true
-		options.isIncremental = true
-	}
 }
 
 dependencies {
@@ -97,6 +81,7 @@ dependencies {
     // Wilder Wild
     implementation("net.frozenblock:wilderwild-neoforge:${wilderwild_version}")
 
+    // Cloth Config
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
 
     // Lithium
@@ -135,12 +120,14 @@ upload {
 	curseforge {
 		dependencies {
 			required("frozenlib")
+            optional("cloth-config")
 		}
 	}
 
 	modrinth {
 		dependencies {
 			required("frozenlib")
+            optional("cloth-config")
 		}
 	}
 }
