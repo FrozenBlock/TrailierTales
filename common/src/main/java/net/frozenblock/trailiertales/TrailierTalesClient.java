@@ -21,18 +21,14 @@ public final class TrailierTalesClient {
 
 		TTBuiltInBlockModels.init();
 		TTModelLayers.init();
+		TTParticleEngine.init();
 		TTRenderStateDataKeys.init();
 
 		SpecialModelRendererRegistry.register(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
 		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
 	}
 
-	public static void setup() {
-		TTParticleEngine.setup();
-		TTModelLayers.setup();
-
-		SpecialModelRendererRegistry.register(TTConstants.id("coffin"), CoffinSpecialRenderer.Unbaked.MAP_CODEC);
-	}
+	public static void setup() {}
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {
 		if (!TTMiscConfig.DISTORTED_CATACOMBS_MUSIC.get()) return 1F;
@@ -41,4 +37,6 @@ public final class TrailierTalesClient {
 		final float additionalWobble = Mth.sin((float) ((gameTime * Math.PI) / 20F)) * 0.005F;
 		return basePitch + additionalPitchChangeA + additionalWobble;
 	}
+
+	private TrailierTalesClient() {}
 }

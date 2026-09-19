@@ -397,7 +397,7 @@ public final class TTBlocks {
 
 	public static void init() {}
 
-	public static void registerBlockProperties() {
+	public static void setup() {
 		HopperApi.addBlacklistedType(TTBlockEntityTypes.COFFIN.get());
 
 		CompostableRegistry.register(CYAN_ROSE.get(), 0.85F);

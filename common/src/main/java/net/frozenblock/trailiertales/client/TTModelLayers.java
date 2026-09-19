@@ -17,6 +17,7 @@
 
 package net.frozenblock.trailiertales.client;
 
+import net.frozenblock.lib.renderer.blockentity.BlockEntityRendererRegistry;
 import net.frozenblock.lib.renderer.entity.EntityRendererRegistry;
 import net.frozenblock.lib.renderer.model.ModelLayerRegistry;
 import net.frozenblock.trailiertales.TTConstants;
@@ -45,9 +46,13 @@ public final class TTModelLayers {
 	public static void init() {
 		ModelLayerRegistry.register(COFFIN_HEAD, CoffinModel::createLayerDefinition);
 		ModelLayerRegistry.register(COFFIN_FOOT, CoffinModel::createLayerDefinition);
+		BlockEntityRendererRegistry.register(TTBlockEntityTypes.COFFIN, CoffinRenderer::new);
 
 		ModelLayerRegistry.register(APPARITION, ApparitionModel::createBodyLayer);
 		ModelLayerRegistry.register(APPARITION_OVERLAY, ApparitionModel::createBodyLayer);
+		EntityRendererRegistry.register(TTEntityTypes.APPARITION, ApparitionRenderer::new);
+
+		EntityRendererRegistry.register(TTEntityTypes.THROWN_ITEM_PROJECTILE, ThrownItemRenderer::new);
 
 		ModelLayerRegistry.register(BOAT_BANNER_FLAG, BoatBannerModel::createFlagLayer);
 		ModelLayerRegistry.register(BOAT_BANNER_STAND, BoatBannerModel::createStandLayer);
@@ -57,9 +62,9 @@ public final class TTModelLayers {
 	 * Registries MUST be populated before this. Runs during NeoForge's setup event.
 	 */
 	public static void setup() {
-		BlockEntityRenderers.register(TTBlockEntityTypes.COFFIN.get(), CoffinRenderer::new);
-		EntityRenderers.register(TTEntityTypes.APPARITION.get(), ApparitionRenderer::new);
-		EntityRenderers.register(TTEntityTypes.THROWN_ITEM_PROJECTILE.get(), ThrownItemRenderer::new);
+
+
+
 	}
 
 	private TTModelLayers() {}

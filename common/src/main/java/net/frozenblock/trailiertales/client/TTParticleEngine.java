@@ -29,7 +29,7 @@ import net.minecraft.client.particle.SoulParticle;
 @ClientOnly
 public final class TTParticleEngine {
 
-	public static void setup() {
+	public static void init() {
 		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL, SoulParticle.EmissiveProvider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.COFFIN_SOUL_ENTER, SoulParticle.EmissiveProvider::new);
 		ParticleProviderRegistry.register(TTParticleTypes.GLOWING_BUBBLE, GlowingColorBubbleParticle.Provider::new);
