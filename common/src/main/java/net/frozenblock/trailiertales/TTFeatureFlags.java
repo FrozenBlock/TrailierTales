@@ -29,7 +29,9 @@ public final class TTFeatureFlags {
 
 	public static final FeatureFlag FEATURE_FLAG = FrozenLibEarlyConstants.IS_DATAGEN ? TRAILIER_TALES : FeatureFlags.VANILLA;
 
-	public static void init() {}
+	public static void init() {
+		FeatureFlagApi.rebuild();
+	}
 
 	private TTFeatureFlags() {}
 }

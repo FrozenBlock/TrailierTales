@@ -45,5 +45,5 @@
       }
     ]
   },
-  "structures": "minecraft:end_city"
+  "structures": "#trailiertales:has_end_city_processors"
 }

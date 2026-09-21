@@ -97,7 +97,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// GRANITE
 
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_GRANITE_WALL.get(), Blocks.GRANITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_GRANITE_WALL.get(), Blocks.GRANITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICKS.get(), 4)
 					.define('#', Blocks.POLISHED_GRANITE)
@@ -117,9 +117,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICK_STAIRS.get(), TTBlocks.GRANITE_BRICKS.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICK_STAIRS.get(), Blocks.POLISHED_GRANITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICK_STAIRS.get(), Blocks.GRANITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICK_WALL.get(), TTBlocks.GRANITE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICK_WALL.get(), Blocks.POLISHED_GRANITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.GRANITE_BRICK_WALL.get(), Blocks.GRANITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.GRANITE_BRICK_WALL.get(), TTBlocks.GRANITE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.GRANITE_BRICK_WALL.get(), Blocks.POLISHED_GRANITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.GRANITE_BRICK_WALL.get(), Blocks.GRANITE);
 
 				// MOSSY GRANITE
 
@@ -143,7 +143,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// DIORITE
 
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_DIORITE_WALL.get(), Blocks.DIORITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_DIORITE_WALL.get(), Blocks.DIORITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICKS.get(), 4)
 					.define('#', Blocks.POLISHED_DIORITE)
@@ -163,9 +163,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICK_STAIRS.get(), TTBlocks.DIORITE_BRICKS.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICK_STAIRS.get(), Blocks.POLISHED_DIORITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICK_STAIRS.get(), Blocks.DIORITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICK_WALL.get(), TTBlocks.DIORITE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICK_WALL.get(), Blocks.POLISHED_DIORITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.DIORITE_BRICK_WALL.get(), Blocks.DIORITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.DIORITE_BRICK_WALL.get(), TTBlocks.DIORITE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.DIORITE_BRICK_WALL.get(), Blocks.POLISHED_DIORITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.DIORITE_BRICK_WALL.get(), Blocks.DIORITE);
 
 				// MOSSY DIORITE
 
@@ -189,7 +189,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				// ANDESITE
 
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_ANDESITE_WALL.get(), Blocks.ANDESITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_ANDESITE_WALL.get(), Blocks.ANDESITE);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICKS.get(), 4)
 					.define('#', Blocks.POLISHED_ANDESITE)
@@ -209,9 +209,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICK_STAIRS.get(), TTBlocks.ANDESITE_BRICKS.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICK_STAIRS.get(), Blocks.POLISHED_ANDESITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICK_STAIRS.get(), Blocks.ANDESITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICK_WALL.get(), TTBlocks.ANDESITE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICK_WALL.get(), Blocks.POLISHED_ANDESITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.ANDESITE_BRICK_WALL.get(), Blocks.ANDESITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.ANDESITE_BRICK_WALL.get(), TTBlocks.ANDESITE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.ANDESITE_BRICK_WALL.get(), Blocks.POLISHED_ANDESITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.ANDESITE_BRICK_WALL.get(), Blocks.ANDESITE);
 
 				// MOSSY ANDESITE
 
@@ -237,14 +237,14 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_SLAB.get(), Blocks.CALCITE, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_STAIRS.get(), Blocks.CALCITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_WALL.get(), Blocks.CALCITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CALCITE_WALL.get(), Blocks.CALCITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE.get(), Blocks.CALCITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_SLAB.get(), Blocks.CALCITE, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_STAIRS.get(), Blocks.CALCITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_WALL.get(), Blocks.CALCITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_CALCITE_WALL.get(), Blocks.CALCITE);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_SLAB.get(), TTBlocks.POLISHED_CALCITE.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_STAIRS.get(), TTBlocks.POLISHED_CALCITE.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_CALCITE_WALL.get(), TTBlocks.POLISHED_CALCITE.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_CALCITE_WALL.get(), TTBlocks.POLISHED_CALCITE.get());
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICKS.get(), 4)
 					.define('#', TTBlocks.POLISHED_CALCITE.get())
@@ -264,9 +264,9 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICK_STAIRS.get(), TTBlocks.CALCITE_BRICKS.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICK_STAIRS.get(), TTBlocks.POLISHED_CALCITE.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICK_STAIRS.get(), Blocks.CALCITE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICK_WALL.get(), TTBlocks.CALCITE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICK_WALL.get(), TTBlocks.POLISHED_CALCITE.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CALCITE_BRICK_WALL.get(), Blocks.CALCITE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CALCITE_BRICK_WALL.get(), TTBlocks.CALCITE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CALCITE_BRICK_WALL.get(), TTBlocks.POLISHED_CALCITE.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CALCITE_BRICK_WALL.get(), Blocks.CALCITE);
 
 				// MOSSY CALCITE
 
@@ -310,7 +310,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICK_SLAB.get(), TTBlocks.MOSSY_TUFF_BRICKS.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICK_STAIRS.get(), TTBlocks.MOSSY_TUFF_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_TUFF_BRICK_WALL.get(), TTBlocks.MOSSY_TUFF_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_TUFF_BRICK_WALL.get(), TTBlocks.MOSSY_TUFF_BRICKS.get());
 
 				// BRICKS
 
@@ -334,7 +334,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_SLAB.get(), TTBlocks.MOSSY_BRICKS.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_STAIRS.get(), TTBlocks.MOSSY_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_BRICK_WALL.get(), TTBlocks.MOSSY_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_BRICK_WALL.get(), TTBlocks.MOSSY_BRICKS.get());
 
 				// RESIN
 
@@ -343,8 +343,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_STAIRS.get(), Blocks.RESIN_BLOCK);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_SLAB.get(), TTBlocks.POLISHED_RESIN_BLOCK.get(), 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_SLAB.get(), Blocks.RESIN_BLOCK, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_WALL.get(), TTBlocks.POLISHED_RESIN_BLOCK.get());
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_WALL.get(), Blocks.RESIN_BLOCK);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_RESIN_WALL.get(), TTBlocks.POLISHED_RESIN_BLOCK.get());
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.POLISHED_RESIN_WALL.get(), Blocks.RESIN_BLOCK);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.POLISHED_RESIN_BLOCK.get(), 4)
 					.define('#', Blocks.RESIN_BLOCK)
@@ -373,7 +373,7 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_SLAB.get(), TTBlocks.PALE_MOSSY_RESIN_BRICKS.get(), 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_STAIRS.get(), TTBlocks.PALE_MOSSY_RESIN_BRICKS.get());
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL.get(), TTBlocks.PALE_MOSSY_RESIN_BRICKS.get());
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.PALE_MOSSY_RESIN_BRICK_WALL.get(), TTBlocks.PALE_MOSSY_RESIN_BRICKS.get());
 
 				// MOSSY COBBLED DEEPSLATE
 
@@ -413,12 +413,12 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICKS.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
 
 				// MOSSY DEEPSLATE TILE
 
@@ -439,26 +439,26 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILES.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get(), TTBlocks.MOSSY_DEEPSLATE_BRICKS.get());
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILES.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get(), TTBlocks.MOSSY_COBBLED_DEEPSLATE.get());
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_SLAB.get(), TTBlocks.MOSSY_DEEPSLATE_TILES.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.get(), TTBlocks.MOSSY_DEEPSLATE_TILES.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get(), TTBlocks.MOSSY_DEEPSLATE_TILES.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.MOSSY_DEEPSLATE_TILE_WALL.get(), TTBlocks.MOSSY_DEEPSLATE_TILES.get());
 
 				// SANDSTONE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_SANDSTONE_STAIRS.get(), Blocks.SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_SANDSTONE_WALL.get(), Blocks.SANDSTONE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CUT_SANDSTONE_WALL.get(), Blocks.SANDSTONE);
 
 				// RED SANDSTONE
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_STAIRS.get(), Blocks.RED_SANDSTONE);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CUT_RED_SANDSTONE_WALL.get(), Blocks.RED_SANDSTONE);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CUT_RED_SANDSTONE_WALL.get(), Blocks.RED_SANDSTONE);
 
 				// END STONE BRICKS
 
@@ -492,8 +492,8 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_SLAB.get(), TTBlocks.CHORAL_END_STONE_BRICKS.get(), 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_STAIRS.get(), TTBlocks.CHORAL_END_STONE.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_STAIRS.get(), TTBlocks.CHORAL_END_STONE_BRICKS.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_WALL.get(), TTBlocks.CHORAL_END_STONE.get());
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_BRICK_WALL.get(), TTBlocks.CHORAL_END_STONE_BRICKS.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CHORAL_END_STONE_BRICK_WALL.get(), TTBlocks.CHORAL_END_STONE.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CHORAL_END_STONE_BRICK_WALL.get(), TTBlocks.CHORAL_END_STONE_BRICKS.get());
 
 				// END STONE
 
@@ -508,7 +508,26 @@ public class TTRecipeProvider extends FabricRecipeProvider {
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_STAIRS.get(), TTBlocks.CHORAL_END_STONE.get());
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_SLAB.get(), TTBlocks.CHORAL_END_STONE.get(), 2);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHORAL_END_STONE_WALL.get(), TTBlocks.CHORAL_END_STONE.get());
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.CHORAL_END_STONE_WALL.get(), TTBlocks.CHORAL_END_STONE.get());
+
+				// PURPUR
+				this.wallBuilder(RecipeCategory.DECORATIONS, TTBlocks.PURPUR_WALL.get(), Ingredient.of(Blocks.PURPUR_BLOCK, Blocks.PURPUR_PILLAR))
+					.unlockedBy("has_purpur_block", this.has(Blocks.PURPUR_BLOCK))
+					.save(this.output);
+
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_PURPUR_BLOCK.get())
+					.define('#', Ingredient.of(Blocks.PURPUR_PILLAR))
+					.pattern("#")
+					.pattern("#")
+					.unlockedBy("has_purpur_block", this.has(Blocks.PURPUR_BLOCK))
+					.unlockedBy("has_purpur_pillar", this.has(Blocks.PURPUR_PILLAR))
+					.save(this.output);
+
+				//this.smeltingResultFromBase(TTBlocks.CRACKED_PURPUR_BLOCK, Blocks.PURPUR_BLOCK);
+
+				//this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, TTBlocks.PURPUR_WALL.get(), Blocks.PURPUR_BLOCK);
+				//this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_PURPUR_BLOCK.get(), Blocks.PURPUR_BLOCK);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, TTBlocks.CHISELED_PURPUR_BLOCK.get(), Blocks.PURPUR_PILLAR);
 
 				// ARMOR TRIMS
 

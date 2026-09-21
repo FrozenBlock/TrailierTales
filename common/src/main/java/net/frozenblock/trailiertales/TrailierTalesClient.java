@@ -21,7 +21,6 @@ public final class TrailierTalesClient {
 
 		TTBuiltInBlockModels.init();
 		TTModelLayers.init();
-		TTParticleEngine.init();
 		TTRenderStateDataKeys.init();
 		TTParticleResources.init();
 

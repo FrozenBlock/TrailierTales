@@ -24,6 +24,10 @@ import net.frozenblock.trailiertales.data.worldgen.structure.CatacombsGenerator;
 import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class TTStructureTagsProvider extends FabricTagsProvider<Structure> {
@@ -36,5 +40,24 @@ public final class TTStructureTagsProvider extends FabricTagsProvider<Structure>
 	protected void addTags(HolderLookup.Provider arg) {
 		this.tag(TTStructureTags.ON_BURIED_CATACOMBS_MAPS)
 			.add(CatacombsGenerator.CATACOMBS_KEY);
+
+		this.tag(TTStructureTags.HAS_END_CITY_PROCESSORS)
+			.add(BuiltinStructures.END_CITY)
+			.addOptional(getKey("enderscape", "end_city"))
+			.addOptional(getKey("nova_structures", "end_castle"))
+			.addOptional(getKey("nova_structures", "end_lighthouse"))
+			.addOptional(getKey("nova_structures", "end_ship"));
+	}
+
+	private TagKey<Structure> getTag(String id) {
+		return TagKey.create(this.registryKey, Identifier.parse(id));
+	}
+
+	private TagKey<Structure> getTag(String namespace, String path) {
+		return TagKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
+	}
+
+	private ResourceKey<Structure> getKey(String namespace, String path) {
+		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 }

@@ -79,7 +79,7 @@ dependencies {
 	api("net.frozenblock:frozenlib-fabric:$frozenlib_version")
 
 	// Wilder Wild
-    compileOnly("net.frozenblock:wilderwild-fabric:$wilderwild_version")
+    implementation("net.frozenblock:wilderwild-fabric:$wilderwild_version")
 
 	// Mod Menu
 	compileOnly("com.terraformersmc:modmenu:$modmenu_version")

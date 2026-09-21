@@ -24,6 +24,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class TTStructureTags {
 	public static final TagKey<Structure> ON_BURIED_CATACOMBS_MAPS = bind("on_buried_catacombs_maps");
+	public static final TagKey<Structure> HAS_END_CITY_PROCESSORS = bind("has_end_city_processors");
 
 	private static TagKey<Structure> bind(String name) {
 		return TagKey.create(Registries.STRUCTURE, TTConstants.id(name));

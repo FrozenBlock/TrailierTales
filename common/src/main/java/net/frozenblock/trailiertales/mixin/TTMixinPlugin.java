@@ -35,7 +35,6 @@ public final class TTMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = TTMixinsConfig.get();
-		// todo neoforge fix
 		this.hasLithium = ModLoader.isModLoaded("lithium");
 	}
 

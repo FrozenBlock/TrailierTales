@@ -29,6 +29,7 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.registry.TTBlocks;
+import net.frozenblock.trailiertales.tag.TTStructureTags;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.Direction;
@@ -38,7 +39,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -56,7 +56,7 @@ public final class TTStructureProcessorListAdditions {
 		StructureProcessorListAdditions.register(
 			context,
 			TTConstants.id("end_city_cracked_blocks"),
-			HolderSet.direct(structures.getOrThrow(BuiltinStructures.END_CITY)),
+			structures.getOrThrow(TTStructureTags.HAS_END_CITY_PROCESSORS),
 			List.of(
 				new RuleProcessor(
 					List.of(
@@ -79,7 +79,7 @@ public final class TTStructureProcessorListAdditions {
 		StructureProcessorListAdditions.register(
 			context,
 			TTConstants.id("end_city_choral_blocks"),
-			HolderSet.direct(structures.getOrThrow(BuiltinStructures.END_CITY)),
+			structures.getOrThrow(TTStructureTags.HAS_END_CITY_PROCESSORS),
 			List.of(
 				new RuleProcessor(
 					List.of(
@@ -97,7 +97,7 @@ public final class TTStructureProcessorListAdditions {
 		StructureProcessorListAdditions.register(
 			context,
 			TTConstants.id("end_city_chiseled_blocks"),
-			HolderSet.direct(structures.getOrThrow(BuiltinStructures.END_CITY)),
+			structures.getOrThrow(TTStructureTags.HAS_END_CITY_PROCESSORS),
 			List.of(
 				new RuleProcessor(
 					List.of(
