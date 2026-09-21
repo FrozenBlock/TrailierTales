@@ -60,7 +60,7 @@ dependencies {
     }
 
     // Wilder Wild
-    implementation("net.frozenblock:wilderwild-neoforge:$wilderwild_version")
+    compileOnly("net.frozenblock:wilderwild-neoforge:$wilderwild_version")
 
     // Cloth Config
     implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version")
