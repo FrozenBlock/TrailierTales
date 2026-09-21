@@ -71,24 +71,19 @@ localRepository("FrozenLib",
 	"net.frozenblock:frozenlib",
 	prefix = "flib",
 	multi = true,
-	enabled = true
+	enabled = false
 )
 
 localRepository("WilderWild",
 	"net.frozenblock:wilderwild",
 	prefix = "ww",
 	multi = true,
-	enabled = true
+	enabled = false
 )
 
 localPluginRepository(
 	"GradleHelper",
 	enabled = true
-)
-
-localPluginRepository(
-    "candlelight",
-    enabled = true
 )
 
 fun localPluginRepository(repo: String, enabled: Boolean = true) {
