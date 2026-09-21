@@ -99,7 +99,7 @@ public abstract class BrushableBlockEntityMixin extends BlockEntity {
 
 	@Inject(method = "tryLoadLootTable", at = @At(value = "RETURN"))
 	private void trailierTales$tryLoadLootTable(ValueInput input, CallbackInfoReturnable<Boolean> info) {
-		TTAttachmentTypes.BRUSHABLE_BLOCK_STORED_LOOT_TABLE.set(this, this.lootTable);
+		if (this.lootTable != null) TTAttachmentTypes.BRUSHABLE_BLOCK_STORED_LOOT_TABLE.set(this, this.lootTable);
 	}
 
 	@Inject(method = "setLootTable", at = @At("HEAD"))
