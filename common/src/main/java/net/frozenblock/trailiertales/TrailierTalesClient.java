@@ -21,6 +21,7 @@ public final class TrailierTalesClient {
 
 		TTBuiltInBlockModels.init();
 		TTModelLayers.init();
+		TTParticleEngine.init();
 		TTRenderStateDataKeys.init();
 		TTParticleResources.init();
 
@@ -28,9 +29,7 @@ public final class TrailierTalesClient {
 		MusicPitchApi.registerForStructureInside(CatacombsGenerator.CATACOMBS_KEY.identifier(), TrailierTalesClient::calculateCatacombsMusicPitch);
 	}
 
-	public static void setup() {
-		TTModelLayers.setup();
-	}
+	public static void setup() {}
 
 	private static float calculateCatacombsMusicPitch(long gameTime) {
 		if (!TTMiscConfig.DISTORTED_CATACOMBS_MUSIC.get()) return 1F;

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "id": "${mod_id}",
-  "version": "${version}",
-  "name": "Trailier Tales",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
   "description": "Overhauls the Trails & Tales update, adding features and improving existing ones.",
   "authors": [
     "Luna",
@@ -16,11 +16,11 @@
     "Eggmanplant"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/trailier-tales",
-    "sources": "https://github.com/FrozenBlock/TrailierTales",
-    "issues": "https://github.com/FrozenBlock/TrailierTales/issues"
+    "homepage": "${mod_url}",
+    "sources": "${source_url}",
+    "issues": "${issues_url}"
   },
-  "license": "FrozenBlock Modding Oasis License v1.0",
+  "license": "${mod_license}",
   "icon": "assets/trailiertales/icon.png",
   "environment": "*",
   "entrypoints": {

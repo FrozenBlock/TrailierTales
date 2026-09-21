@@ -394,7 +394,7 @@ public final class TTBlocks {
 
 	public static void init() {}
 
-	public static void registerBlockProperties() {
+	public static void setup() {
 		HopperApi.addBlacklistedType(TTBlockEntityTypes.COFFIN.get());
 
 		FlammableBlockRegistry.register(CYAN_ROSE.get(), 60, 100);

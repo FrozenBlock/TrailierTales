@@ -72,7 +72,7 @@ localRepository("FrozenLib",
 	prefix = "flib",
     suffixes = listOf("common", "fabric", "neoforge"),
 	multi = true,
-	enabled = true
+	enabled = false
 )
 
 localRepository("WilderWild",
@@ -80,17 +80,12 @@ localRepository("WilderWild",
 	prefix = "ww",
     suffixes = listOf("common", "fabric", "neoforge"),
 	multi = true,
-	enabled = true
+	enabled = false
 )
 
 localPluginRepository(
 	"GradleHelper",
 	enabled = true
-)
-
-localPluginRepository(
-    "candlelight",
-    enabled = true
 )
 
 fun localPluginRepository(repo: String, enabled: Boolean = true) {

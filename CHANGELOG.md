@@ -11,3 +11,5 @@ hi
 - Renamed the `Catacombs Explorer Map` to `Buried Catacombs Map`.
 - Buried Catacombs Maps can now be found in the new Abandoned Camp structure.
 - Fixed incorrect shading on some of Trailier Tales' vegetation blocks.
+- Fixed an issue that caused world loading to crash without Wilder Wild installed.
+- Trailier Tales' custom structure processors for End structures now apply to a few structures found in `Enderscape` and `Dungeons and Taverns.`

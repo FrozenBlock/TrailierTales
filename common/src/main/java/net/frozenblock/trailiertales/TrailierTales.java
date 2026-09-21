@@ -83,8 +83,8 @@ public final class TrailierTales {
 
 	public static void setup() {
 		TTSoundTypes.setup();
-		TTBlocks.registerBlockProperties();
-		TTBlockEntityTypes.registerValidBlocks();
+		TTBlocks.setup();
+		TTBlockEntityTypes.setup();
 		TTCreativeInventorySorting.setup();
 		TTBiomeModifications.setup();
 		TTStructureModifications.setup();
