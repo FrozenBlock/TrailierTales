@@ -7,3 +7,6 @@ hi
 - Suspicious Blocks can no longer have Items placed within them.
 - Revamped the new smooth animations for Suspicious Blocks, now being handled entirely by the client.
 - Fixed an issue that caused world loading to crash without Wilder Wild installed.
+
+### 26.3+
+- Trailier Tales' custom structure processors for End structures now apply to a few structures found in `Enderscape` and `Dungeons and Taverns.`
