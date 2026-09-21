@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.trailiertales.config.modmenu;
+package net.frozenblock.trailiertales.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
@@ -25,16 +25,11 @@ import net.frozenblock.trailiertales.config.TTEntityConfig;
 import net.frozenblock.trailiertales.config.TTItemConfig;
 import net.frozenblock.trailiertales.config.TTMiscConfig;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
-import net.frozenblock.trailiertales.config.gui.TTBlockConfigGui;
-import net.frozenblock.trailiertales.config.gui.TTEntityConfigGui;
-import net.frozenblock.trailiertales.config.gui.TTItemConfigGui;
-import net.frozenblock.trailiertales.config.gui.TTMiscConfigGui;
-import net.frozenblock.trailiertales.config.gui.TTWorldgenConfigGui;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
 
 @ClientOnly
-public final class TTConfigGuiBuilder {
+public final class TTMainConfigGui {
 
 	public static Screen buildScreen(Screen parent) {
 		final ConfigBuilder configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(TTConstants.text("component.title"));
@@ -56,5 +51,5 @@ public final class TTConfigGuiBuilder {
 		return configBuilder.build();
 	}
 
-	private TTConfigGuiBuilder() {}
+	private TTMainConfigGui() {}
 }
