@@ -17,10 +17,14 @@
 
 package net.frozenblock.trailiertales;
 
+import net.frozenblock.lib.FrozenLibEarlyConstants;
+import net.frozenblock.trailiertales.config.gui.TTMainConfigGui;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 @Mod(value = TTPreLoadConstants.MOD_ID, dist = Dist.CLIENT)
 public final class TrailierTalesNeoForgeClient {
@@ -32,5 +36,12 @@ public final class TrailierTalesNeoForgeClient {
 		modBus.addListener(FMLClientSetupEvent.class, event -> {
 			TrailierTalesClient.setup();
 		});
+
+		if (FrozenLibEarlyConstants.HAS_CLOTH_CONFIG) {
+			ModLoadingContext.get().registerExtensionPoint(
+				IConfigScreenFactory.class,
+				() -> (container, parent) -> TTMainConfigGui.buildScreen(parent)
+			);
+		}
 	}
 }

@@ -20,6 +20,7 @@ package net.frozenblock.trailiertales.config.modmenu;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
+import net.frozenblock.trailiertales.config.gui.TTMainConfigGui;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
 
@@ -28,7 +29,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
 	@Override
 	public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-		if (FrozenLibEarlyConstants.HAS_CLOTH_CONFIG) return TTConfigGuiBuilder::buildScreen;
+		if (FrozenLibEarlyConstants.HAS_CLOTH_CONFIG) return TTMainConfigGui::buildScreen;
 		return screen -> null;
 	}
 }
