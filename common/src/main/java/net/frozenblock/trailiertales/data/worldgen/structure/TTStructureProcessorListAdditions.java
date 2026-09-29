@@ -19,13 +19,12 @@ package net.frozenblock.trailiertales.data.worldgen.structure;
 
 import java.util.List;
 import java.util.Optional;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
-import net.frozenblock.lib.config.v2.entry.predicates.FrozenLibConfigPredicates;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorListAdditions;
 import net.frozenblock.lib.levelgen.structure.impl.processor.StructureProcessorListAddition;
-import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.trailiertales.TTConstants;
 import net.frozenblock.trailiertales.config.TTWorldgenConfig;
 import net.frozenblock.trailiertales.registry.TTBlocks;
@@ -51,7 +50,6 @@ public final class TTStructureProcessorListAdditions {
 
 	public static void bootstrap(BootstrapContext<StructureProcessorListAddition> context) {
 		final HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		StructureProcessorListAdditions.register(
 			context,
@@ -138,7 +136,7 @@ public final class TTStructureProcessorListAdditions {
 				)
 			),
 			Optional.empty(),
-			configPredicates.getOrThrow(FrozenLibConfigPredicates.HAS_WILDER_WILD)
+			ConfigPredicate.modLoaded(FrozenLibEarlyConstants.WILDER_WILD_MOD_ID).asHolder()
 		);
 
 		StructureProcessorListAdditions.register(
@@ -155,9 +153,9 @@ public final class TTStructureProcessorListAdditions {
 			ConfigPredicate.withFallback(
 				WWBlockConfig.ADD_STONE_CHESTS,
 				WWBlockConfig.ADD_STONE_CHESTS.equalTo(true).asHolder(),
-				configPredicates.getOrThrow(FrozenLibConfigPredicates.FALSE)
+				ConfigPredicate.not(ConfigPredicate.alwaysTrue()).asHolder()
 			).asHolder(),
-			configPredicates.getOrThrow(FrozenLibConfigPredicates.HAS_WILDER_WILD)
+			ConfigPredicate.modLoaded(FrozenLibEarlyConstants.WILDER_WILD_MOD_ID).asHolder()
 		);
 	}
 

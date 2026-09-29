@@ -2,7 +2,12 @@
   "config_predicate": {
     "type": "frozenlib:with_fallback",
     "entry": "wilderwild:block/stoneChest/addStoneChests",
-    "fallback": "frozenlib:false",
+    "fallback": {
+      "type": "frozenlib:not",
+      "predicate": {
+        "type": "frozenlib:true"
+      }
+    },
     "predicate": {
       "type": "frozenlib:equal_to",
       "entry": "wilderwild:block/stoneChest/addStoneChests",
@@ -28,6 +33,9 @@
       }
     ]
   },
-  "serialization_requirement": "frozenlib:has_wilder_wild",
+  "serialization_requirement": {
+    "type": "frozenlib:mod",
+    "id": "wilderwild"
+  },
   "structures": "trailiertales:catacombs"
 }
